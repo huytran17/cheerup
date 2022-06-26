@@ -15,7 +15,7 @@ https://localhost:8082/
 
 Database => mongoose
 
-file storage => AWS S3
+File storage => AWS S3
 
 JWT issuer => jsonwebtoken npm
 
@@ -27,7 +27,7 @@ Backend server = nodejs, expressjs
 
 Backend logs = winston
 
-dashboard => Nuxtjs
+Dashboard => Nuxtjs
 
 ---
 
