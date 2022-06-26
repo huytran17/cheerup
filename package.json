@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@types/aws-sdk": "^2.7.0",
+    "@types/lodash": "^4.14.182",
+    "aws-sdk": "^2.1157.0",
+    "lodash": "^4.17.21",
+    "validatorjs": "^3.22.1"
+  }
+}
