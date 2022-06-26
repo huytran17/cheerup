@@ -4,50 +4,36 @@ import makeExpressCallback from "../../config/express-callback";
 
 import {
   getUserRules,
-  updateUserRules,
-  uploadUserAvatarRules,
-  deleteUserRules,
-  createUserRules,
-} from "../../data-access/controllers/admin/user/validators";
+  // updateUserRules,
+  // deleteUserRules,
+} from "../../data-access/controllers/user/user/validators";
 import {
   getUserController,
-  updateUserController,
-  uploadUserAvatarController,
-  getUsersController,
-  deleteUserController,
-  createUserController,
-} from "../../data-access/controllers/admin/user";
+  // updateUserController,
+  // getUsersPaginatedController,
+  // deleteUserController,
+} from "../../data-access/controllers/user/user";
 
 const userRouter = express.Router();
 
-userRouter.delete(
-  "/delete/:user_id",
-  makeValidator(deleteUserRules),
-  makeExpressCallback(deleteUserController)
-);
+// userRouter.delete(
+//   "/delete/:user_id",
+//   makeValidator(deleteUserRules),
+//   makeExpressCallback(deleteUserController)
+// );
 
 userRouter.get(
   "/:user_id",
   makeValidator(getUserRules),
   makeExpressCallback(getUserController)
 );
-userRouter.post(
-  "/",
-  makeValidator(createUserRules),
-  makeExpressCallback(createUserController)
-);
-userRouter.post(
-  "/upload-avatar/:user_id",
-  makeValidator(uploadUserAvatarRules),
-  makeExpressCallback(uploadUserAvatarController)
-);
 
-userRouter.put(
-  "/",
-  makeValidator(updateUserRules),
-  makeExpressCallback(updateUserController)
-); // DONE
+// userRouter.put(
+//   "/",
+//   makeValidator(updateUserRules),
+//   makeExpressCallback(updateUserController)
+// ); // DONE
 
-userRouter.get("/", makeExpressCallback(getUsersController)); // DONE
+// userRouter.get("/", makeExpressCallback(getUsersPaginatedController)); // DONE
 
 export default userRouter;
