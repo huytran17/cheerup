@@ -8,3 +8,8 @@ export default interface IAdmin {
   updated_at: Date;
   deleted_at: Date;
 }
+
+export enum AdminType {
+  Super = "super",
+  Normal = "normal",
+}
