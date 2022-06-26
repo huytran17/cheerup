@@ -8,6 +8,8 @@ import passport from "./config/passport";
 import { upload } from "./config/middlewares/file-upload-middleware";
 import { AdminType } from "./database/interfaces/admin";
 import { hashPassword } from "./config/password";
+import swaggerRouter from "./routes/swagger";
+
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -19,6 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(appRouter);
+app.use(swaggerRouter);
 app.use(upload.single("file"));
 
 app.listen(3000, () => console.log("Server is listening on port 3000"));
