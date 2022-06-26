@@ -1,6 +1,8 @@
 import moment from "moment";
+
 import makeUserDb from "./make-user-db";
 import makeAdminDb from "./make-admin-db";
+
 import { UserModel, AdminModel } from "./models";
 
 const UserDb = makeUserDb({ userDbModel: UserModel, moment });
