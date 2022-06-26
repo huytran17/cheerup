@@ -1,11 +1,12 @@
 import express from "express";
 import makeDb from "./data-access/make-db";
-import { UserDb } from "./data-access";
+import { UserDb, AdminDb } from "./data-access";
 import cors from "cors";
 import bodyParser from "body-parser";
 import appRouter from "./routes";
 import passport from "./config/passport";
 import { upload } from "./config/middlewares/file-upload-middleware";
+import { AdminType } from "./database/interfaces/admin";
 
 const app = express();
 
@@ -24,6 +25,17 @@ makeDb().then(async () => {
     await UserDb.insert({
       first_name: "Huy",
       last_name: "Tran",
+      email: "huytran@gmail.com",
+      hash_password: "qwer1234",
+    });
+  }
+
+  const admin = await AdminDb.findOne();
+  if (!admin) {
+    await AdminDb.insert({
+      first_name: "Huy",
+      last_name: "Tran",
+      type: AdminType.Super,
       email: "huytran@gmail.com",
       hash_password: "qwer1234",
     });
