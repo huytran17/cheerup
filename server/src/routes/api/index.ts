@@ -5,6 +5,6 @@ const apiRouter = express.Router();
 
 import userRouter from "./user";
 
-apiRouter.use("/user", authenticateUserJWT(), userRouter);
+apiRouter.use("/user", userRouter);
 
 export default apiRouter;
