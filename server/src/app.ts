@@ -7,6 +7,10 @@ import appRouter from "./routes";
 import passport from "./config/passport";
 import { upload } from "./config/middlewares/file-upload-middleware";
 import { AdminType } from "./database/interfaces/admin";
+import { hashPassword } from "./config/password";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 
@@ -26,7 +30,10 @@ makeDb().then(async () => {
       first_name: "Huy",
       last_name: "Tran",
       email: "huytran@gmail.com",
-      hash_password: "qwer1234",
+      hash_password: await hashPassword({
+        password: process.env.DEFAULT_APP_PASSWORD,
+        password_confirmation: process.env.DEFAULT_APP_PASSWORD,
+      }),
     });
   }
 
@@ -37,7 +44,10 @@ makeDb().then(async () => {
       last_name: "Tran",
       type: AdminType.Super,
       email: "huytran@gmail.com",
-      hash_password: "qwer1234",
+      hash_password: await hashPassword({
+        password: process.env.DEFAULT_APP_PASSWORD,
+        password_confirmation: process.env.DEFAULT_APP_PASSWORD,
+      }),
     });
   }
 });
