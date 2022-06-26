@@ -14,12 +14,15 @@ export default function makeGetUser({
   redis: Redis;
   logger: Logger;
 }): IGetUser {
-  return async function getUser({ _id }: { _id: string }) {
+  return async function getUser({
+    _id,
+  }: {
+    _id: string;
+  }): Promise<User | null> {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "get-user-by-id",
       _id,
     });
-
     const cached_data = await redis.getData(cache_key);
     if (cached_data) {
       logger.verbose(`Redis: Data found in cache: `, { cache_key });
@@ -27,7 +30,6 @@ export default function makeGetUser({
     }
 
     const user = await userDb.findById({ _id });
-
     const one_minute_in_second = 60;
     redis.setData({
       key: cache_key,
