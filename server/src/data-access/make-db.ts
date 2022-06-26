@@ -12,7 +12,6 @@ async function makeDb() {
     await mongoose.connect(DATABASE_URL, DATABASE_OPTIONS);
     console.log("Successfully connected to DB");
   }
-
   // mongoose.set("debug", audit)
 
   return mongoose;
@@ -20,15 +19,13 @@ async function makeDb() {
 
 export function makeDatabaseURL(): string {
   const {
-    MONGO_USERNAME = "admin",
-    MONGO_PASSWORD = "Passw0rd",
-    MONGO_HOSTNAME = "localhost",
+    MONGO_HOSTNAME = "127.0.0.1",
     MONGO_PORT = 27017,
-    MONGO_DB = "kinobi",
+    MONGO_DB = "blog",
   } = process.env;
   const DATABASE_URL =
     process.env.DATABASE_URL ||
-    `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
+    `mongodb://${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}`;
   return DATABASE_URL;
 }
 
@@ -42,44 +39,12 @@ export function makeDatabaseOptions() {
   const options = {
     useNewUrlParser: true,
     connectTimeoutMS: 10000,
-    useFindAndModify: false,
-    // useUnifiedTopology: true, //if set to true, create error: "MongooseServerSelectionError: getaddrinfo ENOTFOUND mongo mongo:27017"
-    useCreateIndex: true,
+    useUnifiedTopology: true,
+    // useFindAndModify: false,
+    // useCreateIndex: true,
   };
 
   return options;
-}
-
-export function filterResumeByMembershipPlanLevel({
-  resumes,
-  membership_levels,
-}: {
-  resumes: any[];
-  membership_levels: any[];
-}): any[] {
-  if (!membership_levels) {
-    return [];
-  }
-
-  const filtered_resumes = resumes.filter((resume_object) => {
-    const user_membership_plan_id = _.get(
-      resume_object,
-      "user.membership_plan_id"
-    );
-
-    if (!user_membership_plan_id) {
-      return false;
-    }
-
-    const user_membership_level = _.get(resume_object, "user.membership_level");
-
-    return (
-      membership_levels.includes(user_membership_plan_id) &&
-      membership_levels.includes(user_membership_level)
-    );
-  });
-
-  return filtered_resumes;
 }
 
 export default makeDb;
