@@ -3,7 +3,7 @@ import _ from "lodash";
 
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema(
+const adminSchema = new Schema(
   {
     hash_password: { type: String, trim: true },
     aws_avatar: { type: Object },
@@ -17,7 +17,7 @@ const userSchema = new Schema(
   }
 );
 
-userSchema.virtual("alias_name").get(function (this: { full_name: string }) {
+adminSchema.virtual("alias_name").get(function (this: { full_name: string }) {
   const matches = this.full_name?.match(/\b(\w)/g); // ['J','S','O','N']
 
   const acronym = matches?.join(""); // JSON
@@ -25,4 +25,4 @@ userSchema.virtual("alias_name").get(function (this: { full_name: string }) {
   return acronym;
 });
 
-export default userSchema;
+export default adminSchema;

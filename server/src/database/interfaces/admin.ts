@@ -1,4 +1,4 @@
-export default interface IUser {
+export default interface IAdmin {
   _id: string;
   hash_password: string;
   full_name: string;

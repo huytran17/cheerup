@@ -1,20 +1,20 @@
 import _ from "lodash";
 import mongoose from "mongoose";
-import IUserDb, { PaginatedUserResult } from "./interfaces/user-db";
-import User from "../database/entities/user";
-import IUser from "../database/interfaces/user";
+import IAdminDb, { PaginatedAdminResult } from "./interfaces/admin-db";
+import Admin from "../database/entities/admin";
+import IAdmin from "../database/interfaces/admin";
 
-export default function makeUserDb({
-  userDbModel,
+export default function makeAdminDb({
+  adminDbModel,
   moment,
 }: {
-  userDbModel: mongoose.Model<
-    IUser & mongoose.Document,
+  adminDbModel: mongoose.Model<
+    IAdmin & mongoose.Document,
     Record<string, unknown>
   >;
   moment: any;
-}): IUserDb {
-  return new (class MongooseUserDb implements IUserDb {
+}): IAdminDb {
+  return new (class MongooseAdminDb implements IAdminDb {
     /**
      *
      * @description used by admin API
@@ -29,7 +29,7 @@ export default function makeUserDb({
       query: string;
       page: number;
       entries_per_page?: number;
-    }): Promise<PaginatedUserResult | null> {
+    }): Promise<PaginatedAdminResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = { deleted_at: undefined };
@@ -41,7 +41,7 @@ export default function makeUserDb({
         });
       }
 
-      const existing = await userDbModel
+      const existing = await adminDbModel
         .find(query_conditions)
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)
@@ -50,10 +50,10 @@ export default function makeUserDb({
         })
         .lean({ virtuals: true });
 
-      const total_count = await userDbModel.countDocuments(query_conditions);
+      const total_count = await adminDbModel.countDocuments(query_conditions);
 
       if (existing) {
-        const data = existing.map((user) => new User(user));
+        const data = existing.map((admin) => new Admin(admin));
 
         const from = page - 1 > 0 ? page - 1 : null;
         const has_more_entries =
@@ -78,94 +78,96 @@ export default function makeUserDb({
       return null;
     }
 
-    async findById({ _id }: { _id: string }): Promise<User | null> {
+    async findById({ _id }: { _id: string }): Promise<Admin | null> {
       const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
       const is_mongo_id = mongo_id_regex.test(_id);
       if (!is_mongo_id || !_id) {
         return null;
       }
 
-      const existing = await userDbModel.findById(_id).lean({ virtuals: true });
+      const existing = await adminDbModel
+        .findById(_id)
+        .lean({ virtuals: true });
 
       if (existing) {
-        return new User(existing);
+        return new Admin(existing);
       }
       return null;
     }
 
-    async findOne(): Promise<User | null> {
-      const existing = await userDbModel.findOne().lean({ virtuals: true });
+    async findOne(): Promise<Admin | null> {
+      const existing = await adminDbModel.findOne().lean({ virtuals: true });
 
       if (existing) {
-        return new User(existing);
+        return new Admin(existing);
       }
 
       return null;
     }
 
-    async findByEmail({ email }: { email: string }): Promise<User | null> {
+    async findByEmail({ email }: { email: string }): Promise<Admin | null> {
       const query_conditions = {
         email,
         deleted_at: undefined,
       };
-      const existing = await userDbModel.findOne(query_conditions);
+      const existing = await adminDbModel.findOne(query_conditions);
 
       if (existing) {
-        return new User(existing);
+        return new Admin(existing);
       }
       return null;
     }
 
-    async insert(payload: Partial<IUser>): Promise<User | null> {
+    async insert(payload: Partial<IAdmin>): Promise<Admin | null> {
       const updated_payload = payload;
 
-      const result = await userDbModel.create([updated_payload]);
-      const updated = await userDbModel
+      const result = await adminDbModel.create([updated_payload]);
+      const updated = await adminDbModel
         .findOne({ _id: result[0]?._id })
         .lean({ virtuals: true });
 
       if (updated) {
-        return new User(updated);
+        return new Admin(updated);
       }
       return null;
     }
 
-    async delete({ _id }: { _id: string }): Promise<User | null> {
-      const existing = await userDbModel.findOneAndUpdate(
+    async delete({ _id }: { _id: string }): Promise<Admin | null> {
+      const existing = await adminDbModel.findOneAndUpdate(
         { _id },
         { deleted_at: new Date() }
       );
-      const updated = await userDbModel
+      const updated = await adminDbModel
         .findOne({ _id })
         .lean({ virtuals: true });
       if (updated) {
-        return new User(updated);
+        return new Admin(updated);
       }
       return null;
     }
 
-    async hardDelete({ _id }: { _id: string }): Promise<User | null> {
-      const existing = await userDbModel.deleteOne({ _id: _id });
-      const updated = await userDbModel
+    async hardDelete({ _id }: { _id: string }): Promise<Admin | null> {
+      const existing = await adminDbModel.deleteOne({ _id: _id });
+      const updated = await adminDbModel
         .findOne({ _id })
         .lean({ virtuals: true });
       if (updated) {
-        return new User(updated);
+        return new Admin(updated);
       }
       return null;
     }
 
-    async update(payload: Partial<IUser>): Promise<User | null> {
-      const result = await userDbModel
+    async update(payload: Partial<IAdmin>): Promise<Admin | null> {
+      const result = await adminDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)
         .lean({ virtuals: true });
 
-      const updated = await userDbModel
+      const updated = await adminDbModel
         .findOne({ _id: result?._id })
         .lean({ virtuals: true });
 
       if (updated) {
-        return new User(updated);
+        return new Admin(updated);
       }
 
       return null;

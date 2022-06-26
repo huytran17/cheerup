@@ -1,6 +1,6 @@
-import IUser from "../interfaces/user";
+import IAdmin from "../interfaces/user";
 
-export default class User implements IUser {
+export default class Admin implements IAdmin {
   public readonly _id: string;
   public readonly hash_password: string;
   public readonly aws_avatar?: Record<string, unknown>;
@@ -19,7 +19,7 @@ export default class User implements IUser {
     created_at,
     updated_at,
     deleted_at,
-  }: IUser) {
+  }: IAdmin) {
     this._id = _id;
     this.aws_avatar = aws_avatar;
     this.hash_password = hash_password;

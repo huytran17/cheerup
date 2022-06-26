@@ -1,6 +1,6 @@
-import User from "../../database/entities/user";
-import IUser from "../../database/interfaces/user";
-export default interface IUserDb {
+import Admin from "../../database/entities/admin";
+import IAdmin from "../../database/interfaces/admin";
+export default interface IAdminDb {
   findAllPaginated: ({
     query,
     page,
@@ -9,18 +9,18 @@ export default interface IUserDb {
     query: string;
     page: number;
     entries_per_page?: number;
-  }) => Promise<PaginatedUserResult | null>;
-  findOne: () => Promise<User | null>;
-  findById: ({ _id }: { _id: string }) => Promise<User | null>;
-  findByEmail: ({ email }: { email: string }) => Promise<User | null>;
-  insert: (payload: Partial<IUser>) => Promise<User | null>;
-  delete: ({ _id }: { _id: string }) => Promise<User | null>;
-  hardDelete: ({ _id }: { _id: string }) => Promise<User | null>;
-  update: (updatePayload: Partial<IUser>) => Promise<User | null>;
+  }) => Promise<PaginatedAdminResult | null>;
+  findOne: () => Promise<Admin | null>;
+  findById: ({ _id }: { _id: string }) => Promise<Admin | null>;
+  findByEmail: ({ email }: { email: string }) => Promise<Admin | null>;
+  insert: (payload: Partial<IAdmin>) => Promise<Admin | null>;
+  delete: ({ _id }: { _id: string }) => Promise<Admin | null>;
+  hardDelete: ({ _id }: { _id: string }) => Promise<Admin | null>;
+  update: (updatePayload: Partial<IAdmin>) => Promise<Admin | null>;
 }
 
-export interface PaginatedUserResult {
-  data: User[];
+export interface PaginatedAdminResult {
+  data: Admin[];
   pagination: {
     current_page: number | null;
     from: number | null;
