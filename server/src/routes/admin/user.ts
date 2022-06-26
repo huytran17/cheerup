@@ -24,6 +24,24 @@ const userRouter = express.Router();
 //   makeExpressCallback(deleteUserController)
 // );
 
+/**
+ * @openapi
+ *
+ * /admin/user/{user_id}:
+ *  get:
+ *     description: Get user by id
+ *     parameters:
+ *       - name: user_id
+ *         description: the user's id
+ *         in: path
+ *         type: string
+ *         required: true
+ *     responses:
+ *       200:
+ *         description: the user data
+ *     tags:
+ *     - /admin/user
+ */
 userRouter.get(
   "/:user_id",
   makeValidator(getUserRules),
