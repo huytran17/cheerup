@@ -25,15 +25,17 @@ app.listen(3000, () => console.log("Server is listening on port 3000"));
 
 makeDb().then(async () => {
   const user = await UserDb.findOne();
+  const default_hash_password = await hashPassword({
+    password: process.env.DEFAULT_APP_PASSWORD,
+    password_confirmation: process.env.DEFAULT_APP_PASSWORD,
+  });
+
   if (!user) {
     await UserDb.insert({
       first_name: "Huy",
       last_name: "Tran",
       email: "huytran@gmail.com",
-      hash_password: await hashPassword({
-        password: process.env.DEFAULT_APP_PASSWORD,
-        password_confirmation: process.env.DEFAULT_APP_PASSWORD,
-      }),
+      hash_password: default_hash_password,
     });
   }
 
@@ -44,10 +46,7 @@ makeDb().then(async () => {
       last_name: "Tran",
       type: AdminType.Super,
       email: "huytran@gmail.com",
-      hash_password: await hashPassword({
-        password: process.env.DEFAULT_APP_PASSWORD,
-        password_confirmation: process.env.DEFAULT_APP_PASSWORD,
-      }),
+      hash_password: default_hash_password,
     });
   }
 });
