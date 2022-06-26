@@ -4,7 +4,7 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "API Documentation",
+      title: "Admin API Documentation",
       description: "You can find all the APIs available for public use",
       termsOfService: "https://localhost:3000/terms-of-use/",
       contact: {
