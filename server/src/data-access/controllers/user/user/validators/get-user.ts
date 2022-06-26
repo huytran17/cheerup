@@ -1,5 +1,5 @@
 const getUserRules = {
-  _id: "required|string",
+  user_id: "required|string",
 };
 
 export default getUserRules;

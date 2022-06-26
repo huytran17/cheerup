@@ -86,7 +86,6 @@ export default function makeUserDb({
       }
 
       const existing = await userDbModel.findById(_id).lean({ virtuals: true });
-
       if (existing) {
         return new User(existing);
       }
