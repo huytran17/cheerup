@@ -29,6 +29,8 @@ Backend logs = winston
 
 Dashboard => Nuxtjs
 
+UX/UI => Vuetify
+
 ---
 
 ## Clean Architecture
