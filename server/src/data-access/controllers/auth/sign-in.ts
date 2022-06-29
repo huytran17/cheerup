@@ -1,7 +1,5 @@
 import _ from "lodash";
 import { Request } from "express";
-import { ISignIn } from "../../../use-cases/auth/sign-in";
-import { IHashPassword } from "../../../config/password/hash-password";
 import { IGetUserByEmail } from "../../../use-cases/user/get-user-by-email";
 import { IGenerateAccessToken } from "../../../config/accessTokenManager/generate-access-token";
 import { IVerifyPassword } from "../../../config/password/verify-password";
@@ -13,15 +11,11 @@ export type ILoginData = {
 };
 
 export default function makeSignInController({
-  signIn,
-  hashPassword,
   getUserByEmail,
   generateAccessToken,
   verifyPassword,
   logger,
 }: {
-  signIn: ISignIn;
-  hashPassword: IHashPassword;
   getUserByEmail: IGetUserByEmail;
   generateAccessToken: IGenerateAccessToken;
   verifyPassword: IVerifyPassword;
