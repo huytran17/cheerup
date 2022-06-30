@@ -4,20 +4,21 @@ import _ from "lodash";
 import { ISignUp } from "../../../use-cases/auth/sign-up";
 import { IGetUserByEmail } from "../../../use-cases/user/get-user-by-email";
 import { IHashPassword } from "../../../config/password/hash-password";
+import User from "../../../database/entities/user";
 
-export type IUserRawData = {
+export type IUserRawData = Omit<User, "hash_password"> & {
   email: string;
   password: string;
   password_confirmation: string;
 };
 
 export default function makeSignUpController({
-  signUp,
+  register,
   getUserByEmail,
   hashPassword,
   logger,
 }: {
-  signUp: ISignUp;
+  register: ISignUp;
   getUserByEmail: IGetUserByEmail;
   hashPassword: IHashPassword;
   logger: Logger;
@@ -45,14 +46,14 @@ export default function makeSignUpController({
 
       const user_details = Object.assign(
         {},
-        _.omit(user, ["password", "password_confirmation"]),
+        _.omit(user, ["_id", "password", "password_confirmation"]),
         {
           email,
           hash_password: hashed_password,
         }
       );
 
-      const created_user = await signUp({
+      const created_user = await register({
         userDetails: user_details,
       });
 
