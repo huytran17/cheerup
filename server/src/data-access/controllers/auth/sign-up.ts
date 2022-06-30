@@ -13,17 +13,17 @@ export type IUserRawData = Omit<User, "hash_password"> & {
 };
 
 export default function makeSignUpController({
-  register,
+  signUp,
   getUserByEmail,
   hashPassword,
   logger,
 }: {
-  register: ISignUp;
+  signUp: ISignUp;
   getUserByEmail: IGetUserByEmail;
   hashPassword: IHashPassword;
   logger: Logger;
 }) {
-  return async function signUp(
+  return async function signUpController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
@@ -53,7 +53,7 @@ export default function makeSignUpController({
         }
       );
 
-      const created_user = await register({
+      const created_user = await signUp({
         userDetails: user_details,
       });
 

@@ -2,7 +2,7 @@ import makeSignInController from "./sign-in";
 import makeSignOutController from "./sign-out";
 import makeSignUpController from "./sign-up";
 
-import { signUp as register } from "../../../use-cases/auth";
+import { signUp } from "../../../use-cases/auth";
 import { hashPassword, verifyPassword } from "../../../config/password";
 import { getUserByEmail } from "../../../use-cases/user";
 import { generateAccessToken } from "../../../config/accessTokenManager";
@@ -20,7 +20,7 @@ const signOutController = makeSignOutController({
 });
 
 const signUpController = makeSignUpController({
-  register,
+  signUp,
   getUserByEmail,
   hashPassword,
   logger,
