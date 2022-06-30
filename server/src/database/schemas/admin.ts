@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 const adminSchema = new Schema(
   {
     hash_password: { type: String, trim: true },
+    full_name: { type: String, trim: true },
     aws_avatar: { type: Object },
     email: { type: String, trim: true, lowercase: true },
     created_at: { type: Date, default: Date.now },
