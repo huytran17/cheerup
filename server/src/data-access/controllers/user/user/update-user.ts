@@ -2,13 +2,14 @@ import { IGetUser } from "../../../../use-cases/user/get-user";
 import { IUpdateUser } from "../../../../use-cases/user/update-user";
 import { Logger } from "winston";
 import { Request } from "express";
+import _ from "lodash";
 
 export default function makeUpdateUser({
-  getUserById,
+  getUser,
   updateUser,
   logger,
 }: {
-  getUserById: IGetUser;
+  getUser: IGetUser;
   updateUser: IUpdateUser;
   logger: Logger;
 }) {
@@ -22,7 +23,7 @@ export default function makeUpdateUser({
     try {
       const userDetails = _.get(httpRequest, "context.validated");
       const { _id } = userDetails;
-      const exists = await getUserById({ _id });
+      const exists = await getUser({ _id });
       if (!exists) {
         throw new Error(`User by ${_id} does not exist`);
       }

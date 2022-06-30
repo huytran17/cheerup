@@ -1,4 +1,4 @@
-import { getUser, getUserById, deleteUser } from "../../../../use-cases/user";
+import { getUser, deleteUser, updateUser } from "../../../../use-cases/user";
 import { logger } from "../../../../config/storage/logger";
 
 import makeGetUserController from "./get-user";
@@ -11,13 +11,13 @@ const getUserController = makeGetUserController({
 });
 
 const deleteUserController = makeDeleteUser({
-  getUserById,
+  getUser,
   deleteUser,
   logger,
 });
 
 const updateUserController = makeUpdateUser({
-  getUserById,
+  getUser,
   updateUser,
   logger,
 });

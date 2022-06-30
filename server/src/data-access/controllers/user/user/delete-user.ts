@@ -2,13 +2,14 @@ import { IGetUser } from "../../../../use-cases/user/get-user";
 import { IDeleteUser } from "../../../../use-cases/user/delete-user";
 import { Logger } from "winston";
 import { Request } from "express";
+import _ from "lodash";
 
 export default function makeDeleteUser({
-  getUserById,
+  getUser,
   deleteUser,
   logger,
 }: {
-  getUserById: IGetUser;
+  getUser: IGetUser;
   deleteUser: IDeleteUser;
   logger: Logger;
 }) {
@@ -22,7 +23,7 @@ export default function makeDeleteUser({
     try {
       const userDetails = _.get(httpRequest, "context.validated");
       const { _id } = userDetails;
-      const exists = await getUserById({ _id });
+      const exists = await getUser({ _id });
       if (!exists) {
         throw new Error(`User by ${_id} does not exist`);
       }
