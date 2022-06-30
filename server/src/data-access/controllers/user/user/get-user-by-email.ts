@@ -1,16 +1,13 @@
 import { Request } from "express";
-import { IGetUser } from "../../../../use-cases/user/get-user";
+import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import _ from "lodash";
-import { Logger } from "winston";
 
-export default function makeGetUserController({
-  getUser,
-  logger,
+export default function makeGetUserByEmailController({
+  getUserByEmail,
 }: {
-  getUser: IGetUser;
-  logger: Logger;
+  getUserByEmail: IGetUserByEmail;
 }) {
-  return async function getUserController(
+  return async function (
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
@@ -18,10 +15,10 @@ export default function makeGetUserController({
     };
 
     try {
-      const { user_id } = _.get(httpRequest, "context.validated");
-      const exists = await getUser({ _id: user_id });
+      const { email } = _.get(httpRequest, "context.validated");
+      const exists = await getUserByEmail({ email });
       if (!exists) {
-        throw new Error(`User ${user_id} does not exists`);
+        throw new Error(`User ${email} does not exists`);
       }
 
       return {
