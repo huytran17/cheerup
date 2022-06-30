@@ -5,6 +5,8 @@ import { UserDb } from "../../data-access";
 
 import makeGetUser from "./get-user";
 import makeGetUserByEmail from "./get-user-by-email";
+import makeDeleteUser from "./delete-user";
+import makeUpdateUser from "./update-user";
 
 const getUser = makeGetUser({
   userDb: UserDb,
@@ -16,11 +18,21 @@ const getUserByEmail = makeGetUserByEmail({
   userDb: UserDb,
 });
 
+const deleteUser = makeDeleteUser({
+  userDb: UserDb,
+});
+
+const updateUser = makeUpdateUser({
+  userDb: UserDb,
+});
+
 const userServices = Object.freeze({
   getUser,
   getUserByEmail,
+  deleteUser,
+  updateUser,
 });
 
 export default userServices;
 
-export { getUser, getUserByEmail };
+export { getUser, getUserByEmail, deleteUser, updateUser };
