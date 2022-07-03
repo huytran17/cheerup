@@ -2,21 +2,21 @@ import { getUser, deleteUser, updateUser } from "../../../../use-cases/user";
 import { logger } from "../../../../config/storage/logger";
 
 import makeGetUserController from "./get-user";
-import makeDeleteUser from "./delete-user";
-import makeUpdateUser from "./update-user";
+import makeDeleteUserController from "./delete-user";
+import makeUpdateUserController from "./update-user";
 
 const getUserController = makeGetUserController({
   getUser,
   logger,
 });
 
-const deleteUserController = makeDeleteUser({
+const deleteUserController = makeDeleteUserController({
   getUser,
   deleteUser,
   logger,
 });
 
-const updateUserController = makeUpdateUser({
+const updateUserController = makeUpdateUserController({
   getUser,
   updateUser,
   logger,
