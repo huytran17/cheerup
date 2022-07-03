@@ -1,5 +1,5 @@
-const getCommentRules = {
-  _id: "required|string",
+const getCategoryRules = {
+  _id: ["required", "regex:/^[0-9a-fA-F]{24}$/i"],
 };
 
-export default getCommentRules;
+export default getCategoryRules;

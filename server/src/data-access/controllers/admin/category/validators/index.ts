@@ -1,11 +1,18 @@
-import getCommentRules from "./get-category";
-import deleteCommentRules from "./delete-category";
-import updateCommentRules from "./update-category";
+import getCategoryRules from "./get-category";
+import deleteCategoryRules from "./delete-category";
+import updateCategoryRules from "./update-category";
+import createCategoryRules from "./create-category";
 
 export default Object.freeze({
-  getCommentRules,
-  deleteCommentRules,
-  updateCommentRules,
+  getCategoryRules,
+  deleteCategoryRules,
+  updateCategoryRules,
+  createCategoryRules,
 });
 
-export { getCommentRules, deleteCommentRules, updateCommentRules };
+export {
+  getCategoryRules,
+  deleteCategoryRules,
+  updateCategoryRules,
+  createCategoryRules,
+};
