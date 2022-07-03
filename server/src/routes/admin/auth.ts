@@ -1,8 +1,8 @@
 import authenticateUserJWT from "../../config/middlewares/authenticateUserJWT";
 import makeValidator from "../../config/middlewares/validator-middleware";
-import makeSignUpController from "../../data-access/controllers/user/auth/sign-up";
-import makeSignInController from "../../data-access/controllers/user/auth/sign-in";
-import makeSignOutController from "../../data-access/controllers/user/auth/sign-out";
+import makeSignUpController from "../../data-access/controllers/admin/auth/sign-up";
+import makeSignInController from "../../data-access/controllers/admin/auth/sign-in";
+import makeSignOutController from "../../data-access/controllers/admin/auth/sign-out";
 import express from "express";
 
 const authRouter = express.Router();
