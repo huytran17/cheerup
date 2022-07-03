@@ -1,5 +1,5 @@
 const deleteUserRules = {
-  user_id: "required|string",
+  _id: "required|string",
 };
 
 export default deleteUserRules;
