@@ -2,11 +2,11 @@ import makeSignInController from "./sign-in";
 import makeSignOutController from "./sign-out";
 import makeSignUpController from "./sign-up";
 
-import { signUp } from "../../../use-cases/auth";
-import { hashPassword, verifyPassword } from "../../../config/password";
-import { getUserByEmail } from "../../../use-cases/user";
-import { generateAccessToken } from "../../../config/accessTokenManager";
-import { logger } from "../../../config/storage/logger";
+import { signUp } from "../../../../use-cases/auth";
+import { hashPassword, verifyPassword } from "../../../../config/password";
+import { getUserByEmail } from "../../../../use-cases/user";
+import { generateAccessToken } from "../../../../config/accessTokenManager";
+import { logger } from "../../../../config/storage/logger";
 
 const signInController = makeSignInController({
   getUserByEmail,

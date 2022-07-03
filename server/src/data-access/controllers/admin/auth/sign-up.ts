@@ -1,10 +1,10 @@
 import { Request } from "express";
 import { Logger } from "winston";
 import _ from "lodash";
-import { ISignUp } from "../../../use-cases/auth/sign-up";
-import { IGetUserByEmail } from "../../../use-cases/user/get-user-by-email";
-import { IHashPassword } from "../../../config/password/hash-password";
-import User from "../../../database/entities/user";
+import { ISignUp } from "../../../../use-cases/auth/sign-up";
+import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
+import { IHashPassword } from "../../../../config/password/hash-password";
+import User from "../../../../database/entities/user";
 
 export type IUserRawData = Omit<User, "hash_password"> & {
   email: string;
