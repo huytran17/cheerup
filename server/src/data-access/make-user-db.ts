@@ -16,6 +16,25 @@ export default function makeUserDb({
 }): IUserDb {
   return new (class MongooseUserDb implements IUserDb {
     /**
+     * @description used by user dashboard
+     * FIXME: Currently not in used. To be removed and should never be used.
+     * @param param0
+     * @returns
+     */
+    async findAll(): Promise<User[] | null> {
+      let query_conditions = { deleted_at: null };
+
+      const existing = await userDbModel
+        .find(query_conditions)
+        .lean({ virtuals: true });
+
+      if (existing) {
+        return existing.map((user) => new User(user));
+      }
+
+      return null;
+    }
+    /**
      *
      * @description used by admin API
      * @param param0
