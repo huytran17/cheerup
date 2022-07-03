@@ -7,7 +7,7 @@ export default function makeGetUserByEmailController({
 }: {
   getUserByEmail: IGetUserByEmail;
 }) {
-  return async function (
+  return async function getUserByEmailController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {

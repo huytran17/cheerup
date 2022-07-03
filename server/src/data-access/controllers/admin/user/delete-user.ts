@@ -4,7 +4,7 @@ import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
 
-export default function makeDeleteUser({
+export default function makeDeleteUserController({
   getUser,
   deleteUser,
   logger,
