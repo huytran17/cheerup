@@ -1,6 +1,7 @@
 import Comment from "../../database/entities/comment";
 import IComment from "../../database/interfaces/comment";
 export default interface ICommentDb {
+  findAll: () => Promise<Comment[] | null>;
   findAllPaginated: ({
     query,
     page,
