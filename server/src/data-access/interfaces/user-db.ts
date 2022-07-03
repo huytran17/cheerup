@@ -1,6 +1,7 @@
 import User from "../../database/entities/user";
 import IUser from "../../database/interfaces/user";
 export default interface IUserDb {
+  findAll: () => Promise<User[] | null>;
   findAllPaginated: ({
     query,
     page,
