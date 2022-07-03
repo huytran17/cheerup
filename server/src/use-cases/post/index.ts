@@ -7,7 +7,7 @@ import makeGetPost from "./get-post";
 import makeDeletePost from "./delete-post";
 import makeUpdatePost from "./update-post";
 import makeCreatePost from "./create-post";
-import makeGetCategories from "./get-posts";
+import makeGetPosts from "./get-posts";
 
 const getPost = makeGetPost({
   postDb: PostDb,
@@ -27,7 +27,7 @@ const createPost = makeCreatePost({
   postDb: PostDb,
 });
 
-const getCategories = makeGetCategories({
+const getPosts = makeGetPosts({
   postDb: PostDb,
   redis,
   logger,
@@ -37,10 +37,10 @@ const postServices = Object.freeze({
   getPost,
   deletePost,
   updatePost,
-  getCategories,
+  getPosts,
   createPost,
 });
 
 export default postServices;
 
-export { getPost, deletePost, updatePost, getCategories, createPost };
+export { getPost, deletePost, updatePost, getPosts, createPost };
