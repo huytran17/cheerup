@@ -1,5 +1,5 @@
-const getCommentRules = {
+const getPostRules = {
   _id: "required|string",
 };
 
-export default getCommentRules;
+export default getPostRules;

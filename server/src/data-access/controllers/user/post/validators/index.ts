@@ -1,11 +1,11 @@
-import getCommentRules from "./get-post";
-import deleteCommentRules from "./delete-post";
-import updateCommentRules from "./update-post";
+import getPostRules from "./get-post";
+import deletePostRules from "./delete-post";
+import updatePostRules from "./update-post";
 
 export default Object.freeze({
-  getCommentRules,
-  deleteCommentRules,
-  updateCommentRules,
+  getPostRules,
+  deletePostRules,
+  updatePostRules,
 });
 
-export { getCommentRules, deleteCommentRules, updateCommentRules };
+export { getPostRules, deletePostRules, updatePostRules };

@@ -1,5 +1,5 @@
-const updateCommentRules = {
+const updatePostRules = {
   _id: "required|string",
 };
 
-export default updateCommentRules;
+export default updatePostRules;

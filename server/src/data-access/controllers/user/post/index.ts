@@ -3,6 +3,7 @@ import {
   deletePost,
   updatePost,
   createPost,
+  getPosts,
 } from "../../../../use-cases/post";
 import { logger } from "../../../../config/storage/logger";
 
@@ -10,6 +11,12 @@ import makeGetPostController from "./get-post";
 import makeDeletePostController from "./delete-post";
 import makeUpdatePostController from "./update-post";
 import makeCreatePostController from "./create-post";
+import makeGetPostsController from "./get-posts";
+
+const getPostsController = makeGetPostsController({
+  getPosts,
+  logger,
+});
 
 const createPostController = makeCreatePostController({
   createPost,
@@ -38,6 +45,7 @@ export default Object.freeze({
   deletePostController,
   updatePostController,
   createPostController,
+  getPostsController,
 });
 
 export {
@@ -45,4 +53,5 @@ export {
   deletePostController,
   updatePostController,
   createPostController,
+  getPostsController,
 };

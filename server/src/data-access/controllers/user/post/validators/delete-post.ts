@@ -1,5 +1,5 @@
-const deleteCommentRules = {
+const deletePostRules = {
   _id: "required|string",
 };
 
-export default deleteCommentRules;
+export default deletePostRules;
