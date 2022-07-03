@@ -4,23 +4,22 @@ import makeExpressCallback from "../../config/express-callback";
 
 import {
   getUserRules,
-  // updateUserRules,
-  // deleteUserRules,
+  updateUserRules,
+  deleteUserRules,
 } from "../../data-access/controllers/user/user/validators";
 import {
   getUserController,
-  // updateUserController,
-  // getUsersPaginatedController,
-  // deleteUserController,
+  updateUserController,
+  deleteUserController,
 } from "../../data-access/controllers/user/user";
 
 const userRouter = express.Router();
 
-// userRouter.delete(
-//   "/delete/:user_id",
-//   makeValidator(deleteUserRules),
-//   makeExpressCallback(deleteUserController)
-// );
+userRouter.delete(
+  "/delete/:user_id",
+  makeValidator(deleteUserRules),
+  makeExpressCallback(deleteUserController)
+);
 
 /**
  * @openapi
@@ -46,12 +45,10 @@ userRouter.get(
   makeExpressCallback(getUserController)
 );
 
-// userRouter.put(
-//   "/",
-//   makeValidator(updateUserRules),
-//   makeExpressCallback(updateUserController)
-// ); // DONE
-
-// userRouter.get("/", makeExpressCallback(getUsersPaginatedController)); // DONE
+userRouter.put(
+  "/",
+  makeValidator(updateUserRules),
+  makeExpressCallback(updateUserController)
+); // DONE
 
 export default userRouter;
