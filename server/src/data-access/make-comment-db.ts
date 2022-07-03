@@ -16,6 +16,24 @@ export default function makeCommentDb({
 }): ICommentDb {
   return new (class MongooseCommentDb implements ICommentDb {
     /**
+     * @description used by comment dashboard
+     * FIXME: Currently not in used. To be removed and should never be used.
+     * @param param0
+     * @returns
+     */
+    async findAll(): Promise<Comment[] | null> {
+      let query_conditions = { deleted_at: null };
+
+      const existing = await commentDbModel
+        .find(query_conditions)
+        .lean({ virtuals: true });
+      if (existing) {
+        return existing.map((comment) => new Comment(comment));
+      }
+
+      return null;
+    }
+    /**
      *
      * @description used by comment API
      * @param param0
