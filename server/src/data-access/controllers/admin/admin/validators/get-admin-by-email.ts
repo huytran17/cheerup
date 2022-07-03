@@ -1,5 +1,5 @@
 const getAdminByEmailRules = {
-  admin_id: "required|string",
+  _id: "required|string",
 };
 
 export default getAdminByEmailRules;
