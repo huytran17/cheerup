@@ -3,6 +3,7 @@ import {
   deleteComment,
   updateComment,
   createComment,
+  getComments,
 } from "../../../../use-cases/comment";
 import { logger } from "../../../../config/storage/logger";
 
@@ -10,6 +11,12 @@ import makeGetCommentController from "./get-comment";
 import makeDeleteCommentController from "./delete-comment";
 import makeUpdateCommentController from "./update-comment";
 import makeCreateCommentController from "./create-comment";
+import makeGetCommentsController from "./get-comments";
+
+const getCommentsController = makeGetCommentsController({
+  getComments,
+  logger,
+});
 
 const createCommentController = makeCreateCommentController({
   createComment,
@@ -38,6 +45,7 @@ export default Object.freeze({
   deleteCommentController,
   updateCommentController,
   createCommentController,
+  getCommentsController,
 });
 
 export {
@@ -45,4 +53,5 @@ export {
   deleteCommentController,
   updateCommentController,
   createCommentController,
+  getCommentsController,
 };
