@@ -1,6 +1,7 @@
 import Admin from "../../database/entities/admin";
 import IAdmin from "../../database/interfaces/admin";
 export default interface IAdminDb {
+  findAll: () => Promise<Admin[] | null>;
   findAllPaginated: ({
     query,
     page,
