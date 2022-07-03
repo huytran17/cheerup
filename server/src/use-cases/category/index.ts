@@ -7,6 +7,11 @@ import makeGetCategory from "./get-category";
 import makeDeleteCategory from "./delete-category";
 import makeUpdateCategory from "./update-category";
 import makeGetCategories from "./get-categories";
+import makeCreateCategory from "./create-category";
+
+const createCategory = makeCreateCategory({
+  categoryDb: CategoryDb,
+});
 
 const getCategory = makeGetCategory({
   categoryDb: CategoryDb,
@@ -33,8 +38,15 @@ const categoryServices = Object.freeze({
   deleteCategory,
   updateCategory,
   getCategories,
+  createCategory,
 });
 
 export default categoryServices;
 
-export { getCategory, deleteCategory, updateCategory, getCategories };
+export {
+  getCategory,
+  deleteCategory,
+  updateCategory,
+  getCategories,
+  createCategory,
+};
