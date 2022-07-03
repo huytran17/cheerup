@@ -7,6 +7,13 @@ import makeGetUser from "./get-user";
 import makeGetUserByEmail from "./get-user-by-email";
 import makeDeleteUser from "./delete-user";
 import makeUpdateUser from "./update-user";
+import makeGetUsers from "./get-users";
+
+const getUsers = makeGetUsers({
+  userDb: UserDb,
+  redis,
+  logger,
+});
 
 const getUser = makeGetUser({
   userDb: UserDb,
@@ -31,8 +38,9 @@ const userServices = Object.freeze({
   getUserByEmail,
   deleteUser,
   updateUser,
+  getUsers,
 });
 
 export default userServices;
 
-export { getUser, getUserByEmail, deleteUser, updateUser };
+export { getUser, getUserByEmail, deleteUser, updateUser, getUsers };
