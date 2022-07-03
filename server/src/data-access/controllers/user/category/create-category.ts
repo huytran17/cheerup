@@ -3,7 +3,7 @@ import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
 
-export default function makeCreateCategory({
+export default function makeCreateCategoryController({
   createCategory,
   logger,
 }: {

@@ -7,11 +7,11 @@ import {
 import { logger } from "../../../../config/storage/logger";
 
 import makeGetCategoryController from "./get-category";
-import makeDeleteCategory from "./delete-category";
-import makeUpdateCategory from "./update-category";
-import makeCreateCategory from "./create-category";
+import makeDeleteCategoryController from "./delete-category";
+import makeUpdateCategoryController from "./update-category";
+import makeCreateCategoryController from "./create-category";
 
-const createCategoryController = makeCreateCategory({
+const createCategoryController = makeCreateCategoryController({
   createCategory,
   logger,
 });
@@ -21,13 +21,13 @@ const getCategoryController = makeGetCategoryController({
   logger,
 });
 
-const deleteCategoryController = makeDeleteCategory({
+const deleteCategoryController = makeDeleteCategoryController({
   getCategory,
   deleteCategory,
   logger,
 });
 
-const updateCategoryController = makeUpdateCategory({
+const updateCategoryController = makeUpdateCategoryController({
   getCategory,
   updateCategory,
   logger,
