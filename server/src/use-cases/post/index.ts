@@ -6,6 +6,7 @@ import { PostDb } from "../../data-access";
 import makeGetPost from "./get-post";
 import makeDeletePost from "./delete-post";
 import makeUpdatePost from "./update-post";
+import makeCreatePost from "./create-post";
 import makeGetCategories from "./get-posts";
 
 const getPost = makeGetPost({
@@ -22,6 +23,10 @@ const updatePost = makeUpdatePost({
   postDb: PostDb,
 });
 
+const createPost = makeCreatePost({
+  postDb: PostDb,
+});
+
 const getCategories = makeGetCategories({
   postDb: PostDb,
   redis,
@@ -33,8 +38,9 @@ const postServices = Object.freeze({
   deletePost,
   updatePost,
   getCategories,
+  createPost,
 });
 
 export default postServices;
 
-export { getPost, deletePost, updatePost, getCategories };
+export { getPost, deletePost, updatePost, getCategories, createPost };
