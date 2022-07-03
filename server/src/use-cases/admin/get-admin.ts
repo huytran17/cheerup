@@ -1,24 +1,24 @@
-import User from "../../database/entities/admin";
-import IUserDb from "../../data-access/interfaces/admin-db";
+import Admin from "../../database/entities/admin";
+import IAdminDb from "../../data-access/interfaces/admin-db";
 import Redis from "../../config/storage/redis";
 import { Logger } from "winston";
 
-export type IGetUser = ({ _id }: { _id: string }) => Promise<User | null>;
+export type IGetAdmin = ({ _id }: { _id: string }) => Promise<Admin | null>;
 
-export default function makeGetUser({
+export default function makeGetAdmin({
   adminDb,
   redis,
   logger,
 }: {
-  adminDb: IUserDb;
+  adminDb: IAdminDb;
   redis: Redis;
   logger: Logger;
-}): IGetUser {
-  return async function getUser({
+}): IGetAdmin {
+  return async function getAdmin({
     _id,
   }: {
     _id: string;
-  }): Promise<User | null> {
+  }): Promise<Admin | null> {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "get-admin-by-id",
       _id,
