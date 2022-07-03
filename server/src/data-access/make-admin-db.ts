@@ -16,6 +16,28 @@ export default function makeAdminDb({
 }): IAdminDb {
   return new (class MongooseAdminDb implements IAdminDb {
     /**
+     * @description used by admin dashboard
+     * FIXME: Currently not in used. To be removed and should never be used.
+     * @param param0
+     * @returns
+     */
+    async findAll(): Promise<Admin[] | null> {
+      let query_conditions = { deleted_at: null };
+
+      const existing = await adminDbModel
+        .find(query_conditions)
+        .populate({
+          path: "children",
+          select: "-_v",
+        })
+        .lean({ virtuals: true });
+      if (existing) {
+        return existing.map((admin) => new Admin(admin));
+      }
+
+      return null;
+    }
+    /**
      *
      * @description used by admin API
      * @param param0

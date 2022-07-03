@@ -26,6 +26,10 @@ export default function makeCategoryDb({
 
       const existing = await categoryDbModel
         .find(query_conditions)
+        .populate({
+          path: "children",
+          select: "-_v",
+        })
         .lean({ virtuals: true });
       if (existing) {
         return existing.map((category) => new Category(category));
@@ -61,6 +65,10 @@ export default function makeCategoryDb({
 
       const existing = await categoryDbModel
         .find(query_conditions)
+        .populate({
+          path: "children",
+          select: "-_v",
+        })
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)
         .sort({
@@ -107,6 +115,10 @@ export default function makeCategoryDb({
 
       const existing = await categoryDbModel
         .findById(_id)
+        .populate({
+          path: "children",
+          select: "-_v",
+        })
         .lean({ virtuals: true });
 
       if (existing) {
@@ -116,7 +128,13 @@ export default function makeCategoryDb({
     }
 
     async findOne(): Promise<Category | null> {
-      const existing = await categoryDbModel.findOne().lean({ virtuals: true });
+      const existing = await categoryDbModel
+        .findOne()
+        .populate({
+          path: "children",
+          select: "-_v",
+        })
+        .lean({ virtuals: true });
 
       if (existing) {
         return new Category(existing);
@@ -167,6 +185,10 @@ export default function makeCategoryDb({
     async update(payload: Partial<ICategory>): Promise<Category | null> {
       const result = await categoryDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)
+        .populate({
+          path: "children",
+          select: "-_v",
+        })
         .lean({ virtuals: true });
 
       const updated = await categoryDbModel

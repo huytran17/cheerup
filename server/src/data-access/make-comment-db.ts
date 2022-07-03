@@ -26,6 +26,9 @@ export default function makeCommentDb({
 
       const existing = await commentDbModel
         .find(query_conditions)
+        .populate("children", "-_v")
+        .populate("user", "-_v")
+        .populate("post", "-_v")
         .lean({ virtuals: true });
       if (existing) {
         return existing.map((comment) => new Comment(comment));
@@ -61,6 +64,9 @@ export default function makeCommentDb({
 
       const existing = await commentDbModel
         .find(query_conditions)
+        .populate("children", "-_v")
+        .populate("user", "-_v")
+        .populate("post", "-_v")
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)
         .sort({
@@ -105,6 +111,9 @@ export default function makeCommentDb({
 
       const existing = await commentDbModel
         .findById(_id)
+        .populate("children", "-_v")
+        .populate("user", "-_v")
+        .populate("post", "-_v")
         .lean({ virtuals: true });
 
       if (existing) {
@@ -114,7 +123,12 @@ export default function makeCommentDb({
     }
 
     async findOne(): Promise<Comment | null> {
-      const existing = await commentDbModel.findOne().lean({ virtuals: true });
+      const existing = await commentDbModel
+        .findOne()
+        .populate("children", "-_v")
+        .populate("user", "-_v")
+        .populate("post", "-_v")
+        .lean({ virtuals: true });
 
       if (existing) {
         return new Comment(existing);
@@ -165,6 +179,9 @@ export default function makeCommentDb({
     async update(payload: Partial<IComment>): Promise<Comment | null> {
       const result = await commentDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)
+        .populate("children", "-_v")
+        .populate("user", "-_v")
+        .populate("post", "-_v")
         .lean({ virtuals: true });
 
       const updated = await commentDbModel

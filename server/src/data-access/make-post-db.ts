@@ -26,6 +26,8 @@ export default function makePostDb({
 
       const existing = await postDbModel
         .find(query_conditions)
+        .populate("author", "-_v")
+        .populate("category", "-_v")
         .lean({ virtuals: true });
 
       if (existing) {
@@ -62,6 +64,8 @@ export default function makePostDb({
 
       const existing = await postDbModel
         .find(query_conditions)
+        .populate("author", "-_v")
+        .populate("category", "-_v")
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)
         .sort({
@@ -104,7 +108,11 @@ export default function makePostDb({
         return null;
       }
 
-      const existing = await postDbModel.findById(_id).lean({ virtuals: true });
+      const existing = await postDbModel
+        .findById(_id)
+        .populate("author", "-_v")
+        .populate("category", "-_v")
+        .lean({ virtuals: true });
 
       if (existing) {
         return new Post(existing);
@@ -113,7 +121,11 @@ export default function makePostDb({
     }
 
     async findOne(): Promise<Post | null> {
-      const existing = await postDbModel.findOne().lean({ virtuals: true });
+      const existing = await postDbModel
+        .findOne()
+        .populate("author", "-_v")
+        .populate("category", "-_v")
+        .lean({ virtuals: true });
 
       if (existing) {
         return new Post(existing);
@@ -164,6 +176,8 @@ export default function makePostDb({
     async update(payload: Partial<IPost>): Promise<Post | null> {
       const result = await postDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)
+        .populate("author", "-_v")
+        .populate("category", "-_v")
         .lean({ virtuals: true });
 
       const updated = await postDbModel
