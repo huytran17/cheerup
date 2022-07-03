@@ -16,32 +16,32 @@ import {
   getCommentsController,
 } from "../../data-access/controllers/user/comment";
 
-const categoryRouter = express.Router();
+const commentRouter = express.Router();
 
-categoryRouter.get(
+commentRouter.get(
   "/:comment_id",
   makeValidator(getCommentRules),
   makeExpressCallback(getCommentController)
 ); // DONE
 
-categoryRouter.delete(
+commentRouter.delete(
   "/:comment_id",
   makeValidator(deleteCommentRules),
   makeExpressCallback(deleteCommentController)
 ); // DONE
 
-categoryRouter.put(
+commentRouter.put(
   "/:comment_id",
   makeValidator(updateCommentRules),
   makeExpressCallback(updateCommentController)
 ); // DONE
 
-categoryRouter.post(
+commentRouter.post(
   "/",
   makeValidator(createCommentRules),
   makeExpressCallback(createCommentController)
 ); // DONE
 
-categoryRouter.get("/", makeExpressCallback(getCommentsController)); // DONE
+commentRouter.get("/", makeExpressCallback(getCommentsController)); // DONE
 
-export default categoryRouter;
+export default commentRouter;
