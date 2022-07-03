@@ -1,5 +1,5 @@
 const getUserByEmailRules = {
-  _id: "required|string",
+  email: "required|string",
 };
 
 export default getUserByEmailRules;
