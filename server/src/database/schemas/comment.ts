@@ -12,3 +12,5 @@ const commentSchema = new Schema({
   updated_at: { type: Date, default: Date.now },
   deleted_at: { type: Date, default: null },
 });
+
+export default commentSchema;
