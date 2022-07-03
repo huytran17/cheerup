@@ -7,11 +7,11 @@ import {
 import { logger } from "../../../../config/storage/logger";
 
 import makeGetCommentController from "./get-comment";
-import makeDeleteComment from "./delete-comment";
-import makeUpdateComment from "./update-comment";
-import makeCreateComment from "./create-comment";
+import makeDeleteCommentController from "./delete-comment";
+import makeUpdateCommentController from "./update-comment";
+import makeCreateCommentController from "./create-comment";
 
-const createCommentController = makeCreateComment({
+const createCommentController = makeCreateCommentController({
   createComment,
   logger,
 });
@@ -21,13 +21,13 @@ const getCommentController = makeGetCommentController({
   logger,
 });
 
-const deleteCommentController = makeDeleteComment({
+const deleteCommentController = makeDeleteCommentController({
   getComment,
   deleteComment,
   logger,
 });
 
-const updateCommentController = makeUpdateComment({
+const updateCommentController = makeUpdateCommentController({
   getComment,
   updateComment,
   logger,
