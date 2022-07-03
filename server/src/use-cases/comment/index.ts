@@ -7,6 +7,13 @@ import makeGetComment from "./get-comment";
 import makeDeleteComment from "./delete-comment";
 import makeUpdateComment from "./update-comment";
 import makeGetComments from "./get-comments";
+import makeCreateComment from "./create-comment";
+
+const createComment = makeCreateComment({
+  commentDb: CommentDb,
+  redis,
+  logger,
+});
 
 const getComment = makeGetComment({
   commentDb: CommentDb,
@@ -33,8 +40,9 @@ const commentServices = Object.freeze({
   deleteComment,
   updateComment,
   getComments,
+  createComment,
 });
 
 export default commentServices;
 
-export { getComment, deleteComment, updateComment, getComments };
+export { getComment, deleteComment, updateComment, getComments, createComment };
