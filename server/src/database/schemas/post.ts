@@ -21,3 +21,5 @@ const postSchema = new Schema(
     },
   }
 );
+
+export default postSchema;
