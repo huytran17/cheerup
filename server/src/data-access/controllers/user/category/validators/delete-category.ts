@@ -1,5 +1,5 @@
-const deleteCommentRules = {
-  _id: "required|string",
+const deleteCategoryRules = {
+  _id: ["required", "regex:/^[0-9a-fA-F]{24}$/i"],
 };
 
-export default deleteCommentRules;
+export default deleteCategoryRules;
