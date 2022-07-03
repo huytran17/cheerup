@@ -7,11 +7,11 @@ import {
 import { logger } from "../../../../config/storage/logger";
 
 import makeGetPostController from "./get-post";
-import makeDeletePost from "./delete-post";
-import makeUpdatePost from "./update-post";
-import makeCreatePost from "./create-post";
+import makeDeletePostController from "./delete-post";
+import makeUpdatePostController from "./update-post";
+import makeCreatePostController from "./create-post";
 
-const createPostController = makeCreatePost({
+const createPostController = makeCreatePostController({
   createPost,
   logger,
 });
@@ -21,13 +21,13 @@ const getPostController = makeGetPostController({
   logger,
 });
 
-const deletePostController = makeDeletePost({
+const deletePostController = makeDeletePostController({
   getPost,
   deletePost,
   logger,
 });
 
-const updatePostController = makeUpdatePost({
+const updatePostController = makeUpdatePostController({
   getPost,
   updatePost,
   logger,
