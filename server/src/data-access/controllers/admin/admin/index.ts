@@ -6,21 +6,21 @@ import {
 import { logger } from "../../../../config/storage/logger";
 
 import makeGetAdminController from "./get-admin";
-import makeDeleteAdmin from "./delete-admin";
-import makeUpdateAdmin from "./update-admin";
+import makeDeleteAdminController from "./delete-admin";
+import makeUpdateAdminController from "./update-admin";
 
 const getAdminController = makeGetAdminController({
   getAdmin,
   logger,
 });
 
-const deleteAdminController = makeDeleteAdmin({
+const deleteAdminController = makeDeleteAdminController({
   getAdmin,
   deleteAdmin,
   logger,
 });
 
-const updateAdminController = makeUpdateAdmin({
+const updateAdminController = makeUpdateAdminController({
   getAdmin,
   updateAdmin,
   logger,

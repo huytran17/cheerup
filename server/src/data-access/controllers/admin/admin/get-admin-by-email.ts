@@ -7,7 +7,7 @@ export default function makeGetAdminByEmailController({
 }: {
   getAdminByEmail: IGetAdminByEmail;
 }) {
-  return async function (
+  return async function getAdminByEmailController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
