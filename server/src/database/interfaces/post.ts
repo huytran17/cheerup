@@ -4,8 +4,8 @@ import Category from "../entities/category";
 export default interface IPost {
   _id: string;
   title: string;
-  description?: string;
-  thumbnail?: Record<string, unknown>;
+  description: string;
+  thumbnail: Record<string, unknown>;
   content: string;
   author: User;
   category: Category;
