@@ -5,12 +5,12 @@ import makeExpressCallback from "../../config/express-callback";
 import { deleteCommentRules } from "../../data-access/controllers/admin/comment/validators";
 import { deleteCommentController } from "../../data-access/controllers/admin/comment";
 
-const categoryRouter = express.Router();
+const commentRouter = express.Router();
 
-categoryRouter.delete(
+commentRouter.delete(
   "/:_id",
   makeValidator(deleteCommentRules),
   makeExpressCallback(deleteCommentController)
 ); // DONE
 
-export default categoryRouter;
+export default commentRouter;

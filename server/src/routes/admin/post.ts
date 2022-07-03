@@ -16,32 +16,32 @@ import {
   getPostsController,
 } from "../../data-access/controllers/admin/post";
 
-const categoryRouter = express.Router();
+const postRouter = express.Router();
 
-categoryRouter.get(
+postRouter.get(
   "/:_id",
   makeValidator(getPostRules),
   makeExpressCallback(getPostController)
 ); // DONE
 
-categoryRouter.delete(
+postRouter.delete(
   "/:_id",
   makeValidator(deletePostRules),
   makeExpressCallback(deletePostController)
 ); // DONE
 
-categoryRouter.put(
+postRouter.put(
   "/:_id",
   makeValidator(updatePostRules),
   makeExpressCallback(updatePostController)
 ); // DONE
 
-categoryRouter.post(
+postRouter.post(
   "/",
   makeValidator(createPostRules),
   makeExpressCallback(createPostController)
 ); // DONE
 
-categoryRouter.get("/", makeExpressCallback(getPostsController)); // DONE
+postRouter.get("/", makeExpressCallback(getPostsController)); // DONE
 
-export default categoryRouter;
+export default postRouter;
