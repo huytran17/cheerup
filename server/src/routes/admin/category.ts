@@ -19,19 +19,19 @@ import {
 const categoryRouter = express.Router();
 
 categoryRouter.get(
-  "/:category_id",
+  "/:_id",
   makeValidator(getCategoryRules),
   makeExpressCallback(getCategoryController)
 ); // DONE
 
 categoryRouter.delete(
-  "/:category_id",
+  "/:_id",
   makeValidator(deleteCategoryRules),
   makeExpressCallback(deleteCategoryController)
 ); // DONE
 
 categoryRouter.put(
-  "/:category_id",
+  "/:_id",
   makeValidator(updateCategoryRules),
   makeExpressCallback(updateCategoryController)
 ); // DONE

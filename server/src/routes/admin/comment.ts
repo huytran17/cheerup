@@ -8,7 +8,7 @@ import { deleteCommentController } from "../../data-access/controllers/admin/com
 const categoryRouter = express.Router();
 
 categoryRouter.delete(
-  "/:comment_id",
+  "/:_id",
   makeValidator(deleteCommentRules),
   makeExpressCallback(deleteCommentController)
 ); // DONE

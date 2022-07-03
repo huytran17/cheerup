@@ -19,7 +19,7 @@ import {
 const userRouter = express.Router();
 
 userRouter.delete(
-  "/delete/:user_id",
+  "/delete/:_id",
   makeValidator(deleteUserRules),
   makeExpressCallback(deleteUserController)
 );
@@ -27,11 +27,11 @@ userRouter.delete(
 /**
  * @openapi
  *
- * /admin/user/{user_id}:
+ * /admin/user/{_id}:
  *  get:
  *     description: Get user by id
  *     parameters:
- *       - name: user_id
+ *       - name: _id
  *         description: the user's id
  *         in: path
  *         type: string
@@ -43,7 +43,7 @@ userRouter.delete(
  *     - /admin/user
  */
 userRouter.get(
-  "/:user_id",
+  "/:_id",
   makeValidator(getUserRules),
   makeExpressCallback(getUserController)
 );
