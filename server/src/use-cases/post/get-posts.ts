@@ -3,9 +3,9 @@ import Redis from "../../config/storage/redis";
 import Post from "../../database/entities/post";
 import IPostDb from "../../data-access/interfaces/post-db";
 
-export type IGetCategories = () => Promise<Post[] | null>;
+export type IGetPosts = () => Promise<Post[] | null>;
 
-export default function makeGetCategories({
+export default function makeGetPosts({
   postDb,
   redis,
   logger,
@@ -13,9 +13,9 @@ export default function makeGetCategories({
   postDb: IPostDb;
   redis: Redis;
   logger: Logger;
-}): IGetCategories {
-  return async function getCategories(): Promise<Post[] | null> {
-    const categories = await postDb.findAll();
-    return categories;
+}): IGetPosts {
+  return async function getPosts(): Promise<Post[] | null> {
+    const posts = await postDb.findAll();
+    return posts;
   };
 }
