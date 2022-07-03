@@ -16,6 +16,24 @@ export default function makeCategoryDb({
 }): ICategoryDb {
   return new (class MongooseCategoryDb implements ICategoryDb {
     /**
+     * @description used by category dashboard
+     * FIXME: Currently not in used. To be removed and should never be used.
+     * @param param0
+     * @returns
+     */
+    async findAll(): Promise<Category[] | null> {
+      let query_conditions = { deleted_at: null };
+
+      const existing = await categoryDbModel
+        .find(query_conditions)
+        .lean({ virtuals: true });
+      if (existing) {
+        return existing.map((category) => new Category(category));
+      }
+
+      return null;
+    }
+    /**
      *
      * @description used by category API
      * @param param0
