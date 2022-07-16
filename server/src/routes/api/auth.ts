@@ -1,19 +1,62 @@
 import authenticateUserJWT from "../../config/middlewares/authenticateUserJWT";
 import makeValidator from "../../config/middlewares/validator-middleware";
-import makeSignUpController from "../../data-access/controllers/user/auth/sign-up";
-import makeSignInController from "../../data-access/controllers/user/auth/sign-in";
-import makeSignOutController from "../../data-access/controllers/user/auth/sign-out";
 import express from "express";
+import makeExpressCallback from "../../config/express-callback";
+import {
+  signOutRules,
+  signInRules,
+  signUpRules,
+} from "../../data-access/controllers/user/auth/validators";
+import {
+  signOutController,
+  signInController,
+  signUpController,
+} from "../../data-access/controllers/user/auth";
 
 const authRouter = express.Router();
 
-authRouter.post("/sign-in", makeValidator, makeSignInController);
-authRouter.post("/sign-up", makeValidator, makeSignUpController);
+/**
+ * @openapi
+ *
+ * /api/auth/sign-in:
+ *   post:
+ *     description: Login user
+ *     requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                email:
+ *                  type: string
+ *                  format: email
+ *                password:
+ *                  type: string
+ *              required:
+ *                - email
+ *                - password
+ *     responses:
+ *       200:
+ *         description: Returns the access token and user object.
+ *     tags:
+ *     - /api/auth
+ */
+authRouter.post(
+  "/sign-in",
+  makeValidator(signInRules),
+  makeExpressCallback(signInController)
+);
+authRouter.post(
+  "/sign-up",
+  makeValidator(signUpRules),
+  makeExpressCallback(signUpController)
+);
 authRouter.post(
   "/sign-out",
   authenticateUserJWT(),
-  makeValidator,
-  makeSignOutController
+  makeValidator(signOutRules),
+  makeExpressCallback(signOutController)
 );
 
 export default authRouter;
