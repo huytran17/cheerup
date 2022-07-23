@@ -8,8 +8,16 @@
       >
         <v-row>
           <v-col cols="12" class="d-flex justify-center">
-            <v-icon class="mr-2">mdi-facebook</v-icon>
-            <v-icon>mdi-google</v-icon>
+            <div
+              class="d-flex flex-column justify-center rounded-icon mr-2 pa-1 rounded-circle clickable"
+            >
+              <v-icon class="mx-auto">mdi-facebook</v-icon>
+            </div>
+            <div
+              class="d-flex flex-column justify-center rounded-icon mr-2 pa-1 rounded-circle clickable"
+            >
+              <v-icon class="mx-auto">mdi-google</v-icon>
+            </div>
           </v-col>
         </v-row>
         <v-row class="pb-0">
@@ -65,6 +73,7 @@
             <v-btn
               depressed
               rounded
+              :disabled="!form_valid"
               class="login-linear-background btn-linear-background w-100 py-6"
               @click="signIn"
             >
@@ -140,6 +149,7 @@ export default {
     async signIn() {
       try {
         await this.SIGN_IN({ data: this.user });
+        this.$router.push(this.localePath("/"));
       } catch (err) {
         console.log(err);
         this.$toast.error("Email address or password is incorrect");
@@ -167,6 +177,15 @@ export default {
 }
 .rounded-left-lg {
   border-radius: 8px 0 0 8px;
+}
+.rounded-icon:hover {
+  background: #f35587;
+}
+.rounded-icon:hover > * {
+  color: #ffffff;
+}
+:deep(.v-btn--disabled) {
+  background: #e0e0e0;
 }
 @media only screen and (max-width: 959px) {
   .rounded-right-lg {
