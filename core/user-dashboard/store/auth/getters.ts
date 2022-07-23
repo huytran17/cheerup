@@ -9,3 +9,5 @@ export const getters: GetterTree<AuthState, RootState> = {
   user: (state) => state.user,
   me: (state) => state.me,
 };
+
+export default getters;
