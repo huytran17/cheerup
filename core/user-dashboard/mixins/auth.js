@@ -16,6 +16,14 @@ export default {
     }),
     ...mapMutations({
       SET_USER: "auth/SET_USER",
+      UPDATE_USER_DATA: "auth/UPDATE_USER_DATA",
     }),
+
+    updateUserObject({ variable_path, data }) {
+      this.UPDATE_USER_DATA({
+        variable_path,
+        data,
+      });
+    },
   },
 };
