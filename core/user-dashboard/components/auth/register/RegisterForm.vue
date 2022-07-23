@@ -26,7 +26,7 @@
             >
               <span
                 class="app-body text-capitalize"
-                v-html="$t('Login')"
+                v-html="$t('Sign In')"
               ></span>
             </v-btn>
           </div>
@@ -39,8 +39,16 @@
       >
         <v-row>
           <v-col cols="12" class="d-flex justify-center">
-            <v-icon class="mr-2">mdi-facebook</v-icon>
-            <v-icon>mdi-google</v-icon>
+            <div
+              class="d-flex flex-column justify-center rounded-icon mr-2 pa-1 rounded-circle clickable"
+            >
+              <v-icon class="mx-auto">mdi-facebook</v-icon>
+            </div>
+            <div
+              class="d-flex flex-column justify-center rounded-icon pa-1 rounded-circle clickable"
+            >
+              <v-icon class="mx-auto">mdi-google</v-icon>
+            </div>
           </v-col>
         </v-row>
         <v-row class="pb-0">
@@ -55,6 +63,7 @@
               rounded
               hide-details
               filled
+              :rules="emailRules"
               @input="
                 updateUserObject({
                   variable_path: 'email',
@@ -81,6 +90,7 @@
               type="password"
               hide-details
               filled
+              :rules="passwordRules"
               @input="
                 updateUserObject({
                   variable_path: 'password',
@@ -107,6 +117,7 @@
               type="password"
               hide-details
               filled
+              :rules="passwordConfirmationRules"
               @input="
                 updateUserObject({
                   variable_path: 'password_confirmation',
@@ -123,6 +134,7 @@
               depressed
               rounded
               class="login-linear-background btn-linear-background w-100 py-6"
+              :disabled="!form_valid"
               @click="signUp"
             >
               <span class="text-body-1">
@@ -154,8 +166,10 @@ export default {
     async signUp() {
       try {
         await this.SIGN_UP({ data: this.user });
+        this.$router.push(this.localePath("/login"));
       } catch (err) {
         console.log(err);
+        this.$toast.error("Register information is incorrect");
       }
     },
   },
@@ -180,6 +194,15 @@ export default {
 }
 .rounded-left-lg {
   border-radius: 8px 0 0 8px;
+}
+.rounded-icon:hover {
+  background: #f35587;
+}
+.rounded-icon:hover > * {
+  color: #ffffff;
+}
+:deep(.v-btn--disabled) {
+  background: #e0e0e0;
 }
 @media only screen and (max-width: 959px) {
   .rounded-right-lg {
