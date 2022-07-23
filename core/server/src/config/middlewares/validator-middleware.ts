@@ -10,7 +10,7 @@ export default function makeValidator(rules: Rules) {
     next: NextFunction
   ) {
     const user = _.get(req, "user");
-    const body = _.get(req, "body.data");
+    const body = _.get(req, "body");
     const params = _.get(req, "params");
     const query = _.get(req, "query");
 
