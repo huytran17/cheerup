@@ -6,10 +6,17 @@ import { RootState } from "..";
 
 const actions: ActionTree<AuthState, RootState> = {
   async [ActionTypes.SIGN_IN]({ commit }, { data }: { data: any }) {
-    const returned_data = await this.$axios.$post("/auth/sign-in", data);
+    const { data: returned_data } = await this.$axios.$post(
+      "/auth/sign-in",
+      data
+    );
     const { user, access_token } = returned_data;
 
-    commit(MutationTypes.SET_ME, user);
+    if (access_token) {
+      localStorage.setItem("access_token", access_token);
+    }
+
+    commit(MutationTypes.SET_ME, { data: user });
     return user;
   },
 
