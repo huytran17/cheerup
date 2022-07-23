@@ -1,4 +1,6 @@
 import colors from "vuetify/es5/util/colors";
+import vi from "./locales/vi.json";
+import en from "./locales/en.json";
 
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
@@ -20,11 +22,18 @@ export default {
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
   },
 
+  server: {
+    port: 8082,
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: ["~/assets/style"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{ src: "~/plugins/axios", ssr: false }],
+  plugins: [
+    { src: "~/plugins/axios", ssr: false },
+    { src: "~/plugins/vue-toastification", ssr: false },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -41,12 +50,26 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
+    "@nuxtjs/i18n",
   ],
+
+  i18n: {
+    locales: ["en", "vi"],
+    defaultLocale: "en",
+    vueI18n: {
+      fallbackLocale: "en",
+      messages: {
+        en,
+        vi,
+      },
+      silentTranslationWarn: true,
+    },
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: "/",
+    baseURL: `${process.env.SERVER_URL}/api`,
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
@@ -70,4 +93,8 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  env: {
+    SERVER_URL: process.env.SERVER_URL || "http://localhost:3000",
+  },
 };
