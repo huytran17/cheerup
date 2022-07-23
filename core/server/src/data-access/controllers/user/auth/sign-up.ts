@@ -71,7 +71,7 @@ export default function makeSignUpController({
         headers,
         statusCode: 500,
         body: {
-          data: err,
+          data: err.message,
         },
       };
     }
