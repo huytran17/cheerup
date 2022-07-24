@@ -6,6 +6,7 @@ export default {
     ...mapGetters({
       drawer: "drawer",
       selected_nav_item: "selected_nav_item",
+      is_open_search_box: "is_open_search_box",
     }),
     /**
      *
@@ -19,6 +20,7 @@ export default {
     ...mapMutations({
       SET_DRAWER: "SET_DRAWER",
       SET_SELECTED_NAV_ITEM: "SET_SELECTED_NAV_ITEM",
+      SET_SELECTED_SEARCH_BOX: "SET_SELECTED_SEARCH_BOX",
     }),
     /**
      *

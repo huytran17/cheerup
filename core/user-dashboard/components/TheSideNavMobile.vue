@@ -41,7 +41,7 @@
             class="clickable"
             :class="[
               selected_nav_item === index
-                ? 'v-list-item--active v-list-item--link brick--text'
+                ? 'v-list-item--active brick--text'
                 : '',
             ]"
             @click="onClickNavItem(item, index)"

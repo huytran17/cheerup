@@ -26,9 +26,21 @@
     </div>
 
     <v-spacer></v-spacer>
-    <v-btn icon>
-      <v-icon>mdi-magnify</v-icon>
-    </v-btn>
+    <v-icon
+      color="black"
+      @click="SET_SELECTED_SEARCH_BOX({ data: !is_open_search_box })"
+      >mdi-magnify</v-icon
+    >
+    <v-divider vertical inset class="mx-8 black d-none d-md-block"></v-divider>
+    <div class="d-md-flex d-none">
+      <div class="d-flex justify-center gap-30">
+        <v-icon color="black" class="clickable hover-icon">mdi-facebook</v-icon>
+        <v-icon color="black" class="clickable hover-icon"
+          >mdi-instagram</v-icon
+        >
+        <v-icon color="black" class="clickable hover-icon">mdi-twitter</v-icon>
+      </div>
+    </div>
   </v-app-bar>
 </template>
 
@@ -105,6 +117,9 @@ export default {
 :deep(.v-list-item:hover::before),
 :deep(.v-list-item--active::before),
 :deep(.v-list-item:focus::before) {
+  opacity: 0 !important;
+}
+:deep(.mdi-magnify:focus::after) {
   opacity: 0 !important;
 }
 </style>
