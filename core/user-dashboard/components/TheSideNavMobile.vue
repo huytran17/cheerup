@@ -14,9 +14,9 @@
         class="px-1"
       ></v-img>
       <v-spacer></v-spacer>
-      <v-icon @click.stop="is_open_drawer = !is_open_drawer"
-        >mdi-magnify</v-icon
-      >
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
     </v-app-bar>
 
     <v-navigation-drawer v-model="is_open_drawer" absolute temporary>
@@ -28,28 +28,41 @@
           max-width="85px"
           contain
         ></v-img>
-        <v-icon color="black" class="clickable">mdi-close</v-icon>
+        <v-btn icon @click.stop="is_open_drawer = !is_open_drawer">
+          <v-icon color="black" class="clickable">mdi-close</v-icon>
+        </v-btn>
       </div>
       <v-divider></v-divider>
       <v-list nav dense class="pt-4">
         <v-list-item-group active-class="brick--text">
-          <v-list-item>
-            <v-list-item-title>Foo</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Bar</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Fizz</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Buzz</v-list-item-title>
+          <v-list-item v-for="(item, index) in nav_items" :key="index">
+            <v-list-item-title>
+              <div class="text-body-2">
+                <span class="app-title" v-html="$t(item.text)"></span>
+              </div>
+            </v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>
+      <div class="d-flex flex-column justify-between mt-auto mb-11">
+        <div class="text-body-1 text-center mb-4">
+          <span class="app-title" v-html="$t('Follow us')"></span>
+        </div>
+        <div class="d-flex justify-center gap-20">
+          <v-icon color="black" class="clickable hover-icon"
+            >mdi-facebook</v-icon
+          >
+          <v-icon color="black" class="clickable hover-icon"
+            >mdi-instagram</v-icon
+          >
+          <v-icon color="black" class="clickable hover-icon"
+            >mdi-twitter</v-icon
+          >
+          <v-icon color="black" class="clickable hover-icon"
+            >mdi-linkedin</v-icon
+          >
+        </div>
+      </div>
     </v-navigation-drawer>
   </div>
 </template>
@@ -60,11 +73,33 @@ import systemMixins from "@/mixins/system";
 export default {
   name: "TheSideNavMobile",
   mixins: [systemMixins],
+  props: {
+    mobile_logo: {
+      type: String,
+      default: require("@/assets/images/app/small-logo.jpg"),
+    },
+    desktop_logo: {
+      type: String,
+      default: require("@/assets/images/app/large-logo.jpg"),
+    },
+    nav_items: {
+      type: Array,
+      default: [
+        {
+          text: "Home",
+        },
+        {
+          text: "About",
+        },
+        {
+          text: "Contact",
+        },
+      ],
+    },
+  },
   data() {
     return {
       is_open_drawer: false,
-      mobile_logo: require("@/assets/images/app/small-logo.jpg"),
-      desktop_logo: require("@/assets/images/app/large-logo.jpg"),
     };
   },
   watch: {
@@ -80,4 +115,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.hover-icon:hover {
+  color: #ff2e55 !important;
+}
+:deep(.v-navigation-drawer__content) {
+  display: flex !important;
+  flex-direction: column !important;
+}
+</style>
