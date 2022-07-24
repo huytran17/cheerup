@@ -35,7 +35,17 @@
       <v-divider></v-divider>
       <v-list nav dense class="pt-4">
         <v-list-item-group active-class="brick--text">
-          <v-list-item v-for="(item, index) in nav_items" :key="index">
+          <v-list-item
+            v-for="(item, index) in nav_items"
+            :key="index"
+            class="clickable"
+            :class="[
+              selected_nav_item === index
+                ? 'v-list-item--active v-list-item--link brick--text'
+                : '',
+            ]"
+            @click="onClickNavItem(item, index)"
+          >
             <v-list-item-title>
               <div class="text-body-2">
                 <span class="app-title" v-html="$t(item.text)"></span>
@@ -84,17 +94,22 @@ export default {
     },
     nav_items: {
       type: Array,
-      default: [
-        {
-          text: "Home",
-        },
-        {
-          text: "About",
-        },
-        {
-          text: "Contact",
-        },
-      ],
+      default() {
+        return [
+          {
+            text: "Home",
+            to: "/",
+          },
+          {
+            text: "About",
+            to: "/about-us",
+          },
+          {
+            text: "Contact",
+            to: "/contact",
+          },
+        ];
+      },
     },
   },
   data() {
@@ -107,6 +122,12 @@ export default {
       handler(data) {
         this.SET_DRAWER({ data });
       },
+    },
+  },
+  methods: {
+    onClickNavItem(item, index) {
+      this.SET_SELECTED_NAV_ITEM({ data: index });
+      this.$router.push(this.localePath(item.to));
     },
   },
   fetch() {
@@ -122,5 +143,8 @@ export default {
 :deep(.v-navigation-drawer__content) {
   display: flex !important;
   flex-direction: column !important;
+}
+.nav-active {
+  color: #ff2e55;
 }
 </style>
