@@ -5,6 +5,7 @@ export default {
   computed: {
     ...mapGetters({
       drawer: "drawer",
+      selected_nav_item: "selected_nav_item",
     }),
     /**
      *
@@ -17,6 +18,7 @@ export default {
   methods: {
     ...mapMutations({
       SET_DRAWER: "SET_DRAWER",
+      SET_SELECTED_NAV_ITEM: "SET_SELECTED_NAV_ITEM",
     }),
     /**
      *

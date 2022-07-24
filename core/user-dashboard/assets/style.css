@@ -1,83 +1,83 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  .h-0 {
-    height: 0% !important;
-  }
-  .h-25 {
-    height: 25% !important;
-  }
-  .h-50 {
-    height: 50% !important;
-  }
-  .h-75 {
-    height: 75% !important;
-  }
-  .h-100 {
-    height: 100% !important;
-  }
-  .w-0 {
-    width: 0% !important;
-  }
-  .w-25 {
-    width: 25% !important;
-  }
-  .w-50 {
-    width: 50% !important;
-  }
-  .w-75 {
-    width: 75% !important;
-  }
-  .w-100 {
-    width: 100% !important;
-  }
-  .gap-10 {
-    gap: 10px;
-  }
-  .gap-20 {
-    gap: 20px;
-  }
-  .gap-30 {
-    gap: 30px;
-  }
-  .position-absolute {
-    position: absolute !important;
-  }
-  .position-relative {
-    position: relative !important;
-  }
-  .justify-between {
-    justify-content: space-between;
-  }
-  .justify-around {
-    justify-content: space-around;
-  }
-  .soft-box-shadow {
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px !important;
-  }
-  .no-box-shadow {
-    box-shadow: none !important;
-  }
-  .no-border {
-    border: none !important;
-  }
-  .no-border-radius {
-    border-radius: 0 !important;
-  }
-  .clickable {
-    cursor: pointer;
-  }
-  .app-title {
-    font-family: "Lato", sans-serif !important;
-    font-weight: 600;
-  }
-  .app-body {
-    font-family: "Lato", sans-serif !important;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.h-0 {
+  height: 0% !important;
+}
+.h-25 {
+  height: 25% !important;
+}
+.h-50 {
+  height: 50% !important;
+}
+.h-75 {
+  height: 75% !important;
+}
+.h-100 {
+  height: 100% !important;
+}
+.w-0 {
+  width: 0% !important;
+}
+.w-25 {
+  width: 25% !important;
+}
+.w-50 {
+  width: 50% !important;
+}
+.w-75 {
+  width: 75% !important;
+}
+.w-100 {
+  width: 100% !important;
+}
+.gap-10 {
+  gap: 10px;
+}
+.gap-20 {
+  gap: 20px;
+}
+.gap-30 {
+  gap: 30px;
+}
+.position-absolute {
+  position: absolute !important;
+}
+.position-relative {
+  position: relative !important;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.justify-around {
+  justify-content: space-around;
+}
+.soft-box-shadow {
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px !important;
+}
+.no-box-shadow {
+  box-shadow: none !important;
+}
+.no-border {
+  border: none !important;
+}
+.no-border-radius {
+  border-radius: 0 !important;
+}
+.clickable {
+  cursor: pointer;
+}
+.app-title {
+  font-family: "Lato", sans-serif !important;
+  font-weight: 600;
+}
+.app-body {
+  font-family: "Lato", sans-serif !important;
+}
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
+input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover,
@@ -87,4 +87,33 @@ select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0 0 transparent inset;
   transition: background-color 5000s ease-in-out 0s;
+}
+.app-container {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  background-color: rgb(255, 255, 255);
+  transition: all 0.25s ease-in-out 0s;
+  width: 1385px;
+  padding: 10px 15px 25px 15px;
+  margin: 0px auto;
+}
+
+@media only screen and (max-width: 1420px) {
+  .app-container {
+    width: 1170px;
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .app-container {
+    width: 100%;
+    padding: 10px 15px 25px 15px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .app-container {
+    padding: 15px;
+  }
 }
