@@ -88,32 +88,14 @@ select:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0 0 transparent inset;
   transition: background-color 5000s ease-in-out 0s;
 }
-.app-container {
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  justify-content: space-between;
-  background-color: rgb(255, 255, 255);
-  transition: all 0.25s ease-in-out 0s;
-  width: 1385px;
-  padding: 10px 15px 25px 15px;
-  margin: 0px auto;
+.image-on-hover {
+  transition: all linear 0.2s;
 }
-
-@media only screen and (max-width: 1420px) {
-  .app-container {
-    width: 1170px;
-  }
+.image-on-hover:hover {
+  transform: scale(1.1);
 }
-@media only screen and (max-width: 1200px) {
-  .app-container {
-    width: 100%;
-    padding: 10px 15px 25px 15px;
-  }
-}
-@media only screen and (max-width: 767px) {
-  .app-container {
-    padding: 15px;
-  }
+.image-on-hover-container {
+  max-width: 100%;
+  max-height: 100%;
+  overflow: hidden;
 }
