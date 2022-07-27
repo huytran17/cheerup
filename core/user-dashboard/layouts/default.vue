@@ -1,13 +1,13 @@
 <template>
   <v-app>
     <v-main>
-      <TheSideNavMobile v-if="is_mobile" />
-      <div v-else class="app-container">
-        <TheSideNavDesktop />
-      </div>
-      <div class="app-container">
-        <nuxt />
-      </div>
+      <v-container>
+        <TheSideNavMobile v-if="is_mobile" />
+        <TheSideNavDesktop v-else />
+        <div class="pt-6">
+          <nuxt />
+        </div>
+      </v-container>
     </v-main>
   </v-app>
 </template>
