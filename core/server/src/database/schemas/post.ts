@@ -9,7 +9,7 @@ const postSchema = new Schema(
     thumbnail: { type: Object },
     content: { type: String, trim: true },
     author: { type: Schema.Types.ObjectId, ref: "User" },
-    category: { type: Schema.Types.ObjectId, ref: "Category" },
+    categories: [{ type: Schema.Types.ObjectId, ref: "Category" }],
     meta: { type: Object },
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now },
