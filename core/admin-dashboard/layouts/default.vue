@@ -1,8 +1,8 @@
 <template>
-  <v-app>
+  <v-app class="position-relative">
     <v-main>
       <div class="d-flex h-100">
-        <div class="nav-wrapper blue h-100">
+        <div class="nav-wrapper h-100">
           <TheSideNav />
         </div>
         <div class="red main-wrapper h-100 w-100">
@@ -22,25 +22,7 @@ export default {
   },
   data() {
     return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      items: [
-        {
-          icon: "mdi-apps",
-          title: "Welcome",
-          to: "/",
-        },
-        {
-          icon: "mdi-chart-bubble",
-          title: "Inspire",
-          to: "/inspire",
-        },
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: "Vuetify.js",
+      panel: false,
     };
   },
 };

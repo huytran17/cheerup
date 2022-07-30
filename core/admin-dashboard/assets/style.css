@@ -48,6 +48,12 @@
 .position-relative {
   position: relative !important;
 }
+.position-sticky {
+  position: sticky !important;
+}
+.position-fixed {
+  position: fixed !important;
+}
 .justify-between {
   justify-content: space-between;
 }
@@ -68,6 +74,9 @@
 }
 .clickable {
   cursor: pointer;
+}
+.non-clickable {
+  cursor: auto;
 }
 .app-title {
   font-family: "Lato", sans-serif !important;
