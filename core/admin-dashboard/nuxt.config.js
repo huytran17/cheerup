@@ -1,4 +1,6 @@
 import colors from "vuetify/es5/util/colors";
+import vi from "./locales/vi.json";
+import en from "./locales/en.json";
 
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
@@ -51,6 +53,19 @@ export default {
     "@nuxtjs/axios",
     "@nuxtjs/i18n",
   ],
+
+  i18n: {
+    locales: ["en", "vi"],
+    defaultLocale: "en",
+    vueI18n: {
+      fallbackLocale: "en",
+      messages: {
+        en,
+        vi,
+      },
+      silentTranslationWarn: true,
+    },
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
