@@ -17,6 +17,8 @@ Database => mongoose
 
 File storage => AWS S3
 
+Cache management => Redis
+
 JWT issuer => jsonwebtoken npm
 
 Authentication => passport.js
