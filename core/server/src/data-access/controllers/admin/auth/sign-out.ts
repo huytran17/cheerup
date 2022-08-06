@@ -1,12 +1,12 @@
-import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
+import { IGetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email";
 import { Request } from "express";
 import _ from "lodash";
 import { Logger } from "winston";
 
 export default function makeSignOutController({
-  getUserByEmail,
+  getAdminByEmail,
 }: {
-  getUserByEmail: IGetUserByEmail;
+  getAdminByEmail: IGetAdminByEmail;
 }) {
   return async function signOutController(
     httpRequest: Request & { context: { validated: {} } }
@@ -17,9 +17,9 @@ export default function makeSignOutController({
 
     try {
       const { email } = _.get(httpRequest, "context.validated");
-      const exists = await getUserByEmail({ email });
+      const exists = await getAdminByEmail({ email });
       if (!exists) {
-        throw new Error(`User by ${email} does not exist`);
+        throw new Error(`Admin by ${email} does not exist`);
       }
 
       return {

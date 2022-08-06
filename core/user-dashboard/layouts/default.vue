@@ -29,8 +29,6 @@ export default {
 </script>
 
 <style scoped>
-.search-wrapper {
-}
 .search-results {
   top: 0%;
   left: 0%;

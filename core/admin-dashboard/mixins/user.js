@@ -25,22 +25,23 @@ export default {
   },
   computed: {
     ...mapGetters({
-      me: "auth/me",
-      user: "auth/user",
+      user: "user/user",
+      users: "user/users",
     }),
-
-    authenticated() {
-      return !_.isEmpty(this.me);
-    },
   },
   methods: {
     ...mapActions({
-      SIGN_IN: "auth/SIGN_IN",
-      SIGN_OUT: "auth/SIGN_OUT",
+      GET_USERS: "user/GET_USERS",
+      GET_USER: "user/GET_USER",
+      CREATE_USER: "user/CREATE_USER",
+      UPDATE_USER: "user/UPDATE_USER",
+      DELETE_USER: "user/DELETE_USER",
+      UPLOAD_USER_AVATAR: "user/UPLOAD_USER_AVATAR",
+      HARD_DELETE_USER: "user/HARD_DELETE_USER",
     }),
     ...mapMutations({
-      SET_USER: "auth/SET_USER",
-      UPDATE_USER_DATA: "auth/UPDATE_USER_DATA",
+      SET_USER: "user/SET_USER",
+      SET_USERS: "user/SET_USERS",
     }),
 
     updateUserObject({ variable_path, data }) {

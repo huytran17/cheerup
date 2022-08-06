@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { Request } from "express";
-import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
+import { IGetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email";
 import { IGenerateAccessToken } from "../../../../config/accessTokenManager/generate-access-token";
 import { IVerifyPassword } from "../../../../config/password/verify-password";
 import { Logger } from "winston";
@@ -11,12 +11,12 @@ export type ILoginData = {
 };
 
 export default function makeSignInController({
-  getUserByEmail,
+  getAdminByEmail,
   generateAccessToken,
   verifyPassword,
   logger,
 }: {
-  getUserByEmail: IGetUserByEmail;
+  getAdminByEmail: IGetAdminByEmail;
   generateAccessToken: IGenerateAccessToken;
   verifyPassword: IVerifyPassword;
   logger: Logger;
@@ -32,9 +32,9 @@ export default function makeSignInController({
       const payload: ILoginData = _.get(httpRequest, "context.validated");
       const { email, password } = payload;
 
-      const exists = await getUserByEmail({ email });
+      const exists = await getAdminByEmail({ email });
       if (!exists) {
-        throw new Error(`User by ${email} does not exist`);
+        throw new Error(`Admin by ${email} does not exist`);
       }
 
       const valid_password = await verifyPassword({

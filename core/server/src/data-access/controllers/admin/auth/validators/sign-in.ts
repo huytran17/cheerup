@@ -1,5 +1,5 @@
 const signInRules = {
   email: "required|email",
-  hash_password: "required|string",
+  password: "required|string",
 };
 export default signInRules;

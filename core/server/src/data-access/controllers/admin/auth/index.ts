@@ -1,35 +1,26 @@
 import makeSignInController from "./sign-in";
 import makeSignOutController from "./sign-out";
-import makeSignUpController from "./sign-up";
 
 import { signUp } from "../../../../use-cases/auth";
 import { hashPassword, verifyPassword } from "../../../../config/password";
-import { getUserByEmail } from "../../../../use-cases/user";
+import { getAdminByEmail } from "../../../../use-cases/admin";
 import { generateAccessToken } from "../../../../config/accessTokenManager";
 import { logger } from "../../../../config/storage/logger";
 
 const signInController = makeSignInController({
-  getUserByEmail,
+  getAdminByEmail,
   generateAccessToken,
   verifyPassword,
   logger,
 });
 
 const signOutController = makeSignOutController({
-  getUserByEmail,
-});
-
-const signUpController = makeSignUpController({
-  signUp,
-  getUserByEmail,
-  hashPassword,
-  logger,
+  getAdminByEmail,
 });
 
 export default Object.freeze({
   signInController,
   signOutController,
-  signUpController,
 });
 
-export { signInController, signOutController, signUpController };
+export { signInController, signOutController };

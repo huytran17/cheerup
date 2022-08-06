@@ -1,22 +1,19 @@
 <template>
-  <v-app class="position-relative">
+  <v-app>
     <v-main>
-      <div class="d-flex h-100">
-        <div class="nav-wrapper h-100">
-          <TheSideNav />
-        </div>
-        <div class="red main-wrapper h-100 w-100">
-          <nuxt />
-        </div>
-      </div>
+      <TheSideNav v-if="authenticated" />
+      <nuxt />
     </v-main>
   </v-app>
 </template>
 
 <script>
+import authMixins from "@/mixins/auth";
 import TheSideNav from "@/components/TheSideNav";
+
 export default {
   name: "DefaultLayout",
+  mixins: [authMixins],
   components: {
     TheSideNav,
   },
@@ -32,6 +29,7 @@ export default {
   min-width: 270px;
   max-width: 270px;
 }
-.main-wrapper {
+.nav-wrapper {
+  min-width: 78px;
 }
 </style>
