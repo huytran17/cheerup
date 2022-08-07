@@ -108,3 +108,6 @@ select:-webkit-autofill:focus {
   max-height: 100%;
   overflow: hidden;
 }
+.app-container {
+  padding: 10px;
+}
