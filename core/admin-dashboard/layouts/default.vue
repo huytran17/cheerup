@@ -22,6 +22,13 @@ export default {
       panel: false,
     };
   },
+  async fetch() {
+    try {
+      await this.GET_ME();
+    } catch (err) {
+      console.error(err);
+    }
+  },
 };
 </script>
 <style scoped>
