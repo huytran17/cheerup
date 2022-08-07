@@ -5,6 +5,7 @@ export default {
   computed: {
     ...mapGetters({
       drawer: "drawer",
+      app_loading: "app_loading",
     }),
     /**
      *
@@ -17,6 +18,7 @@ export default {
   methods: {
     ...mapMutations({
       SET_DRAWER: "SET_DRAWER",
+      SET_APP_LOADING: "SET_APP_LOADING",
     }),
     /**
      *
