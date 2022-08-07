@@ -9,7 +9,7 @@ const actions: ActionTree<UserState, RootState> = {
   async [ActionTypes.GET_USERS]({ commit }, params = {}) {
     const keep_in_store = _.get(params, "keep_in_store", true);
 
-    const { data: users } = await this.$axios.$get("/user/all-users");
+    const { data: users } = await this.$axios.$get("/user");
 
     if (!keep_in_store) {
       return users;

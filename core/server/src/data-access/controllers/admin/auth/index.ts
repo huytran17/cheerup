@@ -1,11 +1,15 @@
 import makeSignInController from "./sign-in";
 import makeSignOutController from "./sign-out";
+import makeGetMeController from "./get-me";
 
-import { signUp } from "../../../../use-cases/auth";
-import { hashPassword, verifyPassword } from "../../../../config/password";
-import { getAdminByEmail } from "../../../../use-cases/admin";
+import { verifyPassword } from "../../../../config/password";
+import { getAdminByEmail, getAdmin } from "../../../../use-cases/admin";
 import { generateAccessToken } from "../../../../config/accessTokenManager";
 import { logger } from "../../../../config/storage/logger";
+
+const getMeController = makeGetMeController({
+  getAdmin,
+});
 
 const signInController = makeSignInController({
   getAdminByEmail,
@@ -21,6 +25,7 @@ const signOutController = makeSignOutController({
 export default Object.freeze({
   signInController,
   signOutController,
+  getMeController,
 });
 
-export { signInController, signOutController };
+export { signInController, signOutController, getMeController };

@@ -9,6 +9,7 @@ import { upload } from "./config/middlewares/file-upload-middleware";
 import { AdminType } from "./database/interfaces/admin";
 import { hashPassword } from "./config/password";
 import swaggerRouter from "./routes/swagger";
+import helmet from "helmet";
 
 import dotenv from "dotenv";
 
@@ -17,6 +18,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors());
+app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());

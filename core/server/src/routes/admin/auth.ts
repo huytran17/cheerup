@@ -1,4 +1,4 @@
-import authenticateUserJWT from "../../config/middlewares/authenticateUserJWT";
+import authenticateAdminJWT from "../../config/middlewares/authenticateAdminJWT";
 import makeValidator from "../../config/middlewares/validator-middleware";
 import express from "express";
 import makeExpressCallback from "../../config/express-callback";
@@ -9,9 +9,16 @@ import {
 import {
   signOutController,
   signInController,
+  getMeController,
 } from "../../data-access/controllers/admin/auth";
 
 const authRouter = express.Router();
+
+authRouter.get(
+  "/me",
+  authenticateAdminJWT(),
+  makeExpressCallback(getMeController)
+);
 
 authRouter.post(
   "/sign-in",
@@ -21,7 +28,7 @@ authRouter.post(
 
 authRouter.post(
   "/sign-out",
-  authenticateUserJWT(),
+  authenticateAdminJWT(),
   makeValidator(signOutRules),
   makeExpressCallback(signOutController)
 );

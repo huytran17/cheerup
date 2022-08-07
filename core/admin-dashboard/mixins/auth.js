@@ -37,6 +37,7 @@ export default {
     ...mapActions({
       SIGN_IN: "auth/SIGN_IN",
       SIGN_OUT: "auth/SIGN_OUT",
+      GET_ME: "auth/GET_ME",
     }),
     ...mapMutations({
       SET_USER: "auth/SET_USER",

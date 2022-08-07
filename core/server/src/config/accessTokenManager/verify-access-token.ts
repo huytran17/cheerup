@@ -14,7 +14,7 @@ export default function makeVerifyAccessToken({
   secret: string;
 }): IVerifyAccessToken {
   return async function verifyAccessToken(payload: string, options?: object) {
-    const decoded = await verify(payload, secret, options);
+    const decoded = verify(payload, secret, options);
     return decoded;
   };
 }
