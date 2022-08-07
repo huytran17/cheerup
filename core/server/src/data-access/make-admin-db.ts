@@ -22,7 +22,7 @@ export default function makeAdminDb({
      * @returns
      */
     async findAll(): Promise<Admin[] | null> {
-      let query_conditions = { deleted_at: null };
+      let query_conditions = Object.assign({});
 
       const existing = await adminDbModel
         .find(query_conditions)
@@ -54,13 +54,14 @@ export default function makeAdminDb({
     }): Promise<PaginatedAdminResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
-      const query_conditions = { deleted_at: undefined };
+      const query_conditions = Object.assign({});
 
       if (query) {
-        Object.defineProperty(query_conditions, "$or", {
-          value: [{ email: { $regex: ".*" + query + ".*", $options: "si" } }],
-          writable: false,
-        });
+        query_conditions["$or"] = [
+          {
+            email: { $regex: ".*" + query + ".*", $options: "si" },
+          },
+        ];
       }
 
       const existing = await adminDbModel

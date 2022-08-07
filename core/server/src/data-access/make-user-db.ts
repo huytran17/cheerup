@@ -22,7 +22,7 @@ export default function makeUserDb({
      * @returns
      */
     async findAll(): Promise<User[] | null> {
-      let query_conditions = { deleted_at: null };
+      let query_conditions = Object.assign({});
 
       const existing = await userDbModel
         .find(query_conditions)
@@ -51,13 +51,14 @@ export default function makeUserDb({
     }): Promise<PaginatedUserResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
-      const query_conditions = { deleted_at: undefined };
+      const query_conditions = Object.assign({});
 
       if (query) {
-        Object.defineProperty(query_conditions, "$or", {
-          value: [{ email: { $regex: ".*" + query + ".*", $options: "si" } }],
-          writable: false,
-        });
+        query_conditions["$or"] = [
+          {
+            email: { $regex: ".*" + query + ".*", $options: "si" },
+          },
+        ];
       }
 
       const existing = await userDbModel
@@ -124,7 +125,7 @@ export default function makeUserDb({
     async findByEmail({ email }: { email: string }): Promise<User | null> {
       const query_conditions = {
         email,
-        deleted_at: undefined,
+        deleted_at: { $in: [undefined, null] },
       };
       const existing = await userDbModel.findOne(query_conditions);
 

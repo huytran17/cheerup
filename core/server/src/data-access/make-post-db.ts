@@ -22,7 +22,7 @@ export default function makePostDb({
      * @returns
      */
     async findAll(): Promise<Post[] | null> {
-      let query_conditions = { deleted_at: null };
+      let query_conditions = Object.assign({});
 
       const existing = await postDbModel
         .find(query_conditions)
@@ -53,13 +53,14 @@ export default function makePostDb({
     }): Promise<PaginatedPostResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
-      const query_conditions = { deleted_at: undefined };
+      const query_conditions = Object.assign({});
 
       if (query) {
-        Object.defineProperty(query_conditions, "$or", {
-          value: [{ email: { $regex: ".*" + query + ".*", $options: "si" } }],
-          writable: false,
-        });
+        query_conditions["$or"] = [
+          {
+            email: { $regex: ".*" + query + ".*", $options: "si" },
+          },
+        ];
       }
 
       const existing = await postDbModel
