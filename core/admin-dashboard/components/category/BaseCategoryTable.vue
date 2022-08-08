@@ -29,13 +29,23 @@
             hide-details
           ></v-text-field>
         </v-card-title>
-        <v-data-table :headers="headers" :items="users" :search="search">
-          <template v-slot:item.full_name="{ item }">
+        <v-data-table :headers="headers" :items="categories" :search="search">
+          <template v-slot:item.title="{ item }">
             <div
               class="text-body-2 primary--text clickable"
-              @click="$router.push(localePath(`/user/${item._id}`))"
+              @click="$router.push(localePath(`/category/${item._id}`))"
             >
-              <span class="app-body">{{ item.full_name }}</span>
+              <span class="app-body">{{ item.title }}</span>
+            </div>
+          </template>
+
+          <template v-slot:item.children="{ item }">
+            <div class="text-body-2">
+              <BaseCategoryChildrenItem
+                v-for="(category, index) in item.children"
+                :key="index"
+                :category="category"
+              />
             </div>
           </template>
 
@@ -61,29 +71,32 @@
 </template>
 
 <script>
-import userMixins from "@/mixins/user";
+import categoryMixins from "@/mixins/category";
 import systemMixins from "@/mixins/system";
 
+import BaseCategoryChildrenItem from "@/components/category/BaseCategoryChildrenItem";
+
 export default {
-  name: "BaseUserTable",
-  mixins: [userMixins, systemMixins],
+  name: "BaseCategoryTable",
+  mixins: [categoryMixins, systemMixins],
+  components: { BaseCategoryChildrenItem },
   props: {
     headers: {
       type: Array,
       default() {
         return [
           {
-            text: "Fullname",
+            text: "Title",
             align: "start",
-            value: "full_name",
+            value: "title",
           },
           {
-            text: "Email",
+            text: "Children",
             align: "start",
-            value: "email",
+            value: "children",
           },
           {
-            text: "Joined At",
+            text: "Created At",
             align: "start",
             value: "created_at",
           },
@@ -106,7 +119,7 @@ export default {
   async fetch() {
     try {
       this.initial_loading = true;
-      await this.GET_USERS();
+      await this.GET_CATEGORIES();
     } catch (err) {
       console.error(err);
     } finally {

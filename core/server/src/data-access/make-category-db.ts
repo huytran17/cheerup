@@ -28,7 +28,7 @@ export default function makeCategoryDb({
         .find(query_conditions)
         .populate({
           path: "children",
-          select: "-_v",
+          select: "-__v",
         })
         .lean({ virtuals: true });
       if (existing) {
