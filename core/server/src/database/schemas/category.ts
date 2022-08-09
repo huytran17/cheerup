@@ -6,6 +6,7 @@ const categorySchema = new Schema(
   {
     title: { type: String, trim: true },
     children: [{ type: Schema.Types.ObjectId, ref: "Category" }],
+    created_by: [{ type: Schema.Types.ObjectId, ref: "Admin" }],
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now },
     deleted_at: { type: Date, default: null },
