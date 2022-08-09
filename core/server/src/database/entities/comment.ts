@@ -1,11 +1,11 @@
 import IComment from "../interfaces/comment";
-import User from "../entities/user";
+import Admin from "../entities/admin";
 import Post from "../entities/post";
 
 export default class Comment implements IComment {
   public readonly _id: string;
   public readonly content: string;
-  public readonly user: User;
+  public readonly created_by: Admin;
   public readonly post: Post;
   public readonly children: Comment[];
   public readonly meta: Record<string, unknown>;
@@ -16,7 +16,7 @@ export default class Comment implements IComment {
   constructor({
     _id,
     content,
-    user,
+    created_by,
     post,
     children,
     meta,
@@ -26,7 +26,7 @@ export default class Comment implements IComment {
   }: IComment) {
     this._id = _id;
     this.content = content;
-    this.user = user;
+    this.created_by = created_by;
     this.post = post;
     this.children = children;
     this.meta = meta;
