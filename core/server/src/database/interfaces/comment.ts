@@ -1,11 +1,11 @@
-import Admin from "../entities/admin";
+import User from "../entities/user";
 import Post from "../entities/post";
 import Comment from "../entities/comment";
 
 export default interface IComment {
   _id: string;
   content: string;
-  created_by: Admin;
+  user: User;
   post: Post;
   children: Comment[];
   meta: {
