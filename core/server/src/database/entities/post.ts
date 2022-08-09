@@ -1,5 +1,5 @@
 import IPost from "../interfaces/post";
-import User from "../entities/user";
+import Admin from "../entities/admin";
 import Category from "../entities/category";
 
 export default class Post implements IPost {
@@ -8,7 +8,7 @@ export default class Post implements IPost {
   public readonly description: string;
   public readonly thumbnail: Record<string, unknown>;
   public readonly content: string;
-  public readonly author: User;
+  public readonly author: Admin;
   public readonly category: Category;
   public readonly meta: {
     views: number;

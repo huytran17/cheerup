@@ -1,4 +1,4 @@
-import User from "../entities/user";
+import Admin from "../entities/admin";
 import Category from "../entities/category";
 
 export default interface IPost {
@@ -7,7 +7,7 @@ export default interface IPost {
   description: string;
   thumbnail: Record<string, unknown>;
   content: string;
-  author: User;
+  author: Admin;
   category: Category;
   meta: {
     views: number;

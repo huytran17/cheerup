@@ -8,7 +8,7 @@ const postSchema = new Schema(
     description: { type: String, trim: true },
     thumbnail: { type: Object },
     content: { type: String, trim: true },
-    author: { type: Schema.Types.ObjectId, ref: "User" },
+    author: { type: Schema.Types.ObjectId, ref: "Admin" },
     categories: [{ type: Schema.Types.ObjectId, ref: "Category" }],
     meta: {
       views: { type: Number, default: 0 },
