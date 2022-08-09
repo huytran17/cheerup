@@ -3,7 +3,10 @@ import makeValidator from "../../config/middlewares/validator-middleware";
 import makeExpressCallback from "../../config/express-callback";
 
 import { deleteCommentRules } from "../../data-access/controllers/admin/comment/validators";
-import { deleteCommentController } from "../../data-access/controllers/admin/comment";
+import {
+  deleteCommentController,
+  getCommentsController,
+} from "../../data-access/controllers/admin/comment";
 
 const commentRouter = express.Router();
 
@@ -12,5 +15,7 @@ commentRouter.delete(
   makeValidator(deleteCommentRules),
   makeExpressCallback(deleteCommentController)
 ); // DONE
+
+commentRouter.get("/", makeExpressCallback(getCommentsController)); // DONE
 
 export default commentRouter;

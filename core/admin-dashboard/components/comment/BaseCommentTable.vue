@@ -7,19 +7,6 @@
         </div>
       </v-col>
 
-      <v-col cols="12" class="pb-0">
-        <div class="d-flex">
-          <v-btn
-            depressed
-            color="primary"
-            tile
-            @click="$router.push(localePath('/user/new'))"
-          >
-            <span v-html="$t('Add New User')"></span>
-          </v-btn>
-        </div>
-      </v-col>
-
       <v-col cols="12">
         <v-card-title>
           <v-text-field
@@ -29,25 +16,16 @@
             hide-details
           ></v-text-field>
         </v-card-title>
-        <v-data-table :headers="headers" :items="posts" :search="search">
-          <template v-slot:item.title="{ item }">
-            <div
-              class="text-body-2 primary--text clickable"
-              @click="$router.push(localePath(`/post/${item._id}`))"
-            >
-              <span class="app-body">{{ item.title }}</span>
+        <v-data-table :headers="headers" :items="comments" :search="search">
+          <template v-slot:item.user="{ item }">
+            <div v-if="item.user" class="text-body-2">
+              <span class="app-body">{{ item.user.full_name }}</span>
             </div>
           </template>
 
-          <template v-slot:item.author="{ item }">
-            <div v-if="item.author" class="text-body-2">
-              <span class="app-body">{{ item.author.full_name }}</span>
-            </div>
-          </template>
-
-          <template v-slot:item.category="{ item }">
-            <div v-if="item.category" class="text-body-2">
-              <span class="app-body">{{ item.category.title }}</span>
+          <template v-slot:item.post="{ item }">
+            <div v-if="item.post" class="text-body-2">
+              <span class="app-body">{{ item.post.title }}</span>
             </div>
           </template>
 
@@ -73,29 +51,24 @@
 </template>
 
 <script>
-import postMixins from "@/mixins/post";
+import commentMixins from "@/mixins/comment";
 import systemMixins from "@/mixins/system";
 
 export default {
-  name: "BasePostTable",
-  mixins: [postMixins, systemMixins],
+  name: "BaseCommentTable",
+  mixins: [commentMixins, systemMixins],
   props: {
     headers: {
       type: Array,
       default() {
         return [
           {
-            text: "Title",
+            text: "Created By",
             align: "start",
-            value: "title",
+            value: "user",
           },
           {
-            text: "Author",
-            align: "start",
-            value: "author",
-          },
-          {
-            text: "Category",
+            text: "On Post",
             align: "start",
             value: "post",
           },
@@ -123,7 +96,7 @@ export default {
   async fetch() {
     try {
       this.initial_loading = true;
-      await this.GET_POSTS();
+      await this.GET_COMMENTS();
     } catch (err) {
       console.error(err);
     } finally {

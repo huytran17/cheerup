@@ -5,7 +5,7 @@
 <script>
 import BasePostTable from "@/components/post/BasePostTable";
 export default {
-  name: "CategoryIndex",
+  name: "PostIndex",
   components: { BasePostTable },
 };
 </script>
