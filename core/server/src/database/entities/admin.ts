@@ -1,4 +1,4 @@
-import IAdmin from "../interfaces/user";
+import IAdmin from "../interfaces/admin";
 
 export default class Admin implements IAdmin {
   public readonly _id: string;
