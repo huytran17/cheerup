@@ -8,7 +8,10 @@ export default interface IComment {
   created_by: Admin;
   post: Post;
   children: Comment[];
-  meta: Record<string, unknown>;
+  meta: {
+    likes: number;
+    dislike: number;
+  };
   created_at: Date;
   updated_at: Date;
   deleted_at: Date;

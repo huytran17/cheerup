@@ -8,7 +8,10 @@ export default class Comment implements IComment {
   public readonly created_by: Admin;
   public readonly post: Post;
   public readonly children: Comment[];
-  public readonly meta: Record<string, unknown>;
+  public readonly meta: {
+    likes: number;
+    dislike: number;
+  };
   public readonly created_at: Date;
   public readonly updated_at: Date;
   public readonly deleted_at: Date;
