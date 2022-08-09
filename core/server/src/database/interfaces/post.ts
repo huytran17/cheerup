@@ -9,7 +9,9 @@ export default interface IPost {
   content: string;
   author: User;
   category: Category;
-  meta: Record<string, unknown>;
+  meta: {
+    views: number;
+  };
   created_at: Date;
   updated_at: Date;
   deleted_at: Date;

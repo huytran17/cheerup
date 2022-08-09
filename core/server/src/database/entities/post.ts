@@ -10,7 +10,9 @@ export default class Post implements IPost {
   public readonly content: string;
   public readonly author: User;
   public readonly category: Category;
-  public readonly meta: Record<string, unknown>;
+  public readonly meta: {
+    views: number;
+  };
   public readonly created_at: Date;
   public readonly updated_at: Date;
   public readonly deleted_at: Date;

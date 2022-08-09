@@ -10,7 +10,9 @@ const postSchema = new Schema(
     content: { type: String, trim: true },
     author: { type: Schema.Types.ObjectId, ref: "User" },
     categories: [{ type: Schema.Types.ObjectId, ref: "Category" }],
-    meta: { type: Object },
+    meta: {
+      views: { type: Number, default: 0 },
+    },
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now },
     deleted_at: { type: Date, default: null },
