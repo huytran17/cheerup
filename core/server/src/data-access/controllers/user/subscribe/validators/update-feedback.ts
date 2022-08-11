@@ -1,5 +1,5 @@
-const updateFeedbackRules = {
+const updateSubscribeRules = {
   _id: ["required", "regex:/^[0-9a-fA-F]{24}$/i"],
 };
 
-export default updateFeedbackRules;
+export default updateSubscribeRules;

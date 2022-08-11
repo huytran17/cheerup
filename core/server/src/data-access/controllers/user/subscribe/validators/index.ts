@@ -1,18 +1,18 @@
-import getFeedbackRules from "./get-subscribe";
-import deleteFeedbackRules from "./delete-subscribe";
-import updateFeedbackRules from "./update-feedback";
-import createFeedbackRules from "./create-subscribe";
+import getSubscribeRules from "./get-subscribe";
+import deleteSubscribeRules from "./delete-subscribe";
+import updateSubscribeRules from "./update-feedback";
+import createSubscribeRules from "./create-subscribe";
 
 export default Object.freeze({
-  getFeedbackRules,
-  deleteFeedbackRules,
-  updateFeedbackRules,
-  createFeedbackRules,
+  getSubscribeRules,
+  deleteSubscribeRules,
+  updateSubscribeRules,
+  createSubscribeRules,
 });
 
 export {
-  getFeedbackRules,
-  deleteFeedbackRules,
-  updateFeedbackRules,
-  createFeedbackRules,
+  getSubscribeRules,
+  deleteSubscribeRules,
+  updateSubscribeRules,
+  createSubscribeRules,
 };

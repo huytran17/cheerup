@@ -1,5 +1,5 @@
-const deleteFeedbackRules = {
+const deleteSubscribeRules = {
   _id: ["required", "regex:/^[0-9a-fA-F]{24}$/i"],
 };
 
-export default deleteFeedbackRules;
+export default deleteSubscribeRules;
