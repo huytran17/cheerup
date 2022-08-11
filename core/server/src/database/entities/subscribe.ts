@@ -1,9 +1,8 @@
 import ISubscribe from "../interfaces/subscribe";
-import User from "./user";
 
 export default class Subscribe implements ISubscribe {
   public readonly _id: string;
-  public readonly user: User;
+  public readonly email: string;
   public readonly is_active: boolean;
   public readonly created_at: Date;
   public readonly updated_at: Date;
@@ -11,14 +10,14 @@ export default class Subscribe implements ISubscribe {
 
   constructor({
     _id,
-    user,
+    email,
     is_active,
     created_at,
     updated_at,
     deleted_at,
   }: ISubscribe) {
     this._id = _id;
-    this.user = user;
+    this.email = email;
     this.is_active = is_active;
     this.created_at = created_at;
     this.updated_at = updated_at;
