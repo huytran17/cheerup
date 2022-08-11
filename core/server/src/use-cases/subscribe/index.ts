@@ -4,7 +4,7 @@ import { logger } from "../../config/storage/logger";
 import { SubscribeDb } from "../../data-access";
 
 import makeGetSubscribe from "./get-subscribe";
-import makeDeleteSubscribe from "./delete-subscribe";
+import makeGetSubscribeByEmail from "./get-subscribe-by-email";
 import makeUpdateSubscribe from "./update-subscribe";
 import makeCreateSubscribe from "./create-subscribe";
 import makeGetSubscribes from "./get-subscribes";
@@ -15,8 +15,10 @@ const getSubscribe = makeGetSubscribe({
   logger,
 });
 
-const deleteSubscribe = makeDeleteSubscribe({
+const getSubscribeByEmail = makeGetSubscribeByEmail({
   subscribeDb: SubscribeDb,
+  redis,
+  logger,
 });
 
 const updateSubscribe = makeUpdateSubscribe({
@@ -35,7 +37,7 @@ const getSubscribes = makeGetSubscribes({
 
 const subscribeServices = Object.freeze({
   getSubscribe,
-  deleteSubscribe,
+  getSubscribeByEmail,
   updateSubscribe,
   getSubscribes,
   createSubscribe,
@@ -45,7 +47,7 @@ export default subscribeServices;
 
 export {
   getSubscribe,
-  deleteSubscribe,
+  getSubscribeByEmail,
   updateSubscribe,
   getSubscribes,
   createSubscribe,

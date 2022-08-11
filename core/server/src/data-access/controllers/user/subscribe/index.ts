@@ -1,9 +1,7 @@
 import {
-  getSubscribe,
   getSubscribeByEmail,
   updateSubscribe,
   createSubscribe,
-  getSubscribes,
 } from "../../../../use-cases/subscribe";
 import { logger } from "../../../../config/storage/logger";
 
@@ -16,15 +14,15 @@ const createSubscribeController = makeCreateSubscribeController({
   logger,
 });
 
-const deleteSubscribeController = makeDeleteSubscribeController({
+const cancelSubscribeController = makeDeleteSubscribeController({
   getSubscribeByEmail,
   updateSubscribe,
   logger,
 });
 
 export default Object.freeze({
-  deleteSubscribeController,
+  cancelSubscribeController,
   createSubscribeController,
 });
 
-export { deleteSubscribeController, createSubscribeController };
+export { cancelSubscribeController, createSubscribeController };
