@@ -5,7 +5,9 @@ import postSchema from "../../database/schemas/post";
 import categorySchema from "../../database/schemas/category";
 import commentSchema from "../../database/schemas/comment";
 import feedbackSchema from "../../database/schemas/feedback";
+import subscribeSchema from "../../database/schemas/subscribe";
 
+import ISubscribe from "../../database/interfaces/subscribe";
 import IUser from "../../database/interfaces/user";
 import IAdmin from "../../database/interfaces/admin";
 import IPost from "../../database/interfaces/post";
@@ -13,6 +15,7 @@ import ICategory from "../../database/interfaces/category";
 import IComment from "../../database/interfaces/comment";
 import IFeedback from "../../database/interfaces/feedback";
 
+type ISubscribeModel = ISubscribe & mongoose.Document;
 type IUserModel = IUser & mongoose.Document;
 type IAdminModel = IAdmin & mongoose.Document;
 type IPostModel = IPost & mongoose.Document;
@@ -24,6 +27,10 @@ type IFeedbackModel = IFeedback & mongoose.Document;
 const FeedbackModel = mongoose.model<IFeedbackModel>(
   "Feedback",
   feedbackSchema
+);
+const SubscribeModel = mongoose.model<ISubscribeModel>(
+  "Subscribe",
+  subscribeSchema
 );
 const UserModel = mongoose.model<IUserModel>("User", userSchema);
 const AdminModel = mongoose.model<IAdminModel>("Admin", adminSchema);
@@ -41,6 +48,7 @@ export default Object.freeze({
   CategoryModel,
   CommentModel,
   FeedbackModel,
+  SubscribeModel,
 });
 
 export {
@@ -50,4 +58,5 @@ export {
   CategoryModel,
   CommentModel,
   FeedbackModel,
+  SubscribeModel,
 };
