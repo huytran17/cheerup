@@ -6,7 +6,9 @@ import categorySchema from "../../database/schemas/category";
 import commentSchema from "../../database/schemas/comment";
 import feedbackSchema from "../../database/schemas/feedback";
 import subscribeSchema from "../../database/schemas/subscribe";
+import systemConfigurationSchema from "../../database/schemas/system-configuration";
 
+import ISystemConfiguration from "../../database/interfaces/system-configuration";
 import ISubscribe from "../../database/interfaces/subscribe";
 import IUser from "../../database/interfaces/user";
 import IAdmin from "../../database/interfaces/admin";
@@ -15,6 +17,7 @@ import ICategory from "../../database/interfaces/category";
 import IComment from "../../database/interfaces/comment";
 import IFeedback from "../../database/interfaces/feedback";
 
+type ISystemConfigurationModel = ISystemConfiguration & mongoose.Document;
 type ISubscribeModel = ISubscribe & mongoose.Document;
 type IUserModel = IUser & mongoose.Document;
 type IAdminModel = IAdmin & mongoose.Document;
@@ -24,6 +27,10 @@ type ICommentModel = IComment & mongoose.Document;
 type IFeedbackModel = IFeedback & mongoose.Document;
 
 // Models
+const SystemConfigurationModel = mongoose.model<ISystemConfigurationModel>(
+  "SystemConfiguration",
+  systemConfigurationSchema
+);
 const FeedbackModel = mongoose.model<IFeedbackModel>(
   "Feedback",
   feedbackSchema
@@ -49,6 +56,7 @@ export default Object.freeze({
   CommentModel,
   FeedbackModel,
   SubscribeModel,
+  SystemConfigurationModel,
 });
 
 export {
@@ -59,4 +67,5 @@ export {
   CommentModel,
   FeedbackModel,
   SubscribeModel,
+  SystemConfigurationModel,
 };
