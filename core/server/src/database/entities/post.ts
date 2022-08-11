@@ -6,6 +6,7 @@ export default class Post implements IPost {
   public readonly _id: string;
   public readonly title: string;
   public readonly description: string;
+  public readonly is_block_comment: boolean;
   public readonly thumbnail: Record<string, unknown>;
   public readonly content: string;
   public readonly author: Admin;
@@ -23,6 +24,7 @@ export default class Post implements IPost {
     description,
     thumbnail,
     content,
+    is_block_comment,
     author,
     category,
     meta,
@@ -34,6 +36,7 @@ export default class Post implements IPost {
     this.title = title;
     this.description = description;
     this.thumbnail = thumbnail;
+    this.is_block_comment = is_block_comment;
     this.content = content;
     this.author = author;
     this.category = category;

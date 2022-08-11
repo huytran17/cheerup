@@ -6,6 +6,7 @@ const postSchema = new Schema(
   {
     title: { type: String, trim: true },
     description: { type: String, trim: true },
+    is_block_comment: { type: Boolean, default: false },
     thumbnail: { type: Object },
     content: { type: String, trim: true },
     author: { type: Schema.Types.ObjectId, ref: "Admin" },
