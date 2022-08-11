@@ -2,12 +2,15 @@ import { ICreateSubscribe } from "../../../../use-cases/subscribe/create-subscri
 import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
+import { IGetSubscribeByEmail } from "../../../../use-cases/subscribe/get-subscribe-by-email";
 
 export default function makeCreateSubscribeController({
   createSubscribe,
+  getSubscribeByEmail,
   logger,
 }: {
   createSubscribe: ICreateSubscribe;
+  getSubscribeByEmail: IGetSubscribeByEmail;
   logger: Logger;
 }) {
   return async function createSubscribeController(
@@ -19,6 +22,12 @@ export default function makeCreateSubscribeController({
 
     try {
       const subscribeDetails = _.get(httpRequest, "context.validated");
+
+      const { email } = subscribeDetails;
+      const exists = await getSubscribeByEmail({ email });
+      if (exists) {
+        throw new Error(`Subscribe by ${email} already exists`);
+      }
 
       const created_subscribe = await createSubscribe({ subscribeDetails });
       return {

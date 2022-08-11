@@ -1,15 +1,15 @@
-import { IGetSubscribe } from "../../../../use-cases/subscribe/get-subscribe";
+import { IGetSubscribeByEmail } from "../../../../use-cases/subscribe/get-subscribe-by-email";
 import { IUpdateSubscribe } from "../../../../use-cases/subscribe/update-subscribe";
 import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
 
-export default function makeUpdateSubscribeController({
-  getSubscribe,
+export default function makeDeleteSubscribeController({
+  getSubscribeByEmail,
   updateSubscribe,
   logger,
 }: {
-  getSubscribe: IGetSubscribe;
+  getSubscribeByEmail: IGetSubscribeByEmail;
   updateSubscribe: IUpdateSubscribe;
   logger: Logger;
 }) {
@@ -22,18 +22,24 @@ export default function makeUpdateSubscribeController({
 
     try {
       const subscribeDetails = _.get(httpRequest, "context.validated");
-      const { _id } = subscribeDetails;
-      const exists = await getSubscribe({ _id });
+      const { email } = subscribeDetails;
+      const exists = await getSubscribeByEmail({ email });
       if (!exists) {
-        throw new Error(`Subscribe by ${_id} does not exist`);
+        throw new Error(`Subscribe by ${email} does not exist`);
       }
 
-      const updated_subscribe = await updateSubscribe({ subscribeDetails });
+      const final_updated_data = Object.assign({}, exists, {
+        is_active: false,
+      });
+
+      const canceled_subscribe = await updateSubscribe({
+        subscribeDetails: final_updated_data,
+      });
       return {
         headers,
         statusCode: 200,
         body: {
-          data: updated_subscribe,
+          data: canceled_subscribe,
         },
       };
     } catch (err) {
