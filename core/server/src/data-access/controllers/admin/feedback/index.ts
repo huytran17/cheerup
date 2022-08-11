@@ -1,8 +1,6 @@
 import {
   getFeedback,
   deleteFeedback,
-  updateFeedback,
-  createFeedback,
   getFeedbacks,
 } from "../../../../use-cases/feedback";
 import { logger } from "../../../../config/storage/logger";
