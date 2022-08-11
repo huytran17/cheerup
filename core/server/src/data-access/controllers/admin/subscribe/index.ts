@@ -2,7 +2,7 @@ import { getSubscribe, getSubscribes } from "../../../../use-cases/subscribe";
 import { logger } from "../../../../config/storage/logger";
 
 import makeGetSubscribeController from "./get-subscribe";
-import makeGetSubscribesController from "./get-subscribes";
+import makeGetSubscribesController from "./get-subcribes";
 
 const getSubscribesController = makeGetSubscribesController({
   getSubscribes,
