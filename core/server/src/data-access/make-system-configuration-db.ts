@@ -30,8 +30,6 @@ export default function makeSystemConfigurationDb({
 
       const existing = await systemConfigurationModel
         .findById(_id)
-        .populate("author", "-_v")
-        .populate("category", "-_v")
         .lean({ virtuals: true });
 
       if (existing) {
@@ -45,8 +43,6 @@ export default function makeSystemConfigurationDb({
     ): Promise<SystemConfiguration | null> {
       const result = await systemConfigurationModel
         .findOneAndUpdate({ _id: payload._id }, payload)
-        .populate("author", "-_v")
-        .populate("category", "-_v")
         .lean({ virtuals: true });
 
       const updated = await systemConfigurationModel
