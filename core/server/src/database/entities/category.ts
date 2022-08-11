@@ -3,6 +3,7 @@ import Admin from "../entities/admin";
 
 export default class Category implements ICategory {
   public readonly _id: string;
+  public readonly thumbnail: Record<string, unknown>;
   public readonly title: string;
   public readonly children: Category[];
   public readonly created_by: Admin;
@@ -15,6 +16,7 @@ export default class Category implements ICategory {
     title,
     children,
     created_at,
+    thumbnail,
     updated_at,
     deleted_at,
     created_by,
@@ -22,6 +24,7 @@ export default class Category implements ICategory {
     this._id = _id;
     this.title = title;
     this.children = children;
+    this.thumbnail = thumbnail;
     this.created_at = created_at;
     this.updated_at = updated_at;
     this.deleted_at = deleted_at;

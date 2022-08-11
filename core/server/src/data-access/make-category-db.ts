@@ -30,6 +30,10 @@ export default function makeCategoryDb({
           path: "children",
           select: "-__v",
         })
+        .populate({
+          path: "created_by",
+          select: "-__v",
+        })
         .lean({ virtuals: true });
       if (existing) {
         return existing.map((category) => new Category(category));
@@ -69,6 +73,10 @@ export default function makeCategoryDb({
         .populate({
           path: "children",
           select: "-_v",
+        })
+        .populate({
+          path: "created_by",
+          select: "-__v",
         })
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)
@@ -120,6 +128,10 @@ export default function makeCategoryDb({
           path: "children",
           select: "-_v",
         })
+        .populate({
+          path: "created_by",
+          select: "-__v",
+        })
         .lean({ virtuals: true });
 
       if (existing) {
@@ -134,6 +146,10 @@ export default function makeCategoryDb({
         .populate({
           path: "children",
           select: "-_v",
+        })
+        .populate({
+          path: "created_by",
+          select: "-__v",
         })
         .lean({ virtuals: true });
 
@@ -189,6 +205,10 @@ export default function makeCategoryDb({
         .populate({
           path: "children",
           select: "-_v",
+        })
+        .populate({
+          path: "created_by",
+          select: "-__v",
         })
         .lean({ virtuals: true });
 
