@@ -5,6 +5,7 @@ import makeAdminDb from "./make-admin-db";
 import makeCategoryDb from "./make-category-db";
 import makeCommentDb from "./make-comment-db";
 import makePostDb from "./make-post-db";
+import makeFeedbackDb from "./make-feedback-db";
 
 import {
   UserModel,
@@ -12,8 +13,10 @@ import {
   CategoryModel,
   CommentModel,
   PostModel,
+  FeedbackModel,
 } from "./models";
 
+const FeedbackDb = makeFeedbackDb({ feedbackDbModel: FeedbackModel, moment });
 const PostDb = makePostDb({ postDbModel: PostModel, moment });
 const CommentDb = makeCommentDb({ commentDbModel: CommentModel, moment });
 const UserDb = makeUserDb({ userDbModel: UserModel, moment });
@@ -29,6 +32,7 @@ export default Object.freeze({
   CategoryDb,
   CommentDb,
   PostDb,
+  FeedbackDb,
 });
 
-export { UserDb, AdminDb, CategoryDb, CommentDb, PostDb };
+export { UserDb, AdminDb, CategoryDb, CommentDb, PostDb, FeedbackDb };
