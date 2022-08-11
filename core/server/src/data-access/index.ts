@@ -7,6 +7,7 @@ import makeCommentDb from "./make-comment-db";
 import makePostDb from "./make-post-db";
 import makeFeedbackDb from "./make-feedback-db";
 import makeSubscribeDb from "./make-subscribe-db";
+import makeSystemConfigurationDb from "./make-system-configuration-db";
 
 import {
   UserModel,
@@ -16,10 +17,15 @@ import {
   PostModel,
   FeedbackModel,
   SubscribeModel,
+  SystemConfigurationModel,
 } from "./models";
 
 const SubscribeDb = makeSubscribeDb({
   subscribeDbModel: SubscribeModel,
+  moment,
+});
+const SystemConfigurationDb = makeSystemConfigurationDb({
+  systemConfigurationModel: SystemConfigurationModel,
   moment,
 });
 const FeedbackDb = makeFeedbackDb({ feedbackDbModel: FeedbackModel, moment });
@@ -40,6 +46,7 @@ export default Object.freeze({
   PostDb,
   FeedbackDb,
   SubscribeDb,
+  SystemConfigurationDb,
 });
 
 export {
@@ -50,4 +57,5 @@ export {
   PostDb,
   FeedbackDb,
   SubscribeDb,
+  SystemConfigurationDb,
 };
