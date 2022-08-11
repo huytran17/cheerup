@@ -26,8 +26,7 @@ export default function makeFeedbackDb({
 
       const existing = await feedbackDbModel
         .find(query_conditions)
-        .populate("author", "-_v")
-        .populate("category", "-_v")
+        .populate("created_by", "-_v")
         .lean({ virtuals: true });
 
       if (existing) {
@@ -65,8 +64,7 @@ export default function makeFeedbackDb({
 
       const existing = await feedbackDbModel
         .find(query_conditions)
-        .populate("author", "-_v")
-        .populate("category", "-_v")
+        .populate("created_by", "-_v")
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)
         .sort({
@@ -113,8 +111,7 @@ export default function makeFeedbackDb({
 
       const existing = await feedbackDbModel
         .findById(_id)
-        .populate("author", "-_v")
-        .populate("category", "-_v")
+        .populate("created_by", "-_v")
         .lean({ virtuals: true });
 
       if (existing) {
@@ -126,8 +123,7 @@ export default function makeFeedbackDb({
     async findOne(): Promise<Feedback | null> {
       const existing = await feedbackDbModel
         .findOne()
-        .populate("author", "-_v")
-        .populate("category", "-_v")
+        .populate("created_by", "-_v")
         .lean({ virtuals: true });
 
       if (existing) {
@@ -179,8 +175,7 @@ export default function makeFeedbackDb({
     async update(payload: Partial<IFeedback>): Promise<Feedback | null> {
       const result = await feedbackDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)
-        .populate("author", "-_v")
-        .populate("category", "-_v")
+        .populate("created_by", "-_v")
         .lean({ virtuals: true });
 
       const updated = await feedbackDbModel
