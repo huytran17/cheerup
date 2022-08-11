@@ -4,20 +4,27 @@ import adminSchema from "../../database/schemas/admin";
 import postSchema from "../../database/schemas/post";
 import categorySchema from "../../database/schemas/category";
 import commentSchema from "../../database/schemas/comment";
+import feedbackSchema from "../../database/schemas/feedback";
 
 import IUser from "../../database/interfaces/user";
 import IAdmin from "../../database/interfaces/admin";
 import IPost from "../../database/interfaces/post";
 import ICategory from "../../database/interfaces/category";
 import IComment from "../../database/interfaces/comment";
+import IFeedback from "../../database/interfaces/feedback";
 
 type IUserModel = IUser & mongoose.Document;
 type IAdminModel = IAdmin & mongoose.Document;
 type IPostModel = IPost & mongoose.Document;
 type ICategoryModel = ICategory & mongoose.Document;
 type ICommentModel = IComment & mongoose.Document;
+type IFeedbackModel = IFeedback & mongoose.Document;
 
 // Models
+const FeedbackModel = mongoose.model<IFeedbackModel>(
+  "Feedback",
+  feedbackSchema
+);
 const UserModel = mongoose.model<IUserModel>("User", userSchema);
 const AdminModel = mongoose.model<IAdminModel>("Admin", adminSchema);
 const PostModel = mongoose.model<IPostModel>("Post", postSchema);
@@ -33,6 +40,14 @@ export default Object.freeze({
   PostModel,
   CategoryModel,
   CommentModel,
+  FeedbackModel,
 });
 
-export { UserModel, AdminModel, PostModel, CategoryModel, CommentModel };
+export {
+  UserModel,
+  AdminModel,
+  PostModel,
+  CategoryModel,
+  CommentModel,
+  FeedbackModel,
+};
