@@ -28,8 +28,6 @@ export default function makeSubscribeDb({
 
       const existing = await subscribeDbModel
         .find(query_conditions)
-        .populate("author", "-_v")
-        .populate("category", "-_v")
         .lean({ virtuals: true });
 
       if (existing) {
@@ -67,8 +65,6 @@ export default function makeSubscribeDb({
 
       const existing = await subscribeDbModel
         .find(query_conditions)
-        .populate("author", "-_v")
-        .populate("category", "-_v")
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)
         .sort({
@@ -115,8 +111,23 @@ export default function makeSubscribeDb({
 
       const existing = await subscribeDbModel
         .findById(_id)
-        .populate("author", "-_v")
-        .populate("category", "-_v")
+        .lean({ virtuals: true });
+
+      if (existing) {
+        return new Subscribe(existing);
+      }
+      return null;
+    }
+
+    async findByEmail({ email }: { email: string }): Promise<Subscribe | null> {
+      const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
+      const is_mongo_id = mongo_id_regex.test(email);
+      if (!is_mongo_id || !email) {
+        return null;
+      }
+
+      const existing = await subscribeDbModel
+        .findOne({ email })
         .lean({ virtuals: true });
 
       if (existing) {
@@ -128,8 +139,6 @@ export default function makeSubscribeDb({
     async findOne(): Promise<Subscribe | null> {
       const existing = await subscribeDbModel
         .findOne()
-        .populate("author", "-_v")
-        .populate("category", "-_v")
         .lean({ virtuals: true });
 
       if (existing) {
@@ -181,8 +190,6 @@ export default function makeSubscribeDb({
     async update(payload: Partial<ISubscribe>): Promise<Subscribe | null> {
       const result = await subscribeDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)
-        .populate("author", "-_v")
-        .populate("category", "-_v")
         .lean({ virtuals: true });
 
       const updated = await subscribeDbModel

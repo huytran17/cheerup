@@ -12,6 +12,7 @@ export default interface ISubscribeDb {
     entries_per_page?: number;
   }) => Promise<PaginatedSubscribeResult | null>;
   findOne: () => Promise<Subscribe | null>;
+  findByEmail: ({ email }: { email: string }) => Promise<Subscribe | null>;
   findById: ({ _id }: { _id: string }) => Promise<Subscribe | null>;
   insert: (payload: Partial<ISubscribe>) => Promise<Subscribe | null>;
   delete: ({ _id }: { _id: string }) => Promise<Subscribe | null>;
