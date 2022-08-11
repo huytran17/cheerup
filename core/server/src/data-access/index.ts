@@ -6,6 +6,7 @@ import makeCategoryDb from "./make-category-db";
 import makeCommentDb from "./make-comment-db";
 import makePostDb from "./make-post-db";
 import makeFeedbackDb from "./make-feedback-db";
+import makeSubscribeDb from "./make-subscribe-db";
 
 import {
   UserModel,
@@ -14,8 +15,13 @@ import {
   CommentModel,
   PostModel,
   FeedbackModel,
+  SubscribeModel,
 } from "./models";
 
+const SubscribeDb = makeSubscribeDb({
+  subscribeDbModel: SubscribeModel,
+  moment,
+});
 const FeedbackDb = makeFeedbackDb({ feedbackDbModel: FeedbackModel, moment });
 const PostDb = makePostDb({ postDbModel: PostModel, moment });
 const CommentDb = makeCommentDb({ commentDbModel: CommentModel, moment });
@@ -33,6 +39,15 @@ export default Object.freeze({
   CommentDb,
   PostDb,
   FeedbackDb,
+  SubscribeDb,
 });
 
-export { UserDb, AdminDb, CategoryDb, CommentDb, PostDb, FeedbackDb };
+export {
+  UserDb,
+  AdminDb,
+  CategoryDb,
+  CommentDb,
+  PostDb,
+  FeedbackDb,
+  SubscribeDb,
+};
