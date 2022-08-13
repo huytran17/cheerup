@@ -8,6 +8,7 @@ import {
   updateCategoryRules,
   createCategoryRules,
   restoreCategoryRules,
+  hardDeleteCategoryRules,
 } from "../../data-access/controllers/admin/category/validators";
 import {
   getCategoryController,
@@ -16,9 +17,16 @@ import {
   createCategoryController,
   getCategoriesController,
   restoreCategoryController,
+  hardDeleteCategoryController,
 } from "../../data-access/controllers/admin/category";
 
 const categoryRouter = express.Router();
+
+categoryRouter.delete(
+  "/:_id",
+  makeValidator(hardDeleteCategoryRules),
+  makeExpressCallback(hardDeleteCategoryController)
+); // DONE
 
 categoryRouter.put(
   "/restore/:_id",
