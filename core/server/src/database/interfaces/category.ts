@@ -1,4 +1,3 @@
-import Category from "../entities/category";
 import Admin from "../entities/admin";
 
 export default interface ICategory {
@@ -6,7 +5,6 @@ export default interface ICategory {
   title: string;
   description: string;
   thumbnail: Record<string, unknown>;
-  children: Category[];
   created_by: Admin;
   created_at: Date;
   updated_at: Date;

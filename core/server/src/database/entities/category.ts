@@ -6,7 +6,6 @@ export default class Category implements ICategory {
   public readonly description: string;
   public readonly thumbnail: Record<string, unknown>;
   public readonly title: string;
-  public readonly children: Category[];
   public readonly created_by: Admin;
   public readonly created_at: Date;
   public readonly updated_at: Date;
@@ -15,7 +14,6 @@ export default class Category implements ICategory {
   constructor({
     _id,
     title,
-    children,
     created_at,
     thumbnail,
     description,
@@ -25,7 +23,6 @@ export default class Category implements ICategory {
   }: ICategory) {
     this._id = _id;
     this.title = title;
-    this.children = children;
     this.thumbnail = thumbnail;
     this.description = description;
     this.created_at = created_at;
