@@ -4,6 +4,7 @@ import {
   updateCategory,
   createCategory,
   getCategories,
+  hardDeleteCategory,
 } from "../../../../use-cases/category";
 import { logger } from "../../../../config/storage/logger";
 
@@ -13,6 +14,13 @@ import makeUpdateCategoryController from "./update-category";
 import makeCreateCategoryController from "./create-category";
 import makeGetCategoriesController from "./get-categories";
 import makeRestoreCategoryController from "./restore-category";
+import makeHardDeleteCategoryController from "./hard-delete-category";
+
+const hardDeleteCategoryController = makeHardDeleteCategoryController({
+  getCategory,
+  deleteCategory,
+  logger,
+});
 
 const restoreCategoryController = makeRestoreCategoryController({
   getCategory,
@@ -54,6 +62,7 @@ export default Object.freeze({
   createCategoryController,
   getCategoriesController,
   restoreCategoryController,
+  hardDeleteCategoryController,
 });
 
 export {
@@ -63,4 +72,5 @@ export {
   createCategoryController,
   getCategoriesController,
   restoreCategoryController,
+  hardDeleteCategoryController,
 };
