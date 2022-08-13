@@ -12,6 +12,13 @@ import makeDeleteCategoryController from "./delete-category";
 import makeUpdateCategoryController from "./update-category";
 import makeCreateCategoryController from "./create-category";
 import makeGetCategoriesController from "./get-categories";
+import makeRestoreCategoryController from "./restore-category";
+
+const restoreCategoryController = makeRestoreCategoryController({
+  getCategory,
+  updateCategory,
+  logger,
+});
 
 const getCategoriesController = makeGetCategoriesController({
   getCategories,
@@ -46,6 +53,7 @@ export default Object.freeze({
   updateCategoryController,
   createCategoryController,
   getCategoriesController,
+  restoreCategoryController,
 });
 
 export {
@@ -54,4 +62,5 @@ export {
   updateCategoryController,
   createCategoryController,
   getCategoriesController,
+  restoreCategoryController,
 };
