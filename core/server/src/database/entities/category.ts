@@ -10,6 +10,7 @@ export default class Category implements ICategory {
   public readonly created_at: Date;
   public readonly updated_at: Date;
   public readonly deleted_at: Date;
+  public readonly last_restored_at: Date;
 
   constructor({
     _id,
@@ -20,6 +21,7 @@ export default class Category implements ICategory {
     updated_at,
     deleted_at,
     created_by,
+    last_restored_at,
   }: ICategory) {
     this._id = _id;
     this.title = title;
@@ -29,5 +31,6 @@ export default class Category implements ICategory {
     this.updated_at = updated_at;
     this.deleted_at = deleted_at;
     this.created_by = created_by;
+    this.last_restored_at = last_restored_at;
   }
 }

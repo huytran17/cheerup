@@ -9,4 +9,5 @@ export default interface ICategory {
   created_at: Date;
   updated_at: Date;
   deleted_at: Date;
+  last_restored_at: Date;
 }
