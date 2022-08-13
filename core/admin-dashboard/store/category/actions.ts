@@ -48,7 +48,7 @@ const actions: ActionTree<CategoryState, RootState> = {
   },
 
   async [ActionTypes.RESTORE_CATEGORY]({ commit }, { id }: { id: string }) {
-    const { data: category } = await this.$axios.$delete(
+    const { data: category } = await this.$axios.$put(
       `/category/restore/${id}`
     );
     return category;
