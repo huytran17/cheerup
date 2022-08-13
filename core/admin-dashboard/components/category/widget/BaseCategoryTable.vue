@@ -13,7 +13,12 @@
         <template v-slot:item.title="{ item }">
           <div
             class="text-body-2 primary--text clickable"
-            @click="$router.push(localePath(`/category/${item._id}`))"
+            @click="
+              () => {
+                SET_CATEGORY({ data: item });
+                $router.push(localePath(`/category/${item._id}`));
+              }
+            "
           >
             <span class="app-body">{{ item.title }}</span>
           </div>

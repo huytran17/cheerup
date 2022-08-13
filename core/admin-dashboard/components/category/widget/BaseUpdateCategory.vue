@@ -4,6 +4,7 @@
       <v-col cols="12" sm="12">
         <v-text-field
           :rules="titleRules"
+          :value="category.title"
           :label="$t('Title')"
           @input="
             updateCategoryObject({ variable_path: 'title', data: $event })
@@ -15,6 +16,7 @@
       <v-col cols="12">
         <v-textarea
           :label="$t('Description')"
+          :value="category.description"
           @change="
             updateCategoryObject({
               variable_path: 'description',
@@ -30,9 +32,9 @@
           depressed
           color="primary"
           :disabled="!form_valid"
-          @click="createCategory"
+          @click="updateCategory"
         >
-          <span v-html="$t('Create')"></span>
+          <span v-html="$t('Update')"></span>
         </v-btn>
       </v-col>
     </v-row>
@@ -43,7 +45,7 @@
 import categoryMixins from "@/mixins/category";
 
 export default {
-  name: "BaseCreateCategory",
+  name: "BaseUpdateCategory",
   mixins: [categoryMixins],
   data() {
     return {
@@ -51,11 +53,10 @@ export default {
     };
   },
   methods: {
-    async createCategory() {
+    async updateCategory() {
       const created_category = await this.CREATE_CATEGORY({
         data: this.category,
       });
-      this.SET_CATEGORY({ data: created_category });
       this.$router.push(this.localePath(`/category/${created_category._id}`));
     },
   },
