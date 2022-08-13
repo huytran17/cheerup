@@ -23,7 +23,7 @@ import {
 const categoryRouter = express.Router();
 
 categoryRouter.delete(
-  "/:_id",
+  "/hard-delete/:_id",
   makeValidator(hardDeleteCategoryRules),
   makeExpressCallback(hardDeleteCategoryController)
 ); // DONE

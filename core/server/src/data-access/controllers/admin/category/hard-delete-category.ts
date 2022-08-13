@@ -1,16 +1,16 @@
 import { IGetCategory } from "../../../../use-cases/category/get-category";
-import { IDeleteCategory } from "../../../../use-cases/category/delete-category";
+import { IHardDeleteCategory } from "../../../../use-cases/category/hard-delete-category";
 import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
 
 export default function makeHardDeleteCategoryController({
   getCategory,
-  deleteCategory,
+  hardDeleteCategory,
   logger,
 }: {
   getCategory: IGetCategory;
-  deleteCategory: IDeleteCategory;
+  hardDeleteCategory: IHardDeleteCategory;
   logger: Logger;
 }) {
   return async function hardDeleteCategoryController(
@@ -28,7 +28,7 @@ export default function makeHardDeleteCategoryController({
         throw new Error(`Category by ${_id} does not exist`);
       }
 
-      const deleted_category = await deleteCategory({ _id });
+      const deleted_category = await hardDeleteCategory({ _id });
       return {
         headers,
         statusCode: 200,

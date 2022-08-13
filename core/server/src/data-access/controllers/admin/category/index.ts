@@ -18,7 +18,7 @@ import makeHardDeleteCategoryController from "./hard-delete-category";
 
 const hardDeleteCategoryController = makeHardDeleteCategoryController({
   getCategory,
-  deleteCategory,
+  hardDeleteCategory,
   logger,
 });
 
