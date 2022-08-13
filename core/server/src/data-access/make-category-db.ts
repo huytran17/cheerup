@@ -27,12 +27,11 @@ export default function makeCategoryDb({
       const existing = await categoryDbModel
         .find(query_conditions)
         .populate({
-          path: "children",
-          select: "-__v",
-        })
-        .populate({
           path: "created_by",
           select: "-__v",
+        })
+        .sort({
+          created_at: "desc",
         })
         .lean({ virtuals: true });
       if (existing) {
@@ -70,10 +69,6 @@ export default function makeCategoryDb({
 
       const existing = await categoryDbModel
         .find(query_conditions)
-        .populate({
-          path: "children",
-          select: "-_v",
-        })
         .populate({
           path: "created_by",
           select: "-__v",
@@ -125,10 +120,6 @@ export default function makeCategoryDb({
       const existing = await categoryDbModel
         .findById(_id)
         .populate({
-          path: "children",
-          select: "-_v",
-        })
-        .populate({
           path: "created_by",
           select: "-__v",
         })
@@ -143,10 +134,6 @@ export default function makeCategoryDb({
     async findOne(): Promise<Category | null> {
       const existing = await categoryDbModel
         .findOne()
-        .populate({
-          path: "children",
-          select: "-_v",
-        })
         .populate({
           path: "created_by",
           select: "-__v",
@@ -202,10 +189,6 @@ export default function makeCategoryDb({
     async update(payload: Partial<ICategory>): Promise<Category | null> {
       const result = await categoryDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)
-        .populate({
-          path: "children",
-          select: "-_v",
-        })
         .populate({
           path: "created_by",
           select: "-__v",
