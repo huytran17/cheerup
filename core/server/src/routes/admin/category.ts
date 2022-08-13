@@ -21,7 +21,7 @@ import {
 const categoryRouter = express.Router();
 
 categoryRouter.put(
-  "/:_id",
+  "/restore/:_id",
   makeValidator(restoreCategoryRules),
   makeExpressCallback(restoreCategoryController)
 ); // DONE
