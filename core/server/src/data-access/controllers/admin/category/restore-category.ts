@@ -27,9 +27,12 @@ export default function makeRestoreCategoryController({
         throw new Error(`Category by id ${_id} does not exist`);
       }
 
+      const { _id: user_id } = _.get(httpRequest, "context.user");
+
       const updated_category_data = Object.assign({}, exists, {
         deleted_at: null,
         last_restored_at: new Date(),
+        last_restored_by: user_id,
       });
 
       const updated_category = await updateCategory({

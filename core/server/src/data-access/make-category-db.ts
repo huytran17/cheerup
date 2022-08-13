@@ -30,6 +30,14 @@ export default function makeCategoryDb({
           path: "created_by",
           select: "-__v",
         })
+        .populate({
+          path: "last_restored_by",
+          select: "-__v",
+        })
+        .populate({
+          path: "last_deleted_by",
+          seclect: "-__v",
+        })
         .sort({
           created_at: "desc",
         })
@@ -72,6 +80,14 @@ export default function makeCategoryDb({
         .populate({
           path: "created_by",
           select: "-__v",
+        })
+        .populate({
+          path: "last_restored_by",
+          select: "-__v",
+        })
+        .populate({
+          path: "last_deleted_by",
+          seclect: "-__v",
         })
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)
@@ -123,6 +139,14 @@ export default function makeCategoryDb({
           path: "created_by",
           select: "-__v",
         })
+        .populate({
+          path: "last_restored_by",
+          select: "-__v",
+        })
+        .populate({
+          path: "last_deleted_by",
+          seclect: "-__v",
+        })
         .lean({ virtuals: true });
 
       if (existing) {
@@ -137,6 +161,14 @@ export default function makeCategoryDb({
         .populate({
           path: "created_by",
           select: "-__v",
+        })
+        .populate({
+          path: "last_restored_by",
+          select: "-__v",
+        })
+        .populate({
+          path: "last_deleted_by",
+          seclect: "-__v",
         })
         .lean({ virtuals: true });
 
@@ -161,10 +193,16 @@ export default function makeCategoryDb({
       return null;
     }
 
-    async delete({ _id }: { _id: string }): Promise<Category | null> {
+    async delete({
+      _id,
+      deleted_by,
+    }: {
+      _id: string;
+      deleted_by: string;
+    }): Promise<Category | null> {
       const existing = await categoryDbModel.findOneAndUpdate(
         { _id },
-        { deleted_at: new Date() }
+        { deleted_at: new Date(), last_deleted_by: deleted_by }
       );
       const updated = await categoryDbModel
         .findOne({ _id })
@@ -192,6 +230,14 @@ export default function makeCategoryDb({
         .populate({
           path: "created_by",
           select: "-__v",
+        })
+        .populate({
+          path: "last_restored_by",
+          select: "-__v",
+        })
+        .populate({
+          path: "last_deleted_by",
+          seclect: "-__v",
         })
         .lean({ virtuals: true });
 

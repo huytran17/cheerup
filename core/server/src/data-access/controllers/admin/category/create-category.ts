@@ -20,7 +20,15 @@ export default function makeCreateCategoryController({
     try {
       const categoryDetails = _.get(httpRequest, "context.validated");
 
-      const created_category = await createCategory({ categoryDetails });
+      const { _id: user_id } = _.get(httpRequest, "context.user");
+
+      const final_category_data = Object.assign({}, categoryDetails, {
+        created_by: user_id,
+      });
+
+      const created_category = await createCategory({
+        categoryDetails: final_category_data,
+      });
       return {
         headers,
         statusCode: 200,

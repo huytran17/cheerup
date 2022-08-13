@@ -6,6 +6,8 @@ export default interface ICategory {
   description: string;
   thumbnail: Record<string, unknown>;
   created_by: Admin;
+  last_deleted_by: Admin;
+  last_restored_by: Admin;
   created_at: Date;
   updated_at: Date;
   deleted_at: Date;

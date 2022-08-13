@@ -7,6 +7,8 @@ export default class Category implements ICategory {
   public readonly thumbnail: Record<string, unknown>;
   public readonly title: string;
   public readonly created_by: Admin;
+  public readonly last_restored_by: Admin;
+  public readonly last_deleted_by: Admin;
   public readonly created_at: Date;
   public readonly updated_at: Date;
   public readonly deleted_at: Date;
@@ -22,11 +24,15 @@ export default class Category implements ICategory {
     deleted_at,
     created_by,
     last_restored_at,
+    last_deleted_by,
+    last_restored_by,
   }: ICategory) {
     this._id = _id;
     this.title = title;
     this.thumbnail = thumbnail;
+    this.last_deleted_by = last_deleted_by;
     this.description = description;
+    this.last_restored_by = last_restored_by;
     this.created_at = created_at;
     this.updated_at = updated_at;
     this.deleted_at = deleted_at;

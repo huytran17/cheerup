@@ -18,8 +18,6 @@ export default function makeHardDeleteCategory({
     _id: string;
   }): Promise<Category | null> {
     const category = await categoryDb.hardDelete({ _id });
-    console.log("----------");
-
     return category;
   };
 }

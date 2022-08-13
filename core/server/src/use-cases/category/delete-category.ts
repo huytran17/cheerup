@@ -3,8 +3,10 @@ import ICategoryDb from "../../data-access/interfaces/category-db";
 
 export type IDeleteCategory = ({
   _id,
+  deleted_by,
 }: {
   _id: string;
+  deleted_by: string;
 }) => Promise<Category | null>;
 
 export default function makeDeleteCategory({
@@ -14,10 +16,12 @@ export default function makeDeleteCategory({
 }): IDeleteCategory {
   return async function deleteCategory({
     _id,
+    deleted_by,
   }: {
     _id: string;
+    deleted_by: string;
   }): Promise<Category | null> {
-    const category = await categoryDb.delete({ _id });
+    const category = await categoryDb.delete({ _id, deleted_by });
     return category;
   };
 }

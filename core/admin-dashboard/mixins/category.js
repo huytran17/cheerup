@@ -2,6 +2,11 @@ import _ from "lodash";
 import { mapActions, mapMutations, mapGetters } from "vuex";
 
 export default {
+  data() {
+    return {
+      titleRules: [(v) => !!v || this.$t("Title is required.")],
+    };
+  },
   computed: {
     ...mapGetters({
       category: "category/category",
@@ -17,13 +22,15 @@ export default {
       DELETE_CATEGORY: "category/DELETE_CATEGORY",
       UPLOAD_CATEGORY_THUMBNAIL: "category/UPLOAD_CATEGORY_THUMBNAIL",
       HARD_DELETE_CATEGORY: "category/HARD_DELETE_CATEGORY",
+      RESTORE_CATEGORY: "category/RESTORE_CATEGORY",
     }),
     ...mapMutations({
       SET_CATEGORY: "category/SET_CATEGORY",
       SET_CATEGORIES: "category/SET_CATEGORIES",
+      UPDATE_CATEGORY_DATA: "category/UPDATE_CATEGORY_DATA",
     }),
 
-    updateUserObject({ variable_path, data }) {
+    updateCategoryObject({ variable_path, data }) {
       this.UPDATE_CATEGORY_DATA({
         variable_path,
         data,
