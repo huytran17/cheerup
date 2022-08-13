@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const categorySchema = new Schema(
   {
     title: { type: String, trim: true },
+    description: { type: String, trim: true },
     children: [{ type: Schema.Types.ObjectId, ref: "Category" }],
     created_by: [{ type: Schema.Types.ObjectId, ref: "Admin" }],
     thumbnail: { type: Object },

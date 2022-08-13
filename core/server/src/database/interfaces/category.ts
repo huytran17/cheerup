@@ -4,6 +4,7 @@ import Admin from "../entities/admin";
 export default interface ICategory {
   _id: string;
   title: string;
+  description: string;
   thumbnail: Record<string, unknown>;
   children: Category[];
   created_by: Admin;
