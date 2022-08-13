@@ -44,9 +44,13 @@ const actions: ActionTree<CategoryState, RootState> = {
 
   async [ActionTypes.DELETE_CATEGORY]({ commit }, { id }: { id: string }) {
     const { data: category } = await this.$axios.$delete(`/category/${id}`);
+    return category;
+  },
 
-    commit(MutationTypes.SET_CATEGORY, { data: category });
-
+  async [ActionTypes.RESTORE_CATEGORY]({ commit }, { id }: { id: string }) {
+    const { data: category } = await this.$axios.$delete(
+      `/category/restore/${id}`
+    );
     return category;
   },
 
@@ -54,9 +58,6 @@ const actions: ActionTree<CategoryState, RootState> = {
     const { data: category } = await this.$axios.$delete(
       `/category/hard-delete/${id}`
     );
-
-    commit(MutationTypes.SET_CATEGORY, { data: category });
-
     return category;
   },
 
