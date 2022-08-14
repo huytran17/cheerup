@@ -1,26 +1,25 @@
 <template>
   <v-app>
     <v-main>
-      <TheSideNav v-if="authenticated" />
+      <TheSideNav />
       <nuxt />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import authMixins from "@/mixins/auth";
+import { mapActions } from "vuex";
 import TheSideNav from "@/components/TheSideNav";
 
 export default {
   name: "DefaultLayout",
-  mixins: [authMixins],
   components: {
     TheSideNav,
   },
-  data() {
-    return {
-      panel: false,
-    };
+  methods: {
+    ...mapActions({
+      GET_ME: "auth/GET_ME",
+    }),
   },
   async fetch() {
     try {

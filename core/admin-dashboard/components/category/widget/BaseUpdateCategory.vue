@@ -1,5 +1,6 @@
 <template>
-  <v-form v-model="form_valid">
+  <BaseCircularLoader v-if="loading" />
+  <v-form v-else v-model="form_valid">
     <v-row>
       <v-col cols="12" sm="12">
         <v-text-field
@@ -27,6 +28,33 @@
       </v-col>
     </v-row>
     <v-row>
+      <v-col cols="12" sm="6">
+        <v-dropzone
+          ref="thumbnail_dropzone"
+          id="thumbnail"
+          :options="
+            getDropzoneOptions({
+              upload_url: category_upload_thumbnaili_url,
+            })
+          "
+          :destroyDropzone="true"
+          @vdropzone-success="
+            (file, response) => onUploadThumbnailSuccsess({ file, response })
+          "
+        ></v-dropzone>
+      </v-col>
+
+      <v-col cols="12" sm="6">
+        <v-img
+          v-if="category_thumbnail_url"
+          :src="category_thumbnail_url"
+          :alt="category.title"
+          contain
+          max-width="100%"
+        ></v-img>
+      </v-col>
+    </v-row>
+    <v-row>
       <v-col cols="12" class="d-flex justify-end">
         <v-btn
           depressed
@@ -43,14 +71,43 @@
 
 <script>
 import categoryMixins from "@/mixins/category";
+import dropzoneMixins from "@/mixins/dropzone";
+import { S3_UPLOAD_URL_TYPES } from "@/mixins/constants";
+
+import BaseCircularLoader from "@/components/loaders/BaseCircularLoader";
 
 export default {
   name: "BaseUpdateCategory",
-  mixins: [categoryMixins],
+  mixins: [categoryMixins, dropzoneMixins],
+  components: {
+    BaseCircularLoader,
+  },
   data() {
     return {
+      loading: true,
       form_valid: false,
+      category_thumbnail_file: null,
+      dropzone_options: {
+        url: `${process.env.SERVER_URL}/admin/category/upload-thumbnail/${this.$route.params.id}`,
+        thumbnailWidth: 200,
+        maxFilesize: 5,
+        addRemoveLinks: true,
+        maxFiles: 1,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("admin_access_token")}`,
+        },
+      },
     };
+  },
+  computed: {
+    category_upload_thumbnaili_url() {
+      const category_id = _.get(this.category, "_id");
+      return `${S3_UPLOAD_URL_TYPES.CATEGORY}/${category_id}`;
+    },
+
+    category_thumbnail_url() {
+      return _.get(this.category, "thumbnail_url");
+    },
   },
   methods: {
     async updateCategory() {
@@ -59,6 +116,30 @@ export default {
       });
       this.$router.push(this.localePath(`/category/${created_category._id}`));
     },
+
+    onUploadThumbnailSuccsess({ file, response }) {
+      this.$refs.thumbnail_dropzone.removeFile(file);
+
+      const { data: updated_category } = response;
+      const updated_thumbnail_data = Object.assign({}, this.category, {
+        thumbnail: updated_category.thumbnail,
+        thumbnail_url: updated_category.thumbnail_url,
+      });
+
+      this.SET_CATEGORY({ data: updated_thumbnail_data });
+    },
+  },
+
+  async fetch() {
+    try {
+      this.loading = true;
+      const category_id = this.$route.params.id;
+      await this.GET_CATEGORY({ id: category_id });
+    } catch (err) {
+      console.error(err);
+    } finally {
+      this.loading = false;
+    }
   },
 };
 </script>

@@ -34,6 +34,7 @@ export default {
     { src: "~/plugins/axios", ssr: false },
     { src: "~/plugins/vue-toastification", ssr: false },
     { src: "~/plugins/vue-sidebar-menu-akahon", ssr: false },
+    { src: "~/plugins/vue2-dropzone", ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -84,4 +85,12 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  env: {
+    SERVER_URL: process.env.SERVER_URL || "http://localhost:3000",
+    BUCKET_NAME: process.env.BUCKET_NAME || "bucket_name",
+    S3_SECRET_ACCESS_KEY:
+      process.env.S3_SECRET_ACCESS_KEY || "s3_secret_access_key",
+    S3_ACCESS_KEY_ID: process.env.S3_ACCESS_KEY_ID || "s3_access_key_id",
+  },
 };

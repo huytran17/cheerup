@@ -60,21 +60,6 @@ const actions: ActionTree<CategoryState, RootState> = {
     );
     return category;
   },
-
-  async [ActionTypes.UPLOAD_CATEGORY_THUMBNAIL](
-    { commit },
-    { file }: { file: any }
-  ) {
-    const form_data = new FormData();
-    form_data.append("file", file);
-
-    const { data: category } = await this.$axios.$put(
-      `/category/upload-avatar`,
-      form_data
-    );
-
-    return category;
-  },
 };
 
 export default actions;

@@ -15,7 +15,6 @@
             class="text-body-2 primary--text clickable"
             @click="
               () => {
-                SET_CATEGORY({ data: item });
                 $router.push(localePath(`/category/${item._id}`));
               }
             "
@@ -202,6 +201,7 @@ export default {
       search: "",
       initial_loading: true,
       is_open_hard_delete_dialog: false,
+      date: "",
     };
   },
 
