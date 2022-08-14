@@ -9,6 +9,7 @@ const postSchema = new Schema(
     is_block_comment: { type: Boolean, default: false },
     thumbnail: { type: Object },
     content: { type: String, trim: true },
+    source: { type: String, trim: true },
     author: { type: Schema.Types.ObjectId, ref: "Admin" },
     categories: [{ type: Schema.Types.ObjectId, ref: "Category" }],
     meta: {

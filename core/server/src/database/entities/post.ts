@@ -9,6 +9,7 @@ export default class Post implements IPost {
   public readonly is_block_comment: boolean;
   public readonly thumbnail: Record<string, unknown>;
   public readonly content: string;
+  public readonly source: string;
   public readonly author: Admin;
   public readonly category: Category;
   public readonly meta: {
@@ -28,6 +29,7 @@ export default class Post implements IPost {
     author,
     category,
     meta,
+    source,
     created_at,
     updated_at,
     deleted_at,
@@ -41,6 +43,7 @@ export default class Post implements IPost {
     this.author = author;
     this.category = category;
     this.meta = meta;
+    this.source = source;
     this.created_at = created_at;
     this.updated_at = updated_at;
     this.deleted_at = deleted_at;
