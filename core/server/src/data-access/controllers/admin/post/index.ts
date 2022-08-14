@@ -12,6 +12,12 @@ import makeDeletePostController from "./delete-post";
 import makeUpdatePostController from "./update-post";
 import makeCreatePostController from "./create-post";
 import makeGetPostsController from "./get-posts";
+import makeUploadPostThumbnailController from "./upload-post-thumbnail";
+
+const uploadPostThumbnailController = makeUploadPostThumbnailController({
+  getPost,
+  updatePost,
+});
 
 const getPostsController = makeGetPostsController({
   getPosts,
@@ -46,6 +52,7 @@ export default Object.freeze({
   updatePostController,
   createPostController,
   getPostsController,
+  uploadPostThumbnailController,
 });
 
 export {
@@ -54,4 +61,5 @@ export {
   updatePostController,
   createPostController,
   getPostsController,
+  uploadPostThumbnailController,
 };
