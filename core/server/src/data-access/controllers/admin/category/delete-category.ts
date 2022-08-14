@@ -33,6 +33,7 @@ export default function makeDeleteCategoryController({
       const deleted_category = await deleteCategory({
         _id,
         deleted_by: user_id,
+        last_deleted_by: user_id,
       });
       return {
         headers,
