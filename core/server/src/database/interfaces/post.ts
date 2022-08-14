@@ -9,9 +9,6 @@ export default interface IPost {
   thumbnail: Record<string, unknown>;
   content: string;
   author: Admin;
-  last_deleted_by: Admin;
-  last_restored_by: Admin;
-  last_restored_at: Date;
   category: Category;
   meta: {
     views: number;

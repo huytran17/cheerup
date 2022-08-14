@@ -14,13 +14,7 @@ export default interface IPostDb {
   findOne: () => Promise<Post | null>;
   findById: ({ _id }: { _id: string }) => Promise<Post | null>;
   insert: (payload: Partial<IPost>) => Promise<Post | null>;
-  delete: ({
-    _id,
-    last_deleted_by,
-  }: {
-    _id: string;
-    last_deleted_by: string;
-  }) => Promise<Post | null>;
+  delete: ({ _id }: { _id: string }) => Promise<Post | null>;
   hardDelete: ({ _id }: { _id: string }) => Promise<Post | null>;
   update: (updatePayload: Partial<IPost>) => Promise<Post | null>;
 }

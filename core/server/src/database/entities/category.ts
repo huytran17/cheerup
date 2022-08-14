@@ -8,12 +8,9 @@ export default class Category implements ICategory {
   public readonly title: string;
   public readonly thumbnail_url: string;
   public readonly created_by: Admin;
-  public readonly last_restored_by: Admin;
-  public readonly last_deleted_by: Admin;
   public readonly created_at: Date;
   public readonly updated_at: Date;
   public readonly deleted_at: Date;
-  public readonly last_restored_at: Date;
 
   constructor({
     _id,
@@ -24,22 +21,16 @@ export default class Category implements ICategory {
     updated_at,
     deleted_at,
     created_by,
-    last_restored_at,
-    last_deleted_by,
-    last_restored_by,
     thumbnail_url,
   }: ICategory) {
     this._id = _id;
     this.title = title;
     this.thumbnail = thumbnail;
-    this.last_deleted_by = last_deleted_by;
     this.description = description;
-    this.last_restored_by = last_restored_by;
     this.created_at = created_at;
     this.updated_at = updated_at;
     this.deleted_at = deleted_at;
     this.created_by = created_by;
-    this.last_restored_at = last_restored_at;
     this.thumbnail_url = thumbnail_url;
   }
 }

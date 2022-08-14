@@ -1,19 +1,19 @@
 import { IGetPost } from "../../../../use-cases/post/get-post";
-import { IDeletePost } from "../../../../use-cases/post/delete-post";
+import { IUpdatePost } from "../../../../use-cases/post/update-post";
 import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
 
-export default function makeDeletePostController({
+export default function makeUnBlockPostCommentController({
   getPost,
-  deletePost,
+  updatePost,
   logger,
 }: {
   getPost: IGetPost;
-  deletePost: IDeletePost;
+  updatePost: IUpdatePost;
   logger: Logger;
 }) {
-  return async function deletePostController(
+  return async function unBlockPostCommentController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
@@ -21,22 +21,25 @@ export default function makeDeletePostController({
     };
 
     try {
-      const postDetails = _.get(httpRequest, "context.validated");
-      const { _id } = postDetails;
+      const { _id } = _.get(httpRequest, "context.validated");
       const exists = await getPost({ _id });
       if (!exists) {
         throw new Error(`Post by ${_id} does not exist`);
       }
 
-      const deleted_post = await deletePost({
-        _id,
+      const final_post_details = Object.assign({}, exists, {
+        is_block_comment: false,
+      });
+
+      const updated_post = await updatePost({
+        postDetails: final_post_details,
       });
 
       return {
         headers,
         statusCode: 200,
         body: {
-          data: deleted_post,
+          data: updated_post,
         },
       };
     } catch (err) {

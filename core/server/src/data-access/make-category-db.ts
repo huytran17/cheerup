@@ -193,16 +193,10 @@ export default function makeCategoryDb({
       return null;
     }
 
-    async delete({
-      _id,
-      last_deleted_by,
-    }: {
-      _id: string;
-      last_deleted_by: string;
-    }): Promise<Category | null> {
+    async delete({ _id }: { _id: string }): Promise<Category | null> {
       const existing = await categoryDbModel.findOneAndUpdate(
         { _id },
-        { deleted_at: new Date(), last_deleted_by }
+        { deleted_at: new Date() }
       );
       const updated = await categoryDbModel
         .findOne({ _id })

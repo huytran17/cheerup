@@ -14,13 +14,7 @@ export default interface ICategoryDb {
   findOne: () => Promise<Category | null>;
   findById: ({ _id }: { _id: string }) => Promise<Category | null>;
   insert: (payload: Partial<ICategory>) => Promise<Category | null>;
-  delete: ({
-    _id,
-    last_deleted_by,
-  }: {
-    _id: string;
-    last_deleted_by: string;
-  }) => Promise<Category | null>;
+  delete: ({ _id }: { _id: string }) => Promise<Category | null>;
   hardDelete: ({ _id }: { _id: string }) => Promise<Category | null>;
   update: (updatePayload: Partial<ICategory>) => Promise<Category | null>;
 }
