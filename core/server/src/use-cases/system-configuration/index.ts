@@ -1,4 +1,3 @@
-import { redis } from "../../config/storage/redis";
 import { logger } from "../../config/storage/logger";
 
 import { SystemConfigurationDb } from "../../data-access";
@@ -8,7 +7,6 @@ import makeUpdateSystemConfiguration from "./update-system-configuraion";
 
 const getSystemConfiguration = makeGetSystemConfiguration({
   systemConfigurationDb: SystemConfigurationDb,
-  redis,
   logger,
 });
 

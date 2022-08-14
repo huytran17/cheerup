@@ -1,4 +1,3 @@
-import { redis } from "../../config/storage/redis";
 import { logger } from "../../config/storage/logger";
 
 import { FeedbackDb } from "../../data-access";
@@ -11,7 +10,6 @@ import makeGetFeedbacks from "./get-feedbacks";
 
 const getFeedback = makeGetFeedback({
   feedbackDb: FeedbackDb,
-  redis,
   logger,
 });
 
@@ -29,7 +27,6 @@ const createFeedback = makeCreateFeedback({
 
 const getFeedbacks = makeGetFeedbacks({
   feedbackDb: FeedbackDb,
-  redis,
   logger,
 });
 

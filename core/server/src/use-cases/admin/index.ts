@@ -1,4 +1,3 @@
-import { redis } from "../../config/storage/redis";
 import { logger } from "../../config/storage/logger";
 
 import { AdminDb } from "../../data-access";
@@ -10,7 +9,6 @@ import makeUpdateAdmin from "./update-admin";
 
 const getAdmin = makeGetAdmin({
   adminDb: AdminDb,
-  redis,
   logger,
 });
 

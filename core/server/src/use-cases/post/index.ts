@@ -1,4 +1,3 @@
-import { redis } from "../../config/storage/redis";
 import { logger } from "../../config/storage/logger";
 
 import { PostDb } from "../../data-access";
@@ -11,7 +10,6 @@ import makeGetPosts from "./get-posts";
 
 const getPost = makeGetPost({
   postDb: PostDb,
-  redis,
   logger,
 });
 
@@ -29,7 +27,6 @@ const createPost = makeCreatePost({
 
 const getPosts = makeGetPosts({
   postDb: PostDb,
-  redis,
   logger,
 });
 

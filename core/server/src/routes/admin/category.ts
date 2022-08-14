@@ -1,6 +1,7 @@
 import express from "express";
 import makeValidator from "../../config/middlewares/validator-middleware";
 import makeExpressCallback from "../../config/express-callback";
+import { upload } from "../../config/middlewares/file-upload-middleware";
 
 import {
   getCategoryRules,
@@ -9,6 +10,7 @@ import {
   createCategoryRules,
   restoreCategoryRules,
   hardDeleteCategoryRules,
+  uploadCategoryThumbnailRules,
 } from "../../data-access/controllers/admin/category/validators";
 import {
   getCategoryController,
@@ -18,9 +20,17 @@ import {
   getCategoriesController,
   restoreCategoryController,
   hardDeleteCategoryController,
+  uploadCategoryThumbnailController,
 } from "../../data-access/controllers/admin/category";
 
 const categoryRouter = express.Router();
+
+categoryRouter.post(
+  "/upload-thumbnail/:_id",
+  upload.single("file"),
+  makeValidator(uploadCategoryThumbnailRules),
+  makeExpressCallback(uploadCategoryThumbnailController)
+);
 
 categoryRouter.delete(
   "/hard-delete/:_id",

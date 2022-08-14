@@ -7,6 +7,7 @@ import {
   hardDeleteCategory,
 } from "../../../../use-cases/category";
 import { logger } from "../../../../config/storage/logger";
+import mongoose from "mongoose";
 
 import makeGetCategoryController from "./get-category";
 import makeDeleteCategoryController from "./delete-category";
@@ -15,6 +16,15 @@ import makeCreateCategoryController from "./create-category";
 import makeGetCategoriesController from "./get-categories";
 import makeRestoreCategoryController from "./restore-category";
 import makeHardDeleteCategoryController from "./hard-delete-category";
+import makeUploadCategoryThumbnailController from "./upload-category-thumbnail";
+
+const uploadCategoryThumbnailController = makeUploadCategoryThumbnailController(
+  {
+    getCategory,
+    updateCategory,
+    mongoose,
+  }
+);
 
 const hardDeleteCategoryController = makeHardDeleteCategoryController({
   getCategory,
@@ -63,6 +73,7 @@ export default Object.freeze({
   getCategoriesController,
   restoreCategoryController,
   hardDeleteCategoryController,
+  uploadCategoryThumbnailController,
 });
 
 export {
@@ -73,4 +84,5 @@ export {
   getCategoriesController,
   restoreCategoryController,
   hardDeleteCategoryController,
+  uploadCategoryThumbnailController,
 };

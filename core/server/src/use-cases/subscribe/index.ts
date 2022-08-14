@@ -1,4 +1,3 @@
-import { redis } from "../../config/storage/redis";
 import { logger } from "../../config/storage/logger";
 
 import { SubscribeDb } from "../../data-access";
@@ -11,13 +10,11 @@ import makeGetSubscribes from "./get-subscribes";
 
 const getSubscribe = makeGetSubscribe({
   subscribeDb: SubscribeDb,
-  redis,
   logger,
 });
 
 const getSubscribeByEmail = makeGetSubscribeByEmail({
   subscribeDb: SubscribeDb,
-  redis,
   logger,
 });
 
@@ -31,7 +28,6 @@ const createSubscribe = makeCreateSubscribe({
 
 const getSubscribes = makeGetSubscribes({
   subscribeDb: SubscribeDb,
-  redis,
   logger,
 });
 

@@ -1,4 +1,3 @@
-import { redis } from "../../config/storage/redis";
 import { logger } from "../../config/storage/logger";
 
 import { CategoryDb } from "../../data-access";
@@ -20,7 +19,6 @@ const createCategory = makeCreateCategory({
 
 const getCategory = makeGetCategory({
   categoryDb: CategoryDb,
-  redis,
   logger,
 });
 
@@ -34,7 +32,6 @@ const updateCategory = makeUpdateCategory({
 
 const getCategories = makeGetCategories({
   categoryDb: CategoryDb,
-  redis,
   logger,
 });
 

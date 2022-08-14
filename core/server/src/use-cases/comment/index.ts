@@ -1,4 +1,3 @@
-import { redis } from "../../config/storage/redis";
 import { logger } from "../../config/storage/logger";
 
 import { CommentDb } from "../../data-access";
@@ -11,13 +10,11 @@ import makeCreateComment from "./create-comment";
 
 const createComment = makeCreateComment({
   commentDb: CommentDb,
-  redis,
   logger,
 });
 
 const getComment = makeGetComment({
   commentDb: CommentDb,
-  redis,
   logger,
 });
 
@@ -31,7 +28,6 @@ const updateComment = makeUpdateComment({
 
 const getComments = makeGetComments({
   commentDb: CommentDb,
-  redis,
   logger,
 });
 

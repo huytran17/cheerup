@@ -1,4 +1,3 @@
-import { redis } from "../../config/storage/redis";
 import { logger } from "../../config/storage/logger";
 
 import { UserDb } from "../../data-access";
@@ -11,13 +10,11 @@ import makeGetUsers from "./get-users";
 
 const getUsers = makeGetUsers({
   userDb: UserDb,
-  redis,
   logger,
 });
 
 const getUser = makeGetUser({
   userDb: UserDb,
-  redis,
   logger,
 });
 
