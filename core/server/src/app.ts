@@ -1,4 +1,8 @@
 import express from "express";
+
+import dotenv from "dotenv";
+dotenv.config();
+
 import makeDb from "./data-access/make-db";
 import { UserDb, AdminDb } from "./data-access";
 import cors from "cors";
@@ -9,10 +13,6 @@ import { upload } from "./config/middlewares/file-upload-middleware";
 import { AdminType } from "./database/interfaces/admin";
 import { hashPassword } from "./config/password";
 import helmet from "helmet";
-
-import dotenv from "dotenv";
-
-dotenv.config();
 
 const app = express();
 

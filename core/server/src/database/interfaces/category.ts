@@ -4,6 +4,7 @@ export default interface ICategory {
   _id: string;
   title: string;
   description: string;
+  thumbnail_url: string;
   thumbnail: Record<string, unknown>;
   created_by: Admin;
   last_deleted_by: Admin;

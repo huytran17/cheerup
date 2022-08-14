@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import mongoose_lean_virtuals from "mongoose-lean-virtuals";
+import _ from "lodash";
 
 const Schema = mongoose.Schema;
 
@@ -19,5 +21,12 @@ const categorySchema = new Schema(
     toJSON: { virtuals: true },
   }
 );
+
+categorySchema.virtual("thumbnail_url").get(function () {
+  const thumbnail_location = _.get(this, "thumbnail.meta.location");
+  return thumbnail_location;
+});
+
+categorySchema.plugin(mongoose_lean_virtuals);
 
 export default categorySchema;

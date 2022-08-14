@@ -34,7 +34,6 @@ export default function makeUploadCategoryThumbnailController({
           },
         };
       }
-      console.log("----------------------1");
 
       const file = _.get(httpRequest, "context.file");
       if (!file) {
@@ -47,7 +46,6 @@ export default function makeUploadCategoryThumbnailController({
           },
         };
       }
-      console.log("----------------------2");
 
       const aws_payload = {
         mime_type: file.mimetype,
@@ -68,7 +66,6 @@ export default function makeUploadCategoryThumbnailController({
       const updated_category = await updateCategory({
         categoryDetails: category_details,
       });
-      console.log("----------------------3");
 
       return {
         headers,
