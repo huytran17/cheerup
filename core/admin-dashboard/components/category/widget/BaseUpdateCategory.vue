@@ -100,10 +100,14 @@ export default {
   },
   methods: {
     async updateCategory() {
-      const created_category = await this.CREATE_CATEGORY({
-        data: this.category,
-      });
-      this.$router.push(this.localePath(`/category/${created_category._id}`));
+      try {
+        await this.UPDATE_CATEGORY({
+          data: this.category,
+        });
+      } catch (err) {
+        console.error(err);
+        this.$toast.error("Encountered error while updating category");
+      }
     },
 
     onUploadThumbnailSuccsess({ file, response }) {
