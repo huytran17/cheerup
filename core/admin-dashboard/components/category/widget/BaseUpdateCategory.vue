@@ -72,7 +72,7 @@
 <script>
 import categoryMixins from "@/mixins/category";
 import dropzoneMixins from "@/mixins/dropzone";
-import { S3_UPLOAD_URL_TYPES } from "@/mixins/constants";
+import { S3_UPLOAD_URL_TYPES } from "@/constants";
 
 import BaseCircularLoader from "@/components/loaders/BaseCircularLoader";
 
