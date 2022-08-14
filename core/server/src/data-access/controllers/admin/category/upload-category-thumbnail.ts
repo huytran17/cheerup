@@ -1,17 +1,14 @@
 import { Request } from "express";
 import * as _ from "lodash";
-import { Mongoose } from "mongoose";
 import { IGetCategory } from "../../../../use-cases/category/get-category";
 import { IUpdateCategory } from "../../../../use-cases/category/update-category";
 
 export default function makeUploadCategoryThumbnailController({
   getCategory,
   updateCategory,
-  mongoose,
 }: {
   getCategory: IGetCategory;
   updateCategory: IUpdateCategory;
-  mongoose: Mongoose;
 }) {
   return async function uploadCategoryThumbnailController(
     httpRequest: Request & { context: { validated: {} } }

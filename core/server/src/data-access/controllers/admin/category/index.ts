@@ -22,7 +22,6 @@ const uploadCategoryThumbnailController = makeUploadCategoryThumbnailController(
   {
     getCategory,
     updateCategory,
-    mongoose,
   }
 );
 
