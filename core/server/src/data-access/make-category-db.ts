@@ -195,14 +195,14 @@ export default function makeCategoryDb({
 
     async delete({
       _id,
-      deleted_by,
+      last_deleted_by,
     }: {
       _id: string;
-      deleted_by: string;
+      last_deleted_by: string;
     }): Promise<Category | null> {
       const existing = await categoryDbModel.findOneAndUpdate(
         { _id },
-        { deleted_at: new Date(), last_deleted_by: deleted_by }
+        { deleted_at: new Date(), last_deleted_by }
       );
       const updated = await categoryDbModel
         .findOne({ _id })

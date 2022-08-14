@@ -16,10 +16,10 @@ export default interface ICategoryDb {
   insert: (payload: Partial<ICategory>) => Promise<Category | null>;
   delete: ({
     _id,
-    deleted_by,
+    last_deleted_by,
   }: {
     _id: string;
-    deleted_by: string;
+    last_deleted_by: string;
   }) => Promise<Category | null>;
   hardDelete: ({ _id }: { _id: string }) => Promise<Category | null>;
   update: (updatePayload: Partial<ICategory>) => Promise<Category | null>;
