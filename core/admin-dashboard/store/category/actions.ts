@@ -35,7 +35,8 @@ const actions: ActionTree<CategoryState, RootState> = {
   },
 
   async [ActionTypes.UPDATE_CATEGORY]({ commit }, { data }: { data: any }) {
-    const { data: category } = await this.$axios.$put(`/category`, data);
+    const { _id } = data;
+    const { data: category } = await this.$axios.$put(`/category/${_id}`, data);
 
     commit(MutationTypes.SET_CATEGORY, { data: category });
 

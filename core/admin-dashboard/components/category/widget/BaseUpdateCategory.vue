@@ -108,6 +108,7 @@ export default {
         await this.UPDATE_CATEGORY({
           data: this.category,
         });
+        this.$toast.success("Updated category successfully");
       } catch (err) {
         console.error(err);
         this.$toast.error("Encountered error while updating category");
@@ -124,6 +125,7 @@ export default {
       });
 
       this.SET_CATEGORY({ data: updated_thumbnail_data });
+      this.$toast.success("Updated category successfully");
     },
   },
 
