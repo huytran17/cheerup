@@ -1,5 +1,9 @@
 <template>
-  <BaseCircularLoader v-if="loading" />
+  <v-row v-if="loading">
+    <v-col cols="12" class="d-flex justify-center">
+      <BaseCircularLoader />
+    </v-col>
+  </v-row>
   <v-form v-else v-model="form_valid">
     <v-row>
       <v-col cols="12" sm="12">
