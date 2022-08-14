@@ -86,17 +86,6 @@ export default {
     return {
       loading: true,
       form_valid: false,
-      category_thumbnail_file: null,
-      dropzone_options: {
-        url: `${process.env.SERVER_URL}/admin/category/upload-thumbnail/${this.$route.params.id}`,
-        thumbnailWidth: 200,
-        maxFilesize: 5,
-        addRemoveLinks: true,
-        maxFiles: 1,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("admin_access_token")}`,
-        },
-      },
     };
   },
   computed: {
