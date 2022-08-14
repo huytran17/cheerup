@@ -17,6 +17,9 @@ const postSchema = new Schema(
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now },
     deleted_at: { type: Date, default: null },
+    last_deleted_by: { type: Schema.Types.ObjectId, ref: "Admin" },
+    last_restored_by: { type: Schema.Types.ObjectId, ref: "Admin" },
+    last_restored_at: { type: Date, default: null },
   },
   {
     toJSON: {
