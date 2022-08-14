@@ -19,16 +19,18 @@
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-textarea
-          :label="$t('Description')"
-          :value="category.description"
-          @change="
-            updateCategoryObject({
-              variable_path: 'description',
-              data: $event,
-            })
+        <div class="text-body-2 mb-2">
+          <span class="app-body">
+            <span v-html="$t('Description')"></span>
+          </span>
+        </div>
+        <TiptapEditor
+          :content="category"
+          attr="description"
+          @on-input="
+            updateCategoryObject({ variable_path: 'description', data: $event })
           "
-        ></v-textarea>
+        />
       </v-col>
     </v-row>
     <v-row>

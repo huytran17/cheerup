@@ -13,15 +13,18 @@
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-textarea
-          :label="$t('Description')"
-          @change="
-            updateCategoryObject({
-              variable_path: 'description',
-              data: $event,
-            })
+        <div class="text-body-2 mb-2">
+          <span class="app-body">
+            <span v-html="$t('Description')"></span>
+          </span>
+        </div>
+        <TiptapEditor
+          :content="category"
+          attr="description"
+          @on-input="
+            updateCategoryObject({ variable_path: 'description', data: $event })
           "
-        ></v-textarea>
+        />
       </v-col>
     </v-row>
     <v-row>
@@ -52,11 +55,17 @@ export default {
   },
   methods: {
     async createCategory() {
-      const created_category = await this.CREATE_CATEGORY({
-        data: this.category,
-      });
-      this.SET_CATEGORY({ data: created_category });
-      this.$router.push(this.localePath(`/category/${created_category._id}`));
+      try {
+        const created_category = await this.CREATE_CATEGORY({
+          data: this.category,
+        });
+        this.SET_CATEGORY({ data: created_category });
+        this.$toast.success("Created category successfully");
+        this.$router.push(this.localePath(`/category/${created_category._id}`));
+      } catch (err) {
+        console.error(err);
+        this.$toast.error("Encountered error while creating category");
+      }
     },
   },
 };

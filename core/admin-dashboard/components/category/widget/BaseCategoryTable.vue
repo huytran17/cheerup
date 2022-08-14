@@ -47,34 +47,6 @@
           </div>
         </template>
 
-        <template v-slot:item.last_restored_at="{ item }">
-          <div v-if="item.last_restored_at" class="text-body-2">
-            <span class="app-body">{{
-              formatDate(item.last_restored_at, "DD-MM-YYYY HH:mm")
-            }}</span>
-          </div>
-        </template>
-
-        <template v-slot:item.last_deleted_by="{ item }">
-          <div
-            v-if="item.last_deleted_by"
-            class="text-body-2 primary--text"
-            @click="$router.push(`/admin/view/${item.last_deleted_by._id}`)"
-          >
-            <span class="app-body">{{ item.last_deleted_by.full_name }}</span>
-          </div>
-        </template>
-
-        <template v-slot:item.last_restored_by="{ item }">
-          <div
-            v-if="item.last_restored_by"
-            class="text-body-2 primary--text"
-            @click="$router.push(`/admin/view/${item.last_restored_by._id}`)"
-          >
-            <span class="app-body">{{ item.last_restored_by.full_name }}</span>
-          </div>
-        </template>
-
         <template v-slot:item.actions="{ item }">
           <div v-if="item.deleted_at">
             <v-tooltip left>
@@ -141,11 +113,12 @@ import categoryMixins from "@/mixins/category";
 import systemMixins from "@/mixins/system";
 
 import BaseHardDeleteCategoryDialog from "@/components/category/widget/BaseHardDeleteCategoryDialog";
+import TiptapEditor from "@/components/TiptapEditor";
 
 export default {
   name: "BaseCategoryTable",
   mixins: [categoryMixins, systemMixins],
-  components: { BaseHardDeleteCategoryDialog },
+  components: { BaseHardDeleteCategoryDialog, TiptapEditor },
   props: {
     headers: {
       type: Array,
@@ -162,29 +135,9 @@ export default {
             value: "created_at",
           },
           {
-            text: "Last Updated At",
+            text: "Updated At",
             align: "start",
             value: "updated_at",
-          },
-          {
-            text: "Deleted At",
-            align: "start",
-            value: "deleted_at",
-          },
-          {
-            text: "Last Deleted By",
-            align: "start",
-            value: "last_deleted_by",
-          },
-          {
-            text: "Last Stored At",
-            align: "start",
-            value: "last_restored_at",
-          },
-          {
-            text: "Last Stored By",
-            align: "start",
-            value: "last_restored_by",
           },
           {
             text: "Actions",
@@ -215,7 +168,8 @@ export default {
         this.$toast.success(`Deleted category ${title} successfully`);
         await this.$fetch();
       } catch (err) {
-        this.$toast.error(`Encountered error while deleting category ${title}`);
+        console.error(err);
+        this.$toast.error(`Encountered error while deleting category`);
       }
     },
 
@@ -228,7 +182,8 @@ export default {
         this.$toast.success(`Forever deleted category ${title} successfully`);
         await this.$fetch();
       } catch (err) {
-        this.$toast.error(`Encountered error while deleting category ${title}`);
+        console.error(err);
+        this.$toast.error(`Encountered error while deleting category`);
       } finally {
         this.is_open_hard_delete_dialog = false;
       }
@@ -243,9 +198,8 @@ export default {
         this.$toast.success(`Restored category ${title} successfully`);
         await this.$fetch();
       } catch (err) {
-        this.$toast.error(
-          `Encountered error while restoring category ${title}`
-        );
+        console.error(err);
+        this.$toast.error(`Encountered error while restoring category`);
       }
     },
   },

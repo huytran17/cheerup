@@ -12,7 +12,28 @@ import makeDeletePostController from "./delete-post";
 import makeUpdatePostController from "./update-post";
 import makeCreatePostController from "./create-post";
 import makeGetPostsController from "./get-posts";
+import makeRestorePostController from "./restore-post";
 import makeUploadPostThumbnailController from "./upload-post-thumbnail";
+import makeBlockPostCommentController from "./block-post-comment";
+import makeUnblockPostCommentController from "./unblock-post-comment";
+
+const unblockPostCommentController = makeUnblockPostCommentController({
+  getPost,
+  updatePost,
+  logger,
+});
+
+const blockPostCommentController = makeBlockPostCommentController({
+  getPost,
+  updatePost,
+  logger,
+});
+
+const restorePostController = makeRestorePostController({
+  getPost,
+  updatePost,
+  logger,
+});
 
 const uploadPostThumbnailController = makeUploadPostThumbnailController({
   getPost,
@@ -53,6 +74,9 @@ export default Object.freeze({
   createPostController,
   getPostsController,
   uploadPostThumbnailController,
+  restorePostController,
+  unblockPostCommentController,
+  blockPostCommentController,
 });
 
 export {
@@ -62,4 +86,7 @@ export {
   createPostController,
   getPostsController,
   uploadPostThumbnailController,
+  restorePostController,
+  unblockPostCommentController,
+  blockPostCommentController,
 };

@@ -28,17 +28,33 @@ const actions: ActionTree<PostState, RootState> = {
     return post;
   },
 
+  async [ActionTypes.BLOCK_POST_COMMENT]({ commit }, { id }: { id: string }) {
+    const { data: post } = await this.$axios.$put(`/post/block-comment/${id}`);
+    return post;
+  },
+
+  async [ActionTypes.UNBLOCK_POST_COMMENT]({ commit }, { id }: { id: string }) {
+    const { data: post } = await this.$axios.$put(
+      `/post/un-block-comment/${id}`
+    );
+    return post;
+  },
+
+  async [ActionTypes.RESTORE_POST]({ commit }, { id }: { id: string }) {
+    const { data: post } = await this.$axios.$put(`/post/restore/${id}`);
+    return post;
+  },
+
   async [ActionTypes.CREATE_POST]({ commit }, { data }: { data: any }) {
     const { data: post } = await this.$axios.$post(`/post`, data);
-
     return post;
   },
 
   async [ActionTypes.UPDATE_POST]({ commit }, { data }: { data: any }) {
-    const { data: post } = await this.$axios.$put(`/post`, data);
+    const { _id } = data;
+    const { data: post } = await this.$axios.$put(`/post/${_id}`, data);
 
     commit(MutationTypes.SET_POST, { data: post });
-
     return post;
   },
 
@@ -46,7 +62,6 @@ const actions: ActionTree<PostState, RootState> = {
     const { data: post } = await this.$axios.$delete(`/post/${id}`);
 
     commit(MutationTypes.SET_POST, { data: post });
-
     return post;
   },
 
@@ -54,22 +69,6 @@ const actions: ActionTree<PostState, RootState> = {
     const { data: post } = await this.$axios.$delete(`/post/hard-delete/${id}`);
 
     commit(MutationTypes.SET_POST, { data: post });
-
-    return post;
-  },
-
-  async [ActionTypes.UPLOAD_POST_THUMBNAIL](
-    { commit },
-    { file }: { file: any }
-  ) {
-    const form_data = new FormData();
-    form_data.append("file", file);
-
-    const { data: post } = await this.$axios.$put(
-      `/post/upload-avatar`,
-      form_data
-    );
-
     return post;
   },
 };

@@ -11,7 +11,7 @@ export default class Post implements IPost {
   public readonly content: string;
   public readonly source: string;
   public readonly author: Admin;
-  public readonly category: Category;
+  public readonly categories: Category[];
   public readonly meta: {
     views: number;
   };
@@ -27,7 +27,7 @@ export default class Post implements IPost {
     content,
     is_block_comment,
     author,
-    category,
+    categories,
     meta,
     source,
     created_at,
@@ -41,7 +41,7 @@ export default class Post implements IPost {
     this.is_block_comment = is_block_comment;
     this.content = content;
     this.author = author;
-    this.category = category;
+    this.categories = categories;
     this.meta = meta;
     this.source = source;
     this.created_at = created_at;

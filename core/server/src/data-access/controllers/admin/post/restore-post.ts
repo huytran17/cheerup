@@ -27,12 +27,8 @@ export default function makeRestorePostController({
         throw new Error(`Post by id ${_id} does not exist`);
       }
 
-      const { _id: user_id } = _.get(httpRequest, "context.user");
-
       const updated_post_data = Object.assign({}, exists, {
         deleted_at: null,
-        last_restored_at: new Date(),
-        last_restored_by: user_id,
       });
 
       const updated_post = await updatePost({

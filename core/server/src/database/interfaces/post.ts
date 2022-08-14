@@ -10,7 +10,7 @@ export default interface IPost {
   thumbnail: Record<string, unknown>;
   content: string;
   author: Admin;
-  category: Category;
+  categories: Category[];
   meta: {
     views: number;
   };

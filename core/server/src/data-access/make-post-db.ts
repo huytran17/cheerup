@@ -27,7 +27,10 @@ export default function makePostDb({
       const existing = await postDbModel
         .find(query_conditions)
         .populate("author", "-_v")
-        .populate("category", "-_v")
+        .populate("categories", "-_v")
+        .sort({
+          created_at: "desc",
+        })
         .lean({ virtuals: true });
 
       if (existing) {
@@ -66,7 +69,7 @@ export default function makePostDb({
       const existing = await postDbModel
         .find(query_conditions)
         .populate("author", "-_v")
-        .populate("category", "-_v")
+        .populate("categories", "-_v")
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)
         .sort({
@@ -112,7 +115,7 @@ export default function makePostDb({
       const existing = await postDbModel
         .findById(_id)
         .populate("author", "-_v")
-        .populate("category", "-_v")
+        .populate("categories", "-_v")
         .lean({ virtuals: true });
 
       if (existing) {
@@ -125,7 +128,7 @@ export default function makePostDb({
       const existing = await postDbModel
         .findOne()
         .populate("author", "-_v")
-        .populate("category", "-_v")
+        .populate("categories", "-_v")
         .lean({ virtuals: true });
 
       if (existing) {
@@ -178,7 +181,7 @@ export default function makePostDb({
       const result = await postDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)
         .populate("author", "-_v")
-        .populate("category", "-_v")
+        .populate("categories", "-_v")
         .lean({ virtuals: true });
 
       const updated = await postDbModel

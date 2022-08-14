@@ -21,8 +21,7 @@ export default function makeDeletePostController({
     };
 
     try {
-      const postDetails = _.get(httpRequest, "context.validated");
-      const { _id } = postDetails;
+      const { _id } = _.get(httpRequest, "context.validated");
       const exists = await getPost({ _id });
       if (!exists) {
         throw new Error(`Post by ${_id} does not exist`);
