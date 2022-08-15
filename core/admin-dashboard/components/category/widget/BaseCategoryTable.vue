@@ -100,10 +100,11 @@
       </v-data-table>
     </v-col>
 
-    <BaseHardDeleteCategoryDialog
+    <BaseHardDeleteDialog
       :is_open="is_open_hard_delete_dialog"
-      @close-hard-delete-category="is_open_hard_delete_dialog = false"
-      @hard-delete-category="hardDeleteCategory"
+      :data="category"
+      :closeDialog="() => (is_open_hard_delete_dialog = false)"
+      :confirmDelete="() => hardDeleteCategory()"
     />
   </v-row>
 </template>
@@ -112,13 +113,13 @@
 import categoryMixins from "@/mixins/category";
 import systemMixins from "@/mixins/system";
 
-import BaseHardDeleteCategoryDialog from "@/components/category/widget/BaseHardDeleteCategoryDialog";
+import BaseHardDeleteDialog from "@/components/BaseHardDeleteDialog";
 import TiptapEditor from "@/components/TiptapEditor";
 
 export default {
   name: "BaseCategoryTable",
   mixins: [categoryMixins, systemMixins],
-  components: { BaseHardDeleteCategoryDialog, TiptapEditor },
+  components: { BaseHardDeleteDialog, TiptapEditor },
   props: {
     headers: {
       type: Array,

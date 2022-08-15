@@ -145,6 +145,13 @@
         </v-data-table>
       </v-col>
     </v-row>
+
+    <BaseHardDeleteDialog
+      :is_open="is_open_hard_delete_dialog"
+      :data="post"
+      :closeDialog="() => (is_open_hard_delete_dialog = false)"
+      :confirmDelete="() => hardDeletePost()"
+    />
   </div>
 </template>
 
@@ -153,9 +160,14 @@ import { mapMutations } from "vuex";
 import postMixins from "@/mixins/post";
 import systemMixins from "@/mixins/system";
 
+import BaseHardDeleteDialog from "@/components/BaseHardDeleteDialog";
+
 export default {
   name: "BasePostTable",
   mixins: [postMixins, systemMixins],
+  components: {
+    BaseHardDeleteDialog,
+  },
   props: {
     headers: {
       type: Array,
@@ -205,6 +217,7 @@ export default {
     return {
       search: "",
       initial_loading: true,
+      is_open_hard_delete_dialog: false,
     };
   },
 

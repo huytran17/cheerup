@@ -7,6 +7,12 @@ import makeDeletePost from "./delete-post";
 import makeUpdatePost from "./update-post";
 import makeCreatePost from "./create-post";
 import makeGetPosts from "./get-posts";
+import makeHardDeletePost from "./hard-delete-post";
+
+const hardDeletePost = makeHardDeletePost({
+  postDb: PostDb,
+  logger,
+});
 
 const getPost = makeGetPost({
   postDb: PostDb,
@@ -36,8 +42,16 @@ const postServices = Object.freeze({
   updatePost,
   getPosts,
   createPost,
+  hardDeletePost,
 });
 
 export default postServices;
 
-export { getPost, deletePost, updatePost, getPosts, createPost };
+export {
+  getPost,
+  deletePost,
+  updatePost,
+  getPosts,
+  createPost,
+  hardDeletePost,
+};

@@ -67,8 +67,6 @@ const actions: ActionTree<PostState, RootState> = {
 
   async [ActionTypes.HARD_DELETE_POST]({ commit }, { id }: { id: string }) {
     const { data: post } = await this.$axios.$delete(`/post/hard-delete/${id}`);
-
-    commit(MutationTypes.SET_POST, { data: post });
     return post;
   },
 };

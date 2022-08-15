@@ -12,6 +12,7 @@ import {
   restorePostRules,
   blockPostCommentRules,
   unBlockPostCommentRules,
+  hardDeletePostRules,
 } from "../../data-access/controllers/admin/post/validators";
 import {
   getPostController,
@@ -23,9 +24,16 @@ import {
   restorePostController,
   unblockPostCommentController,
   blockPostCommentController,
+  hardDeletePostController,
 } from "../../data-access/controllers/admin/post";
 
 const postRouter = express.Router();
+
+postRouter.delete(
+  "/hard-delete/:_id",
+  makeValidator(hardDeletePostRules),
+  makeExpressCallback(hardDeletePostController)
+); // DONE
 
 postRouter.put(
   "/block-comment/:_id",

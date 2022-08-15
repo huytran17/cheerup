@@ -68,8 +68,6 @@ export default {
   data() {
     // declare extensions you want to use
     return {
-      reply_as_coach: false,
-      local_loading: false,
       extensions: [
         History,
         Blockquote,

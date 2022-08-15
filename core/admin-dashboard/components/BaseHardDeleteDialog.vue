@@ -3,11 +3,7 @@
     <div
       class="d-flex flex-column white soft-box-shadow rounded-lg py-4 px-3 position-relative"
     >
-      <v-btn
-        icon
-        class="close-dialog-btn"
-        @click="$emit('close-hard-delete-post')"
-      >
+      <v-btn icon class="close-dialog-btn" @click="closeDialog">
         <v-icon color="black">mdi-close</v-icon>
       </v-btn>
       <div class="d-flex justify-center pt-5">
@@ -17,8 +13,8 @@
         <span
           class="app-body"
           v-html="
-            $t(`Do you want to delete post {post_title} forever?`, {
-              post_title: post.title,
+            $t(`Do you want to delete category {title} forever?`, {
+              title: data.title,
             })
           "
         ></span>
@@ -30,15 +26,10 @@
         ></span>
       </div>
       <div class="d-flex justify-center mt-4">
-        <v-btn
-          depressed
-          color="primary"
-          text
-          @click="$emit('close-hard-delete-post')"
-        >
+        <v-btn depressed color="primary" text @click="closeDialog">
           <span v-html="$t('Cancel')"></span>
         </v-btn>
-        <v-btn depressed color="error" text @click="$emit('hard-delete-post')">
+        <v-btn depressed color="error" text @click="confirmDelete">
           <span v-html="$t('Confirm')"></span>
         </v-btn>
       </div>
@@ -47,17 +38,26 @@
 </template>
 
 <script>
-import postMixins from "@/mixins/post";
-
 export default {
-  name: "BaseHardDeletePostDialog",
-  mixins: [postMixins],
+  name: "BaseHardDeleteCategoryDialog",
   props: {
     is_open: {
       type: Boolean,
       default() {
         return false;
       },
+    },
+    data: {
+      type: Object,
+      required: true,
+    },
+    closeDialog: {
+      type: Function,
+      required: true,
+    },
+    confirmDelete: {
+      type: Function,
+      required: true,
     },
   },
 };

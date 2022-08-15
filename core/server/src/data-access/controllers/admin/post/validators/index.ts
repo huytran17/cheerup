@@ -6,6 +6,7 @@ import restorePostRules from "./restore-post";
 import blockPostCommentRules from "./block-post-comment";
 import unBlockPostCommentRules from "./unblock-post-comment";
 import uploadPostThumbnailRules from "./upload-post-thumbnail";
+import hardDeletePostRules from "./hard-delete-post";
 
 export default Object.freeze({
   getPostRules,
@@ -16,6 +17,7 @@ export default Object.freeze({
   restorePostRules,
   blockPostCommentRules,
   unBlockPostCommentRules,
+  hardDeletePostRules,
 });
 
 export {
@@ -27,4 +29,5 @@ export {
   restorePostRules,
   blockPostCommentRules,
   unBlockPostCommentRules,
+  hardDeletePostRules,
 };

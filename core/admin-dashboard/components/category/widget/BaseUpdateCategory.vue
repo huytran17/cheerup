@@ -4,75 +4,87 @@
       <BaseCircularLoader />
     </v-col>
   </v-row>
-  <v-form v-else v-model="form_valid">
-    <v-row>
-      <v-col cols="12" sm="12">
-        <v-text-field
-          :rules="titleRules"
-          :value="category.title"
-          :label="$t('Title')"
-          @input="
-            updateCategoryObject({ variable_path: 'title', data: $event })
-          "
-        ></v-text-field>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12">
-        <div class="text-body-2 mb-2">
-          <span class="app-body">
-            <span v-html="$t('Description')"></span>
-          </span>
-        </div>
-        <TiptapEditor
-          :content="category"
-          attr="description"
-          @on-input="
-            updateCategoryObject({ variable_path: 'description', data: $event })
-          "
-        />
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12" sm="6">
-        <v-dropzone
-          ref="thumbnail_dropzone"
-          id="thumbnail"
-          :options="
-            getDropzoneOptions({
-              upload_url: category_upload_thumbnaili_url,
-            })
-          "
-          :destroyDropzone="true"
-          @vdropzone-success="
-            (file, response) => onUploadThumbnailSuccsess({ file, response })
-          "
-        ></v-dropzone>
-      </v-col>
+  <v-row v-else>
+    <v-col cols="12">
+      <v-icon color="black" @click="$router.go(-1)"
+        >mdi-keyboard-backspace</v-icon
+      >
+    </v-col>
+    <v-col cols="12">
+      <v-form v-model="form_valid">
+        <v-row>
+          <v-col cols="12" sm="12">
+            <v-text-field
+              :rules="titleRules"
+              :value="category.title"
+              :label="$t('Title')"
+              @input="
+                updateCategoryObject({ variable_path: 'title', data: $event })
+              "
+            ></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12">
+            <div class="text-body-2 mb-2">
+              <span class="app-body">
+                <span v-html="$t('Description')"></span>
+              </span>
+            </div>
+            <TiptapEditor
+              :content="category"
+              attr="description"
+              @on-input="
+                updateCategoryObject({
+                  variable_path: 'description',
+                  data: $event,
+                })
+              "
+            />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12" sm="6">
+            <v-dropzone
+              ref="thumbnail_dropzone"
+              id="thumbnail"
+              :options="
+                getDropzoneOptions({
+                  upload_url: category_upload_thumbnaili_url,
+                })
+              "
+              :destroyDropzone="true"
+              @vdropzone-success="
+                (file, response) =>
+                  onUploadThumbnailSuccsess({ file, response })
+              "
+            ></v-dropzone>
+          </v-col>
 
-      <v-col cols="12" sm="6">
-        <v-img
-          v-if="category_thumbnail_url"
-          :src="category_thumbnail_url"
-          :alt="category.title"
-          contain
-          max-width="100%"
-        ></v-img>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12" class="d-flex justify-end">
-        <v-btn
-          depressed
-          color="primary"
-          :disabled="!form_valid"
-          @click="updateCategory"
-        >
-          <span v-html="$t('Update')"></span>
-        </v-btn>
-      </v-col>
-    </v-row>
-  </v-form>
+          <v-col cols="12" sm="6">
+            <v-img
+              v-if="category_thumbnail_url"
+              :src="category_thumbnail_url"
+              :alt="category.title"
+              contain
+              max-width="100%"
+            ></v-img>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12" class="d-flex justify-end">
+            <v-btn
+              depressed
+              color="primary"
+              :disabled="!form_valid"
+              @click="updateCategory"
+            >
+              <span v-html="$t('Update')"></span>
+            </v-btn>
+          </v-col>
+        </v-row> </v-form
+    ></v-col>
+  </v-row>
 </template>
 
 <script>

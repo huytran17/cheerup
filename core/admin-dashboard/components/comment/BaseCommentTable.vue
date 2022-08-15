@@ -44,6 +44,27 @@
               }}</span>
             </div>
           </template>
+
+          <template v-slot:item.actions="{ item }">
+            <v-tooltip left>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  icon
+                  v-bind="attrs"
+                  v-on="on"
+                  @click="
+                    () => {
+                      SET_COMMENT({ data: item });
+                      is_open_hard_delete_dialog = true;
+                    }
+                  "
+                >
+                  <v-icon color="error">mdi-delete-off-outline</v-icon>
+                </v-btn>
+              </template>
+              <span v-html="$t('Delete Forever')"></span>
+            </v-tooltip>
+          </template>
         </v-data-table>
       </v-col>
     </v-row>
@@ -81,6 +102,11 @@ export default {
             text: "Last Updated At",
             align: "start",
             value: "updated_at",
+          },
+          {
+            text: "Actions",
+            align: "start",
+            value: "actions",
           },
         ];
       },

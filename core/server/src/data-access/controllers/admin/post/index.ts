@@ -4,6 +4,7 @@ import {
   updatePost,
   createPost,
   getPosts,
+  hardDeletePost,
 } from "../../../../use-cases/post";
 import { logger } from "../../../../config/storage/logger";
 
@@ -16,6 +17,13 @@ import makeRestorePostController from "./restore-post";
 import makeUploadPostThumbnailController from "./upload-post-thumbnail";
 import makeBlockPostCommentController from "./block-post-comment";
 import makeUnblockPostCommentController from "./unblock-post-comment";
+import makeHardDeletePostController from "./hard-delete-post";
+
+const hardDeletePostController = makeHardDeletePostController({
+  getPost,
+  hardDeletePost,
+  logger,
+});
 
 const unblockPostCommentController = makeUnblockPostCommentController({
   getPost,
@@ -77,6 +85,7 @@ export default Object.freeze({
   restorePostController,
   unblockPostCommentController,
   blockPostCommentController,
+  hardDeletePostController,
 });
 
 export {
@@ -89,4 +98,5 @@ export {
   restorePostController,
   unblockPostCommentController,
   blockPostCommentController,
+  hardDeletePostController,
 };
