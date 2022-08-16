@@ -12,6 +12,14 @@ export default interface IComment {
     likes: number;
     dislike: number;
   };
+  reports?: {
+    created_by: User;
+    created_at: Date;
+    reasons: {
+      main_reason: string;
+      other_reason: string;
+    };
+  }[];
   created_at: Date;
   updated_at: Date;
   deleted_at: Date;

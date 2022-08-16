@@ -11,6 +11,18 @@ const commentSchema = new Schema({
     likes: { type: Number, default: 0 },
     dislikes: { type: Number, default: 0 },
   },
+  reports: [
+    {
+      created_by: { type: Schema.Types.ObjectId, ref: "User" },
+      created_at: { type: Date, default: Date.now },
+      reasons: [
+        {
+          main_reason: { type: String, trim: true },
+          other_reason: { type: String, trim: true },
+        },
+      ],
+    },
+  ],
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now },
   deleted_at: { type: Date, default: null },
