@@ -10,7 +10,7 @@
             hide-details
           ></v-text-field>
         </v-card-title>
-        <v-data-table :headers="headers" :items="comments" :search="search">
+        <v-data-table :headers="headers" :items="feedbacks" :search="search">
           <template v-slot:item.user="{ item }">
             <div v-if="item.user" class="text-body-2">
               <span class="app-body">{{ item.user.full_name }}</span>
@@ -48,7 +48,7 @@
                   v-on="on"
                   @click="
                     () => {
-                      SET_COMMENT({ data: item });
+                      SET_FEEDBACK({ data: item });
                       is_open_hard_delete_dialog = true;
                     }
                   "
@@ -65,22 +65,22 @@
 
     <BaseHardDeleteDialog
       :is_open="is_open_hard_delete_dialog"
-      :data="comment"
+      :data="feedback"
       :closeDialog="() => (is_open_hard_delete_dialog = false)"
-      :confirmDelete="() => hardDeleteComment()"
+      :confirmDelete="() => hardDeleteFeedback()"
     />
   </div>
 </template>
 
 <script>
-import commentMixins from "@/mixins/comment";
+import feedbackMixins from "@/mixins/feedback";
 import systemMixins from "@/mixins/system";
 
 import BaseHardDeleteDialog from "@/components/BaseHardDeleteDialog";
 
 export default {
-  name: "BaseCommentTable",
-  mixins: [commentMixins, systemMixins],
+  name: "BaseFeedbackTable",
+  mixins: [feedbackMixins, systemMixins],
   components: {
     BaseHardDeleteDialog,
   },
@@ -132,17 +132,17 @@ export default {
   },
 
   methods: {
-    async hardDeleteComment() {
+    async hardDeleteFeedback() {
       try {
-        const id = _.get(this.comment, "_id");
-        const content = _.get(this.comment, "content");
+        const id = _.get(this.feedback, "_id");
+        const content = _.get(this.feedback, "content");
 
-        await this.HARD_DELETE_COMMENT({ id });
-        this.$toast.success(`Forever deleted comment ${content} successfully`);
+        await this.HARD_DELETE_FEEDBACK({ id });
+        this.$toast.success(`Forever deleted feedback ${content} successfully`);
         await this.$fetch();
       } catch (err) {
         console.error(err);
-        this.$toast.error(`Encountered error while deleting comment`);
+        this.$toast.error(`Encountered error while deleting feedback`);
       } finally {
         this.is_open_hard_delete_dialog = false;
       }
@@ -152,7 +152,7 @@ export default {
   async fetch() {
     try {
       this.initial_loading = true;
-      await this.GET_COMMENTS();
+      await this.GET_FEEDBACKS();
     } catch (err) {
       console.error(err);
     } finally {

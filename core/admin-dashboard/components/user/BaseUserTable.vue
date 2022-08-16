@@ -1,25 +1,6 @@
 <template>
   <div class="app-container">
     <v-row>
-      <v-col cols="12" class="pb-0">
-        <div class="text-h6">
-          <span class="app-title" v-html="$t('Users')"></span>
-        </div>
-      </v-col>
-
-      <v-col cols="12" class="pb-0">
-        <div class="d-flex">
-          <v-btn
-            depressed
-            color="primary"
-            tile
-            @click="$router.push(localePath('/user/new'))"
-          >
-            <span v-html="$t('Add New User')"></span>
-          </v-btn>
-        </div>
-      </v-col>
-
       <v-col cols="12">
         <v-card-title>
           <v-text-field
