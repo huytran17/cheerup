@@ -15,12 +15,6 @@ export default function makeCommentDb({
   moment: any;
 }): ICommentDb {
   return new (class MongooseCommentDb implements ICommentDb {
-    /**
-     * @description used by comment dashboard
-     * FIXME: Currently not in used. To be removed and should never be used.
-     * @param param0
-     * @returns
-     */
     async findAll(): Promise<Comment[] | null> {
       let query_conditions = Object.assign({});
 
@@ -29,6 +23,25 @@ export default function makeCommentDb({
         .populate("children", "-_v")
         .populate("user", "-_v")
         .populate("post", "-_v")
+        .lean({ virtuals: true });
+      if (existing) {
+        return existing.map((comment) => new Comment(comment));
+      }
+
+      return null;
+    }
+
+    async findAllByParent({
+      parent_id,
+    }: {
+      parent_id: string;
+    }): Promise<Comment[] | null> {
+      let query_conditions = Object.assign({
+        parent: parent_id,
+      });
+
+      const existing = await commentDbModel
+        .find(query_conditions)
         .lean({ virtuals: true });
       if (existing) {
         return existing.map((comment) => new Comment(comment));

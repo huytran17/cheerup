@@ -6,6 +6,7 @@ const commentSchema = new Schema({
   content: { type: String, trim: true },
   user: { type: Schema.Types.ObjectId, ref: "User" },
   post: { type: Schema.Types.ObjectId, ref: "Post" },
+  parent: { type: Schema.Types.ObjectId, ref: "Comment" },
   children: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   meta: {
     likes: { type: Number, default: 0 },

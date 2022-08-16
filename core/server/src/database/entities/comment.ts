@@ -15,6 +15,7 @@ export default class Comment implements IComment {
     };
   }[];
   public readonly post: Post;
+  public readonly parent: Comment;
   public readonly children: Comment[];
   public readonly meta: {
     likes: number;

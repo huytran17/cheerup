@@ -8,6 +8,7 @@ export default interface IComment {
   user: User;
   post: Post;
   children: Comment[];
+  parent: Comment;
   meta: {
     likes: number;
     dislike: number;
