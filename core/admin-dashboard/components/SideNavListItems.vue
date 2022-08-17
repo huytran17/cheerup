@@ -64,7 +64,7 @@ export default {
           },
           {
             name: "System Config",
-            link: "/system-config",
+            link: "/system-configuration",
             icon: "bx-cog",
           },
           {

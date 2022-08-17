@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import BaseUserTable from "@/components/user/BaseUserTable";
+import BaseUserTable from "@/components/user/widget/BaseUserTable";
 export default {
   name: "UserIndex",
   components: { BaseUserTable },

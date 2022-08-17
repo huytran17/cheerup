@@ -141,7 +141,7 @@ export default {
   computed: {
     post_upload_thumbnaili_url() {
       const post_id = _.get(this.post, "_id");
-      return `${S3_UPLOAD_URL_TYPES.POST}/${post_id}`;
+      return `${S3_UPLOAD_URL_TYPES.POST_THUMBNAIL}/${post_id}`;
     },
 
     post_thumbnail_url() {

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import BaseFeedbackTable from "@/components/feedback/BaseFeedbackTable";
+import BaseFeedbackTable from "@/components/feedback/widget/BaseFeedbackTable";
 export default {
   name: "FeedbackIndex",
   components: { BaseFeedbackTable },
