@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import _ from "lodash";
 
 const Schema = mongoose.Schema;
 
@@ -25,5 +26,9 @@ const postSchema = new Schema(
     },
   }
 );
+
+postSchema.virtual("thumbnail_url").get(function () {
+  return _.get(this, "thumbnail.meta.location");
+});
 
 export default postSchema;
