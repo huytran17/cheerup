@@ -3,7 +3,7 @@ import IAdmin from "../interfaces/admin";
 export default class Admin implements IAdmin {
   public readonly _id: string;
   public readonly hash_password: string;
-  public readonly aws_avatar?: Record<string, unknown>;
+  public readonly avatar?: Record<string, unknown>;
   public readonly email: string;
   public readonly full_name: string;
   public readonly created_at: Date;
@@ -13,7 +13,7 @@ export default class Admin implements IAdmin {
   constructor({
     _id,
     hash_password,
-    aws_avatar,
+    avatar,
     email,
     full_name,
     created_at,
@@ -21,7 +21,7 @@ export default class Admin implements IAdmin {
     deleted_at,
   }: IAdmin) {
     this._id = _id;
-    this.aws_avatar = aws_avatar;
+    this.avatar = avatar;
     this.hash_password = hash_password;
     this.full_name = full_name;
     this.email = email;
