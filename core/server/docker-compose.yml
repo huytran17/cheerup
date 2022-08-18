@@ -1,0 +1,18 @@
+version: "2.1"
+services:
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - 6379:6379
+  redis-admin:
+    image: erikdubbelboer/phpredisadmin
+    restart: always
+    ports:
+      - 8085:80
+    depends_on:
+      - redis
+    environment:
+      REDIS_1_HOST: redis
+      REDIS_1_NAME: redis
+      REDIS_1_PORT: 6379
