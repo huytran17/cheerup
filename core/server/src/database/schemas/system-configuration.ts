@@ -41,7 +41,7 @@ systemConfigurationSchema.virtual("client_logo_url").get(function () {
   return _.get(this, "client_meta.logo.meta.location");
 });
 
-systemConfigurationSchema.virtual("client_logo_url").get(function () {
+systemConfigurationSchema.virtual("client_favicon_url").get(function () {
   return _.get(this, "client_meta.favicon.meta.location");
 });
 

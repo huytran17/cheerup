@@ -21,6 +21,18 @@ const actions: ActionTree<SystemConfigurationState, RootState> = {
     return system_configuration;
   },
 
+  async [ActionTypes.GET_LATEST_SYSTEM_CONFIGURATION]({ commit }) {
+    const { data: system_configuration } = await this.$axios.$get(
+      `/system-configuration`
+    );
+
+    commit(MutationTypes.SET_SYSTEM_CONFIGURATION, {
+      data: system_configuration,
+    });
+
+    return system_configuration;
+  },
+
   async [ActionTypes.UPDATE_SYSTEM_CONFIGURATION](
     { commit },
     { data }: { data: any }

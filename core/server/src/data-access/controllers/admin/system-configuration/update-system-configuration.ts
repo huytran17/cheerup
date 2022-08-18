@@ -31,8 +31,14 @@ export default function makeUpdateSystemConfigurationController({
         throw new Error(`SystemConfiguration by ${_id} does not exist`);
       }
 
-      const updated_post = await updateSystemConfiguration({
+      const final_system_configuration_details = Object.assign(
+        {},
         systemConfigurationDetails,
+        exists
+      );
+
+      const updated_post = await updateSystemConfiguration({
+        systemConfigurationDetails: final_system_configuration_details,
       });
       return {
         headers,

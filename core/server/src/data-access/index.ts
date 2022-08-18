@@ -25,7 +25,7 @@ const SubscribeDb = makeSubscribeDb({
   moment,
 });
 const SystemConfigurationDb = makeSystemConfigurationDb({
-  systemConfigurationModel: SystemConfigurationModel,
+  systemConfigurationDbModel: SystemConfigurationModel,
   moment,
 });
 const FeedbackDb = makeFeedbackDb({ feedbackDbModel: FeedbackModel, moment });

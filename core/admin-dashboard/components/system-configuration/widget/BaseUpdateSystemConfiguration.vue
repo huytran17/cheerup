@@ -5,17 +5,22 @@
     </v-col>
   </v-row>
   <v-row v-else>
-    <v-col cols="12">
+    <v-col cols="12" class="pl-0">
       <v-icon color="black" @click="$router.go(-1)"
         >mdi-keyboard-backspace</v-icon
       >
     </v-col>
     <v-col cols="12">
       <v-form v-model="form_valid">
-        <v-row class="meta-card">
-          <v-col cols="12" sm="6">
+        <v-row class="soft-box-shadow rounded-lg px-4 py-5">
+          <v-col cols="12" class="py-0">
+            <div class="text-body-1 primary--text">
+              <span class="app-title" v-html="$t('Admin Meta')"></span>
+            </div>
+          </v-col>
+          <v-col cols="12" md="6">
             <v-text-field
-              :value="system_configuration.admin_meta.title"
+              :value="admin_meta_title"
               :rules="titleRules"
               :label="$t('Title')"
               @input="
@@ -26,9 +31,9 @@
               "
             ></v-text-field>
           </v-col>
-          <v-col cols="12" sm="6">
+          <v-col cols="12" md="6">
             <v-text-field
-              :value="system_configuration.admin_meta.description"
+              :value="admin_meta_description"
               :rules="descriptionRules"
               :label="$t('Description')"
               @input="
@@ -39,9 +44,9 @@
               "
             ></v-text-field>
           </v-col>
-          <v-col cols="12" sm="6">
+          <v-col cols="12" md="6">
             <v-text-field
-              :value="system_configuration.admin_meta.author"
+              :value="admin_meta_author"
               :rules="authorRules"
               :label="$t('Author')"
               @input="
@@ -54,7 +59,12 @@
           </v-col>
           <v-col cols="12">
             <v-row>
-              <v-col cols="12" sm="6">
+              <v-col cols="12" md="6">
+                <div class="text-body-2 mb-2">
+                  <span class="app-body">
+                    <span v-html="$t('Logo')"></span>
+                  </span>
+                </div>
                 <v-dropzone
                   ref="admin_logo_dropzone"
                   id="admin_logo"
@@ -79,11 +89,11 @@
                 ></v-dropzone>
               </v-col>
 
-              <v-col cols="12" sm="6">
+              <v-col cols="12" md="6">
                 <v-img
                   v-if="admin_logo_url"
                   :src="admin_logo_url"
-                  :alt="system_configuration.admin_meta.title"
+                  :alt="admin_meta_title"
                   contain
                   max-width="100%"
                 ></v-img>
@@ -92,7 +102,12 @@
           </v-col>
           <v-col cols="12">
             <v-row>
-              <v-col cols="12" sm="6">
+              <v-col cols="12" md="6">
+                <div class="text-body-2 mb-2">
+                  <span class="app-body">
+                    <span v-html="$t('Favicon')"></span>
+                  </span>
+                </div>
                 <v-dropzone
                   ref="admin_favicon_dropzone"
                   id="admin_favicon"
@@ -116,11 +131,11 @@
                   "
                 ></v-dropzone>
               </v-col>
-              <v-col cols="12" sm="6">
+              <v-col cols="12" md="6">
                 <v-img
                   v-if="admin_favicon_url"
                   :src="admin_favicon_url"
-                  :alt="system_configuration.admin_meta.title"
+                  :alt="admin_meta_title"
                   contain
                   max-width="100%"
                 ></v-img>
@@ -129,10 +144,15 @@
           </v-col>
         </v-row>
 
-        <v-row class="meta-card">
-          <v-col cols="12" sm="6">
+        <v-row class="soft-box-shadow rounded-lg mt-8 px-4 py-5">
+          <v-col cols="12" class="py-0">
+            <div class="text-body-1 primary--text">
+              <span class="app-title" v-html="$t('Client Meta')"></span>
+            </div>
+          </v-col>
+          <v-col cols="12" md="6">
             <v-text-field
-              :value="system_configuration.client_meta.title"
+              :value="client_meta_title"
               :rules="titleRules"
               :label="$t('Title')"
               @input="
@@ -143,9 +163,9 @@
               "
             ></v-text-field>
           </v-col>
-          <v-col cols="12" sm="6">
+          <v-col cols="12" md="6">
             <v-text-field
-              :value="system_configuration.client_meta.description"
+              :value="client_meta_description"
               :rules="descriptionRules"
               :label="$t('Description')"
               @input="
@@ -156,9 +176,9 @@
               "
             ></v-text-field>
           </v-col>
-          <v-col cols="12" sm="6">
+          <v-col cols="12" md="6">
             <v-text-field
-              :value="system_configuration.client_meta.author"
+              :value="client_meta_author"
               :rules="authorRules"
               :label="$t('Author')"
               @input="
@@ -169,13 +189,14 @@
               "
             ></v-text-field>
           </v-col>
-          <v-col cols="12" sm="6">
+          <v-col cols="12" md="6">
             <v-combobox
-              :value="system_configuration.client_meta.keywords"
-              :items="system_configuration.client_meta.keywords"
+              :value="client_meta_keywords"
               :label="$t('Keywords')"
               multiple
               chips
+              dense
+              class="mt-2"
               @change="
                 updateSystemConfigurationObject({
                   variable_path: 'client_meta.keywords',
@@ -187,7 +208,12 @@
 
           <v-col cols="12">
             <v-row>
-              <v-col cols="12" sm="6">
+              <v-col cols="12" md="6">
+                <div class="text-body-2 mb-2">
+                  <span class="app-body">
+                    <span v-html="$t('Logo')"></span>
+                  </span>
+                </div>
                 <v-dropzone
                   ref="client_logo_dropzone"
                   id="client_logo"
@@ -212,11 +238,11 @@
                 ></v-dropzone>
               </v-col>
 
-              <v-col cols="12" sm="6">
+              <v-col cols="12" md="6">
                 <v-img
                   v-if="client_logo_url"
                   :src="client_logo_url"
-                  :alt="system_configuration.client_meta.title"
+                  :alt="client_meta_title"
                   contain
                   max-width="100%"
                 ></v-img>
@@ -225,7 +251,12 @@
           </v-col>
           <v-col cols="12">
             <v-row>
-              <v-col cols="12" sm="6">
+              <v-col cols="12" md="6">
+                <div class="text-body-2 mb-2">
+                  <span class="app-body">
+                    <span v-html="$t('Favicon')"></span>
+                  </span>
+                </div>
                 <v-dropzone
                   ref="client_favicon_dropzone"
                   id="client_favicon"
@@ -249,11 +280,11 @@
                   "
                 ></v-dropzone>
               </v-col>
-              <v-col cols="12" sm="6">
+              <v-col cols="12" md="6">
                 <v-img
                   v-if="client_favicon_url"
                   :src="client_favicon_url"
-                  :alt="system_configuration.client_meta.title"
+                  :alt="client_meta_title"
                   contain
                   max-width="100%"
                 ></v-img>
@@ -262,8 +293,53 @@
           </v-col>
         </v-row>
 
+        <v-row class="soft-box-shadow rounded-lg mt-8 px-4 py-5">
+          <v-col cols="12" class="py-0">
+            <div class="text-body-1 primary--text">
+              <span
+                class="app-title"
+                v-html="$t('System Configurations')"
+              ></span>
+            </div>
+          </v-col>
+
+          <v-col cols="12" class="pt-6">
+            <v-checkbox
+              :input-value="system_configuration.is_block_comment"
+              :label="$t('Block comment for all posts')"
+              hide-details
+              class="mt-0"
+              :true-value="true"
+              :false-value="false"
+              @change="
+                updateSystemConfigurationObject({
+                  variable_path: 'is_block_comment',
+                  data: $event,
+                })
+              "
+            ></v-checkbox>
+          </v-col>
+
+          <v-col cols="12" class="pt-0">
+            <v-checkbox
+              :input-value="system_configuration.is_maintaining"
+              :label="$t('Switch to maintaining mode')"
+              hide-details
+              class="mt-0"
+              :true-value="true"
+              :false-value="false"
+              @change="
+                updateSystemConfigurationObject({
+                  variable_path: 'is_maintaining',
+                  data: $event,
+                })
+              "
+            ></v-checkbox>
+          </v-col>
+        </v-row>
+
         <v-row>
-          <v-col cols="12" class="d-flex justify-end">
+          <v-col cols="12" class="d-flex justify-end pr-0">
             <v-btn
               depressed
               color="primary"
@@ -300,44 +376,72 @@ export default {
     };
   },
   computed: {
-    admin_meta_upload_logo_url() {
+    admin_meta_title() {
+      return _.get(this.system_configuration, "admin_meta.title");
+    },
+
+    admin_meta_author() {
+      return _.get(this.system_configuration, "admin_meta.author");
+    },
+
+    admin_meta_description() {
+      return _.get(this.system_configuration, "admin_meta.description");
+    },
+
+    client_meta_keywords() {
+      return _.get(this.system_configuration, "client_meta.keywords");
+    },
+
+    client_meta_title() {
+      return _.get(this.system_configuration, "client_meta.title");
+    },
+
+    client_meta_author() {
+      return _.get(this.system_configuration, "client_meta.author");
+    },
+
+    client_meta_description() {
+      return _.get(this.system_configuration, "client_meta.description");
+    },
+
+    admin_upload_logo_url() {
       return this.getUploadUrl({
         base_url: S3_UPLOAD_URL_TYPES.SYSTEM_CONFIG_ADMIN_META_LOGO,
       });
     },
 
-    client_meta_upload_logo_url() {
+    client_upload_logo_url() {
       return this.getUploadUrl({
         base_url: S3_UPLOAD_URL_TYPES.SYSTEM_CONFIG_CLIENT_META_LOGO,
       });
     },
 
-    admin_meta_upload_favicon_url() {
+    admin_upload_favicon_url() {
       return this.getUploadUrl({
         base_url: S3_UPLOAD_URL_TYPES.SYSTEM_CONFIG_ADMIN_META_FAVICON,
       });
     },
 
-    client_meta_upload_favicon_url() {
+    client_upload_favicon_url() {
       return this.getUploadUrl({
         base_url: S3_UPLOAD_URL_TYPES.SYSTEM_CONFIG_CLIENT_META_FAVICON,
       });
     },
 
     admin_logo_url() {
-      return _.get(this.system_configuration, "admin_meta.logo_url");
+      return _.get(this.system_configuration, "admin_logo_url");
     },
 
     admin_favicon_url() {
-      return _.get(this.system_configuration, "admin_meta.favicon_url");
+      return _.get(this.system_configuration, "admin_favicon_url");
     },
 
     client_logo_url() {
-      return _.get(this.system_configuration, "client_meta.logo_url");
+      return _.get(this.system_configuration, "client_logo_url");
     },
 
-    client_logo_url() {
-      return _.get(this.system_configuration, "client_meta.favicon_url");
+    client_favicon_url() {
+      return _.get(this.system_configuration, "client_favicon_url");
     },
   },
   methods: {
@@ -381,11 +485,7 @@ export default {
   async fetch() {
     try {
       this.loading = true;
-      const system_configuration_id = this.$route.params.id;
-      await Promise.all([
-        await this.GET_SYSTEM_CONFIGURATION({ id: system_configuration_id }),
-        await this.GET_CATEGORIES({ id: system_configuration_id }),
-      ]);
+      await this.GET_LATEST_SYSTEM_CONFIGURATION();
     } catch (err) {
       console.error(err);
     } finally {
@@ -394,5 +494,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

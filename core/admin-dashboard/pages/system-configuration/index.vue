@@ -10,7 +10,7 @@
         </div>
       </v-col>
     </v-row>
-    <v-row>
+    <v-row class="mw-100 mx-auto mr-0">
       <v-col cols="12">
         <BaseUpdateSystemConfiguration />
       </v-col>

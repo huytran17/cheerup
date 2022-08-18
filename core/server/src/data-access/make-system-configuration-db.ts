@@ -5,10 +5,10 @@ import SystemConfiguration from "../database/entities/system-configuration";
 import ISystemConfiguration from "../database/interfaces/system-configuration";
 
 export default function makeSystemConfigurationDb({
-  systemConfigurationModel,
+  systemConfigurationDbModel,
   moment,
 }: {
-  systemConfigurationModel: mongoose.Model<
+  systemConfigurationDbModel: mongoose.Model<
     ISystemConfiguration & mongoose.Document,
     Record<string, unknown>
   >;
@@ -17,6 +17,34 @@ export default function makeSystemConfigurationDb({
   return new (class MongooseSystemConfigurationDb
     implements ISystemConfigurationDb
   {
+    async findOne(): Promise<SystemConfiguration | null> {
+      const existing = await systemConfigurationDbModel
+        .findOne()
+        .lean({ virtuals: true });
+
+      if (existing) {
+        return new SystemConfiguration(existing);
+      }
+
+      return null;
+    }
+
+    async insert(
+      payload: Partial<ISystemConfiguration>
+    ): Promise<SystemConfiguration | null> {
+      const updated_payload = payload;
+
+      const result = await systemConfigurationDbModel.create([updated_payload]);
+      const updated = await systemConfigurationDbModel
+        .findOne({ _id: result[0]?._id })
+        .lean({ virtuals: true });
+
+      if (updated) {
+        return new SystemConfiguration(updated);
+      }
+      return null;
+    }
+
     async findById({
       _id,
     }: {
@@ -28,7 +56,7 @@ export default function makeSystemConfigurationDb({
         return null;
       }
 
-      const existing = await systemConfigurationModel
+      const existing = await systemConfigurationDbModel
         .findById(_id)
         .lean({ virtuals: true });
 
@@ -41,11 +69,11 @@ export default function makeSystemConfigurationDb({
     async update(
       payload: Partial<ISystemConfiguration>
     ): Promise<SystemConfiguration | null> {
-      const result = await systemConfigurationModel
+      const result = await systemConfigurationDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)
         .lean({ virtuals: true });
 
-      const updated = await systemConfigurationModel
+      const updated = await systemConfigurationDbModel
         .findOne({ _id: result?._id })
         .lean({ virtuals: true });
 

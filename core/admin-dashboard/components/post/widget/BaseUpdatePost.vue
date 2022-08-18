@@ -180,8 +180,8 @@ export default {
       this.loading = true;
       const post_id = this.$route.params.id;
       await Promise.all([
-        await this.GET_POST({ id: post_id }),
-        await this.GET_CATEGORIES({ id: post_id }),
+        this.GET_POST({ id: post_id }),
+        this.GET_CATEGORIES({ id: post_id }),
       ]);
     } catch (err) {
       console.error(err);
