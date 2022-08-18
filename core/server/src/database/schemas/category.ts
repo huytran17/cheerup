@@ -20,8 +20,7 @@ const categorySchema = new Schema(
 );
 
 categorySchema.virtual("thumbnail_url").get(function () {
-  const thumbnail_location = _.get(this, "thumbnail.meta.location");
-  return thumbnail_location;
+  return _.get(this, "thumbnail.meta.location");
 });
 
 categorySchema.plugin(mongoose_lean_virtuals);
