@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import _ from "lodash";
+import mongoose_lean_virtuals from "mongoose-lean-virtuals";
 
 const Schema = mongoose.Schema;
 
@@ -43,5 +44,7 @@ systemConfigurationSchema.virtual("client_logo_url").get(function () {
 systemConfigurationSchema.virtual("client_logo_url").get(function () {
   return _.get(this, "client_meta.favicon.meta.location");
 });
+
+systemConfigurationSchema.plugin(mongoose_lean_virtuals);
 
 export default systemConfigurationSchema;

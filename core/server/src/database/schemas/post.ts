@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import _ from "lodash";
+import mongoose_lean_virtuals from "mongoose-lean-virtuals";
 
 const Schema = mongoose.Schema;
 
@@ -30,5 +31,7 @@ const postSchema = new Schema(
 postSchema.virtual("thumbnail_url").get(function () {
   return _.get(this, "thumbnail.meta.location");
 });
+
+postSchema.plugin(mongoose_lean_virtuals);
 
 export default postSchema;

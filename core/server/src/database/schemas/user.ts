@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import _ from "lodash";
+import mongoose_lean_virtuals from "mongoose-lean-virtuals";
 
 const Schema = mongoose.Schema;
 
@@ -22,5 +23,7 @@ const userSchema = new Schema(
 userSchema.virtual("avatar_url").get(function () {
   return _.get(this, "avatar.meta.location");
 });
+
+userSchema.plugin(mongoose_lean_virtuals);
 
 export default userSchema;

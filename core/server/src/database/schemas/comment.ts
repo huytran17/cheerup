@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import mongoose_lean_virtuals from "mongoose-lean-virtuals";
 
 const Schema = mongoose.Schema;
 
@@ -28,5 +29,7 @@ const commentSchema = new Schema({
   updated_at: { type: Date, default: Date.now },
   deleted_at: { type: Date, default: null },
 });
+
+commentSchema.plugin(mongoose_lean_virtuals);
 
 export default commentSchema;

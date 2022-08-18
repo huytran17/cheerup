@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import mongoose_lean_virtuals from "mongoose-lean-virtuals";
 
 const Schema = mongoose.Schema;
 
@@ -14,5 +15,7 @@ const subscribeSchema = new Schema(
     toJSON: { virtuals: true },
   }
 );
+
+subscribeSchema.plugin(mongoose_lean_virtuals);
 
 export default subscribeSchema;
