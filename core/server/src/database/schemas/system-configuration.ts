@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import _ from "lodash";
 
 const Schema = mongoose.Schema;
 
@@ -26,5 +27,21 @@ const systemConfigurationSchema = new Schema(
     toJSON: { virtuals: true },
   }
 );
+
+systemConfigurationSchema.virtual("admin_logo_url").get(function () {
+  return _.get(this, "admin_meta.logo.meta.location");
+});
+
+systemConfigurationSchema.virtual("admin_favicon_url").get(function () {
+  return _.get(this, "admin_meta.favicon.meta.location");
+});
+
+systemConfigurationSchema.virtual("client_logo_url").get(function () {
+  return _.get(this, "client_meta.logo.meta.location");
+});
+
+systemConfigurationSchema.virtual("client_logo_url").get(function () {
+  return _.get(this, "client_meta.favicon.meta.location");
+});
 
 export default systemConfigurationSchema;

@@ -7,14 +7,14 @@ export default interface ISystemConfiguration {
     description: string;
     author: string;
     keywords: string[];
-    logo: Record<string, unknown>;
-    favicon: Record<string, unknown>;
+    logo?: Record<string, unknown>;
+    favicon?: Record<string, unknown>;
   };
   admin_meta: {
     title: string;
     description: string;
     author: string;
-    logo: Record<string, unknown>;
-    favicon: Record<string, unknown>;
+    logo?: Record<string, unknown>;
+    favicon?: Record<string, unknown>;
   };
 }
