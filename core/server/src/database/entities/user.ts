@@ -4,7 +4,7 @@ import Admin from "../entities/admin";
 export default class User implements IUser {
   public readonly _id: string;
   public readonly hash_password: string;
-  public readonly aws_avatar?: Record<string, unknown>;
+  public readonly avatar?: Record<string, unknown>;
   public readonly email: string;
   public readonly full_name: string;
   public readonly created_by: Admin;
@@ -15,7 +15,7 @@ export default class User implements IUser {
   constructor({
     _id,
     hash_password,
-    aws_avatar,
+    avatar,
     email,
     full_name,
     created_at,
@@ -24,7 +24,7 @@ export default class User implements IUser {
     created_by,
   }: IUser) {
     this._id = _id;
-    this.aws_avatar = aws_avatar;
+    this.avatar = avatar;
     this.hash_password = hash_password;
     this.full_name = full_name;
     this.email = email;
