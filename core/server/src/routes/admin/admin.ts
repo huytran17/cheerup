@@ -1,6 +1,7 @@
 import express from "express";
 import makeValidator from "../../config/middlewares/validator-middleware";
 import makeExpressCallback from "../../config/express-callback";
+import { upload } from "../../config/middlewares/file-upload-middleware";
 
 import {
   getAdminRules,
@@ -10,7 +11,9 @@ import {
   disableAutoCensorshipRules,
   enableAutoCensorshipRules,
   restoreAdminRules,
-  hardDeleteAdminRules
+  hardDeleteAdminRules,
+  updateAdminPasswordRules,
+  uploadAdminAvatarRules,
 } from "../../data-access/controllers/admin/admin/validators";
 import {
   getAdminController,
@@ -21,10 +24,25 @@ import {
   disableAutoCensorshipController,
   enableAutoCensorshipController,
   restoreAdminController,
-  hardDeleteAdminController
+  hardDeleteAdminController,
+  updateAdminPasswordController,
+  uploadAdminAvatarController,
 } from "../../data-access/controllers/admin/admin";
 
 const adminRouter = express.Router();
+
+adminRouter.post(
+  "/upload-avatar/:_id",
+  upload.single("file"),
+  makeValidator(uploadAdminAvatarRules),
+  makeExpressCallback(uploadAdminAvatarController)
+);
+
+adminRouter.put(
+  "/password",
+  makeValidator(updateAdminPasswordRules),
+  makeExpressCallback(updateAdminPasswordController)
+);
 
 adminRouter.delete(
   "/hard-delete/:_id",

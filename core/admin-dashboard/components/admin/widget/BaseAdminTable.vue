@@ -17,6 +17,10 @@
               :lazy-src="item.avatar_url"
               :src="item.avatar_url"
               :alt="item.full_name"
+              :width="35"
+              :height="35"
+              contain
+              class="rounded-circle"
             ></v-img>
             <avatar
               v-else-if="item.full_name"
@@ -162,8 +166,9 @@ export default {
         return [
           {
             text: "",
-            align: "start",
+            align: "center",
             value: "avatar",
+            width: 35,
           },
           {
             text: "Fullname",

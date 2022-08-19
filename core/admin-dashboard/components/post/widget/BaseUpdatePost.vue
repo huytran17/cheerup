@@ -86,12 +86,14 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="12" sm="6">
-            <div class="text-body-2 mb-2">
+          <v-col cols="12" class="pb-0">
+            <div class="text-body-2">
               <span class="app-body">
                 <span v-html="$t('Thumbnail')"></span>
               </span>
             </div>
+          </v-col>
+          <v-col cols="12" sm="6">
             <v-dropzone
               ref="thumbnail_dropzone"
               id="thumbnail"

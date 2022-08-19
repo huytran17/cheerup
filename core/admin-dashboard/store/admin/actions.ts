@@ -19,8 +19,21 @@ const actions: ActionTree<AdminState, RootState> = {
     return admins;
   },
 
-  async [ActionTypes.ENABLE_AUTO_CENSORSHIP_POST]({ commit }, { id }: { id: string }) {
-    const { data: admin } = await this.$axios.$put(`/admin/enable-auto-censorship/${id}`);
+  async [ActionTypes.ENABLE_AUTO_CENSORSHIP_POST](
+    { commit },
+    { id }: { id: string }
+  ) {
+    const { data: admin } = await this.$axios.$put(
+      `/admin/enable-auto-censorship/${id}`
+    );
+    return admin;
+  },
+
+  async [ActionTypes.UPDATE_ADMIN_PASSWORD](
+    { commit },
+    { data }: { data: any }
+  ) {
+    const { data: admin } = await this.$axios.$put(`/admin/password`, data);
     return admin;
   },
 
@@ -29,8 +42,13 @@ const actions: ActionTree<AdminState, RootState> = {
     return admin;
   },
 
-  async [ActionTypes.DISABLE_AUTO_CENSORSHIP_POST]({ commit }, { id }: { id: string }) {
-    const { data: admin } = await this.$axios.$put(`/admin/disable-auto-censorship/${id}`);
+  async [ActionTypes.DISABLE_AUTO_CENSORSHIP_POST](
+    { commit },
+    { id }: { id: string }
+  ) {
+    const { data: admin } = await this.$axios.$put(
+      `/admin/disable-auto-censorship/${id}`
+    );
     return admin;
   },
 
@@ -59,7 +77,9 @@ const actions: ActionTree<AdminState, RootState> = {
   },
 
   async [ActionTypes.HARD_DELETE_ADMIN]({ commit }, { id }: { id: string }) {
-    const { data: admin } = await this.$axios.$delete(`/admin/hard-delete/${id}`);
+    const { data: admin } = await this.$axios.$delete(
+      `/admin/hard-delete/${id}`
+    );
     return admin;
   },
 };

@@ -7,6 +7,8 @@ import updateAdminRules from "./update-admin";
 import createAdminRules from "./create-admin";
 import restoreAdminRules from "./restore-admin";
 import hardDeleteAdminRules from "./hard-delete-admin";
+import updateAdminPasswordRules from "./update-admin-password";
+import uploadAdminAvatarRules from "./upload-admin-avatar";
 
 export default Object.freeze({
   getAdminRules,
@@ -17,7 +19,21 @@ export default Object.freeze({
   updateAdminRules,
   createAdminRules,
   restoreAdminRules,
-  hardDeleteAdminRules
+  hardDeleteAdminRules,
+  updateAdminPasswordRules,
+  uploadAdminAvatarRules,
 });
 
-export { getAdminRules, deleteAdminRules, getAdminByEmailRules, disableAutoCensorshipRules, enableAutoCensorshipRules, updateAdminRules, createAdminRules, restoreAdminRules, hardDeleteAdminRules };
+export {
+  getAdminRules,
+  deleteAdminRules,
+  updateAdminPasswordRules,
+  getAdminByEmailRules,
+  disableAutoCensorshipRules,
+  enableAutoCensorshipRules,
+  updateAdminRules,
+  createAdminRules,
+  restoreAdminRules,
+  hardDeleteAdminRules,
+  uploadAdminAvatarRules,
+};

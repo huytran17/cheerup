@@ -59,12 +59,14 @@
           </v-col>
           <v-col cols="12">
             <v-row>
-              <v-col cols="12" md="6">
-                <div class="text-body-2 mb-2">
+              <v-col cols="12" class="pb-0">
+                <div class="text-body-2">
                   <span class="app-body">
                     <span v-html="$t('Logo')"></span>
                   </span>
                 </div>
+              </v-col>
+              <v-col cols="12" md="6">
                 <v-dropzone
                   ref="admin_logo_dropzone"
                   id="admin_logo"
@@ -80,10 +82,7 @@
                         ref: 'admin_logo_dropzone',
                         file,
                         response,
-                        update_paths: [
-                          'admin_meta.logo',
-                          'admin_logo_url',
-                        ],
+                        update_paths: ['admin_meta.logo', 'admin_logo_url'],
                       })
                   "
                 ></v-dropzone>
@@ -103,12 +102,14 @@
           </v-col>
           <v-col cols="12">
             <v-row>
-              <v-col cols="12" md="6">
-                <div class="text-body-2 mb-2">
+              <v-col cols="12" class="pb-0">
+                <div class="text-body-2">
                   <span class="app-body">
                     <span v-html="$t('Favicon')"></span>
                   </span>
                 </div>
+              </v-col>
+              <v-col cols="12" md="6">
                 <v-dropzone
                   ref="admin_favicon_dropzone"
                   id="admin_favicon"
@@ -210,12 +211,14 @@
 
           <v-col cols="12">
             <v-row>
-              <v-col cols="12" md="6">
-                <div class="text-body-2 mb-2">
+              <v-col cols="12" class="pb-0">
+                <div class="text-body-2">
                   <span class="app-body">
                     <span v-html="$t('Logo')"></span>
                   </span>
                 </div>
+              </v-col>
+              <v-col cols="12" md="6">
                 <v-dropzone
                   ref="client_logo_dropzone"
                   id="client_logo"
@@ -231,10 +234,7 @@
                         ref: 'client_logo_dropzone',
                         file,
                         response,
-                        update_paths: [
-                          'client_meta.logo',
-                          'client_logo_url',
-                        ],
+                        update_paths: ['client_meta.logo', 'client_logo_url'],
                       })
                   "
                 ></v-dropzone>
@@ -254,12 +254,14 @@
           </v-col>
           <v-col cols="12">
             <v-row>
-              <v-col cols="12" md="6">
-                <div class="text-body-2 mb-2">
+              <v-col cols="12" class="pb-0">
+                <div class="text-body-2">
                   <span class="app-body">
                     <span v-html="$t('Favicon')"></span>
                   </span>
                 </div>
+              </v-col>
+              <v-col cols="12" md="6">
                 <v-dropzone
                   ref="client_favicon_dropzone"
                   id="client_favicon"

@@ -32,17 +32,25 @@
           <v-col cols="12" md="6">
             <v-text-field
               :label="$t('Password')"
-              type="password"
+              :type="show_password ? 'text' : 'password'"
+              :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
               @input="
                 updateAdminObject({ variable_path: 'password', data: $event })
               "
+              @click:append="show_password = !show_password"
               :rules="passwordRules"
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="6">
             <v-text-field
               :label="$t('Password Confirmation')"
-              type="password"
+              :type="show_password_confirmation ? 'text' : 'password'"
+              :append-icon="
+                show_password_confirmation ? 'mdi-eye' : 'mdi-eye-off'
+              "
+              @click:append="
+                show_password_confirmation = !show_password_confirmation
+              "
               @input="
                 updateAdminObject({
                   variable_path: 'password_confirmation',
@@ -111,6 +119,8 @@ export default {
   data() {
     return {
       form_valid: false,
+      show_password: false,
+      show_password_confirmation: false,
     };
   },
   methods: {
