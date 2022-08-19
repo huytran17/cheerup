@@ -46,6 +46,7 @@
                   icon
                   v-bind="attrs"
                   v-on="on"
+                  small
                   @click="
                     () => {
                       SET_COMMENT({ data: item });
@@ -53,7 +54,7 @@
                     }
                   "
                 >
-                  <v-icon color="error">mdi-delete-off-outline</v-icon>
+                  <v-icon small color="error">mdi-delete-off-outline</v-icon>
                 </v-btn>
               </template>
               <span v-html="$t('Delete Forever')"></span>

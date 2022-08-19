@@ -44,9 +44,10 @@
                     icon
                     v-bind="attrs"
                     v-on="on"
+                    small
                     @click="unblockComment(item)"
                   >
-                    <v-icon color="success">mdi-comment-text-outline</v-icon>
+                    <v-icon small color="success">mdi-comment-text-outline</v-icon>
                   </v-btn>
                 </template>
                 <span v-html="$t('Un-block comment')"></span>
@@ -59,9 +60,10 @@
                     icon
                     v-bind="attrs"
                     v-on="on"
+                    small
                     @click="blockComment(item)"
                   >
-                    <v-icon color="error">mdi-comment-off-outline</v-icon>
+                    <v-icon small color="error">mdi-comment-off-outline</v-icon>
                   </v-btn>
                 </template>
                 <span v-html="$t('Block comment')"></span>

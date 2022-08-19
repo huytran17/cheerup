@@ -55,9 +55,10 @@
                   icon
                   v-bind="attrs"
                   v-on="on"
+                  small
                   @click="restoreDeleteCategory(item)"
                 >
-                  <v-icon color="success">mdi-backup-restore</v-icon>
+                  <v-icon small color="success">mdi-backup-restore</v-icon>
                 </v-btn>
               </template>
               <span v-html="$t('Restore')"></span>
@@ -70,9 +71,10 @@
                   icon
                   v-bind="attrs"
                   v-on="on"
+                  small
                   @click="deleteCategory(item)"
                 >
-                  <v-icon color="error">mdi-trash-can-outline</v-icon>
+                  <v-icon small color="error">mdi-trash-can-outline</v-icon>
                 </v-btn>
               </template>
               <span v-html="$t('Delete')"></span>
@@ -83,6 +85,7 @@
                   icon
                   v-bind="attrs"
                   v-on="on"
+                  small
                   @click="
                     () => {
                       SET_CATEGORY({ data: item });
@@ -90,7 +93,7 @@
                     }
                   "
                 >
-                  <v-icon color="error">mdi-delete-off-outline</v-icon>
+                  <v-icon small color="error">mdi-delete-off-outline</v-icon>
                 </v-btn>
               </template>
               <span v-html="$t('Delete Forever')"></span>
