@@ -6,6 +6,7 @@ export default class Post implements IPost {
   public readonly _id: string;
   public readonly title: string;
   public readonly description: string;
+  public readonly thumbnail_url: string;
   public readonly is_blocked_comment: boolean;
   public readonly thumbnail: Record<string, unknown>;
   public readonly content: string;
@@ -30,6 +31,7 @@ export default class Post implements IPost {
     is_blocked_comment,
     author,
     categories,
+    thumbnail_url,
     meta,
     source,
     is_published,
@@ -47,6 +49,7 @@ export default class Post implements IPost {
     this.content = content;
     this.author = author;
     this.categories = categories;
+    this.thumbnail_url = thumbnail_url;
     this.meta = meta;
     this.source = source;
     this.created_at = created_at;
