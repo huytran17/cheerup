@@ -4,7 +4,8 @@ import Admin from "../entities/admin";
 export default class User implements IUser {
   public readonly _id: string;
   public readonly hash_password: string;
-  public readonly avatar?: Record<string, unknown>;
+  public readonly avatar_url: string;
+  public readonly avatar: Record<string, unknown>;
   public readonly email: string;
   public readonly full_name: string;
   public readonly created_by: Admin;
@@ -18,6 +19,7 @@ export default class User implements IUser {
     avatar,
     email,
     full_name,
+    avatar_url,
     created_at,
     updated_at,
     deleted_at,
@@ -25,6 +27,7 @@ export default class User implements IUser {
   }: IUser) {
     this._id = _id;
     this.avatar = avatar;
+    this.avatar_url = avatar_url;
     this.hash_password = hash_password;
     this.full_name = full_name;
     this.email = email;

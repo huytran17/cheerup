@@ -6,6 +6,7 @@ export default interface IPost {
   title: string;
   description: string;
   source: string;
+  thumbnail_url: string;
   is_block_comment: boolean;
   thumbnail: Record<string, unknown>;
   content: string;
