@@ -3,7 +3,7 @@ import mongoose_lean_virtuals from "mongoose-lean-virtuals";
 
 const Schema = mongoose.Schema;
 
-const subscribeSchema = new Schema(
+const subscriptionSchema = new Schema(
   {
     email: { type: String, trim: true, required: true },
     is_active: { type: Boolean, default: true },
@@ -16,6 +16,6 @@ const subscribeSchema = new Schema(
   }
 );
 
-subscribeSchema.plugin(mongoose_lean_virtuals);
+subscriptionSchema.plugin(mongoose_lean_virtuals);
 
-export default subscribeSchema;
+export default subscriptionSchema;

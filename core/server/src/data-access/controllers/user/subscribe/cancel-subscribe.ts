@@ -1,19 +1,19 @@
-import { IGetSubscribeByEmail } from "../../../../use-cases/subscribe/get-subscribe-by-email";
-import { IUpdateSubscribe } from "../../../../use-cases/subscribe/update-subscribe";
+import { IGetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
+import { IUpdateSubscription } from "../../../../use-cases/subscription/update-subscription";
 import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
 
-export default function makeDeleteSubscribeController({
-  getSubscribeByEmail,
-  updateSubscribe,
+export default function makeDeleteSubscriptionController({
+  getSubscriptionByEmail,
+  updateSubscription,
   logger,
 }: {
-  getSubscribeByEmail: IGetSubscribeByEmail;
-  updateSubscribe: IUpdateSubscribe;
+  getSubscriptionByEmail: IGetSubscriptionByEmail;
+  updateSubscription: IUpdateSubscription;
   logger: Logger;
 }) {
-  return async function updateSubscribeController(
+  return async function updateSubscriptionController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
@@ -21,25 +21,25 @@ export default function makeDeleteSubscribeController({
     };
 
     try {
-      const subscribeDetails = _.get(httpRequest, "context.validated");
-      const { email } = subscribeDetails;
-      const exists = await getSubscribeByEmail({ email });
+      const subscriptionDetails = _.get(httpRequest, "context.validated");
+      const { email } = subscriptionDetails;
+      const exists = await getSubscriptionByEmail({ email });
       if (!exists) {
-        throw new Error(`Subscribe by ${email} does not exist`);
+        throw new Error(`Subscription by ${email} does not exist`);
       }
 
       const final_updated_data = Object.assign({}, exists, {
         is_active: false,
       });
 
-      const canceled_subscribe = await updateSubscribe({
-        subscribeDetails: final_updated_data,
+      const canceled_subscription = await updateSubscription({
+        subscriptionDetails: final_updated_data,
       });
       return {
         headers,
         statusCode: 200,
         body: {
-          data: canceled_subscribe,
+          data: canceled_subscription,
         },
       };
     } catch (err) {

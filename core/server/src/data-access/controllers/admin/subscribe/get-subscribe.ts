@@ -1,16 +1,16 @@
 import { Request } from "express";
-import { IGetSubscribe } from "../../../../use-cases/subscribe/get-subscribe";
+import { IGetSubscription } from "../../../../use-cases/subscription/get-subscription";
 import _ from "lodash";
 import { Logger } from "winston";
 
-export default function makeGetSubscribeController({
-  getSubscribe,
+export default function makeGetSubscriptionController({
+  getSubscription,
   logger,
 }: {
-  getSubscribe: IGetSubscribe;
+  getSubscription: IGetSubscription;
   logger: Logger;
 }) {
-  return async function getSubscribeController(
+  return async function getSubscriptionController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
@@ -18,10 +18,10 @@ export default function makeGetSubscribeController({
     };
 
     try {
-      const { subscribe_id } = _.get(httpRequest, "context.validated");
-      const exists = await getSubscribe({ _id: subscribe_id });
+      const { subscription_id } = _.get(httpRequest, "context.validated");
+      const exists = await getSubscription({ _id: subscription_id });
       if (!exists) {
-        throw new Error(`Subscribe ${subscribe_id} does not exists`);
+        throw new Error(`Subscription ${subscription_id} does not exists`);
       }
 
       return {

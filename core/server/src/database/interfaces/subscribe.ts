@@ -1,4 +1,4 @@
-export default interface ISubscribe {
+export default interface ISubscription {
   _id: string;
   is_active: boolean;
   email: string;

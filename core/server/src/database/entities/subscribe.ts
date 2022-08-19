@@ -1,6 +1,6 @@
-import ISubscribe from "../interfaces/subscribe";
+import ISubscription from "../interfaces/subscription";
 
-export default class Subscribe implements ISubscribe {
+export default class Subscription implements ISubscription {
   public readonly _id: string;
   public readonly email: string;
   public readonly is_active: boolean;
@@ -15,7 +15,7 @@ export default class Subscribe implements ISubscribe {
     created_at,
     updated_at,
     deleted_at,
-  }: ISubscribe) {
+  }: ISubscription) {
     this._id = _id;
     this.email = email;
     this.is_active = is_active;

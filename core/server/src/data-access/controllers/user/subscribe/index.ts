@@ -1,28 +1,28 @@
 import {
-  getSubscribeByEmail,
-  updateSubscribe,
-  createSubscribe,
-} from "../../../../use-cases/subscribe";
+  getSubscriptionByEmail,
+  updateSubscription,
+  createSubscription,
+} from "../../../../use-cases/subscription";
 import { logger } from "../../../../config/storage/logger";
 
-import makeDeleteSubscribeController from "./cancel-subscribe";
-import makeCreateSubscribeController from "./create-subscribe";
+import makeDeleteSubscriptionController from "./cancel-subscription";
+import makeCreateSubscriptionController from "./create-subscription";
 
-const createSubscribeController = makeCreateSubscribeController({
-  createSubscribe,
-  getSubscribeByEmail,
+const createSubscriptionController = makeCreateSubscriptionController({
+  createSubscription,
+  getSubscriptionByEmail,
   logger,
 });
 
-const cancelSubscribeController = makeDeleteSubscribeController({
-  getSubscribeByEmail,
-  updateSubscribe,
+const cancelSubscriptionController = makeDeleteSubscriptionController({
+  getSubscriptionByEmail,
+  updateSubscription,
   logger,
 });
 
 export default Object.freeze({
-  cancelSubscribeController,
-  createSubscribeController,
+  cancelSubscriptionController,
+  createSubscriptionController,
 });
 
-export { cancelSubscribeController, createSubscribeController };
+export { cancelSubscriptionController, createSubscriptionController };

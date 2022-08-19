@@ -1,7 +1,7 @@
-import getSubscribeRules from "./get-subscribe";
+import getSubscriptionRules from "./get-subscription";
 
 export default Object.freeze({
-  getSubscribeRules,
+  getSubscriptionRules,
 });
 
-export { getSubscribeRules };
+export { getSubscriptionRules };
