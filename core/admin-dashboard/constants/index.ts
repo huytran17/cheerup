@@ -7,8 +7,14 @@ const S3_UPLOAD_URL_TYPES = {
   SYSTEM_CONFIG_CLIENT_META_FAVICON: `${process.env.SERVER_URL}/admin/system-configuration/upload-client-meta-favicon`,
 };
 
+const ADMIN_TYPES = {
+  SUPER: "super",
+  NORMAL: "normal",
+};
+
 export default Object.freeze({
   S3_UPLOAD_URL_TYPES,
+  ADMIN_TYPES,
 });
 
-export { S3_UPLOAD_URL_TYPES };
+export { S3_UPLOAD_URL_TYPES, ADMIN_TYPES };

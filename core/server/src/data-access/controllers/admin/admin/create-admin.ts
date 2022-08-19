@@ -4,13 +4,6 @@ import _ from "lodash";
 import { ICreateAdmin } from "../../../../use-cases/admin/create-admin";
 import { IGetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email";
 import { IHashPassword } from "../../../../config/password/hash-password";
-import Admin from "../../../../database/entities/admin";
-
-export type IAdminRawData = Omit<Admin, "hash_password"> & {
-  email: string;
-  password: string;
-  password_confirmation: string;
-};
 
 export default function makeCreateAdminController({
   createAdmin,
@@ -31,7 +24,7 @@ export default function makeCreateAdminController({
     };
 
     try {
-      const admin: IAdminRawData = _.get(httpRequest, "context.validated");
+      const admin = _.get(httpRequest, "context.validated");
       const { email, password, password_confirmation } = admin;
 
       const exists = await getAdminByEmail({ email });
@@ -44,14 +37,9 @@ export default function makeCreateAdminController({
         password_confirmation,
       });
 
-      const admin_details = Object.assign(
-        {},
-        _.omit(admin, ["_id", "password", "password_confirmation"]),
-        {
-          email,
-          hash_password: hashed_password,
-        }
-      );
+      const admin_details = Object.assign({}, admin, {
+        hash_password: hashed_password,
+      });
 
       const created_admin = await createAdmin({
         adminDetails: admin_details,
@@ -71,7 +59,7 @@ export default function makeCreateAdminController({
         headers,
         statusCode: 500,
         body: {
-          data: err,
+          data: err.message,
         },
       };
     }

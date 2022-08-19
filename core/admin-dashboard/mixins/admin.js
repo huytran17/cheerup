@@ -1,12 +1,20 @@
 import _ from "lodash";
 import { mapActions, mapMutations, mapGetters } from "vuex";
+import { ADMIN_TYPES } from "@/constants";
 
 export default {
   data() {
     return {
+      admin_types: [ADMIN_TYPES.SUPER, ADMIN_TYPES.NORMAL],
       emailRules: [
         (v) => !!v || this.$t("E-mail is required."),
         (v) => /.+@.+\..+/.test(v) || this.$t("E-mail must be valid."),
+      ],
+      typeRules: [(v) => !!v || this.$t("Type is required.")],
+      fullnameRules: [
+        (v) => !!v || this.$t("Full-name is required."),
+        (v) =>
+          (v && v.length > 1) || this.$t("Full-name must be min 2 characters."),
       ],
       passwordRules: [
         (v) => !!v || this.$t("Password is required."),

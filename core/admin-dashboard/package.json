@@ -23,6 +23,7 @@
     "save": "^2.5.0",
     "tiptap-vuetify": "^2.24.0",
     "vue": "^2.6.14",
+    "vue-avatar": "^2.3.3",
     "vue-chartjs": "^4.1.1",
     "vue-server-renderer": "^2.6.14",
     "vue-sidebar-menu-akahon": "^0.1.4",

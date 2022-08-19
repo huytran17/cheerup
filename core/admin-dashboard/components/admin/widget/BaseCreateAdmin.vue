@@ -14,7 +14,7 @@
               @input="
                 updateAdminObject({ variable_path: 'email', data: $event })
               "
-              :rules="titleRules"
+              :rules="emailRules"
             ></v-text-field>
           </v-col>
 
@@ -24,8 +24,50 @@
               @input="
                 updateAdminObject({ variable_path: 'full_name', data: $event })
               "
-              :rules="titleRules"
+              :rules="fullnameRules"
             ></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12" md="6">
+            <v-text-field
+              :label="$t('Password')"
+              type="password"
+              @input="
+                updateAdminObject({ variable_path: 'password', data: $event })
+              "
+              :rules="passwordRules"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" md="6">
+            <v-text-field
+              :label="$t('Password Confirmation')"
+              type="password"
+              @input="
+                updateAdminObject({
+                  variable_path: 'password_confirmation',
+                  data: $event,
+                })
+              "
+              :rules="passwordConfirmationRules"
+            ></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12" md="6">
+            <v-autocomplete
+              :items="admin_types"
+              chips
+              small-chips
+              :label="$t('Type')"
+              @input="
+                updateAdminObject({
+                  variable_path: 'type',
+                  data: $event,
+                })
+              "
+              :rules="typeRules"
+            ></v-autocomplete>
           </v-col>
         </v-row>
         <v-row>
@@ -74,15 +116,15 @@ export default {
   methods: {
     async createAdmin() {
       try {
-        const created_post = await this.CREATE_ADMIN({
-          data: this.post,
+        const created_admin = await this.CREATE_ADMIN({
+          data: this.admin,
         });
-        this.SET_ADMIN({ data: created_post });
-        this.$toast.success("Created post successfully");
-        this.$router.push(this.localePath(`/post/${created_post._id}`));
+        this.SET_ADMIN({ data: created_admin });
+        this.$toast.success("Created admin successfully");
+        this.$router.push(this.localePath(`/admin/${created_admin._id}`));
       } catch (err) {
         console.error(err);
-        this.$toast.error("Encountered error while updating post");
+        this.$toast.error("Encountered error while creating admin");
       }
     },
   },

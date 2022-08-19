@@ -11,6 +11,20 @@
           ></v-text-field>
         </v-card-title>
         <v-data-table :headers="headers" :items="admins" :search="search">
+          <template v-slot:item.avatar="{ item }">
+            <v-img
+              v-if="item.avatar_url"
+              :lazy-src="item.avatar_url"
+              :src="item.avatar_url"
+              :alt="item.full_name"
+            ></v-img>
+            <avatar
+              v-else-if="item.full_name"
+              :username="item.full_name"
+              :name="item.full_name"
+              :size="32"
+            ></avatar>
+          </template>
           <template v-slot:item.full_name="{ item }">
             <div
               class="text-body-2 primary--text clickable"
@@ -133,14 +147,24 @@
 import adminMixins from "@/mixins/admin";
 import systemMixins from "@/mixins/system";
 
+import Avatar from "vue-avatar";
+
 export default {
   name: "BaseAdminTable",
   mixins: [adminMixins, systemMixins],
+  components: {
+    Avatar,
+  },
   props: {
     headers: {
       type: Array,
       default() {
         return [
+          {
+            text: "",
+            align: "start",
+            value: "avatar",
+          },
           {
             text: "Fullname",
             align: "start",
