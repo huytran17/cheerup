@@ -14,7 +14,6 @@ const postSchema = new Schema(
     content: { type: String, trim: true },
     source: { type: String, trim: true },
     author: { type: Schema.Types.ObjectId, ref: "Admin" },
-    created_by: { type: Schema.Types.ObjectId, ref: "Admin" },
     categories: [{ type: Schema.Types.ObjectId, ref: "Category" }],
     meta: {
       views: { type: Number, default: 0 },
