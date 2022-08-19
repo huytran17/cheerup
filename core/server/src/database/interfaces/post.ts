@@ -16,7 +16,6 @@ export default interface IPost {
   meta: {
     views: number;
   };
-  created_by: Admin;
   created_at: Date;
   updated_at: Date;
   deleted_at: Date;

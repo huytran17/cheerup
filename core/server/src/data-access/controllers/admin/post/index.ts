@@ -21,6 +21,20 @@ import makeUploadPostThumbnailController from "./upload-post-thumbnail";
 import makeBlockPostCommentController from "./block-post-comment";
 import makeUnblockPostCommentController from "./unblock-post-comment";
 import makeHardDeletePostController from "./hard-delete-post";
+import makePublishPostController from "./publish-post";
+import makeUnPublishPostController from "./un-publish-post";
+
+const publishPostController = makePublishPostController({
+  getPost,
+  updatePost,
+  logger,
+});
+
+const unPublishPostController = makeUnPublishPostController({
+  getPost,
+  updatePost,
+  logger,
+});
 
 const hardDeletePostController = makeHardDeletePostController({
   getPost,
@@ -90,6 +104,8 @@ export default Object.freeze({
   unblockPostCommentController,
   blockPostCommentController,
   hardDeletePostController,
+  publishPostController,
+  unPublishPostController
 });
 
 export {
@@ -103,4 +119,6 @@ export {
   unblockPostCommentController,
   blockPostCommentController,
   hardDeletePostController,
+  publishPostController,
+  unPublishPostController
 };

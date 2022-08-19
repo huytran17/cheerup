@@ -24,6 +24,8 @@ export default {
       UNBLOCK_POST_COMMENT: "post/UNBLOCK_POST_COMMENT",
       BLOCK_POST_COMMENT: "post/BLOCK_POST_COMMENT",
       RESTORE_POST: "post/RESTORE_POST",
+      PUBLISH_POST: "post/PUBLISH_POST",
+      UNPUBLISH_POST: "post/UNPUBLISH_POST",
     }),
     ...mapMutations({
       SET_POST: "post/SET_POST",

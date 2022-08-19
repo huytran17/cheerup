@@ -12,7 +12,6 @@ export default class Post implements IPost {
   public readonly content: string;
   public readonly source: string;
   public readonly author: Admin;
-  public readonly created_by: Admin;
   public readonly is_published: boolean;
   public readonly categories: Category[];
   public readonly meta: {
@@ -38,7 +37,6 @@ export default class Post implements IPost {
     created_at,
     updated_at,
     deleted_at,
-    created_by
   }) {
     this._id = _id;
     this.title = title;
@@ -55,6 +53,5 @@ export default class Post implements IPost {
     this.created_at = created_at;
     this.updated_at = updated_at;
     this.deleted_at = deleted_at;
-    this.created_by = created_by;
   }
 }
