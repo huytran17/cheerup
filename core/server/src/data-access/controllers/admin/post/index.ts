@@ -6,6 +6,9 @@ import {
   getPosts,
   hardDeletePost,
 } from "../../../../use-cases/post";
+import {
+  getAdmin
+} from "../../../../use-cases/admin";
 import { logger } from "../../../../config/storage/logger";
 
 import makeGetPostController from "./get-post";
@@ -55,6 +58,7 @@ const getPostsController = makeGetPostsController({
 
 const createPostController = makeCreatePostController({
   createPost,
+  getAdmin,
   logger,
 });
 
