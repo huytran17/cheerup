@@ -1,5 +1,5 @@
-const cancelSubscribeRules = {
+const cancelSubscriptionRules = {
   email: ["required", "string"],
 };
 
-export default cancelSubscribeRules;
+export default cancelSubscriptionRules;

@@ -1,6 +1,6 @@
-const createSubscribeRules = {
+const createSubscriptionRules = {
   is_active: "boolean",
   email: ["required", "string"],
 };
 
-export default createSubscribeRules;
+export default createSubscriptionRules;

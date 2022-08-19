@@ -1,50 +1,50 @@
 import { logger } from "../../config/storage/logger";
 
-import { SubscribeDb } from "../../data-access";
+import { SubscriptionDb } from "../../data-access";
 
-import makeGetSubscribe from "./get-subscribe";
-import makeGetSubscribeByEmail from "./get-subscribe-by-email";
-import makeUpdateSubscribe from "./update-subscribe";
-import makeCreateSubscribe from "./create-subscribe";
-import makeGetSubscribes from "./get-subscribes";
+import makeGetSubscription from "./get-subscription";
+import makeGetSubscriptionByEmail from "./get-subscription-by-email";
+import makeUpdateSubscription from "./update-subscription";
+import makeCreateSubscription from "./create-subscription";
+import makeGetSubscriptions from "./get-subscriptions";
 
-const getSubscribe = makeGetSubscribe({
-  subscribeDb: SubscribeDb,
+const getSubscription = makeGetSubscription({
+  subscriptionDb: SubscriptionDb,
   logger,
 });
 
-const getSubscribeByEmail = makeGetSubscribeByEmail({
-  subscribeDb: SubscribeDb,
+const getSubscriptionByEmail = makeGetSubscriptionByEmail({
+  subscriptionDb: SubscriptionDb,
   logger,
 });
 
-const updateSubscribe = makeUpdateSubscribe({
-  subscribeDb: SubscribeDb,
+const updateSubscription = makeUpdateSubscription({
+  subscriptionDb: SubscriptionDb,
 });
 
-const createSubscribe = makeCreateSubscribe({
-  subscribeDb: SubscribeDb,
+const createSubscription = makeCreateSubscription({
+  subscriptionDb: SubscriptionDb,
 });
 
-const getSubscribes = makeGetSubscribes({
-  subscribeDb: SubscribeDb,
+const getSubscriptions = makeGetSubscriptions({
+  subscriptionDb: SubscriptionDb,
   logger,
 });
 
-const subscribeServices = Object.freeze({
-  getSubscribe,
-  getSubscribeByEmail,
-  updateSubscribe,
-  getSubscribes,
-  createSubscribe,
+const subscriptionServices = Object.freeze({
+  getSubscription,
+  getSubscriptionByEmail,
+  updateSubscription,
+  getSubscriptions,
+  createSubscription,
 });
 
-export default subscribeServices;
+export default subscriptionServices;
 
 export {
-  getSubscribe,
-  getSubscribeByEmail,
-  updateSubscribe,
-  getSubscribes,
-  createSubscribe,
+  getSubscription,
+  getSubscriptionByEmail,
+  updateSubscription,
+  getSubscriptions,
+  createSubscription,
 };

@@ -2,20 +2,20 @@ import express from "express";
 import makeValidator from "../../config/middlewares/validator-middleware";
 import makeExpressCallback from "../../config/express-callback";
 
-import { getSubscribeRules } from "../../data-access/controllers/admin/subscribe/validators";
+import { getSubscriptionRules } from "../../data-access/controllers/admin/subscription/validators";
 import {
-  getSubscribeController,
-  getSubscribesController,
-} from "../../data-access/controllers/admin/subscribe";
+  getSubscriptionController,
+  getSubscriptionsController,
+} from "../../data-access/controllers/admin/subscription";
 
-const subscribeRouter = express.Router();
+const subscriptionRouter = express.Router();
 
-subscribeRouter.get(
+subscriptionRouter.get(
   "/:_id",
-  makeValidator(getSubscribeRules),
-  makeExpressCallback(getSubscribeController)
+  makeValidator(getSubscriptionRules),
+  makeExpressCallback(getSubscriptionController)
 ); // DONE
 
-subscribeRouter.get("/", makeExpressCallback(getSubscribesController)); // DONE
+subscriptionRouter.get("/", makeExpressCallback(getSubscriptionsController)); // DONE
 
-export default subscribeRouter;
+export default subscriptionRouter;

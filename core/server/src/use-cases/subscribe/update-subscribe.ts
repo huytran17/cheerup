@@ -1,24 +1,24 @@
-import Subscribe from "../../database/entities/subscribe";
-import ISubscribeDb from "../../data-access/interfaces/subscribe-db";
-import ISubscribe from "../../database/interfaces/subscribe";
+import Subscription from "../../database/entities/subscription";
+import ISubscriptionDb from "../../data-access/interfaces/subscription-db";
+import ISubscription from "../../database/interfaces/subscription";
 
-export interface IUpdateSubscribeData {
-  subscribeDetails: Omit<ISubscribe, "_id">;
+export interface IUpdateSubscriptionData {
+  subscriptionDetails: Omit<ISubscription, "_id">;
 }
 
-export type IUpdateSubscribe = ({
-  subscribeDetails,
-}: IUpdateSubscribeData) => Promise<Subscribe | null>;
+export type IUpdateSubscription = ({
+  subscriptionDetails,
+}: IUpdateSubscriptionData) => Promise<Subscription | null>;
 
-export default function makeUpdateSubscribe({
-  subscribeDb,
+export default function makeUpdateSubscription({
+  subscriptionDb,
 }: {
-  subscribeDb: ISubscribeDb;
-}): IUpdateSubscribe {
-  return async function updateSubscribe({
-    subscribeDetails,
-  }: IUpdateSubscribeData): Promise<Subscribe | null> {
-    const subscribe = await subscribeDb.update(subscribeDetails);
-    return subscribe;
+  subscriptionDb: ISubscriptionDb;
+}): IUpdateSubscription {
+  return async function updateSubscription({
+    subscriptionDetails,
+  }: IUpdateSubscriptionData): Promise<Subscription | null> {
+    const subscription = await subscriptionDb.update(subscriptionDetails);
+    return subscription;
   };
 }
