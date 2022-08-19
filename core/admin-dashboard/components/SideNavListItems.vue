@@ -68,11 +68,6 @@ export default {
             icon: "bx-cog",
           },
           {
-            name: "Client Config",
-            link: "/client-config",
-            icon: "bx-code-alt",
-          },
-          {
             name: "Terms Of Use",
             link: "/terms-of-use",
             icon: "bx-question-mark",
