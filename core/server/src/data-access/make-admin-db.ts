@@ -26,10 +26,6 @@ export default function makeAdminDb({
 
       const existing = await adminDbModel
         .find(query_conditions)
-        .populate({
-          path: "children",
-          select: "-_v",
-        })
         .lean({ virtuals: true });
       if (existing) {
         return existing.map((admin) => new Admin(admin));

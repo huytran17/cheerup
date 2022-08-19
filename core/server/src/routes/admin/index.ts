@@ -8,13 +8,15 @@ import authRouter from "./auth";
 import categoryRouter from "./category";
 import commentRouter from "./comment";
 import postRouter from "./post";
+import adminAdminRouter from "./admin";
 import systemConfigurationRouter from "./system-configuration";
 
+adminRouter.use("/auth", authRouter);
 adminRouter.use("/user", authenticateAdminJWT(), userRouter);
 adminRouter.use("/category", authenticateAdminJWT(), categoryRouter);
 adminRouter.use("/comment", authenticateAdminJWT(), commentRouter);
 adminRouter.use("/post", authenticateAdminJWT(), postRouter);
-adminRouter.use("/auth", authRouter);
-adminRouter.use("/system-configuration", systemConfigurationRouter);
+adminRouter.use("/admin", authenticateAdminJWT(), adminAdminRouter);
+adminRouter.use("/system-configuration", authenticateAdminJWT(), systemConfigurationRouter);
 
 export default adminRouter;

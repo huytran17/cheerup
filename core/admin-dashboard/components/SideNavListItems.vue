@@ -33,6 +33,11 @@ export default {
             icon: "bx-bar-chart",
           },
           {
+            name: "Admin",
+            link: "/admin",
+            icon: "bx-crown",
+          },
+          {
             name: "User",
             link: "/user",
             icon: "bx-user-circle",

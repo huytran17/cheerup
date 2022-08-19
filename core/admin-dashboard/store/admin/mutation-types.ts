@@ -1,0 +1,5 @@
+export enum MutationTypes {
+  SET_ADMIN = "SET_ADMIN",
+  SET_ADMINS = "SET_ADMINS",
+  UPDATE_ADMIN_DATA = "UPDATE_ADMIN_DATA",
+}
