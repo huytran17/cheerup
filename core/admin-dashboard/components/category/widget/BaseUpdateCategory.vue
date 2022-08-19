@@ -45,12 +45,17 @@
         </v-row>
         <v-row>
           <v-col cols="12" sm="6">
+            <div class="text-body-2 mb-2">
+              <span class="app-body">
+                <span v-html="$t('Thumbnail')"></span>
+              </span>
+            </div>
             <v-dropzone
               ref="thumbnail_dropzone"
               id="thumbnail"
               :options="
                 getDropzoneOptions({
-                  upload_url: category_upload_thumbnaili_url,
+                  upload_url: category_upload_thumbnail_url,
                 })
               "
               :destroyDropzone="true"
@@ -67,7 +72,8 @@
               :src="category_thumbnail_url"
               :alt="category.title"
               contain
-              max-width="100%"
+              max-width="200px"
+              class="mx-auto"
             ></v-img>
           </v-col>
         </v-row>
@@ -107,9 +113,9 @@ export default {
     };
   },
   computed: {
-    category_upload_thumbnaili_url() {
+    category_upload_thumbnail_url() {
       const category_id = _.get(this.category, "_id");
-      return `${S3_UPLOAD_URL_TYPES.CATEGORY}/${category_id}`;
+      return `${S3_UPLOAD_URL_TYPES.CATEGORY_THUMBNAIL}/${category_id}`;
     },
 
     category_thumbnail_url() {

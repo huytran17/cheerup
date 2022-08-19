@@ -86,6 +86,40 @@
           </v-col>
         </v-row>
         <v-row>
+          <v-col cols="12" sm="6">
+            <div class="text-body-2 mb-2">
+              <span class="app-body">
+                <span v-html="$t('Thumbnail')"></span>
+              </span>
+            </div>
+            <v-dropzone
+              ref="thumbnail_dropzone"
+              id="thumbnail"
+              :options="
+                getDropzoneOptions({
+                  upload_url: post_upload_thumbnail_url,
+                })
+              "
+              :destroyDropzone="true"
+              @vdropzone-success="
+                (file, response) =>
+                  onUploadThumbnailSuccsess({ file, response })
+              "
+            ></v-dropzone>
+          </v-col>
+
+          <v-col cols="12" sm="6">
+            <v-img
+              v-if="post_thumbnail_url"
+              :src="post_thumbnail_url"
+              :alt="post.title"
+              contain
+              max-width="200px"
+              class="mx-auto"
+            ></v-img>
+          </v-col>
+        </v-row>
+        <v-row>
           <v-col cols="12">
             <v-switch
               :input-value="post.is_block_comment"
@@ -139,7 +173,7 @@ export default {
     };
   },
   computed: {
-    post_upload_thumbnaili_url() {
+    post_upload_thumbnail_url() {
       const post_id = _.get(this.post, "_id");
       return `${S3_UPLOAD_URL_TYPES.POST_THUMBNAIL}/${post_id}`;
     },

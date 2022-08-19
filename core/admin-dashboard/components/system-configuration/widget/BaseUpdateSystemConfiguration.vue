@@ -82,7 +82,7 @@
                         response,
                         update_paths: [
                           'admin_meta.logo',
-                          'admin_meta.logo_url',
+                          'admin_logo_url',
                         ],
                       })
                   "
@@ -95,7 +95,8 @@
                   :src="admin_logo_url"
                   :alt="admin_meta_title"
                   contain
-                  max-width="100%"
+                  max-width="200px"
+                  class="mx-auto"
                 ></v-img>
               </v-col>
             </v-row>
@@ -125,7 +126,7 @@
                         response,
                         update_paths: [
                           'admin_meta.favicon',
-                          'admin_meta.favicon_url',
+                          'admin_favicon_url',
                         ],
                       })
                   "
@@ -137,7 +138,8 @@
                   :src="admin_favicon_url"
                   :alt="admin_meta_title"
                   contain
-                  max-width="100%"
+                  max-width="200px"
+                  class="mx-auto"
                 ></v-img>
               </v-col>
             </v-row>
@@ -231,7 +233,7 @@
                         response,
                         update_paths: [
                           'client_meta.logo',
-                          'client_meta.logo_url',
+                          'client_logo_url',
                         ],
                       })
                   "
@@ -244,7 +246,8 @@
                   :src="client_logo_url"
                   :alt="client_meta_title"
                   contain
-                  max-width="100%"
+                  max-width="200px"
+                  class="mx-auto"
                 ></v-img>
               </v-col>
             </v-row>
@@ -274,7 +277,7 @@
                         response,
                         update_paths: [
                           'client_meta.favicon',
-                          'client_meta.favicon_url',
+                          'client_favicon_url',
                         ],
                       })
                   "
@@ -286,7 +289,8 @@
                   :src="client_favicon_url"
                   :alt="client_meta_title"
                   contain
-                  max-width="100%"
+                  max-width="200px"
+                  class="mx-auto"
                 ></v-img>
               </v-col>
             </v-row>
