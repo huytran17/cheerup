@@ -22,13 +22,13 @@ import {
 
 const userRouter = express.Router();
 
-userRouter.get(
+userRouter.put(
   "/block-comment/:_id",
   makeValidator(unblockUserCommentRules),
   makeExpressCallback(blockUserCommentController)
 );
 
-userRouter.get(
+userRouter.put(
   "/un-block-comment/:_id",
   makeValidator(blockUserCommentRules),
   makeExpressCallback(unblockUserCommentController)
