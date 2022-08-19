@@ -6,7 +6,7 @@ import makeCategoryDb from "./make-category-db";
 import makeCommentDb from "./make-comment-db";
 import makePostDb from "./make-post-db";
 import makeFeedbackDb from "./make-feedback-db";
-import makeSubscribeDb from "./make-subscribe-db";
+import makeSubscriptionDb from "./make-subscription-db";
 import makeSystemConfigurationDb from "./make-system-configuration-db";
 
 import {
@@ -16,12 +16,12 @@ import {
   CommentModel,
   PostModel,
   FeedbackModel,
-  SubscribeModel,
+  SubscriptionModel,
   SystemConfigurationModel,
 } from "./models";
 
-const SubscribeDb = makeSubscribeDb({
-  subscribeDbModel: SubscribeModel,
+const SubscriptionDb = makeSubscriptionDb({
+  subscriptionDbModel: SubscriptionModel,
   moment,
 });
 const SystemConfigurationDb = makeSystemConfigurationDb({
@@ -45,7 +45,7 @@ export default Object.freeze({
   CommentDb,
   PostDb,
   FeedbackDb,
-  SubscribeDb,
+  SubscriptionDb,
   SystemConfigurationDb,
 });
 
@@ -56,6 +56,6 @@ export {
   CommentDb,
   PostDb,
   FeedbackDb,
-  SubscribeDb,
+  SubscriptionDb,
   SystemConfigurationDb,
 };

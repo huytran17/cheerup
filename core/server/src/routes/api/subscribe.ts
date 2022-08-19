@@ -3,26 +3,26 @@ import makeValidator from "../../config/middlewares/validator-middleware";
 import makeExpressCallback from "../../config/express-callback";
 
 import {
-  createSubscribeRules,
-  cancelSubscribeRules,
-} from "../../data-access/controllers/user/subscribe/validators";
+  createSubscriptionRules,
+  cancelSubscriptionRules,
+} from "../../data-access/controllers/user/subscription/validators";
 import {
-  createSubscribeController,
-  cancelSubscribeController,
-} from "../../data-access/controllers/user/subscribe";
+  createSubscriptionController,
+  cancelSubscriptionController,
+} from "../../data-access/controllers/user/subscription";
 
-const subscribeRouter = express.Router();
+const subscriptionRouter = express.Router();
 
-subscribeRouter.put(
+subscriptionRouter.put(
   "/:email",
-  makeValidator(cancelSubscribeRules),
-  makeExpressCallback(cancelSubscribeController)
+  makeValidator(cancelSubscriptionRules),
+  makeExpressCallback(cancelSubscriptionController)
 ); // DONE
 
-subscribeRouter.post(
+subscriptionRouter.post(
   "/",
-  makeValidator(createSubscribeRules),
-  makeExpressCallback(createSubscribeController)
+  makeValidator(createSubscriptionRules),
+  makeExpressCallback(createSubscriptionController)
 ); // DONE
 
-export default subscribeRouter;
+export default subscriptionRouter;

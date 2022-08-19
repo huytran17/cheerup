@@ -1,18 +1,18 @@
 import { Logger } from "winston";
-import Subscribe from "../../database/entities/subscribe";
-import ISubscribeDb from "../../data-access/interfaces/subscribe-db";
+import Subscription from "../../database/entities/subscription";
+import ISubscriptionDb from "../../data-access/interfaces/subscription-db";
 
-export type IGetSubscribes = () => Promise<Subscribe[] | null>;
+export type IGetSubscriptions = () => Promise<Subscription[] | null>;
 
-export default function makeGetSubscribes({
-  subscribeDb,
+export default function makeGetSubscriptions({
+  subscriptionDb,
   logger,
 }: {
-  subscribeDb: ISubscribeDb;
+  subscriptionDb: ISubscriptionDb;
   logger: Logger;
-}): IGetSubscribes {
-  return async function getSubscribes(): Promise<Subscribe[] | null> {
-    const subscribes = await subscribeDb.findAll();
-    return subscribes;
+}): IGetSubscriptions {
+  return async function getSubscriptions(): Promise<Subscription[] | null> {
+    const subscriptions = await subscriptionDb.findAll();
+    return subscriptions;
   };
 }

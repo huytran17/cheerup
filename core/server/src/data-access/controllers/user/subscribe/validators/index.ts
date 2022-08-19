@@ -1,9 +1,9 @@
-import cancelSubscribeRules from "./cancel-subscribe";
-import createSubscribeRules from "./create-subscribe";
+import cancelSubscriptionRules from "./cancel-subscription";
+import createSubscriptionRules from "./create-subscription";
 
 export default Object.freeze({
-  cancelSubscribeRules,
-  createSubscribeRules,
+  cancelSubscriptionRules,
+  createSubscriptionRules,
 });
 
-export { cancelSubscribeRules, createSubscribeRules };
+export { cancelSubscriptionRules, createSubscriptionRules };

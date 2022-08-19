@@ -1,5 +1,5 @@
-const getSubscribeRules = {
+const getSubscriptionRules = {
   _id: ["required", "regex:/^[0-9a-fA-F]{24}$/i"],
 };
 
-export default getSubscribeRules;
+export default getSubscriptionRules;

@@ -1,19 +1,19 @@
-import { ICreateSubscribe } from "../../../../use-cases/subscribe/create-subscribe";
+import { ICreateSubscription } from "../../../../use-cases/subscription/create-subscription";
 import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
-import { IGetSubscribeByEmail } from "../../../../use-cases/subscribe/get-subscribe-by-email";
+import { IGetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
 
-export default function makeCreateSubscribeController({
-  createSubscribe,
-  getSubscribeByEmail,
+export default function makeCreateSubscriptionController({
+  createSubscription,
+  getSubscriptionByEmail,
   logger,
 }: {
-  createSubscribe: ICreateSubscribe;
-  getSubscribeByEmail: IGetSubscribeByEmail;
+  createSubscription: ICreateSubscription;
+  getSubscriptionByEmail: IGetSubscriptionByEmail;
   logger: Logger;
 }) {
-  return async function createSubscribeController(
+  return async function createSubscriptionController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
@@ -21,20 +21,20 @@ export default function makeCreateSubscribeController({
     };
 
     try {
-      const subscribeDetails = _.get(httpRequest, "context.validated");
+      const subscriptionDetails = _.get(httpRequest, "context.validated");
 
-      const { email } = subscribeDetails;
-      const exists = await getSubscribeByEmail({ email });
+      const { email } = subscriptionDetails;
+      const exists = await getSubscriptionByEmail({ email });
       if (exists) {
-        throw new Error(`Subscribe by ${email} already exists`);
+        throw new Error(`Subscription by ${email} already exists`);
       }
 
-      const created_subscribe = await createSubscribe({ subscribeDetails });
+      const created_subscription = await createSubscription({ subscriptionDetails });
       return {
         headers,
         statusCode: 200,
         body: {
-          data: created_subscribe,
+          data: created_subscription,
         },
       };
     } catch (err) {

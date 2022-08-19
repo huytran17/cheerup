@@ -1,22 +1,22 @@
-import { getSubscribe, getSubscribes } from "../../../../use-cases/subscribe";
+import { getSubscription, getSubscriptions } from "../../../../use-cases/subscription";
 import { logger } from "../../../../config/storage/logger";
 
-import makeGetSubscribeController from "./get-subscribe";
-import makeGetSubscribesController from "./get-subcribes";
+import makeGetSubscriptionController from "./get-subscription";
+import makeGetSubscriptionsController from "./get-subcribes";
 
-const getSubscribesController = makeGetSubscribesController({
-  getSubscribes,
+const getSubscriptionsController = makeGetSubscriptionsController({
+  getSubscriptions,
   logger,
 });
 
-const getSubscribeController = makeGetSubscribeController({
-  getSubscribe,
+const getSubscriptionController = makeGetSubscriptionController({
+  getSubscription,
   logger,
 });
 
 export default Object.freeze({
-  getSubscribeController,
-  getSubscribesController,
+  getSubscriptionController,
+  getSubscriptionsController,
 });
 
-export { getSubscribeController, getSubscribesController };
+export { getSubscriptionController, getSubscriptionsController };

@@ -5,11 +5,11 @@ import postSchema from "../../database/schemas/post";
 import categorySchema from "../../database/schemas/category";
 import commentSchema from "../../database/schemas/comment";
 import feedbackSchema from "../../database/schemas/feedback";
-import subscribeSchema from "../../database/schemas/subscribe";
+import subscriptionSchema from "../../database/schemas/subscription";
 import systemConfigurationSchema from "../../database/schemas/system-configuration";
 
 import ISystemConfiguration from "../../database/interfaces/system-configuration";
-import ISubscribe from "../../database/interfaces/subscribe";
+import ISubscription from "../../database/interfaces/subscription";
 import IUser from "../../database/interfaces/user";
 import IAdmin from "../../database/interfaces/admin";
 import IPost from "../../database/interfaces/post";
@@ -18,7 +18,7 @@ import IComment from "../../database/interfaces/comment";
 import IFeedback from "../../database/interfaces/feedback";
 
 type ISystemConfigurationModel = ISystemConfiguration & mongoose.Document;
-type ISubscribeModel = ISubscribe & mongoose.Document;
+type ISubscriptionModel = ISubscription & mongoose.Document;
 type IUserModel = IUser & mongoose.Document;
 type IAdminModel = IAdmin & mongoose.Document;
 type IPostModel = IPost & mongoose.Document;
@@ -35,9 +35,9 @@ const FeedbackModel = mongoose.model<IFeedbackModel>(
   "Feedback",
   feedbackSchema
 );
-const SubscribeModel = mongoose.model<ISubscribeModel>(
-  "Subscribe",
-  subscribeSchema
+const SubscriptionModel = mongoose.model<ISubscriptionModel>(
+  "Subscription",
+  subscriptionSchema
 );
 const UserModel = mongoose.model<IUserModel>("User", userSchema);
 const AdminModel = mongoose.model<IAdminModel>("Admin", adminSchema);
@@ -55,7 +55,7 @@ export default Object.freeze({
   CategoryModel,
   CommentModel,
   FeedbackModel,
-  SubscribeModel,
+  SubscriptionModel,
   SystemConfigurationModel,
 });
 
@@ -66,6 +66,6 @@ export {
   CategoryModel,
   CommentModel,
   FeedbackModel,
-  SubscribeModel,
+  SubscriptionModel,
   SystemConfigurationModel,
 };

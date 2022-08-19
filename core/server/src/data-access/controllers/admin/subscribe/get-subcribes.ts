@@ -1,16 +1,16 @@
 import { Request } from "express";
-import { IGetSubscribes } from "../../../../use-cases/subscribe/get-subscribes";
+import { IGetSubscriptions } from "../../../../use-cases/subscription/get-subscriptions";
 import _ from "lodash";
 import { Logger } from "winston";
 
-export default function makeGetSubscribesController({
-  getSubscribes,
+export default function makeGetSubscriptionsController({
+  getSubscriptions,
   logger,
 }: {
-  getSubscribes: IGetSubscribes;
+  getSubscriptions: IGetSubscriptions;
   logger: Logger;
 }) {
-  return async function getSubscribesController(
+  return async function getSubscriptionsController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
@@ -18,13 +18,13 @@ export default function makeGetSubscribesController({
     };
 
     try {
-      const subscribes = await getSubscribes();
+      const subscriptions = await getSubscriptions();
 
       return {
         headers,
         statusCode: 200,
         body: {
-          data: subscribes,
+          data: subscriptions,
         },
       };
     } catch (err) {
