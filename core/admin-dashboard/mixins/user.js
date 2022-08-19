@@ -38,6 +38,8 @@ export default {
       DELETE_USER: "user/DELETE_USER",
       UPLOAD_USER_AVATAR: "user/UPLOAD_USER_AVATAR",
       HARD_DELETE_USER: "user/HARD_DELETE_USER",
+      UNBLOCK_USER_COMMENT: "user/UNBLOCK_USER_COMMENT",
+      BLOCK_USER_COMMENT: "user/BLOCK_USER_COMMENT",
     }),
     ...mapMutations({
       SET_USER: "user/SET_USER",

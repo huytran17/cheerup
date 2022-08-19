@@ -35,6 +35,39 @@
               }}</span>
             </div>
           </template>
+
+          <template v-slot:item.actions="{ item }">
+            <div v-if="item.is_blocked_comment">
+              <v-tooltip left>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    icon
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="unblockComment(item)"
+                  >
+                    <v-icon color="success">mdi-comment-text-outline</v-icon>
+                  </v-btn>
+                </template>
+                <span v-html="$t('Un-block comment')"></span>
+              </v-tooltip>
+            </div>
+            <div v-else>
+              <v-tooltip left>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    icon
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="blockComment(item)"
+                  >
+                    <v-icon color="error">mdi-comment-off-outline</v-icon>
+                  </v-btn>
+                </template>
+                <span v-html="$t('Block comment')"></span>
+              </v-tooltip>
+            </div>
+          </template>
         </v-data-table>
       </v-col>
     </v-row>
@@ -73,6 +106,11 @@ export default {
             align: "start",
             value: "updated_at",
           },
+          {
+            text: "Actions",
+            align: "start",
+            value: "actions",
+          },
         ];
       },
     },
@@ -82,6 +120,36 @@ export default {
       search: "",
       initial_loading: true,
     };
+  },
+
+  methods: {
+    async unblockComment(user) {
+      try {
+        const id = _.get(user, "_id");
+        const email = _.get(user, "email");
+
+        await this.UNBLOCK_USER_COMMENT({ id });
+        this.$toast.success(`Un-block comment for user ${email} successfully`);
+        await this.$fetch();
+      } catch (err) {
+        console.error(err);
+        this.$toast.error(`Encountered error while un-blocking comment`);
+      }
+    },
+
+    async blockComment(user) {
+      try {
+        const id = _.get(user, "_id");
+        const email = _.get(user, "email");
+
+        await this.BLOCK_USER_COMMENT({ id });
+        this.$toast.success(`Block comment for user ${email} successfully`);
+        await this.$fetch();
+      } catch (err) {
+        console.error(err);
+        this.$toast.error(`Encountered error while blocking comment`);
+      }
+    },
   },
 
   async fetch() {

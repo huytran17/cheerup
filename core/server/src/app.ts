@@ -56,7 +56,7 @@ makeDb().then(async () => {
   const system_configuration = await SystemConfigurationDb.findOne();
   if (!system_configuration) {
     await SystemConfigurationDb.insert({
-      is_block_comment: false,
+      is_blocked_comment: false,
       is_maintaining: false,
       client_meta: {
         title: "Personal Blog",

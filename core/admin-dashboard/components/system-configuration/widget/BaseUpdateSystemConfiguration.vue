@@ -309,7 +309,7 @@
 
           <v-col cols="12" class="pt-6">
             <v-checkbox
-              :input-value="system_configuration.is_block_comment"
+              :input-value="system_configuration.is_blocked_comment"
               :label="$t('Block comment for all posts')"
               hide-details
               class="mt-0"
@@ -317,7 +317,7 @@
               :false-value="false"
               @change="
                 updateSystemConfigurationObject({
-                  variable_path: 'is_block_comment',
+                  variable_path: 'is_blocked_comment',
                   data: $event,
                 })
               "

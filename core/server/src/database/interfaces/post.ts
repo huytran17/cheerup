@@ -7,7 +7,8 @@ export default interface IPost {
   description: string;
   source: string;
   thumbnail_url: string;
-  is_block_comment: boolean;
+  is_blocked_comment: boolean;
+  is_published: boolean;
   thumbnail: Record<string, unknown>;
   content: string;
   author: Admin;
@@ -15,6 +16,7 @@ export default interface IPost {
   meta: {
     views: number;
   };
+  created_by: Admin;
   created_at: Date;
   updated_at: Date;
   deleted_at: Date;

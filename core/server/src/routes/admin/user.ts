@@ -7,6 +7,8 @@ import {
   updateUserRules,
   deleteUserRules,
   createUserRules,
+  unblockUserCommentRules,
+  blockUserCommentRules
 } from "../../data-access/controllers/admin/user/validators";
 import {
   getUserController,
@@ -14,9 +16,23 @@ import {
   getUsersController,
   deleteUserController,
   createUserController,
+  blockUserCommentController,
+  unblockUserCommentController
 } from "../../data-access/controllers/admin/user";
 
 const userRouter = express.Router();
+
+userRouter.get(
+  "/block-comment/:_id",
+  makeValidator(unblockUserCommentRules),
+  makeExpressCallback(blockUserCommentController)
+);
+
+userRouter.get(
+  "/un-block-comment/:_id",
+  makeValidator(blockUserCommentRules),
+  makeExpressCallback(unblockUserCommentController)
+);
 
 userRouter.delete(
   "/delete/:_id",

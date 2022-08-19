@@ -122,13 +122,13 @@
         <v-row>
           <v-col cols="12">
             <v-switch
-              :input-value="post.is_block_comment"
+              :input-value="post.is_blocked_comment"
               :label="$t('Block Comment')"
               :false-value="false"
               :true-value="true"
               @change="
                 updatePostObject({
-                  variable_path: 'is_block_comment',
+                  variable_path: 'is_blocked_comment',
                   data: $event,
                 })
               "

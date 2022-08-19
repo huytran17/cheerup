@@ -28,7 +28,7 @@ export default function makeUnBlockPostCommentController({
       }
 
       const final_post_details = Object.assign({}, exists, {
-        is_block_comment: false,
+        is_blocked_comment: false,
       });
 
       const updated_post = await updatePost({
