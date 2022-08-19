@@ -5,6 +5,7 @@ export default interface IAdmin {
   avatar_url: string;
   avatar: Record<string, unknown>;
   email: string;
+  type: AdminType;
   is_auto_censorship_post: boolean;
   created_at: Date;
   updated_at: Date;

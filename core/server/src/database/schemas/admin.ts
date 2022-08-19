@@ -8,6 +8,12 @@ const adminSchema = new Schema(
   {
     hash_password: { type: String, trim: true },
     full_name: { type: String, trim: true },
+    type: {
+      type: String,
+      trim: true,
+      emum: ["super", "normal"],
+      default: "normal",
+    },
     is_auto_censorship_post: { type: Boolean, default: false },
     avatar: { type: Object },
     email: { type: String, trim: true, lowercase: true },

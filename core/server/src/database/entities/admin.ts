@@ -1,4 +1,4 @@
-import IAdmin from "../interfaces/admin";
+import IAdmin, { AdminType } from "../interfaces/admin";
 
 export default class Admin implements IAdmin {
   public readonly _id: string;
@@ -6,6 +6,7 @@ export default class Admin implements IAdmin {
   public readonly avatar_url: string;
   public readonly avatar: Record<string, unknown>;
   public readonly email: string;
+  public readonly type: AdminType;
   public readonly full_name: string;
   public readonly is_auto_censorship_post: boolean;
   public readonly created_at: Date;
@@ -18,6 +19,7 @@ export default class Admin implements IAdmin {
     avatar,
     email,
     full_name,
+    type,
     avatar_url,
     is_auto_censorship_post,
     created_at,
@@ -31,6 +33,7 @@ export default class Admin implements IAdmin {
     this.full_name = full_name;
     this.is_auto_censorship_post = is_auto_censorship_post;
     this.email = email;
+    this.type = type;
     this.created_at = created_at;
     this.updated_at = updated_at;
     this.deleted_at = deleted_at;
