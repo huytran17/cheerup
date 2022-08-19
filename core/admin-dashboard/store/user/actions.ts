@@ -20,6 +20,16 @@ const actions: ActionTree<UserState, RootState> = {
     return users;
   },
 
+  async [ActionTypes.BLOCK_USER_COMMENT]({ commit }, { id }: { id: string }) {
+    const { data: user } = await this.$axios.$get(`/user/block-comment/${id}`);
+    return user;
+  },
+
+  async [ActionTypes.UNBLOCK_USER_COMMENT]({ commit }, { id }: { id: string }) {
+    const { data: user } = await this.$axios.$get(`/user/un-block-comment/${id}`);
+    return user;
+  },
+
   async [ActionTypes.GET_USER]({ commit }, { id }: { id: string }) {
     const { data: user } = await this.$axios.$get(`/user/${id}`);
 

@@ -2,7 +2,7 @@ import ISystemConfiguration from "../interfaces/system-configuration";
 
 export default class SystemConfiguration implements ISystemConfiguration {
   public readonly _id: string;
-  public readonly is_block_comment: boolean;
+  public readonly is_blocked_comment: boolean;
   public readonly is_maintaining: boolean;
   public readonly admin_logo_url: string;
   public readonly admin_favicon_url: string;
@@ -26,7 +26,7 @@ export default class SystemConfiguration implements ISystemConfiguration {
 
   constructor({
     _id,
-    is_block_comment,
+    is_blocked_comment,
     is_maintaining,
     client_meta,
     admin_meta,
@@ -36,7 +36,7 @@ export default class SystemConfiguration implements ISystemConfiguration {
     client_favicon_url,
   }: ISystemConfiguration) {
     this._id = _id;
-    this.is_block_comment = is_block_comment;
+    this.is_blocked_comment = is_blocked_comment;
     this.is_maintaining = is_maintaining;
     this.client_meta = client_meta;
     this.admin_meta = admin_meta;

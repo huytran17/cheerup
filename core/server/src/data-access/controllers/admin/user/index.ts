@@ -15,6 +15,20 @@ import makeUpdateUserController from "./update-user";
 import makeCreateUserController from "./create-user";
 import makeGetUserByEmailController from "./get-user-by-email";
 import makeGetUsersController from "./get-users";
+import makeBlockUserCommentController from "./block-user-comment";
+import makeUnBlockUserCommentController from "./un-block-user-comment";
+
+const blockUserCommentController = makeBlockUserCommentController({
+  getUser,
+  updateUser,
+  logger,
+});
+
+const unblockUserCommentController = makeUnBlockUserCommentController({
+  getUser,
+  updateUser,
+  logger,
+});
 
 const createUserController = makeCreateUserController({
   signUp,
@@ -57,6 +71,8 @@ export default Object.freeze({
   getUserByEmailController,
   getUsersController,
   createUserController,
+  blockUserCommentController,
+  unblockUserCommentController
 });
 
 export {
@@ -66,4 +82,6 @@ export {
   getUserByEmailController,
   getUsersController,
   createUserController,
+  blockUserCommentController,
+  unblockUserCommentController
 };

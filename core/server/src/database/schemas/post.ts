@@ -8,11 +8,13 @@ const postSchema = new Schema(
   {
     title: { type: String, trim: true },
     description: { type: String, trim: true },
-    is_block_comment: { type: Boolean, default: false },
+    is_blocked_comment: { type: Boolean, default: false },
+    is_published: { type: Boolean, default: false },
     thumbnail: { type: Object },
     content: { type: String, trim: true },
     source: { type: String, trim: true },
     author: { type: Schema.Types.ObjectId, ref: "Admin" },
+    created_by: { type: Schema.Types.ObjectId, ref: "Admin" },
     categories: [{ type: Schema.Types.ObjectId, ref: "Category" }],
     meta: {
       views: { type: Number, default: 0 },
