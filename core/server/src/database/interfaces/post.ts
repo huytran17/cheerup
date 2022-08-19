@@ -6,7 +6,7 @@ export default interface IPost {
   title: string;
   description: string;
   source: string;
-  is_block_comment: boolean;
+  is_blocked_comment: boolean;
   thumbnail: Record<string, unknown>;
   content: string;
   author: Admin;

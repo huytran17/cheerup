@@ -9,7 +9,7 @@ export default class User implements IUser {
   public readonly avatar_url: string;
   public readonly full_name: string;
   public readonly blocked_comment_at: Date;
-  public readonly is_block_comment: boolean;
+  public readonly is_blocked_comment: boolean;
   public readonly created_by: Admin;
   public readonly created_at: Date;
   public readonly updated_at: Date;
@@ -22,7 +22,7 @@ export default class User implements IUser {
     email,
     full_name,
     avatar_url,
-    is_block_comment,
+    is_blocked_comment,
     created_at,
     updated_at,
     deleted_at,
@@ -33,7 +33,7 @@ export default class User implements IUser {
     this.avatar = avatar;
     this.avatar_url = avatar_url;
     this.hash_password = hash_password;
-    this.is_block_comment = is_block_comment;
+    this.is_blocked_comment = is_blocked_comment;
     this.full_name = full_name;
     this.email = email;
     this.created_at = created_at;

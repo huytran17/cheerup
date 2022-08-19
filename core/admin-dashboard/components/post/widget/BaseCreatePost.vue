@@ -83,7 +83,7 @@
               :label="$t('Block Comment')"
               @change="
                 updatePostObject({
-                  variable_path: 'is_block_comment',
+                  variable_path: 'is_blocked_comment',
                   data: $event,
                 })
               "

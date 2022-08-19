@@ -115,7 +115,7 @@
             <v-tooltip left>
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
-                  v-if="item.is_block_comment"
+                  v-if="item.is_blocked_comment"
                   icon
                   v-bind="attrs"
                   v-on="on"
@@ -136,7 +136,7 @@
                 </v-btn>
               </template>
               <span
-                v-if="item.is_block_comment"
+                v-if="item.is_blocked_comment"
                 v-html="$t('Un-block comment')"
               ></span>
               <span v-else v-html="$t('Block comment')"></span>

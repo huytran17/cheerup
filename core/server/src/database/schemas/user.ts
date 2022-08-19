@@ -8,7 +8,7 @@ const userSchema = new Schema(
   {
     hash_password: { type: String, trim: true },
     full_name: { type: String, trim: true },
-    is_block_comment: { type: Boolean, default: false },
+    is_blocked_comment: { type: Boolean, default: false },
     blocked_comment_at:{ type: Date },
     avatar: { type: Object },
     email: { type: String, trim: true, lowercase: true },
