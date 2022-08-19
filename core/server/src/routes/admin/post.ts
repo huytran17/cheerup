@@ -13,6 +13,8 @@ import {
   blockPostCommentRules,
   unBlockPostCommentRules,
   hardDeletePostRules,
+  publishPostRules,
+  unPublishPostRules
 } from "../../data-access/controllers/admin/post/validators";
 import {
   getPostController,
@@ -25,9 +27,23 @@ import {
   unblockPostCommentController,
   blockPostCommentController,
   hardDeletePostController,
+  publishPostController,
+  unPublishPostController
 } from "../../data-access/controllers/admin/post";
 
 const postRouter = express.Router();
+
+postRouter.put(
+  "/publish/:_id",
+  makeValidator(publishPostRules),
+  makeExpressCallback(publishPostController)
+); // DONE
+
+postRouter.put(
+  "/un-publish/:_id",
+  makeValidator(unPublishPostRules),
+  makeExpressCallback(unPublishPostController)
+); // DONE
 
 postRouter.delete(
   "/hard-delete/:_id",

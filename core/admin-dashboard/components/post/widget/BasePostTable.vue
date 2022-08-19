@@ -71,9 +71,10 @@
                     icon
                     v-bind="attrs"
                     v-on="on"
+                    small
                     @click="restoreDeletePost(item)"
                   >
-                    <v-icon color="success">mdi-backup-restore</v-icon>
+                    <v-icon small color="success">mdi-backup-restore</v-icon>
                   </v-btn>
                 </template>
                 <span v-html="$t('Restore')"></span>
@@ -86,9 +87,10 @@
                     icon
                     v-bind="attrs"
                     v-on="on"
+                    small
                     @click="deletePost(item)"
                   >
-                    <v-icon color="error">mdi-trash-can-outline</v-icon>
+                    <v-icon small color="error">mdi-trash-can-outline</v-icon>
                   </v-btn>
                 </template>
                 <span v-html="$t('Delete')"></span>
@@ -99,6 +101,7 @@
                     icon
                     v-bind="attrs"
                     v-on="on"
+                    small
                     @click="
                       () => {
                         SET_POST({ data: item });
@@ -106,7 +109,7 @@
                       }
                     "
                   >
-                    <v-icon color="error">mdi-delete-off-outline</v-icon>
+                    <v-icon small color="error">mdi-delete-off-outline</v-icon>
                   </v-btn>
                 </template>
                 <span v-html="$t('Delete Forever')"></span>
@@ -119,9 +122,10 @@
                   icon
                   v-bind="attrs"
                   v-on="on"
+                  small
                   @click="unblockComment(item)"
                 >
-                  <v-icon color="success"
+                  <v-icon small color="success"
                     >mdi-comment-processing-outline</v-icon
                   >
                 </v-btn>
@@ -130,9 +134,10 @@
                   icon
                   v-bind="attrs"
                   v-on="on"
+                  small
                   @click="blockComment(item)"
                 >
-                  <v-icon color="error">mdi-comment-off-outline</v-icon>
+                  <v-icon small color="error">mdi-comment-off-outline</v-icon>
                 </v-btn>
               </template>
               <span
@@ -140,6 +145,37 @@
                 v-html="$t('Un-block comment')"
               ></span>
               <span v-else v-html="$t('Block comment')"></span>
+            </v-tooltip>
+            <v-tooltip left>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  v-if="item.is_published"
+                  icon
+                  v-bind="attrs"
+                  v-on="on"
+                  small
+                  @click="unpublishPost(item)"
+                >
+                  <v-icon small color="error"
+                    >mdi-earth-off</v-icon
+                  >
+                </v-btn>
+                <v-btn
+                  v-else
+                  icon
+                  v-bind="attrs"
+                  v-on="on"
+                  small
+                  @click="publishPost(item)"
+                >
+                  <v-icon small color="success">mdi-earth</v-icon>
+                </v-btn>
+              </template>
+              <span
+                v-if="item.is_published"
+                v-html="$t('Un-publish this post')"
+              ></span>
+              <span v-else v-html="$t('Publish this post')"></span>
             </v-tooltip>
           </template>
         </v-data-table>
@@ -253,6 +289,38 @@ export default {
         console.error(err);
         this.$toast.error(
           `Encountered error while un-blocking comment for post`
+        );
+      }
+    },
+
+    async publishPost(post) {
+      try {
+        const id = _.get(post, "_id");
+        const title = _.get(post, "title");
+
+        await this.PUBLISH_POST({ id });
+        this.$toast.success(`Published comment for post ${title} successfully`);
+        await this.$fetch();
+      } catch (err) {
+        console.error(err);
+        this.$toast.error(`Encountered error while publishing comment for post`);
+      }
+    },
+
+    async unpublishPost(post) {
+      try {
+        const id = _.get(post, "_id");
+        const title = _.get(post, "title");
+
+        await this.UNPUBLISH_POST({ id });
+        this.$toast.success(
+          `Un-published comment for post ${title} successfully`
+        );
+        await this.$fetch();
+      } catch (err) {
+        console.error(err);
+        this.$toast.error(
+          `Encountered error while un-publishing comment for post`
         );
       }
     },
