@@ -56,7 +56,7 @@
                   v-bind="attrs"
                   v-on="on"
                   small
-                  @click="restoreDeleteCategory(item)"
+                  @click="restoreDeletedCategory(item)"
                 >
                   <v-icon small color="success">mdi-backup-restore</v-icon>
                 </v-btn>
@@ -193,7 +193,7 @@ export default {
       }
     },
 
-    async restoreDeleteCategory(category) {
+    async restoreDeletedCategory(category) {
       try {
         const id = _.get(category, "_id");
         const title = _.get(category, "title");

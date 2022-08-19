@@ -1,19 +1,19 @@
 import { IGetAdmin } from "../../../../use-cases/admin/get-admin";
-import { IDeleteAdmin } from "../../../../use-cases/admin/delete-admin";
+import { IHardDeleteAdmin } from "../../../../use-cases/admin/hard-delete-admin";
 import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
 
-export default function makeDeleteAdminController({
+export default function makeHardDeleteAdminController({
   getAdmin,
-  deleteAdmin,
+  hardDeleteAdmin,
   logger,
 }: {
   getAdmin: IGetAdmin;
-  deleteAdmin: IDeleteAdmin;
+  hardDeleteAdmin: IHardDeleteAdmin;
   logger: Logger;
 }) {
-  return async function deleteAdminController(
+  return async function hardDeleteAdminController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
@@ -21,13 +21,13 @@ export default function makeDeleteAdminController({
     };
 
     try {
-      const { _id } = _.get(httpRequest, "context.validated");
+      const { _id } =  _.get(httpRequest, "context.validated");
       const exists = await getAdmin({ _id });
       if (!exists) {
         throw new Error(`Admin by ${_id} does not exist`);
       }
 
-      const deleted_admin = await deleteAdmin({ _id });
+      const deleted_admin = await hardDeleteAdmin({ _id });
       return {
         headers,
         statusCode: 200,

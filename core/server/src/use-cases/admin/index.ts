@@ -8,6 +8,11 @@ import makeDeleteAdmin from "./delete-admin";
 import makeUpdateAdmin from "./update-admin";
 import makeGetAdmins from "./get-admins";
 import makeCreateAdmin from "./create-admin";
+import makeHardDeleteAdmin from "./hard-delete-admin";
+
+const hardDeleteAdmin = makeHardDeleteAdmin({
+  adminDb: AdminDb,
+});
 
 const createAdmin = makeCreateAdmin({
   adminDb: AdminDb,
@@ -41,9 +46,10 @@ const adminServices = Object.freeze({
   deleteAdmin,
   updateAdmin,
   getAdmins,
-  createAdmin
+  createAdmin,
+  hardDeleteAdmin
 });
 
 export default adminServices;
 
-export { getAdmin, getAdminByEmail, deleteAdmin, updateAdmin, getAdmins, createAdmin };
+export { getAdmin, getAdminByEmail, deleteAdmin, updateAdmin, getAdmins, createAdmin, hardDeleteAdmin };

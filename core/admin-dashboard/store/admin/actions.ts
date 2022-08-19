@@ -16,12 +16,16 @@ const actions: ActionTree<AdminState, RootState> = {
     }
 
     commit(MutationTypes.SET_ADMINS, { data: admins });
-
     return admins;
   },
 
   async [ActionTypes.ENABLE_AUTO_CENSORSHIP_POST]({ commit }, { id }: { id: string }) {
     const { data: admin } = await this.$axios.$put(`/admin/enable-auto-censorship/${id}`);
+    return admin;
+  },
+
+  async [ActionTypes.RESTORE_ADMIN]({ commit }, { id }: { id: string }) {
+    const { data: admin } = await this.$axios.$put(`/admin/restore/${id}`);
     return admin;
   },
 
@@ -34,13 +38,11 @@ const actions: ActionTree<AdminState, RootState> = {
     const { data: admin } = await this.$axios.$get(`/admin/${id}`);
 
     commit(MutationTypes.SET_ADMIN, { data: admin });
-
     return admin;
   },
 
   async [ActionTypes.CREATE_ADMIN]({ commit }, { data }: { data: any }) {
     const { data: admin } = await this.$axios.$post(`/admin`, data);
-
     return admin;
   },
 
@@ -48,23 +50,16 @@ const actions: ActionTree<AdminState, RootState> = {
     const { data: admin } = await this.$axios.$put(`/admin`, data);
 
     commit(MutationTypes.SET_ADMIN, { data: admin });
-
     return admin;
   },
 
   async [ActionTypes.DELETE_ADMIN]({ commit }, { id }: { id: string }) {
     const { data: admin } = await this.$axios.$delete(`/admin/${id}`);
-
-    commit(MutationTypes.SET_ADMIN, { data: admin });
-
     return admin;
   },
 
   async [ActionTypes.HARD_DELETE_ADMIN]({ commit }, { id }: { id: string }) {
     const { data: admin } = await this.$axios.$delete(`/admin/hard-delete/${id}`);
-
-    commit(MutationTypes.SET_ADMIN, { data: admin });
-
     return admin;
   },
 };

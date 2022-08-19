@@ -36,6 +36,7 @@ export default {
       CREATE_ADMIN: "admin/CREATE_ADMIN",
       UPDATE_ADMIN: "admin/UPDATE_ADMIN",
       DELETE_ADMIN: "admin/DELETE_ADMIN",
+      RESTORE_ADMIN: "admin/RESTORE_ADMIN",
       HARD_DELETE_ADMIN: "admin/HARD_DELETE_ADMIN",
       DISABLE_AUTO_CENSORSHIP_POST: "admin/DISABLE_AUTO_CENSORSHIP_POST",
       ENABLE_AUTO_CENSORSHIP_POST: "admin/ENABLE_AUTO_CENSORSHIP_POST",
@@ -43,6 +44,7 @@ export default {
     ...mapMutations({
       SET_ADMIN: "admin/SET_ADMIN",
       SET_ADMINS: "admin/SET_ADMINS",
+      UPDATE_ADMIN_DATA: "admin/UPDATE_ADMIN_DATA",
     }),
 
     updateAdminObject({ variable_path, data }) {

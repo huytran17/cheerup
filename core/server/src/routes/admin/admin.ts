@@ -9,6 +9,8 @@ import {
   createAdminRules,
   disableAutoCensorshipRules,
   enableAutoCensorshipRules,
+  restoreAdminRules,
+  hardDeleteAdminRules
 } from "../../data-access/controllers/admin/admin/validators";
 import {
   getAdminController,
@@ -18,14 +20,28 @@ import {
   createAdminController,
   disableAutoCensorshipController,
   enableAutoCensorshipController,
+  restoreAdminController,
+  hardDeleteAdminController
 } from "../../data-access/controllers/admin/admin";
 
 const adminRouter = express.Router();
+
+adminRouter.delete(
+  "/hard-delete/:_id",
+  makeValidator(hardDeleteAdminRules),
+  makeExpressCallback(hardDeleteAdminController)
+);
 
 adminRouter.put(
   "/disable-auto-censorship/:_id",
   makeValidator(disableAutoCensorshipRules),
   makeExpressCallback(disableAutoCensorshipController)
+);
+
+adminRouter.put(
+  "/restore/:_id",
+  makeValidator(restoreAdminRules),
+  makeExpressCallback(restoreAdminController)
 );
 
 adminRouter.put(
@@ -35,7 +51,7 @@ adminRouter.put(
 );
 
 adminRouter.delete(
-  "/delete/:_id",
+  "/:_id",
   makeValidator(deleteAdminRules),
   makeExpressCallback(deleteAdminController)
 );
