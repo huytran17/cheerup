@@ -15,10 +15,10 @@ export default function makeGetAdminController({
     };
 
     try {
-      const admin_id = _.get(httpRequest, "context.validated");
-      const exists = await getAdmin({ _id: admin_id });
+      const { _id } = _.get(httpRequest, "context.validated");
+      const exists = await getAdmin({ _id });
       if (!exists) {
-        throw new Error(`Admin ${admin_id} does not exist`);
+        throw new Error(`Admin ${_id} does not exist`);
       }
 
       return {

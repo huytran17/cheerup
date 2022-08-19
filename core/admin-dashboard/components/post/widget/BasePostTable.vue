@@ -80,7 +80,7 @@
                 <span v-html="$t('Restore')"></span>
               </v-tooltip>
             </div>
-            <div v-if="!item.deleted_at">
+            <div v-else>
               <v-tooltip left>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn

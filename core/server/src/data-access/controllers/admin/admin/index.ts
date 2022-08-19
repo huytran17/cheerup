@@ -4,7 +4,8 @@ import {
   updateAdmin,
   getAdmins,
   createAdmin,
-  getAdminByEmail
+  getAdminByEmail,
+  hardDeleteAdmin
 } from "../../../../use-cases/admin";
 import { logger } from "../../../../config/storage/logger";
 import { hashPassword } from "../../../../config/password";
@@ -16,6 +17,20 @@ import makeDisableAutoCensorshipController from "./disable-auto-censorship";
 import makeEnableAutoCensorshipController from "./enable-auto-censorship";
 import makeGetAdminsController from "./get-admins";
 import makeCreateAdminController from "./create-admin";
+import makeRestoreAdminController from "./restore-admin";
+import makeHardDeleteAdminController from "./hard-delete-admin";
+
+const hardDeleteAdminController = makeHardDeleteAdminController({
+  getAdmin,
+  hardDeleteAdmin,
+  logger,
+});
+
+const restoreAdminController = makeRestoreAdminController({
+  getAdmin,
+  updateAdmin,
+  logger,
+});
 
 const createAdminController = makeCreateAdminController({
   createAdmin,
@@ -64,7 +79,9 @@ export default Object.freeze({
   disableAutoCensorshipController,
   enableAutoCensorshipController,
   getAdminsController,
-  createAdminController
+  createAdminController,
+  restoreAdminController,
+  hardDeleteAdminController
 });
 
-export { getAdminController, deleteAdminController, updateAdminController, disableAutoCensorshipController, enableAutoCensorshipController, getAdminsController, createAdminController };
+export { getAdminController, deleteAdminController, updateAdminController, disableAutoCensorshipController, enableAutoCensorshipController, getAdminsController, createAdminController, restoreAdminController, hardDeleteAdminController };

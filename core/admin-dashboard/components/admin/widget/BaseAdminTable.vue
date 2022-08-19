@@ -37,6 +37,57 @@
           </template>
 
           <template v-slot:item.actions="{ item }">
+            <div v-if="item.deleted_at">
+              <v-tooltip left>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    icon
+                    v-bind="attrs"
+                    v-on="on"
+                    small
+                    @click="restoreDeletedAdmin(item)"
+                  >
+                    <v-icon small color="success">mdi-backup-restore</v-icon>
+                  </v-btn>
+                </template>
+                <span v-html="$t('Restore')"></span>
+              </v-tooltip>
+            </div>
+            <div v-else>
+              <v-tooltip left>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    icon
+                    v-bind="attrs"
+                    v-on="on"
+                    small
+                    @click="deleteAdmin(item)"
+                  >
+                    <v-icon small color="error">mdi-trash-can-outline</v-icon>
+                  </v-btn>
+                </template>
+                <span v-html="$t('Delete')"></span>
+              </v-tooltip>
+              <v-tooltip left>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    icon
+                    v-bind="attrs"
+                    v-on="on"
+                    small
+                    @click="
+                      () => {
+                        SET_CATEGORY({ data: item });
+                        is_open_hard_delete_dialog = true;
+                      }
+                    "
+                  >
+                    <v-icon small color="error">mdi-delete-off-outline</v-icon>
+                  </v-btn>
+                </template>
+                <span v-html="$t('Delete Forever')"></span>
+              </v-tooltip>
+            </div>
             <div v-if="item.is_auto_censorship_post">
               <v-tooltip left>
                 <template v-slot:activator="{ on, attrs }">
@@ -63,7 +114,9 @@
                     small
                     @click="enableAutoCensorshipPost(item)"
                   >
-                    <v-icon small color="success">mdi-note-check-outline</v-icon>
+                    <v-icon small color="success"
+                      >mdi-note-check-outline</v-icon
+                    >
                   </v-btn>
                 </template>
                 <span v-html="$t('Enable auto censorship post')"></span>
@@ -131,7 +184,9 @@ export default {
         const email = _.get(admin, "email");
 
         await this.DISABLE_AUTO_CENSORSHIP_POST({ id });
-        this.$toast.success(`Disable auto censorship for admin ${email} successfully`);
+        this.$toast.success(
+          `Disable auto censorship for admin ${email} successfully`
+        );
         await this.$fetch();
       } catch (err) {
         console.error(err);
@@ -145,11 +200,57 @@ export default {
         const email = _.get(admin, "email");
 
         await this.ENABLE_AUTO_CENSORSHIP_POST({ id });
-        this.$toast.success(`Enable auto censorship for admin ${email} successfully`);
+        this.$toast.success(
+          `Enable auto censorship for admin ${email} successfully`
+        );
         await this.$fetch();
       } catch (err) {
         console.error(err);
         this.$toast.error(`Encountered error while enabling auto censorship`);
+      }
+    },
+
+    async restoreDeletedAdmin(admin) {
+      try {
+        const id = _.get(admin, "_id");
+        const title = _.get(admin, "title");
+
+        await this.RESTORE_ADMIN({ id });
+        this.$toast.success(`Restored admin ${title} successfully`);
+        await this.$fetch();
+      } catch (err) {
+        console.error(err);
+        this.$toast.error(`Encountered error while restoring admin`);
+      }
+    },
+
+    async deleteAdmin(admin) {
+      try {
+        const id = _.get(admin, "_id");
+        const title = _.get(admin, "title");
+
+        await this.DELETE_ADMIN({ id });
+        this.$toast.success(`Deleted admin ${title} successfully`);
+        await this.$fetch();
+      } catch (err) {
+        console.error(err);
+        this.$toast.error(`Encountered error while deleting admin`);
+      }
+    },
+
+    async hardDeleteAdmin() {
+      try {
+        const id = _.get(this.admin, "_id");
+        const title = _.get(this.admin, "title");
+
+        await this.HARD_DELETE_ADMIN({ id });
+        this.$toast.success(`Forever deleted admin ${title} successfully`);
+        await this.$fetch();
+      } catch (err) {
+        console.error(err);
+        this.$toast.error(`Encountered error while deleting admin`);
+      } finally {
+        this.is_open_hard_delete_dialog = false;
       }
     },
   },

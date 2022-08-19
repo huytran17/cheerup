@@ -56,7 +56,7 @@
                   v-bind="attrs"
                   v-on="on"
                   small
-                  @click="restoreDeleteCategory(item)"
+                  @click="restoreDeletedCategory(item)"
                 >
                   <v-icon small color="success">mdi-backup-restore</v-icon>
                 </v-btn>
@@ -64,7 +64,7 @@
               <span v-html="$t('Restore')"></span>
             </v-tooltip>
           </div>
-          <div v-if="!item.deleted_at">
+          <div v-else>
             <v-tooltip left>
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
@@ -193,7 +193,7 @@ export default {
       }
     },
 
-    async restoreDeleteCategory(category) {
+    async restoreDeletedCategory(category) {
       try {
         const id = _.get(category, "_id");
         const title = _.get(category, "title");

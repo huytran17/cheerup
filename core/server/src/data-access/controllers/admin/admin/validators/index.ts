@@ -5,6 +5,8 @@ import enableAutoCensorshipRules from "./enable-auto-censorship";
 import disableAutoCensorshipRules from "./disable-auto-censorship";
 import updateAdminRules from "./update-admin";
 import createAdminRules from "./create-admin";
+import restoreAdminRules from "./restore-admin";
+import hardDeleteAdminRules from "./hard-delete-admin";
 
 export default Object.freeze({
   getAdminRules,
@@ -13,7 +15,9 @@ export default Object.freeze({
   disableAutoCensorshipRules,
   enableAutoCensorshipRules,
   updateAdminRules,
-  createAdminRules
+  createAdminRules,
+  restoreAdminRules,
+  hardDeleteAdminRules
 });
 
-export { getAdminRules, deleteAdminRules, getAdminByEmailRules, disableAutoCensorshipRules, enableAutoCensorshipRules, updateAdminRules, createAdminRules };
+export { getAdminRules, deleteAdminRules, getAdminByEmailRules, disableAutoCensorshipRules, enableAutoCensorshipRules, updateAdminRules, createAdminRules, restoreAdminRules, hardDeleteAdminRules };

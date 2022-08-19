@@ -28,7 +28,8 @@ export default function makeUpdateAdminController({
         throw new Error(`Admin by ${_id} does not exist`);
       }
 
-      const updated_admin = await updateAdmin({ adminDetails });
+      const final_admin_details = Object.assign({}, exists, adminDetails);
+      const updated_admin = await updateAdmin({ adminDetails: final_admin_details });
       return {
         headers,
         statusCode: 200,
