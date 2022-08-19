@@ -8,6 +8,7 @@ const adminSchema = new Schema(
   {
     hash_password: { type: String, trim: true },
     full_name: { type: String, trim: true },
+    is_auto_censorship_post: { type: Boolean, default: false },
     avatar: { type: Object },
     email: { type: String, trim: true, lowercase: true },
     created_at: { type: Date, default: Date.now },

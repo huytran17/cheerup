@@ -7,6 +7,7 @@ export default class Admin implements IAdmin {
   public readonly avatar: Record<string, unknown>;
   public readonly email: string;
   public readonly full_name: string;
+  public readonly is_auto_censorship_post: boolean;
   public readonly created_at: Date;
   public readonly updated_at: Date;
   public readonly deleted_at: Date;
@@ -18,6 +19,7 @@ export default class Admin implements IAdmin {
     email,
     full_name,
     avatar_url,
+    is_auto_censorship_post,
     created_at,
     updated_at,
     deleted_at,
@@ -27,6 +29,7 @@ export default class Admin implements IAdmin {
     this.avatar_url = avatar_url;
     this.hash_password = hash_password;
     this.full_name = full_name;
+    this.is_auto_censorship_post = is_auto_censorship_post;
     this.email = email;
     this.created_at = created_at;
     this.updated_at = updated_at;
