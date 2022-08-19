@@ -7,7 +7,6 @@ export default class User implements IUser {
   public readonly avatar_url: string;
   public readonly avatar: Record<string, unknown>;
   public readonly email: string;
-  public readonly avatar_url: string;
   public readonly full_name: string;
   public readonly blocked_comment_at: Date;
   public readonly is_blocked_comment: boolean;
