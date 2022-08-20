@@ -41,6 +41,5 @@ export interface PaginatedFeedbackResult {
 export interface IFeedbackAnalyticsData {
   total_created_counts: number[];
   total_count: number;
-  total_deleted_counts: number[];
   formatted_dates: string[];
 }

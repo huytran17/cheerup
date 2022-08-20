@@ -8,6 +8,11 @@ import makeDeleteUser from "./delete-user";
 import makeUpdateUser from "./update-user";
 import makeGetUsers from "./get-users";
 import makeHardDeleteUser from "./hard-delete-user";
+import makeGetUserAnalystics from "./get-user-analystics";
+
+const getUserAnalystics = makeGetUserAnalystics({
+  userDb: UserDb,
+});
 
 const hardDeleteUser = makeHardDeleteUser({
   userDb: UserDb,
@@ -42,6 +47,7 @@ const userServices = Object.freeze({
   updateUser,
   getUsers,
   hardDeleteUser,
+  getUserAnalystics,
 });
 
 export default userServices;
@@ -53,4 +59,5 @@ export {
   updateUser,
   getUsers,
   hardDeleteUser,
+  getUserAnalystics,
 };

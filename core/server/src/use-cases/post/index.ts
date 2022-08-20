@@ -8,6 +8,11 @@ import makeUpdatePost from "./update-post";
 import makeCreatePost from "./create-post";
 import makeGetPosts from "./get-posts";
 import makeHardDeletePost from "./hard-delete-post";
+import makeGetPostAnalystics from "./get-post-analystics";
+
+const getPostAnalystics = makeGetPostAnalystics({
+  postDb: PostDb,
+});
 
 const hardDeletePost = makeHardDeletePost({
   postDb: PostDb,
@@ -43,6 +48,7 @@ const postServices = Object.freeze({
   getPosts,
   createPost,
   hardDeletePost,
+  getPostAnalystics,
 });
 
 export default postServices;
@@ -54,4 +60,5 @@ export {
   getPosts,
   createPost,
   hardDeletePost,
+  getPostAnalystics,
 };

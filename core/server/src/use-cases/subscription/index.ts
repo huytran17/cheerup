@@ -7,6 +7,11 @@ import makeGetSubscriptionByEmail from "./get-subscription-by-email";
 import makeUpdateSubscription from "./update-subscription";
 import makeCreateSubscription from "./create-subscription";
 import makeGetSubscriptions from "./get-subscriptions";
+import makeGetSubscriptionAnalystics from "./get-subscription-analystics";
+
+const getSubscriptionAnalystics = makeGetSubscriptionAnalystics({
+  subscriptionDb: SubscriptionDb,
+});
 
 const getSubscription = makeGetSubscription({
   subscriptionDb: SubscriptionDb,
@@ -37,6 +42,7 @@ const subscriptionServices = Object.freeze({
   updateSubscription,
   getSubscriptions,
   createSubscription,
+  getSubscriptionAnalystics,
 });
 
 export default subscriptionServices;
@@ -47,4 +53,5 @@ export {
   updateSubscription,
   getSubscriptions,
   createSubscription,
+  getSubscriptionAnalystics,
 };

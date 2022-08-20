@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 const feedbackSchema = new Schema(
   {
     title: { type: String, trim: true },
+    content: { type: String, trim: true },
     created_by: [{ type: Schema.Types.ObjectId, ref: "User" }],
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now },

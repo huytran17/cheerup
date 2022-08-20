@@ -7,6 +7,11 @@ import makeDeleteFeedback from "./delete-feedback";
 import makeUpdateFeedback from "./update-feedback";
 import makeCreateFeedback from "./create-feedback";
 import makeGetFeedbacks from "./get-feedbacks";
+import makeGetFeedbackAnalystics from "./get-feedback-analystics";
+
+const getFeedbackAnalystics = makeGetFeedbackAnalystics({
+  feedbackDb: FeedbackDb,
+});
 
 const getFeedback = makeGetFeedback({
   feedbackDb: FeedbackDb,
@@ -36,6 +41,7 @@ const feedbackServices = Object.freeze({
   updateFeedback,
   getFeedbacks,
   createFeedback,
+  getFeedbackAnalystics,
 });
 
 export default feedbackServices;
@@ -46,4 +52,5 @@ export {
   updateFeedback,
   getFeedbacks,
   createFeedback,
+  getFeedbackAnalystics,
 };

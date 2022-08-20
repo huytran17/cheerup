@@ -34,7 +34,6 @@ export default function makeFeedbackDb({
       const to_date_formatted = moment();
       const formatted_dates = [];
       const total_created_counts = [];
-      const total_deleted_counts = [];
 
       const query_conditions = {};
 
@@ -50,14 +49,7 @@ export default function makeFeedbackDb({
         const date = from_date_formatted.format("YYYY-MM-DD");
         formatted_dates.push(date);
 
-        const [total_deleted_count, total_created_count] = await Promise.all([
-          feedbackDbModel.countDocuments({
-            ...query_conditions,
-            deleted_at: {
-              $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
-              $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
-            },
-          }),
+        const [total_created_count] = await Promise.all([
           feedbackDbModel.countDocuments({
             ...query_conditions,
             created_at: {
@@ -68,12 +60,10 @@ export default function makeFeedbackDb({
         ]);
 
         total_created_counts.push(total_created_count);
-        total_deleted_counts.push(total_deleted_count);
         from_date_formatted.add(1, unit);
       }
       return {
         total_created_counts,
-        total_deleted_counts,
         formatted_dates,
         total_count,
       };
