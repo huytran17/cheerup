@@ -7,6 +7,7 @@ export default interface IAdmin {
   email: string;
   type: AdminType;
   is_auto_censorship_post: boolean;
+  email_verified_at: Date;
   created_at: Date;
   updated_at: Date;
   deleted_at: Date;
