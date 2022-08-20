@@ -13,8 +13,8 @@
         <span
           class="app-body"
           v-html="
-            $t(`Do you want to delete category {title} forever?`, {
-              title: data.title,
+            $t(`Do you want to delete {title} forever?`, {
+              title,
             })
           "
         ></span>
@@ -47,8 +47,8 @@ export default {
         return false;
       },
     },
-    data: {
-      type: Object,
+    title: {
+      type: String,
       required: true,
     },
     closeDialog: {

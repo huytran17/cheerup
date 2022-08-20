@@ -108,6 +108,7 @@
       :data="category"
       :closeDialog="() => (is_open_hard_delete_dialog = false)"
       :confirmDelete="() => hardDeleteCategory()"
+      :title="`category ${category.title}`"
     />
   </v-row>
 </template>

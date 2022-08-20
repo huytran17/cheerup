@@ -12,6 +12,8 @@ import {
   blockUserCommentRules,
   uploadUserAvatarRules,
   updateUserPasswordRules,
+  restoreUserRules,
+  hardDeleteUserRules,
 } from "../../data-access/controllers/admin/user/validators";
 import {
   getUserController,
@@ -23,9 +25,23 @@ import {
   unblockUserCommentController,
   uploadUserAvatarController,
   updateUserPasswordController,
+  restoreUserController,
+  hardDeleteUserController,
 } from "../../data-access/controllers/admin/user";
 
 const userRouter = express.Router();
+
+userRouter.delete(
+  "/hard-delete/:_id",
+  makeValidator(hardDeleteUserRules),
+  makeExpressCallback(hardDeleteUserController)
+);
+
+userRouter.put(
+  "/restore/:_id",
+  makeValidator(restoreUserRules),
+  makeExpressCallback(restoreUserController)
+);
 
 userRouter.put(
   "/password",
@@ -53,7 +69,7 @@ userRouter.put(
 );
 
 userRouter.delete(
-  "/delete/:_id",
+  "/:_id",
   makeValidator(deleteUserRules),
   makeExpressCallback(deleteUserController)
 );

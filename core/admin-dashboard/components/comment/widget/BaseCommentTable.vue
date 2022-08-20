@@ -69,6 +69,7 @@
       :data="comment"
       :closeDialog="() => (is_open_hard_delete_dialog = false)"
       :confirmDelete="() => hardDeleteComment()"
+      :title="`comment ${comment.content}`"
     />
   </div>
 </template>

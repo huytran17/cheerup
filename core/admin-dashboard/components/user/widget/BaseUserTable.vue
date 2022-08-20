@@ -37,6 +37,57 @@
           </template>
 
           <template v-slot:item.actions="{ item }">
+            <div v-if="item.deleted_at">
+              <v-tooltip left>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    icon
+                    v-bind="attrs"
+                    v-on="on"
+                    small
+                    @click="restoreDeletedUser(item)"
+                  >
+                    <v-icon small color="success">mdi-backup-restore</v-icon>
+                  </v-btn>
+                </template>
+                <span v-html="$t('Restore')"></span>
+              </v-tooltip>
+            </div>
+            <div v-else>
+              <v-tooltip left>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    icon
+                    v-bind="attrs"
+                    v-on="on"
+                    small
+                    @click="deleteUser(item)"
+                  >
+                    <v-icon small color="error">mdi-trash-can-outline</v-icon>
+                  </v-btn>
+                </template>
+                <span v-html="$t('Delete')"></span>
+              </v-tooltip>
+              <v-tooltip left>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    icon
+                    v-bind="attrs"
+                    v-on="on"
+                    small
+                    @click="
+                      () => {
+                        SET_USER({ data: item });
+                        is_open_hard_delete_dialog = true;
+                      }
+                    "
+                  >
+                    <v-icon small color="error">mdi-delete-off-outline</v-icon>
+                  </v-btn>
+                </template>
+                <span v-html="$t('Delete Forever')"></span>
+              </v-tooltip>
+            </div>
             <div v-if="item.is_blocked_comment">
               <v-tooltip left>
                 <template v-slot:activator="{ on, attrs }">
@@ -47,7 +98,9 @@
                     small
                     @click="unblockComment(item)"
                   >
-                    <v-icon small color="success">mdi-comment-text-outline</v-icon>
+                    <v-icon small color="success"
+                      >mdi-comment-text-outline</v-icon
+                    >
                   </v-btn>
                 </template>
                 <span v-html="$t('Un-block comment')"></span>
@@ -73,6 +126,14 @@
         </v-data-table>
       </v-col>
     </v-row>
+
+    <BaseHardDeleteDialog
+      :is_open="is_open_hard_delete_dialog"
+      :data="user"
+      :closeDialog="() => (is_open_hard_delete_dialog = false)"
+      :confirmDelete="() => hardDeleteUser()"
+      :title="`user ${user.email}`"
+    />
   </div>
 </template>
 
@@ -80,9 +141,14 @@
 import userMixins from "@/mixins/user";
 import systemMixins from "@/mixins/system";
 
+import BaseHardDeleteDialog from "@/components/BaseHardDeleteDialog";
+
 export default {
   name: "BaseUserTable",
   mixins: [userMixins, systemMixins],
+  compnents: {
+    BaseHardDeleteDialog,
+  },
   props: {
     headers: {
       type: Array,
@@ -121,10 +187,54 @@ export default {
     return {
       search: "",
       initial_loading: true,
+      is_open_hard_delete_dialog: false,
     };
   },
 
   methods: {
+    async restoreDeletedUser(user) {
+      try {
+        const id = _.get(user, "_id");
+        const title = _.get(user, "title");
+
+        await this.RESTORE_USER({ id });
+        this.$toast.success(`Restored user ${title} successfully`);
+        await this.$fetch();
+      } catch (err) {
+        console.error(err);
+        this.$toast.error(`Encountered error while restoring user`);
+      }
+    },
+
+    async deleteUser(user) {
+      try {
+        const id = _.get(user, "_id");
+        const title = _.get(user, "title");
+
+        await this.DELETE_USER({ id });
+        this.$toast.success(`Deleted user ${title} successfully`);
+        await this.$fetch();
+      } catch (err) {
+        console.error(err);
+        this.$toast.error(`Encountered error while deleting user`);
+      }
+    },
+
+    async hardDeleteUser() {
+      try {
+        const id = _.get(this.user, "_id");
+
+        await this.HARD_DELETE_USER({ id });
+        this.$toast.success(`Forever deleted user successfully`);
+        await this.$fetch();
+      } catch (err) {
+        console.error(err);
+        this.$toast.error(`Encountered error while deleting user`);
+      } finally {
+        this.is_open_hard_delete_dialog = false;
+      }
+    },
+
     async unblockComment(user) {
       try {
         const id = _.get(user, "_id");

@@ -37,7 +37,7 @@
                 class="app-body"
                 @click="
                   () => {
-                    SET_CATEGORY({ data: category_item });
+                    SET_POST({ data: category_item });
                     $router.push(`/category/${category_item._id}`);
                   }
                 "
@@ -156,9 +156,7 @@
                   small
                   @click="unpublishPost(item)"
                 >
-                  <v-icon small color="error"
-                    >mdi-earth-off</v-icon
-                  >
+                  <v-icon small color="error">mdi-earth-off</v-icon>
                 </v-btn>
                 <v-btn
                   v-else
@@ -187,6 +185,7 @@
       :data="post"
       :closeDialog="() => (is_open_hard_delete_dialog = false)"
       :confirmDelete="() => hardDeletePost()"
+      :title="`post ${post.title}`"
     />
   </div>
 </template>
@@ -259,7 +258,7 @@ export default {
 
   methods: {
     ...mapMutations({
-      SET_CATEGORY: "category/SET_CATEGORY",
+      SET_POST: "post/SET_POST",
     }),
     async blockComment(post) {
       try {
@@ -303,7 +302,9 @@ export default {
         await this.$fetch();
       } catch (err) {
         console.error(err);
-        this.$toast.error(`Encountered error while publishing comment for post`);
+        this.$toast.error(
+          `Encountered error while publishing comment for post`
+        );
       }
     },
 

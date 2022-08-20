@@ -60,26 +60,16 @@ const actions: ActionTree<UserState, RootState> = {
 
   async [ActionTypes.DELETE_USER]({ commit }, { id }: { id: string }) {
     const { data: user } = await this.$axios.$delete(`/user/${id}`);
-
-    commit(MutationTypes.SET_USER, { data: user });
     return user;
   },
 
   async [ActionTypes.HARD_DELETE_USER]({ commit }, { id }: { id: string }) {
     const { data: user } = await this.$axios.$delete(`/user/hard-delete/${id}`);
-
-    commit(MutationTypes.SET_USER, { data: user });
     return user;
   },
 
-  async [ActionTypes.UPLOAD_USER_AVATAR]({ commit }, { file }: { file: any }) {
-    const form_data = new FormData();
-    form_data.append("file", file);
-
-    const { data: user } = await this.$axios.$put(
-      `/user/upload-avatar`,
-      form_data
-    );
+  async [ActionTypes.RESTORE_USER]({ commit }, { id }: { id: string }) {
+    const { data: user } = await this.$axios.$put(`/user/restore/${id}`);
     return user;
   },
 };

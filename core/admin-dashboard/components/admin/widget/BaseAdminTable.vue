@@ -95,7 +95,7 @@
                     small
                     @click="
                       () => {
-                        SET_CATEGORY({ data: item });
+                        SET_ADMIN({ data: item });
                         is_open_hard_delete_dialog = true;
                       }
                     "
@@ -144,6 +144,14 @@
         </v-data-table>
       </v-col>
     </v-row>
+
+    <BaseHardDeleteDialog
+      :is_open="is_open_hard_delete_dialog"
+      :data="admin"
+      :closeDialog="() => (is_open_hard_delete_dialog = false)"
+      :confirmDelete="() => hardDeleteAdmin()"
+      :title="`admin ${admin.email}`"
+    />
   </div>
 </template>
 
@@ -152,12 +160,14 @@ import adminMixins from "@/mixins/admin";
 import systemMixins from "@/mixins/system";
 
 import Avatar from "vue-avatar";
+import BaseHardDeleteDialog from "@/components/BaseHardDeleteDialog";
 
 export default {
   name: "BaseAdminTable",
   mixins: [adminMixins, systemMixins],
   components: {
     Avatar,
+    BaseHardDeleteDialog,
   },
   props: {
     headers: {
@@ -203,6 +213,7 @@ export default {
     return {
       search: "",
       initial_loading: true,
+      is_open_hard_delete_dialog: false,
     };
   },
 

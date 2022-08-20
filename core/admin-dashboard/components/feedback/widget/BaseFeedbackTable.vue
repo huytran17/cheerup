@@ -69,6 +69,7 @@
       :data="feedback"
       :closeDialog="() => (is_open_hard_delete_dialog = false)"
       :confirmDelete="() => hardDeleteFeedback()"
+      :title="`feedback ${feedback.title}`"
     />
   </div>
 </template>

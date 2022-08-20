@@ -4,6 +4,7 @@ import {
   updateUser,
   getUsers,
   getUserByEmail,
+  hardDeleteUser,
 } from "../../../../use-cases/user";
 import { logger } from "../../../../config/storage/logger";
 import { signUp } from "../../../../use-cases/auth";
@@ -19,6 +20,20 @@ import makeBlockUserCommentController from "./block-user-comment";
 import makeUnBlockUserCommentController from "./un-block-user-comment";
 import makeUploadUserAvatarController from "./upload-avatar";
 import makeUpdateUserPasswordController from "./update-user-password";
+import makeRestoreUserController from "./restore-user";
+import makeHardDeleteUserController from "./hard-delete-user";
+
+const hardDeleteUserController = makeHardDeleteUserController({
+  getUser,
+  hardDeleteUser,
+  logger,
+});
+
+const restoreUserController = makeRestoreUserController({
+  getUser,
+  updateUser,
+  logger,
+});
 
 const updateUserPasswordController = makeUpdateUserPasswordController({
   getUser,
@@ -89,6 +104,8 @@ export default Object.freeze({
   unblockUserCommentController,
   uploadUserAvatarController,
   updateUserPasswordController,
+  restoreUserController,
+  hardDeleteUserController,
 });
 
 export {
@@ -102,4 +119,6 @@ export {
   unblockUserCommentController,
   uploadUserAvatarController,
   updateUserPasswordController,
+  restoreUserController,
+  hardDeleteUserController,
 };
