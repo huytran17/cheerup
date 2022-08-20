@@ -26,6 +26,7 @@ export default {
       RESTORE_POST: "post/RESTORE_POST",
       PUBLISH_POST: "post/PUBLISH_POST",
       UNPUBLISH_POST: "post/UNPUBLISH_POST",
+      GET_POST_ANALYTICS: "post/GET_POST_ANALYTICS",
     }),
     ...mapMutations({
       SET_POST: "post/SET_POST",

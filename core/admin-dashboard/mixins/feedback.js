@@ -17,6 +17,7 @@ export default {
       DELETE_FEEDBACK: "feedback/DELETE_FEEDBACK",
       UPLOAD_FEEDBACK_THUMBNAIL: "feedback/UPLOAD_FEEDBACK_THUMBNAIL",
       HARD_DELETE_FEEDBACK: "feedback/HARD_DELETE_FEEDBACK",
+      GET_FEEDBACK_ANALYTICS: "feedback/GET_FEEDBACK_ANALYTICS",
     }),
     ...mapMutations({
       SET_FEEDBACK: "feedback/SET_FEEDBACK",

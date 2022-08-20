@@ -47,6 +47,7 @@ export default {
       BLOCK_USER_COMMENT: "user/BLOCK_USER_COMMENT",
       UPDATE_USER_PASSWORD: "user/UPDATE_USER_PASSWORD",
       RESTORE_USER: "user/RESTORE_USER",
+      GET_USER_ANALYTICS: "user/GET_USER_ANALYTICS",
     }),
     ...mapMutations({
       SET_USER: "user/SET_USER",
