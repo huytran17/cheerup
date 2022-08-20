@@ -17,7 +17,16 @@ export default interface ISubscriptionDb {
   insert: (payload: Partial<ISubscription>) => Promise<Subscription | null>;
   delete: ({ _id }: { _id: string }) => Promise<Subscription | null>;
   hardDelete: ({ _id }: { _id: string }) => Promise<Subscription | null>;
-  update: (updatePayload: Partial<ISubscription>) => Promise<Subscription | null>;
+  update: (
+    updatePayload: Partial<ISubscription>
+  ) => Promise<Subscription | null>;
+  getSubscriptionAnalystics: ({
+    distance,
+    unit,
+  }: {
+    distance?: number;
+    unit?: string;
+  }) => Promise<ISubscriptionAnalyticsData>;
 }
 
 export interface PaginatedSubscriptionResult {
@@ -30,4 +39,11 @@ export interface PaginatedSubscriptionResult {
     total: number | null;
     total_pages: number | null;
   };
+}
+
+export interface ISubscriptionAnalyticsData {
+  total_created_counts: number[];
+  total_count: number;
+  total_active_counts: number[];
+  formatted_dates: string[];
 }

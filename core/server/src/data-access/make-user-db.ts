@@ -1,6 +1,9 @@
 import _ from "lodash";
 import mongoose from "mongoose";
-import IUserDb, { PaginatedUserResult } from "./interfaces/user-db";
+import IUserDb, {
+  PaginatedUserResult,
+  IUserAnalyticsData,
+} from "./interfaces/user-db";
 import User from "../database/entities/user";
 import IUser from "../database/interfaces/user";
 
@@ -15,6 +18,95 @@ export default function makeUserDb({
   moment: any;
 }): IUserDb {
   return new (class MongooseUserDb implements IUserDb {
+    /**
+     * get the number of resumes daily for past "distance & unit" (including today)
+     * @param param0
+     * @returns
+     */
+    async getUserAnalystics({
+      distance = 7,
+      unit = "day",
+    }: {
+      distance?: number;
+      unit?: string;
+    }): Promise<IUserAnalyticsData> {
+      const from_date_formatted = moment().subtract(distance, unit);
+      const to_date_formatted = moment();
+      const formatted_dates = [];
+      const total_created_counts = [];
+      const total_deleted_counts = [];
+      const total_blocked_comment_counts = [];
+      const total_verified_email_counts = [];
+
+      const query_conditions = {};
+
+      const total_count = await userDbModel.countDocuments({
+        ...query_conditions,
+        deleted_at: {
+          $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
+          $lte: moment(to_date_formatted, "yyyy-MM-DD").endOf(unit),
+        },
+      });
+
+      while (from_date_formatted.isSameOrBefore(to_date_formatted, unit)) {
+        const date = from_date_formatted.format("YYYY-MM-DD");
+        formatted_dates.push(date);
+
+        const [
+          total_deleted_count,
+          total_created_count,
+          total_blocked_comment_count,
+          total_verified_email_count,
+        ] = await Promise.all([
+          userDbModel.countDocuments({
+            ...query_conditions,
+            deleted_at: {
+              $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
+              $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
+            },
+          }),
+          userDbModel.countDocuments({
+            ...query_conditions,
+            created_at: {
+              $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
+              $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
+            },
+          }),
+          userDbModel.countDocuments({
+            ...query_conditions,
+            deleted_at: { $in: [null, undefined] },
+            is_blocked_comment: { $nin: [null, undefined] },
+            created_at: {
+              $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
+              $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
+            },
+          }),
+          userDbModel.countDocuments({
+            ...query_conditions,
+            deleted_at: { $in: [null, undefined] },
+            email_verified_at: { $nin: [null, undefined] },
+            created_at: {
+              $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
+              $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
+            },
+          }),
+        ]);
+
+        total_created_counts.push(total_created_count);
+        total_deleted_counts.push(total_deleted_count);
+        total_blocked_comment_counts.push(total_blocked_comment_count);
+        total_verified_email_counts.push(total_verified_email_count);
+        from_date_formatted.add(1, unit);
+      }
+      return {
+        total_created_counts,
+        total_deleted_counts,
+        total_blocked_comment_counts,
+        total_verified_email_counts,
+        formatted_dates,
+        total_count,
+      };
+    }
     /**
      * @description used by user dashboard
      * FIXME: Currently not in used. To be removed and should never be used.
@@ -36,7 +128,7 @@ export default function makeUserDb({
     }
     /**
      *
-     * @description used by admin API
+     * @description used by user API
      * @param param0
      * @param param1
      */

@@ -17,6 +17,13 @@ export default interface IPostDb {
   delete: ({ _id }: { _id: string }) => Promise<Post | null>;
   hardDelete: ({ _id }: { _id: string }) => Promise<Post | null>;
   update: (updatePayload: Partial<IPost>) => Promise<Post | null>;
+  getPostAnalystics: ({
+    distance,
+    unit,
+  }: {
+    distance?: number;
+    unit?: string;
+  }) => Promise<IPostAnalyticsData>;
 }
 
 export interface PaginatedPostResult {
@@ -29,4 +36,13 @@ export interface PaginatedPostResult {
     total: number | null;
     total_pages: number | null;
   };
+}
+
+export interface IPostAnalyticsData {
+  total_created_counts: number[];
+  total_deleted_counts: number[];
+  total_blocked_comment_counts: number[];
+  total_count: number;
+  total_published_counts: number[];
+  formatted_dates: string[];
 }

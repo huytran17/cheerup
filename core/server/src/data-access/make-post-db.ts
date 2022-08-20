@@ -1,6 +1,9 @@
 import _ from "lodash";
 import mongoose from "mongoose";
-import IPostDb, { PaginatedPostResult } from "./interfaces/post-db";
+import IPostDb, {
+  PaginatedPostResult,
+  IPostAnalyticsData,
+} from "./interfaces/post-db";
 import Post from "../database/entities/post";
 import IPost from "../database/interfaces/post";
 
@@ -15,6 +18,95 @@ export default function makePostDb({
   moment: any;
 }): IPostDb {
   return new (class MongoosePostDb implements IPostDb {
+    /**
+     * get the number of resumes daily for past "distance & unit" (including today)
+     * @param param0
+     * @returns
+     */
+    async getPostAnalystics({
+      distance = 7,
+      unit = "day",
+    }: {
+      distance?: number;
+      unit?: string;
+    }): Promise<IPostAnalyticsData> {
+      const from_date_formatted = moment().subtract(distance, unit);
+      const to_date_formatted = moment();
+      const formatted_dates = [];
+      const total_created_counts = [];
+      const total_deleted_counts = [];
+      const total_published_counts = [];
+      const total_blocked_comment_counts = [];
+
+      const query_conditions = {};
+
+      const total_count = await postDbModel.countDocuments({
+        ...query_conditions,
+        deleted_at: {
+          $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
+          $lte: moment(to_date_formatted, "yyyy-MM-DD").endOf(unit),
+        },
+      });
+
+      while (from_date_formatted.isSameOrBefore(to_date_formatted, unit)) {
+        const date = from_date_formatted.format("YYYY-MM-DD");
+        formatted_dates.push(date);
+
+        const [
+          total_deleted_count,
+          total_created_count,
+          total_published_count,
+          total_blocked_comment_count,
+        ] = await Promise.all([
+          postDbModel.countDocuments({
+            ...query_conditions,
+            deleted_at: {
+              $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
+              $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
+            },
+          }),
+          postDbModel.countDocuments({
+            ...query_conditions,
+            created_at: {
+              $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
+              $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
+            },
+          }),
+          postDbModel.countDocuments({
+            ...query_conditions,
+            is_published: true,
+            deleted_at: { $in: [null, undefined] },
+            created_at: {
+              $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
+              $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
+            },
+          }),
+          postDbModel.countDocuments({
+            ...query_conditions,
+            is_blocked_comment: true,
+            deleted_at: { $in: [null, undefined] },
+            created_at: {
+              $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
+              $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
+            },
+          }),
+        ]);
+
+        total_created_counts.push(total_created_count);
+        total_deleted_counts.push(total_deleted_count);
+        total_published_counts.push(total_published_count);
+        total_blocked_comment_counts.push(total_blocked_comment_count);
+        from_date_formatted.add(1, unit);
+      }
+      return {
+        total_created_counts,
+        total_deleted_counts,
+        formatted_dates,
+        total_count,
+        total_blocked_comment_counts,
+        total_published_counts,
+      };
+    }
     /**
      * @description used by post dashboard
      * FIXME: Currently not in used. To be removed and should never be used.

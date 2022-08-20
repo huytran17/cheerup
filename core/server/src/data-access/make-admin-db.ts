@@ -1,8 +1,11 @@
 import _ from "lodash";
 import mongoose from "mongoose";
-import IAdminDb, { PaginatedAdminResult } from "./interfaces/admin-db";
+import IAdminDb, {
+  PaginatedAdminResult,
+  IAdminAnalyticsData,
+} from "./interfaces/admin-db";
 import Admin from "../database/entities/admin";
-import IAdmin from "../database/interfaces/admin";
+import IAdmin, { AdminType } from "../database/interfaces/admin";
 
 export default function makeAdminDb({
   adminDbModel,
@@ -15,6 +18,108 @@ export default function makeAdminDb({
   moment: any;
 }): IAdminDb {
   return new (class MongooseAdminDb implements IAdminDb {
+    /**
+     * get the number of resumes daily for past "distance & unit" (including today)
+     * @param param0
+     * @returns
+     */
+    async getAdminAnalystics({
+      distance = 7,
+      unit = "day",
+    }: {
+      distance?: number;
+      unit?: string;
+    }): Promise<IAdminAnalyticsData> {
+      const from_date_formatted = moment().subtract(distance, unit);
+      const to_date_formatted = moment();
+      const formatted_dates = [];
+      const total_created_counts = [];
+      const total_deleted_counts = [];
+      const total_super_admin_counts = [];
+      const total_normal_admin_counts = [];
+      const total_verified_email_counts = [];
+
+      const query_conditions = {};
+
+      const total_count = await adminDbModel.countDocuments({
+        ...query_conditions,
+        deleted_at: {
+          $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
+          $lte: moment(to_date_formatted, "yyyy-MM-DD").endOf(unit),
+        },
+      });
+
+      while (from_date_formatted.isSameOrBefore(to_date_formatted, unit)) {
+        const date = from_date_formatted.format("YYYY-MM-DD");
+        formatted_dates.push(date);
+
+        const [
+          total_deleted_count,
+          total_created_count,
+          total_super_admin_count,
+          total_normal_admin_count,
+          total_verified_email_counts,
+        ] = await Promise.all([
+          adminDbModel.countDocuments({
+            ...query_conditions,
+            deleted_at: {
+              $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
+              $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
+            },
+          }),
+          adminDbModel.countDocuments({
+            ...query_conditions,
+            created_at: {
+              $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
+              $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
+            },
+          }),
+          adminDbModel.countDocuments({
+            ...query_conditions,
+            type: AdminType.Super,
+            deleted_at: { $in: [null, undefined] },
+            created_at: {
+              $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
+              $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
+            },
+          }),
+          adminDbModel.countDocuments({
+            ...query_conditions,
+            type: AdminType.Normal,
+            deleted_at: { $in: [null, undefined] },
+            created_at: {
+              $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
+              $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
+            },
+          }),
+          adminDbModel.countDocuments({
+            ...query_conditions,
+            type: AdminType.Normal,
+            deleted_at: { $in: [null, undefined] },
+            email_verified_at: { $nin: [null, undefined] },
+            created_at: {
+              $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
+              $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
+            },
+          }),
+        ]);
+
+        total_created_counts.push(total_created_count);
+        total_deleted_counts.push(total_deleted_count);
+        total_super_admin_counts.push(total_super_admin_count);
+        total_normal_admin_counts.push(total_normal_admin_count);
+        from_date_formatted.add(1, unit);
+      }
+      return {
+        total_created_counts,
+        total_deleted_counts,
+        total_super_admin_counts,
+        total_normal_admin_counts,
+        formatted_dates,
+        total_count,
+        total_verified_email_counts,
+      };
+    }
     /**
      * @description used by admin dashboard
      * FIXME: Currently not in used. To be removed and should never be used.

@@ -18,6 +18,13 @@ export default interface IAdminDb {
   delete: ({ _id }: { _id: string }) => Promise<Admin | null>;
   hardDelete: ({ _id }: { _id: string }) => Promise<Admin | null>;
   update: (updatePayload: Partial<IAdmin>) => Promise<Admin | null>;
+  getAdminAnalystics: ({
+    distance,
+    unit,
+  }: {
+    distance?: number;
+    unit?: string;
+  }) => Promise<IAdminAnalyticsData>;
 }
 
 export interface PaginatedAdminResult {
@@ -30,4 +37,14 @@ export interface PaginatedAdminResult {
     total: number | null;
     total_pages: number | null;
   };
+}
+
+export interface IAdminAnalyticsData {
+  total_created_counts: number[];
+  total_deleted_counts: number[];
+  total_super_admin_counts: number[];
+  total_normal_admin_counts: number[];
+  total_verified_email_counts: number[];
+  total_count: number;
+  formatted_dates: string[];
 }
