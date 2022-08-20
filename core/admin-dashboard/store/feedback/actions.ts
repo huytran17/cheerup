@@ -6,6 +6,11 @@ import { RootState } from "..";
 import _ from "lodash";
 
 const actions: ActionTree<FeedbackState, RootState> = {
+  async [ActionTypes.GET_FEEDBACK_ANALYTICS]({ commit }) {
+    const { data } = await this.$axios.$get(`/feedback/analystics`);
+    return data;
+  },
+
   async [ActionTypes.GET_FEEDBACKS]({ commit }, params = {}) {
     const keep_in_store = _.get(params, "keep_in_store", true);
 

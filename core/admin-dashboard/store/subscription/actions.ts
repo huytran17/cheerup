@@ -6,6 +6,11 @@ import { RootState } from "..";
 import _ from "lodash";
 
 const actions: ActionTree<SubscriptionState, RootState> = {
+  async [ActionTypes.GET_SUBSCRIPTION_ANALYTICS]({ commit }) {
+    const { data } = await this.$axios.$get(`/subscription/analystics`);
+    return data;
+  },
+
   async [ActionTypes.GET_SUBSCRIPTIONS]({ commit }, params = {}) {
     const keep_in_store = _.get(params, "keep_in_store", true);
 

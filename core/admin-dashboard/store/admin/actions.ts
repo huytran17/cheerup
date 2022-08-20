@@ -6,6 +6,11 @@ import { RootState } from "..";
 import _ from "lodash";
 
 const actions: ActionTree<AdminState, RootState> = {
+  async [ActionTypes.GET_ADMIN_ANALYTICS]({ commit }) {
+    const { data } = await this.$axios.$get(`/admin/analystics`);
+    return data;
+  },
+
   async [ActionTypes.GET_ADMINS]({ commit }, params = {}) {
     const keep_in_store = _.get(params, "keep_in_store", true);
 

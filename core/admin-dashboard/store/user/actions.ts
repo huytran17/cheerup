@@ -6,6 +6,11 @@ import { RootState } from "..";
 import _ from "lodash";
 
 const actions: ActionTree<UserState, RootState> = {
+  async [ActionTypes.GET_USER_ANALYTICS]({ commit }) {
+    const { data } = await this.$axios.$get(`/user/analystics`);
+    return data;
+  },
+
   async [ActionTypes.UPDATE_USER_PASSWORD](
     { commit },
     { data }: { data: any }
