@@ -9,6 +9,9 @@
     <v-row class="my-4">
       <v-col cols="12" md="8" class="d-flex flex-column rounded-lg">
         <div class="text-body-1 pb-4 primary--text">
+          <v-icon color="primary" class="mb-1"
+            >mdi-account-group-outline</v-icon
+          >
           <span class="app-title" v-html="$t('User Analytics')"></span>
         </div>
         <BarChart :chartData="user_chart_data" />
@@ -17,12 +20,18 @@
         <v-row>
           <v-col cols="12" class="d-flex flex-column rounded-lg">
             <div class="text-body-1 pb-4 primary--text">
+              <v-icon color="primary" class="mb-1"
+                >mdi-shield-crown-outline</v-icon
+              >
               <span class="app-title" v-html="$t('Admin Analytics')"></span>
             </div>
             <LineChart :chartData="admin_chart_data" />
           </v-col>
           <v-col cols="12" class="d-flex flex-column rounded-lg">
             <div class="text-body-1 pb-4 primary--text">
+              <v-icon color="primary" class="mb-1"
+                >mdi-book-open-page-variant-outline</v-icon
+              >
               <span class="app-title" v-html="$t('Post Analytics')"></span>
             </div>
             <LineChart :chartData="post_chart_data" />
@@ -33,12 +42,16 @@
     <v-row class="my-4">
       <v-col cols="12" md="4" class="d-flex flex-column rounded-lg">
         <div class="text-body-1 pb-4 primary--text">
+          <v-icon color="primary" class="mb-1">mdi-email-fast-outline</v-icon>
           <span class="app-title" v-html="$t('Subscription Analytics')"></span>
         </div>
         <RadarChart :chartData="subscription_chart_data" />
       </v-col>
       <v-col cols="12" md="4" class="d-flex flex-column rounded-lg">
         <div class="text-body-1 pb-4 primary--text">
+          <v-icon color="primary" class="mb-1"
+            >mdi-comment-quote-outline</v-icon
+          >
           <span class="app-title" v-html="$t('Feedback Analytics')"></span>
         </div>
         <LineChart :chartData="feedback_chart_data" />
