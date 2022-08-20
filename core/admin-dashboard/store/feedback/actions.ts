@@ -23,6 +23,7 @@ const actions: ActionTree<FeedbackState, RootState> = {
     const { data } = await this.$axios.$get(
       `/feedback/analystics?${url_query}`
     );
+    commit(MutationTypes.SET_FEEDBACK_ANALYS_DATA, { data });
     return data;
   },
 

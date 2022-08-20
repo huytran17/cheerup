@@ -21,6 +21,7 @@ const actions: ActionTree<AdminState, RootState> = {
     }
 
     const { data } = await this.$axios.$get(`/admin/analystics?${url_query}`);
+    commit(MutationTypes.SET_ADMIN_ANALYS_DATA, { data });
     return data;
   },
 

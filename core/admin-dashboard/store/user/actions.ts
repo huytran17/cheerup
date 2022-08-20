@@ -21,6 +21,7 @@ const actions: ActionTree<UserState, RootState> = {
     }
 
     const { data } = await this.$axios.$get(`/user/analystics?${url_query}`);
+    commit(MutationTypes.SET_USER_ANALYS_DATA, { data });
     return data;
   },
 

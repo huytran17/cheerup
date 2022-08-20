@@ -1,5 +1,6 @@
 export const state = () => ({
   subscription: {} as any,
+  subscription_analys_data: {} as any,
   subscriptions: [] as any[],
 });
 

@@ -8,6 +8,7 @@ export const getters: GetterTree<FeedbackState, RootState> = {
   },
   feedback: (state) => state.feedback,
   feedbacks: (state) => state.feedbacks,
+  feedback_analys_data: (state) => state.feedback_analys_data,
 };
 
 export default getters;

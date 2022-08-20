@@ -11,6 +11,7 @@ export default {
     ...mapGetters({
       post: "post/post",
       posts: "post/posts",
+      post_analys_data: "post/post_analys_data",
     }),
   },
   methods: {

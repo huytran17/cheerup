@@ -1,5 +1,6 @@
 export const state = () => ({
   feedback: {} as any,
+  feedback_analys_data: {} as any,
   feedbacks: [] as any[],
 });
 

@@ -35,6 +35,7 @@ export default {
     ...mapGetters({
       admin: "admin/admin",
       admins: "admin/admins",
+      admin_analys_data: "admin/admin_analys_data",
     }),
   },
   methods: {

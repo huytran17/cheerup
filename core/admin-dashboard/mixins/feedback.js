@@ -6,6 +6,7 @@ export default {
     ...mapGetters({
       feedback: "feedback/feedback",
       feedbacks: "feedback/feedbacks",
+      feedback_analys_data: "feedback/feedback_analys_data",
     }),
   },
   methods: {

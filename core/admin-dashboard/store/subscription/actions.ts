@@ -23,6 +23,7 @@ const actions: ActionTree<SubscriptionState, RootState> = {
     const { data } = await this.$axios.$get(
       `/subscription/analystics?${url_query}`
     );
+    commit(MutationTypes.SET_SUBSCRIPTION_ANALYS_DATA, { data });
     return data;
   },
 

@@ -7,6 +7,7 @@ export const getters: GetterTree<UserState, RootState> = {
     return "/user";
   },
   user: (state) => state.user,
+  user_analys_data: (state) => state.user_analys_data,
   users: (state) => state.users,
 };
 

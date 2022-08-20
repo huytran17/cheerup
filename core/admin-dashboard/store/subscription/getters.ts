@@ -8,6 +8,7 @@ export const getters: GetterTree<SubscriptionState, RootState> = {
   },
   subscription: (state) => state.subscription,
   subscriptions: (state) => state.subscriptions,
+  subscription_analys_data: (state) => state.subscription_analys_data,
 };
 
 export default getters;

@@ -6,6 +6,7 @@ export default {
     ...mapGetters({
       subscription: "subscription/subscription",
       subscriptions: "subscription/subscriptions",
+      subscription_analys_data: "subscription/subscription_analys_data",
     }),
   },
   methods: {

@@ -21,6 +21,7 @@ const actions: ActionTree<PostState, RootState> = {
     }
 
     const { data } = await this.$axios.$get(`/post/analystics?${url_query}`);
+    commit(MutationTypes.SET_POST_ANALYS_DATA, { data });
     return data;
   },
 

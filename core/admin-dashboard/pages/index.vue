@@ -1,15 +1,39 @@
 <template>
-  <BarChart />
+  <div class="d-flex flex-column">
+    <div class="d-flex">
+      <div></div>
+      <div class="d-flex flex-column">
+        <div class="d-flex"></div>
+        <div></div>
+      </div>
+    </div>
+
+    <div class="d-flex">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
 import BarChart from "@/components/charts/BarChart";
+import LineChart from "@/components/charts/LineChart";
+import PieChart from "@/components/charts/PieChart";
+import PolarAreaChart from "@/components/charts/PolarAreaChart";
+import BubbleChart from "@/components/charts/BubbleChart";
+import DoughnutChart from "@/components/charts/DoughnutChart";
 
 export default {
   name: "IndexPage",
   components: {
     BarChart,
+    LineChart,
+    PieChart,
+    PolarAreaChart,
+    BubbleChart,
+    DoughnutChart,
   },
   data() {
     return {
@@ -30,7 +54,13 @@ export default {
   async fetch() {
     try {
       this.loading = true;
-      await Promise.all([
+      const [
+        user_analys_data,
+        admin_analys_data,
+        feedback_analys_data,
+        post_analys_data,
+        subscription_analys_data,
+      ] = await Promise.all([
         this.GET_USER_ANALYTICS(),
         this.GET_ADMIN_ANALYTICS(),
         this.GET_FEEDBACK_ANALYTICS(),

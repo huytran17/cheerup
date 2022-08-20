@@ -7,6 +7,7 @@ export const getters: GetterTree<PostState, RootState> = {
     return "/post";
   },
   post: (state) => state.post,
+  post_analys_data: (state) => state.post_analys_data,
   posts: (state) => state.posts,
 };
 

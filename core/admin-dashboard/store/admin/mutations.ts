@@ -4,6 +4,10 @@ import { AdminState } from ".";
 import _ from "lodash";
 
 const mutations: MutationTree<AdminState> = {
+  [MutationTypes.SET_ADMIN_ANALYS_DATA](state, { data }: { data: any }) {
+    state.admin_analys_data = data;
+  },
+
   [MutationTypes.SET_ADMIN](state, { data }: { data: any }) {
     state.admin = data;
   },

@@ -32,6 +32,7 @@ export default {
     ...mapGetters({
       user: "user/user",
       users: "user/users",
+      user_analys_data: "user/user_analys_data",
     }),
   },
   methods: {

@@ -4,6 +4,10 @@ import { UserState } from ".";
 import _ from "lodash";
 
 const mutations: MutationTree<UserState> = {
+  [MutationTypes.SET_USER_ANALYS_DATA](state, { data }: { data: any }) {
+    state.user_analys_data = data;
+  },
+
   [MutationTypes.SET_USER](state, { data }: { data: any }) {
     state.user = data;
   },
