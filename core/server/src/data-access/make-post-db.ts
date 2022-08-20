@@ -42,7 +42,7 @@ export default function makePostDb({
 
       const total_count = await postDbModel.countDocuments({
         ...query_conditions,
-        deleted_at: {
+        created_at: {
           $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
           $lte: moment(to_date_formatted, "yyyy-MM-DD").endOf(unit),
         },

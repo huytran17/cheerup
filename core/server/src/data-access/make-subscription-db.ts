@@ -40,7 +40,7 @@ export default function makeSubscriptionDb({
 
       const total_count = await subscriptionDbModel.countDocuments({
         ...query_conditions,
-        deleted_at: {
+        created_at: {
           $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
           $lte: moment(to_date_formatted, "yyyy-MM-DD").endOf(unit),
         },

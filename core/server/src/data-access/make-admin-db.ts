@@ -43,7 +43,7 @@ export default function makeAdminDb({
 
       const total_count = await adminDbModel.countDocuments({
         ...query_conditions,
-        deleted_at: {
+        created_at: {
           $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
           $lte: moment(to_date_formatted, "yyyy-MM-DD").endOf(unit),
         },
@@ -58,7 +58,7 @@ export default function makeAdminDb({
           total_created_count,
           total_super_admin_count,
           total_normal_admin_count,
-          total_verified_email_counts,
+          total_verified_email_count,
         ] = await Promise.all([
           adminDbModel.countDocuments({
             ...query_conditions,
@@ -108,6 +108,7 @@ export default function makeAdminDb({
         total_deleted_counts.push(total_deleted_count);
         total_super_admin_counts.push(total_super_admin_count);
         total_normal_admin_counts.push(total_normal_admin_count);
+        total_verified_email_counts.push(total_verified_email_count);
         from_date_formatted.add(1, unit);
       }
       return {
