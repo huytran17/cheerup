@@ -6,9 +6,15 @@ import { getSubscriptionRules } from "../../data-access/controllers/admin/subscr
 import {
   getSubscriptionController,
   getSubscriptionsController,
+  getSubscriptionAnalysticsController,
 } from "../../data-access/controllers/admin/subscription";
 
 const subscriptionRouter = express.Router();
+
+subscriptionRouter.get(
+  "/analystics",
+  makeExpressCallback(getSubscriptionAnalysticsController)
+);
 
 subscriptionRouter.get(
   "/:_id",

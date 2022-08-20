@@ -6,9 +6,15 @@ import { deleteFeedbackRules } from "../../data-access/controllers/admin/feedbac
 import {
   deleteFeedbackController,
   getFeedbacksController,
+  getFeedbackAnalysticsController,
 } from "../../data-access/controllers/admin/feedback";
 
 const feedbackRouter = express.Router();
+
+feedbackRouter.get(
+  "/analystics",
+  makeExpressCallback(getFeedbackAnalysticsController)
+);
 
 feedbackRouter.delete(
   "/:_id",

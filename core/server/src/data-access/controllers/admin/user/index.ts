@@ -5,6 +5,7 @@ import {
   getUsers,
   getUserByEmail,
   hardDeleteUser,
+  getUserAnalystics,
 } from "../../../../use-cases/user";
 import { logger } from "../../../../config/storage/logger";
 import { signUp } from "../../../../use-cases/auth";
@@ -22,6 +23,11 @@ import makeUploadUserAvatarController from "./upload-avatar";
 import makeUpdateUserPasswordController from "./update-user-password";
 import makeRestoreUserController from "./restore-user";
 import makeHardDeleteUserController from "./hard-delete-user";
+import makeGetUserAnalysticsController from "./get-user-analystics";
+
+const getUserAnalysticsController = makeGetUserAnalysticsController({
+  getUserAnalystics,
+});
 
 const hardDeleteUserController = makeHardDeleteUserController({
   getUser,
@@ -106,6 +112,7 @@ export default Object.freeze({
   updateUserPasswordController,
   restoreUserController,
   hardDeleteUserController,
+  getUserAnalysticsController,
 });
 
 export {
@@ -121,4 +128,5 @@ export {
   updateUserPasswordController,
   restoreUserController,
   hardDeleteUserController,
+  getUserAnalysticsController,
 };

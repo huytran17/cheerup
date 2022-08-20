@@ -27,9 +27,12 @@ import {
   updateUserPasswordController,
   restoreUserController,
   hardDeleteUserController,
+  getUserAnalysticsController,
 } from "../../data-access/controllers/admin/user";
 
 const userRouter = express.Router();
+
+userRouter.get("/analystics", makeExpressCallback(getUserAnalysticsController));
 
 userRouter.delete(
   "/hard-delete/:_id",

@@ -27,9 +27,15 @@ import {
   hardDeleteAdminController,
   updateAdminPasswordController,
   uploadAdminAvatarController,
+  getAdminAnalysticsController,
 } from "../../data-access/controllers/admin/admin";
 
 const adminRouter = express.Router();
+
+adminRouter.get(
+  "/analystics",
+  makeExpressCallback(getAdminAnalysticsController)
+);
 
 adminRouter.post(
   "/upload-avatar/:_id",

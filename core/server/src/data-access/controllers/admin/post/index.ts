@@ -5,10 +5,9 @@ import {
   createPost,
   getPosts,
   hardDeletePost,
+  getPostAnalystics,
 } from "../../../../use-cases/post";
-import {
-  getAdmin
-} from "../../../../use-cases/admin";
+import { getAdmin } from "../../../../use-cases/admin";
 import { logger } from "../../../../config/storage/logger";
 
 import makeGetPostController from "./get-post";
@@ -23,6 +22,11 @@ import makeUnblockPostCommentController from "./unblock-post-comment";
 import makeHardDeletePostController from "./hard-delete-post";
 import makePublishPostController from "./publish-post";
 import makeUnPublishPostController from "./un-publish-post";
+import makeGetPostAnalysticsController from "./get-post-analystics";
+
+const getPostAnalysticsController = makeGetPostAnalysticsController({
+  getPostAnalystics,
+});
 
 const publishPostController = makePublishPostController({
   getPost,
@@ -105,7 +109,8 @@ export default Object.freeze({
   blockPostCommentController,
   hardDeletePostController,
   publishPostController,
-  unPublishPostController
+  unPublishPostController,
+  getPostAnalysticsController,
 });
 
 export {
@@ -120,5 +125,6 @@ export {
   blockPostCommentController,
   hardDeletePostController,
   publishPostController,
-  unPublishPostController
+  unPublishPostController,
+  getPostAnalysticsController,
 };
