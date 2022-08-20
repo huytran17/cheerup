@@ -45,6 +45,7 @@ export default {
       HARD_DELETE_USER: "user/HARD_DELETE_USER",
       UNBLOCK_USER_COMMENT: "user/UNBLOCK_USER_COMMENT",
       BLOCK_USER_COMMENT: "user/BLOCK_USER_COMMENT",
+      UPDATE_USER_PASSWORD: "user/UPDATE_USER_PASSWORD",
     }),
     ...mapMutations({
       SET_USER: "user/SET_USER",

@@ -3,17 +3,20 @@ import { IUpdateUser } from "../../../../use-cases/user/update-user";
 import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
+import { IHashPassword } from "../../../../config/password/hash-password";
 
-export default function makeUpdateUserController({
+export default function makeUpdateUserPasswordController({
   getUser,
   updateUser,
+  hashPassword,
   logger,
 }: {
   getUser: IGetUser;
   updateUser: IUpdateUser;
+  hashPassword: IHashPassword;
   logger: Logger;
 }) {
-  return async function updateUserController(
+  return async function updateUserPasswordController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
@@ -21,23 +24,30 @@ export default function makeUpdateUserController({
     };
 
     try {
-      const userDetails = _.get(httpRequest, "context.validated");
-
-      const { _id, is_blocked_comment } = userDetails;
-
+      const { _id, password, password_confirmation } = _.get(
+        httpRequest,
+        "context.validated"
+      );
       const exists = await getUser({ _id });
       if (!exists) {
         throw new Error(`User by ${_id} does not exist`);
       }
 
-      const final_user_details = Object.assign({}, exists, {
-        ...userDetails,
-        blocked_comment_at: is_blocked_comment ? new Date() : null,
+      const hashed_password = await hashPassword({
+        password,
+        password_confirmation,
+      });
+
+      const user_details = Object.assign({}, exists, {
+        hash_password: hashed_password,
       });
 
       const updated_user = await updateUser({
-        userDetails: final_user_details,
+        userDetails: user_details,
       });
+
+      logger.verbose(`Updated password for user ${_id}`);
+
       return {
         headers,
         statusCode: 200,

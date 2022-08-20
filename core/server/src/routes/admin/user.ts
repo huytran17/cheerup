@@ -1,6 +1,7 @@
 import express from "express";
 import makeValidator from "../../config/middlewares/validator-middleware";
 import makeExpressCallback from "../../config/express-callback";
+import { upload } from "../../config/middlewares/file-upload-middleware";
 
 import {
   getUserRules,
@@ -8,7 +9,9 @@ import {
   deleteUserRules,
   createUserRules,
   unblockUserCommentRules,
-  blockUserCommentRules
+  blockUserCommentRules,
+  uploadUserAvatarRules,
+  updateUserPasswordRules,
 } from "../../data-access/controllers/admin/user/validators";
 import {
   getUserController,
@@ -17,10 +20,25 @@ import {
   deleteUserController,
   createUserController,
   blockUserCommentController,
-  unblockUserCommentController
+  unblockUserCommentController,
+  uploadUserAvatarController,
+  updateUserPasswordController,
 } from "../../data-access/controllers/admin/user";
 
 const userRouter = express.Router();
+
+userRouter.put(
+  "/password",
+  makeValidator(updateUserPasswordRules),
+  makeExpressCallback(updateUserPasswordController)
+);
+
+userRouter.post(
+  "/upload-avatar/:_id",
+  upload.single("file"),
+  makeValidator(uploadUserAvatarRules),
+  makeExpressCallback(uploadUserAvatarController)
+);
 
 userRouter.put(
   "/block-comment/:_id",

@@ -5,6 +5,8 @@ import createUserRules from "./create-user";
 import updateUserRules from "./update-user";
 import unblockUserCommentRules from "./un-block-user-comment";
 import blockUserCommentRules from "./block-user-comment";
+import uploadUserAvatarRules from "./upload-user-avatar";
+import updateUserPasswordRules from "./update-user-password";
 
 export default Object.freeze({
   getUserRules,
@@ -13,7 +15,9 @@ export default Object.freeze({
   createUserRules,
   updateUserRules,
   unblockUserCommentRules,
-  blockUserCommentRules
+  blockUserCommentRules,
+  uploadUserAvatarRules,
+  updateUserPasswordRules,
 });
 
 export {
@@ -23,5 +27,7 @@ export {
   createUserRules,
   updateUserRules,
   unblockUserCommentRules,
-  blockUserCommentRules
+  blockUserCommentRules,
+  uploadUserAvatarRules,
+  updateUserPasswordRules,
 };

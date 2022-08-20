@@ -10,17 +10,17 @@
         <v-row>
           <v-col cols="12" class="pb-0">
             <div class="text-body-1 primary--text">
-              <span class="app-title" v-html="$t('Admin Meta')"></span>
+              <span class="app-title" v-html="$t('User Meta')"></span>
             </div>
           </v-col>
         </v-row>
         <v-row>
           <v-col cols="12" md="6">
             <v-text-field
-              :value="admin.email"
+              :value="user.email"
               :label="$t('Email')"
               @input="
-                updateAdminObject({ variable_path: 'email', data: $event })
+                updateUserObject({ variable_path: 'email', data: $event })
               "
               disabled
             ></v-text-field>
@@ -28,41 +28,23 @@
 
           <v-col cols="12" md="6">
             <v-text-field
-              :value="admin.full_name"
+              :value="user.full_name"
               :label="$t('Full Name')"
               @input="
-                updateAdminObject({ variable_path: 'full_name', data: $event })
+                updateUserObject({ variable_path: 'full_name', data: $event })
               "
               :rules="fullnameRules"
             ></v-text-field>
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="12" md="6">
-            <v-autocomplete
-              :value="admin.type"
-              :items="admin_types"
-              chips
-              small-chips
-              :label="$t('Type')"
-              @input="
-                updateAdminObject({
-                  variable_path: 'type',
-                  data: $event,
-                })
-              "
-              :rules="typeRules"
-            ></v-autocomplete>
-          </v-col>
-        </v-row>
-        <v-row>
           <v-col cols="12">
             <v-switch
-              :input-value="admin.type"
-              :label="$t('Enable Auto Censorship Post')"
+              :input-value="user.is_blocked_comment"
+              :label="$t('Block comment for this user')"
               @change="
-                updateAdminObject({
-                  variable_path: 'is_auto_censorship_post',
+                updateUserObject({
+                  variable_path: 'is_blocked_comment',
                   data: $event,
                 })
               "
@@ -85,7 +67,7 @@
               id="avatar"
               :options="
                 getDropzoneOptions({
-                  upload_url: admin_upload_avatar_url,
+                  upload_url: user_upload_avatar_url,
                 })
               "
               :destroyDropzone="true"
@@ -97,9 +79,9 @@
 
           <v-col cols="12" sm="6">
             <v-img
-              v-if="admin_avatar_url"
-              :src="admin_avatar_url"
-              :alt="admin.full_name"
+              v-if="user_avatar_url"
+              :src="user_avatar_url"
+              :alt="user.full_name"
               contain
               max-width="200px"
               class="mx-auto"
@@ -112,7 +94,7 @@
               depressed
               color="primary"
               :disabled="!form_valid"
-              @click="updateAdmin"
+              @click="updateUser"
             >
               <span v-html="$t('Update')"></span>
             </v-btn>
@@ -127,7 +109,7 @@
         <v-row>
           <v-col cols="12" class="pb-0">
             <div class="text-body-1 primary--text">
-              <span class="app-title" v-html="$t('Admin Security')"></span>
+              <span class="app-title" v-html="$t('User Security')"></span>
             </div>
           </v-col>
         </v-row>
@@ -139,7 +121,7 @@
               :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
               @click:append="show_password = !show_password"
               @input="
-                updateAdminObject({ variable_path: 'password', data: $event })
+                updateUserObject({ variable_path: 'password', data: $event })
               "
               :rules="passwordRules"
             ></v-text-field>
@@ -155,7 +137,7 @@
                 show_password_confirmation = !show_password_confirmation
               "
               @input="
-                updateAdminObject({
+                updateUserObject({
                   variable_path: 'password_confirmation',
                   data: $event,
                 })
@@ -170,7 +152,7 @@
               depressed
               color="primary"
               :disabled="!security_form_valid"
-              @click="updateAdminSecurity"
+              @click="updateUserSecurity"
             >
               <span v-html="$t('Update')"></span>
             </v-btn>
@@ -182,13 +164,13 @@
 </template>
 
 <script>
-import adminMixins from "@/mixins/admin";
+import userMixins from "@/mixins/user";
 import { S3_UPLOAD_URL_TYPES } from "@/constants";
 import dropzoneMixins from "@/mixins/dropzone";
 
 export default {
-  name: "BaseUpdateAdmin",
-  mixins: [adminMixins, dropzoneMixins],
+  name: "BaseUpdateUser",
+  mixins: [userMixins, dropzoneMixins],
   data() {
     return {
       form_valid: false,
@@ -198,74 +180,74 @@ export default {
     };
   },
   computed: {
-    admin_upload_avatar_url() {
-      return `${S3_UPLOAD_URL_TYPES.ADMIN_AVATAR}/${this.$route.params.id}`;
+    user_upload_avatar_url() {
+      return `${S3_UPLOAD_URL_TYPES.USER_AVATAR}/${this.$route.params.id}`;
     },
 
-    admin_avatar_url() {
-      return _.get(this.admin, "avatar_url");
+    user_avatar_url() {
+      return _.get(this.user, "avatar_url");
     },
   },
   methods: {
-    async updateAdmin() {
+    async updateUser() {
       try {
-        const final_admin_details = _.omit(this.admin, [
+        const final_user_details = _.omit(this.user, [
           "password",
           "password_confirmation",
           "hash_password",
         ]);
 
-        const updated_admin = await this.UPDATE_ADMIN({
-          data: final_admin_details,
+        const updated_user = await this.UPDATE_USER({
+          data: final_user_details,
         });
 
-        this.SET_ADMIN({ data: updated_admin });
-        this.$toast.success("Updated admin successfully");
-        this.$router.push(this.localePath(`/admin/${updated_admin._id}`));
+        this.SET_USER({ data: updated_user });
+        this.$toast.success("Updated user successfully");
+        this.$router.push(this.localePath(`/user/${updated_user._id}`));
       } catch (err) {
         console.error(err);
-        this.$toast.error("Encountered error while updating admin");
+        this.$toast.error("Encountered error while updating user");
       }
     },
 
-    async updateAdminSecurity() {
+    async updateUserSecurity() {
       try {
-        const final_admin_details = _.pick(this.admin, [
+        const final_user_details = _.pick(this.user, [
           "_id",
           "password",
           "password_confirmation",
         ]);
 
-        const updated_admin = await this.UPDATE_ADMIN_PASSWORD({
-          data: final_admin_details,
+        const updated_user = await this.UPDATE_USER_PASSWORD({
+          data: final_user_details,
         });
 
-        this.SET_ADMIN({ data: updated_admin });
-        this.$toast.success("Updated admin password successfully");
-        this.$router.push(this.localePath(`/admin/${updated_admin._id}`));
+        this.SET_USER({ data: updated_user });
+        this.$toast.success("Updated user password successfully");
+        this.$router.push(this.localePath(`/user/${updated_user._id}`));
       } catch (err) {
         console.error(err);
-        this.$toast.error("Encountered error while updating admin password");
+        this.$toast.error("Encountered error while updating user password");
       }
     },
 
     onUploadAvatarSuccsess({ file, response }) {
       this.$refs.avatar_dropzone.removeFile(file);
 
-      const { data: updated_admin } = response;
-      const updated_admin_data = Object.assign({}, this.admin, {
-        avatar: updated_admin.avatar,
-        avatar_url: updated_admin.avatar_url,
+      const { data: updated_user } = response;
+      const updated_user_data = Object.assign({}, this.user, {
+        avatar: updated_user.avatar,
+        avatar_url: updated_user.avatar_url,
       });
 
-      this.SET_ADMIN({ data: updated_admin_data });
-      this.$toast.success("Updated admin avatar successfully");
+      this.SET_USER({ data: updated_user_data });
+      this.$toast.success("Updated user avatar successfully");
     },
   },
   async fetch() {
     try {
       this.loading = true;
-      await this.GET_ADMIN({ id: this.$route.params.id });
+      await this.GET_USER({ id: this.$route.params.id });
     } catch (err) {
       console.error(err);
     } finally {
