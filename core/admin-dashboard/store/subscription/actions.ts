@@ -6,8 +6,23 @@ import { RootState } from "..";
 import _ from "lodash";
 
 const actions: ActionTree<SubscriptionState, RootState> = {
-  async [ActionTypes.GET_SUBSCRIPTION_ANALYTICS]({ commit }) {
-    const { data } = await this.$axios.$get(`/subscription/analystics`);
+  async [ActionTypes.GET_SUBSCRIPTION_ANALYTICS]({ commit }, params = {}) {
+    const distance = _.get(params, "distance", 7);
+    const unit = _.get(params, "unit", "day");
+
+    let url_query = new URLSearchParams();
+
+    if (distance) {
+      url_query.set("distance", distance);
+    }
+
+    if (unit) {
+      url_query.set("unit", unit);
+    }
+
+    const { data } = await this.$axios.$get(
+      `/subscription/analystics?${url_query}`
+    );
     return data;
   },
 
