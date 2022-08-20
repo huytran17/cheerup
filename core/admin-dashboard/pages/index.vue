@@ -1,6 +1,12 @@
 <template>
-  <v-container>
-    <v-row>
+  <v-container class="px-6">
+    <v-row class="my-4">
+      <v-col cols="12" md="8" class="rounded-lg soft-box-shadow">
+        <BaseDashboardBanner :admin_data="me" />
+      </v-col>
+      <v-col cols="12" md="4" class="rounded-lg soft-box-shadow"> </v-col>
+    </v-row>
+    <v-row class="my-4">
       <v-col
         cols="12"
         md="8"
@@ -34,7 +40,7 @@
         </v-row>
       </v-col>
     </v-row>
-    <v-row>
+    <v-row class="my-4">
       <v-col
         cols="12"
         md="4"
@@ -74,6 +80,7 @@ import PolarAreaChart from "@/components/charts/PolarAreaChart";
 import BubbleChart from "@/components/charts/BubbleChart";
 import RadarChart from "@/components/charts/RadarChart";
 import DoughnutChart from "@/components/charts/DoughnutChart";
+import BaseDashboardBanner from "@/components/dashboard/BaseDashboardBanner";
 
 export default {
   name: "IndexPage",
@@ -85,10 +92,12 @@ export default {
     BubbleChart,
     DoughnutChart,
     RadarChart,
+    BaseDashboardBanner,
   },
 
   computed: {
     ...mapGetters({
+      me: "auth/me",
       user_analys_data: "user/user_analys_data",
       admin_analys_data: "admin/admin_analys_data",
       feedback_analys_data: "feedback/feedback_analys_data",

@@ -1,3 +1,4 @@
 {
-    "Do you want to delete {title} forever?": "Do you want to delete <b>{title}</b> forever?"
+    "Do you want to delete {title} forever?": "Do you want to delete <b>{title}</b> forever?",
+    "Welcome, {admin_name}!": "Welcome, {admin_name}!"
 }
