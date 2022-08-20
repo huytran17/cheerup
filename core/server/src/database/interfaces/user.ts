@@ -10,6 +10,7 @@ export default interface IUser {
   avatar_url: string;
   email: string;
   created_by: Admin;
+  email_verified_at: Date;
   created_at: Date;
   updated_at: Date;
   deleted_at: Date;

@@ -14,6 +14,7 @@ export default class User implements IUser {
   public readonly created_at: Date;
   public readonly updated_at: Date;
   public readonly deleted_at: Date;
+  public readonly email_verified_at: Date;
 
   constructor({
     _id,
@@ -27,7 +28,8 @@ export default class User implements IUser {
     updated_at,
     deleted_at,
     created_by,
-    blocked_comment_at
+    blocked_comment_at,
+    email_verified_at,
   }: IUser) {
     this._id = _id;
     this.avatar = avatar;
@@ -41,5 +43,6 @@ export default class User implements IUser {
     this.deleted_at = deleted_at;
     this.created_by = created_by;
     this.blocked_comment_at = blocked_comment_at;
+    this.email_verified_at = email_verified_at;
   }
 }
