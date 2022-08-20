@@ -4,14 +4,10 @@
       <v-col cols="12" md="8" class="rounded-lg soft-box-shadow">
         <BaseDashboardBanner :admin_data="me" />
       </v-col>
-      <v-col cols="12" md="4" class="rounded-lg soft-box-shadow"> </v-col>
+      <v-col cols="12" md="4" class="rounded-lg"> </v-col>
     </v-row>
     <v-row class="my-4">
-      <v-col
-        cols="12"
-        md="8"
-        class="d-flex flex-column rounded-lg soft-box-shadow"
-      >
+      <v-col cols="12" md="8" class="d-flex flex-column rounded-lg">
         <div class="text-body-1 pb-4 primary--text">
           <span class="app-title" v-html="$t('User Analytics')"></span>
         </div>
@@ -19,19 +15,13 @@
       </v-col>
       <v-col cols="12" md="4">
         <v-row>
-          <v-col
-            cols="12"
-            class="d-flex flex-column rounded-lg soft-box-shadow"
-          >
+          <v-col cols="12" class="d-flex flex-column rounded-lg">
             <div class="text-body-1 pb-4 primary--text">
               <span class="app-title" v-html="$t('Admin Analytics')"></span>
             </div>
             <LineChart :chartData="admin_chart_data" />
           </v-col>
-          <v-col
-            cols="12"
-            class="d-flex flex-column rounded-lg soft-box-shadow"
-          >
+          <v-col cols="12" class="d-flex flex-column rounded-lg">
             <div class="text-body-1 pb-4 primary--text">
               <span class="app-title" v-html="$t('Post Analytics')"></span>
             </div>
@@ -41,32 +31,19 @@
       </v-col>
     </v-row>
     <v-row class="my-4">
-      <v-col
-        cols="12"
-        md="4"
-        class="d-flex flex-column rounded-lg soft-box-shadow"
-      >
+      <v-col cols="12" md="4" class="d-flex flex-column rounded-lg">
         <div class="text-body-1 pb-4 primary--text">
           <span class="app-title" v-html="$t('Subscription Analytics')"></span>
         </div>
         <RadarChart :chartData="subscription_chart_data" />
       </v-col>
-      <v-col
-        cols="12"
-        md="4"
-        class="d-flex flex-column rounded-lg soft-box-shadow"
-      >
+      <v-col cols="12" md="4" class="d-flex flex-column rounded-lg">
         <div class="text-body-1 pb-4 primary--text">
           <span class="app-title" v-html="$t('Feedback Analytics')"></span>
         </div>
         <LineChart :chartData="feedback_chart_data" />
       </v-col>
-      <v-col
-        cols="12"
-        md="4"
-        class="d-flex flex-column rounded-lg soft-box-shadow"
-      >
-      </v-col>
+      <v-col cols="12" md="4" class="d-flex flex-column rounded-lg"> </v-col>
     </v-row>
   </v-container>
 </template>
