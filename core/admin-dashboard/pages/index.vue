@@ -4,7 +4,21 @@
       <v-col cols="12" md="8" class="rounded-lg soft-box-shadow">
         <BaseDashboardBanner :admin_data="me" />
       </v-col>
-      <v-col cols="12" md="4" class="rounded-lg"> </v-col>
+      <v-col cols="12" md="4" class="rounded-lg">
+        <v-row>
+          <v-col
+            cols="12"
+            md="6"
+            class="d-flex flex-column text-center soft-box-shadow rounded-lg"
+          >
+            <v-icon color="light-green lighten-3"
+              >mdi-account-supervisor-circle</v-icon
+            >
+            <span class="app-title" v-html="$t('Total Users')"></span>
+            <span>{{ total_user }}</span>
+          </v-col>
+        </v-row>
+      </v-col>
     </v-row>
     <v-row class="my-4">
       <v-col cols="12" md="8" class="d-flex flex-column rounded-lg">
@@ -242,6 +256,10 @@ export default {
           },
         ],
       };
+    },
+
+    total_user() {
+      return _.get(this.user_analys_data, "total_count", 0);
     },
   },
 
