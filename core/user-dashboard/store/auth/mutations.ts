@@ -8,15 +8,11 @@ const mutations: MutationTree<AuthState> = {
     state.me = data;
   },
 
-  [MutationTypes.SET_USER](state, { data }: { data: any }) {
-    state.user = data;
-  },
-
-  [MutationTypes.UPDATE_USER_DATA](
+  [MutationTypes.UPDATE_ME_DATA](
     state,
     { variable_path, data }: { variable_path: string; data: any }
   ) {
-    state.user = _.update(state.user, variable_path, (n) => {
+    state.me = _.update(state.me, variable_path, (n) => {
       return data;
     });
   },

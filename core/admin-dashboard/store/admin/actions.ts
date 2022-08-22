@@ -56,6 +56,17 @@ const actions: ActionTree<AdminState, RootState> = {
     return admin;
   },
 
+  async [ActionTypes.UPDATE_ADMIN_PERSONAL_PASSWORD](
+    { commit },
+    { data }: { data: any }
+  ) {
+    const { data: admin } = await this.$axios.$put(
+      `/admin/personal-password`,
+      data
+    );
+    return admin;
+  },
+
   async [ActionTypes.RESTORE_ADMIN]({ commit }, { id }: { id: string }) {
     const { data: admin } = await this.$axios.$put(`/admin/restore/${id}`);
     return admin;

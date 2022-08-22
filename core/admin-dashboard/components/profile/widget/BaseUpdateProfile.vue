@@ -17,21 +17,19 @@
         <v-row>
           <v-col cols="12" md="6">
             <v-text-field
-              :value="admin.email"
+              :value="me.email"
               :label="$t('Email')"
-              @input="
-                updateAdminObject({ variable_path: 'email', data: $event })
-              "
+              @input="updateMeObject({ variable_path: 'email', data: $event })"
               disabled
             ></v-text-field>
           </v-col>
 
           <v-col cols="12" md="6">
             <v-text-field
-              :value="admin.full_name"
+              :value="me.full_name"
               :label="$t('Full Name')"
               @input="
-                updateAdminObject({ variable_path: 'full_name', data: $event })
+                updateMeObject({ variable_path: 'full_name', data: $event })
               "
               :rules="fullnameRules"
             ></v-text-field>
@@ -40,13 +38,14 @@
         <v-row>
           <v-col cols="12" md="6">
             <v-autocomplete
-              :value="admin.type"
+              :value="me.type"
               :items="admin_types"
               chips
+              disabled
               small-chips
               :label="$t('Type')"
               @input="
-                updateAdminObject({
+                updateMeObject({
                   variable_path: 'type',
                   data: $event,
                 })
@@ -58,10 +57,10 @@
         <v-row>
           <v-col cols="12">
             <v-switch
-              :input-value="admin.is_auto_censorship_post"
+              :input-value="me.is_auto_censorship_post"
               :label="$t('Enable Auto Censorship Post')"
               @change="
-                updateAdminObject({
+                updateMeObject({
                   variable_path: 'is_auto_censorship_post',
                   data: $event,
                 })
@@ -81,6 +80,7 @@
           </v-col>
           <v-col cols="12" sm="6">
             <v-dropzone
+              v-if="has_user"
               ref="avatar_dropzone"
               id="avatar"
               :options="
@@ -99,7 +99,7 @@
             <v-img
               v-if="admin_avatar_url"
               :src="admin_avatar_url"
-              :alt="admin.full_name"
+              :alt="me.full_name"
               contain
               max-width="200px"
               class="mx-auto"
@@ -134,33 +134,45 @@
         <v-row>
           <v-col cols="12" md="6">
             <v-text-field
-              :label="$t('New Password')"
-              :type="show_password ? 'text' : 'password'"
-              :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
-              @click:append="show_password = !show_password"
+              :label="$t('Current Password')"
+              :type="show_current_password ? 'text' : 'password'"
+              :append-icon="show_current_password ? 'mdi-eye' : 'mdi-eye-off'"
+              @click:append="show_current_password = !show_current_password"
               @input="
-                updateAdminObject({ variable_path: 'password', data: $event })
+                updateMeObject({ variable_path: 'password', data: $event })
               "
               :rules="passwordRules"
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="6">
             <v-text-field
+              :label="$t('New Password')"
+              :type="show_new_password ? 'text' : 'password'"
+              :append-icon="show_new_password ? 'mdi-eye' : 'mdi-eye-off'"
+              @click:append="show_new_password = !show_new_password"
+              @input="
+                updateMeObject({ variable_path: 'new_password', data: $event })
+              "
+              :rules="newPasswordRules"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" md="6">
+            <v-text-field
               :label="$t('New Password Confirmation')"
-              :type="show_password_confirmation ? 'text' : 'password'"
+              :type="show_new_password_confirmation ? 'text' : 'password'"
               :append-icon="
-                show_password_confirmation ? 'mdi-eye' : 'mdi-eye-off'
+                show_new_password_confirmation ? 'mdi-eye' : 'mdi-eye-off'
               "
               @click:append="
-                show_password_confirmation = !show_password_confirmation
+                show_new_password_confirmation = !show_new_password_confirmation
               "
               @input="
-                updateAdminObject({
-                  variable_path: 'password_confirmation',
+                updateMeObject({
+                  variable_path: 'new_password_confirmation',
                   data: $event,
                 })
               "
-              :rules="passwordConfirmationRules"
+              :rules="newPasswordConfirmationRules"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -182,70 +194,77 @@
 </template>
 
 <script>
-import adminMixins from "@/mixins/admin";
+import { mapActions } from "vuex";
+import authMixins from "@/mixins/auth";
 import { S3_UPLOAD_URL_TYPES } from "@/constants";
 import dropzoneMixins from "@/mixins/dropzone";
 
 export default {
   name: "BaseUpdateAdmin",
-  mixins: [adminMixins, dropzoneMixins],
+  mixins: [authMixins, dropzoneMixins],
   data() {
     return {
       form_valid: false,
       security_form_valid: false,
-      show_password_confirmation: false,
-      show_password: false,
+      show_new_password_confirmation: false,
+      show_new_password: false,
+      show_current_password: false,
     };
   },
   computed: {
     admin_upload_avatar_url() {
-      return `${S3_UPLOAD_URL_TYPES.ADMIN_AVATAR}/${this.$route.params.id}`;
+      return `${S3_UPLOAD_URL_TYPES.ADMIN_AVATAR}/${this.me._id}`;
     },
 
     admin_avatar_url() {
-      return _.get(this.admin, "avatar_url");
+      return _.get(this.me, "avatar_url");
     },
   },
   methods: {
+    ...mapActions({
+      UPDATE_ADMIN: "admin/UPDATE_ADMIN",
+    }),
+
     async updateAdmin() {
       try {
-        const final_admin_details = _.omit(this.admin, [
+        const final_admin_details = _.omit(this.me, [
           "password",
           "password_confirmation",
           "hash_password",
+          "new_password",
+          "new_password_confirmation",
         ]);
 
         const updated_admin = await this.UPDATE_ADMIN({
           data: final_admin_details,
         });
 
-        this.SET_ADMIN({ data: updated_admin });
-        this.$toast.success("Updated admin successfully");
-        this.$router.push(this.localePath(`/admin/${updated_admin._id}`));
+        this.SET_ME({ data: updated_admin });
+        this.$toast.success("Updated successfully");
       } catch (err) {
         console.error(err);
-        this.$toast.error("Encountered error while updating admin");
+        this.$toast.error("Encountered error while updating your account");
       }
     },
 
     async updateAdminSecurity() {
       try {
-        const final_admin_details = _.pick(this.admin, [
+        const final_admin_details = _.pick(this.me, [
           "_id",
           "password",
-          "password_confirmation",
+          "new_password",
+          "new_password_confirmation",
         ]);
 
-        const updated_admin = await this.UPDATE_ADMIN_PASSWORD({
+        const updated_admin = await this.UPDATE_ADMIN_PERSONAL_PASSWORD({
           data: final_admin_details,
         });
 
-        this.SET_ADMIN({ data: updated_admin });
-        this.$toast.success("Updated admin password successfully");
-        this.$router.push(this.localePath(`/admin/${updated_admin._id}`));
+        this.SET_ME({ data: updated_admin });
+        this.$toast.success("Updated password successfully");
       } catch (err) {
         console.error(err);
-        this.$toast.error("Encountered error while updating admin password");
+        this.$toast.error("Encountered error while updating your account");
       }
     },
 
@@ -253,19 +272,19 @@ export default {
       this.$refs.avatar_dropzone.removeFile(file);
 
       const { data: updated_admin } = response;
-      const updated_admin_data = Object.assign({}, this.admin, {
+      const updated_admin_data = Object.assign({}, this.me, {
         avatar: updated_admin.avatar,
         avatar_url: updated_admin.avatar_url,
       });
 
-      this.SET_ADMIN({ data: updated_admin_data });
-      this.$toast.success("Updated admin avatar successfully");
+      this.SET_ME({ data: updated_admin_data });
+      this.$toast.success("Updated avatar successfully");
     },
   },
   async fetch() {
     try {
       this.loading = true;
-      await this.GET_ADMIN({ id: this.$route.params.id });
+      await this.GET_ME();
     } catch (err) {
       console.error(err);
     } finally {

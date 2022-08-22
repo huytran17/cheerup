@@ -9,6 +9,7 @@ import restoreAdminRules from "./restore-admin";
 import hardDeleteAdminRules from "./hard-delete-admin";
 import updateAdminPasswordRules from "./update-admin-password";
 import uploadAdminAvatarRules from "./upload-admin-avatar";
+import updateAdminPersonalPasswordRules from "./update-admin-personal-password";
 
 export default Object.freeze({
   getAdminRules,
@@ -22,6 +23,7 @@ export default Object.freeze({
   hardDeleteAdminRules,
   updateAdminPasswordRules,
   uploadAdminAvatarRules,
+  updateAdminPersonalPasswordRules,
 });
 
 export {
@@ -36,4 +38,5 @@ export {
   restoreAdminRules,
   hardDeleteAdminRules,
   uploadAdminAvatarRules,
+  updateAdminPersonalPasswordRules,
 };

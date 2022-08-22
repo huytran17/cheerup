@@ -14,6 +14,7 @@ import {
   hardDeleteAdminRules,
   updateAdminPasswordRules,
   uploadAdminAvatarRules,
+  updateAdminPersonalPasswordRules,
 } from "../../data-access/controllers/admin/admin/validators";
 import {
   getAdminController,
@@ -28,6 +29,7 @@ import {
   updateAdminPasswordController,
   uploadAdminAvatarController,
   getAdminAnalysticsController,
+  updateAdminPersonalPasswordController,
 } from "../../data-access/controllers/admin/admin";
 
 const adminRouter = express.Router();
@@ -48,6 +50,12 @@ adminRouter.put(
   "/password",
   makeValidator(updateAdminPasswordRules),
   makeExpressCallback(updateAdminPasswordController)
+);
+
+adminRouter.put(
+  "/personal-password",
+  makeValidator(updateAdminPersonalPasswordRules),
+  makeExpressCallback(updateAdminPersonalPasswordController)
 );
 
 adminRouter.delete(

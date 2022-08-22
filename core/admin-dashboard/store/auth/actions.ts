@@ -29,6 +29,7 @@ const actions: ActionTree<AuthState, RootState> = {
     const { data: user } = await this.$axios.$get("/auth/me");
 
     commit(MutationTypes.SET_ME, { data: user });
+    commit(MutationTypes.SET_HAS_USER, { data: true });
     return user;
   },
 };

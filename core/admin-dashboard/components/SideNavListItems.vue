@@ -5,10 +5,14 @@
     :menuIcon="menu_options.menuIcon"
     :menuItems="menu_items"
     :isSearch="false"
+    :profileImg="admin_avatar"
+    :profileName="admin_name"
+    :profileRole="admin_type"
   />
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "SideNavListItems",
   props: {
@@ -31,6 +35,11 @@ export default {
             name: "Dashboard",
             link: "/",
             icon: "bx-bar-chart",
+          },
+          {
+            name: "Profile",
+            link: "/profile",
+            icon: "bx-user-pin",
           },
           {
             name: "Admin",
@@ -86,6 +95,26 @@ export default {
       is_menu_open: false,
       menu_logo: require("@/assets/images/app/large-logo.jpg"),
     };
+  },
+  computed: {
+    ...mapGetters({
+      me: "auth/me",
+    }),
+
+    admin_avatar() {
+      return (
+        _.get(this.me, "avatar_url") ||
+        require("@/assets/images/app/admin-avatar.jpg")
+      );
+    },
+
+    admin_name() {
+      return _.get(this.me, "full_name");
+    },
+
+    admin_type() {
+      return _.get(this.me, "type");
+    },
   },
 };
 </script>

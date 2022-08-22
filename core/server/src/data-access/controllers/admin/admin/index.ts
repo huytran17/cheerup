@@ -9,7 +9,7 @@ import {
   getAdminAnalystics,
 } from "../../../../use-cases/admin";
 import { logger } from "../../../../config/storage/logger";
-import { hashPassword } from "../../../../config/password";
+import { hashPassword, verifyPassword } from "../../../../config/password";
 
 import makeGetAdminController from "./get-admin";
 import makeDeleteAdminController from "./delete-admin";
@@ -23,6 +23,16 @@ import makeHardDeleteAdminController from "./hard-delete-admin";
 import makeUpdateAdminPasswordController from "./update-admin-password";
 import makeUploadAdminAvatarController from "./upload-avatar";
 import makeGetAdminAnalysticsController from "./get-admin-analystics";
+import makeUpdateAdminPersonalPasswordController from "./update-admin-personal-password";
+
+const updateAdminPersonalPasswordController =
+  makeUpdateAdminPersonalPasswordController({
+    getAdmin,
+    updateAdmin,
+    hashPassword,
+    verifyPassword,
+    logger,
+  });
 
 const getAdminAnalysticsController = makeGetAdminAnalysticsController({
   getAdminAnalystics,
@@ -105,6 +115,7 @@ export default Object.freeze({
   updateAdminPasswordController,
   uploadAdminAvatarController,
   getAdminAnalysticsController,
+  updateAdminPersonalPasswordController,
 });
 
 export {
@@ -120,4 +131,5 @@ export {
   updateAdminPasswordController,
   uploadAdminAvatarController,
   getAdminAnalysticsController,
+  updateAdminPersonalPasswordController,
 };
