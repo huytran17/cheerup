@@ -4,18 +4,39 @@
       <v-col cols="12" md="8" class="rounded-lg soft-box-shadow">
         <BaseDashboardBanner :admin_data="me" />
       </v-col>
-      <v-col cols="12" md="4" class="rounded-lg">
+      <v-col cols="12" md="4" class="rounded-lg d-flex">
         <v-row>
           <v-col
             cols="12"
             md="6"
-            class="d-flex flex-column text-center soft-box-shadow rounded-lg"
+            class="d-flex flex-column text-center soft-box-shadow rounded-lg justify-center"
           >
-            <v-icon color="light-green lighten-3"
-              >mdi-account-supervisor-circle</v-icon
-            >
-            <span class="app-title" v-html="$t('Total Users')"></span>
-            <span>{{ total_user }}</span>
+            <div class="d-flex justify-center">
+              <div class="blue lighten-4 w-fit-content pa-1 rounded-lg">
+                <v-icon color="blue darken-1"
+                  >mdi-account-supervisor-circle</v-icon
+                >
+              </div>
+            </div>
+            <div class="text-body-1 py-3 primary--text">
+              <span class="app-title" v-html="$t('Total Users')"></span>
+            </div>
+            <span class="text-h6">{{ total_user }}</span>
+          </v-col>
+          <v-col
+            cols="12"
+            md="6"
+            class="d-flex flex-column text-center soft-box-shadow rounded-lg justify-center"
+          >
+            <div class="d-flex justify-center">
+              <div class="green lighten-4 w-fit-content pa-1 rounded-lg">
+                <v-icon color="green darken-1">mdi-book-open-outline</v-icon>
+              </div>
+            </div>
+            <div class="text-body-1 py-3 primary--text">
+              <span class="app-title" v-html="$t('Total Posts')"></span>
+            </div>
+            <span class="text-h6">{{ total_post }}</span>
           </v-col>
         </v-row>
       </v-col>
@@ -70,7 +91,54 @@
         </div>
         <LineChart :chartData="feedback_chart_data" />
       </v-col>
-      <v-col cols="12" md="4" class="d-flex flex-column rounded-lg"> </v-col>
+      <v-col cols="12" md="4" class="rounded-lg">
+        <v-row class="mt-13">
+          <v-col
+            cols="12"
+            md="6"
+            class="d-flex flex-column text-center soft-box-shadow rounded-lg justify-center"
+          >
+            <div class="d-flex justify-center">
+              <div class="pink lighten-4 w-fit-content pa-1 rounded-lg">
+                <v-icon color="pink darken-1">mdi-account-heart-outline</v-icon>
+              </div>
+            </div>
+            <div class="text-body-1 py-3 primary--text">
+              <span class="app-title" v-html="$t('Total Admins')"></span>
+            </div>
+            <span class="text-h6">{{ total_admin }}</span>
+          </v-col>
+          <v-col
+            cols="12"
+            md="6"
+            class="d-flex flex-column text-center soft-box-shadow rounded-lg justify-center"
+          >
+            <div class="d-flex justify-center">
+              <div class="purple lighten-4 w-fit-content pa-1 rounded-lg">
+                <v-icon color="purple darken-1">mdi-account-switch</v-icon>
+              </div>
+            </div>
+            <div class="text-body-1 py-3 primary--text">
+              <span class="app-title" v-html="$t('Total Subscriptions')"></span>
+            </div>
+            <span class="text-h6">{{ total_subscription }}</span>
+          </v-col>
+          <v-col
+            cols="12"
+            class="d-flex flex-column text-center soft-box-shadow rounded-lg justify-center"
+          >
+            <div class="d-flex justify-center">
+              <div class="yellow lighten-4 w-fit-content pa-1 rounded-lg">
+                <v-icon color="yellow darken-1">mdi-star-outline</v-icon>
+              </div>
+            </div>
+            <div class="text-body-1 py-3 primary--text">
+              <span class="app-title" v-html="$t('Total Feedbacks')"></span>
+            </div>
+            <span class="text-h6">{{ total_feedback }}</span>
+          </v-col>
+        </v-row>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -260,6 +328,22 @@ export default {
 
     total_user() {
       return _.get(this.user_analys_data, "total_count", 0);
+    },
+
+    total_post() {
+      return _.get(this.post_analys_data, "total_count", 0);
+    },
+
+    total_feedback() {
+      return _.get(this.feedback_analys_data, "total_count", 0);
+    },
+
+    total_subscription() {
+      return _.get(this.subscription_analys_data, "total_count", 0);
+    },
+
+    total_admin() {
+      return _.get(this.admin_analys_data, "total_count", 0);
     },
   },
 
