@@ -33,8 +33,8 @@ export default function makeUpdateSystemConfigurationController({
 
       const final_system_configuration_details = Object.assign(
         {},
-        systemConfigurationDetails,
-        exists
+        exists,
+        systemConfigurationDetails
       );
 
       const updated_post = await updateSystemConfiguration({

@@ -9,6 +9,12 @@
     :profileName="admin_name"
     :profileRole="admin_type"
     @button-exit-clicked="signOut"
+    bgColor="#ffffff"
+    menuItemsTextColor="#000000"
+    menuItemsHoverColor="#e7e7ff"
+    logoTitleColor="#000000"
+    iconsColor="#000000"
+    menuFooterTextColor="#ffffff"
   />
 </template>
 
@@ -22,7 +28,7 @@ export default {
       default() {
         return {
           is_menu_open: true,
-          menu_logo: require("@/assets/images/app/large-logo.jpg"),
+          menu_logo: require("@/assets/images/app/logo.jpg"),
           is_search: false,
           menu_icon: "bx-menu",
         };
@@ -142,5 +148,29 @@ export default {
 }
 :deep(.sidebar) {
   min-width: 78px !important;
+}
+:deep(.profile) {
+  background: var(--color-white) !important;
+}
+:deep(.name_job) > * {
+  color: var(--color-black) !important;
+}
+:deep(#log_out) {
+  background: var(--color-white) !important;
+  color: var(--color-black) !important;
+  opacity: 1 !important;
+}
+:deep(#log_out::before) {
+  cursor: pointer;
+}
+:deep(.profile) {
+  border-right: 1px solid var(--color-grey) !important;
+}
+.sidebar {
+  border-right: 1px solid var(--color-grey) !important;
+}
+.sidebar li a:hover .links_name,
+.sidebar li a:hover i {
+  color: black !important;
 }
 </style>
