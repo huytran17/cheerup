@@ -22,6 +22,8 @@ const actions: ActionTree<AuthState, RootState> = {
 
   async [ActionTypes.SIGN_OUT]({ commit }) {
     const { data } = await this.$axios.$post("/auth/sign-out");
+
+    localStorage.removeItem("admin_access_token");
     return data;
   },
 

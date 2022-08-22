@@ -33,7 +33,7 @@
               hide-details
               filled
               @input="
-                updateUserObject({
+                updateMeObject({
                   variable_path: 'email',
                   data: $event,
                 })
@@ -59,7 +59,7 @@
               hide-details
               filled
               @input="
-                updateUserObject({
+                updateMeObject({
                   variable_path: 'password',
                   data: $event,
                 })
@@ -148,7 +148,7 @@ export default {
   methods: {
     async signIn() {
       try {
-        await this.SIGN_IN({ data: this.user });
+        await this.SIGN_IN({ data: this.me });
         this.$router.push(this.localePath("/"));
       } catch (err) {
         console.log(err);

@@ -8,11 +8,12 @@
     :profileImg="admin_avatar"
     :profileName="admin_name"
     :profileRole="admin_type"
+    @button-exit-clicked="signOut"
   />
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "SideNavListItems",
   props: {
@@ -114,6 +115,22 @@ export default {
 
     admin_type() {
       return _.get(this.me, "type");
+    },
+  },
+
+  methods: {
+    ...mapActions({
+      GET_ME: "auth/GET_ME",
+      SIGN_OUT: "auth/SIGN_OUT",
+    }),
+
+    async signOut() {
+      try {
+        await this.SIGN_OUT();
+        await this.GET_ME();
+      } catch (err) {
+        console.error(err);
+      }
     },
   },
 };

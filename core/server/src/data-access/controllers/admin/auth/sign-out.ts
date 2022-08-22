@@ -16,7 +16,7 @@ export default function makeSignOutController({
     };
 
     try {
-      const { email } = _.get(httpRequest, "context.validated");
+      const { email } = _.get(httpRequest, "context.user");
       const exists = await getAdminByEmail({ email });
       if (!exists) {
         throw new Error(`Admin by ${email} does not exist`);
@@ -27,7 +27,7 @@ export default function makeSignOutController({
         statusCode: 200,
         body: {
           data: {
-            valid_signout: true,
+            signed_out: true,
           },
         },
       };
@@ -36,7 +36,7 @@ export default function makeSignOutController({
         headers,
         statusCode: 500,
         body: {
-          data: err,
+          data: err.message,
         },
       };
     }
