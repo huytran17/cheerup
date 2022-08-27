@@ -13,11 +13,12 @@
     </div>
 
     <div
-      class="d-flex flex-column position-absolute article-details white mx-auto py-6 px-8"
+      class="d-flex flex-column position-absolute article-details white mx-auto py-6 px-2 px-sm-4 px-md-8"
     >
       <div class="d-flex justify-center">
         <v-chip
           class="ma-1"
+          :class="is_small_screen || is_mobile ? 'text-small' : 'text-caption'"
           color="brick clickable app-title text-uppercase"
           label
           text-color="white"
@@ -32,11 +33,11 @@
         </v-chip>
       </div>
       <div
-        class="text-body-1 text-sm-h6 text-md-h5 text-center pt-3 pt-md-4 clickable"
+        class="text-body-2 text-sm-body-1 text-md-h6 text-center pt-3 pt-md-4 clickable"
       >
         <span class="app-title" v-html="post_data.title"></span>
       </div>
-      <div class="text-body-2 text-center pt-2 pt-md-4">
+      <div class="text-caption text-sm-body-2 text-center pt-2 pt-md-4">
         <span class="app-body">{{
           formatDate(post_data.created_at, "LL")
         }}</span>
