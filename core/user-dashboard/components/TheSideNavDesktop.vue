@@ -48,7 +48,7 @@
 import systemMixins from "@/mixins/system";
 
 export default {
-  name: "TheSideNavMobile",
+  name: "TheSideNavDesktop",
   mixins: [systemMixins],
   props: {
     mobile_logo: {

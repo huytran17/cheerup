@@ -99,3 +99,6 @@ select:-webkit-autofill:focus {
   max-height: 100%;
   overflow: hidden;
 }
+.lineheight-large {
+  line-height: 40px !important;
+}
