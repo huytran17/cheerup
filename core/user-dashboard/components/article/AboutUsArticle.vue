@@ -5,7 +5,7 @@
         <h2 class="text-h5">
           <span class="app-title" v-html="$t('About StoryHub')"></span>
         </h2>
-        <p class="text-body-2 text-md-body-1 lineheight-large">
+        <p class="text-body-2 text-md-body-1">
           <span
             class="app-body"
             v-html="
