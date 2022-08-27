@@ -23,7 +23,7 @@
         <h2 class="text-h6">
           <span class="app-title" v-html="$t('Hey there, what’s up?')"></span>
         </h2>
-        <p class="text-body-2">
+        <p class="text-body-1">
           <span
             class="app-body"
             v-html="
@@ -33,7 +33,7 @@
             "
           ></span>
         </p>
-        <p class="text-body=2">
+        <p class="text-body-1">
           <span
             class="app-body"
             v-html="
@@ -120,8 +120,8 @@ p {
   color: rgb(117, 117, 117);
   line-height: 2;
   margin: 0px 0px 1.7em;
-  font-size: 18px;
-  font-weight: 400;
+  font-size: 18px !important;
+  font-weight: 400 !important;
 }
 .style__SocialProfiles {
   margin-top: 60px;
