@@ -20,18 +20,28 @@
         <v-img :src="img" :lazy-src="img" style="margin-bottom: 70px"></v-img>
       </div>
       <div class="style_AboutDetails">
-        <h2>Hey there, what’s up?</h2>
-        <p>
-          RedQ Team is a creative agency specializing in building scalable,
-          high-performance web &amp; mobile application. Our main concern is
-          creating more value into the application so that can help our
-          customers to grow their business.
+        <h2 class="text-h6">
+          <span class="app-title" v-html="$t('Hey there, what’s up?')"></span>
+        </h2>
+        <p class="text-body=2">
+          <span
+            class="app-body"
+            v-html="
+              $t(
+                'RedQ Team is a creative agency specializing in building scalable, high-performance web &amp; mobile application. Our main concern is creating more value into the application so that can help our customers to grow their business.'
+              )
+            "
+          ></span>
         </p>
-        <p>
-          RedQ Team is a creative agency specializing in building scalable,
-          high-performance web & mobile application. Our main concern is
-          creating more value into the application so that can help our
-          customers to grow their business.
+        <p class="text-body=2">
+          <span
+            class="app-body"
+            v-html="
+              $t(
+                'RedQ Team is a creative agency specializing in building scalable, high-performance web & mobile application. Our main concern is creating more value into the application so that can help our customers to grow their business.'
+              )
+            "
+          ></span>
         </p>
         <div class="style__SocialProfiles">
           <div class="d-flex">
