@@ -15,6 +15,14 @@ export default {
     is_mobile() {
       return this.$vuetify.breakpoint.name === "xs";
     },
+
+    /**
+     *
+     * @returns true if xs;
+     */
+    is_small_screen() {
+      return this.$vuetify.breakpoint.name === "sm";
+    },
   },
   methods: {
     ...mapMutations({
