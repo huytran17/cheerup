@@ -10,6 +10,7 @@ const postSchema = new Schema(
     description: { type: String, trim: true },
     is_blocked_comment: { type: Boolean, default: false },
     is_published: { type: Boolean, default: false },
+    is_highlight: { type: Boolean, default: false },
     thumbnail: { type: Object },
     content: { type: String, trim: true },
     source: { type: String, trim: true },

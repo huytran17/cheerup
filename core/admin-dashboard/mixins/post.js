@@ -28,6 +28,8 @@ export default {
       PUBLISH_POST: "post/PUBLISH_POST",
       UNPUBLISH_POST: "post/UNPUBLISH_POST",
       GET_POST_ANALYTICS: "post/GET_POST_ANALYTICS",
+      HIGHLIGHT_POST: "post/HIGHLIGHT_POST",
+      UNHIGHLIGHT_POST: "post/UNHIGHLIGHT_POST",
     }),
     ...mapMutations({
       SET_POST: "post/SET_POST",

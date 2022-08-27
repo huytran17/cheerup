@@ -52,6 +52,16 @@ const actions: ActionTree<PostState, RootState> = {
     return post;
   },
 
+  async [ActionTypes.HIGHLIGHT_POST]({ commit }, { id }: { id: string }) {
+    const { data: post } = await this.$axios.$put(`/post/highlight/${id}`);
+    return post;
+  },
+
+  async [ActionTypes.UNHIGHLIGHT_POST]({ commit }, { id }: { id: string }) {
+    const { data: post } = await this.$axios.$put(`/post/un-highlight/${id}`);
+    return post;
+  },
+
   async [ActionTypes.PUBLISH_POST]({ commit }, { id }: { id: string }) {
     const { data: post } = await this.$axios.$put(`/post/publish/${id}`);
     return post;

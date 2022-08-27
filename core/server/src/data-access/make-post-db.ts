@@ -230,6 +230,24 @@ export default function makePostDb({
       return null;
     }
 
+    async findHighlight(): Promise<Post | null> {
+      const query_conditions = {
+        deleted_at: { $in: [null, undefined] },
+        is_highlight: true,
+      };
+
+      const existing = await postDbModel
+        .findOne(query_conditions)
+        .select("_id")
+        .lean({ virtuals: true });
+
+      if (existing) {
+        return new Post(existing);
+      }
+
+      return null;
+    }
+
     async insert(payload: Partial<IPost>): Promise<Post | null> {
       const updated_payload = payload;
 

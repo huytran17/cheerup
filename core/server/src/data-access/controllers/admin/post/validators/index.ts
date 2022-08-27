@@ -9,6 +9,8 @@ import uploadPostThumbnailRules from "./upload-post-thumbnail";
 import hardDeletePostRules from "./hard-delete-post";
 import publishPostRules from "./publish-post";
 import unPublishPostRules from "./un-publish-post";
+import highlightPostRules from "./highlight-post";
+import unHighlightPostRules from "./un-highlight-post";
 
 export default Object.freeze({
   getPostRules,
@@ -21,7 +23,9 @@ export default Object.freeze({
   unBlockPostCommentRules,
   hardDeletePostRules,
   publishPostRules,
-  unPublishPostRules
+  unPublishPostRules,
+  highlightPostRules,
+  unHighlightPostRules,
 });
 
 export {
@@ -35,5 +39,7 @@ export {
   unBlockPostCommentRules,
   hardDeletePostRules,
   publishPostRules,
-  unPublishPostRules
+  unPublishPostRules,
+  highlightPostRules,
+  unHighlightPostRules,
 };

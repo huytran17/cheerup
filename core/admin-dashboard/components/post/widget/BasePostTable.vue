@@ -175,6 +175,36 @@
               ></span>
               <span v-else v-html="$t('Publish this post')"></span>
             </v-tooltip>
+
+            <v-tooltip left>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  v-if="item.is_highlight"
+                  icon
+                  v-bind="attrs"
+                  v-on="on"
+                  small
+                  @click="unHighlightPost(item)"
+                >
+                  <v-icon small color="error">mdi-star-off</v-icon>
+                </v-btn>
+                <v-btn
+                  v-else
+                  icon
+                  v-bind="attrs"
+                  v-on="on"
+                  small
+                  @click="highlightPost(item)"
+                >
+                  <v-icon small color="success">mdi-star</v-icon>
+                </v-btn>
+              </template>
+              <span
+                v-if="item.is_highlight"
+                v-html="$t('Un-highlight this post')"
+              ></span>
+              <span v-else v-html="$t('Highlight this post')"></span>
+            </v-tooltip>
           </template>
         </v-data-table>
       </v-col>
@@ -289,6 +319,34 @@ export default {
         this.$toast.error(
           `Encountered error while un-blocking comment for post`
         );
+      }
+    },
+
+    async highlightPost(post) {
+      try {
+        const id = _.get(post, "_id");
+        const title = _.get(post, "title");
+
+        await this.HIGHLIGHT_POST({ id });
+        this.$toast.success(`Highlighted post ${title} successfully`);
+        await this.$fetch();
+      } catch (err) {
+        console.error(err);
+        this.$toast.error(`Encountered error while highlighting post`);
+      }
+    },
+
+    async unHighlightPost(post) {
+      try {
+        const id = _.get(post, "_id");
+        const title = _.get(post, "title");
+
+        await this.UNHIGHLIGHT_POST({ id });
+        this.$toast.success(`Un-highlighted post ${title} successfully`);
+        await this.$fetch();
+      } catch (err) {
+        console.error(err);
+        this.$toast.error(`Encountered error while un-highlighting post`);
       }
     },
 

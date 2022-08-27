@@ -8,6 +8,7 @@ export default interface IPost {
   source: string;
   thumbnail_url: string;
   is_blocked_comment: boolean;
+  is_highlight: boolean;
   is_published: boolean;
   thumbnail: Record<string, unknown>;
   content: string;

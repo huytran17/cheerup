@@ -9,6 +9,12 @@ import makeCreatePost from "./create-post";
 import makeGetPosts from "./get-posts";
 import makeHardDeletePost from "./hard-delete-post";
 import makeGetPostAnalystics from "./get-post-analystics";
+import makeGetHighlightPost from "./get-highlight-post";
+
+const getHighlightPost = makeGetHighlightPost({
+  postDb: PostDb,
+  logger,
+});
 
 const getPostAnalystics = makeGetPostAnalystics({
   postDb: PostDb,
@@ -49,6 +55,7 @@ const postServices = Object.freeze({
   createPost,
   hardDeletePost,
   getPostAnalystics,
+  getHighlightPost,
 });
 
 export default postServices;
@@ -61,4 +68,5 @@ export {
   createPost,
   hardDeletePost,
   getPostAnalystics,
+  getHighlightPost,
 };

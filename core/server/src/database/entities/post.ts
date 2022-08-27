@@ -8,6 +8,7 @@ export default class Post implements IPost {
   public readonly description: string;
   public readonly thumbnail_url: string;
   public readonly is_blocked_comment: boolean;
+  public readonly is_highlight: boolean;
   public readonly thumbnail: Record<string, unknown>;
   public readonly content: string;
   public readonly source: string;
@@ -37,9 +38,11 @@ export default class Post implements IPost {
     created_at,
     updated_at,
     deleted_at,
+    is_highlight,
   }) {
     this._id = _id;
     this.title = title;
+    this.is_highlight = is_highlight;
     this.description = description;
     this.is_published = is_published;
     this.thumbnail = thumbnail;

@@ -6,6 +6,7 @@ import {
   getPosts,
   hardDeletePost,
   getPostAnalystics,
+  getHighlightPost,
 } from "../../../../use-cases/post";
 import { getAdmin } from "../../../../use-cases/admin";
 import { logger } from "../../../../config/storage/logger";
@@ -23,6 +24,21 @@ import makeHardDeletePostController from "./hard-delete-post";
 import makePublishPostController from "./publish-post";
 import makeUnPublishPostController from "./un-publish-post";
 import makeGetPostAnalysticsController from "./get-post-analystics";
+import makeHightlightPostController from "./highlight-post";
+import makeUnHightlightPostController from "./un-highlight-post";
+
+const unHightlightPostController = makeUnHightlightPostController({
+  getPost,
+  updatePost,
+  logger,
+});
+
+const hightlightPostController = makeHightlightPostController({
+  getPost,
+  getHighlightPost,
+  updatePost,
+  logger,
+});
 
 const getPostAnalysticsController = makeGetPostAnalysticsController({
   getPostAnalystics,
@@ -111,6 +127,8 @@ export default Object.freeze({
   publishPostController,
   unPublishPostController,
   getPostAnalysticsController,
+  hightlightPostController,
+  unHightlightPostController,
 });
 
 export {
@@ -127,4 +145,6 @@ export {
   publishPostController,
   unPublishPostController,
   getPostAnalysticsController,
+  hightlightPostController,
+  unHightlightPostController,
 };
