@@ -105,3 +105,10 @@ select:-webkit-autofill:focus {
 .text-small {
   font-size: 0.62rem !important;
 }
+.a-hover{
+  background: linear-gradient(to right, currentcolor 0%, currentcolor 100%) 0px 95% / 0px 2px no-repeat;
+  transition: background-size 0.35s cubic-bezier(0.48, 0.56, 0.67, 0.76) 0s;
+}
+.a-hover:hover{
+  background-size: 100% 2px;
+}
