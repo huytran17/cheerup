@@ -75,6 +75,9 @@ export default {
 };
 </script>
 <style scoped>
+.hover-icon:hover {
+  color: #ff2e55 !important;
+}
 .layout_Wrapper {
   max-width: 1385px;
   padding: 30px 15px;
