@@ -1,4 +1,3 @@
-import { redis } from "../../config/storage/redis";
 import { logger } from "../../config/storage/logger";
 
 import { PostDb } from "../../data-access";
@@ -8,10 +7,26 @@ import makeDeletePost from "./delete-post";
 import makeUpdatePost from "./update-post";
 import makeCreatePost from "./create-post";
 import makeGetPosts from "./get-posts";
+import makeHardDeletePost from "./hard-delete-post";
+import makeGetPostAnalystics from "./get-post-analystics";
+import makeGetHighlightPost from "./get-highlight-post";
+
+const getHighlightPost = makeGetHighlightPost({
+  postDb: PostDb,
+  logger,
+});
+
+const getPostAnalystics = makeGetPostAnalystics({
+  postDb: PostDb,
+});
+
+const hardDeletePost = makeHardDeletePost({
+  postDb: PostDb,
+  logger,
+});
 
 const getPost = makeGetPost({
   postDb: PostDb,
-  redis,
   logger,
 });
 
@@ -29,7 +44,6 @@ const createPost = makeCreatePost({
 
 const getPosts = makeGetPosts({
   postDb: PostDb,
-  redis,
   logger,
 });
 
@@ -39,8 +53,20 @@ const postServices = Object.freeze({
   updatePost,
   getPosts,
   createPost,
+  hardDeletePost,
+  getPostAnalystics,
+  getHighlightPost,
 });
 
 export default postServices;
 
-export { getPost, deletePost, updatePost, getPosts, createPost };
+export {
+  getPost,
+  deletePost,
+  updatePost,
+  getPosts,
+  createPost,
+  hardDeletePost,
+  getPostAnalystics,
+  getHighlightPost,
+};

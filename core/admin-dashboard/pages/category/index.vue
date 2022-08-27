@@ -21,20 +21,6 @@
             </template>
             <span v-html="$t('Create a new category')"></span>
           </v-tooltip>
-          <v-tooltip left>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                v-bind="attrs"
-                v-on="on"
-                color="primary"
-                icon
-                @click="$router.push(localePath('/category/tree'))"
-              >
-                <v-icon>mdi-file-tree-outline</v-icon>
-              </v-btn>
-            </template>
-            <span v-html="$t('View category tree')"></span>
-          </v-tooltip>
         </div>
       </v-col>
     </v-row>

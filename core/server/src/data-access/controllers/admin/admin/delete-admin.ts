@@ -21,8 +21,7 @@ export default function makeDeleteAdminController({
     };
 
     try {
-      const adminDetails = _.get(httpRequest, "context.validated");
-      const { _id } = adminDetails;
+      const { _id } = _.get(httpRequest, "context.validated");
       const exists = await getAdmin({ _id });
       if (!exists) {
         throw new Error(`Admin by ${_id} does not exist`);

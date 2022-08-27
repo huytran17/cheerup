@@ -21,19 +21,16 @@ export default function makeDeleteCategoryController({
     };
 
     try {
-      const categoryDetails = _.get(httpRequest, "context.validated");
-      const { _id } = categoryDetails;
+      const { _id } = _.get(httpRequest, "context.validated");
       const exists = await getCategory({ _id });
       if (!exists) {
         throw new Error(`Category by ${_id} does not exist`);
       }
 
-      const { _id: user_id } = _.get(httpRequest, "context.user");
-
       const deleted_category = await deleteCategory({
         _id,
-        deleted_by: user_id,
       });
+
       return {
         headers,
         statusCode: 200,

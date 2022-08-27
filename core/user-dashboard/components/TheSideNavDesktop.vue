@@ -4,7 +4,7 @@
       :src="desktop_logo"
       :lazy-src="desktop_logo"
       :alt="$t('large logo')"
-      :max-width="is_mobile ? '100px' : '156.09px'"
+      :max-width="is_small_screen ? '120px' : '156.09px'"
       contain
       class="px-1 clickable"
       @click="$router.push(localePath('/'))"
@@ -51,10 +51,6 @@ export default {
   name: "TheSideNavDesktop",
   mixins: [systemMixins],
   props: {
-    mobile_logo: {
-      type: String,
-      default: require("@/assets/images/app/small-logo.jpg"),
-    },
     desktop_logo: {
       type: String,
       default: require("@/assets/images/app/large-logo.jpg"),

@@ -31,9 +31,12 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    "~/plugins/vuetify",
     { src: "~/plugins/axios", ssr: false },
     { src: "~/plugins/vue-toastification", ssr: false },
     { src: "~/plugins/vue-sidebar-menu-akahon", ssr: false },
+    { src: "~/plugins/vue2-dropzone", ssr: false },
+    { src: "~/plugins/vue-avatar", mode: "client" },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -84,4 +87,8 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  env: {
+    SERVER_URL: process.env.SERVER_URL || "http://localhost:3000",
+  },
 };

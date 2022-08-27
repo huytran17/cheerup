@@ -22,13 +22,22 @@ export default function makeUpdateUserController({
 
     try {
       const userDetails = _.get(httpRequest, "context.validated");
-      const { _id } = userDetails;
+
+      const { _id, is_blocked_comment } = userDetails;
+
       const exists = await getUser({ _id });
       if (!exists) {
         throw new Error(`User by ${_id} does not exist`);
       }
 
-      const updated_user = await updateUser({ userDetails });
+      const final_user_details = Object.assign({}, exists, {
+        ...userDetails,
+        blocked_comment_at: is_blocked_comment ? new Date() : null,
+      });
+
+      const updated_user = await updateUser({
+        userDetails: final_user_details,
+      });
       return {
         headers,
         statusCode: 200,

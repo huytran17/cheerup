@@ -6,8 +6,8 @@ export const getters: GetterTree<AuthState, RootState> = {
   prefix() {
     return "/auth";
   },
-  user: (state) => state.user,
   me: (state) => state.me,
+  has_user: (state) => state.has_user,
 };
 
 export default getters;

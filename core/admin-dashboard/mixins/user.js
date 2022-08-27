@@ -8,6 +8,11 @@ export default {
         (v) => !!v || this.$t("E-mail is required."),
         (v) => /.+@.+\..+/.test(v) || this.$t("E-mail must be valid."),
       ],
+      fullnameRules: [
+        (v) => !!v || this.$t("Fullname is required."),
+        (v) =>
+          (v && v.length > 1) || this.$t("Fullname must be min 2 characters."),
+      ],
       passwordRules: [
         (v) => !!v || this.$t("Password is required."),
         (v) =>
@@ -27,6 +32,7 @@ export default {
     ...mapGetters({
       user: "user/user",
       users: "user/users",
+      user_analys_data: "user/user_analys_data",
     }),
   },
   methods: {
@@ -38,10 +44,16 @@ export default {
       DELETE_USER: "user/DELETE_USER",
       UPLOAD_USER_AVATAR: "user/UPLOAD_USER_AVATAR",
       HARD_DELETE_USER: "user/HARD_DELETE_USER",
+      UNBLOCK_USER_COMMENT: "user/UNBLOCK_USER_COMMENT",
+      BLOCK_USER_COMMENT: "user/BLOCK_USER_COMMENT",
+      UPDATE_USER_PASSWORD: "user/UPDATE_USER_PASSWORD",
+      RESTORE_USER: "user/RESTORE_USER",
+      GET_USER_ANALYTICS: "user/GET_USER_ANALYTICS",
     }),
     ...mapMutations({
       SET_USER: "user/SET_USER",
       SET_USERS: "user/SET_USERS",
+      UPDATE_USER_DATA: "user/UPDATE_USER_DATA",
     }),
 
     updateUserObject({ variable_path, data }) {

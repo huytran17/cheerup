@@ -4,6 +4,7 @@ import {
   updateComment,
   createComment,
   getComments,
+  getCommentsByParent,
 } from "../../../../use-cases/comment";
 import { logger } from "../../../../config/storage/logger";
 
@@ -31,6 +32,7 @@ const getCommentController = makeGetCommentController({
 const deleteCommentController = makeDeleteCommentController({
   getComment,
   deleteComment,
+  getCommentsByParent,
   logger,
 });
 

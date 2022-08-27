@@ -18,6 +18,13 @@ export default interface IUserDb {
   delete: ({ _id }: { _id: string }) => Promise<User | null>;
   hardDelete: ({ _id }: { _id: string }) => Promise<User | null>;
   update: (updatePayload: Partial<IUser>) => Promise<User | null>;
+  getUserAnalystics: ({
+    distance,
+    unit,
+  }: {
+    distance?: number;
+    unit?: string;
+  }) => Promise<IUserAnalyticsData>;
 }
 
 export interface PaginatedUserResult {
@@ -30,4 +37,13 @@ export interface PaginatedUserResult {
     total: number | null;
     total_pages: number | null;
   };
+}
+
+export interface IUserAnalyticsData {
+  total_created_counts: number[];
+  total_deleted_counts: number[];
+  total_blocked_comment_counts: number[];
+  total_verified_email_counts: number[];
+  total_count: number;
+  formatted_dates: string[];
 }

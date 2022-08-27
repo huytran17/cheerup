@@ -5,11 +5,15 @@ export default interface IPost {
   _id: string;
   title: string;
   description: string;
-  is_block_comment: boolean;
+  source: string;
+  thumbnail_url: string;
+  is_blocked_comment: boolean;
+  is_highlight: boolean;
+  is_published: boolean;
   thumbnail: Record<string, unknown>;
   content: string;
   author: Admin;
-  category: Category;
+  categories: Category[];
   meta: {
     views: number;
   };

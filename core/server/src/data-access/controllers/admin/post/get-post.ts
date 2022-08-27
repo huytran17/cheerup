@@ -18,10 +18,10 @@ export default function makeGetPostController({
     };
 
     try {
-      const { post_id } = _.get(httpRequest, "context.validated");
-      const exists = await getPost({ _id: post_id });
+      const { _id } = _.get(httpRequest, "context.validated");
+      const exists = await getPost({ _id });
       if (!exists) {
-        throw new Error(`Post ${post_id} does not exists`);
+        throw new Error(`Post ${_id} does not exists`);
       }
 
       return {

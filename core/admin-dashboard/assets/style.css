@@ -18,6 +18,10 @@
 .h-100 {
   height: 100% !important;
 }
+.w-fit-content {
+  width: fit-content !important;
+  max-width: fit-content !important;
+}
 .w-0 {
   width: 0% !important;
 }
@@ -32,6 +36,9 @@
 }
 .w-100 {
   width: 100% !important;
+}
+.mw-100 {
+  max-width: 100% !important;
 }
 .gap-10 {
   gap: 10px;

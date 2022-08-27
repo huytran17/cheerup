@@ -15,7 +15,6 @@
             class="text-body-2 primary--text clickable"
             @click="
               () => {
-                SET_CATEGORY({ data: item });
                 $router.push(localePath(`/category/${item._id}`));
               }
             "
@@ -48,34 +47,6 @@
           </div>
         </template>
 
-        <template v-slot:item.last_restored_at="{ item }">
-          <div v-if="item.last_restored_at" class="text-body-2">
-            <span class="app-body">{{
-              formatDate(item.last_restored_at, "DD-MM-YYYY HH:mm")
-            }}</span>
-          </div>
-        </template>
-
-        <template v-slot:item.last_deleted_by="{ item }">
-          <div
-            v-if="item.last_deleted_by"
-            class="text-body-2 primary--text"
-            @click="$router.push(`/admin/view/${item.last_deleted_by._id}`)"
-          >
-            <span class="app-body">{{ item.last_deleted_by.full_name }}</span>
-          </div>
-        </template>
-
-        <template v-slot:item.last_restored_by="{ item }">
-          <div
-            v-if="item.last_restored_by"
-            class="text-body-2 primary--text"
-            @click="$router.push(`/admin/view/${item.last_restored_by._id}`)"
-          >
-            <span class="app-body">{{ item.last_restored_by.full_name }}</span>
-          </div>
-        </template>
-
         <template v-slot:item.actions="{ item }">
           <div v-if="item.deleted_at">
             <v-tooltip left>
@@ -84,24 +55,26 @@
                   icon
                   v-bind="attrs"
                   v-on="on"
-                  @click="restoreDeleteCategory(item)"
+                  small
+                  @click="restoreDeletedCategory(item)"
                 >
-                  <v-icon color="success">mdi-backup-restore</v-icon>
+                  <v-icon small color="success">mdi-backup-restore</v-icon>
                 </v-btn>
               </template>
               <span v-html="$t('Restore')"></span>
             </v-tooltip>
           </div>
-          <div v-if="!item.deleted_at">
+          <div v-else>
             <v-tooltip left>
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
                   icon
                   v-bind="attrs"
                   v-on="on"
+                  small
                   @click="deleteCategory(item)"
                 >
-                  <v-icon color="error">mdi-trash-can-outline</v-icon>
+                  <v-icon small color="error">mdi-trash-can-outline</v-icon>
                 </v-btn>
               </template>
               <span v-html="$t('Delete')"></span>
@@ -112,6 +85,7 @@
                   icon
                   v-bind="attrs"
                   v-on="on"
+                  small
                   @click="
                     () => {
                       SET_CATEGORY({ data: item });
@@ -119,7 +93,7 @@
                     }
                   "
                 >
-                  <v-icon color="error">mdi-delete-off-outline</v-icon>
+                  <v-icon small color="error">mdi-delete-off-outline</v-icon>
                 </v-btn>
               </template>
               <span v-html="$t('Delete Forever')"></span>
@@ -129,10 +103,12 @@
       </v-data-table>
     </v-col>
 
-    <BaseHardDeleteCategoryDialog
+    <BaseHardDeleteDialog
       :is_open="is_open_hard_delete_dialog"
-      @close-hard-delete-category="is_open_hard_delete_dialog = false"
-      @hard-delete-category="hardDeleteCategory"
+      :data="category"
+      :closeDialog="() => (is_open_hard_delete_dialog = false)"
+      :confirmDelete="() => hardDeleteCategory()"
+      :title="`category ${category.title}`"
     />
   </v-row>
 </template>
@@ -141,12 +117,13 @@
 import categoryMixins from "@/mixins/category";
 import systemMixins from "@/mixins/system";
 
-import BaseHardDeleteCategoryDialog from "@/components/category/widget/BaseHardDeleteCategoryDialog";
+import BaseHardDeleteDialog from "@/components/BaseHardDeleteDialog";
+import TiptapEditor from "@/components/TiptapEditor";
 
 export default {
   name: "BaseCategoryTable",
   mixins: [categoryMixins, systemMixins],
-  components: { BaseHardDeleteCategoryDialog },
+  components: { BaseHardDeleteDialog, TiptapEditor },
   props: {
     headers: {
       type: Array,
@@ -163,29 +140,9 @@ export default {
             value: "created_at",
           },
           {
-            text: "Last Updated At",
+            text: "Updated At",
             align: "start",
             value: "updated_at",
-          },
-          {
-            text: "Deleted At",
-            align: "start",
-            value: "deleted_at",
-          },
-          {
-            text: "Last Deleted By",
-            align: "start",
-            value: "last_deleted_by",
-          },
-          {
-            text: "Last Stored At",
-            align: "start",
-            value: "last_restored_at",
-          },
-          {
-            text: "Last Stored By",
-            align: "start",
-            value: "last_restored_by",
           },
           {
             text: "Actions",
@@ -202,6 +159,7 @@ export default {
       search: "",
       initial_loading: true,
       is_open_hard_delete_dialog: false,
+      date: "",
     };
   },
 
@@ -215,7 +173,8 @@ export default {
         this.$toast.success(`Deleted category ${title} successfully`);
         await this.$fetch();
       } catch (err) {
-        this.$toast.error(`Encountered error while deleting category ${title}`);
+        console.error(err);
+        this.$toast.error(`Encountered error while deleting category`);
       }
     },
 
@@ -228,13 +187,14 @@ export default {
         this.$toast.success(`Forever deleted category ${title} successfully`);
         await this.$fetch();
       } catch (err) {
-        this.$toast.error(`Encountered error while deleting category ${title}`);
+        console.error(err);
+        this.$toast.error(`Encountered error while deleting category`);
       } finally {
         this.is_open_hard_delete_dialog = false;
       }
     },
 
-    async restoreDeleteCategory(category) {
+    async restoreDeletedCategory(category) {
       try {
         const id = _.get(category, "_id");
         const title = _.get(category, "title");
@@ -243,9 +203,8 @@ export default {
         this.$toast.success(`Restored category ${title} successfully`);
         await this.$fetch();
       } catch (err) {
-        this.$toast.error(
-          `Encountered error while restoring category ${title}`
-        );
+        console.error(err);
+        this.$toast.error(`Encountered error while restoring category`);
       }
     },
   },

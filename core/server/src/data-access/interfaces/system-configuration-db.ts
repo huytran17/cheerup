@@ -5,4 +5,8 @@ export default interface ISystemConfigurationDb {
   update: (
     updatePayload: Partial<ISystemConfiguration>
   ) => Promise<SystemConfiguration | null>;
+  findOne: () => Promise<SystemConfiguration | null>;
+  insert: (
+    payload: Partial<ISystemConfiguration>
+  ) => Promise<SystemConfiguration | null>;
 }

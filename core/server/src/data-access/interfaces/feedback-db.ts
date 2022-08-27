@@ -17,6 +17,13 @@ export default interface IFeedbackDb {
   delete: ({ _id }: { _id: string }) => Promise<Feedback | null>;
   hardDelete: ({ _id }: { _id: string }) => Promise<Feedback | null>;
   update: (updatePayload: Partial<IFeedback>) => Promise<Feedback | null>;
+  getFeedbackAnalystics: ({
+    distance,
+    unit,
+  }: {
+    distance?: number;
+    unit?: string;
+  }) => Promise<IFeedbackAnalyticsData>;
 }
 
 export interface PaginatedFeedbackResult {
@@ -29,4 +36,10 @@ export interface PaginatedFeedbackResult {
     total: number | null;
     total_pages: number | null;
   };
+}
+
+export interface IFeedbackAnalyticsData {
+  total_created_counts: number[];
+  total_count: number;
+  formatted_dates: string[];
 }

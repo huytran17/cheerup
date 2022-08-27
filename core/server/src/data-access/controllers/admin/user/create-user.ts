@@ -31,8 +31,10 @@ export default function makeCreateUserController({
     };
 
     try {
+      const admin = _.get(httpRequest, "context.user");
       const user: IUserRawData = _.get(httpRequest, "context.validated");
-      const { email, password, password_confirmation } = user;
+      const { email, password, password_confirmation, is_blocked_comment } =
+        user;
 
       const exists = await getUserByEmail({ email });
       if (exists) {
@@ -44,17 +46,20 @@ export default function makeCreateUserController({
         password_confirmation,
       });
 
-      const user_details = Object.assign(
+      const final_user_details = Object.assign(
         {},
         _.omit(user, ["_id", "password", "password_confirmation"]),
         {
           email,
           hash_password: hashed_password,
+          created_by: admin,
+          is_blocked_comment,
+          blocked_comment_at: is_blocked_comment ? new Date() : null,
         }
       );
 
       const created_user = await signUp({
-        userDetails: user_details,
+        userDetails: final_user_details,
       });
 
       logger.verbose(`User signed up: ${created_user.email}`);
@@ -71,7 +76,7 @@ export default function makeCreateUserController({
         headers,
         statusCode: 500,
         body: {
-          data: err,
+          data: err.message,
         },
       };
     }

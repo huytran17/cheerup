@@ -1,6 +1,10 @@
 import express from "express";
+
+import dotenv from "dotenv";
+dotenv.config();
+
 import makeDb from "./data-access/make-db";
-import { UserDb, AdminDb } from "./data-access";
+import { UserDb, AdminDb, SystemConfigurationDb } from "./data-access";
 import cors from "cors";
 import bodyParser from "body-parser";
 import appRouter from "./routes";
@@ -8,12 +12,7 @@ import passport from "./config/passport";
 import { upload } from "./config/middlewares/file-upload-middleware";
 import { AdminType } from "./database/interfaces/admin";
 import { hashPassword } from "./config/password";
-import swaggerRouter from "./routes/swagger";
 import helmet from "helmet";
-
-import dotenv from "dotenv";
-
-dotenv.config();
 
 const app = express();
 
@@ -23,7 +22,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(appRouter);
-app.use(swaggerRouter);
 app.use(upload.single("file"));
 
 app.listen(3000, () => console.log("Server is listening on port 3000"));
@@ -52,6 +50,29 @@ makeDb().then(async () => {
       type: AdminType.Super,
       email: "huytran@gmail.com",
       hash_password: default_hash_password,
+    });
+  }
+
+  const system_configuration = await SystemConfigurationDb.findOne();
+  if (!system_configuration) {
+    await SystemConfigurationDb.insert({
+      is_blocked_comment: false,
+      is_maintaining: false,
+      client_meta: {
+        title: "Personal Blog",
+        description: "Personal Blog",
+        author: "Huy Tran",
+        keywords: [],
+        logo: null,
+        favicon: null,
+      },
+      admin_meta: {
+        title: "Personal Blog",
+        description: "Personal Blog",
+        author: "Huy Tran",
+        logo: null,
+        favicon: null,
+      },
     });
   }
 });

@@ -1,6 +1,9 @@
 import _ from "lodash";
 import mongoose from "mongoose";
-import IFeedbackDb, { PaginatedFeedbackResult } from "./interfaces/feedback-db";
+import IFeedbackDb, {
+  PaginatedFeedbackResult,
+  IFeedbackAnalyticsData,
+} from "./interfaces/feedback-db";
 import Feedback from "../database/entities/feedback";
 import IFeedback from "../database/interfaces/feedback";
 
@@ -15,6 +18,56 @@ export default function makeFeedbackDb({
   moment: any;
 }): IFeedbackDb {
   return new (class MongooseFeedbackDb implements IFeedbackDb {
+    /**
+     * get the number of resumes daily for past "distance & unit" (including today)
+     * @param param0
+     * @returns
+     */
+    async getFeedbackAnalystics({
+      distance = 7,
+      unit = "day",
+    }: {
+      distance?: number;
+      unit?: string;
+    }): Promise<IFeedbackAnalyticsData> {
+      const from_date_formatted = moment().subtract(distance, unit);
+      const to_date_formatted = moment();
+      const formatted_dates = [];
+      const total_created_counts = [];
+
+      const query_conditions = {};
+
+      const total_count = await feedbackDbModel.countDocuments({
+        ...query_conditions,
+        created_at: {
+          $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
+          $lte: moment(to_date_formatted, "yyyy-MM-DD").endOf(unit),
+        },
+      });
+
+      while (from_date_formatted.isSameOrBefore(to_date_formatted, unit)) {
+        const date = from_date_formatted.format("YYYY-MM-DD");
+        formatted_dates.push(date);
+
+        const [total_created_count] = await Promise.all([
+          feedbackDbModel.countDocuments({
+            ...query_conditions,
+            created_at: {
+              $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
+              $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
+            },
+          }),
+        ]);
+
+        total_created_counts.push(total_created_count);
+        from_date_formatted.add(1, unit);
+      }
+      return {
+        total_created_counts,
+        formatted_dates,
+        total_count,
+      };
+    }
     /**
      * @description used by feedback dashboard
      * FIXME: Currently not in used. To be removed and should never be used.

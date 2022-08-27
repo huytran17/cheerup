@@ -35,7 +35,8 @@ const actions: ActionTree<CategoryState, RootState> = {
   },
 
   async [ActionTypes.UPDATE_CATEGORY]({ commit }, { data }: { data: any }) {
-    const { data: category } = await this.$axios.$put(`/category`, data);
+    const { _id } = data;
+    const { data: category } = await this.$axios.$put(`/category/${_id}`, data);
 
     commit(MutationTypes.SET_CATEGORY, { data: category });
 
@@ -58,21 +59,6 @@ const actions: ActionTree<CategoryState, RootState> = {
     const { data: category } = await this.$axios.$delete(
       `/category/hard-delete/${id}`
     );
-    return category;
-  },
-
-  async [ActionTypes.UPLOAD_CATEGORY_THUMBNAIL](
-    { commit },
-    { file }: { file: any }
-  ) {
-    const form_data = new FormData();
-    form_data.append("file", file);
-
-    const { data: category } = await this.$axios.$put(
-      `/category/upload-avatar`,
-      form_data
-    );
-
     return category;
   },
 };

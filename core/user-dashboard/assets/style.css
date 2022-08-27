@@ -102,3 +102,6 @@ select:-webkit-autofill:focus {
 .lineheight-large {
   line-height: 40px !important;
 }
+.text-small {
+  font-size: 0.62rem !important;
+}

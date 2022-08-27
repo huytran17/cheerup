@@ -4,6 +4,10 @@ import { PostState } from ".";
 import _ from "lodash";
 
 const mutations: MutationTree<PostState> = {
+  [MutationTypes.SET_POST_ANALYS_DATA](state, { data }: { data: any }) {
+    state.post_analys_data = data;
+  },
+
   [MutationTypes.SET_POST](state, { data }: { data: any }) {
     state.post = data;
   },

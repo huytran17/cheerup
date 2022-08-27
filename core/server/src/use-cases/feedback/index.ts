@@ -1,4 +1,3 @@
-import { redis } from "../../config/storage/redis";
 import { logger } from "../../config/storage/logger";
 
 import { FeedbackDb } from "../../data-access";
@@ -8,10 +7,14 @@ import makeDeleteFeedback from "./delete-feedback";
 import makeUpdateFeedback from "./update-feedback";
 import makeCreateFeedback from "./create-feedback";
 import makeGetFeedbacks from "./get-feedbacks";
+import makeGetFeedbackAnalystics from "./get-feedback-analystics";
+
+const getFeedbackAnalystics = makeGetFeedbackAnalystics({
+  feedbackDb: FeedbackDb,
+});
 
 const getFeedback = makeGetFeedback({
   feedbackDb: FeedbackDb,
-  redis,
   logger,
 });
 
@@ -29,7 +32,6 @@ const createFeedback = makeCreateFeedback({
 
 const getFeedbacks = makeGetFeedbacks({
   feedbackDb: FeedbackDb,
-  redis,
   logger,
 });
 
@@ -39,6 +41,7 @@ const feedbackServices = Object.freeze({
   updateFeedback,
   getFeedbacks,
   createFeedback,
+  getFeedbackAnalystics,
 });
 
 export default feedbackServices;
@@ -49,4 +52,5 @@ export {
   updateFeedback,
   getFeedbacks,
   createFeedback,
+  getFeedbackAnalystics,
 };

@@ -13,6 +13,11 @@ export default interface ICommentDb {
   }) => Promise<PaginatedCommentResult | null>;
   findOne: () => Promise<Comment | null>;
   findById: ({ _id }: { _id: string }) => Promise<Comment | null>;
+  findAllByParent: ({
+    parent_id,
+  }: {
+    parent_id: string;
+  }) => Promise<Comment[] | null>;
   insert: (payload: Partial<IComment>) => Promise<Comment | null>;
   delete: ({ _id }: { _id: string }) => Promise<Comment | null>;
   hardDelete: ({ _id }: { _id: string }) => Promise<Comment | null>;

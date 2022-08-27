@@ -4,19 +4,19 @@ import { AuthState } from ".";
 import _ from "lodash";
 
 const mutations: MutationTree<AuthState> = {
+  [MutationTypes.SET_HAS_USER](state, { data }: { data: boolean }) {
+    state.has_user = data;
+  },
+
   [MutationTypes.SET_ME](state, { data }: { data: any }) {
     state.me = data;
   },
 
-  [MutationTypes.SET_USER](state, { data }: { data: any }) {
-    state.user = data;
-  },
-
-  [MutationTypes.UPDATE_USER_DATA](
+  [MutationTypes.UPDATE_ME_DATA](
     state,
     { variable_path, data }: { variable_path: string; data: any }
   ) {
-    state.user = _.update(state.user, variable_path, (n) => {
+    state.me = _.update(state.me, variable_path, (n) => {
       return data;
     });
   },

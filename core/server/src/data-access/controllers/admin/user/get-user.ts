@@ -15,10 +15,10 @@ export default function makeGetUserController({
     };
 
     try {
-      const user_id = _.get(httpRequest, "context.validated");
-      const exists = await getUser({ _id: user_id });
+      const { _id } = _.get(httpRequest, "context.validated");
+      const exists = await getUser({ _id });
       if (!exists) {
-        throw new Error(`User ${user_id} does not exist`);
+        throw new Error(`User ${_id} does not exist`);
       }
 
       return {
