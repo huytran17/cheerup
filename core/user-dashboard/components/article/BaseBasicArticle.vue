@@ -35,7 +35,7 @@
       <div
         class="text-body-2 text-sm-body-1 text-md-h6 text-center pt-3 pt-md-4 clickable"
       >
-        <span class="app-title a-hover" v-html="post_data.title"></span>
+        <span class="app-title a-on-hover" v-html="post_data.title"></span>
       </div>
       <div class="text-caption text-sm-body-2 text-center pt-2 pt-md-4">
         <span class="app-body">{{
