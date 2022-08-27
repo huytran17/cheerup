@@ -13,7 +13,7 @@
             class="app-body"
             v-html="
               $t(
-                'The Page You are looking for isn’t available. Try to search again or use the Go Back button below.'
+                'The Page You are looking for isn’t available. Try to search again or use the Home Page button below.'
               )
             "
           ></span>
