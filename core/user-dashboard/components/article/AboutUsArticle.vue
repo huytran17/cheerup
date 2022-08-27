@@ -23,7 +23,7 @@
         <h2 class="text-h6">
           <span class="app-title" v-html="$t('Hey there, what’s up?')"></span>
         </h2>
-        <p class="text-body=2">
+        <p class="text-body-2">
           <span
             class="app-body"
             v-html="
