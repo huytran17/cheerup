@@ -1,6 +1,14 @@
 <template>
-  <v-app-bar elevation="0" color="white">
-    <div class="d-flex flex-column flex-sm-row justify-space-between w-100">
+  <div>
+    <v-app-bar elevation="0" color="white">
+      <div class="d-flex justify-center w-100">
+        <v-icon small color="black" class="clickable mr-2">mdi-facebook</v-icon>
+        <v-icon small color="black" class="clickable mr-2">mdi-instagram</v-icon>
+        <v-icon small color="black" class="clickable">mdi-twitter</v-icon>
+      </div>
+    </v-app-bar>
+
+    <div class="d-flex flex-column  justify-space-between w-100">
       <div class="d-flex flex-row flex-sm-column justify-center pt-10 pt-sm-0">
         <v-img
           :src="logo_url"
@@ -18,10 +26,11 @@
           dense
           hide-details
           append-icon="mdi-magnify"
+          :max-width="200"
         ></v-text-field>
       </div>
     </div>
-  </v-app-bar>
+  </div>
 </template>
 
 <script>
@@ -29,7 +38,7 @@ export default {
   name: "BaseAppBar",
   data() {
     return {
-      logo_url: require("@/assets/images/app/small-logo.jpg"),
+      logo_url: require("@/assets/images/app/large-logo.jpg"),
     };
   },
 };

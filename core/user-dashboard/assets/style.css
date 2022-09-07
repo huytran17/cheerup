@@ -48,6 +48,9 @@
 .position-relative {
   position: relative !important;
 }
+.justify-center {
+  justify-content: center !important;
+}
 .justify-space-between {
   justify-content: space-between !important;
 }
