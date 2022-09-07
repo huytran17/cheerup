@@ -2,7 +2,8 @@
   <v-app>
     <v-main>
       <v-container>
-        <BaseAppBar />
+        <BaseAppBar v-if="has_user" />
+        <nuxt />
       </v-container>
     </v-main>
   </v-app>
@@ -10,13 +11,21 @@
 
 <script>
 import systemMixins from "@/mixins/system";
+import authMixins from "@/mixins/auth";
 import BaseAppBar from "@/components/BaseAppBar";
 
 export default {
   name: "DefaultLayout",
-  mixins: [systemMixins],
+  mixins: [systemMixins, authMixins],
   components: {
     BaseAppBar,
+  },
+  async fetch() {
+    try {
+      await this.GET_ME();
+    } catch (err) {
+      console.error(err);
+    }
   },
 };
 </script>

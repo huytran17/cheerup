@@ -19,7 +19,7 @@ export default function makeGetLatestPostsController({
 
     try {
       const { amount } = _.get(httpRequest, "context.validated");
-      const exists = await getLatestPosts({ amount });
+      const exists = await getLatestPosts({ amount: Number(amount) });
 
       return {
         headers,

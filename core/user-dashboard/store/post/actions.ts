@@ -23,7 +23,9 @@ const actions: ActionTree<PostState, RootState> = {
       url_query.set("amount", amount);
     }
 
-    const { data: posts } = await this.$axios.$get(`/latest?${url_query}`);
+    const { data: posts } = await this.$axios.$get(
+      `/post/latest-posts?${url_query}`
+    );
 
     commit(MutationTypes.SET_LATEST_POSTS, { data: posts });
 

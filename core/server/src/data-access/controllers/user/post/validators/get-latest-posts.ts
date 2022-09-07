@@ -1,5 +1,5 @@
 const getLatestPostsRules = {
-  amount: "required|number",
+  amount: "required|string",
 };
 
 export default getLatestPostsRules;

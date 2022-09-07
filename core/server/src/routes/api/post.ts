@@ -15,6 +15,12 @@ import {
 const postRouter = express.Router();
 
 postRouter.get(
+  "/latest-posts",
+  makeValidator(getLatestPostsRules),
+  makeExpressCallback(getLatestPostsController)
+); // DONE
+
+postRouter.get(
   "/:post_id",
   makeValidator(getPostRules),
   makeExpressCallback(getPostController)
@@ -24,12 +30,6 @@ postRouter.get(
   "/",
   makeValidator(getPostRules),
   makeExpressCallback(getPostsController)
-); // DONE
-
-postRouter.get(
-  "/latest",
-  makeValidator(getLatestPostsRules),
-  makeExpressCallback(getLatestPostsController)
 ); // DONE
 
 export default postRouter;

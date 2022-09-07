@@ -26,6 +26,7 @@ export default {
   computed: {
     ...mapGetters({
       me: "auth/me",
+      has_user: "auth/has_user",
     }),
   },
   methods: {
@@ -33,6 +34,7 @@ export default {
       SIGN_IN: "auth/SIGN_IN",
       SIGN_UP: "auth/SIGN_UP",
       SIGN_OUT: "auth/SIGN_OUT",
+      GET_ME: "auth/GET_ME",
     }),
     ...mapMutations({
       UPDATE_ME_DATA: "auth/UPDATE_ME_DATA",

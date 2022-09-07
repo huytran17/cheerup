@@ -13,6 +13,7 @@
 import LoginForm from "@/components/auth/login/LoginForm";
 export default {
   name: "Login",
+  layout: "public",
   components: {
     LoginForm,
   },

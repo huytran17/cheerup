@@ -11,9 +11,16 @@ import {
   signOutController,
   signInController,
   signUpController,
+  getMeController,
 } from "../../data-access/controllers/user/auth";
 
 const authRouter = express.Router();
+
+authRouter.get(
+  "/me",
+  authenticateUserJWT(),
+  makeExpressCallback(getMeController)
+);
 
 /**
  * @openapi

@@ -13,6 +13,7 @@
 import RegisterForm from "@/components/auth/register/RegisterForm";
 export default {
   name: "Login",
+  layout: "public",
   components: {
     RegisterForm,
   },
