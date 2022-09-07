@@ -2,11 +2,7 @@
   <v-app>
     <v-main>
       <v-container>
-        <TheSideNavMobile v-if="is_mobile" />
-        <TheSideNavDesktop v-else />
-        <div class="pt-6">
-          <nuxt />
-        </div>
+        <BaseAppBar/>
       </v-container>
     </v-main>
   </v-app>
@@ -14,16 +10,13 @@
 
 <script>
 import systemMixins from "@/mixins/system";
-
-import TheSideNavMobile from "@/components/TheSideNavMobile";
-import TheSideNavDesktop from "@/components/TheSideNavDesktop";
+import BaseAppBar from "@/components/BaseAppBar";
 
 export default {
   name: "DefaultLayout",
   mixins: [systemMixins],
   components: {
-    TheSideNavMobile,
-    TheSideNavDesktop,
+    BaseAppBar,
   },
 };
 </script>
