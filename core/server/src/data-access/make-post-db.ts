@@ -216,6 +216,24 @@ export default function makePostDb({
       return null;
     }
 
+    async findLatest({ amount }: { amount: number }): Promise<Post[]> {
+      const existing = await postDbModel
+        .find()
+        .limit(amount)
+        .populate("author", "-_v")
+        .populate("categories", "-_v")
+        .sort({
+          created_at: "desc",
+        })
+        .lean({ virtuals: true });
+
+      if (existing) {
+        return existing.map((post) => new Post(post));
+      }
+
+      return null;
+    }
+
     async findOne(): Promise<Post | null> {
       const existing = await postDbModel
         .findOne()

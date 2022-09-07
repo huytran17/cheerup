@@ -10,6 +10,12 @@ import makeGetPosts from "./get-posts";
 import makeHardDeletePost from "./hard-delete-post";
 import makeGetPostAnalystics from "./get-post-analystics";
 import makeGetHighlightPost from "./get-highlight-post";
+import makeGetLatestPosts from "./get-latest-posts";
+
+const getLatestPosts = makeGetLatestPosts({
+  postDb: PostDb,
+  logger,
+});
 
 const getHighlightPost = makeGetHighlightPost({
   postDb: PostDb,
@@ -56,6 +62,7 @@ const postServices = Object.freeze({
   hardDeletePost,
   getPostAnalystics,
   getHighlightPost,
+  getLatestPosts,
 });
 
 export default postServices;
@@ -69,4 +76,5 @@ export {
   hardDeletePost,
   getPostAnalystics,
   getHighlightPost,
+  getLatestPosts,
 };
