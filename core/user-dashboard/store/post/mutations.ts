@@ -12,13 +12,8 @@ const mutations: MutationTree<PostState> = {
     state.posts = data;
   },
 
-  [MutationTypes.UPDATE_POST_DATA](
-    state,
-    { variable_path, data }: { variable_path: string; data: any }
-  ) {
-    state.post = _.update(state.post, variable_path, (n) => {
-      return data;
-    });
+  [MutationTypes.SET_LATEST_POSTS](state, { data }: { data: any[] }) {
+    state.latest_posts = data;
   },
 };
 

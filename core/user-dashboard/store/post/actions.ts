@@ -13,6 +13,30 @@ const actions: ActionTree<PostState, RootState> = {
 
     return post;
   },
+
+  async [ActionTypes.GET_LATEST_POSTS]({ commit }, params = {}) {
+    const amount = _.get(params, "amount", 5);
+
+    const url_query = new URLSearchParams();
+
+    if (amount) {
+      url_query.set("amount", amount);
+    }
+
+    const { data: posts } = await this.$axios.$get(`/latest?${url_query}`);
+
+    commit(MutationTypes.SET_LATEST_POSTS, { data: posts });
+
+    return posts;
+  },
+
+  async [ActionTypes.GET_POSTS]({ commit }) {
+    const { data: posts } = await this.$axios.$get(`/`);
+
+    commit(MutationTypes.SET_POSTS, { data: posts });
+
+    return posts;
+  },
 };
 
 export default actions;
