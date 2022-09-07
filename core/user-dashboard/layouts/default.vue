@@ -2,7 +2,7 @@
   <v-app>
     <v-main>
       <v-container>
-        <BaseAppBar/>
+        <BaseAppBar />
       </v-container>
     </v-main>
   </v-app>
@@ -22,8 +22,19 @@ export default {
 </script>
 
 <style scoped>
-.search-results {
-  top: 0%;
-  left: 0%;
+@media only screen and (min-width: 1904px) {
+  :deep(.container) {
+    max-width: 1100px !important;
+  }
+}
+@media only screen and (min-width: 1264px) {
+  :deep(.container) {
+    max-width: 1100px !important;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 960px) {
+  :deep(.container) {
+    max-width: 726px !important;
+  }
 }
 </style>
