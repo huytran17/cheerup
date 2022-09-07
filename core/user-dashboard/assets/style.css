@@ -48,11 +48,11 @@
 .position-relative {
   position: relative !important;
 }
-.justify-between {
-  justify-content: space-between;
+.justify-space-between {
+  justify-content: space-between !important;
 }
-.justify-around {
-  justify-content: space-around;
+.justify-space-around {
+  justify-content: space-around !important;
 }
 .soft-box-shadow {
   box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px !important;
