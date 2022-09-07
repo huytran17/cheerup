@@ -91,3 +91,6 @@ select:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0 0 transparent inset;
   transition: background-color 5000s ease-in-out 0s;
 }
+.icon__font--medium {
+  font-size: 20px !important;
+}
