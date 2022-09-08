@@ -8,10 +8,16 @@ export default class SystemConfiguration implements ISystemConfiguration {
   public readonly admin_favicon_url: string;
   public readonly client_logo_url: string;
   public readonly client_favicon_url: string;
+  public readonly client_owner_avatar_url: string;
   public readonly client_meta: {
     title: string;
     description: string;
     author: string;
+    owner: {
+      name: string;
+      description: string;
+      avatar: Record<string, unknown>;
+    };
     keywords: string[];
     logo: Record<string, unknown>;
     favicon: Record<string, unknown>;
@@ -34,6 +40,7 @@ export default class SystemConfiguration implements ISystemConfiguration {
     admin_favicon_url,
     client_logo_url,
     client_favicon_url,
+    client_owner_avatar_url
   }: ISystemConfiguration) {
     this._id = _id;
     this.is_blocked_comment = is_blocked_comment;
@@ -44,5 +51,6 @@ export default class SystemConfiguration implements ISystemConfiguration {
     this.admin_favicon_url = admin_favicon_url;
     this.client_logo_url = client_logo_url;
     this.client_favicon_url = client_favicon_url;
+    this.client_owner_avatar_url = client_owner_avatar_url;
   }
 }

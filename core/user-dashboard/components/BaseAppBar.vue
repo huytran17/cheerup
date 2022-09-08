@@ -30,7 +30,7 @@
       </div>
       <div class="d-flex flex-column w-100">
         <v-row>
-          <v-col cols="12" sm="6" class="mx-auto">
+          <v-col cols="12" md="6" class="mx-auto">
             <v-text-field
               id="search_box"
               :placeholder="$t('Search post by title...')"

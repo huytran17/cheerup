@@ -252,6 +252,7 @@
               </v-col>
             </v-row>
           </v-col>
+
           <v-col cols="12">
             <v-row>
               <v-col cols="12" class="pb-0">
@@ -290,6 +291,80 @@
                   v-if="client_favicon_url"
                   :src="client_favicon_url"
                   :alt="client_meta_title"
+                  contain
+                  max-width="200px"
+                  class="mx-auto"
+                ></v-img>
+              </v-col>
+            </v-row>
+          </v-col>
+
+          <v-col cols="12" md="6">
+            <v-text-field
+              :value="client_meta_owner_name"
+              :rules="ownerNameRules"
+              :label="$t('Owner Name')"
+              @input="
+                updateSystemConfigurationObject({
+                  variable_path: 'client_meta.owner.name',
+                  data: $event,
+                })
+              "
+            ></v-text-field>
+          </v-col>
+
+          <v-col cols="12" md="6">
+            <v-text-field
+              :value="client_meta_owner_description"
+              :rules="ownerDescriptionRules"
+              :label="$t('Owner Description')"
+              @input="
+                updateSystemConfigurationObject({
+                  variable_path: 'client_meta.owner.description',
+                  data: $event,
+                })
+              "
+            ></v-text-field>
+          </v-col>
+
+          <v-col cols="12">
+            <v-row>
+              <v-col cols="12" class="pb-0">
+                <div class="text-body-2">
+                  <span class="app-body">
+                    <span v-html="$t('Owner Avatar')"></span>
+                  </span>
+                </div>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-dropzone
+                  ref="client_owner_avatar_dropzone"
+                  id="client_owner_avatar"
+                  :options="
+                    getDropzoneOptions({
+                      upload_url: client_upload_owner_avatar_url,
+                    })
+                  "
+                  :destroyDropzone="true"
+                  @vdropzone-success="
+                    (file, response) =>
+                      onUploadSuccsess({
+                        ref: 'client_owner_avatar_dropzone',
+                        file,
+                        response,
+                        update_paths: [
+                          'client_meta.owner.avatar',
+                          'client_owner_avatar_url',
+                        ],
+                      })
+                  "
+                ></v-dropzone>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-img
+                  v-if="client_owner_avatar_url"
+                  :src="client_owner_avatar_url"
+                  :alt="client_meta_owner_name"
                   contain
                   max-width="200px"
                   class="mx-auto"
@@ -410,6 +485,20 @@ export default {
       return _.get(this.system_configuration, "client_meta.description");
     },
 
+    client_meta_owner_description() {
+      return _.get(this.system_configuration, "client_meta.owner.description");
+    },
+
+    client_meta_owner_name() {
+      return _.get(this.system_configuration, "client_meta.owner.name");
+    },
+
+    client_upload_owner_avatar_url() {
+      return this.getUploadUrl({
+        base_url: S3_UPLOAD_URL_TYPES.SYSTEM_CONFIG_CLIENT_META_OWNER_AVATAR,
+      });
+    },
+
     admin_upload_logo_url() {
       return this.getUploadUrl({
         base_url: S3_UPLOAD_URL_TYPES.SYSTEM_CONFIG_ADMIN_META_LOGO,
@@ -444,6 +533,10 @@ export default {
 
     client_logo_url() {
       return _.get(this.system_configuration, "client_logo_url");
+    },
+
+     client_owner_avatar_url() {
+      return _.get(this.system_configuration, "client_owner_avatar_url");
     },
 
     client_favicon_url() {

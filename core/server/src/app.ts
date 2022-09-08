@@ -62,6 +62,11 @@ makeDb().then(async () => {
         title: "Personal Blog",
         description: "Personal Blog",
         author: "Huy Tran",
+        owner: {
+          name: "Huy Tran",
+          description: "Huy Tran",
+          avatar: null,
+        },
         keywords: [],
         logo: null,
         favicon: null,

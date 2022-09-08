@@ -7,6 +7,7 @@
       <v-col cols="12" md="8">
         <BaseArticles :posts_data="posts" />
       </v-col>
+      <v-col cols="12" md="4"> </v-col>
     </v-row>
   </div>
 </template>

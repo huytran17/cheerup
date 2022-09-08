@@ -12,6 +12,11 @@ const systemConfigurationSchema = new Schema(
       title: { type: String, default: "" },
       description: { type: String, default: "" },
       author: { type: String, default: "" },
+      owner: {
+        name: { type: String, default: "" },
+        description: { type: String, default: "" },
+        avatar: { type: Object },
+      },
       keywords: [{ type: String, default: "" }],
       logo: { type: Object },
       favicon: { type: Object },
@@ -43,6 +48,10 @@ systemConfigurationSchema.virtual("client_logo_url").get(function () {
 
 systemConfigurationSchema.virtual("client_favicon_url").get(function () {
   return _.get(this, "client_meta.favicon.meta.location");
+});
+
+systemConfigurationSchema.virtual("client_owner_avatar_url").get(function () {
+  return _.get(this, "client_meta.owner.avatar.meta.location");
 });
 
 systemConfigurationSchema.plugin(mongoose_lean_virtuals);
