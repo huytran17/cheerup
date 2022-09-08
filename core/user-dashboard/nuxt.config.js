@@ -33,6 +33,7 @@ export default {
   plugins: [
     { src: "~/plugins/axios", ssr: false },
     { src: "~/plugins/vue-toastification", ssr: false },
+    { src: "~/plugins/vue-infinite-loading", mode: "client" },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -87,6 +88,7 @@ export default {
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
           brick: "#FF2E55",
+          matte__black: "#343434",
         },
       },
     },
