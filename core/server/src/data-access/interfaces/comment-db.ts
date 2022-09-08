@@ -13,6 +13,7 @@ export default interface ICommentDb {
   }) => Promise<PaginatedCommentResult | null>;
   findOne: () => Promise<Comment | null>;
   findById: ({ _id }: { _id: string }) => Promise<Comment | null>;
+  countByPost: ({ post_id }: { post_id: string }) => Promise<number | null>;
   findAllByParent: ({
     parent_id,
   }: {

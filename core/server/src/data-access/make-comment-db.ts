@@ -136,6 +136,26 @@ export default function makeCommentDb({
       return null;
     }
 
+    async countByPost({
+      post_id,
+    }: {
+      post_id: string;
+    }): Promise<number | null> {
+      const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
+      const is_mongo_id = mongo_id_regex.test(post_id);
+      if (!is_mongo_id || !post_id) {
+        return null;
+      }
+
+      const query_conditions = {
+        post: post_id,
+      };
+
+      const number_of_comments = await commentDbModel.countDocuments(query_conditions);
+
+      return number_of_comments;
+    }
+
     async findOne(): Promise<Comment | null> {
       const existing = await commentDbModel
         .findOne()

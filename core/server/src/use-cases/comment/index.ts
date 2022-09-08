@@ -8,6 +8,12 @@ import makeUpdateComment from "./update-comment";
 import makeGetComments from "./get-comments";
 import makeCreateComment from "./create-comment";
 import makeGetCommentsByParent from "./get-comments-by-parent";
+import makeCountCommentsByPost from "./count-comments-by-post";
+
+const countCommentsByPost = makeCountCommentsByPost({
+  commentDb: CommentDb,
+  logger,
+});
 
 const getCommentsByParent = makeGetCommentsByParent({
   commentDb: CommentDb,
@@ -44,6 +50,7 @@ const commentServices = Object.freeze({
   getComments,
   createComment,
   getCommentsByParent,
+  countCommentsByPost,
 });
 
 export default commentServices;
@@ -55,4 +62,5 @@ export {
   getComments,
   createComment,
   getCommentsByParent,
+  countCommentsByPost,
 };
