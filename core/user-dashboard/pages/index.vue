@@ -3,14 +3,16 @@
     <div class="pt-15">
       <BaseSlider :posts="latest_posts" />
     </div>
-    <v-row>
+    <v-row class="flex-column flex-md-row flex-column-reverse">
       <v-col cols="12" md="8">
         <BaseArticles :posts_data="posts" />
       </v-col>
       <v-col cols="12" md="4">
-        <div class="d-flex flex-column">
-          <BaseAboutCard :system_configuration_data="system_configuration" />
-        </div>
+        <v-row>
+          <v-col cols="12" class="mt-15">
+            <BaseAboutCard :system_configuration_data="system_configuration" />
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </div>

@@ -6,7 +6,9 @@ export default {
     return {
       titleRules: [(v) => !!v || this.$t("Title is required.")],
       ownerNameRules: [(v) => !!v || this.$t("Owner name is required.")],
-      ownerDescriptionRules: [(v) => !!v || this.$t("Owner description is required.")],
+      ownerDescriptionRules: [
+        (v) => !!v || this.$t("Owner description is required."),
+      ],
       authorRules: [(v) => !!v || this.$t("Author is required.")],
       descriptionRules: [(v) => !!v || this.$t("Description is required.")],
     };

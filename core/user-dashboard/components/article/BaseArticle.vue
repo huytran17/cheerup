@@ -28,7 +28,7 @@
           formatDate(post_data.created_at, "LL")
         }}</span>
         <span>/</span>
-        <span class="app-body">{{ post_data.author.full_name }}</span>
+        <span class="app-body">{{ author_name }}</span>
       </div>
     </div>
 
@@ -96,6 +96,9 @@ export default {
     };
   },
   computed: {
+    author_name() {
+      return _.get(this.post_data, "author.full_name");
+    },
     has_categories() {
       return !_.isEmpty(this.post_data.categories);
     },

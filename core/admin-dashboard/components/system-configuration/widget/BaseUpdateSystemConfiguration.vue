@@ -313,18 +313,22 @@
             ></v-text-field>
           </v-col>
 
-          <v-col cols="12" md="6">
-            <v-text-field
-              :value="client_meta_owner_description"
-              :rules="ownerDescriptionRules"
-              :label="$t('Owner Description')"
-              @input="
+          <v-col cols="12">
+            <div class="text-body-2 mb-2">
+              <span class="app-body">
+                <span v-html="$t('Owner Description')"></span>
+              </span>
+            </div>
+            <TiptapEditor
+              :content="client_meta_owner"
+              attr="description"
+              @on-input="
                 updateSystemConfigurationObject({
                   variable_path: 'client_meta.owner.description',
                   data: $event,
                 })
               "
-            ></v-text-field>
+            />
           </v-col>
 
           <v-col cols="12">
@@ -493,6 +497,10 @@ export default {
       return _.get(this.system_configuration, "client_meta.owner.name");
     },
 
+    client_meta_owner() {
+      return _.get(this.system_configuration, "client_meta.owner", {});
+    },
+
     client_upload_owner_avatar_url() {
       return this.getUploadUrl({
         base_url: S3_UPLOAD_URL_TYPES.SYSTEM_CONFIG_CLIENT_META_OWNER_AVATAR,
@@ -535,7 +543,7 @@ export default {
       return _.get(this.system_configuration, "client_logo_url");
     },
 
-     client_owner_avatar_url() {
+    client_owner_avatar_url() {
       return _.get(this.system_configuration, "client_owner_avatar_url");
     },
 
