@@ -31,13 +31,13 @@ export default function makeGetPostsPaginatedController({
         entries_per_page: string;
       } = _.get(httpRequest, "context.validated");
 
-      const posts = await getPostsPaginated({
+      const paginated_data = await getPostsPaginated({
         query,
         page: Number(page),
         entries_per_page: Number(entries_per_page),
       });
 
-      const post_data = _.get(posts, "data");
+      const post_data = _.get(paginated_data, "data", []);
       const map_count_comments_promises = post_data.map(async (post) => {
         const comments_count = await countCommentsByPost({ post_id: post._id });
         return Object.assign({}, post, {
@@ -45,13 +45,17 @@ export default function makeGetPostsPaginatedController({
         });
       });
 
-      const final_data = await Promise.all(map_count_comments_promises);
+      const final_post_data = await Promise.all(map_count_comments_promises);
+
+      const final_paginated_data = Object.assign({}, paginated_data, {
+        data: final_post_data,
+      });
 
       return {
         headers,
         statusCode: 200,
         body: {
-          data: final_data,
+          ...final_paginated_data,
         },
       };
     } catch (err) {

@@ -16,14 +16,14 @@
         </v-chip>
       </div>
 
-      <div class="text-h6 text-sm-h5 text-uppercase text-center py-4">
+      <div class="text-body-2 text-sm-h5 text-uppercase text-center py-4">
         <span
-          class="app-body post__title position-relative clickable"
+          class="app-body post__title post__title--ellipsis position-relative clickable"
           v-html="$t(post_data.title)"
         ></span>
       </div>
 
-      <div class="text-uppercase small--text grey--text text-center">
+      <div class="text-uppercase text--small grey--text text-center">
         <span class="app-body">{{
           formatDate(post_data.created_at, "LL")
         }}</span>
@@ -74,6 +74,14 @@ export default {
   color: var(--color-title-hover);
 }
 .post__title {
+  transition: 0.1s linear all;
   z-index: 9999;
+}
+.post__title--ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 </style>

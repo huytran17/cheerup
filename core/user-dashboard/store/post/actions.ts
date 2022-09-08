@@ -44,6 +44,7 @@ const actions: ActionTree<PostState, RootState> = {
     const query = _.get(params, "query");
     const page = _.get(params, "page", 1);
     const entries_per_page = _.get(params, "entries_per_page", 15);
+    const new_state = _.get(params, "new_state", true);
 
     const url_query = new URLSearchParams();
 
@@ -60,10 +61,10 @@ const actions: ActionTree<PostState, RootState> = {
     }
 
     const { data: posts, pagination } = await this.$axios.$get(
-      `/all-paginated?${url_query}`
+      `/post/all-paginated?${url_query}`
     );
 
-    commit(MutationTypes.SET_POSTS, { data: posts });
+    commit(MutationTypes.SET_POSTS, { data: posts, new_state });
     commit(MutationTypes.SET_POST_PAGINATION, { data: pagination });
 
     return posts;
