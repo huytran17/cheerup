@@ -94,6 +94,7 @@ export default {
           google_plus: "#DD4B39",
           pinterest: "#E60023",
           linkedin: "#0A66C2",
+          github: "#171515",
         },
       },
     },

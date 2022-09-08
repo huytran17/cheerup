@@ -12,6 +12,9 @@
           <v-col cols="12" class="mt-15">
             <BaseAboutCard :system_configuration_data="system_configuration" />
           </v-col>
+          <v-col cols="12" class="mt-3">
+            <BaseSocialiteList />
+          </v-col>
         </v-row>
       </v-col>
     </v-row>
@@ -24,6 +27,7 @@ import postMixins from "@/mixins/post";
 import BaseSlider from "@/components/slider/BaseSlider";
 import BaseArticles from "@/components/article/BaseArticles";
 import BaseAboutCard from "@/components/about/BaseAboutCard";
+import BaseSocialiteList from "@/components/socialite/BaseSocialiteList";
 export default {
   name: "IndexPage",
   mixins: [postMixins, systemConfigurationMixins],
@@ -31,6 +35,7 @@ export default {
     BaseSlider,
     BaseArticles,
     BaseAboutCard,
+    BaseSocialiteList,
   },
 
   async fetch() {
