@@ -153,7 +153,7 @@ export default function makePostDb({
       if (query) {
         query_conditions["$or"] = [
           {
-            email: { $regex: ".*" + query + ".*", $options: "si" },
+            title: { $regex: ".*" + query + ".*", $options: "si" },
           },
         ];
       }

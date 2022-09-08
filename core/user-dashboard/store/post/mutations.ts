@@ -4,6 +4,10 @@ import { PostState } from ".";
 import _ from "lodash";
 
 const mutations: MutationTree<PostState> = {
+  [MutationTypes.SET_POST_PAGINATION](state, { data }: { data: any }) {
+    state.pagination = data;
+  },
+
   [MutationTypes.SET_POST](state, { data }: { data: any }) {
     state.post = data;
   },

@@ -9,6 +9,7 @@ export const getters: GetterTree<PostState, RootState> = {
   post: (state) => state.post,
   latest_posts: (state) => state.latest_posts,
   posts: (state) => state.posts,
+  pagination: (state) => state.pagination,
 };
 
 export default getters;

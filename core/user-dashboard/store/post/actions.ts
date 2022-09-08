@@ -39,6 +39,35 @@ const actions: ActionTree<PostState, RootState> = {
 
     return posts;
   },
+
+  async [ActionTypes.GET_POSTS_PAGINATED]({ commit }, params = {}) {
+    const query = _.get(params, "query");
+    const page = _.get(params, "page", 1);
+    const entries_per_page = _.get(params, "entries_per_page", 15);
+
+    const url_query = new URLSearchParams();
+
+    if (query) {
+      url_query.set("query", query);
+    }
+
+    if (page) {
+      url_query.set("page", page);
+    }
+
+    if (entries_per_page) {
+      url_query.set("entries_per_page", entries_per_page);
+    }
+
+    const { data: posts, pagination } = await this.$axios.$get(
+      `/all-paginated?${url_query}`
+    );
+
+    commit(MutationTypes.SET_POSTS, { data: posts });
+    commit(MutationTypes.SET_POST_PAGINATION, { data: pagination });
+
+    return posts;
+  },
 };
 
 export default actions;
