@@ -10,9 +10,9 @@ import commentRouter from "./comment";
 import postRouter from "./post";
 
 apiRouter.use("/user", authenticateUserJWT(), userRouter);
-apiRouter.use("/category", authenticateUserJWT(), categoryRouter);
+apiRouter.use("/category", categoryRouter);
 apiRouter.use("/comment", authenticateUserJWT(), commentRouter);
-apiRouter.use("/post", authenticateUserJWT(), postRouter);
+apiRouter.use("/post", postRouter);
 apiRouter.use("/auth", authRouter);
 
 export default apiRouter;

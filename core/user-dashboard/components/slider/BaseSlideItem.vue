@@ -1,6 +1,6 @@
 <template>
   <div class="position-relative w-100 h-100">
-    <div class="position-absolute post__card--information white pa-4">
+    <div class="position-absolute post__card white pa-4">
       <v-chip class="ma-2" color="pink" label text-color="white">
         <span
           v-if="post_data.category"
@@ -24,12 +24,12 @@ export default {
 </script>
 
 <style scoped>
-.post__card--information {
+.post__card {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.post__card--information::before {
+.post__card::before {
   content: "";
   position: absolute;
   top: 50%;

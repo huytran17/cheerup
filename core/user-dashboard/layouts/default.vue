@@ -2,7 +2,7 @@
   <v-app>
     <v-main>
       <v-container>
-        <BaseAppBar v-if="has_user" />
+        <BaseAppBar />
         <nuxt />
       </v-container>
     </v-main>
