@@ -3,6 +3,8 @@ export const state = () => ({
   pagination: {} as any,
   posts: [] as any[],
   latest_posts: [] as any[],
+  post_search_query: "",
+  loading: false
 });
 
 export type PostState = ReturnType<typeof state>;
