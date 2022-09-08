@@ -6,7 +6,7 @@
         v-html="$t('About Me')"
       ></span>
     </div>
-    <div class="about__information pt-6 pb-10 px-6">
+    <div class="about__information py-6 px-6">
       <div class="d-flex justify-center pb-6">
         <v-img
           :src="owner_avatar_url"
