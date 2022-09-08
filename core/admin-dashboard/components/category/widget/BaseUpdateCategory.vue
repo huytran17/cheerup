@@ -80,6 +80,26 @@
           </v-col>
         </v-row>
         <v-row>
+          <v-col cols="12" sm="12">
+            <div class="text-body-2 mb-2">
+              <span class="app-body">
+                <span v-html="$t('Badge Color')"></span>
+              </span>
+            </div>
+            <v-color-picker
+              :value="category.badge_color"
+              show-swatches
+              @input="
+                ($event) =>
+                  updateCategoryObject({
+                    variable_path: 'badge_color',
+                    data: getBadgeColor($event),
+                  })
+              "
+            ></v-color-picker>
+          </v-col>
+        </v-row>
+        <v-row>
           <v-col cols="12" class="d-flex justify-end">
             <v-btn
               depressed
@@ -112,6 +132,7 @@ export default {
     return {
       loading: true,
       form_valid: false,
+      color_picked: null,
     };
   },
   computed: {
@@ -124,6 +145,15 @@ export default {
     },
   },
   methods: {
+    getBadgeColor(event) {
+      let hex_color = event;
+      if (_.isObject(event)) {
+        hex_color = _.get(event, "hex");
+      }
+
+      return hex_color;
+    },
+
     async updateCategory() {
       try {
         await this.UPDATE_CATEGORY({

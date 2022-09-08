@@ -5,6 +5,7 @@ export default interface ICategory {
   title: string;
   description: string;
   thumbnail_url: string;
+  badge_color?: string;
   thumbnail: Record<string, unknown>;
   created_by: Admin;
   created_at: Date;

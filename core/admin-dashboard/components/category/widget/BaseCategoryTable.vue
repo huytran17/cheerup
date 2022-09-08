@@ -31,6 +31,16 @@
           </div>
         </template>
 
+        <template v-slot:item.description="{ item }">
+          <div class="text-body-2 category__description--ellipsis">
+            <span class="app-body" v-html="$t(item.description)"></span>
+          </div>
+        </template>
+
+        <template v-slot:item.badge_color="{ item }">
+          <v-icon v-if="item.badge_color" :color="item.badge_color">mdi-circle</v-icon>
+        </template>
+
         <template v-slot:item.updated_at="{ item }">
           <div class="text-body-2">
             <span class="app-body">{{
@@ -135,6 +145,16 @@ export default {
             value: "title",
           },
           {
+            text: "Description",
+            align: "start",
+            value: "description",
+          },
+          {
+            text: "Badge Color",
+            align: "center",
+            value: "badge_color",
+          },
+          {
             text: "Created At",
             align: "start",
             value: "created_at",
@@ -222,4 +242,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.category__description--ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+</style>

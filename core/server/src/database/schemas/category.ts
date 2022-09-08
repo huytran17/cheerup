@@ -7,6 +7,7 @@ const Schema = mongoose.Schema;
 const categorySchema = new Schema(
   {
     title: { type: String, trim: true },
+    badge_color: { type: String, trim: true, default: "#FF2E55" },
     description: { type: String, trim: true },
     created_by: { type: Schema.Types.ObjectId, ref: "Admin" },
     thumbnail: { type: Object },

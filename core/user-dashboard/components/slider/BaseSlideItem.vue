@@ -1,12 +1,18 @@
 <template>
   <div class="position-relative w-100 h-100">
     <div class="position-absolute post__card white pa-4">
-      <v-chip class="ma-2" color="pink" label text-color="white">
-        <span
-          v-if="post_data.category"
-          v-html="$t(post_data.category.title)"
-        ></span>
-      </v-chip>
+      <div v-if="has_categories">
+        <v-chip
+          v-for="(category, index) in post_data.categories"
+          :key="index"
+          class="ma-2 clickable"
+          color="pink"
+          label
+          text-color="white"
+        >
+          <span v-html="$t(category.title)"></span>
+        </v-chip>
+      </div>
     </div>
   </div>
 </template>
@@ -18,6 +24,11 @@ export default {
     post_data: {
       type: Object,
       default: () => {},
+    },
+  },
+  computed: {
+    has_categories() {
+      return !_.isEmpty(this.post_data.categories);
     },
   },
 };
