@@ -9,11 +9,13 @@
 <script>
 import postMixins from "@/mixins/post";
 import BaseSlider from "@/components/slider/BaseSlider";
+import BaseArticle from "@/components/article/BaseArticle";
 export default {
   name: "IndexPage",
   mixins: [postMixins],
   components: {
     BaseSlider,
+    BaseArticle
   },
 
   async fetch() {

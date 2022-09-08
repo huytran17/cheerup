@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <v-container fluid class="h-100 w-100 pa-0 ma-0 ">
+      <v-container fluid class="h-100 w-100 pa-0 ma-0">
         <nuxt />
       </v-container>
     </v-main>
@@ -13,5 +13,3 @@ export default {
   name: "PublicLayout",
 };
 </script>
-
-<style scoped></style>

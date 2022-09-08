@@ -31,19 +31,29 @@ export default {
 </script>
 
 <style scoped>
-@media only screen and (min-width: 1904px) {
+:deep(.container) {
+  max-width: 1100px !important;
+}
+
+@media only screen and (min-width: 961px) and (max-width: 1080px) {
   :deep(.container) {
-    max-width: 1100px !important;
+    max-width: 990px !important;
   }
 }
-@media only screen and (min-width: 1264px) {
-  :deep(.container) {
-    max-width: 1100px !important;
-  }
-}
+
 @media only screen and (min-width: 768px) and (max-width: 960px) {
   :deep(.container) {
-    max-width: 726px !important;
+    width: 726px !important;
+  }
+}
+@media only screen and (max-width: 767px) {
+  :deep(.container) {
+    width: 448px !important;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  :deep(.container) {
   }
 }
 </style>
