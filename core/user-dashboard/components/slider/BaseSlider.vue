@@ -1,6 +1,7 @@
 <template>
   <div class="carousel__wrapper">
     <v-carousel
+      cycle
       v-if="has_posts"
       hide-delimiters
       show-arrows-on-hover

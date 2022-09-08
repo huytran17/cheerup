@@ -70,7 +70,7 @@
   border-radius: 0 !important;
 }
 .clickable {
-  cursor: pointer;
+  cursor: pointer !important;
 }
 .app-title {
   font-family: "Lato", sans-serif !important;
@@ -93,4 +93,8 @@ select:-webkit-autofill:focus {
 }
 .icon__font--medium {
   font-size: 20px !important;
+}
+
+.small--text {
+  font-size: 11px !important;
 }
