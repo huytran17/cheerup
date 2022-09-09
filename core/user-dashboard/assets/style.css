@@ -48,6 +48,9 @@
 .position-relative {
   position: relative !important;
 }
+.position-sticky {
+  position: sticky !important;
+}
 .justify-center {
   justify-content: center !important;
 }

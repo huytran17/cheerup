@@ -1,8 +1,5 @@
 <template>
   <div>
-    <div class="pt-15">
-      <BaseSlider :posts="latest_posts" />
-    </div>
     <v-row class="flex-column flex-md-row flex-column-reverse">
       <v-col cols="12" md="8">
         <BaseArticles :posts_data="posts" />
@@ -24,7 +21,6 @@
 <script>
 import systemConfigurationMixins from "@/mixins/system-configuration";
 import postMixins from "@/mixins/post";
-import BaseSlider from "@/components/slider/BaseSlider";
 import BaseArticles from "@/components/article/BaseArticles";
 import BaseAboutCard from "@/components/about/BaseAboutCard";
 import BaseSocialiteList from "@/components/socialite/BaseSocialiteList";
@@ -32,7 +28,6 @@ export default {
   name: "IndexPage",
   mixins: [postMixins, systemConfigurationMixins],
   components: {
-    BaseSlider,
     BaseArticles,
     BaseAboutCard,
     BaseSocialiteList,
