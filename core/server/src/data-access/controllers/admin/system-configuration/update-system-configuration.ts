@@ -40,6 +40,7 @@ export default function makeUpdateSystemConfigurationController({
       const updated_post = await updateSystemConfiguration({
         systemConfigurationDetails: final_system_configuration_details,
       });
+      
       return {
         headers,
         statusCode: 200,
