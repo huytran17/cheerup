@@ -17,7 +17,7 @@
           @click="goToSocialiteUrl({ url: socialite.to })"
         >
           <v-icon :color="socialite.color">{{ socialite.icon }}</v-icon>
-          <div class="text-body-2 pt-2">
+          <div class="text-body-2 pt-2 position-relative socialite__text">
             <span class="app-body" v-html="$t(socialite.text)"></span>
           </div>
         </v-col>
@@ -103,5 +103,9 @@ export default {
   top: 0;
   left: 0;
   border: 1px solid var(--color-article-baseline);
+  transition: all 0.2s linear;
+}
+.socialite__text {
+  z-index: 9999;
 }
 </style>

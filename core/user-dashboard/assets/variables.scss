@@ -16,3 +16,10 @@
   --color-article-baseline: #ebebeb;
   --color-tab-border: #eec7bc;
 }
+
+.socialite__item:hover {
+  &::before {
+    background: var(--color-article-baseline);
+    color: var(--color-article-baseline);
+  }
+}
