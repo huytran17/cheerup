@@ -17,7 +17,7 @@
           class="rounded-circle"
         ></v-img>
       </div>
-      <div class="small--text">
+      <div class="small--text text-left">
         <span class="app-body" v-html="$t(owner_description)"></span>
       </div>
     </div>

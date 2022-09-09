@@ -53,8 +53,8 @@ export default {
   async fetch() {
     try {
       await Promise.all([
-        this.GET_LATEST_SYSTEM_CONFIGURATION(),
         this.GET_ME(),
+        this.GET_LATEST_SYSTEM_CONFIGURATION(),
       ]);
     } catch (err) {
       console.error(err);
@@ -82,11 +82,6 @@ export default {
 @media only screen and (max-width: 767px) {
   :deep(.container) {
     width: 448px !important;
-  }
-}
-
-@media only screen and (max-width: 767px) {
-  :deep(.container) {
   }
 }
 </style>
