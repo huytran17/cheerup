@@ -1,45 +1,22 @@
 <template>
   <div>
-    <v-row class="flex-column flex-md-row flex-column-reverse">
-      <v-col cols="12" md="8">
-        <BaseArticles :posts_data="posts" />
-      </v-col>
-      <v-col cols="12" md="4">
-        <v-row>
-          <v-col cols="12" class="mt-15">
-            <BaseAboutCard :system_configuration_data="system_configuration" />
-          </v-col>
-          <v-col cols="12" class="mt-3">
-            <BaseSocialiteList />
-          </v-col>
-        </v-row>
-      </v-col>
-    </v-row>
+    <BaseArticles :posts_data="posts" />
   </div>
 </template>
 
 <script>
-import systemConfigurationMixins from "@/mixins/system-configuration";
 import postMixins from "@/mixins/post";
 import BaseArticles from "@/components/article/BaseArticles";
-import BaseAboutCard from "@/components/about/BaseAboutCard";
-import BaseSocialiteList from "@/components/socialite/BaseSocialiteList";
 export default {
   name: "IndexPage",
-  mixins: [postMixins, systemConfigurationMixins],
+  mixins: [postMixins],
   components: {
     BaseArticles,
-    BaseAboutCard,
-    BaseSocialiteList,
   },
 
   async fetch() {
     try {
-      await Promise.all([
-        this.GET_LATEST_POSTS(),
-        this.GET_POSTS_PAGINATED(),
-        this.GET_LATEST_SYSTEM_CONFIGURATION(),
-      ]);
+      await Promise.all([this.GET_POSTS_PAGINATED()]);
     } catch (err) {
       console.error(err);
     }
