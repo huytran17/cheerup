@@ -22,7 +22,8 @@
           alt="logo"
           max-width="140px"
           contain
-          class="mx-auto"
+          class="mx-auto clickable"
+          @click="$router.push(localePath('/'))"
         ></v-img>
         <div class="text-caption text-uppercase text-center pt-2 grey--text">
           <span class="app-body" v-html="$t('App Name')"></span>
