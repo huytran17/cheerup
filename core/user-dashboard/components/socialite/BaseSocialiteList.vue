@@ -2,11 +2,11 @@
   <div class="d-flex flex-column text-center">
     <div class="text-uppercase text-body-2">
       <span
-        class="socialite__header position-relative app-body mb-2 d-inline-block"
+        class="sidebar__header position-relative app-body mb-2 d-inline-block"
         v-html="$t('Follow Me')"
       ></span>
     </div>
-    <div class="socialite__list py-6 px-6 d-flex">
+    <div class="sidebar__card py-6 px-6 d-flex">
       <v-row class="socialite__row justify-space-between">
         <v-col
           cols="4"
@@ -82,20 +82,6 @@ export default {
 </script>
 
 <style scoped>
-.socialite__list {
-  border-top: 1px solid var(--color-article-baseline);
-  border-left: 1px solid var(--color-article-baseline);
-  border-bottom: 1px solid var(--color-article-baseline);
-}
-.socialite__header::before {
-  content: "";
-  position: absolute;
-  top: 9.1px;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-bottom: 2px solid var(--color-tab-border);
-}
 :deep(.mdi-instagram) {
   background: radial-gradient(
     circle at 30% 107%,
@@ -108,8 +94,6 @@ export default {
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
-}
-.socialite__item {
 }
 .socialite__item::before {
   content: "";

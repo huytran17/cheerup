@@ -21,6 +21,9 @@
               <v-col cols="12" class="mt-3">
                 <BaseSocialiteList />
               </v-col>
+              <v-col cols="12" class="mt-3">
+                <BaseProfileCard />
+              </v-col>
             </v-row>
           </v-col>
         </v-row>
@@ -36,6 +39,7 @@ import authMixins from "@/mixins/auth";
 import BaseAppBar from "@/components/BaseAppBar";
 import BaseAboutCard from "@/components/about/BaseAboutCard";
 import BaseSocialiteList from "@/components/socialite/BaseSocialiteList";
+import BaseProfileCard from "@/components/user/BaseProfileCard";
 
 export default {
   name: "DefaultLayout",
@@ -44,6 +48,7 @@ export default {
     BaseAppBar,
     BaseAboutCard,
     BaseSocialiteList,
+    BaseProfileCard,
   },
   async fetch() {
     try {

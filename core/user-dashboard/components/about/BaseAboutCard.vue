@@ -2,11 +2,11 @@
   <div class="d-flex flex-column text-center">
     <div class="text-uppercase text-body-2">
       <span
-        class="about__header position-relative app-body mb-2 d-inline-block"
+        class="sidebar__header position-relative app-body mb-2 d-inline-block"
         v-html="$t('About Me')"
       ></span>
     </div>
-    <div class="about__information py-6 px-6">
+    <div class="sidebar__card py-6 px-6">
       <div class="d-flex justify-center pb-6">
         <v-img
           :src="owner_avatar_url"
@@ -52,20 +52,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.about__information {
-  border-top: 1px solid var(--color-article-baseline);
-  border-left: 1px solid var(--color-article-baseline);
-  border-bottom: 1px solid var(--color-article-baseline);
-}
-.about__header::before {
-  content: "";
-  position: absolute;
-  top: 9.1px;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-bottom: 2px solid var(--color-tab-border);
-}
-</style>
