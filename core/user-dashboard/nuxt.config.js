@@ -35,6 +35,7 @@ export default {
     { src: "~/plugins/vue-toastification", ssr: false },
     { src: "~/plugins/vue-infinite-loading", mode: "client" },
     { src: "~/plugins/vue-scroll-to-top", mode: "client" },
+    { src: "~/plugins/vue-slick", mode: "client" },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
