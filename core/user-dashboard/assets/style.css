@@ -125,3 +125,24 @@ select:-webkit-autofill:focus {
   height: 100%;
   border-bottom: 2px solid var(--color-tab-border);
 }
+
+@media only screen and (max-width: 420px) {
+  .text__content,
+  .text__description {
+    font-size: 18px !important;
+  }
+}
+
+@media only screen and (max-width: 345px) {
+  .text__content,
+  .text__description {
+    font-size: 20px !important;
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  .text__content,
+  .text__description {
+    font-size: 22px !important;
+  }
+}

@@ -1,7 +1,9 @@
 <template>
   <div>
     <BasePostPanel :post_data="post" />
-    <BaseSuggestionPosts :posts_data="suggestion_posts" />
+    <div class="pt-12">
+      <BaseSuggestionPosts :posts_data="suggestion_posts" />
+    </div>
   </div>
 </template>
 
