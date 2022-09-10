@@ -6,7 +6,7 @@
         v-html="$t('Categories')"
       ></span>
     </div>
-    <div class="sidebar__card py-6 px-6">
+    <div class="sidebar__card py-6 px-6 category__list horizontal__scrollbar">
       <div
         class="text-body-2 text-uppercase text-left"
         v-for="(category, index) in category_titles"
@@ -52,5 +52,9 @@ export default {
 }
 .category-item__title:hover {
   padding-left: 15px;
+}
+.category__list {
+  max-height: 210px;
+  overflow-y: auto;
 }
 </style>
