@@ -147,6 +147,22 @@ export default function makeCategoryDb({
       return null;
     }
 
+    async findAllCategoryTitles(): Promise<{ _id: string; title: string }[]> {
+      const existing = await categoryDbModel
+        .find()
+        .select("_id title")
+        .lean({ virtuals: true });
+
+      if (existing) {
+        return existing.map((category) => ({
+          _id: category._id,
+          title: category.title,
+        }));
+      }
+
+      return null;
+    }
+
     async insert(payload: Partial<ICategory>): Promise<Category | null> {
       const updated_payload = payload;
 

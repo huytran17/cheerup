@@ -12,6 +12,7 @@ export default interface ICategoryDb {
     entries_per_page?: number;
   }) => Promise<PaginatedCategoryResult | null>;
   findOne: () => Promise<Category | null>;
+  findAllCategoryTitles: () => Promise<{ _id: string; title: string }[]>;
   findById: ({ _id }: { _id: string }) => Promise<Category | null>;
   insert: (payload: Partial<ICategory>) => Promise<Category | null>;
   delete: ({ _id }: { _id: string }) => Promise<Category | null>;

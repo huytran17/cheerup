@@ -6,9 +6,12 @@ import { getCategoryRules } from "../../data-access/controllers/user/category/va
 import {
   getCategoriesController,
   getCategoryController,
+  getCategoryTitlesController,
 } from "../../data-access/controllers/user/category";
 
 const categoryRouter = express.Router();
+
+categoryRouter.get("/titles", makeExpressCallback(getCategoryTitlesController)); // DONE
 
 categoryRouter.get(
   "/:category_id",
