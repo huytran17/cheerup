@@ -20,7 +20,6 @@
         <span
           class="app-body post__title position-relative clickable"
           v-html="$t(post_data.title)"
-          @click="$router.push(localePath(`/post/${post_data._id}`))"
         ></span>
       </div>
 
@@ -42,24 +41,25 @@
       ></v-img>
     </div>
 
-    <div class="text__description matte__black--text">
+    <div class="text__content matte__black--text">
       <span class="app-body" v-html="$t(post_data.description)"></span>
     </div>
 
-    <div class="text-left">
+    <div class="text__content matte__black--text">
+      <span class="app-body" v-html="$t(post_data.content)"></span>
+    </div>
+
+    <div v-if="has_tags" class="text-left">
       <div class="text-caption grey--text text-uppercase">
-        <span
-          class="app-body"
-          v-html="
-            $tc(`{count} Comment`, post_data.comments_count, {
-              count: post_data.comments_count,
-            })
-          "
-        ></span>
+        <v-icon small color="black">mdi-tag</v-icon>
+        <span class="app-body">
+          <span v-html="$t('Tags: ')"></span>
+          <span class="clickable" v-html="$t(post_data.tags.join(', '))"></span>
+        </span>
       </div>
     </div>
 
-    <div class="text-center text-sm-right pt-2 pt-sm-0">
+    <div class="text-center text-sm-right pt-3 pt-sm-2">
       <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.FACEBOOK })">
         <v-icon color="facebook">mdi-facebook</v-icon>
       </v-btn>
@@ -83,7 +83,7 @@
 import systemMixins from "@/mixins/system";
 import { SOCIAL_MEDIA_TYPES } from "@/constants";
 export default {
-  name: "BaseArticle",
+  name: "BasePostPanel",
   mixins: [systemMixins],
   props: {
     post_data: {
@@ -102,6 +102,10 @@ export default {
     },
     has_categories() {
       return !_.isEmpty(this.post_data.categories);
+    },
+
+    has_tags() {
+      return !_.isEmpty(this.post_data.tags);
     },
   },
   methods: {

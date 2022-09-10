@@ -103,8 +103,12 @@ select:-webkit-autofill:focus {
 }
 
 .text__description {
-  font-size: 13px !important;
+  font-size: 14px !important;
   font-weight: 400;
+  font-family: "Lato", sans-serif !important;
+}
+.text__content {
+  font-size: 16px !important;
   font-family: "Lato", sans-serif !important;
 }
 .sidebar__card {

@@ -2,7 +2,7 @@
   <v-app>
     <v-main>
       <v-container>
-        <v-row>
+        <v-row class="pb-5 pb-md-15">
           <v-col cols="12">
             <BaseAppBar />
           </v-col>
@@ -13,7 +13,7 @@
           </v-col>
           <v-col cols="12" md="4">
             <v-row>
-              <v-col cols="12" class="mt-15">
+              <v-col cols="12" class="mt-0 mt-md-15">
                 <BaseAboutCard
                   :system_configuration_data="system_configuration"
                 />

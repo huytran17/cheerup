@@ -26,6 +26,7 @@ const getPostsController = makeGetPostsController({
 
 const getPostController = makeGetPostController({
   getPost,
+  countCommentsByPost,
   logger,
 });
 
