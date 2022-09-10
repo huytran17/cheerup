@@ -14,6 +14,7 @@ export default {
     ...mapGetters({
       category: "category/category",
       categories: "category/categories",
+      category_titles: "category/category_titles",
     }),
   },
   methods: {

@@ -12,7 +12,7 @@ const mutations: MutationTree<CategoryState> = {
     state.categories = data;
   },
 
-  [MutationTypes.SET_CATEGORIES](state, { data }: { data: any[] }) {
+  [MutationTypes.SET_CATEGORY_TITLES](state, { data }: { data: any[] }) {
     state.category_titles = data;
   },
 };

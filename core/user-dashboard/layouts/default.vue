@@ -24,6 +24,9 @@
               <v-col cols="12" class="mt-3">
                 <BaseProfileCard />
               </v-col>
+              <v-col cols="12" class="mt-3">
+                <BaseCategoriesCard :category_titles="category_titles" />
+              </v-col>
             </v-row>
           </v-col>
         </v-row>
@@ -37,25 +40,29 @@
 import systemMixins from "@/mixins/system";
 import systemConfigurationMixins from "@/mixins/system-configuration";
 import authMixins from "@/mixins/auth";
+import categoryMixins from "@/mixins/category";
 import BaseAppBar from "@/components/BaseAppBar";
 import BaseAboutCard from "@/components/about/BaseAboutCard";
 import BaseSocialiteList from "@/components/socialite/BaseSocialiteList";
 import BaseProfileCard from "@/components/user/BaseProfileCard";
+import BaseCategoriesCard from "@/components/category/BaseCategoriesCard";
 
 export default {
   name: "DefaultLayout",
-  mixins: [systemMixins, authMixins, systemConfigurationMixins],
+  mixins: [systemMixins, authMixins, systemConfigurationMixins, categoryMixins],
   components: {
     BaseAppBar,
     BaseAboutCard,
     BaseSocialiteList,
     BaseProfileCard,
+    BaseCategoriesCard,
   },
   async fetch() {
     try {
       await Promise.all([
         this.GET_ME(),
         this.GET_LATEST_SYSTEM_CONFIGURATION(),
+        this.GET_CATEGORY_TITLES(),
       ]);
     } catch (err) {
       console.error(err);
