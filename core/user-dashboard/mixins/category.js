@@ -25,6 +25,7 @@ export default {
       DELETE_CATEGORY: "category/DELETE_CATEGORY",
       HARD_DELETE_CATEGORY: "category/HARD_DELETE_CATEGORY",
       RESTORE_CATEGORY: "category/RESTORE_CATEGORY",
+      GET_CATEGORY_TITLES: "category/GET_CATEGORY_TITLES",
     }),
     ...mapMutations({
       SET_CATEGORY: "category/SET_CATEGORY",
