@@ -27,6 +27,14 @@ const actions: ActionTree<CategoryState, RootState> = {
 
     return category;
   },
+
+  async [ActionTypes.GET_CATEGORY_TITLES]({ commit }) {
+    const { data } = await this.$axios.$get(`/category/titles`);
+
+    commit(MutationTypes.SET_CATEGORY_TITLES, { data });
+
+    return data;
+  },
 };
 
 export default actions;

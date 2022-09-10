@@ -11,6 +11,10 @@ const mutations: MutationTree<CategoryState> = {
   [MutationTypes.SET_CATEGORIES](state, { data }: { data: any[] }) {
     state.categories = data;
   },
+
+  [MutationTypes.SET_CATEGORIES](state, { data }: { data: any[] }) {
+    state.category_titles = data;
+  },
 };
 
 export default mutations;
