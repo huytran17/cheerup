@@ -15,6 +15,9 @@
   --color-title-hover: #777777;
   --color-article-baseline: #ebebeb;
   --color-tab-border: #eec7bc;
+  --color-scrollbar-track: #f1f1f1;
+  --color-scrollbar-thumb: #888;
+  --color-scrollbar-thumb-hover: #555;
 }
 
 .socialite__item:hover {
@@ -24,21 +27,41 @@
 }
 
 /* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--color-scrollbar-track);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--color-scrollbar-thumb);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-scrollbar-thumb-hover);
+}
+
+/* width */
 .horizontal__scrollbar::-webkit-scrollbar {
   width: 1px;
 }
 
 /* Track */
 .horizontal__scrollbar::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--color-scrollbar-track);
 }
 
 /* Handle */
 .horizontal__scrollbar::-webkit-scrollbar-thumb {
-  background: #888;
+  background: var(--color-scrollbar-thumb);
 }
 
 /* Handle on hover */
 .horizontal__scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: var(--color-scrollbar-thumb-hover);
 }
