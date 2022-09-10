@@ -1,6 +1,13 @@
 <template>
   <div>
-    <BasePostPanel :post_data="post" />
+    <a
+      href="#"
+      id="post-panel__top"
+      ref="scrollToMe"
+      target="post"
+      name="post"
+    ></a>
+    <BasePostPanel :post_data="post" id="post" />
     <div class="pt-12">
       <BaseSuggestionPosts :posts_data="suggestion_posts" />
     </div>
@@ -29,6 +36,12 @@ export default {
       });
     } catch (err) {
       console.log(err);
+    }
+  },
+  updated() {
+    const el = this.$refs.scrollToMe;
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
     }
   },
 };
