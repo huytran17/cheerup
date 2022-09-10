@@ -14,7 +14,7 @@ const actions: ActionTree<PostState, RootState> = {
     return post;
   },
 
-  async [ActionTypes.GET_LATEST_POSTS]({ commit }, params = {}) {
+  async [ActionTypes.GET_SUGGESTION_POSTS]({ commit }, params = {}) {
     const amount = _.get(params, "amount", 5);
 
     const url_query = new URLSearchParams();

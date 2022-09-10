@@ -216,9 +216,23 @@ export default function makePostDb({
       return null;
     }
 
-    async findLatest({ amount }: { amount: number }): Promise<Post[]> {
+    async findSuggestionPosts({
+      amount,
+      categories,
+    }: {
+      amount: number;
+      categories: string[];
+    }): Promise<Post[]> {
+      const query_conditions = {
+        deleted_at: { $in: [null, undefined] },
+      };
+
+      if (!_.isEmpty(categories)) {
+        query_conditions["categories"] = { $in: categories };
+      }
+
       const existing = await postDbModel
-        .find()
+        .find(query_conditions)
         .limit(amount)
         .populate("author", "-_v")
         .populate("categories", "-_v")

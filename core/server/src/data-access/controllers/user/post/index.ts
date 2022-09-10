@@ -1,7 +1,7 @@
 import {
   getPost,
   getPosts,
-  getLatestPosts,
+  getSuggestionPosts,
   getPostsPaginated,
 } from "../../../../use-cases/post";
 import { countCommentsByPost } from "../../../../use-cases/comment";
@@ -9,7 +9,7 @@ import { logger } from "../../../../config/storage/logger";
 
 import makeGetPostController from "./get-post";
 import makeGetPostsController from "./get-posts";
-import makeGetLatestPostsController from "./get-latest-posts";
+import makeGetLatestPostsController from "./get-suggestion-posts";
 import makeGetPostsPaginatedController from "./get-posts-paginated";
 
 const getPostsPaginatedController = makeGetPostsPaginatedController({
@@ -30,21 +30,21 @@ const getPostController = makeGetPostController({
   logger,
 });
 
-const getLatestPostsController = makeGetLatestPostsController({
-  getLatestPosts,
+const getSuggestionPostsController = makeGetLatestPostsController({
+  getSuggestionPosts,
   logger,
 });
 
 export default Object.freeze({
   getPostController,
   getPostsController,
-  getLatestPostsController,
+  getSuggestionPostsController,
   getPostsPaginatedController,
 });
 
 export {
   getPostController,
   getPostsController,
-  getLatestPostsController,
+  getSuggestionPostsController,
   getPostsPaginatedController,
 };

@@ -13,7 +13,13 @@ export default interface IPostDb {
     entries_per_page?: number;
   }) => Promise<PaginatedPostResult | null>;
   findOne: () => Promise<Post | null>;
-  findLatest: ({ amount }: { amount: number }) => Promise<Post[]>;
+  findSuggestionPosts: ({
+    amount,
+    categories,
+  }: {
+    amount: number;
+    categories: string[];
+  }) => Promise<Post[]>;
   findById: ({ _id }: { _id: string }) => Promise<Post | null>;
   insert: (payload: Partial<IPost>) => Promise<Post | null>;
   delete: ({ _id }: { _id: string }) => Promise<Post | null>;

@@ -15,7 +15,7 @@ export default {
     ...mapActions({
       GET_POSTS: "post/GET_POSTS",
       GET_POST: "post/GET_POST",
-      GET_LATEST_POSTS: "post/GET_LATEST_POSTS",
+      GET_SUGGESTION_POSTS: "post/GET_SUGGESTION_POSTS",
       GET_POSTS_PAGINATED: "post/GET_POSTS_PAGINATED",
     }),
 
@@ -48,14 +48,12 @@ export default {
             data: true,
           });
 
-        return await this.GET_POSTS_PAGINATED(
-          {
-            page,
-            query,
-            new_state,
-            entries_per_page,
-          }
-        );
+        return await this.GET_POSTS_PAGINATED({
+          page,
+          query,
+          new_state,
+          entries_per_page,
+        });
       } catch (err) {
         console.error(err);
         this.$notification.error(`Encountered error getting posts: ${err}`);

@@ -10,16 +10,16 @@ import {
 import {
   getPostsController,
   getPostController,
-  getLatestPostsController,
+  getSuggestionPostsController,
   getPostsPaginatedController,
 } from "../../data-access/controllers/user/post";
 
 const postRouter = express.Router();
 
 postRouter.get(
-  "/latest-posts",
+  "/suggestion-posts",
   makeValidator(getLatestPostsRules),
-  makeExpressCallback(getLatestPostsController)
+  makeExpressCallback(getSuggestionPostsController)
 ); // DONE
 
 postRouter.get(

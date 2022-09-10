@@ -2,25 +2,32 @@ import Post from "../../database/entities/post";
 import IPostDb from "../../data-access/interfaces/post-db";
 import { Logger } from "winston";
 
-export type IGetLatestPosts = ({
+export type IGetSuggestionPosts = ({
   amount,
+  categories,
 }: {
   amount: number;
+  categories: string[];
 }) => Promise<Post[]>;
 
-export default function makeGetLatestPosts({
+export default function makeGetSuggestionPosts({
   postDb,
   logger,
 }: {
   postDb: IPostDb;
   logger: Logger;
-}): IGetLatestPosts {
-  return async function getLatestPosts({
+}): IGetSuggestionPosts {
+  return async function getSuggestionPosts({
     amount,
+    categories,
   }: {
     amount: number;
+    categories: string[];
   }): Promise<Post[]> {
-    const posts = await postDb.findLatest({ amount });
+    const posts = await postDb.findSuggestionPosts({
+      amount,
+      categories,
+    });
     return posts;
   };
 }

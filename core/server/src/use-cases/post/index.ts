@@ -10,7 +10,7 @@ import makeGetPosts from "./get-posts";
 import makeHardDeletePost from "./hard-delete-post";
 import makeGetPostAnalystics from "./get-post-analystics";
 import makeGetHighlightPost from "./get-highlight-post";
-import makeGetLatestPosts from "./get-latest-posts";
+import makeGetSuggestionPosts from "./get-suggestion-posts";
 import makeGetPostsPaginated from "./get-posts-paginated";
 
 const getPostsPaginated = makeGetPostsPaginated({
@@ -18,7 +18,7 @@ const getPostsPaginated = makeGetPostsPaginated({
   logger,
 });
 
-const getLatestPosts = makeGetLatestPosts({
+const getSuggestionPosts = makeGetSuggestionPosts({
   postDb: PostDb,
   logger,
 });
@@ -68,7 +68,7 @@ const postServices = Object.freeze({
   hardDeletePost,
   getPostAnalystics,
   getHighlightPost,
-  getLatestPosts,
+  getSuggestionPosts,
   getPostsPaginated,
 });
 
@@ -83,6 +83,6 @@ export {
   hardDeletePost,
   getPostAnalystics,
   getHighlightPost,
-  getLatestPosts,
+  getSuggestionPosts,
   getPostsPaginated,
 };

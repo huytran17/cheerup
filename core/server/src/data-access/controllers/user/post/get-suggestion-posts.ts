@@ -1,16 +1,16 @@
 import { Request } from "express";
-import { IGetLatestPosts } from "../../../../use-cases/post/get-latest-posts";
+import { IGetSuggestionPosts } from "../../../../use-cases/post/get-suggestion-posts";
 import _ from "lodash";
 import { Logger } from "winston";
 
 export default function makeGetLatestPostsController({
-  getLatestPosts,
+  getSuggestionPosts,
   logger,
 }: {
-  getLatestPosts: IGetLatestPosts;
+  getSuggestionPosts: IGetSuggestionPosts;
   logger: Logger;
 }) {
-  return async function getLatestPostsController(
+  return async function getSuggestionPostsController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
@@ -18,8 +18,11 @@ export default function makeGetLatestPostsController({
     };
 
     try {
-      const { amount } = _.get(httpRequest, "context.validated");
-      const exists = await getLatestPosts({ amount: Number(amount) });
+      const { amount, categories } = _.get(httpRequest, "context.validated");
+      const exists = await getSuggestionPosts({
+        amount: Number(amount),
+        categories,
+      });
 
       return {
         headers,
