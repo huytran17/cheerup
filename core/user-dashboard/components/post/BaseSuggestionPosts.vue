@@ -20,7 +20,7 @@
       :autoplaySpeed="2500"
     >
       <div
-        class="d-flex flex-column post__card rounded"
+        class="d-flex flex-column post__card rounded pb-2"
         v-for="post in posts_data"
         :key="post._id"
       >
@@ -62,8 +62,12 @@ export default {
 </script>
 
 <style scoped>
+:deep(.slick-track) {
+  display: flex !important;
+}
 :deep(.slick-slide) {
   margin: 0 5px !important;
+  width: 182px !important;
 }
 
 :deep(.slick-list) {
