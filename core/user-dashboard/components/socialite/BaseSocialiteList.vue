@@ -7,7 +7,7 @@
       ></span>
     </div>
     <div class="sidebar__card py-6 px-6 d-flex">
-      <v-row class="socialite__row justify-space-between">
+      <v-row class="socialite__row justify-space-between py-3">
         <v-col
           cols="4"
           sm="4"

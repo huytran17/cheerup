@@ -27,6 +27,9 @@
               <v-col cols="12" class="mt-3">
                 <BaseCategoriesCard :category_titles="category_titles" />
               </v-col>
+              <v-col cols="12" class="mt-3">
+                <BaseAdvertisingCard />
+              </v-col>
             </v-row>
           </v-col>
         </v-row>
@@ -46,6 +49,7 @@ import BaseAboutCard from "@/components/about/BaseAboutCard";
 import BaseSocialiteList from "@/components/socialite/BaseSocialiteList";
 import BaseProfileCard from "@/components/user/BaseProfileCard";
 import BaseCategoriesCard from "@/components/category/BaseCategoriesCard";
+import BaseAdvertisingCard from "@/components/advertising/BaseAdvertisingCard";
 
 export default {
   name: "DefaultLayout",
@@ -56,6 +60,7 @@ export default {
     BaseSocialiteList,
     BaseProfileCard,
     BaseCategoriesCard,
+    BaseAdvertisingCard,
   },
   async fetch() {
     try {
