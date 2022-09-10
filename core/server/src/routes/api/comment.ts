@@ -19,19 +19,19 @@ import {
 const commentRouter = express.Router();
 
 commentRouter.get(
-  "/:comment_id",
+  "/:_id",
   makeValidator(getCommentRules),
   makeExpressCallback(getCommentController)
 ); // DONE
 
 commentRouter.delete(
-  "/:comment_id",
+  "/:_id",
   makeValidator(deleteCommentRules),
   makeExpressCallback(deleteCommentController)
 ); // DONE
 
 commentRouter.put(
-  "/:comment_id",
+  "/:_id",
   makeValidator(updateCommentRules),
   makeExpressCallback(updateCommentController)
 ); // DONE

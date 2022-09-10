@@ -29,7 +29,7 @@ postRouter.get(
 ); // DONE
 
 postRouter.get(
-  "/:post_id",
+  "/:_id",
   makeValidator(getPostRules),
   makeExpressCallback(getPostController)
 ); // DONE

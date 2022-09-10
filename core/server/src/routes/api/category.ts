@@ -14,7 +14,7 @@ const categoryRouter = express.Router();
 categoryRouter.get("/titles", makeExpressCallback(getCategoryTitlesController)); // DONE
 
 categoryRouter.get(
-  "/:category_id",
+  "/:_id",
   makeValidator(getCategoryRules),
   makeExpressCallback(getCategoryController)
 ); // DONE

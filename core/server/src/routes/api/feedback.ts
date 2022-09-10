@@ -19,19 +19,19 @@ import {
 const feedbackRouter = express.Router();
 
 feedbackRouter.get(
-  "/:feedback_id",
+  "/:_id",
   makeValidator(getFeedbackRules),
   makeExpressCallback(getFeedbackController)
 ); // DONE
 
 feedbackRouter.delete(
-  "/:feedback_id",
+  "/:_id",
   makeValidator(deleteFeedbackRules),
   makeExpressCallback(deleteFeedbackController)
 ); // DONE
 
 feedbackRouter.put(
-  "/:feedback_id",
+  "/:_id",
   makeValidator(updateFeedbackRules),
   makeExpressCallback(updateFeedbackController)
 ); // DONE
