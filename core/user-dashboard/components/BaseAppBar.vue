@@ -1,35 +1,18 @@
 <template>
-  <div>
-    <v-app-bar elevation="0" color="white">
-      <div class="d-flex justify-center w-100">
-        <v-icon small color="black" class="clickable icon__font--medium mr-2"
-          >mdi-facebook</v-icon
-        >
-        <v-icon small color="black" class="clickable icon__font--medium mr-2"
-          >mdi-instagram</v-icon
-        >
-        <v-icon small color="black" class="clickable icon__font--medium"
-          >mdi-twitter</v-icon
-        >
-      </div>
-    </v-app-bar>
-
+  <div class="pt-4">
     <div class="d-flex flex-column justify-space-between w-100 pt-2">
       <div class="d-flex flex-column pb-4">
         <v-img
           :src="logo_url"
           :lazy-src="logo_url"
           alt="logo"
-          max-width="140px"
+          max-width="319px"
           contain
           class="mx-auto clickable"
           @click="$router.push(localePath('/'))"
         ></v-img>
-        <div class="text-caption text-uppercase text-center pt-2 grey--text">
-          <span class="app-body" v-html="$t('App Name')"></span>
-        </div>
       </div>
-      <div class="d-flex flex-column w-100">
+      <div class="d-flex flex-column w-100 pt-4">
         <v-row>
           <v-col cols="12" md="6" class="mx-auto">
             <v-text-field
@@ -54,7 +37,7 @@ export default {
   name: "BaseAppBar",
   data() {
     return {
-      logo_url: require("@/assets/images/app/large-logo.jpg"),
+      logo_url: require("@/assets/images/app/logo.png"),
     };
   },
 };
