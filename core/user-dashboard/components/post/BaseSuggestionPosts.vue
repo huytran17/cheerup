@@ -20,17 +20,13 @@
       :autoplaySpeed="2500"
     >
       <div
-        class="d-flex flex-column pa-2 post__card rounded"
+        class="d-flex flex-column post__card rounded"
         v-for="post in posts_data"
         :key="post._id"
       >
-        <v-img
-          :src="post.thumbnail_url"
-          :lazy-src="post.thumbnail_url"
-          contain
-        />
+        <v-img :src="post.thumbnail_url" :lazy-src="post.thumbnail_url" cover />
         <div
-          class="text-uppercase text--small grey--text text-center pt-4 pb-2"
+          class="text-uppercase text--small grey--text text-center pt-4 pb-2 px-2"
         >
           <span class="app-body">{{ formatDate(post.created_at, "LL") }}</span>
           <span>/</span>
@@ -38,7 +34,7 @@
             post.author.full_name
           }}</span>
         </div>
-        <div class="text-body-1 text-center text--ellipsis">
+        <div class="text-body-1 text-center text--ellipsis px-2">
           <span
             class="app-body clickable"
             @click="$router.push(localePath(`/post/${post_data._id}`))"
