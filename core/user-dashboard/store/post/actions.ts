@@ -16,11 +16,16 @@ const actions: ActionTree<PostState, RootState> = {
 
   async [ActionTypes.GET_SUGGESTION_POSTS]({ commit }, params = {}) {
     const amount = _.get(params, "amount", 5);
+    const categories = _.get(params, "categories", []);
 
     const url_query = new URLSearchParams();
 
     if (amount) {
       url_query.set("amount", amount);
+    }
+
+    if (!_.isEmpty(categories)) {
+      url_query.set("categories", categories);
     }
 
     const { data: posts } = await this.$axios.$get(

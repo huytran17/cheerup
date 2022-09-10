@@ -1,11 +1,11 @@
 import getPostRules from "./get-post";
 import getPostsPaginatedRules from "./get-posts-paginated";
-import getLatestPostsRules from "./get-latest-posts";
+import getSuggestionPostsRules from "./get-sugesstion-posts";
 
 export default Object.freeze({
   getPostRules,
-  getLatestPostsRules,
+  getSuggestionPostsRules,
   getPostsPaginatedRules,
 });
 
-export { getPostRules, getLatestPostsRules, getPostsPaginatedRules };
+export { getPostRules, getSuggestionPostsRules, getPostsPaginatedRules };

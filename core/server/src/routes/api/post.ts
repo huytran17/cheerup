@@ -4,7 +4,7 @@ import makeExpressCallback from "../../config/express-callback";
 
 import {
   getPostRules,
-  getLatestPostsRules,
+  getSuggestionPostsRules,
   getPostsPaginatedRules,
 } from "../../data-access/controllers/user/post/validators";
 import {
@@ -18,7 +18,7 @@ const postRouter = express.Router();
 
 postRouter.get(
   "/suggestion-posts",
-  makeValidator(getLatestPostsRules),
+  makeValidator(getSuggestionPostsRules),
   makeExpressCallback(getSuggestionPostsController)
 ); // DONE
 
