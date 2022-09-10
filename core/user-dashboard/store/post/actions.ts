@@ -16,7 +16,7 @@ const actions: ActionTree<PostState, RootState> = {
 
   async [ActionTypes.GET_SUGGESTION_POSTS]({ commit }, params = {}) {
     const amount = _.get(params, "amount", 5);
-    const categories = _.get(params, "categories", []);
+    const categories = _.get(params, "categories", "");
 
     const url_query = new URLSearchParams();
 
@@ -29,10 +29,10 @@ const actions: ActionTree<PostState, RootState> = {
     }
 
     const { data: posts } = await this.$axios.$get(
-      `/post/latest-posts?${url_query}`
+      `/post/suggestion-posts?${url_query}`
     );
 
-    commit(MutationTypes.SET_LATEST_POSTS, { data: posts });
+    commit(MutationTypes.SET_suggestion_posts, { data: posts });
 
     return posts;
   },

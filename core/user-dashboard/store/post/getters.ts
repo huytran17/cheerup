@@ -7,7 +7,7 @@ export const getters: GetterTree<PostState, RootState> = {
     return "/post";
   },
   post: (state) => state.post,
-  latest_posts: (state) => state.latest_posts,
+  suggestion_posts: (state) => state.suggestion_posts,
   posts: (state) => state.posts,
   pagination: (state) => state.pagination,
   post_search_query: (state) => state.post_search_query,

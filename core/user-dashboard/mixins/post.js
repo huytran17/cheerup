@@ -6,7 +6,7 @@ export default {
     ...mapGetters({
       post: "post/post",
       posts: "post/posts",
-      latest_posts: "post/latest_posts",
+      suggestion_posts: "post/suggestion_posts",
       post_pagination: "post/pagination",
       post_search_query: "post/post_search_query",
     }),

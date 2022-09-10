@@ -19,9 +19,12 @@ export default function makeGetLatestPostsController({
 
     try {
       const { amount, categories } = _.get(httpRequest, "context.validated");
+
+      const categories_array = _.split(categories, ",");
+
       const exists = await getSuggestionPosts({
         amount: Number(amount),
-        categories,
+        categories: categories_array,
       });
 
       return {
