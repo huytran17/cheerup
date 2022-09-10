@@ -12,6 +12,7 @@ export default interface IPost {
   is_published: boolean;
   thumbnail: Record<string, unknown>;
   content: string;
+  tags: string[];
   author: Admin;
   categories: Category[];
   meta: {

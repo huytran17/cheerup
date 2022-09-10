@@ -78,6 +78,16 @@
           </v-col>
         </v-row>
         <v-row>
+          <v-col cols="12" sm="6">
+            <v-combobox
+              :label="$t('Tags')"
+              multiple
+              small-chips
+              @input="updatePostObject({ variable_path: 'tags', data: $event })"
+            ></v-combobox>
+          </v-col>
+        </v-row>
+        <v-row>
           <v-col cols="12">
             <v-switch
               :label="$t('Block Comment')"

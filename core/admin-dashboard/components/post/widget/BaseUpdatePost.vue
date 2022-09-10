@@ -86,6 +86,17 @@
           </v-col>
         </v-row>
         <v-row>
+          <v-col cols="12" sm="6">
+            <v-combobox
+              :value="post.tags"
+              :label="$t('Tags')"
+              multiple
+              small-chips
+              @input="updatePostObject({ variable_path: 'tags', data: $event })"
+            ></v-combobox>
+          </v-col>
+        </v-row>
+        <v-row>
           <v-col cols="12" class="pb-0">
             <div class="text-body-2">
               <span class="app-body">
