@@ -7,6 +7,7 @@ export const getters: GetterTree<CommentState, RootState> = {
     return "/comment";
   },
   comment: (state) => state.comment,
+  new_comment: (state) => state.new_comment,
   comments: (state) => state.comments,
 };
 

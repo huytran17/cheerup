@@ -2,8 +2,7 @@ import { ActionTree, MutationTree, GetterTree } from "vuex";
 
 export const state = () => ({
   drawer: false,
-  selected_nav_item: 0,
-  is_open_search_box: false,
+  login_redirect_url: "",
 });
 
 export type RootState = ReturnType<typeof state>;
@@ -15,8 +14,7 @@ export const getters: GetterTree<RootState, RootState> = {
     return "/";
   },
   drawer: (state) => state.drawer,
-  selected_nav_item: (state) => state.selected_nav_item,
-  is_open_search_box: (state) => state.is_open_search_box,
+  login_redirect_url: (state) => state.login_redirect_url,
 };
 
 export const mutations: MutationTree<RootState> = {
@@ -24,11 +22,7 @@ export const mutations: MutationTree<RootState> = {
     state.drawer = data;
   },
 
-  SET_SELECTED_NAV_ITEM(state, { data }: { data: number }) {
-    state.selected_nav_item = data;
-  },
-
-  SET_SELECTED_SEARCH_BOX(state, { data }: { data: boolean }) {
-    state.is_open_search_box = data;
+  SET_LOGIN_REDIRECT_URL(state, { data }: { data: string }) {
+    state.login_redirect_url = data;
   },
 };

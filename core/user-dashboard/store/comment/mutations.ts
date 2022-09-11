@@ -20,6 +20,15 @@ const mutations: MutationTree<CommentState> = {
       return data;
     });
   },
+
+  [MutationTypes.UPDATE_NEW_COMMENT_DATA](
+    state,
+    { variable_path, data }: { variable_path: string; data: any }
+  ) {
+    state.new_comment = _.update(state.new_comment, variable_path, (n) => {
+      return data;
+    });
+  },
 };
 
 export default mutations;

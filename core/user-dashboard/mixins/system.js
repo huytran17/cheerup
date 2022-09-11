@@ -5,8 +5,7 @@ export default {
   computed: {
     ...mapGetters({
       drawer: "drawer",
-      selected_nav_item: "selected_nav_item",
-      is_open_search_box: "is_open_search_box",
+      login_redirect_url: "login_redirect_url",
     }),
     /**
      *
@@ -27,8 +26,7 @@ export default {
   methods: {
     ...mapMutations({
       SET_DRAWER: "SET_DRAWER",
-      SET_SELECTED_NAV_ITEM: "SET_SELECTED_NAV_ITEM",
-      SET_SELECTED_SEARCH_BOX: "SET_SELECTED_SEARCH_BOX",
+      SET_LOGIN_REDIRECT_URL: "SET_LOGIN_REDIRECT_URL",
     }),
     /**
      *

@@ -1,5 +1,6 @@
 export const state = () => ({
   comment: {} as any,
+  new_comment: {} as any,
   comments: [] as any[],
 });
 
