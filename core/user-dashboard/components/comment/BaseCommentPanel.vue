@@ -16,30 +16,112 @@
     </v-col>
     <v-col cols="12" class="pt-0">
       <TiptapEditor
-        :content="comment"
+        :content="new_comment"
         attr="content"
         @on-input="
-          updateCommentObject({ variable_path: 'description', data: $event })
+          updateNewCommentObject({ variable_path: 'content', data: $event })
         "
       />
+      <div class="d-flex pt-4">
+        <div v-if="!has_user" class="text-body-2 primary--text mr-auto">
+          <span
+            class="app-body clickable"
+            @click="redirectToLoginPage"
+            v-html="$t('Login to your account')"
+          ></span>
+        </div>
+        <div class="ml-auto">
+          <v-btn
+            depressed
+            tile
+            :disabled="!has_user"
+            color="primary"
+            @click="createComment"
+          >
+            <span class="app-body" v-html="$t('Submit')"></span>
+          </v-btn>
+        </div>
+      </div>
+    </v-col>
+
+    <v-col v-if="has_comments" cols="12">
+      <v-row v-for="comment in comments_data" :key="comment._id">
+        <v-col cols="12">
+          <BaseCommentItem :comment_data="comment" />
+          <div v-if="comment.children && comment.children.length">
+            <v-row
+              v-for="child in comment.children"
+              :key="child._id"
+              class="pl-13"
+            >
+              <v-col cols="12">
+                <BaseCommentItem :comment_data="child" />
+              </v-col>
+            </v-row>
+          </div>
+        </v-col>
+      </v-row>
     </v-col>
   </v-row>
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 import commentMixins from "@/mixins/comment";
+import authMixins from "@/mixins/auth";
 import TiptapEditor from "@/components/TiptapEditor";
+import BaseCommentItem from "@/components/comment/BaseCommentItem";
 
 export default {
   name: "BaseCommentPanel",
-  mixins: [commentMixins],
+  mixins: [commentMixins, authMixins],
   components: {
     TiptapEditor,
+    BaseCommentItem,
   },
   props: {
     post_data: {
       type: Object,
       default: () => {},
+    },
+    comments_data: {
+      type: Array,
+      default: () => [],
+    },
+  },
+  computed: {
+    has_comments() {
+      return !_.isEmpty(this.comments_data);
+    },
+  },
+  methods: {
+    ...mapMutations({
+      SET_LOGIN_REDIRECT_URL: "SET_LOGIN_REDIRECT_URL",
+    }),
+
+    async createComment() {
+      try {
+        this.SET_COMMENT_LOADING({ data: true });
+
+        const post_id = _.get(this.post_data, "_id");
+        const final_comment_data = Object.assign({}, this.new_comment, {
+          post: post_id,
+        });
+
+        await this.CREATE_COMMENT({ data: final_comment_data });
+
+        this.UPDATE_NEW_COMMENT_DATA({ data: "" });
+        await this.GET_COMMENTS_BY_POST({ post_id });
+      } catch (err) {
+        console.error(err);
+      } finally {
+        this.SET_COMMENT_LOADING({ data: false });
+      }
+    },
+
+    redirectToLoginPage() {
+      this.SET_LOGIN_REDIRECT_URL({ data: this.$route.fullPath });
+      return this.$router.push(this.localePath("/login"));
     },
   },
 };

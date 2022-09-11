@@ -8,6 +8,10 @@ const mutations: MutationTree<CommentState> = {
     state.comment = data;
   },
 
+  [MutationTypes.SET_LOADING](state, { data }: { data: boolean }) {
+    state.loading = data;
+  },
+
   [MutationTypes.SET_COMMENTS](state, { data }: { data: any[] }) {
     state.comments = data;
   },

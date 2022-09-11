@@ -35,8 +35,7 @@ makeDb().then(async () => {
 
   if (!user) {
     await UserDb.insert({
-      first_name: "Huy",
-      last_name: "Tran",
+      full_name: "Huy Tran",
       email: "huytran@gmail.com",
       hash_password: default_hash_password,
     });
@@ -45,8 +44,7 @@ makeDb().then(async () => {
   const admin = await AdminDb.findOne();
   if (!admin) {
     await AdminDb.insert({
-      first_name: "Huy",
-      last_name: "Tran",
+      full_name: "Huy Tran",
       type: AdminType.Super,
       email: "huytran@gmail.com",
       hash_password: default_hash_password,

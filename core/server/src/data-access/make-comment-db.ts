@@ -37,7 +37,7 @@ export default function makeCommentDb({
       post_id: string;
     }): Promise<Comment[] | null> {
       let query_conditions = Object.assign({
-        deleted_at: { $nin: [null, undefined] },
+        deleted_at: { $in: [null, undefined] },
       });
 
       if (post_id) {
@@ -46,9 +46,19 @@ export default function makeCommentDb({
 
       const existing = await commentDbModel
         .find(query_conditions)
-        .populate("children", "-_v")
-        .populate("user", "-_v")
-        .populate("post", "-_v")
+        .select("_id children content user created_at updated_at")
+        .populate({
+          path: "children",
+          select: "_id content user",
+          populate: {
+            path: "user",
+            select: "_id full_name avatar_url",
+          },
+        })
+        .populate({
+          path: "user",
+          select: "_id full_name avatar_url",
+        })
         .sort({
           created_at: "desc",
         })

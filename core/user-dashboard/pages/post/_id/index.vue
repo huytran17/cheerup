@@ -12,19 +12,20 @@
       <BaseSuggestionPosts :posts_data="suggestion_posts" />
     </div>
     <div class="pt-12">
-      <BaseCommentPanel :post_data="post" />
+      <BaseCommentPanel :post_data="post" :comments_data="comments" />
     </div>
   </div>
 </template>
 
 <script>
 import postMixins from "@/mixins/post";
+import commentMixins from "@/mixins/comment";
 import BasePostPanel from "@/components/post/BasePostPanel";
 import BaseSuggestionPosts from "@/components/post/BaseSuggestionPosts";
 import BaseCommentPanel from "@/components/comment/BaseCommentPanel";
 export default {
   name: "PostPanel",
-  mixins: [postMixins],
+  mixins: [postMixins, commentMixins],
   components: {
     BasePostPanel,
     BaseSuggestionPosts,
@@ -36,14 +37,21 @@ export default {
       const post = await this.GET_POST({ id: post_id });
       const category_ids = post.categories?.map((category) => category._id);
 
-      await this.GET_SUGGESTION_POSTS({
-        categories: _.join(category_ids, ","),
-      });
+      await Promise.all([
+        this.GET_SUGGESTION_POSTS({
+          categories: _.join(category_ids, ","),
+        }),
+        this.GET_COMMENTS_BY_POST({ post_id }),
+      ]);
     } catch (err) {
       console.log(err);
     }
   },
   updated() {
+    if (this.comment_loading) {
+      return;
+    }
+
     const el = this.$refs.scrollToMe;
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });

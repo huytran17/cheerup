@@ -1,4 +1,3 @@
-import { IGetComment } from "../../../../use-cases/comment/get-comment";
 import { ICreateComment } from "../../../../use-cases/comment/create-comment";
 import { Logger } from "winston";
 import { Request } from "express";
@@ -19,9 +18,17 @@ export default function makeCreateCommentController({
     };
 
     try {
+      const user_id = _.get(httpRequest, "context.user");
       const commentDetails = _.get(httpRequest, "context.validated");
 
-      const created_comment = await createComment({ commentDetails });
+      const final_comment_data = Object.assign({}, commentDetails, {
+        user: user_id,
+      });
+
+      const created_comment = await createComment({
+        commentDetails: final_comment_data,
+      });
+
       return {
         headers,
         statusCode: 200,

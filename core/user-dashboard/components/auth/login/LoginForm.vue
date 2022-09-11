@@ -135,6 +135,7 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
 import authMixins from "@/mixins/auth";
 
 export default {
@@ -145,10 +146,27 @@ export default {
       form_valid: false,
     };
   },
+  computed: {
+    ...mapGetters({
+      login_redirect_url: "login_redirect_url",
+    }),
+  },
   methods: {
+    ...mapMutations({
+      SET_LOGIN_REDIRECT_URL: "SET_LOGIN_REDIRECT_URL",
+    }),
+
     async signIn() {
       try {
         await this.SIGN_IN({ data: this.me });
+
+        const has_login_redirect_url = this.login_redirect_url;
+        if (has_login_redirect_url) {
+          this.$router.push(this.localePath(this.login_redirect_url));
+          this.SET_LOGIN_REDIRECT_URL({ data: "" });
+          return;
+        }
+
         this.$router.push(this.localePath("/"));
       } catch (err) {
         console.log(err);

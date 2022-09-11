@@ -64,7 +64,7 @@ const actions: ActionTree<CommentState, RootState> = {
       `/comment/by-post/${post_id}`
     );
 
-    commit(MutationTypes.SET_COMMENT, { data: comments });
+    commit(MutationTypes.SET_COMMENTS, { data: comments });
 
     return comments;
   },

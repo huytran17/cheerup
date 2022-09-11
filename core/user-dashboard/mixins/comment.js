@@ -7,6 +7,7 @@ export default {
       comment: "comment/comment",
       new_comment: "comment/new_comment",
       comments: "comment/comments",
+      comment_loading: "comment/loading",
     }),
   },
   methods: {
@@ -24,6 +25,7 @@ export default {
       SET_COMMENTS: "comment/SET_COMMENTS",
       UPDATE_NEW_COMMENT_DATA: "comment/UPDATE_NEW_COMMENT_DATA",
       UPDATE_COMMENT_DATA: "comment/UPDATE_COMMENT_DATA",
+      SET_COMMENT_LOADING: "comment/SET_LOADING",
     }),
 
     updateCommentObject({ variable_path, data }) {
