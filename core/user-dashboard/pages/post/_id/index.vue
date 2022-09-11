@@ -11,6 +11,9 @@
     <div class="pt-12">
       <BaseSuggestionPosts :posts_data="suggestion_posts" />
     </div>
+    <div class="pt-12">
+      <BaseCommentPanel :post_data="post" />
+    </div>
   </div>
 </template>
 
@@ -18,12 +21,14 @@
 import postMixins from "@/mixins/post";
 import BasePostPanel from "@/components/post/BasePostPanel";
 import BaseSuggestionPosts from "@/components/post/BaseSuggestionPosts";
+import BaseCommentPanel from "@/components/comment/BaseCommentPanel";
 export default {
   name: "PostPanel",
   mixins: [postMixins],
   components: {
     BasePostPanel,
     BaseSuggestionPosts,
+    BaseCommentPanel,
   },
   async fetch() {
     try {

@@ -21,9 +21,10 @@ export default {
     ...mapMutations({
       SET_COMMENT: "comment/SET_COMMENT",
       SET_COMMENTS: "comment/SET_COMMENTS",
+      UPDATE_COMMENT_DATA: "comment/UPDATE_COMMENT_DATA",
     }),
 
-    updateUserObject({ variable_path, data }) {
+    updateCommentObject({ variable_path, data }) {
       this.UPDATE_COMMENT_DATA({
         variable_path,
         data,
