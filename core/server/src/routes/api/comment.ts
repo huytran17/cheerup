@@ -7,6 +7,7 @@ import {
   deleteCommentRules,
   updateCommentRules,
   createCommentRules,
+  getCommentsByPostRules,
 } from "../../data-access/controllers/user/comment/validators";
 import {
   getCommentController,
@@ -14,9 +15,16 @@ import {
   updateCommentController,
   createCommentController,
   getCommentsController,
+  getCommentsByPostController,
 } from "../../data-access/controllers/user/comment";
 
 const commentRouter = express.Router();
+
+commentRouter.get(
+  "/by-post/:post_id",
+  makeValidator(getCommentsByPostRules),
+  makeExpressCallback(getCommentsByPostController)
+); // DONE
 
 commentRouter.get(
   "/:_id",

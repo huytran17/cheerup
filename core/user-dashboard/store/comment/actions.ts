@@ -60,11 +60,13 @@ const actions: ActionTree<CommentState, RootState> = {
     { commit },
     { post_id }: { post_id: string }
   ) {
-    const { data: comment } = await this.$axios.$get(
+    const { data: comments } = await this.$axios.$get(
       `/comment/by-post/${post_id}`
     );
 
-    return comment;
+    commit(MutationTypes.SET_COMMENT, { data: comments });
+
+    return comments;
   },
 };
 

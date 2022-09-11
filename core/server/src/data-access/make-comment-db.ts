@@ -31,6 +31,36 @@ export default function makeCommentDb({
       return null;
     }
 
+    async findAllByPost({
+      post_id,
+    }: {
+      post_id: string;
+    }): Promise<Comment[] | null> {
+      let query_conditions = Object.assign({
+        deleted_at: { $nin: [null, undefined] },
+      });
+
+      if (post_id) {
+        query_conditions["post"] = post_id;
+      }
+
+      const existing = await commentDbModel
+        .find(query_conditions)
+        .populate("children", "-_v")
+        .populate("user", "-_v")
+        .populate("post", "-_v")
+        .sort({
+          created_at: "desc",
+        })
+        .lean({ virtuals: true });
+
+      if (existing) {
+        return existing.map((comment) => new Comment(comment));
+      }
+
+      return null;
+    }
+
     async findAllByParent({
       parent_id,
     }: {
@@ -151,7 +181,9 @@ export default function makeCommentDb({
         post: post_id,
       };
 
-      const number_of_comments = await commentDbModel.countDocuments(query_conditions);
+      const number_of_comments = await commentDbModel.countDocuments(
+        query_conditions
+      );
 
       return number_of_comments;
     }
