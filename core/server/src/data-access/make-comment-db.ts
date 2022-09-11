@@ -16,7 +16,10 @@ export default function makeCommentDb({
 }): ICommentDb {
   return new (class MongooseCommentDb implements ICommentDb {
     async findAll(): Promise<Comment[] | null> {
-      let query_conditions = Object.assign({});
+      let query_conditions = Object.assign({
+        deleted_at: { $in: [null, undefined] },
+        parent: { $in: [null, undefined] },
+      });
 
       const existing = await commentDbModel
         .find(query_conditions)
@@ -38,6 +41,7 @@ export default function makeCommentDb({
     }): Promise<Comment[] | null> {
       let query_conditions = Object.assign({
         deleted_at: { $in: [null, undefined] },
+        parent: { $in: [null, undefined] },
       });
 
       if (post_id) {
@@ -46,10 +50,10 @@ export default function makeCommentDb({
 
       const existing = await commentDbModel
         .find(query_conditions)
-        .select("_id children content user created_at updated_at")
+        .select("_id children content user meta created_at updated_at")
         .populate({
           path: "children",
-          select: "_id content user",
+          select: "_id content user meta",
           populate: {
             path: "user",
             select: "_id full_name avatar_url",
@@ -106,7 +110,10 @@ export default function makeCommentDb({
     }): Promise<PaginatedCommentResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
-      const query_conditions = Object.assign({});
+      const query_conditions = Object.assign({
+        deleted_at: { $in: [null, undefined] },
+        parent: { $in: [null, undefined] },
+      });
 
       if (query) {
         query_conditions["$or"] = [
@@ -163,8 +170,17 @@ export default function makeCommentDb({
         return null;
       }
 
+      const query_conditions = {
+        deleted_at: { $in: [null, undefined] },
+        parent: { $in: [null, undefined] },
+      };
+
+      if (_id) {
+        query_conditions["_id"] = _id;
+      }
+
       const existing = await commentDbModel
-        .findById(_id)
+        .findOne(query_conditions)
         .populate("children", "-_v")
         .populate("user", "-_v")
         .populate("post", "-_v")
