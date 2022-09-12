@@ -20,6 +20,8 @@ const categorySchema = new Schema(
   }
 );
 
+categorySchema.index({ created_at: -1 });
+
 categorySchema.virtual("thumbnail_url").get(function () {
   return _.get(this, "thumbnail.meta.location");
 });

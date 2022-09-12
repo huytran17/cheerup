@@ -17,6 +17,8 @@ const feedbackSchema = new Schema(
   }
 );
 
+feedbackSchema.index({ created_at: -1 });
+
 feedbackSchema.plugin(mongoose_lean_virtuals);
 
 export default feedbackSchema;

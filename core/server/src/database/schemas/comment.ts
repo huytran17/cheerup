@@ -30,6 +30,8 @@ const commentSchema = new Schema({
   deleted_at: { type: Date, default: null },
 });
 
+commentSchema.index({ created_at: -1 });
+
 commentSchema.plugin(mongoose_lean_virtuals);
 
 export default commentSchema;

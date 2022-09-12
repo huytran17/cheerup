@@ -27,6 +27,8 @@ const adminSchema = new Schema(
   }
 );
 
+adminSchema.index({ created_at: -1 });
+
 adminSchema.virtual("avatar_url").get(function () {
   return _.get(this, "avatar.meta.location");
 });

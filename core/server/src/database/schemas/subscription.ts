@@ -16,6 +16,8 @@ const subscriptionSchema = new Schema(
   }
 );
 
+subscriptionSchema.index({ created_at: -1 });
+
 subscriptionSchema.plugin(mongoose_lean_virtuals);
 
 export default subscriptionSchema;

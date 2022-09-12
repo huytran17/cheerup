@@ -23,6 +23,8 @@ const userSchema = new Schema(
   }
 );
 
+userSchema.index({ created_at: -1 });
+
 userSchema.virtual("avatar_url").get(function () {
   return _.get(this, "avatar.meta.location");
 });
