@@ -22,10 +22,10 @@ export default function makeDislikeCommentController({
 
     try {
       const { _id: user_id } = _.get(httpRequest, "context.user");
-      const { _id } = _.get(httpRequest, "context.validated");
-      const exists = await getComment({ _id });
+      const { _id: comment_id } = _.get(httpRequest, "context.validated");
+      const exists = await getComment({ _id: comment_id });
       if (!exists) {
-        throw new Error(`Comment by ${_id} does not exist`);
+        throw new Error(`Comment by ${comment_id} does not exist`);
       }
 
       const current_users_liked = _.get(exists, "meta.likes", []);
@@ -66,7 +66,7 @@ export default function makeDislikeCommentController({
       }
 
       const updated_comment = await updateComment({ commentDetails: exists });
-      
+
       return {
         headers,
         statusCode: 200,

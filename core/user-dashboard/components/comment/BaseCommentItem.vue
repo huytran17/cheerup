@@ -21,7 +21,12 @@
       </div>
       <div class="d-flex">
         <div class="d-flex">
-          <v-icon small class="mr-1 clickable">mdi-heart-outline</v-icon>
+          <v-icon
+            small
+            class="mr-1 clickable"
+            @click="likeComment({ _id: comment_data._id })"
+            >mdi-heart-outline</v-icon
+          >
           <span class="text-body-2">
             <span class="app-body">{{ comment_likes }}</span>
           </span>
@@ -59,9 +64,10 @@
 <script>
 import { mapGetters } from "vuex";
 import systemMixins from "@/mixins/system";
+import commentMixins from "@/mixins/comment";
 export default {
   name: "BaseCommentItem",
-  mixins: [systemMixins],
+  mixins: [systemMixins, commentMixins],
   props: {
     comment_data: {
       type: Object,
@@ -85,16 +91,27 @@ export default {
     },
 
     comment_likes() {
-      return _.get(this.comment_data, "meta.likes");
+      return _.get(this.comment_data, "likes_count");
     },
 
     comment_dislikes() {
-      return _.get(this.comment_data, "meta.dislikes");
+      return _.get(this.comment_data, "dislikes_count");
     },
 
     is_own_comment() {
       return _.get(this.me, "_id") === _.get(this.comment_data, "user._id");
     },
+  },
+  methods: {
+    async likeComment({ _id }) {
+      try {
+        await this.LIKE_COMMENT({ id: _id });
+      } catch (err) {
+        console.error(err);
+      }
+    },
+
+    dislikeComment({ _id }) {},
   },
 };
 </script>

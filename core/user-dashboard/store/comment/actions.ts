@@ -29,7 +29,7 @@ const actions: ActionTree<CommentState, RootState> = {
   },
 
   async [ActionTypes.LIKE_COMMENT]({ commit }, { id }: { id: string }) {
-    const { data: comment } = await this.$axios.$get(`/comment/like/${id}`);
+    const { data: comment } = await this.$axios.$put(`/comment/like/${id}`);
 
     commit(MutationTypes.SET_COMMENT, { data: comment });
 
@@ -37,7 +37,7 @@ const actions: ActionTree<CommentState, RootState> = {
   },
 
   async [ActionTypes.DISLIKE_COMMENT]({ commit }, { id }: { id: string }) {
-    const { data: comment } = await this.$axios.$get(`/comment/dislike/${id}`);
+    const { data: comment } = await this.$axios.$put(`/comment/dislike/${id}`);
 
     commit(MutationTypes.SET_COMMENT, { data: comment });
 

@@ -27,7 +27,7 @@ export default interface ICommentDb {
   insert: (payload: Partial<IComment>) => Promise<Comment | null>;
   delete: ({ _id }: { _id: string }) => Promise<Comment | null>;
   hardDelete: ({ _id }: { _id: string }) => Promise<Comment | null>;
-  update: (updatePayload: Partial<IComment>) => Promise<Comment | null>;
+  update: (payload: Partial<IComment>) => Promise<Comment | null>;
 }
 
 export interface PaginatedCommentResult {
