@@ -34,6 +34,8 @@ const systemConfigurationSchema = new Schema(
   }
 );
 
+systemConfigurationSchema.index({ created_at: -1 });
+
 systemConfigurationSchema.virtual("admin_logo_url").get(function () {
   return _.get(this, "admin_meta.logo.meta.location");
 });
