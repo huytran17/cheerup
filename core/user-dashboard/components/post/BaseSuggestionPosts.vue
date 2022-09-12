@@ -24,9 +24,17 @@
         v-for="post in posts_data"
         :key="post._id"
       >
-        <v-img :src="post.thumbnail_url" :lazy-src="post.thumbnail_url" cover />
+        <v-img
+          :src="post.thumbnail_url"
+          :lazy-src="post.thumbnail_url"
+          cover
+          max-width="182px"
+          max-height="182px"
+          width="182px"
+          height="182px"
+        />
         <div
-          class="text-uppercase text--small grey--text text-center pt-4 pb-2 px-2"
+          class="text-uppercase text--small grey--text text-center pt-4 pb-1 px-2"
         >
           <span class="app-body">{{ formatDate(post.created_at, "LL") }}</span>
           <span>/</span>
@@ -69,11 +77,6 @@ export default {
   margin: 0 5px !important;
   width: 182px !important;
 }
-
-:deep(.slick-list) {
-  margin: 0 -5px !important;
-  max-height: 245px !important;
-}
 .suggestion__header::before {
   position: absolute;
   content: "";
@@ -90,9 +93,13 @@ export default {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
+:deep(.slick-list) {
+  margin: 0 -5px !important;
+  max-height: 294px !important;
+}
 .post__card {
   border: 1px solid var(--color-article-baseline);
-  max-height: 239.75px;
-  min-height: 239.75px;
+  max-height: 294px;
+  min-height: 294px;
 }
 </style>
