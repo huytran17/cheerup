@@ -10,8 +10,8 @@ const commentSchema = new Schema({
   parent: { type: Schema.Types.ObjectId, ref: "Comment" },
   children: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   meta: {
-    likes: { type: Number, default: 0 },
-    dislikes: { type: Number, default: 0 },
+    likes: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    dislikes: [{ type: Schema.Types.ObjectId, ref: "User" }],
   },
   reports: [
     {

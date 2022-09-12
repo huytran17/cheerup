@@ -13,7 +13,21 @@ import makeDeleteCommentController from "./delete-comment";
 import makeUpdateCommentController from "./update-comment";
 import makeCreateCommentController from "./create-comment";
 import makeGetCommentsController from "./get-comments";
+import makeDislikeCommentController from "./dislike-comment";
+import makeLikeCommentController from "./like-comment";
 import makeGetCommentsByPostController from "./get-comments-by-post";
+
+const dislikeCommentController = makeDislikeCommentController({
+  getComment,
+  updateComment,
+  logger,
+});
+
+const likeCommentController = makeLikeCommentController({
+  getComment,
+  updateComment,
+  logger,
+});
 
 const getCommentsByPostController = makeGetCommentsByPostController({
   getCommentsByPost,
@@ -54,6 +68,8 @@ export default Object.freeze({
   createCommentController,
   getCommentsController,
   getCommentsByPostController,
+  dislikeCommentController,
+  likeCommentController,
 });
 
 export {
@@ -63,4 +79,6 @@ export {
   createCommentController,
   getCommentsController,
   getCommentsByPostController,
+  dislikeCommentController,
+  likeCommentController,
 };

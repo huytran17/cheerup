@@ -18,8 +18,8 @@ export default class Comment implements IComment {
   public readonly parent: Comment;
   public readonly children: Comment[];
   public readonly meta: {
-    likes: number;
-    dislike: number;
+    likes: User[];
+    dislikes: User[];
   };
   public readonly created_at: Date;
   public readonly updated_at: Date;

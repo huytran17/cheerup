@@ -8,6 +8,8 @@ import {
   updateCommentRules,
   createCommentRules,
   getCommentsByPostRules,
+  likeCommentRules,
+  dislikeCommentRules,
 } from "../../data-access/controllers/user/comment/validators";
 import {
   getCommentController,
@@ -16,9 +18,23 @@ import {
   createCommentController,
   getCommentsController,
   getCommentsByPostController,
+  likeCommentController,
+  dislikeCommentController,
 } from "../../data-access/controllers/user/comment";
 
 const commentRouter = express.Router();
+
+commentRouter.put(
+  "/like/:_id",
+  makeValidator(likeCommentRules),
+  makeExpressCallback(likeCommentController)
+); // DONE
+
+commentRouter.put(
+  "/dislike/:_id",
+  makeValidator(dislikeCommentRules),
+  makeExpressCallback(dislikeCommentController)
+); // DONE
 
 commentRouter.get(
   "/by-post/:post_id",
