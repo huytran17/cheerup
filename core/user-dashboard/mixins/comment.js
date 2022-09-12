@@ -19,6 +19,8 @@ export default {
       DELETE_COMMENT: "comment/DELETE_COMMENT",
       HARD_DELETE_COMMENT: "comment/HARD_DELETE_COMMENT",
       GET_COMMENTS_BY_POST: "comment/GET_COMMENTS_BY_POST",
+      LIKE_COMMENT: "comment/LIKE_COMMENT",
+      DISLIKE_COMMENT: "comment/DISLIKE_COMMENT",
     }),
     ...mapMutations({
       SET_COMMENT: "comment/SET_COMMENT",
