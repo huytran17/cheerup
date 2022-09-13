@@ -31,7 +31,7 @@
           max-width="182px"
           max-height="182px"
           width="182px"
-          height="182px"
+          height="150px"
         />
         <div
           class="text-uppercase text--small grey--text text-center pt-4 pb-1 px-2"
@@ -77,6 +77,9 @@ export default {
   margin: 0 5px !important;
   width: 182px !important;
 }
+:deep(.v-icon::after) {
+  background: transparent !important;
+}
 .suggestion__header::before {
   position: absolute;
   content: "";
@@ -99,7 +102,7 @@ export default {
 }
 .post__card {
   border: 1px solid var(--color-article-baseline);
-  max-height: 294px;
-  min-height: 294px;
+  max-height: 250px;
+  min-height: 250px;
 }
 </style>

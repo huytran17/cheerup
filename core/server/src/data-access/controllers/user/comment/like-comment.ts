@@ -23,7 +23,12 @@ export default function makeLikeCommentController({
     try {
       const { _id: user_id } = _.get(httpRequest, "context.user");
       const { _id: comment_id } = _.get(httpRequest, "context.validated");
-      const exists = await getComment({ _id: comment_id });
+
+      const exists = await getComment({
+        _id: comment_id,
+        is_only_parent: false,
+      });
+
       if (!exists) {
         throw new Error(`Comment by ${comment_id} does not exist`);
       }
@@ -31,17 +36,14 @@ export default function makeLikeCommentController({
       const current_users_liked = _.get(exists, "meta.likes", []);
       const current_users_disliked = _.get(exists, "meta.dislikes", []);
 
-      const is_user_liked = _.includes(current_users_liked, user_id);
+      const is_user_liked = current_users_liked.includes(user_id);
       const is_user_disliked = _.includes(current_users_disliked, user_id);
 
       if (is_user_liked) {
         Object.assign(exists, {
           meta: {
             ...exists.meta,
-            likes: _.remove(
-              current_users_liked,
-              (_user_id) => _user_id === user_id
-            ),
+            likes: current_users_liked.filter((_id: string) => _id !== user_id),
           },
         });
       } else {
@@ -56,9 +58,8 @@ export default function makeLikeCommentController({
           Object.assign(exists, {
             meta: {
               ...exists.meta,
-              dislikes: _.remove(
-                current_users_liked,
-                (_user_id) => _user_id === user_id
+              dislikes: current_users_liked.filter(
+                (_id: string) => _id !== user_id
               ),
             },
           });

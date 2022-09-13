@@ -50,7 +50,9 @@ export default function makeCommentDb({
 
       const existing = await commentDbModel
         .find(query_conditions)
-        .select("_id children content user meta likes_count dislikes_count created_at updated_at")
+        .select(
+          "_id children content user meta likes_count dislikes_count created_at updated_at"
+        )
         .populate({
           path: "children",
           select: "_id content user meta",
@@ -163,17 +165,26 @@ export default function makeCommentDb({
       return null;
     }
 
-    async findById({ _id }: { _id: string }): Promise<Comment | null> {
+    async findById({
+      _id,
+      is_only_parent,
+    }: {
+      _id: string;
+      is_only_parent?: boolean;
+    }): Promise<Comment | null> {
       const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
       const is_mongo_id = mongo_id_regex.test(_id);
       if (!is_mongo_id || !_id) {
         return null;
       }
 
-      const query_conditions = {
+      let query_conditions = {
         deleted_at: { $in: [null, undefined] },
-        parent: { $in: [null, undefined] },
       };
+
+      if (is_only_parent) {
+        query_conditions["parent"] = { $in: [null, undefined] };
+      }
 
       if (_id) {
         query_conditions["_id"] = _id;
