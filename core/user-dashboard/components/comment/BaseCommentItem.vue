@@ -22,10 +22,11 @@
       <div class="d-flex">
         <div class="d-flex">
           <v-icon
+            :color="is_liked ? 'brick' : 'black'"
             small
             class="mr-1 clickable"
             @click="likeComment({ _id: comment_data._id })"
-            >mdi-heart-outline</v-icon
+            >{{ is_liked ? "mdi-heart" : "mdi-heart-outline" }}</v-icon
           >
           <span class="text-body-2">
             <span class="app-body">{{ comment_likes }}</span>
@@ -33,7 +34,16 @@
         </div>
 
         <div class="d-flex pl-3">
-          <v-icon small class="mr-1 clickable">mdi-thumb-down-outline</v-icon>
+          <v-icon
+            :color="is_disliked ? 'brick' : 'black'"
+            small
+            class="mr-1 clickable"
+            @click="dislikeComment({ _id: comment_data._id })"
+          >
+            {{
+              is_disliked ? "mdi-thumb-down" : "mdi-thumb-down-outline"
+            }}</v-icon
+          >
           <span class="text-body-2">
             <span class="app-body">{{ comment_dislikes }}</span>
           </span>
@@ -77,7 +87,20 @@ export default {
   computed: {
     ...mapGetters({
       me: "auth/me",
+      post: "post/post",
     }),
+
+    is_liked() {
+      const users_liked = _.get(this.comment_data, "meta.likes", []);
+      const user_id = _.get(this.me, "_id");
+      return _.includes(users_liked, user_id);
+    },
+
+    is_disliked() {
+      const users_disliked = _.get(this.comment_data, "meta.dislikes", []);
+      const user_id = _.get(this.me, "_id");
+      return _.includes(users_disliked, user_id);
+    },
 
     user_avatar() {
       return (
@@ -105,15 +128,39 @@ export default {
   methods: {
     async likeComment({ _id }) {
       try {
+        this.SET_COMMENT_LOADING({ data: true });
+
         await this.LIKE_COMMENT({ id: _id });
+        await this.GET_COMMENTS_BY_POST({
+          post_id: _.get(this.post, "_id", ""),
+        });
       } catch (err) {
         console.error(err);
+      } finally {
+        this.SET_COMMENT_LOADING({ data: false });
       }
     },
 
-    dislikeComment({ _id }) {},
+    async dislikeComment({ _id }) {
+      try {
+        this.SET_COMMENT_LOADING({ data: true });
+
+        await this.DISLIKE_COMMENT({ id: _id });
+        await this.GET_COMMENTS_BY_POST({
+          post_id: _.get(this.post, "_id", ""),
+        });
+      } catch (err) {
+        console.error(err);
+      } finally {
+        this.SET_COMMENT_LOADING({ data: false });
+      }
+    },
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+:deep(button.v-icon::after) {
+  background: transparent !important;
+}
+</style>

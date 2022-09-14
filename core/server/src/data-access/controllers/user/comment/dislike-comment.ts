@@ -33,24 +33,38 @@ export default function makeDislikeCommentController({
         throw new Error(`Comment by ${comment_id} does not exist`);
       }
 
-      const current_users_liked = _.get(exists, "meta.likes", []);
-      const current_users_disliked = _.get(exists, "meta.dislikes", []);
+      const current_users_liked = _.get(exists, "meta.likes", []).map(
+        (user_id: any) => user_id.toString()
+      );
+      const current_users_disliked = _.get(exists, "meta.dislikes", []).map(
+        (user_id: any) => user_id.toString()
+      );
 
-      const is_user_liked = _.includes(current_users_liked, user_id);
-      const is_user_disliked = _.includes(current_users_disliked, user_id);
+      const is_user_liked = _.includes(
+        current_users_liked,
+        user_id.toHexString()
+      );
+      const is_user_disliked = _.includes(
+        current_users_disliked,
+        user_id.toHexString()
+      );
 
       if (is_user_disliked) {
         Object.assign(exists, {
           meta: {
             ...exists.meta,
-            likes: current_users_liked.filter((_id: string) => _id !== user_id),
+            dislikes: _.compact(
+              current_users_liked.filter(
+                (_id: any) => _id !== user_id.toHexString()
+              )
+            ),
           },
         });
       } else {
         Object.assign(exists, {
           meta: {
             ...exists.meta,
-            likes: current_users_liked.push(user_id),
+            dislikes: _.concat(current_users_disliked, [user_id]),
           },
         });
 
@@ -58,8 +72,10 @@ export default function makeDislikeCommentController({
           Object.assign(exists, {
             meta: {
               ...exists.meta,
-              dislikes: current_users_liked.filter(
-                (_id: string) => _id !== user_id
+              likes: _.compact(
+                current_users_liked.filter(
+                  (_id: any) => _id !== user_id.toHexString()
+                )
               ),
             },
           });
