@@ -7,29 +7,28 @@
       ></span>
     </div>
     <div class="sidebar__card py-6 px-6">
-      <div v-if="has_user" class="d-flex justify-center">
-        <v-tooltip right>
-          <template v-slot:activator="{ on, attrs }">
-            <v-img
-              v-bind="attrs"
-              v-on="on"
-              :src="user_avatar"
-              :lazy-src="user_avatar"
-              :alt="me.full_name"
-              contain
-              max-width="100px"
-              class="rounded-circle clickable"
-              @click="$router.push(localePath(`/user/${me._id}`))"
-            ></v-img>
-          </template>
-          <span v-html="$t('View your profile')"></span>
-        </v-tooltip>
+      <div v-if="has_user" class="d-flex justify-center flex-column">
+        <div class="d-flex justify-center">
+          <v-tooltip right>
+            <template v-slot:activator="{ on, attrs }">
+              <v-img
+                v-bind="attrs"
+                v-on="on"
+                :src="user_avatar"
+                :lazy-src="user_avatar"
+                :alt="me.full_name"
+                contain
+                max-width="100px"
+                class="rounded-circle clickable"
+                @click="$router.push(localePath(`/user/${me._id}`))"
+              ></v-img>
+            </template>
+            <span v-html="$t('View your profile')"></span>
+          </v-tooltip>
+        </div>
         <div
-          :class="
-            me.full_name
-              ? 'small--text text-left pt-6'
-              : 'small--text text-left'
-          "
+          :class="me.full_name ? 'pt-4' : ''"
+          class="d-flex justify-center small--text text-left"
         >
           <span
             class="app-body clickable"
