@@ -204,8 +204,16 @@ export default function makePostDb({
         return null;
       }
 
+      const query_conditions = {
+        deleted_at: { $in: [null, undefined] },
+      };
+
+      if (_id) {
+        query_conditions["_id"] = _id;
+      }
+
       const existing = await postDbModel
-        .findById(_id)
+        .findOne(query_conditions)
         .populate("author", "-_v")
         .populate("categories", "-_v")
         .lean({ virtuals: true });

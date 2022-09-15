@@ -210,8 +210,16 @@ export default function makeAdminDb({
         return null;
       }
 
+      const query_conditions = {
+        deleted_at: { $in: [null, undefined] },
+      };
+
+      if (_id) {
+        query_conditions["_id"] = _id;
+      }
+
       const existing = await adminDbModel
-        .findById(_id)
+        .findOne(query_conditions)
         .lean({ virtuals: true });
 
       if (existing) {

@@ -162,8 +162,16 @@ export default function makeFeedbackDb({
         return null;
       }
 
+      const query_conditions = {
+        deleted_at: { $in: [null, undefined] },
+      };
+
+      if (_id) {
+        query_conditions["_id"] = _id;
+      }
+
       const existing = await feedbackDbModel
-        .findById(_id)
+        .findOne(query_conditions)
         .populate("created_by", "-_v")
         .lean({ virtuals: true });
 
