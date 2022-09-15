@@ -24,15 +24,17 @@
         v-for="post in posts_data"
         :key="post._id"
       >
-        <v-img
-          :src="post.thumbnail_url"
-          :lazy-src="post.thumbnail_url"
-          cover
-          max-width="182px"
-          max-height="182px"
-          width="182px"
-          height="150px"
-        />
+        <div class="d-flex justify-center">
+          <v-img
+            :src="post.thumbnail_url"
+            :lazy-src="post.thumbnail_url"
+            cover
+            max-width="182px"
+            max-height="135px"
+            width="182px"
+            height="135px"
+          />
+        </div>
         <div
           class="text-uppercase text--small grey--text text-center pt-4 pb-1 px-2"
         >
@@ -98,7 +100,7 @@ export default {
 }
 :deep(.slick-list) {
   margin: 0 -5px !important;
-  max-height: 294px !important;
+  max-height: 250px !important;
 }
 .post__card {
   border: 1px solid var(--color-article-baseline);
