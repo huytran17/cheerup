@@ -50,6 +50,12 @@ const actions: ActionTree<CommentState, RootState> = {
     return comment;
   },
 
+  async [ActionTypes.REPLY_COMMENT]({ commit }, { data }: { data: any }) {
+    const { data: comment } = await this.$axios.$post(`/comment/reply`, data);
+
+    return comment;
+  },
+
   async [ActionTypes.UPDATE_COMMENT]({ commit }, { data }: { data: any }) {
     const { data: comment } = await this.$axios.$put(`/comment`, data);
 

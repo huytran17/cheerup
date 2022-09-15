@@ -33,6 +33,19 @@ const mutations: MutationTree<CommentState> = {
       return data;
     });
   },
+
+  [MutationTypes.UPDATE_NEW_REPLY_COMMENT_DATA](
+    state,
+    { variable_path, data }: { variable_path: string; data: any }
+  ) {
+    state.new_reply_comment = _.update(
+      state.new_reply_comment,
+      variable_path,
+      (n) => {
+        return data;
+      }
+    );
+  },
 };
 
 export default mutations;
