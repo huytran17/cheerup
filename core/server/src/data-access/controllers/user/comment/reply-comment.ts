@@ -47,27 +47,30 @@ export default function makeReplyCommentController({
         throw new Error(`Parent comment by ${parent_id} does not exist`);
       }
 
-      const parent_comment_children = _.get(parent_comment, "children", []);
-      const final_parent_comment_data = Object.assign({}, parent_comment, {
-        children: _.union(_.concat(parent_comment_children, [parent_id])),
-      });
-
       const final_comment_data = Object.assign({}, commentDetails, {
         user: user_id,
       });
 
-      const [reply_comment] = await Promise.all([
-        replyComment({
-          commentDetails: final_comment_data,
-        }),
-        updateComment({ commentDetails: final_parent_comment_data }),
-      ]);
+      const created_reply_comment = await replyComment({
+        commentDetails: final_comment_data,
+      });
+
+      const parent_comment_children = _.get(parent_comment, "children", []);
+      const final_parent_comment_data = Object.assign({}, parent_comment, {
+        children: _.union(
+          _.concat(parent_comment_children, [
+            _.get(created_reply_comment, "_id"),
+          ])
+        ),
+      });
+
+      await updateComment({ commentDetails: final_parent_comment_data });
 
       return {
         headers,
         statusCode: 200,
         body: {
-          data: reply_comment,
+          data: created_reply_comment,
         },
       };
     } catch (err) {

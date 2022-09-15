@@ -49,9 +49,15 @@
           </span>
         </div>
 
+        <div v-if="is_own_comment" class="d-flex pl-5">
+          <v-icon small class="mr-1 clickable icon__font--medium"
+            >mdi-playlist-edit</v-icon
+          >
+        </div>
+
         <div
-          v-if="is_own_comment"
-          class="d-flex pl-5"
+          v-if="is_parent"
+          class="d-flex pl-2"
           @click="
             () => {
               SET_IS_OPEN_REPLY_COMMENT({ data: true });
@@ -59,12 +65,6 @@
             }
           "
         >
-          <v-icon small class="mr-1 clickable icon__font--medium"
-            >mdi-playlist-edit</v-icon
-          >
-        </div>
-
-        <div class="d-flex pl-2">
           <v-icon small class="mr-1 clickable icon__font--medium"
             >mdi-reply-outline</v-icon
           >
@@ -98,6 +98,12 @@ export default {
       me: "auth/me",
       post: "post/post",
     }),
+
+    is_parent() {
+      const parent = _.get(this.comment_data, "parent");
+      const is_parent_comment = _.isNil(parent);
+      return is_parent_comment;
+    },
 
     is_liked() {
       const users_liked = _.get(this.comment_data, "meta.likes", []);

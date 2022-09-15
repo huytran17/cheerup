@@ -55,11 +55,17 @@ export default function makeCommentDb({
         )
         .populate({
           path: "children",
-          select: "_id content user meta",
-          populate: {
-            path: "user",
-            select: "_id full_name avatar_url",
-          },
+          select: "_id content user meta parent",
+          populate: [
+            {
+              path: "user",
+              select: "_id full_name avatar_url",
+            },
+            {
+              path: "parent",
+              select: "_id",
+            },
+          ],
         })
         .populate({
           path: "user",
@@ -192,7 +198,14 @@ export default function makeCommentDb({
 
       const existing = await commentDbModel
         .findOne(query_conditions)
-        .populate("children", "-_v")
+        .populate({
+          path: "children",
+          select: "-_v",
+          populate: {
+            path: "parent",
+            select: "_id",
+          },
+        })
         .populate("user", "-_v")
         .populate("post", "-_v")
         .lean({ virtuals: true });

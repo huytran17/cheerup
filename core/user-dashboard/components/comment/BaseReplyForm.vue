@@ -56,20 +56,24 @@ export default {
       try {
         this.SET_COMMENT_LOADING({ data: true });
 
+        const post_id = _.get(this.post, "_id");
+
         const final_reply_comment_data = Object.assign(
           {},
           this.new_reply_comment,
           {
-            post: _.get(this.post, "_id"),
+            post: post_id,
             parent: _.get(this.comment, "_id"),
           }
         );
 
         await this.REPLY_COMMENT({ data: final_reply_comment_data });
+        await this.GET_COMMENTS_BY_POST({ post_id });
       } catch (err) {
         console.error(err);
       } finally {
         this.SET_COMMENT_LOADING({ data: false });
+        this.SET_IS_OPEN_REPLY_COMMENT({ data: false });
       }
     },
   },
