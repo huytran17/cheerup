@@ -49,7 +49,16 @@
           </span>
         </div>
 
-        <div v-if="is_own_comment" class="d-flex pl-5">
+        <div
+          v-if="is_own_comment"
+          class="d-flex pl-5"
+          @click="
+            () => {
+              SET_IS_OPEN_REPLY_COMMENT({ data: true });
+              SET_COMMENT({ data: comment_data });
+            }
+          "
+        >
           <v-icon small class="mr-1 clickable icon__font--medium"
             >mdi-playlist-edit</v-icon
           >

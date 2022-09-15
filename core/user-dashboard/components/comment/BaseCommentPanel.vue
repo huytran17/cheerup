@@ -21,6 +21,7 @@
         @on-input="
           updateNewCommentObject({ variable_path: 'content', data: $event })
         "
+        :key="`comment-editor-${refresh_comment_editor_key}`"
       />
       <div class="d-flex pt-4">
         <div v-if="!has_user" class="text-body-2 primary--text mr-auto">
@@ -62,6 +63,8 @@
         </v-col>
       </v-row>
     </v-col>
+
+    <v-col cols="12"> <BaseReplyForm /> </v-col>
   </v-row>
 </template>
 
@@ -71,6 +74,7 @@ import commentMixins from "@/mixins/comment";
 import authMixins from "@/mixins/auth";
 import TiptapEditor from "@/components/TiptapEditor";
 import BaseCommentItem from "@/components/comment/BaseCommentItem";
+import BaseReplyForm from "@/components/comment/BaseReplyForm";
 
 export default {
   name: "BaseCommentPanel",
@@ -78,6 +82,7 @@ export default {
   components: {
     TiptapEditor,
     BaseCommentItem,
+    BaseReplyForm,
   },
   props: {
     post_data: {
@@ -89,6 +94,11 @@ export default {
       default: () => [],
     },
   },
+  data() {
+    return {
+      refresh_comment_editor_key: 0,
+    };
+  },
   computed: {
     has_comments() {
       return !_.isEmpty(this.comments_data);
@@ -97,10 +107,16 @@ export default {
   methods: {
     ...mapMutations({
       SET_LOGIN_REDIRECT_URL: "SET_LOGIN_REDIRECT_URL",
+      SET_POST: "post/SET_POST",
     }),
 
     async createComment() {
       try {
+        const new_comment_content = _.get(this.new_comment, "content", "");
+        if (!new_comment_content) {
+          return;
+        }
+
         this.SET_COMMENT_LOADING({ data: true });
 
         const post_id = _.get(this.post_data, "_id");
@@ -110,7 +126,13 @@ export default {
 
         await this.CREATE_COMMENT({ data: final_comment_data });
 
-        this.UPDATE_NEW_COMMENT_DATA({ data: "" });
+        this.UPDATE_NEW_COMMENT_DATA({
+          variable_path: "content",
+          data: "",
+        });
+
+        ++this.refresh_comment_editor_key;
+
         await this.GET_COMMENTS_BY_POST({ post_id });
       } catch (err) {
         console.error(err);
