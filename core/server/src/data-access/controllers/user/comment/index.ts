@@ -5,7 +5,9 @@ import {
   createComment,
   getComments,
   getCommentsByPost,
+  replyComment,
 } from "../../../../use-cases/comment";
+import { getPost } from "../../../../use-cases/post";
 import { logger } from "../../../../config/storage/logger";
 
 import makeGetCommentController from "./get-comment";
@@ -16,6 +18,15 @@ import makeGetCommentsController from "./get-comments";
 import makeDislikeCommentController from "./dislike-comment";
 import makeLikeCommentController from "./like-comment";
 import makeGetCommentsByPostController from "./get-comments-by-post";
+import makeReplyCommentController from "./reply-comment";
+
+const replyCommentController = makeReplyCommentController({
+  replyComment,
+  getComment,
+  updateComment,
+  getPost,
+  logger,
+});
 
 const dislikeCommentController = makeDislikeCommentController({
   getComment,
@@ -41,6 +52,7 @@ const getCommentsController = makeGetCommentsController({
 
 const createCommentController = makeCreateCommentController({
   createComment,
+  getPost,
   logger,
 });
 
@@ -70,6 +82,7 @@ export default Object.freeze({
   getCommentsByPostController,
   dislikeCommentController,
   likeCommentController,
+  replyCommentController,
 });
 
 export {
@@ -81,4 +94,5 @@ export {
   getCommentsByPostController,
   dislikeCommentController,
   likeCommentController,
+  replyCommentController,
 };

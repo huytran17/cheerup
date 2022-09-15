@@ -16,15 +16,18 @@
         </div>
         <div>
           <TiptapEditor
-            :content="new_comment"
+            :content="new_reply_comment"
             attr="content"
             @on-input="
-              updateNewCommentObject({ variable_path: 'content', data: $event })
+              updateNewReplyCommentObject({
+                variable_path: 'content',
+                data: $event,
+              })
             "
           />
         </div>
         <div class="d-flex justify-end pt-4">
-          <v-btn depressed color="primary" tile>
+          <v-btn depressed color="primary" tile @click="replyComment">
             <span class="app-body" v-html="$t('Send')"></span>
           </v-btn>
         </div>
@@ -34,6 +37,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import commentMixins from "@/mixins/comment";
 import systemMixins from "@/mixins/system";
 import TiptapEditor from "@/components/TiptapEditor";
@@ -42,6 +46,33 @@ export default {
   name: "BaseReplyForm",
   mixins: [systemMixins, commentMixins],
   components: { TiptapEditor },
+  computed: {
+    ...mapGetters({
+      post: "post/post",
+    }),
+  },
+  methods: {
+    async replyComment() {
+      try {
+        this.SET_COMMENT_LOADING({ data: true });
+
+        const final_reply_comment_data = Object.assign(
+          {},
+          this.new_reply_comment,
+          {
+            post: _.get(this.post, "_id"),
+            parent: _.get(this.comment, "_id"),
+          }
+        );
+
+        await this.REPLY_COMMENT({ data: final_reply_comment_data });
+      } catch (err) {
+        console.error(err);
+      } finally {
+        this.SET_COMMENT_LOADING({ data: false });
+      }
+    },
+  },
 };
 </script>
 

@@ -10,6 +10,7 @@ import {
   getCommentsByPostRules,
   likeCommentRules,
   dislikeCommentRules,
+  replyCommentRules,
 } from "../../data-access/controllers/user/comment/validators";
 import {
   getCommentController,
@@ -20,9 +21,16 @@ import {
   getCommentsByPostController,
   likeCommentController,
   dislikeCommentController,
+  replyCommentController,
 } from "../../data-access/controllers/user/comment";
 
 const commentRouter = express.Router();
+
+commentRouter.post(
+  "/reply",
+  makeValidator(replyCommentRules),
+  makeExpressCallback(replyCommentController)
+); // DONE
 
 commentRouter.put(
   "/like/:_id",

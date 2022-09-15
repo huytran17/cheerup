@@ -5,6 +5,7 @@ import createCommentRules from "./create-comment";
 import dislikeCommentRules from "./dislike-comment";
 import likeCommentRules from "./like-comment";
 import getCommentsByPostRules from "./get-comments-by-post";
+import replyCommentRules from "./reply-comment";
 
 export default Object.freeze({
   getCommentRules,
@@ -14,6 +15,7 @@ export default Object.freeze({
   getCommentsByPostRules,
   likeCommentRules,
   dislikeCommentRules,
+  replyCommentRules,
 });
 
 export {
@@ -24,4 +26,5 @@ export {
   getCommentsByPostRules,
   likeCommentRules,
   dislikeCommentRules,
+  replyCommentRules,
 };
