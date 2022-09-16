@@ -44,7 +44,7 @@
             </v-col>
             <v-col cols="12" md="6">
               <v-dropzone
-                ref="admin_logo_dropzone"
+                ref="user_avatar_dropzone"
                 id="admin_logo"
                 :options="
                   getDropzoneOptions({
@@ -55,7 +55,7 @@
                 @vdropzone-success="
                   (file, response) =>
                     onUploadSuccsess({
-                      ref: 'admin_logo_dropzone',
+                      ref: 'user_avatar_dropzone',
                       file,
                       response,
                       update_paths: ['avatar', 'user_avatar_url'],
@@ -105,11 +105,31 @@ export default {
     user_avatar_url() {
       return _.get(this.me, "avatar_url");
     },
+
+    user_id() {
+      return _.get(this.me, "_id");
+    },
   },
   methods: {
     getUploadUrl({ base_url }) {
-      const user_id = _.get(this.me, "_id");
-      return `${base_url}/${user_id}`;
+      return `${base_url}/${this.user_id}`;
+    },
+
+    onUploadSuccsess({ ref, file, response, update_paths }) {
+      this.$refs[ref].removeFile(file);
+
+      const { data: updated_system_configuration } = response;
+
+      let updated_thumbnail_data = Object.assign({}, this.system_configuration);
+
+      update_paths.forEach((update_path) => {
+        updated_thumbnail_data = Object.assign({}, this.system_configuration, {
+          [update_path]: updated_system_configuration[update_path],
+        });
+      });
+
+      this.SET_SYSTEM_CONFIGURATION({ data: updated_thumbnail_data });
+      this.$toast.success("Updated system configuration successfully");
     },
   },
 };
