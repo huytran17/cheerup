@@ -5,13 +5,15 @@ dotenv.config();
 
 import makeDb from "./data-access/make-db";
 import { UserDb, AdminDb, SystemConfigurationDb } from "./data-access";
+import { initializeMailer } from "./config/emailManager/mailer";
+import { upload } from "./config/middlewares/file-upload-middleware";
+import { hashPassword } from "./config/password";
+import { AdminType } from "./database/interfaces/admin";
+
 import cors from "cors";
 import bodyParser from "body-parser";
 import appRouter from "./routes";
 import passport from "./config/passport";
-import { upload } from "./config/middlewares/file-upload-middleware";
-import { AdminType } from "./database/interfaces/admin";
-import { hashPassword } from "./config/password";
 import helmet from "helmet";
 
 const app = express();
@@ -78,4 +80,6 @@ makeDb().then(async () => {
       },
     });
   }
+
+  initializeMailer();
 });
