@@ -20,7 +20,7 @@
                 contain
                 max-width="100px"
                 class="rounded-circle clickable"
-                @click="$router.push(localePath(`/user/${me._id}`))"
+                @click="$router.push(localePath(`/profile/${me._id}`))"
               ></v-img>
             </template>
             <span v-html="$t('View your profile')"></span>
@@ -32,7 +32,7 @@
         >
           <span
             class="app-body clickable"
-            @click="$router.push(localePath(`/user/${me._id}`))"
+            @click="$router.push(localePath(`/profile/${me._id}`))"
             >{{ me.full_name }}</span
           >
         </div>
