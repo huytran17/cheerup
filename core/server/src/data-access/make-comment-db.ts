@@ -55,7 +55,7 @@ export default function makeCommentDb({
         )
         .populate({
           path: "children",
-          select: "_id content user meta parent",
+          select: "_id content user meta parent post",
           populate: [
             {
               path: "user",

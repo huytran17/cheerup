@@ -16,6 +16,7 @@
         </div>
         <div>
           <TiptapEditor
+            :key="`edit-comment-editor-${refresh_edit_comment_editor_key}`"
             :content="editing_comment"
             attr="content"
             @on-input="
@@ -52,6 +53,11 @@ export default {
   name: "BaseEditForm",
   mixins: [systemMixins, commentMixins],
   components: { TiptapEditor },
+  data() {
+    return {
+      refresh_edit_comment_editor_key: 0,
+    };
+  },
   computed: {
     ...mapGetters({
       post: "post/post",
@@ -74,6 +80,13 @@ export default {
         });
 
         await this.UPDATE_COMMENT({ data: final_comment_data });
+
+        this.updateEditingCommentObject({
+          variable_path: "content",
+          data: "",
+        });
+        ++this.refresh_edit_comment_editor_key;
+
         await this.GET_COMMENTS_BY_POST({ post_id });
       } catch (err) {
         console.error(err);

@@ -23,7 +23,7 @@ export default function makeUpdateCommentController({
     try {
       const commentDetails = _.get(httpRequest, "context.validated");
       const { _id } = commentDetails;
-      const exists = await getComment({ _id });
+      const exists = await getComment({ _id, is_only_parent: false });
       if (!exists) {
         throw new Error(`Comment by ${_id} does not exist`);
       }
