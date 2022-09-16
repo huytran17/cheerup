@@ -19,6 +19,7 @@
             getMorePosts({
               page: post_pagination.current_page + 1,
               query: post_search_query,
+              categories: this.categories_filters,
             }).then((posts) => {
               if (!posts || (posts && posts.length === 0)) {
                 $state.complete();

@@ -25,17 +25,26 @@ export default function makeGetPostsPaginatedController({
         query,
         page,
         entries_per_page,
+        categories,
       }: {
         query: string;
         page: string;
         entries_per_page: string;
+        categories?: string;
       } = _.get(httpRequest, "context.validated");
 
-      const paginated_data = await getPostsPaginated({
-        query,
-        page: Number(page),
-        entries_per_page: Number(entries_per_page),
-      });
+      const categories_array = _.isEmpty(categories)
+        ? []
+        : _.split(categories, ",");
+
+      const paginated_data = await getPostsPaginated(
+        { categories: categories_array },
+        {
+          query,
+          page: Number(page),
+          entries_per_page: Number(entries_per_page),
+        }
+      );
 
       const post_data = _.get(paginated_data, "data", []);
       const map_count_comments_promises = post_data.map(async (post) => {

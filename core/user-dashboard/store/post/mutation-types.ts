@@ -5,4 +5,5 @@ export enum MutationTypes {
   SET_suggestion_posts = "SET_suggestion_posts",
   SET_POST_SEARCH_QUERY = "SET_POST_SEARCH_QUERY",
   SET_LOADING = "SET_LOADING",
+  SET_CATEGORIES_FILTERS = "SET_CATEGORIES_FILTERS",
 }

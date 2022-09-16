@@ -5,18 +5,28 @@
 </template>
 
 <script>
-import postMixins from "@/mixins/post";
+import { mapActions, mapGetters } from "vuex";
 import BaseArticles from "@/components/article/BaseArticles";
 export default {
   name: "IndexPage",
-  mixins: [postMixins],
   components: {
     BaseArticles,
   },
 
+  computed: {
+    ...mapGetters({
+      posts: "post/posts",
+    }),
+  },
+  methods: {
+    ...mapActions({
+      GET_POSTS_PAGINATED: "post/GET_POSTS_PAGINATED",
+    }),
+  },
+
   async fetch() {
     try {
-      await Promise.all([this.GET_POSTS_PAGINATED()]);
+      await this.GET_POSTS_PAGINATED();
     } catch (err) {
       console.error(err);
     }

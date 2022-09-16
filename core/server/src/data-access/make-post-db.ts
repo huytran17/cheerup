@@ -137,18 +137,30 @@ export default function makePostDb({
      * @param param0
      * @param param1
      */
-    async findAllPaginated({
-      query = "",
-      page = 1,
-      entries_per_page = 15,
-    }: {
-      query: string;
-      page: number;
-      entries_per_page?: number;
-    }): Promise<PaginatedPostResult | null> {
+    async findAllPaginated(
+      {
+        categories,
+      }: {
+        categories: string[];
+      },
+      {
+        query = "",
+        page = 1,
+        entries_per_page = 15,
+      }: {
+        query: string;
+        page: number;
+        entries_per_page?: number;
+      }
+    ): Promise<PaginatedPostResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = Object.assign({});
+
+      const has_categories = !_.isEmpty(categories);
+      if (has_categories) {
+        query_conditions["categories"] = { $in: categories };
+      }
 
       if (query) {
         query_conditions["$or"] = [

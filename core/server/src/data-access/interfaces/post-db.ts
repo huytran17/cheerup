@@ -3,15 +3,22 @@ import IPost from "../../database/interfaces/post";
 export default interface IPostDb {
   findAll: () => Promise<Post[] | null>;
   findHighlight: () => Promise<Post | null>;
-  findAllPaginated: ({
-    query,
-    page,
-    entries_per_page,
-  }: {
-    query: string;
-    page: number;
-    entries_per_page?: number;
-  }) => Promise<PaginatedPostResult | null>;
+  findAllPaginated: (
+    {
+      categories,
+    }: {
+      categories?: string[];
+    },
+    {
+      query,
+      page,
+      entries_per_page,
+    }: {
+      query: string;
+      page: number;
+      entries_per_page?: number;
+    }
+  ) => Promise<PaginatedPostResult | null>;
   findOne: () => Promise<Post | null>;
   findSuggestionPosts: ({
     amount,

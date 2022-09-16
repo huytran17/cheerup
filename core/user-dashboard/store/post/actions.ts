@@ -50,6 +50,7 @@ const actions: ActionTree<PostState, RootState> = {
     const page = _.get(params, "page", 1);
     const entries_per_page = _.get(params, "entries_per_page", 15);
     const new_state = _.get(params, "new_state", true);
+    const categories = _.get(params, "categories", []);
 
     const url_query = new URLSearchParams();
 
@@ -63,6 +64,10 @@ const actions: ActionTree<PostState, RootState> = {
 
     if (entries_per_page) {
       url_query.set("entries_per_page", entries_per_page);
+    }
+
+    if (!_.isEmpty(categories)) {
+      url_query.set("categories", categories.join(","));
     }
 
     const { data: posts, pagination } = await this.$axios.$get(

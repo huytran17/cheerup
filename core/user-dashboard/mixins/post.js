@@ -9,6 +9,7 @@ export default {
       suggestion_posts: "post/suggestion_posts",
       post_pagination: "post/pagination",
       post_search_query: "post/post_search_query",
+      categories_filters: "post/categories_filters",
     }),
   },
   methods: {
@@ -20,7 +21,8 @@ export default {
     }),
 
     ...mapMutations({
-      SET_LOADING: "post/SET_LOADING",
+      SET_POST_LOADING: "post/SET_POST_LOADING",
+      SET_CATEGORIES_FILTERS: "post/SET_CATEGORIES_FILTERS",
     }),
 
     async getMorePosts({
@@ -28,6 +30,7 @@ export default {
       query,
       new_state = false,
       entries_per_page = 15,
+      categories = [],
     }) {
       const need_load_more = page === 1;
       try {
@@ -44,7 +47,7 @@ export default {
         }
 
         need_load_more &&
-          this.SET_LOADING({
+          this.SET_POST_LOADING({
             data: true,
           });
 
@@ -53,12 +56,13 @@ export default {
           query,
           new_state,
           entries_per_page,
+          categories,
         });
       } catch (err) {
         console.error(err);
         this.$notification.error(`Encountered error getting posts: ${err}`);
       } finally {
-        this.SET_LOADING({
+        this.SET_POST_LOADING({
           data: false,
         });
       }
