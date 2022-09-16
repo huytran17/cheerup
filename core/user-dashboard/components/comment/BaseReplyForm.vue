@@ -16,6 +16,7 @@
         </div>
         <div>
           <TiptapEditor
+            :key="`comment-reply-editor-${refresh_comment_reply_editor_key}`"
             :content="new_reply_comment"
             attr="content"
             @on-input="
@@ -27,7 +28,13 @@
           />
         </div>
         <div class="d-flex justify-end pt-4">
-          <v-btn depressed color="primary" tile @click="replyComment">
+          <v-btn
+            depressed
+            color="black"
+            tile
+            class="white--text"
+            @click="replyComment"
+          >
             <span class="app-body" v-html="$t('Send')"></span>
           </v-btn>
         </div>
@@ -46,6 +53,11 @@ export default {
   name: "BaseReplyForm",
   mixins: [systemMixins, commentMixins],
   components: { TiptapEditor },
+  data() {
+    return {
+      refresh_comment_reply_editor_key: 0,
+    };
+  },
   computed: {
     ...mapGetters({
       post: "post/post",
@@ -54,6 +66,15 @@ export default {
   methods: {
     async replyComment() {
       try {
+        const new_reply_comment_content = _.get(
+          this.new_reply_comment,
+          "content",
+          ""
+        );
+        if (!new_reply_comment_content) {
+          return;
+        }
+
         this.SET_COMMENT_LOADING({ data: true });
 
         const post_id = _.get(this.post, "_id");
@@ -68,6 +89,14 @@ export default {
         );
 
         await this.REPLY_COMMENT({ data: final_reply_comment_data });
+
+        this.updateNewReplyCommentObject({
+          variable_path: "content",
+          data: "",
+        });
+
+        ++this.refresh_comment_reply_editor_key;
+
         await this.GET_COMMENTS_BY_POST({ post_id });
       } catch (err) {
         console.error(err);

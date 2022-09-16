@@ -36,7 +36,8 @@
             depressed
             tile
             :disabled="!has_user"
-            color="primary"
+            color="black"
+            class="white--text"
             @click="createComment"
           >
             <span class="app-body" v-html="$t('Submit')"></span>
@@ -126,7 +127,7 @@ export default {
 
         await this.CREATE_COMMENT({ data: final_comment_data });
 
-        this.UPDATE_NEW_COMMENT_DATA({
+        this.updateNewCommentObject({
           variable_path: "content",
           data: "",
         });
