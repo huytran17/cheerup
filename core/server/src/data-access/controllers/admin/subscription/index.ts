@@ -3,7 +3,7 @@ import {
   getSubscriptions,
   getSubscriptionAnalystics,
 } from "../../../../use-cases/subscription";
-import { logger } from "../../../../config/storage/logger";
+import { logger } from "../../../../config/logs/logger";
 
 import makeGetSubscriptionController from "./get-subscription";
 import makeGetSubscriptionsController from "./get-subscriptions";

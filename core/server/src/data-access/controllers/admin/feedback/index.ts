@@ -4,7 +4,7 @@ import {
   getFeedbacks,
   getFeedbackAnalystics,
 } from "../../../../use-cases/feedback";
-import { logger } from "../../../../config/storage/logger";
+import { logger } from "../../../../config/logs/logger";
 
 import makeGetFeedbackController from "./get-feedback";
 import makeDeleteFeedbackController from "./delete-feedback";

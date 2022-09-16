@@ -3,7 +3,7 @@ import {
   getCategories,
   getCategoryTitles,
 } from "../../../../use-cases/category";
-import { logger } from "../../../../config/storage/logger";
+import { logger } from "../../../../config/logs/logger";
 
 import makeGetCategoryController from "./get-category";
 import makeGetCategoriesController from "./get-categories";

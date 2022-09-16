@@ -8,7 +8,7 @@ import {
   replyComment,
 } from "../../../../use-cases/comment";
 import { getPost } from "../../../../use-cases/post";
-import { logger } from "../../../../config/storage/logger";
+import { logger } from "../../../../config/logs/logger";
 
 import makeGetCommentController from "./get-comment";
 import makeDeleteCommentController from "./delete-comment";

@@ -7,7 +7,7 @@ import { signUp } from "../../../../use-cases/auth";
 import { hashPassword, verifyPassword } from "../../../../config/password";
 import { getUserByEmail, getUser } from "../../../../use-cases/user";
 import { generateAccessToken } from "../../../../config/accessTokenManager";
-import { logger } from "../../../../config/storage/logger";
+import { logger } from "../../../../config/logs/logger";
 
 const getMeController = makeGetMeController({
   getUser,

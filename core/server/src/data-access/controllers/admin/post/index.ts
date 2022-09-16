@@ -9,7 +9,7 @@ import {
   getHighlightPost,
 } from "../../../../use-cases/post";
 import { getAdmin } from "../../../../use-cases/admin";
-import { logger } from "../../../../config/storage/logger";
+import { logger } from "../../../../config/logs/logger";
 
 import makeGetPostController from "./get-post";
 import makeDeletePostController from "./delete-post";

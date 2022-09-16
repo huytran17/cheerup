@@ -1,5 +1,5 @@
 import { getUser, deleteUser, updateUser } from "../../../../use-cases/user";
-import { logger } from "../../../../config/storage/logger";
+import { logger } from "../../../../config/logs/logger";
 import { hashPassword, verifyPassword } from "../../../../config/password";
 
 import makeGetUserController from "./get-user";

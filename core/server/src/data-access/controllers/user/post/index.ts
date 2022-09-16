@@ -5,7 +5,7 @@ import {
   getPostsPaginated,
 } from "../../../../use-cases/post";
 import { countCommentsByPost } from "../../../../use-cases/comment";
-import { logger } from "../../../../config/storage/logger";
+import { logger } from "../../../../config/logs/logger";
 
 import makeGetPostController from "./get-post";
 import makeGetPostsController from "./get-posts";

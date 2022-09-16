@@ -8,7 +8,7 @@ import {
   hardDeleteAdmin,
   getAdminAnalystics,
 } from "../../../../use-cases/admin";
-import { logger } from "../../../../config/storage/logger";
+import { logger } from "../../../../config/logs/logger";
 import { hashPassword, verifyPassword } from "../../../../config/password";
 
 import makeGetAdminController from "./get-admin";

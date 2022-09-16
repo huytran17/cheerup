@@ -3,7 +3,7 @@ import {
   updateSystemConfiguration,
   getLatestSystemConfiguration,
 } from "../../../../use-cases/system-configuration";
-import { logger } from "../../../../config/storage/logger";
+import { logger } from "../../../../config/logs/logger";
 
 import makeGetSystemConfigurationController from "./get-system-configuration";
 import makeUpdateSystemConfigurationController from "./update-system-configuration";

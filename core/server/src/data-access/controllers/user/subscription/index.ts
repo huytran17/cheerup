@@ -3,7 +3,7 @@ import {
   updateSubscription,
   createSubscription,
 } from "../../../../use-cases/subscription";
-import { logger } from "../../../../config/storage/logger";
+import { logger } from "../../../../config/logs/logger";
 
 import makeDeleteSubscriptionController from "./cancel-subscription";
 import makeCreateSubscriptionController from "./create-subscription";

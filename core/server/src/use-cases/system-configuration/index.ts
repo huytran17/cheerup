@@ -1,4 +1,4 @@
-import { logger } from "../../config/storage/logger";
+import { logger } from "../../config/logs/logger";
 
 import { SystemConfigurationDb } from "../../data-access";
 

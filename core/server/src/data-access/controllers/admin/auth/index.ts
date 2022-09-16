@@ -5,7 +5,7 @@ import makeGetMeController from "./get-me";
 import { verifyPassword } from "../../../../config/password";
 import { getAdminByEmail, getAdmin } from "../../../../use-cases/admin";
 import { generateAccessToken } from "../../../../config/accessTokenManager";
-import { logger } from "../../../../config/storage/logger";
+import { logger } from "../../../../config/logs/logger";
 
 const getMeController = makeGetMeController({
   getAdmin,

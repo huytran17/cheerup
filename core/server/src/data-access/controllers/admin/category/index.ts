@@ -6,7 +6,7 @@ import {
   getCategories,
   hardDeleteCategory,
 } from "../../../../use-cases/category";
-import { logger } from "../../../../config/storage/logger";
+import { logger } from "../../../../config/logs/logger";
 import mongoose from "mongoose";
 
 import makeGetCategoryController from "./get-category";

@@ -6,7 +6,7 @@ import {
   getComments,
   getCommentsByParent,
 } from "../../../../use-cases/comment";
-import { logger } from "../../../../config/storage/logger";
+import { logger } from "../../../../config/logs/logger";
 
 import makeGetCommentsController from "./get-comments";
 import makeGetCommentController from "./get-comment";

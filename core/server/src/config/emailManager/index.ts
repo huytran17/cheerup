@@ -1,6 +1,6 @@
 import makeSendEmail from "./send-email";
 import mailer from "./mailer";
-import { logger } from "../../config/storage/logger";
+import { logger } from "../logs/logger";
 
 import {
   emailTextTemplate,

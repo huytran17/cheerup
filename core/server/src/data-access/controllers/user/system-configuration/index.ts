@@ -1,5 +1,5 @@
 import { getLatestSystemConfiguration } from "../../../../use-cases/system-configuration";
-import { logger } from "../../../../config/storage/logger";
+import { logger } from "../../../../config/logs/logger";
 
 import makeGetLatestSystemConfigurationController from "./get-latest-system-configuration";
 
