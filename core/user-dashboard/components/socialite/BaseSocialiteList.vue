@@ -9,7 +9,7 @@
     <div class="sidebar__card py-6 px-6 d-flex">
       <v-row class="socialite__row justify-space-between py-3">
         <v-col
-          cols="4"
+          cols="12"
           sm="4"
           v-for="(socialite, index) in socialites"
           :key="index"

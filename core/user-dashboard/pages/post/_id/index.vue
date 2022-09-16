@@ -1,12 +1,5 @@
 <template>
   <div>
-    <a
-      href="#"
-      id="post-panel__top"
-      ref="scrollToMe"
-      target="post"
-      name="post"
-    ></a>
     <BasePostPanel :post_data="post" id="post" />
     <div class="pt-12">
       <BaseSuggestionPosts :posts_data="suggestion_posts" />

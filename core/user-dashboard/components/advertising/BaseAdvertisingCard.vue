@@ -6,12 +6,13 @@
         v-html="$t('Sponsor')"
       ></span>
     </div>
-    <div class="sidebar__card py-6 px-6 d-flex justify-center">
+    <div class="sidebar__card py-6 px-6">
       <v-img
         :src="advertising_image"
         :lazy-src="advertising_image"
         :alt="$t('sponsor')"
         max-width="257px"
+        class="mx-auto"
       ></v-img>
     </div>
   </div>

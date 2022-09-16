@@ -94,7 +94,7 @@ export default {
 }
 @media only screen and (max-width: 767px) {
   :deep(.container) {
-    width: 448px !important;
+    width: 100% !important;
   }
 }
 </style>

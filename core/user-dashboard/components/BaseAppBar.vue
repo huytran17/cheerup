@@ -1,7 +1,7 @@
 <template>
   <div class="pt-4">
     <div class="d-flex flex-column justify-space-between w-100 pt-2">
-      <div class="d-flex flex-column pb-4">
+      <div class="pb-4">
         <v-img
           :src="logo_url"
           :lazy-src="logo_url"
