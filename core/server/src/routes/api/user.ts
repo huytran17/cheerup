@@ -8,15 +8,23 @@ import {
   updateUserRules,
   deleteUserRules,
   uploadUserAvatarRules,
+  updatePasswordRules,
 } from "../../data-access/controllers/user/user/validators";
 import {
   getUserController,
   updateUserController,
   deleteUserController,
   uploadUserAvatarController,
+  updatePasswordController,
 } from "../../data-access/controllers/user/user";
 
 const userRouter = express.Router();
+
+userRouter.put(
+  "/password",
+  makeValidator(updatePasswordRules),
+  makeExpressCallback(updatePasswordController)
+);
 
 userRouter.post(
   "/upload-avatar/:_id",

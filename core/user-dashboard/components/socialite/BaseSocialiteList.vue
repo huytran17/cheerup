@@ -9,8 +9,8 @@
     <div class="sidebar__card py-6 px-6">
       <v-row class="socialite__row justify-center py-3">
         <v-col
-          cols="4"
-          sm="4"
+          cols="3"
+          sm="3"
           class="pa-0"
           v-for="(socialite, index) in socialites"
           :key="index"

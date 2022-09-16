@@ -17,8 +17,9 @@
                 :src="user_avatar"
                 :lazy-src="user_avatar"
                 :alt="me.full_name"
-                contain
+                cover
                 max-width="100px"
+                max-height="100px"
                 class="rounded-circle clickable"
                 @click="$router.push(localePath(`/profile/${me._id}`))"
               ></v-img>

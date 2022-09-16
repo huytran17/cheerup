@@ -13,12 +13,17 @@ export default {
         (v) =>
           (v && v.length > 7) || this.$t("Password must be min 8 characters."),
       ],
+      newPasswordRules: [
+        (v) => !!v || this.$t("Password is required."),
+        (v) =>
+          (v && v.length > 7) || this.$t("Password must be min 8 characters."),
+      ],
       passwordConfirmationRules: [
         (v) => !!v || this.$t("Password confirmation is required."),
         (v) =>
           (v && v.length > 7) || this.$t("Password must be min 8 characters."),
         (v) =>
-          this.me.password === v ||
+          this.user.password === v ||
           this.$t("Password confirmation must match password."),
       ],
     };
@@ -27,6 +32,7 @@ export default {
     ...mapGetters({
       me: "auth/me",
       has_user: "auth/has_user",
+      user: "user/user",
     }),
   },
   methods: {
@@ -36,8 +42,10 @@ export default {
       SIGN_OUT: "auth/SIGN_OUT",
       GET_ME: "auth/GET_ME",
     }),
+
     ...mapMutations({
       UPDATE_ME_DATA: "auth/UPDATE_ME_DATA",
+      SET_ME: "auth/SET_ME",
     }),
 
     updateMeObject({ variable_path, data }) {
