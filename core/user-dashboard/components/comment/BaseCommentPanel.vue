@@ -7,8 +7,8 @@
         <span
           class="app-body"
           v-html="
-            $tc('{count} Comment', post_data.comments_count, {
-              count: post_data.comments_count,
+            $tc('{count} Comment', comments.length, {
+              count: comments.length,
             })
           "
         ></span>

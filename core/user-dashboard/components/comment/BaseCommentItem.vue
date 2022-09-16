@@ -25,7 +25,7 @@
             :color="is_liked ? 'brick' : 'black'"
             small
             class="mr-1 clickable"
-            @click="likeComment({ _id: comment_data._id })"
+            @click="likeComment"
             >{{ is_liked ? "mdi-heart" : "mdi-heart-outline" }}</v-icon
           >
           <span class="text-body-2">
@@ -38,7 +38,7 @@
             :color="is_disliked ? 'brick' : 'black'"
             small
             class="mr-1 clickable"
-            @click="dislikeComment({ _id: comment_data._id })"
+            @click="dislikeComment"
           >
             {{
               is_disliked ? "mdi-thumb-down" : "mdi-thumb-down-outline"
@@ -79,7 +79,10 @@
         </div>
 
         <div v-if="is_own_comment" class="d-flex pl-2">
-          <v-icon small class="mr-1 clickable icon__font--medium"
+          <v-icon
+            small
+            class="mr-1 clickable icon__font--medium"
+            @click="deleteComment"
             >mdi-delete-outline</v-icon
           >
         </div>
@@ -149,11 +152,11 @@ export default {
     },
   },
   methods: {
-    async likeComment({ _id }) {
+    async likeComment() {
       try {
         this.SET_COMMENT_LOADING({ data: true });
 
-        await this.LIKE_COMMENT({ id: _id });
+        await this.LIKE_COMMENT({ id: _.get(this.comment_data, "_id") });
         await this.GET_COMMENTS_BY_POST({
           post_id: _.get(this.post, "_id", ""),
         });
@@ -164,11 +167,26 @@ export default {
       }
     },
 
-    async dislikeComment({ _id }) {
+    async dislikeComment() {
       try {
         this.SET_COMMENT_LOADING({ data: true });
 
-        await this.DISLIKE_COMMENT({ id: _id });
+        await this.DISLIKE_COMMENT({ id: _.get(this.comment_data, "_id") });
+        await this.GET_COMMENTS_BY_POST({
+          post_id: _.get(this.post, "_id", ""),
+        });
+      } catch (err) {
+        console.error(err);
+      } finally {
+        this.SET_COMMENT_LOADING({ data: false });
+      }
+    },
+
+    async deleteComment() {
+      try {
+        this.SET_COMMENT_LOADING({ data: true });
+
+        await this.DELETE_COMMENT({ id: _.get(this.comment_data, "_id") });
         await this.GET_COMMENTS_BY_POST({
           post_id: _.get(this.post, "_id", ""),
         });

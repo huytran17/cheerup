@@ -17,7 +17,7 @@ export default function makeDeleteComment({
   }: {
     _id: string;
   }): Promise<Comment | null> {
-    const comment = await commentDb.delete({ _id });
+    const comment = await commentDb.hardDelete({ _id });
     return comment;
   };
 }
