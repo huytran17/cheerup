@@ -1,19 +1,29 @@
 import express from "express";
 import makeValidator from "../../config/middlewares/validator-middleware";
 import makeExpressCallback from "../../config/express-callback";
+import { upload } from "../../config/middlewares/file-upload-middleware";
 
 import {
   getUserRules,
   updateUserRules,
   deleteUserRules,
+  uploadUserAvatarRules,
 } from "../../data-access/controllers/user/user/validators";
 import {
   getUserController,
   updateUserController,
   deleteUserController,
+  uploadUserAvatarController,
 } from "../../data-access/controllers/user/user";
 
 const userRouter = express.Router();
+
+userRouter.post(
+  "/upload-avatar/:_id",
+  upload.single("file"),
+  makeValidator(uploadUserAvatarRules),
+  makeExpressCallback(uploadUserAvatarController)
+);
 
 userRouter.delete(
   "/delete/:_id",

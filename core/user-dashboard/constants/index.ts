@@ -17,9 +17,14 @@ const SOCIALITE_URL = {
   LINKEDIN: "https://github.com/huytran17",
 };
 
+const S3_UPLOAD_URL_TYPES = {
+  USER_AVATAR: `${process.env.SERVER_URL}/api/user/upload-avatar`,
+};
+
 export default Object.freeze({
   SOCIAL_MEDIA_TYPES,
   SOCIALITE_URL,
+  S3_UPLOAD_URL_TYPES,
 });
 
-export { SOCIAL_MEDIA_TYPES, SOCIALITE_URL };
+export { SOCIAL_MEDIA_TYPES, SOCIALITE_URL, S3_UPLOAD_URL_TYPES };

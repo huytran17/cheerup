@@ -4,6 +4,12 @@ import { logger } from "../../../../config/storage/logger";
 import makeGetUserController from "./get-user";
 import makeDeleteUserController from "./delete-user";
 import makeUpdateUserController from "./update-user";
+import makeUploadUserAvatarController from "./upload-avatar";
+
+const uploadUserAvatarController = makeUploadUserAvatarController({
+  getUser,
+  updateUser,
+});
 
 const getUserController = makeGetUserController({
   getUser,
@@ -26,6 +32,12 @@ export default Object.freeze({
   getUserController,
   deleteUserController,
   updateUserController,
+  uploadUserAvatarController,
 });
 
-export { getUserController, deleteUserController, updateUserController };
+export {
+  getUserController,
+  deleteUserController,
+  updateUserController,
+  uploadUserAvatarController,
+};
