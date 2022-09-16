@@ -51,7 +51,7 @@ export default function makeCommentDb({
       const existing = await commentDbModel
         .find(query_conditions)
         .select(
-          "_id children content user meta likes_count dislikes_count created_at updated_at"
+          "_id children content user meta likes_count dislikes_count post created_at updated_at"
         )
         .populate({
           path: "children",

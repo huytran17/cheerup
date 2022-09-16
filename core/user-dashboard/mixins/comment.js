@@ -9,6 +9,9 @@ export default {
       comments: "comment/comments",
       comment_loading: "comment/loading",
       new_reply_comment: "comment/new_reply_comment",
+      editing_comment: "comment/editing_comment",
+      is_open_reply_comment: "is_open_reply_comment",
+      is_open_edit_comment: "is_open_edit_comment",
     }),
   },
   methods: {
@@ -31,6 +34,9 @@ export default {
       UPDATE_NEW_REPLY_COMMENT_DATA: "comment/UPDATE_NEW_REPLY_COMMENT_DATA",
       UPDATE_COMMENT_DATA: "comment/UPDATE_COMMENT_DATA",
       SET_COMMENT_LOADING: "comment/SET_LOADING",
+      UPDATE_EDITING_COMMENT_DATA: "comment/UPDATE_EDITING_COMMENT_DATA",
+      SET_IS_OPEN_EDIT_COMMENT: "SET_IS_OPEN_EDIT_COMMENT",
+      SET_IS_OPEN_REPLY_COMMENT: "SET_IS_OPEN_REPLY_COMMENT",
     }),
 
     updateCommentObject({ variable_path, data }) {
@@ -49,6 +55,13 @@ export default {
 
     updateNewReplyCommentObject({ variable_path, data }) {
       this.UPDATE_NEW_REPLY_COMMENT_DATA({
+        variable_path,
+        data,
+      });
+    },
+
+    updateEditingCommentObject({ variable_path, data }) {
+      this.UPDATE_EDITING_COMMENT_DATA({
         variable_path,
         data,
       });

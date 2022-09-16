@@ -57,7 +57,8 @@ const actions: ActionTree<CommentState, RootState> = {
   },
 
   async [ActionTypes.UPDATE_COMMENT]({ commit }, { data }: { data: any }) {
-    const { data: comment } = await this.$axios.$put(`/comment`, data);
+    const { _id } = data;
+    const { data: comment } = await this.$axios.$put(`/comment/${_id}`, data);
 
     commit(MutationTypes.SET_COMMENT, { data: comment });
 

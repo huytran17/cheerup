@@ -66,6 +66,7 @@
     </v-col>
 
     <v-col cols="12"> <BaseReplyForm /> </v-col>
+    <v-col cols="12"> <BaseEditForm /> </v-col>
   </v-row>
 </template>
 
@@ -76,6 +77,7 @@ import authMixins from "@/mixins/auth";
 import TiptapEditor from "@/components/TiptapEditor";
 import BaseCommentItem from "@/components/comment/BaseCommentItem";
 import BaseReplyForm from "@/components/comment/BaseReplyForm";
+import BaseEditForm from "@/components/comment/BaseEditForm";
 
 export default {
   name: "BaseCommentPanel",
@@ -84,6 +86,7 @@ export default {
     TiptapEditor,
     BaseCommentItem,
     BaseReplyForm,
+    BaseEditForm,
   },
   props: {
     post_data: {

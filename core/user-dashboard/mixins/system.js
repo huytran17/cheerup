@@ -4,7 +4,6 @@ import { mapGetters, mapMutations } from "vuex";
 export default {
   computed: {
     ...mapGetters({
-      is_open_reply_comment: "is_open_reply_comment",
       login_redirect_url: "login_redirect_url",
     }),
     /**
@@ -25,7 +24,6 @@ export default {
   },
   methods: {
     ...mapMutations({
-      SET_IS_OPEN_REPLY_COMMENT: "SET_IS_OPEN_REPLY_COMMENT",
       SET_LOGIN_REDIRECT_URL: "SET_LOGIN_REDIRECT_URL",
     }),
     /**

@@ -50,7 +50,15 @@
         </div>
 
         <div v-if="is_own_comment" class="d-flex pl-5">
-          <v-icon small class="mr-1 clickable icon__font--medium"
+          <v-icon
+            small
+            class="mr-1 clickable icon__font--medium"
+            @click="
+              () => {
+                SET_IS_OPEN_EDIT_COMMENT({ data: true });
+                SET_COMMENT({ data: comment_data });
+              }
+            "
             >mdi-playlist-edit</v-icon
           >
         </div>
