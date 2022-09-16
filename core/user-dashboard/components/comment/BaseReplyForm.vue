@@ -4,7 +4,7 @@
       <v-btn
         class="position-absolute button__close"
         icon
-        color="primary"
+        color="black"
         @click="SET_IS_OPEN_REPLY_COMMENT({ data: false })"
       >
         <v-icon>mdi-close</v-icon>
