@@ -21,12 +21,6 @@
   --color-header-baseline-border: #eec7bc;
 }
 
-.socialite__item:hover {
-  &::before {
-    background: var(--color-article-baseline);
-  }
-}
-
 /* width */
 ::-webkit-scrollbar {
   width: 6px;

@@ -6,19 +6,20 @@
         v-html="$t('Follow Me')"
       ></span>
     </div>
-    <div class="sidebar__card py-6 px-6 d-flex">
-      <v-row class="socialite__row justify-space-between py-3">
+    <div class="sidebar__card py-6 px-6">
+      <v-row class="socialite__row justify-center py-3">
         <v-col
-          cols="12"
+          cols="4"
           sm="4"
+          class="pa-0"
           v-for="(socialite, index) in socialites"
           :key="index"
-          class="socialite__item d-flex flex-column justify-space-between clickable position-relative"
           @click="goToSocialiteUrl({ url: socialite.to })"
         >
-          <v-icon :color="socialite.color">{{ socialite.icon }}</v-icon>
-          <div class="text-body-2 pt-2 position-relative socialite__text">
-            <span class="app-body" v-html="$t(socialite.text)"></span>
+          <div
+            class="pa-3 socialite__item d-flex justify-center clickable position-relative"
+          >
+            <v-icon :color="socialite.color">{{ socialite.icon }}</v-icon>
           </div>
         </v-col>
       </v-row>
@@ -94,16 +95,6 @@ export default {
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
-}
-.socialite__item::before {
-  content: "";
-  position: absolute;
-  width: 95%;
-  height: 95%;
-  top: 0;
-  left: 0;
-  border: 1px solid var(--color-article-baseline);
-  transition: all 0.2s linear;
 }
 .socialite__text {
   z-index: 9999;

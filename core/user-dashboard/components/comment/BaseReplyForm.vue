@@ -27,7 +27,7 @@
             "
           />
         </div>
-        <div class="d-flex justify-end pt-4">
+        <div class="d-flex justify-end pt-4 pb-4">
           <v-btn
             depressed
             color="black"
