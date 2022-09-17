@@ -6,10 +6,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="color-scheme" content="light dark" />
     <meta name="supported-color-schemes" content="light dark" />
-    <title>Someone replied your comment!</title>
+    <title>Email verification</title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com" async />
-    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet" async />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
+      rel="stylesheet"
+      async
+    />
 
     <style type="text/css" rel="stylesheet" media="all">
       @import url("https://fonts.googleapis.com/css?family=Nunito+Sans:400,700&display=swap");
@@ -23,16 +27,13 @@
         font-family: "Lato", sans-serif !important;
       }
 
-      .banner {
-        max-width: 100%;
-        margin-bottom: 16px;
-        margin-left: 0px;
-        margin-right: 0px;
-      }
-
       .body-text {
         padding-left: 16px;
         padding-right: 16px;
+      }
+
+      .primary--text {
+        color: #0657a9 !important;
       }
 
       @media (max-width: 768px) {
@@ -44,39 +45,32 @@
   </head>
 
   <body>
-    <div>
-      <img class="banner" src="{{banner_url}}" alt="kinobi banner" />
-    </div>
-
     <div class="body-text">
-      <span>Hey {{first_name}}!</span>
+      <span>Hi {{full_name}}!</span>
 
       <br />
       <br />
 
-      <span>
-        You just received a 
-        <a href="{{question_url}}#reactive">new reply</a>
-        from someone:
-      </span>
+      <h3 class="primary--text">SECURITY CODE</h3>
 
       <br />
       <br />
 
-      <span>"{{comment}}"</span>
+      <span>Please use the following security code for your account.</span>
 
       <br />
       <br />
 
-      <span>
-        <a href="{{question_url}}#reactive">Read their reply</a>
-      </span>
+      <span> Security code: {{verification_code}} </span>
 
       <br />
       <br />
-    </div>
-    <div>
-      <a style="text-decoration: underline" target="_blank" href="{{unsubscribe_url}}">Unsubscribe</a>
+
+      <span> Best regards, </span>
+
+      <br />
+
+      <span> Huy Tran Blog </span>
     </div>
   </body>
 </html>

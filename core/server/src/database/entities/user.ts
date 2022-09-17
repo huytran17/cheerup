@@ -10,6 +10,7 @@ export default class User implements IUser {
   public readonly full_name: string;
   public readonly blocked_comment_at: Date;
   public readonly is_blocked_comment: boolean;
+  public readonly is_email_verified: boolean;
   public readonly created_by: Admin;
   public readonly created_at: Date;
   public readonly updated_at: Date;
@@ -30,6 +31,7 @@ export default class User implements IUser {
     created_by,
     blocked_comment_at,
     email_verified_at,
+    is_email_verified,
   }: IUser) {
     this._id = _id;
     this.avatar = avatar;
@@ -44,5 +46,6 @@ export default class User implements IUser {
     this.created_by = created_by;
     this.blocked_comment_at = blocked_comment_at;
     this.email_verified_at = email_verified_at;
+    this.is_email_verified = is_email_verified;
   }
 }

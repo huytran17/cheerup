@@ -7,7 +7,9 @@ import commentSchema from "../../database/schemas/comment";
 import feedbackSchema from "../../database/schemas/feedback";
 import subscriptionSchema from "../../database/schemas/subscription";
 import systemConfigurationSchema from "../../database/schemas/system-configuration";
+import emailVerificationSchema from "../../database/schemas/email-verification";
 
+import IEmailVerification from "../../database/interfaces/email-verification";
 import ISystemConfiguration from "../../database/interfaces/system-configuration";
 import ISubscription from "../../database/interfaces/subscription";
 import IUser from "../../database/interfaces/user";
@@ -17,6 +19,7 @@ import ICategory from "../../database/interfaces/category";
 import IComment from "../../database/interfaces/comment";
 import IFeedback from "../../database/interfaces/feedback";
 
+type IEmailVerificationModel = IEmailVerification & mongoose.Document;
 type ISystemConfigurationModel = ISystemConfiguration & mongoose.Document;
 type ISubscriptionModel = ISubscription & mongoose.Document;
 type IUserModel = IUser & mongoose.Document;
@@ -27,6 +30,10 @@ type ICommentModel = IComment & mongoose.Document;
 type IFeedbackModel = IFeedback & mongoose.Document;
 
 // Models
+const EmailVerificationModel = mongoose.model<IEmailVerificationModel>(
+  "EmailVerification",
+  emailVerificationSchema
+);
 const SystemConfigurationModel = mongoose.model<ISystemConfigurationModel>(
   "SystemConfiguration",
   systemConfigurationSchema
@@ -57,6 +64,7 @@ export default Object.freeze({
   FeedbackModel,
   SubscriptionModel,
   SystemConfigurationModel,
+  EmailVerificationModel,
 });
 
 export {
@@ -68,4 +76,5 @@ export {
   FeedbackModel,
   SubscriptionModel,
   SystemConfigurationModel,
+  EmailVerificationModel,
 };

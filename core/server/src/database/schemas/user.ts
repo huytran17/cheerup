@@ -29,6 +29,11 @@ userSchema.virtual("avatar_url").get(function () {
   return _.get(this, "avatar.meta.location");
 });
 
+userSchema.virtual("is_email_verified").get(function () {
+  const email_verified_at = _.get(this, "email_verified_at");
+  return !!email_verified_at && !_.isNil(email_verified_at);
+});
+
 userSchema.plugin(mongoose_lean_virtuals);
 
 export default userSchema;

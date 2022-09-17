@@ -3,8 +3,35 @@
     <v-row class="soft-box-shadow rounded-lg px-4 py-5 w-100 mx-auto">
       <v-col cols="12" class="pb-0">
         <div class="text-body-1 text-sm-h6">
-          <span class="app-title" v-html="$t('Security')"></span>
+          <span class="app-title" v-html="$t('Email Verification')"></span>
         </div>
+      </v-col>
+      <v-col cols="12">
+        <div
+          class="text-body-2 px-1 d-flex amber lighten-2 py-3 px-4 flex-column justify-center"
+        >
+          <span
+            class="app-body"
+            v-html="
+              $t(
+                'Your email is not verified, please verify your email to use other system features'
+              )
+            "
+          ></span>
+        </div>
+      </v-col>
+      <v-col cols="12">
+        <v-btn
+          depressed
+          tile
+          color="black"
+          class="white--text"
+          @click="getEmailVerificationCode"
+        >
+          <div class="text-body-2">
+            <span class="app-body" v-html="$t('Get Verification Code')"></span>
+          </div>
+        </v-btn>
       </v-col>
       <v-col cols="12" md="6">
         <v-text-field
@@ -16,35 +43,6 @@
           :rules="passwordRules"
         ></v-text-field>
       </v-col>
-      <v-col cols="12" md="6">
-        <v-text-field
-          :label="$t('New Password')"
-          :type="show_new_password ? 'text' : 'password'"
-          :append-icon="show_new_password ? 'mdi-eye' : 'mdi-eye-off'"
-          @click:append="show_new_password = !show_new_password"
-          @input="
-            updateUserObject({ variable_path: 'new_password', data: $event })
-          "
-          :rules="newPasswordRules"
-        ></v-text-field>
-      </v-col>
-      <v-col cols="12" md="6">
-        <v-text-field
-          :label="$t('New Password Confirmation')"
-          :type="show_password_confirmation ? 'text' : 'password'"
-          :append-icon="show_password_confirmation ? 'mdi-eye' : 'mdi-eye-off'"
-          @click:append="
-            show_password_confirmation = !show_password_confirmation
-          "
-          @input="
-            updateUserObject({
-              variable_path: 'password_confirmation',
-              data: $event,
-            })
-          "
-          :rules="passwordConfirmationRules"
-        ></v-text-field>
-      </v-col>
       <v-col cols="12" class="d-flex justify-end pb-0">
         <v-btn
           depressed
@@ -54,7 +52,7 @@
           :disabled="!form_valid"
           @click="updateUserSecurity"
         >
-          <span class="app-body" v-html="$t('Update')"></span>
+          <span class="app-body" v-html="$t('Verify')"></span>
         </v-btn>
       </v-col>
     </v-row>
@@ -67,7 +65,7 @@ import userMixins from "@/mixins/user";
 import dropzoneMixins from "@/mixins/dropzone";
 
 export default {
-  name: "BaseUpdateUserSecurity",
+  name: "BaseVerifyEmail",
   mixins: [authMixins, userMixins, dropzoneMixins],
   data() {
     return {
@@ -78,6 +76,13 @@ export default {
     };
   },
   methods: {
+    async getEmailVerificationCode() {
+      try {
+      } catch (err) {
+        console.error(err);
+      }
+    },
+
     async updateUserSecurity() {
       try {
         const { _id } = this.me;

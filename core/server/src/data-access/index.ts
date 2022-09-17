@@ -8,6 +8,7 @@ import makePostDb from "./make-post-db";
 import makeFeedbackDb from "./make-feedback-db";
 import makeSubscriptionDb from "./make-subscription-db";
 import makeSystemConfigurationDb from "./make-system-configuration-db";
+import makeEmailVerificationDb from "./make-email-verification-db";
 
 import {
   UserModel,
@@ -18,8 +19,13 @@ import {
   FeedbackModel,
   SubscriptionModel,
   SystemConfigurationModel,
+  EmailVerificationModel,
 } from "./models";
 
+const EmailVerificationDb = makeEmailVerificationDb({
+  emailVerificationDbModel: EmailVerificationModel,
+  moment,
+});
 const SubscriptionDb = makeSubscriptionDb({
   subscriptionDbModel: SubscriptionModel,
   moment,
@@ -47,6 +53,7 @@ export default Object.freeze({
   FeedbackDb,
   SubscriptionDb,
   SystemConfigurationDb,
+  EmailVerificationDb,
 });
 
 export {
@@ -58,4 +65,5 @@ export {
   FeedbackDb,
   SubscriptionDb,
   SystemConfigurationDb,
+  EmailVerificationDb,
 };

@@ -7,6 +7,7 @@ export default interface IUser {
   avatar: Record<string, unknown>;
   blocked_comment_at: Date;
   is_blocked_comment: boolean;
+  is_email_verified: boolean;
   avatar_url: string;
   email: string;
   created_by: Admin;

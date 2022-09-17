@@ -2,10 +2,13 @@ import fs from "fs";
 import defaultTemplateData from "./email-template-data";
 
 const emailTextTemplate = {
-  "reply-comment": fs.readFileSync(`${__dirname}/reply-comment.html`, "utf8"),
+  "get-email-verification-code": fs.readFileSync(
+    `${__dirname}/get-email-verification-code.html`,
+    "utf8"
+  ),
 };
 const subjectTemplate = {
-  "reply-comment": `Someone replied to your comment!`,
+  "get-email-verification-code": `Someone replied to your comment!`,
 };
 
 export default Object.freeze({
