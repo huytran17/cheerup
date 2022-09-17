@@ -1,12 +1,23 @@
 import { getUser, deleteUser, updateUser } from "../../../../use-cases/user";
+import { getEmailVerificationByEmailAndVerificationCode } from "../../../../use-cases/email-verification";
 import { logger } from "../../../../config/logs/logger";
 import { hashPassword, verifyPassword } from "../../../../config/password";
+import moment from "moment";
 
 import makeGetUserController from "./get-user";
 import makeDeleteUserController from "./delete-user";
 import makeUpdateUserController from "./update-user";
 import makeUploadUserAvatarController from "./upload-avatar";
 import makeUpdatePasswordController from "./update-password";
+import makeVerifyEmailController from "./verify-email";
+
+const verifyEmailController = makeVerifyEmailController({
+  getUser,
+  getEmailVerificationByEmailAndVerificationCode,
+  updateUser,
+  logger,
+  moment,
+});
 
 const updatePasswordController = makeUpdatePasswordController({
   getUser,
@@ -44,6 +55,7 @@ export default Object.freeze({
   updateUserController,
   uploadUserAvatarController,
   updatePasswordController,
+  verifyEmailController,
 });
 
 export {
@@ -52,4 +64,5 @@ export {
   updateUserController,
   uploadUserAvatarController,
   updatePasswordController,
+  verifyEmailController,
 };

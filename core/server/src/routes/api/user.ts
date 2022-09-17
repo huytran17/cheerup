@@ -9,6 +9,7 @@ import {
   deleteUserRules,
   uploadUserAvatarRules,
   updatePasswordRules,
+  verifyEmailRules,
 } from "../../data-access/controllers/user/user/validators";
 import {
   getUserController,
@@ -16,9 +17,16 @@ import {
   deleteUserController,
   uploadUserAvatarController,
   updatePasswordController,
+  verifyEmailController,
 } from "../../data-access/controllers/user/user";
 
 const userRouter = express.Router();
+
+userRouter.post(
+  "/verify-email",
+  makeValidator(verifyEmailRules),
+  makeExpressCallback(verifyEmailController)
+);
 
 userRouter.put(
   "/password",

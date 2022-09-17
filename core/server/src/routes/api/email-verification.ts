@@ -20,7 +20,7 @@ import {
 const emailVerificationRouter = express.Router();
 
 emailVerificationRouter.get(
-  "/:verification_code/:email",
+  "/by-email-and-verification-code/:verification_code/",
   makeValidator(getEmailVerificationByEmailAndVerificationCodeRules),
   makeExpressCallback(getEmailVerificationByEmailAndVerificationCodeController)
 );

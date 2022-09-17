@@ -3,6 +3,7 @@ import deleteUserRules from "./delete-user";
 import updateUserRules from "./update-user";
 import updatePasswordRules from "./update-password";
 import uploadUserAvatarRules from "./upload-user-avatar";
+import verifyEmailRules from "./verify-email";
 
 export default Object.freeze({
   getUserRules,
@@ -10,6 +11,7 @@ export default Object.freeze({
   updateUserRules,
   uploadUserAvatarRules,
   updatePasswordRules,
+  verifyEmailRules,
 });
 
 export {
@@ -18,4 +20,5 @@ export {
   updateUserRules,
   uploadUserAvatarRules,
   updatePasswordRules,
+  verifyEmailRules,
 };
