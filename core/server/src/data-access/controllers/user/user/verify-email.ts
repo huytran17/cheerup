@@ -54,7 +54,7 @@ export default function makeVerifyEmailController({
 
       const is_email_verification_expired = moment(
         email_verification_expire
-      ).isSameOrBefore(moment());
+      ).isBefore(moment());
 
       if (is_email_verification_expired) {
         throw new Error(
