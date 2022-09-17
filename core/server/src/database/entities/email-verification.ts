@@ -4,7 +4,7 @@ export default class EmailVerification implements IEmailVerification {
   public readonly _id: string;
   public readonly email: string;
   public readonly verification_code: string;
-  public readonly expire_at: string;
+  public readonly expire_at: Date;
   public readonly created_at: Date;
   public readonly updated_at: Date;
   public readonly deleted_at: Date;

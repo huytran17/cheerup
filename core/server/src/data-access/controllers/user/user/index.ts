@@ -1,5 +1,8 @@
 import { getUser, deleteUser, updateUser } from "../../../../use-cases/user";
-import { getEmailVerificationByEmailAndVerificationCode } from "../../../../use-cases/email-verification";
+import {
+  getEmailVerificationByEmailAndVerificationCode,
+  hardDeleteEmailVerification,
+} from "../../../../use-cases/email-verification";
 import { logger } from "../../../../config/logs/logger";
 import { hashPassword, verifyPassword } from "../../../../config/password";
 import moment from "moment";
@@ -15,6 +18,7 @@ const verifyEmailController = makeVerifyEmailController({
   getUser,
   getEmailVerificationByEmailAndVerificationCode,
   updateUser,
+  hardDeleteEmailVerification,
   logger,
   moment,
 });

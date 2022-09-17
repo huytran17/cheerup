@@ -215,6 +215,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/otp-generator@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@types/otp-generator/-/otp-generator-4.0.0.tgz#da28b1e254f46262e176ba96541bcfa32660da98"
+  integrity sha512-QsMc+jgx2WX5ciAwc4Wj37eaGYGnoQcUishOWUgpZ+8nypK6hr5jgUE3xumQ7hvX4AC+gxZktpg/dUHWa4FZRA==
+
 "@types/passport-jwt@^3.0.6":
   version "3.0.6"
   resolved "https://registry.npmjs.org/@types/passport-jwt/-/passport-jwt-3.0.6.tgz"
@@ -2125,6 +2130,11 @@ optional-require@^1.1.8:
   integrity sha512-jq83qaUb0wNg9Krv1c5OQ+58EK+vHde6aBPzLvPPqJm89UQWsvSuFy9X/OSNJnFeSOKo7btE0n8Nl2+nE+z5nA==
   dependencies:
     require-at "^1.0.6"
+
+otp-generator@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/otp-generator/-/otp-generator-4.0.0.tgz#9f93e1de4b9daf6be501467148f530443ef6828f"
+  integrity sha512-P0nG+RVCRDkZdEjXgoMeOTVF3jwMShAk8qYYNx+VNdWgxhcLbZQjdx3GfzgRTZENTx+9I14XfTDJZjKQJdBcVw==
 
 p-cancelable@^1.0.0:
   version "1.1.0"

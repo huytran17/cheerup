@@ -5,13 +5,34 @@ import {
   getEmailVerification,
   deleteEmailVerification,
 } from "../../../../use-cases/email-verification";
+import { getUser } from "../../../../use-cases/user";
 import { logger } from "../../../../config/logs/logger";
+import { generateOtpCode } from "../../../../config/otp";
+import {
+  getEmailContent,
+  renderEmailContent,
+  sendEmail,
+} from "../../../../config/emailManager";
 
+import moment from "moment";
 import makeGetEmailVerificationController from "./get-email-verification";
 import makeDeleteEmailVerificationController from "./delete-email-verification";
 import makeCreateEmailVerificationController from "./create-email-verification";
 import makeGetEmailVerificationByEmailAndVerificationCodeController from "./get-email-verification-by-email-and-verification-code";
 import makeGetEmailVerificationByEmailController from "./get-email-verification-by-email";
+import makeSendEmailVerificationCodeController from "./send-email-verification-code";
+
+const sendEmailVerificationCodeController =
+  makeSendEmailVerificationCodeController({
+    getUser,
+    getEmailContent,
+    renderEmailContent,
+    sendEmail,
+    generateOtpCode,
+    createEmailVerification,
+    logger,
+    moment,
+  });
 
 const getEmailVerificationByEmailAndVerificationCodeController =
   makeGetEmailVerificationByEmailAndVerificationCodeController({
@@ -51,6 +72,7 @@ export default Object.freeze({
   createEmailVerificationController,
   getEmailVerificationByEmailAndVerificationCodeController,
   getEmailVerificationByEmailController,
+  sendEmailVerificationCodeController,
 });
 
 export {
@@ -59,4 +81,5 @@ export {
   createEmailVerificationController,
   getEmailVerificationByEmailAndVerificationCodeController,
   getEmailVerificationByEmailController,
+  sendEmailVerificationCodeController,
 };

@@ -7,7 +7,7 @@ const emailVerificationSchema = new Schema(
   {
     email: { type: String, trim: true, required: true },
     verification_code: { type: String, default: "" },
-    expire_at: { type: String, default: "" },
+    expire_at: { type: Date, default: Date.now },
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now },
     deleted_at: { type: Date, default: null },

@@ -1,6 +1,7 @@
 import { Request } from "express";
 import { IGetUser } from "../../../../use-cases/user/get-user";
 import { IGetEmailVerificationByEmailAndVerificationCode } from "../../../../use-cases/email-verification/get-email-verification-by-email-and-verification-code";
+import { IHardDeleteEmailVerification } from "../../../../use-cases/email-verification/hard-delete-email-verification";
 import { IUpdateUser } from "../../../../use-cases/user/update-user";
 import _ from "lodash";
 import Moment from "moment";
@@ -10,12 +11,14 @@ export default function makeVerifyEmailController({
   getUser,
   getEmailVerificationByEmailAndVerificationCode,
   updateUser,
+  hardDeleteEmailVerification,
   logger,
   moment,
 }: {
   getUser: IGetUser;
   getEmailVerificationByEmailAndVerificationCode: IGetEmailVerificationByEmailAndVerificationCode;
   updateUser: IUpdateUser;
+  hardDeleteEmailVerification: IHardDeleteEmailVerification;
   logger: Logger;
   moment: typeof Moment;
 }) {
@@ -69,6 +72,8 @@ export default function makeVerifyEmailController({
       const verified_user = await updateUser({
         userDetails: final_user_details,
       });
+
+      await hardDeleteEmailVerification({ _id: email_verification._id });
 
       return {
         headers,

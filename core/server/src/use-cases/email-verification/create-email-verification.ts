@@ -3,7 +3,10 @@ import IEmailVerificationDb from "../../data-access/interfaces/email-verificatio
 import IEmailVerification from "../../database/interfaces/email-verification";
 
 export interface ICreateEmailVerificationData {
-  emailVerificationDetails: Omit<IEmailVerification, "_id">;
+  emailVerificationDetails: Omit<
+    IEmailVerification,
+    "_id" | "created_at" | "updated_at" | "deleted_at"
+  >;
 }
 
 export type ICreateEmailVerification = ({

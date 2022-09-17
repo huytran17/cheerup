@@ -15,9 +15,15 @@ import {
   createEmailVerificationController,
   getEmailVerificationByEmailAndVerificationCodeController,
   getEmailVerificationByEmailController,
+  sendEmailVerificationCodeController,
 } from "../../data-access/controllers/user/email-verification";
 
 const emailVerificationRouter = express.Router();
+
+emailVerificationRouter.get(
+  "/send-verification-code",
+  makeExpressCallback(sendEmailVerificationCodeController)
+);
 
 emailVerificationRouter.get(
   "/by-email-and-verification-code/:verification_code/",

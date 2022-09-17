@@ -35,12 +35,9 @@
       </v-col>
       <v-col cols="12" md="6">
         <v-text-field
-          :label="$t('Current Password')"
-          :type="show_password ? 'text' : 'password'"
-          :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
-          @click:append="show_password = !show_password"
-          @input="updateUserObject({ variable_path: 'password', data: $event })"
-          :rules="passwordRules"
+          :label="$t('Enter Code')"
+          @input="SET_VERIFICATION_CODE({ data: $event })"
+          :rules="verificationCodeRules"
         ></v-text-field>
       </v-col>
       <v-col cols="12" class="d-flex justify-end pb-0">
@@ -50,7 +47,7 @@
           color="black"
           class="white--text"
           :disabled="!form_valid"
-          @click="updateUserSecurity"
+          @click="verifyEmail"
         >
           <span class="app-body" v-html="$t('Verify')"></span>
         </v-btn>
@@ -61,12 +58,13 @@
 
 <script>
 import authMixins from "@/mixins/auth";
+import emailVerificationMixins from "@/mixins/email-verification";
 import userMixins from "@/mixins/user";
 import dropzoneMixins from "@/mixins/dropzone";
 
 export default {
   name: "BaseVerifyEmail",
-  mixins: [authMixins, userMixins, dropzoneMixins],
+  mixins: [authMixins, userMixins, dropzoneMixins, emailVerificationMixins],
   data() {
     return {
       form_valid: false,
@@ -78,25 +76,21 @@ export default {
   methods: {
     async getEmailVerificationCode() {
       try {
+        await this.SEND_VERIFICATION_CODE();
       } catch (err) {
         console.error(err);
       }
     },
 
-    async updateUserSecurity() {
+    async verifyEmail() {
       try {
-        const { _id } = this.me;
-        const final_user_data = Object.assign({}, this.user, {
-          _id,
+        await this.VERIFY_EMAIL({
+          data: {
+            verification_code: this.verification_code,
+          },
         });
-
-        await this.UPDATE_USER_PASSWORD({ data: final_user_data });
-        this.$toast.success(this.$t("Updated password successfully"));
       } catch (err) {
         console.error(err);
-        this.$toast.error(
-          this.$t("Encountered error: Check your password and try again")
-        );
       }
     },
   },

@@ -8,6 +8,12 @@ import makeCreateEmailVerification from "./create-email-verification";
 import makeGetEmailVerifications from "./get-email-verifications";
 import makeDeleteEmailVerification from "./delete-email-verification";
 import makeGetEmailVerificationByEmailAndVerificationCode from "./get-email-verification-by-email-and-verification-code";
+import makeHardDeleteEmailVerification from "./hard-delete-email-verification";
+
+const hardDeleteEmailVerification = makeHardDeleteEmailVerification({
+  emailVerificationDb: EmailVerificationDb,
+  logger,
+});
 
 const getEmailVerificationByEmailAndVerificationCode =
   makeGetEmailVerificationByEmailAndVerificationCode({
@@ -46,6 +52,7 @@ const emailVerificationServices = Object.freeze({
   createEmailVerification,
   deleteEmailVerification,
   getEmailVerificationByEmailAndVerificationCode,
+  hardDeleteEmailVerification,
 });
 
 export default emailVerificationServices;
@@ -57,4 +64,5 @@ export {
   createEmailVerification,
   deleteEmailVerification,
   getEmailVerificationByEmailAndVerificationCode,
+  hardDeleteEmailVerification,
 };

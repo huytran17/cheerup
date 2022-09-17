@@ -5,21 +5,30 @@ import { Logger } from "winston";
 import { ISendEmail } from "../../../../config/emailManager/send-email";
 import { IRenderEmailContent } from "../../../../config/emailManager/render-email-content";
 import { IGetEmailContent } from "../../../../config/emailManager/get-email-content";
+import { IGenerateOtpCode } from "../../../../config/otp/generate-otp-code";
+import { ICreateEmailVerification } from "../../../../use-cases/email-verification/create-email-verification";
+import Moment from "moment";
 
-export default function makeGetEmailVerificationCodeController({
+export default function makeSendEmailVerificationCodeController({
   getUser,
   getEmailContent,
   renderEmailContent,
   sendEmail,
+  generateOtpCode,
+  createEmailVerification,
   logger,
+  moment,
 }: {
   getUser: IGetUser;
   getEmailContent: IGetEmailContent;
   renderEmailContent: IRenderEmailContent;
   sendEmail: ISendEmail;
+  generateOtpCode: IGenerateOtpCode;
+  createEmailVerification: ICreateEmailVerification;
   logger: Logger;
+  moment: typeof Moment;
 }) {
-  return async function getEmailVerificationCodeController(
+  return async function sendEmailVerificationCodeController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
@@ -40,7 +49,13 @@ export default function makeGetEmailVerificationCodeController({
         type: "get-email-verification-code",
       });
 
-      const verification_code = "";
+      const verification_code = generateOtpCode({
+        length: 6,
+        options: {
+          specialChars: false,
+          lowerCaseAlphabets: false,
+        },
+      });
 
       const rendered_email_content = await renderEmailContent({
         email_content,
@@ -50,11 +65,26 @@ export default function makeGetEmailVerificationCodeController({
         },
       });
 
+      await sendEmail(rendered_email_content);
+
+      const email_verification_data = Object.assign(
+        {},
+        {
+          email: user_email,
+          verification_code,
+          expire_at: moment(new Date()).add(15, "minutes").toDate(),
+        }
+      );
+
+      const created_email_verification = await createEmailVerification({
+        emailVerificationDetails: email_verification_data,
+      });
+
       return {
         headers,
         statusCode: 200,
         body: {
-          data: exists,
+          data: created_email_verification,
         },
       };
     } catch (err) {

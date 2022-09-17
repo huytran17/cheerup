@@ -8,7 +8,7 @@ const emailTextTemplate = {
   ),
 };
 const subjectTemplate = {
-  "get-email-verification-code": `Someone replied to your comment!`,
+  "get-email-verification-code": `Verify your email!`,
 };
 
 export default Object.freeze({

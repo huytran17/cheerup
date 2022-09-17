@@ -73,12 +73,6 @@ export default function makeEmailVerificationDb({
     }: {
       email: string;
     }): Promise<EmailVerification | null> {
-      const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
-      const is_mongo_id = mongo_id_regex.test(email);
-      if (!is_mongo_id || !email) {
-        return null;
-      }
-
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
       };
@@ -104,12 +98,6 @@ export default function makeEmailVerificationDb({
       email: string;
       verification_code: string;
     }): Promise<EmailVerification | null> {
-      const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
-      const is_mongo_id = mongo_id_regex.test(email);
-      if (!is_mongo_id || !email) {
-        return null;
-      }
-
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
       };
