@@ -1,7 +1,7 @@
 <template>
   <v-row v-if="post_data.is_blocked_comment">
-    <v-col cols="12" class="pb-0">
-      <div class="text-body-2 text-uppercase pb-11 text-center grey--text">
+    <v-col cols="12" class="pb-11">
+      <div class="text-body-2 text-uppercase text-center grey--text">
         <span
           class="app-body"
           v-html="$t('This post has been locked from comments')"
