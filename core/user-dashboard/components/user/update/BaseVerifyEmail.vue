@@ -58,7 +58,7 @@
         >
           <span
             class="app-body"
-            v-html="$t('Your email has been verified')"
+            v-html="$t('Your email has been verified!')"
           ></span>
         </div>
       </v-col>
