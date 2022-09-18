@@ -1,11 +1,14 @@
 import { Request } from "express";
 import { IGetUser } from "../../../../use-cases/user/get-user";
+import { IGetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
 import _ from "lodash";
 
 export default function makeGetMeController({
   getUser,
+  getSubscriptionByEmail,
 }: {
   getUser: IGetUser;
+  getSubscriptionByEmail: IGetSubscriptionByEmail;
 }) {
   return async function getMeController(
     httpRequest: Request & { context: { validated: { user_id: string } } }
@@ -15,18 +18,30 @@ export default function makeGetMeController({
     };
 
     try {
-      const { _id } = _.get(httpRequest, "context.user");
+      const { _id, email } = _.get(httpRequest, "context.user");
 
       const exists = await getUser({ _id });
-      if (!exists) {
-        throw new Error(`Admin ${_id} does not exist`);
+
+      const not_exists = !exists || _.isNil(exists);
+      if (not_exists) {
+        throw new Error(`User ${_id} does not exist`);
       }
+
+      const subscription = await getSubscriptionByEmail({ email });
+      const is_subscribed =
+        !_.isEmpty(subscription) &&
+        !_.isNil(subscription) &&
+        _.get(subscription, "is_active", false);
+
+      const final_user_data = Object.assign({}, exists, {
+        is_subscribed,
+      });
 
       return {
         headers,
         statusCode: 200,
         body: {
-          data: exists,
+          data: final_user_data,
         },
       };
     } catch (err) {

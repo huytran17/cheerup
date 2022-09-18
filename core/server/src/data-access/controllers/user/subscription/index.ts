@@ -11,6 +11,7 @@ import makeCreateSubscriptionController from "./create-subscription";
 const createSubscriptionController = makeCreateSubscriptionController({
   createSubscription,
   getSubscriptionByEmail,
+  updateSubscription,
   logger,
 });
 

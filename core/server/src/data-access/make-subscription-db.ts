@@ -193,14 +193,16 @@ export default function makeSubscriptionDb({
     }: {
       email: string;
     }): Promise<Subscription | null> {
-      const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
-      const is_mongo_id = mongo_id_regex.test(email);
-      if (!is_mongo_id || !email) {
-        return null;
+      const query_conditions = {
+        deleted_at: { $in: [null, undefined] },
+      };
+
+      if (email) {
+        query_conditions["email"] = email;
       }
 
       const existing = await subscriptionDbModel
-        .findOne({ email })
+        .findOne(query_conditions)
         .lean({ virtuals: true });
 
       if (existing) {

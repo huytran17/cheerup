@@ -10,6 +10,7 @@ import commentRouter from "./comment";
 import postRouter from "./post";
 import emailVerificationRouter from "./email-verification";
 import systemConfigurationRouter from "./system-configuration";
+import subscriptionRouter from "./subscription";
 
 apiRouter.use("/user", authenticateUserJWT(), userRouter);
 apiRouter.use(
@@ -18,6 +19,7 @@ apiRouter.use(
   emailVerificationRouter
 );
 apiRouter.use("/category", categoryRouter);
+apiRouter.use("/subscription", authenticateUserJWT(), subscriptionRouter);
 apiRouter.use("/comment", authenticateUserJWT(), commentRouter);
 apiRouter.use("/post", postRouter);
 apiRouter.use("/auth", authRouter);

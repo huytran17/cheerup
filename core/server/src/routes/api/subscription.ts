@@ -14,7 +14,7 @@ import {
 const subscriptionRouter = express.Router();
 
 subscriptionRouter.put(
-  "/:email",
+  "/",
   makeValidator(cancelSubscriptionRules),
   makeExpressCallback(cancelSubscriptionController)
 ); // DONE

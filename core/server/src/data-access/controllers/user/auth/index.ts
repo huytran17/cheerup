@@ -3,6 +3,7 @@ import makeSignOutController from "./sign-out";
 import makeSignUpController from "./sign-up";
 import makeGetMeController from "./get-me";
 
+import { getSubscriptionByEmail } from "../../../../use-cases/subscription";
 import { signUp } from "../../../../use-cases/auth";
 import { hashPassword, verifyPassword } from "../../../../config/password";
 import { getUserByEmail, getUser } from "../../../../use-cases/user";
@@ -11,6 +12,7 @@ import { logger } from "../../../../config/logs/logger";
 
 const getMeController = makeGetMeController({
   getUser,
+  getSubscriptionByEmail,
 });
 
 const signInController = makeSignInController({

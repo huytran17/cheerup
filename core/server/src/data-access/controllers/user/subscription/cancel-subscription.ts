@@ -21,10 +21,12 @@ export default function makeDeleteSubscriptionController({
     };
 
     try {
-      const subscriptionDetails = _.get(httpRequest, "context.validated");
-      const { email } = subscriptionDetails;
+      const { email } = _.get(httpRequest, "context.user");
+
       const exists = await getSubscriptionByEmail({ email });
-      if (!exists) {
+
+      const not_exists = !exists || _.isNil(exists);
+      if (not_exists) {
         throw new Error(`Subscription by ${email} does not exist`);
       }
 
@@ -35,6 +37,7 @@ export default function makeDeleteSubscriptionController({
       const canceled_subscription = await updateSubscription({
         subscriptionDetails: final_updated_data,
       });
+
       return {
         headers,
         statusCode: 200,

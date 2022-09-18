@@ -6,23 +6,18 @@ import { RootState } from "..";
 import _ from "lodash";
 
 const actions: ActionTree<SubscriptionState, RootState> = {
-  async [ActionTypes.GET_SUBSCRIPTIONS]({ commit }, params = {}) {
-    const keep_in_store = _.get(params, "keep_in_store", true);
+  async [ActionTypes.CREATE_SUBSCRIPTION]({ commit }, { data }: { data: any }) {
+    const { data: subscription } = await this.$axios.$post(
+      `/subscription`,
+      data
+    );
 
-    const { data: subscriptions } = await this.$axios.$get("/subscription");
-
-    if (!keep_in_store) {
-      return subscriptions;
-    }
-
-    commit(MutationTypes.SET_SUBSCRIPTIONS, { data: subscriptions });
-    return subscriptions;
+    commit(MutationTypes.SET_SUBSCRIPTION, { data: subscription });
+    return subscription;
   },
 
-  async [ActionTypes.GET_SUBSCRIPTION]({ commit }, { id }: { id: string }) {
-    const { data: subscription } = await this.$axios.$get(
-      `/subscription/${id}`
-    );
+  async [ActionTypes.CANCEL_SUBSCRIPTION]({ commit }) {
+    const { data: subscription } = await this.$axios.$put(`/subscription`);
 
     commit(MutationTypes.SET_SUBSCRIPTION, { data: subscription });
     return subscription;
