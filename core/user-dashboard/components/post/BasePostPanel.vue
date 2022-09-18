@@ -100,6 +100,7 @@ export default {
     author_name() {
       return _.get(this.post_data, "author.full_name");
     },
+
     has_categories() {
       return !_.isEmpty(this.post_data.categories);
     },

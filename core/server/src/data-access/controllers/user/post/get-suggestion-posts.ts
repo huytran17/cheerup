@@ -18,13 +18,17 @@ export default function makeGetLatestPostsController({
     };
 
     try {
-      const { amount, categories } = _.get(httpRequest, "context.validated");
+      const { amount, categories, is_only_published } = _.get(
+        httpRequest,
+        "context.validated"
+      );
 
       const categories_array = _.split(categories, ",");
 
       const exists = await getSuggestionPosts({
         amount: Number(amount),
         categories: categories_array,
+        is_only_published,
       });
 
       return {

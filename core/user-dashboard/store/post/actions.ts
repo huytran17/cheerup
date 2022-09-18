@@ -17,11 +17,16 @@ const actions: ActionTree<PostState, RootState> = {
   async [ActionTypes.GET_SUGGESTION_POSTS]({ commit }, params = {}) {
     const amount = _.get(params, "amount", 5);
     const categories = _.get(params, "categories", "");
+    const is_only_published = _.get(params, "is_only_published", true);
 
     const url_query = new URLSearchParams();
 
     if (amount) {
       url_query.set("amount", amount);
+    }
+
+    if (is_only_published) {
+      url_query.set("is_only_published", is_only_published);
     }
 
     if (!_.isEmpty(categories)) {
@@ -50,6 +55,7 @@ const actions: ActionTree<PostState, RootState> = {
     const page = _.get(params, "page", 1);
     const entries_per_page = _.get(params, "entries_per_page", 15);
     const new_state = _.get(params, "new_state", true);
+    const is_only_published = _.get(params, "is_only_published", true);
     const categories = _.get(params, "categories", []);
 
     const url_query = new URLSearchParams();
@@ -60,6 +66,10 @@ const actions: ActionTree<PostState, RootState> = {
 
     if (page) {
       url_query.set("page", page);
+    }
+
+    if (is_only_published) {
+      url_query.set("is_only_published", is_only_published);
     }
 
     if (entries_per_page) {

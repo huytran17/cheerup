@@ -5,7 +5,10 @@ import IPostDb, {
 } from "../../data-access/interfaces/post-db";
 
 export type IGetPostsPaginated = (
-  { categories }: { categories?: string[] },
+  {
+    categories,
+    is_only_published,
+  }: { categories?: string[]; is_only_published?: boolean },
   {
     query,
     page,
@@ -27,8 +30,10 @@ export default function makeGetPostsPaginated({
   return async function getPostsPaginated(
     {
       categories = [],
+      is_only_published,
     }: {
       categories?: string[];
+      is_only_published?: boolean;
     },
     {
       query,
@@ -41,7 +46,7 @@ export default function makeGetPostsPaginated({
     }
   ): Promise<PaginatedPostResult | null> {
     const posts = await postDb.findAllPaginated(
-      { categories },
+      { categories, is_only_published },
       {
         query,
         page,

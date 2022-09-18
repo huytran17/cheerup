@@ -6,8 +6,10 @@ export default interface IPostDb {
   findAllPaginated: (
     {
       categories,
+      is_only_published,
     }: {
       categories?: string[];
+      is_only_published?: boolean;
     },
     {
       query,
@@ -23,11 +25,19 @@ export default interface IPostDb {
   findSuggestionPosts: ({
     amount,
     categories,
+    is_only_published,
   }: {
     amount: number;
     categories: string[];
+    is_only_published?: boolean;
   }) => Promise<Post[]>;
-  findById: ({ _id }: { _id: string }) => Promise<Post | null>;
+  findById: ({
+    _id,
+    is_only_published,
+  }: {
+    _id: string;
+    is_only_published?: boolean;
+  }) => Promise<Post | null>;
   insert: (payload: Partial<IPost>) => Promise<Post | null>;
   delete: ({ _id }: { _id: string }) => Promise<Post | null>;
   hardDelete: ({ _id }: { _id: string }) => Promise<Post | null>;

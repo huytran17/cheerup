@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="is_published">
     <BasePostPanel :post_data="post" id="post" />
     <div class="pt-12">
       <BaseSuggestionPosts :posts_data="suggestion_posts" />
@@ -16,6 +16,7 @@ import commentMixins from "@/mixins/comment";
 import BasePostPanel from "@/components/post/BasePostPanel";
 import BaseSuggestionPosts from "@/components/post/BaseSuggestionPosts";
 import BaseCommentPanel from "@/components/comment/BaseCommentPanel";
+
 export default {
   name: "PostPanel",
   mixins: [postMixins, commentMixins],
@@ -24,8 +25,15 @@ export default {
     BaseSuggestionPosts,
     BaseCommentPanel,
   },
+  computed: {
+    is_published() {
+      return _.get(this.post, "is_published", false);
+    },
+  },
   async fetch() {
     try {
+      this.SET_POST_LOADING({ data: true });
+
       const post_id = this.$route.params.id;
       const post = await this.GET_POST({ id: post_id });
       const category_ids = post.categories?.map((category) => category._id);
@@ -38,6 +46,8 @@ export default {
       ]);
     } catch (err) {
       console.log(err);
+    } finally {
+      this.SET_POST_LOADING({ data: false });
     }
   },
   updated() {

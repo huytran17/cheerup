@@ -34,12 +34,13 @@ export default function makeCreatePostController({
 
       const final_post_details = Object.assign({}, postDetails, {
         author: admin_id,
-        is_published: is_auto_censorship_post
+        is_published: is_auto_censorship_post,
       });
 
       const created_post = await createPost({
         postDetails: final_post_details,
       });
+
       return {
         headers,
         statusCode: 200,

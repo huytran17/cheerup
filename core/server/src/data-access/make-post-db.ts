@@ -140,8 +140,10 @@ export default function makePostDb({
     async findAllPaginated(
       {
         categories,
+        is_only_published = false,
       }: {
         categories: string[];
+        is_only_published?: boolean;
       },
       {
         query = "",
@@ -155,7 +157,13 @@ export default function makePostDb({
     ): Promise<PaginatedPostResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
-      const query_conditions = Object.assign({});
+      const query_conditions = Object.assign({
+        deleted_at: { $in: [null, undefined] },
+      });
+
+      if (is_only_published) {
+        query_conditions["is_published"] = true;
+      }
 
       const has_categories = !_.isEmpty(categories);
       if (has_categories) {
@@ -209,7 +217,13 @@ export default function makePostDb({
       return null;
     }
 
-    async findById({ _id }: { _id: string }): Promise<Post | null> {
+    async findById({
+      _id,
+      is_only_published = false,
+    }: {
+      _id: string;
+      is_only_published?: boolean;
+    }): Promise<Post | null> {
       const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
       const is_mongo_id = mongo_id_regex.test(_id);
       if (!is_mongo_id || !_id) {
@@ -222,6 +236,10 @@ export default function makePostDb({
 
       if (_id) {
         query_conditions["_id"] = _id;
+      }
+
+      if (is_only_published) {
+        query_conditions["is_published"] = true;
       }
 
       const existing = await postDbModel
@@ -239,13 +257,19 @@ export default function makePostDb({
     async findSuggestionPosts({
       amount,
       categories,
+      is_only_published = false,
     }: {
       amount: number;
       categories: string[];
+      is_only_published?: boolean;
     }): Promise<Post[]> {
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
       };
+
+      if (is_only_published) {
+        query_conditions["is_published"] = true;
+      }
 
       if (!_.isEmpty(categories)) {
         query_conditions["categories"] = { $in: categories };

@@ -2,7 +2,13 @@ import Post from "../../database/entities/post";
 import IPostDb from "../../data-access/interfaces/post-db";
 import { Logger } from "winston";
 
-export type IGetPost = ({ _id }: { _id: string }) => Promise<Post | null>;
+export type IGetPost = ({
+  _id,
+  is_only_published,
+}: {
+  _id: string;
+  is_only_published?: boolean;
+}) => Promise<Post | null>;
 
 export default function makeGetPost({
   postDb,
@@ -13,10 +19,12 @@ export default function makeGetPost({
 }): IGetPost {
   return async function getPost({
     _id,
+    is_only_published,
   }: {
     _id: string;
+    is_only_published?: boolean;
   }): Promise<Post | null> {
-    const post = await postDb.findById({ _id });
+    const post = await postDb.findById({ _id, is_only_published });
     return post;
   };
 }
