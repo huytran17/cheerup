@@ -1,11 +1,13 @@
 <template>
   <div class="mt-15">
-    <BaseUpdateUserInformation />
+    <BaseVerifyEmail />
+
+    <div class="mt-8">
+      <BaseUpdateUserInformation />
+    </div>
+
     <div class="mt-8">
       <BaseUpdateUserSecurity />
-    </div>
-    <div class="mt-8">
-      <BaseVerifyEmail />
     </div>
   </div>
 </template>

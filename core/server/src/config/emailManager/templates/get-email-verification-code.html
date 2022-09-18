@@ -36,6 +36,10 @@
         color: #0657a9 !important;
       }
 
+      .danger--text {
+        color: #cb3a31 !important;
+      }
+
       @media (max-width: 768px) {
         body {
           max-width: 100%;
@@ -58,6 +62,18 @@
       <br />
 
       <span> Security code: {{verification_code}} </span>
+
+      <br />
+      <br />
+
+      <span> Use this code to authenticate your email. </span>
+
+      <br />
+      <br />
+
+      <span class="danger--text">
+        <small><i>* Security code valid for 15 minutes</i></small>
+      </span>
 
       <br />
       <br />

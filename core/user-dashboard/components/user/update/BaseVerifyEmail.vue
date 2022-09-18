@@ -6,7 +6,7 @@
           <span class="app-title" v-html="$t('Email Verification')"></span>
         </div>
       </v-col>
-      <v-col cols="12">
+      <v-col v-if="!me.is_email_verified" cols="12">
         <div
           class="text-body-2 px-1 d-flex amber lighten-2 py-3 px-4 flex-column justify-center"
         >
@@ -19,38 +19,48 @@
             "
           ></span>
         </div>
-      </v-col>
-      <v-col cols="12">
         <v-btn
           depressed
           tile
           color="black"
-          class="white--text"
+          class="white--text mt-4"
           @click="getEmailVerificationCode"
         >
           <div class="text-body-2">
             <span class="app-body" v-html="$t('Get Verification Code')"></span>
           </div>
         </v-btn>
+        <v-row class="pt-4">
+          <v-col cols="12" sm="6">
+            <v-text-field
+              :label="$t('Enter Code')"
+              @input="SET_VERIFICATION_CODE({ data: $event })"
+              :rules="verificationCodeRules"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" class="d-flex justify-end pb-0">
+            <v-btn
+              depressed
+              tile
+              color="black"
+              class="white--text"
+              :disabled="!form_valid"
+              @click="verifyEmail"
+            >
+              <span class="app-body" v-html="$t('Verify')"></span>
+            </v-btn>
+          </v-col>
+        </v-row>
       </v-col>
-      <v-col cols="12" md="6">
-        <v-text-field
-          :label="$t('Enter Code')"
-          @input="SET_VERIFICATION_CODE({ data: $event })"
-          :rules="verificationCodeRules"
-        ></v-text-field>
-      </v-col>
-      <v-col cols="12" class="d-flex justify-end pb-0">
-        <v-btn
-          depressed
-          tile
-          color="black"
-          class="white--text"
-          :disabled="!form_valid"
-          @click="verifyEmail"
+      <v-col v-else>
+        <div
+          class="text-body-2 px-1 d-flex green accent-3 py-3 px-4 flex-column justify-center"
         >
-          <span class="app-body" v-html="$t('Verify')"></span>
-        </v-btn>
+          <span
+            class="app-body"
+            v-html="$t('Your email has been verified')"
+          ></span>
+        </div>
       </v-col>
     </v-row>
   </v-form>
@@ -79,6 +89,10 @@ export default {
         await this.SEND_VERIFICATION_CODE();
       } catch (err) {
         console.error(err);
+      } finally {
+        this.$toast.success(
+          this.$t("Please check your email and follow the instructions")
+        );
       }
     },
 
@@ -91,6 +105,9 @@ export default {
         });
       } catch (err) {
         console.error(err);
+        this.$toast.success(
+          this.$t("The security code is incorrect or has expired")
+        );
       }
     },
   },
