@@ -1,13 +1,16 @@
 import { Request } from "express";
 import { IGetCommentsByPost } from "../../../../use-cases/comment/get-comments-by-post";
+import { IGetPost } from "../../../../use-cases/post/get-post";
 import _ from "lodash";
 import { Logger } from "winston";
 
 export default function makeGetCommentsByPostController({
   getCommentsByPost,
+  getPost,
   logger,
 }: {
   getCommentsByPost: IGetCommentsByPost;
+  getPost: IGetPost;
   logger: Logger;
 }) {
   return async function getCommentsByPostController(
@@ -19,6 +22,17 @@ export default function makeGetCommentsByPostController({
 
     try {
       const { post_id } = _.get(httpRequest, "context.validated");
+
+      const post_exists = await getPost({
+        _id: post_id,
+        is_only_published: true,
+      });
+
+      const post_not_exists = !post_exists || _.isNil(post_exists);
+      if (post_not_exists) {
+        throw new Error(`Post by ${post_id} does not exist`);
+      }
+
       const comments = await getCommentsByPost({ post_id });
 
       return {

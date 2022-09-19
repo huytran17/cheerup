@@ -25,7 +25,11 @@ export default function makeCreateCommentController({
       const commentDetails = _.get(httpRequest, "context.validated");
 
       const { post: post_id } = commentDetails;
-      const post_exists = await getPost({ _id: post_id });
+      const post_exists = await getPost({
+        _id: post_id,
+        is_only_published: true,
+      });
+
       const post_not_exists = !post_exists || _.isNil(post_exists);
       if (post_not_exists) {
         throw new Error(`Post by ${post_id} does not exist`);

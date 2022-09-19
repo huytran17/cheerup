@@ -1,5 +1,6 @@
 import { IGetComment } from "../../../../use-cases/comment/get-comment";
 import { IUpdateComment } from "../../../../use-cases/comment/update-comment";
+import { IGetPost } from "../../../../use-cases/post/get-post";
 import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
@@ -7,10 +8,12 @@ import _ from "lodash";
 export default function makeDislikeCommentController({
   getComment,
   updateComment,
+  getPost,
   logger,
 }: {
   getComment: IGetComment;
   updateComment: IUpdateComment;
+  getPost: IGetPost;
   logger: Logger;
 }) {
   return async function dislikeCommentController(
@@ -31,6 +34,17 @@ export default function makeDislikeCommentController({
 
       if (!exists) {
         throw new Error(`Comment by ${comment_id} does not exist`);
+      }
+
+      const post_id = _.get(exists, "post._id");
+      const post_exists = await getPost({
+        _id: post_id,
+        is_only_published: true,
+      });
+
+      const post_not_exists = !post_exists || _.isNil(post_exists);
+      if (post_not_exists) {
+        throw new Error(`Post by ${post_id} does not exist`);
       }
 
       const current_users_liked = _.get(exists, "meta.likes", []).map(

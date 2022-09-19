@@ -55,8 +55,8 @@
             class="mr-1 clickable icon__font--medium"
             @click="
               () => {
-                SET_IS_OPEN_EDIT_COMMENT({ data: true });
                 SET_COMMENT({ data: comment_data });
+                SET_IS_OPEN_EDIT_COMMENT({ data: true });
               }
             "
             >mdi-playlist-edit</v-icon
@@ -68,8 +68,8 @@
           class="d-flex pl-2"
           @click="
             () => {
-              SET_IS_OPEN_REPLY_COMMENT({ data: true });
               SET_COMMENT({ data: comment_data });
+              SET_IS_OPEN_REPLY_COMMENT({ data: true });
             }
           "
         >

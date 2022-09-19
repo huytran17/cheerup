@@ -31,17 +31,20 @@ const replyCommentController = makeReplyCommentController({
 const dislikeCommentController = makeDislikeCommentController({
   getComment,
   updateComment,
+  getPost,
   logger,
 });
 
 const likeCommentController = makeLikeCommentController({
   getComment,
   updateComment,
+  getPost,
   logger,
 });
 
 const getCommentsByPostController = makeGetCommentsByPostController({
   getCommentsByPost,
+  getPost,
   logger,
 });
 
@@ -64,12 +67,14 @@ const getCommentController = makeGetCommentController({
 const deleteCommentController = makeDeleteCommentController({
   getComment,
   deleteComment,
+  getPost,
   logger,
 });
 
 const updateCommentController = makeUpdateCommentController({
   getComment,
   updateComment,
+  getPost,
   logger,
 });
 

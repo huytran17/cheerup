@@ -22,7 +22,7 @@ export default {
     }),
 
     ...mapMutations({
-      SET_POST_LOADING: "post/SET_POST_LOADING",
+      SET_POST_LOADING: "post/SET_LOADING",
       SET_CATEGORIES_FILTERS: "post/SET_CATEGORIES_FILTERS",
     }),
 
