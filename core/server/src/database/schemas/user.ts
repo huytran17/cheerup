@@ -16,7 +16,7 @@ const userSchema = new Schema(
     updated_at: { type: Date, default: Date.now },
     deleted_at: { type: Date, default: null },
     email_verified_at: { type: Date, default: null },
-    created_by: [{ type: Schema.Types.ObjectId, ref: "Admin" }],
+    created_by: { type: Schema.Types.ObjectId, ref: "Admin" },
   },
   {
     toJSON: { virtuals: true },
