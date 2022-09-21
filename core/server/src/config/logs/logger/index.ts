@@ -18,9 +18,12 @@ export default function makeLogger() {
         silent: is_silent,
       }),
       makeMongooseLogger(),
+      makeMongooseFileLogger(),
     ],
     exitOnError: false,
-    exceptionHandlers: is_silent ? [] : [makeMongooseErrorLogger()], // ignore with --silent
+    exceptionHandlers: is_silent
+      ? []
+      : [makeMongooseErrorLogger(), makeMongooseErrorFileLogger()], // ignore with --silent
     format: formatLog(),
     meta: false, // optional: control whether you want to log the meta data about the request (default to true)
     msg: `HTTP {{ req.clientIp }} {{req.method}} {{req.url}} {{res.statusCode}} {{res.error}} {{res.responseTime}}ms`, // optional: customize the default logging message. E.g. "{{res.statusCode}} {{req.method}} {{res.responseTime}}ms {{req.url}}"
@@ -36,8 +39,12 @@ export default function makeLogger() {
 }
 
 export const logger = winston.createLogger({
-  transports: [new winston.transports.Console(), makeMongooseLogger()],
-  exceptionHandlers: [makeMongooseErrorLogger()],
+  transports: [
+    new winston.transports.Console(),
+    makeMongooseLogger(),
+    makeMongooseFileLogger(),
+  ],
+  exceptionHandlers: [makeMongooseErrorLogger(), makeMongooseErrorFileLogger()],
   level: "verbose",
   format: formatLog(),
   colorize: true,
@@ -64,18 +71,19 @@ function formatLog() {
 
 let mongooseLogger = null;
 export function makeMongooseLogger() {
-  const transports: any = winston.transports;
   if (mongooseLogger) {
     return mongooseLogger;
   }
 
+  const transports: any = winston.transports;
+
   mongooseLogger = new transports.MongoDB({
     exitOnError: false,
     db: makeLogsDatabaseURL(),
-    level: process.env.LOGGING_LEVEL || "verbose",
+    level: process.env.MONGO_LOGGING_LEVEL || "verbose",
     name: "mongodb",
     storeHost: true,
-    collection: process.env.MONGO_LOGGING_COLLECTION || "logs",
+    collection: process.env.MONGO_LOGGING_COLLECTION || "winstonlogs",
     capped: true,
     cappedSize: 80000000,
     decolorize: false,
@@ -86,23 +94,25 @@ export function makeMongooseLogger() {
       useUnifiedTopology: true,
     },
   });
+
   return mongooseLogger;
 }
 
 let mongooseErrorLogger = null;
 // FIXME: not working
 export function makeMongooseErrorLogger() {
-  const transports: any = winston.transports;
   if (mongooseErrorLogger) {
     return mongooseErrorLogger;
   }
 
+  const transports: any = winston.transports;
+
   mongooseErrorLogger = new transports.MongoDB({
     db: makeDatabaseURL(),
-    level: "error",
+    level: process.env.MONGO_LOGGING_ERROR_LEVEL || "error",
     name: "mongodb",
     storeHost: true,
-    collection: "errors",
+    collection: process.env.MONGO_LOGGING_ERROR_COLLECTION || "winstonerrors",
     capped: true,
     cappedSize: 80000000,
     decolorize: true,
@@ -114,5 +124,38 @@ export function makeMongooseErrorLogger() {
       useUnifiedTopology: true,
     },
   });
-  return mongooseLogger;
+
+  return mongooseErrorLogger;
+}
+
+let mongooseErrorFileLogger = null;
+export function makeMongooseErrorFileLogger() {
+  if (mongooseErrorFileLogger) {
+    return mongooseErrorFileLogger;
+  }
+
+  const transports: any = winston.transports;
+
+  mongooseErrorFileLogger = new transports.File({
+    filename: process.env.MONGO_LOGGING_ERROR_FILE_NAME || "winston-errors.log",
+    level: process.env.MONGO_LOGGING_ERROR_FILE_LEVEL || "error",
+  });
+
+  return mongooseErrorFileLogger;
+}
+
+let mongooseFileLogger = null;
+export function makeMongooseFileLogger() {
+  if (mongooseFileLogger) {
+    return mongooseFileLogger;
+  }
+
+  const transports = winston.transports;
+
+  mongooseFileLogger = new transports.File({
+    filename: process.env.MONGO_LOGGING_FILE_NAME || "winston-logs.log",
+    level: process.env.MONGO_LOGGING_FILE_LEVEL || "verbose",
+  });
+
+  return mongooseFileLogger;
 }
