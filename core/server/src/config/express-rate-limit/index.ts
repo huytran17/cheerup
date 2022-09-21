@@ -10,7 +10,6 @@ const express_rate_limit_options = {
 
 const expressRateLimit = makeExpressRateLimit({
   options: express_rate_limit_options,
-  NODE_ENV: process.env.NODE_ENV,
 });
 
 export default Object.freeze({

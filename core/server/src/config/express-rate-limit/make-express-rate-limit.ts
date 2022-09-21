@@ -4,10 +4,8 @@ export type IExpressRateLimitOptions = () => RateLimitRequestHandler;
 
 export default function makeExpressRateLimit({
   options,
-  NODE_ENV,
 }: {
   options: Record<string, unknown>;
-  NODE_ENV: string;
 }): IExpressRateLimitOptions {
   return function expressRateLimit(): RateLimitRequestHandler {
     return rateLimit({ ...options });
