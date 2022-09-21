@@ -8,8 +8,9 @@ require("winston-mongodb");
 export const logger = winston.createLogger({
   transports: [
     new winston.transports.Console(),
-    makeMongooseLogger(),
-    makeMongooseFileLogger(),
+    winston.level === "verbose"
+      ? (makeMongooseLogger(), makeMongooseFileLogger())
+      : (makeMongooseErrorLogger(), makeMongooseErrorFileLogger()),
   ],
   exceptionHandlers: [makeMongooseErrorLogger(), makeMongooseErrorFileLogger()],
   level: "verbose",

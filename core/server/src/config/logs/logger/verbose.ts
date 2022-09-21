@@ -10,23 +10,21 @@ import {
 import _ from "lodash";
 
 export default function makeLogger() {
-  const is_silent = process.argv.includes("--silent");
-
   return expressWinston.logger({
     transports: [
       new winston.transports.Console({
         levels: winston.config.syslog.levels,
         format: winston.format.simple(),
         level: "verbose",
-        silent: is_silent,
       }),
       makeMongooseLogger(),
       makeMongooseFileLogger(),
     ],
     exitOnError: false,
-    exceptionHandlers: is_silent
-      ? []
-      : [makeMongooseErrorLogger(), makeMongooseErrorFileLogger()], // ignore with --silent
+    exceptionHandlers: [
+      makeMongooseErrorLogger(),
+      makeMongooseErrorFileLogger(),
+    ], // ignore with --silent
     format: formatLog(),
     meta: false, // optional: control whether you want to log the meta data about the request (default to true)
     msg: `HTTP {{ req.clientIp }} {{req.method}} {{req.url}} {{res.statusCode}} {{res.error}} {{res.responseTime}}ms`, // optional: customize the default logging message. E.g. "{{res.statusCode}} {{req.method}} {{res.responseTime}}ms {{req.url}}"
