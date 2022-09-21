@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import makeLogger from "./config/logs/logger";
+import { expressRateLimit } from "./config/express-rate-limit";
 import makeDb from "./data-access/make-db";
 import { UserDb, AdminDb, SystemConfigurationDb } from "./data-access";
 import { initializeMailer } from "./config/emailManager/mailer";
@@ -21,6 +22,7 @@ const app = express();
 
 app.use(cors());
 app.use(helmet());
+app.use(expressRateLimit);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
