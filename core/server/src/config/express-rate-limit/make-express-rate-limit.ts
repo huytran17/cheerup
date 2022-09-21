@@ -10,11 +10,6 @@ export default function makeExpressRateLimit({
   NODE_ENV: string;
 }): IExpressRateLimitOptions {
   return function expressRateLimit(): RateLimitRequestHandler {
-    //disable for development
-    if (NODE_ENV === "development") {
-      return;
-    }
-
     return rateLimit({ ...options });
   };
 }

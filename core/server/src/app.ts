@@ -20,9 +20,12 @@ import helmet from "helmet";
 
 const app = express();
 
+if (process.env.NODE_ENV === "production") {
+  app.use(expressRateLimit);
+}
+
 app.use(cors());
 app.use(helmet());
-app.use(expressRateLimit);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
