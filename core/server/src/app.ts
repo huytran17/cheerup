@@ -3,7 +3,8 @@ import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
 
-import makeLogger from "./config/logs/logger";
+import makeLogger from "./config/logs/logger/verbose";
+import makeErrorLogger from "./config/logs/logger/error";
 import { expressRateLimit } from "./config/express-rate-limit";
 import makeDb from "./data-access/make-db";
 import { UserDb, AdminDb, SystemConfigurationDb } from "./data-access";
@@ -31,6 +32,7 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(appRouter);
 app.use(makeLogger());
+app.use(makeErrorLogger());
 app.use(upload.single("file"));
 
 app.listen(3000, () => console.log("Server is listening on port 3000"));

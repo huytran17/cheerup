@@ -8,7 +8,7 @@ export default function makeErrorLogger() {
     exitOnError: false,
     transports: [
       makeMongooseErrorLogger(),
-      new winston.transports.Console({ level: "warn" }),
+      new winston.transports.Console({ level: "error" }),
     ],
     format: winston.format.combine(
       winston.format.colorize(),
