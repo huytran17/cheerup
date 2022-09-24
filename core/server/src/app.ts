@@ -22,7 +22,7 @@ import helmet from "helmet";
 const app = express();
 
 if (process.env.NODE_ENV === "production") {
-  app.use(expressRateLimit);
+  app.use(expressRateLimit());
 }
 
 app.use(cors());
