@@ -1,16 +1,16 @@
 import { IGetUser } from "../../../../use-cases/user/get-user";
-import { IUpdateUser } from "../../../../use-cases/user/update-user";
+import { IRestoreUser } from "../../../../use-cases/user/restore-user";
 import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
 
 export default function makeRestoreUserController({
   getUser,
-  updateUser,
+  restoreUser,
   logger,
 }: {
   getUser: IGetUser;
-  updateUser: IUpdateUser;
+  restoreUser: IRestoreUser;
   logger: Logger;
 }) {
   return async function restoreUserController(
@@ -27,12 +27,8 @@ export default function makeRestoreUserController({
         throw new Error(`User by id ${_id} does not exist`);
       }
 
-      const updated_user_data = Object.assign({}, exists, {
-        deleted_at: null,
-      });
-
-      const updated_user = await updateUser({
-        userDetails: updated_user_data,
+      const updated_user = await restoreUser({
+        _id,
       });
 
       logger.verbose(`Restored user ${_id} successfully`);

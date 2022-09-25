@@ -30,6 +30,7 @@ export default function makeLikeCommentController({
       const exists = await getComment({
         _id: comment_id,
         is_only_parent: false,
+        is_include_deleted: false,
       });
 
       const not_exists = !exists || isNil(exists);

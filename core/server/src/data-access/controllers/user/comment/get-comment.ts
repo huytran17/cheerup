@@ -19,7 +19,10 @@ export default function makeGetCommentController({
 
     try {
       const { comment_id } = _.get(httpRequest, "context.validated");
-      const exists = await getComment({ _id: comment_id });
+      const exists = await getComment({
+        _id: comment_id,
+        is_include_deleted: false,
+      });
       if (!exists) {
         throw new Error(`Comment ${comment_id} does not exists`);
       }

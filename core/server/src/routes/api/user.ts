@@ -47,24 +47,6 @@ userRouter.delete(
   makeExpressCallback(deleteUserController)
 );
 
-/**
- * @openapi
- *
- * /api/user/{_id}:
- *  get:
- *     description: Get user by id
- *     parameters:
- *       - name: _id
- *         description: the user's id
- *         in: path
- *         type: string
- *         required: true
- *     responses:
- *       200:
- *         description: the user data
- *     tags:
- *     - /api/user
- */
 userRouter.get(
   "/:_id",
   makeValidator(getUserRules),

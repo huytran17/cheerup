@@ -7,6 +7,7 @@ import {
   hardDeleteUser,
   getUserAnalystics,
   createUser,
+  restoreUser,
 } from "../../../../use-cases/user";
 import { logger } from "../../../../config/logs/logger";
 import { hashPassword } from "../../../../config/password";
@@ -37,7 +38,7 @@ const hardDeleteUserController = makeHardDeleteUserController({
 
 const restoreUserController = makeRestoreUserController({
   getUser,
-  updateUser,
+  restoreUser,
   logger,
 });
 

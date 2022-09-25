@@ -12,10 +12,17 @@ export default interface IUserDb {
     entries_per_page?: number;
   }) => Promise<PaginatedUserResult | null>;
   findOne: () => Promise<User | null>;
-  findById: ({ _id }: { _id: string }) => Promise<User | null>;
+  findById: ({
+    _id,
+    is_include_deleted,
+  }: {
+    _id: string;
+    is_include_deleted?: boolean;
+  }) => Promise<User | null>;
   findByEmail: ({ email }: { email: string }) => Promise<User | null>;
   insert: (payload: Partial<IUser>) => Promise<User | null>;
   delete: ({ _id }: { _id: string }) => Promise<User | null>;
+  restore: ({ _id }: { _id: string }) => Promise<User | null>;
   hardDelete: ({ _id }: { _id: string }) => Promise<User | null>;
   update: (updatePayload: Partial<IUser>) => Promise<User | null>;
   getUserAnalystics: ({

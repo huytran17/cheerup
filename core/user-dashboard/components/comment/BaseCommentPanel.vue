@@ -1,12 +1,18 @@
 <template>
-  <v-row v-if="post_data.is_blocked_comment">
+  <v-row v-if="is_post_blocked_comment || is_user_blocked_comment">
     <v-col cols="12" class="pb-11">
       <div
         class="text__description text-sm-body-2 text-uppercase text-center grey--text"
       >
         <span
+          v-if="is_post_blocked_comment"
           class="app-body"
           v-html="$t('This post has been locked from comments')"
+        ></span>
+        <span
+          v-else-if="is_user_blocked_comment"
+          class="app-body"
+          v-html="$t('You has been locked from comments')"
         ></span>
       </div>
     </v-col>
@@ -116,6 +122,26 @@ export default {
     };
   },
   computed: {
+    is_post_blocked_comment() {
+      const is_post_blocked_comment = _.get(
+        this.post_data,
+        "is_blocked_comment",
+        false
+      );
+
+      return is_post_blocked_comment;
+    },
+
+    is_user_blocked_comment() {
+      const is_user_blocked_comment = _.get(
+        this.me,
+        "is_blocked_comment",
+        false
+      );
+
+      return is_user_blocked_comment;
+    },
+
     has_comments() {
       return !_.isEmpty(this.comments_data);
     },

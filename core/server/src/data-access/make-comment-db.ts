@@ -173,10 +173,12 @@ export default function makeCommentDb({
 
     async findById({
       _id,
-      is_only_parent,
+      is_only_parent = true,
+      is_include_deleted = true,
     }: {
       _id: string;
       is_only_parent?: boolean;
+      is_include_deleted?: boolean;
     }): Promise<Comment | null> {
       const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
       const is_mongo_id = mongo_id_regex.test(_id);
@@ -187,6 +189,10 @@ export default function makeCommentDb({
       let query_conditions = {
         deleted_at: { $in: [null, undefined] },
       };
+
+      if (is_include_deleted) {
+        delete query_conditions.deleted_at;
+      }
 
       if (is_only_parent) {
         query_conditions["parent"] = { $in: [null, undefined] };
@@ -239,8 +245,12 @@ export default function makeCommentDb({
     }
 
     async findOne(): Promise<Comment | null> {
+      const query_conditions = {
+        deleted_at: { $in: [null, undefined] },
+      };
+
       const existing = await commentDbModel
-        .findOne()
+        .findOne(query_conditions)
         .populate("children", "-_v")
         .populate("user", "-_v")
         .populate("post", "-_v")
