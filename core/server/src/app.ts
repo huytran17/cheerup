@@ -38,7 +38,8 @@ app.use(upload.single("file"));
 
 app.listen(3000, () => console.log("Server is listening on port 3000"));
 
+initializeMailer();
+
 makeDb().then(async () => {
-  initializeMailer();
   await Promise.all([createDefaultAdmin(), createDefaultSystemConfiguration()]);
 });
