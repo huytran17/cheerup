@@ -3,7 +3,7 @@ import { IGetSuggestionPosts } from "../../../../use-cases/post/get-suggestion-p
 import _ from "lodash";
 import { Logger } from "winston";
 
-export default function makeGetLatestPostsController({
+export default function makeGetSuggestionPostsController({
   getSuggestionPosts,
   logger,
 }: {
