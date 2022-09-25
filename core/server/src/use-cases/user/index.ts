@@ -9,6 +9,16 @@ import makeUpdateUser from "./update-user";
 import makeGetUsers from "./get-users";
 import makeHardDeleteUser from "./hard-delete-user";
 import makeGetUserAnalystics from "./get-user-analystics";
+import makeCreateUser from "./create-user";
+import makeGetOneUser from "./get-one-user";
+
+const getOneUser = makeGetOneUser({
+  userDb: UserDb,
+});
+
+const createUser = makeCreateUser({
+  userDb: UserDb,
+});
 
 const getUserAnalystics = makeGetUserAnalystics({
   userDb: UserDb,
@@ -48,6 +58,8 @@ const userServices = Object.freeze({
   getUsers,
   hardDeleteUser,
   getUserAnalystics,
+  createUser,
+  getOneUser,
 });
 
 export default userServices;
@@ -60,4 +72,6 @@ export {
   getUsers,
   hardDeleteUser,
   getUserAnalystics,
+  createUser,
+  getOneUser,
 };

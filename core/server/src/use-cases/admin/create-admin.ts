@@ -3,7 +3,10 @@ import IAdminDb from "../../data-access/interfaces/admin-db";
 import IAdmin from "../../database/interfaces/admin";
 
 export interface ICreateAdminData {
-  adminDetails: Omit<IAdmin, "_id">;
+  adminDetails: Omit<
+    IAdmin,
+    "_id" | "created_at" | "updated_at" | "deleted_at"
+  >;
 }
 
 export type ICreateAdmin = ({
