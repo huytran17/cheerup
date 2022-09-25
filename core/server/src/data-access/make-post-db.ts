@@ -263,19 +263,14 @@ export default function makePostDb({
     async findSuggestionPosts({
       amount,
       categories,
-      is_only_published = false,
     }: {
       amount: number;
       categories: string[];
-      is_only_published?: boolean;
     }): Promise<Post[]> {
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
+        is_published: true,
       };
-
-      if (is_only_published) {
-        query_conditions["is_published"] = true;
-      }
 
       if (!_.isEmpty(categories)) {
         query_conditions["categories"] = { $in: categories };

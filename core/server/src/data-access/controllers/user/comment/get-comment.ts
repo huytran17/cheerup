@@ -23,7 +23,8 @@ export default function makeGetCommentController({
         _id: comment_id,
         is_include_deleted: false,
       });
-      if (!exists) {
+      const comment_not_exists = _.isEmpty(exists) || _.isNil(exists);
+      if (comment_not_exists) {
         throw new Error(`Comment ${comment_id} does not exists`);
       }
 

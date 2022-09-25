@@ -240,11 +240,22 @@ export default function makeUserDb({
       return null;
     }
 
-    async findByEmail({ email }: { email: string }): Promise<User | null> {
+    async findByEmail({
+      email,
+      is_include_deleted = true,
+    }: {
+      email: string;
+      is_include_deleted?: boolean;
+    }): Promise<User | null> {
       const query_conditions = {
         email,
         deleted_at: { $in: [undefined, null] },
       };
+
+      if (is_include_deleted) {
+        delete query_conditions.deleted_at;
+      }
+
       const existing = await userDbModel.findOne(query_conditions);
 
       if (existing) {

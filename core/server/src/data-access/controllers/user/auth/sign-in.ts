@@ -32,7 +32,7 @@ export default function makeSignInController({
       const payload: ILoginData = _.get(httpRequest, "context.validated");
       const { email, password } = payload;
 
-      const exists = await getUserByEmail({ email });
+      const exists = await getUserByEmail({ email, is_include_deleted: false });
       if (!exists) {
         throw new Error(`User by ${email} does not exist`);
       }

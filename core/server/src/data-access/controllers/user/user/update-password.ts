@@ -31,9 +31,10 @@ export default function makeUpdatePasswordController({
         httpRequest,
         "context.validated"
       );
-      const exists = await getUser({ _id });
-      const not_exists = !exists || _.isNil(exists);
-      if (not_exists) {
+
+      const exists = await getUser({ _id, is_include_deleted: false });
+      const user_not_exists = _.isEmpty(exists) || _.isNil(exists);
+      if (user_not_exists) {
         throw new Error(`User by ${_id} does not exist`);
       }
 

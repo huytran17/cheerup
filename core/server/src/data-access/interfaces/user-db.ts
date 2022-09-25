@@ -19,7 +19,13 @@ export default interface IUserDb {
     _id: string;
     is_include_deleted?: boolean;
   }) => Promise<User | null>;
-  findByEmail: ({ email }: { email: string }) => Promise<User | null>;
+  findByEmail: ({
+    email,
+    is_include_deleted,
+  }: {
+    email: string;
+    is_include_deleted?: boolean;
+  }) => Promise<User | null>;
   insert: (payload: Partial<IUser>) => Promise<User | null>;
   delete: ({ _id }: { _id: string }) => Promise<User | null>;
   restore: ({ _id }: { _id: string }) => Promise<User | null>;

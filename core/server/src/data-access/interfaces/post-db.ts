@@ -25,11 +25,9 @@ export default interface IPostDb {
   findSuggestionPosts: ({
     amount,
     categories,
-    is_only_published,
   }: {
     amount: number;
     categories: string[];
-    is_only_published?: boolean;
   }) => Promise<Post[]>;
   findById: ({
     _id,

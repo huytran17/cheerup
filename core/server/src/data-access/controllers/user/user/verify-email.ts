@@ -32,11 +32,15 @@ export default function makeVerifyEmailController({
     try {
       const { verification_code } = _.get(httpRequest, "context.validated");
       const { _id: user_id, email } = _.get(httpRequest, "context.user");
-      const user_exists = await getUser({ _id: user_id });
 
-      const user_not_exists = !user_exists || _.isNil(user_exists);
+      const user_exists = await getUser({
+        _id: user_id,
+        is_include_deleted: false,
+      });
+
+      const user_not_exists = _.isEmpty(user_exists) || _.isNil(user_exists);
       if (user_not_exists) {
-        throw new Error(`User ${user_id} does not exists`);
+        throw new Error(`User by ${user_id} does not exist`);
       }
 
       const email_verification =
