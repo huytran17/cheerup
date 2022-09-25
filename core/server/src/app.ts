@@ -3,7 +3,7 @@ import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
 
-import makeLogger from "./config/logs/logger/verbose";
+import makeVerboseLogger from "./config/logs/logger/verbose";
 import makeErrorLogger from "./config/logs/logger/error";
 import { expressRateLimit } from "./config/express-rate-limit";
 import makeDb from "./data-access/make-db";
@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(appRouter);
-app.use(makeLogger());
+app.use(makeVerboseLogger());
 app.use(makeErrorLogger());
 app.use(upload.single("file"));
 

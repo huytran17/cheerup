@@ -3,13 +3,13 @@ import expressWinston from "express-winston";
 import {
   makeMongooseErrorLogger,
   makeMongooseErrorFileLogger,
-  makeMongooseLogger,
-  makeMongooseFileLogger,
+  makeMongooseVerboseLogger,
+  makeMongooseVerboseFileLogger,
   formatLog,
 } from "./index";
 import _ from "lodash";
 
-export default function makeLogger() {
+export default function makeVerboseLogger() {
   return expressWinston.logger({
     transports: [
       new winston.transports.Console({
@@ -17,8 +17,8 @@ export default function makeLogger() {
         format: winston.format.simple(),
         level: "verbose",
       }),
-      makeMongooseLogger(),
-      makeMongooseFileLogger(),
+      makeMongooseVerboseLogger(),
+      makeMongooseVerboseFileLogger(),
     ],
     exitOnError: false,
     exceptionHandlers: [
