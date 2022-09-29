@@ -8,6 +8,7 @@ import feedbackSchema from "../../database/schemas/feedback";
 import subscriptionSchema from "../../database/schemas/subscription";
 import systemConfigurationSchema from "../../database/schemas/system-configuration";
 import emailVerificationSchema from "../../database/schemas/email-verification";
+import postBookmarkSchema from "../../database/schemas/post-bookmark";
 
 import IEmailVerification from "../../database/interfaces/email-verification";
 import ISystemConfiguration from "../../database/interfaces/system-configuration";
@@ -18,7 +19,9 @@ import IPost from "../../database/interfaces/post";
 import ICategory from "../../database/interfaces/category";
 import IComment from "../../database/interfaces/comment";
 import IFeedback from "../../database/interfaces/feedback";
+import IPostBookmark from "../../database/interfaces/post-bookmark";
 
+type IPostBookmarkModel = IPostBookmark & mongoose.Document;
 type IEmailVerificationModel = IEmailVerification & mongoose.Document;
 type ISystemConfigurationModel = ISystemConfiguration & mongoose.Document;
 type ISubscriptionModel = ISubscription & mongoose.Document;
@@ -30,6 +33,10 @@ type ICommentModel = IComment & mongoose.Document;
 type IFeedbackModel = IFeedback & mongoose.Document;
 
 // Models
+const PostBookmarkModel = mongoose.model<IPostBookmarkModel>(
+  "PostBookmark",
+  postBookmarkSchema
+);
 const EmailVerificationModel = mongoose.model<IEmailVerificationModel>(
   "EmailVerification",
   emailVerificationSchema
@@ -65,6 +72,7 @@ export default Object.freeze({
   SubscriptionModel,
   SystemConfigurationModel,
   EmailVerificationModel,
+  PostBookmarkModel,
 });
 
 export {
@@ -77,4 +85,5 @@ export {
   SubscriptionModel,
   SystemConfigurationModel,
   EmailVerificationModel,
+  PostBookmarkModel,
 };

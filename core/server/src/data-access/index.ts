@@ -9,6 +9,7 @@ import makeFeedbackDb from "./make-feedback-db";
 import makeSubscriptionDb from "./make-subscription-db";
 import makeSystemConfigurationDb from "./make-system-configuration-db";
 import makeEmailVerificationDb from "./make-email-verification-db";
+import makePostBookmarkDb from "./make-post-bookmark-db";
 
 import {
   UserModel,
@@ -20,25 +21,39 @@ import {
   SubscriptionModel,
   SystemConfigurationModel,
   EmailVerificationModel,
+  PostBookmarkModel,
 } from "./models";
+
+const PostBookmarkDb = makePostBookmarkDb({
+  postBookmarkDbModel: PostBookmarkModel,
+  moment,
+});
 
 const EmailVerificationDb = makeEmailVerificationDb({
   emailVerificationDbModel: EmailVerificationModel,
   moment,
 });
+
 const SubscriptionDb = makeSubscriptionDb({
   subscriptionDbModel: SubscriptionModel,
   moment,
 });
+
 const SystemConfigurationDb = makeSystemConfigurationDb({
   systemConfigurationDbModel: SystemConfigurationModel,
   moment,
 });
+
 const FeedbackDb = makeFeedbackDb({ feedbackDbModel: FeedbackModel, moment });
+
 const PostDb = makePostDb({ postDbModel: PostModel, moment });
+
 const CommentDb = makeCommentDb({ commentDbModel: CommentModel, moment });
+
 const UserDb = makeUserDb({ userDbModel: UserModel, moment });
+
 const AdminDb = makeAdminDb({ adminDbModel: AdminModel, moment });
+
 const CategoryDb = makeCategoryDb({
   categoryDbModel: CategoryModel,
   moment,
@@ -54,6 +69,7 @@ export default Object.freeze({
   SubscriptionDb,
   SystemConfigurationDb,
   EmailVerificationDb,
+  PostBookmarkDb,
 });
 
 export {
@@ -66,4 +82,5 @@ export {
   SubscriptionDb,
   SystemConfigurationDb,
   EmailVerificationDb,
+  PostBookmarkDb,
 };

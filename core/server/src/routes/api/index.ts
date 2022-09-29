@@ -11,6 +11,7 @@ import postRouter from "./post";
 import emailVerificationRouter from "./email-verification";
 import systemConfigurationRouter from "./system-configuration";
 import subscriptionRouter from "./subscription";
+import postBookmarkRouter from "./post-bookmark";
 
 apiRouter.use("/user", authenticateUserJWT(), userRouter);
 apiRouter.use(
@@ -19,6 +20,7 @@ apiRouter.use(
   emailVerificationRouter
 );
 apiRouter.use("/category", categoryRouter);
+apiRouter.use("/post-bookmark", postBookmarkRouter);
 apiRouter.use("/subscription", authenticateUserJWT(), subscriptionRouter);
 apiRouter.use("/comment", authenticateUserJWT(), commentRouter);
 apiRouter.use("/post", postRouter);

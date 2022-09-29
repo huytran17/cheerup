@@ -1,7 +1,5 @@
 import { logger } from "../../config/logs/logger";
-
 import { SubscriptionDb } from "../../data-access";
-
 import makeGetSubscription from "./get-subscription";
 import makeGetSubscriptionByEmail from "./get-subscription-by-email";
 import makeUpdateSubscription from "./update-subscription";
