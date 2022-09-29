@@ -6,9 +6,14 @@ const emailTextTemplate = {
     `${__dirname}/get-email-verification-code.html`,
     "utf8"
   ),
+  "new-post-notification": fs.readFileSync(
+    `${__dirname}/new-post-notification.html`,
+    "utf8"
+  ),
 };
 const subjectTemplate = {
   "get-email-verification-code": `Verify your email!`,
+  "new-post-notification": `New Post From {{product_name}}!`,
 };
 
 export default Object.freeze({

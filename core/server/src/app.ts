@@ -12,6 +12,7 @@ import {
   createDefaultSystemConfiguration,
 } from "./utils/initial-data";
 import { initializeMailer } from "./config/emailManager/mailer";
+import Scheduler from "./config/scheduler";
 import { upload } from "./config/middlewares/file-upload-middleware";
 
 import cors from "cors";
@@ -42,4 +43,5 @@ initializeMailer();
 
 makeDb().then(async () => {
   await Promise.all([createDefaultAdmin(), createDefaultSystemConfiguration()]);
+  new Scheduler();
 });
