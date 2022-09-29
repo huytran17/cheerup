@@ -6,9 +6,10 @@ import {
   getUserByEmail,
   hardDeleteUser,
   getUserAnalystics,
+  createUser,
+  restoreUser,
 } from "../../../../use-cases/user";
 import { logger } from "../../../../config/logs/logger";
-import { signUp } from "../../../../use-cases/auth";
 import { hashPassword } from "../../../../config/password";
 
 import makeGetUserController from "./get-user";
@@ -37,7 +38,7 @@ const hardDeleteUserController = makeHardDeleteUserController({
 
 const restoreUserController = makeRestoreUserController({
   getUser,
-  updateUser,
+  restoreUser,
   logger,
 });
 
@@ -66,7 +67,7 @@ const unblockUserCommentController = makeUnBlockUserCommentController({
 });
 
 const createUserController = makeCreateUserController({
-  signUp,
+  createUser,
   getUserByEmail,
   hashPassword,
   logger,

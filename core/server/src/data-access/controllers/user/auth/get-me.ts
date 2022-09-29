@@ -20,18 +20,15 @@ export default function makeGetMeController({
     try {
       const { _id, email } = _.get(httpRequest, "context.user");
 
-      const exists = await getUser({ _id });
+      const exists = await getUser({ _id, is_include_deleted: false });
 
-      const not_exists = !exists || _.isNil(exists);
+      const not_exists = _.isEmpty(exists) || _.isNil(exists);
       if (not_exists) {
         throw new Error(`User ${_id} does not exist`);
       }
 
       const subscription = await getSubscriptionByEmail({ email });
-      const is_subscribed =
-        !_.isEmpty(subscription) &&
-        !_.isNil(subscription) &&
-        _.get(subscription, "is_active", false);
+      const is_subscribed = _.get(subscription, "is_active", false);
 
       const final_user_data = Object.assign({}, exists, {
         is_subscribed,

@@ -4,12 +4,12 @@ export default class SystemConfiguration implements ISystemConfiguration {
   public readonly _id: string;
   public readonly is_blocked_comment: boolean;
   public readonly is_maintaining: boolean;
-  public readonly admin_logo_url: string;
-  public readonly admin_favicon_url: string;
-  public readonly client_logo_url: string;
-  public readonly client_favicon_url: string;
-  public readonly client_owner_avatar_url: string;
-  public readonly client_meta: {
+  public readonly admin_logo_url?: string;
+  public readonly admin_favicon_url?: string;
+  public readonly client_logo_url?: string;
+  public readonly client_favicon_url?: string;
+  public readonly client_owner_avatar_url?: string;
+  public readonly client_meta?: {
     title: string;
     description: string;
     author: string;
@@ -22,7 +22,7 @@ export default class SystemConfiguration implements ISystemConfiguration {
     logo: Record<string, unknown>;
     favicon: Record<string, unknown>;
   };
-  public readonly admin_meta: {
+  public readonly admin_meta?: {
     title: string;
     description: string;
     author: string;
@@ -40,7 +40,7 @@ export default class SystemConfiguration implements ISystemConfiguration {
     admin_favicon_url,
     client_logo_url,
     client_favicon_url,
-    client_owner_avatar_url
+    client_owner_avatar_url,
   }: ISystemConfiguration) {
     this._id = _id;
     this.is_blocked_comment = is_blocked_comment;

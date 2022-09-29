@@ -25,18 +25,18 @@ export default interface IPostDb {
   findSuggestionPosts: ({
     amount,
     categories,
-    is_only_published,
   }: {
     amount: number;
     categories: string[];
-    is_only_published?: boolean;
   }) => Promise<Post[]>;
   findById: ({
     _id,
     is_only_published,
+    is_include_deleted,
   }: {
     _id: string;
     is_only_published?: boolean;
+    is_include_deleted?: boolean;
   }) => Promise<Post | null>;
   insert: (payload: Partial<IPost>) => Promise<Post | null>;
   delete: ({ _id }: { _id: string }) => Promise<Post | null>;

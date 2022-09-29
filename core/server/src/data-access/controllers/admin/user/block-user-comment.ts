@@ -28,10 +28,13 @@ export default function makeBlockUserCommentController({
       }
 
       const final_user_details = Object.assign({}, exists, {
-        is_blocked_comment: true
+        is_blocked_comment: true,
       });
 
-      const updated_user = await updateUser({ userDetails: final_user_details });
+      const updated_user = await updateUser({
+        userDetails: final_user_details,
+      });
+
       return {
         headers,
         statusCode: 200,

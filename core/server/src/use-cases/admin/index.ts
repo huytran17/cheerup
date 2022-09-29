@@ -10,6 +10,11 @@ import makeGetAdmins from "./get-admins";
 import makeCreateAdmin from "./create-admin";
 import makeHardDeleteAdmin from "./hard-delete-admin";
 import makeGetAdminAnalystics from "./get-admin-analystics";
+import makeGetOneAdmin from "./get-one-admin";
+
+const getOneAdmin = makeGetOneAdmin({
+  adminDb: AdminDb,
+});
 
 const getAdminAnalystics = makeGetAdminAnalystics({
   adminDb: AdminDb,
@@ -54,6 +59,7 @@ const adminServices = Object.freeze({
   createAdmin,
   hardDeleteAdmin,
   getAdminAnalystics,
+  getOneAdmin,
 });
 
 export default adminServices;
@@ -67,4 +73,5 @@ export {
   createAdmin,
   hardDeleteAdmin,
   getAdminAnalystics,
+  getOneAdmin,
 };

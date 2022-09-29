@@ -3,8 +3,9 @@ import User from "../entities/user";
 
 export default class Feeback implements IFeeback {
   public readonly _id: string;
-  public readonly created_by: User;
+  public readonly created_by?: User;
   public readonly title: string;
+  public readonly email?: string;
   public readonly content: string;
   public readonly created_at: Date;
   public readonly updated_at: Date;

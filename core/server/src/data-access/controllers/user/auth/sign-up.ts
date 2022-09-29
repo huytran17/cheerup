@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { Logger } from "winston";
 import _ from "lodash";
-import { ISignUp } from "../../../../use-cases/auth/sign-up";
+import { ICreateUser } from "../../../../use-cases/user/create-user";
 import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { IHashPassword } from "../../../../config/password/hash-password";
 import User from "../../../../database/entities/user";
@@ -13,12 +13,12 @@ export type IUserRawData = Omit<User, "hash_password"> & {
 };
 
 export default function makeSignUpController({
-  signUp,
+  createUser,
   getUserByEmail,
   hashPassword,
   logger,
 }: {
-  signUp: ISignUp;
+  createUser: ICreateUser;
   getUserByEmail: IGetUserByEmail;
   hashPassword: IHashPassword;
   logger: Logger;
@@ -53,7 +53,7 @@ export default function makeSignUpController({
         }
       );
 
-      const created_user = await signUp({
+      const created_user = await createUser({
         userDetails: user_details,
       });
 

@@ -13,7 +13,13 @@ export default interface ICategoryDb {
   }) => Promise<PaginatedCategoryResult | null>;
   findOne: () => Promise<Category | null>;
   findAllCategoryTitles: () => Promise<{ _id: string; title: string }[]>;
-  findById: ({ _id }: { _id: string }) => Promise<Category | null>;
+  findById: ({
+    _id,
+    is_include_deleted,
+  }: {
+    _id: string;
+    is_include_deleted?: boolean;
+  }) => Promise<Category | null>;
   insert: (payload: Partial<ICategory>) => Promise<Category | null>;
   delete: ({ _id }: { _id: string }) => Promise<Category | null>;
   hardDelete: ({ _id }: { _id: string }) => Promise<Category | null>;

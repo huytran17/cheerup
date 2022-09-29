@@ -46,6 +46,7 @@ export default {
       ]);
     } catch (err) {
       console.log(err);
+      this.$toast.error(`Encountered error while getting post`);
     } finally {
       this.SET_POST_LOADING({ data: false });
     }

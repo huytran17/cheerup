@@ -2,6 +2,7 @@ import { IReplyComment } from "../../../../use-cases/comment/reply-comment";
 import { IUpdateComment } from "../../../../use-cases/comment/update-comment";
 import { IGetComment } from "../../../../use-cases/comment/get-comment";
 import { IGetPost } from "../../../../use-cases/post/get-post";
+import { IGetUser } from "../../../../use-cases/user/get-user";
 import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
@@ -11,12 +12,14 @@ export default function makeReplyCommentController({
   getComment,
   updateComment,
   getPost,
+  getUser,
   logger,
 }: {
   replyComment: IReplyComment;
   getComment: IGetComment;
   updateComment: IUpdateComment;
   getPost: IGetPost;
+  getUser: IGetUser;
   logger: Logger;
 }) {
   return async function replyCommentController(
@@ -34,9 +37,10 @@ export default function makeReplyCommentController({
       const post_exists = await getPost({
         _id: post_id,
         is_only_published: true,
+        is_include_deleted: false,
       });
 
-      const post_not_exists = !post_exists || _.isNil(post_exists);
+      const post_not_exists = _.isEmpty(post_exists) || _.isNil(post_exists);
       if (post_not_exists) {
         throw new Error(`Post by ${post_id} does not exist`);
       }
@@ -44,9 +48,38 @@ export default function makeReplyCommentController({
       const parent_comment = await getComment({
         _id: parent_id,
         is_only_parent: true,
+        is_include_deleted: false,
       });
 
-      const parent_not_exists = !parent_comment || _.isNil(parent_comment);
+      const is_post_blocked_comment = _.get(
+        post_exists,
+        "is_blocked_comment",
+        false
+      );
+      if (is_post_blocked_comment) {
+        throw new Error(`Post by ${post_id} has been blocked from comments`);
+      }
+
+      const user_exists = await getUser({
+        _id: user_id,
+        is_include_deleted: false,
+      });
+      const user_not_exists = _.isEmpty(user_exists) || _.isNil(user_exists);
+      if (user_not_exists) {
+        throw new Error(`User by ${user_id} does not exist`);
+      }
+
+      const is_user_blocked_comment = _.get(
+        user_exists,
+        "is_blocked_comment",
+        false
+      );
+      if (is_user_blocked_comment) {
+        throw new Error(`User by ${user_id} has been blocked from comments`);
+      }
+
+      const parent_not_exists =
+        _.isEmpty(parent_comment) || _.isNil(parent_comment);
       if (parent_not_exists) {
         throw new Error(`Parent comment by ${parent_id} does not exist`);
       }

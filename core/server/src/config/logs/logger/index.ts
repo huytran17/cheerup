@@ -9,7 +9,7 @@ export const logger = winston.createLogger({
   transports: [
     new winston.transports.Console(),
     winston.level === "verbose"
-      ? (makeMongooseLogger(), makeMongooseFileLogger())
+      ? (makeMongooseVerboseLogger(), makeMongooseVerboseFileLogger())
       : (makeMongooseErrorLogger(), makeMongooseErrorFileLogger()),
   ],
   exceptionHandlers: [makeMongooseErrorLogger(), makeMongooseErrorFileLogger()],
@@ -38,7 +38,7 @@ export function formatLog() {
 }
 
 let mongooseLogger = null;
-export function makeMongooseLogger() {
+export function makeMongooseVerboseLogger() {
   if (mongooseLogger) {
     return mongooseLogger;
   }
@@ -113,7 +113,7 @@ export function makeMongooseErrorFileLogger() {
 }
 
 let mongooseFileLogger = null;
-export function makeMongooseFileLogger() {
+export function makeMongooseVerboseFileLogger() {
   if (mongooseFileLogger) {
     return mongooseFileLogger;
   }

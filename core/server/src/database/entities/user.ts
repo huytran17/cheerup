@@ -4,18 +4,18 @@ import Admin from "../entities/admin";
 export default class User implements IUser {
   public readonly _id: string;
   public readonly hash_password: string;
-  public readonly avatar_url: string;
-  public readonly avatar: Record<string, unknown>;
+  public readonly avatar_url?: string;
+  public readonly avatar?: Record<string, unknown>;
   public readonly email: string;
-  public readonly full_name: string;
-  public readonly blocked_comment_at: Date;
-  public readonly is_blocked_comment: boolean;
-  public readonly is_email_verified: boolean;
-  public readonly created_by: Admin;
+  public readonly full_name?: string;
+  public readonly blocked_comment_at?: Date;
+  public readonly is_blocked_comment?: boolean;
+  public readonly is_email_verified?: boolean;
+  public readonly created_by?: Admin;
   public readonly created_at: Date;
   public readonly updated_at: Date;
   public readonly deleted_at: Date;
-  public readonly email_verified_at: Date;
+  public readonly email_verified_at?: Date;
 
   constructor({
     _id,

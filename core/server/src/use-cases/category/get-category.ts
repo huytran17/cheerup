@@ -4,8 +4,10 @@ import { Logger } from "winston";
 
 export type IGetCategory = ({
   _id,
+  is_include_deleted,
 }: {
   _id: string;
+  is_include_deleted?: boolean;
 }) => Promise<Category | null>;
 
 export default function makeGetCategory({
@@ -17,10 +19,12 @@ export default function makeGetCategory({
 }): IGetCategory {
   return async function getCategory({
     _id,
+    is_include_deleted,
   }: {
     _id: string;
+    is_include_deleted?: boolean;
   }): Promise<Category | null> {
-    const category = await categoryDb.findById({ _id });
+    const category = await categoryDb.findById({ _id, is_include_deleted });
     return category;
   };
 }
