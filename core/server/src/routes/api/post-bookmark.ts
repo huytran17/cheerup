@@ -15,7 +15,7 @@ import {
 
 const postBookmarkRouter = express.Router();
 
-postBookmarkRouter.put(
+postBookmarkRouter.get(
   "/all-paginated",
   makeValidator(getPostBookmarksPaginatedRules),
   makeExpressCallback(getPostBookmarksPaginatedController)
