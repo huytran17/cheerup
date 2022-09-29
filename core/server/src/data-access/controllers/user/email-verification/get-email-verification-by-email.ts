@@ -21,7 +21,7 @@ export default function makeGetEmailVerificationByEmailController({
       const { email } = _.get(httpRequest, "context.validated");
       const exists = await getEmailVerificationByEmail({ email });
 
-      const not_exists = !exists || _.isNil(exists);
+      const not_exists = _.isEmpty(exists) || _.isNil(exists);
       if (not_exists) {
         throw new Error(`EmailVerification by email ${email} does not exists`);
       }

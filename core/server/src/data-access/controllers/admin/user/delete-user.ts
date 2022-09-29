@@ -29,6 +29,7 @@ export default function makeDeleteUserController({
       }
 
       const deleted_user = await deleteUser({ _id });
+
       return {
         headers,
         statusCode: 200,

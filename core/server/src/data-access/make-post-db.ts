@@ -220,9 +220,11 @@ export default function makePostDb({
     async findById({
       _id,
       is_only_published = false,
+      is_include_deleted = true,
     }: {
       _id: string;
       is_only_published?: boolean;
+      is_include_deleted?: boolean;
     }): Promise<Post | null> {
       const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
       const is_mongo_id = mongo_id_regex.test(_id);
@@ -233,6 +235,10 @@ export default function makePostDb({
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
       };
+
+      if (is_include_deleted) {
+        delete query_conditions.deleted_at;
+      }
 
       if (_id) {
         query_conditions["_id"] = _id;
@@ -257,19 +263,14 @@ export default function makePostDb({
     async findSuggestionPosts({
       amount,
       categories,
-      is_only_published = false,
     }: {
       amount: number;
       categories: string[];
-      is_only_published?: boolean;
     }): Promise<Post[]> {
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
+        is_published: true,
       };
-
-      if (is_only_published) {
-        query_conditions["is_published"] = true;
-      }
 
       if (!_.isEmpty(categories)) {
         query_conditions["categories"] = { $in: categories };
@@ -293,8 +294,12 @@ export default function makePostDb({
     }
 
     async findOne(): Promise<Post | null> {
+      const query_conditions = {
+        deleted_at: { $in: [null, undefined] },
+      };
+
       const existing = await postDbModel
-        .findOne()
+        .findOne(query_conditions)
         .populate("author", "-_v")
         .populate("categories", "-_v")
         .lean({ virtuals: true });

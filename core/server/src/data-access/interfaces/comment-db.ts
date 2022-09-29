@@ -15,9 +15,11 @@ export default interface ICommentDb {
   findById: ({
     _id,
     is_only_parent,
+    is_include_deleted,
   }: {
     _id: string;
     is_only_parent?: boolean;
+    is_include_deleted?: boolean;
   }) => Promise<Comment | null>;
   findAllByPost: ({
     post_id,

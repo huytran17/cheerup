@@ -3,7 +3,7 @@ import { IGetSuggestionPosts } from "../../../../use-cases/post/get-suggestion-p
 import _ from "lodash";
 import { Logger } from "winston";
 
-export default function makeGetLatestPostsController({
+export default function makeGetSuggestionPostsController({
   getSuggestionPosts,
   logger,
 }: {
@@ -18,17 +18,13 @@ export default function makeGetLatestPostsController({
     };
 
     try {
-      const { amount, categories, is_only_published } = _.get(
-        httpRequest,
-        "context.validated"
-      );
+      const { amount, categories } = _.get(httpRequest, "context.validated");
 
       const categories_array = _.split(categories, ",");
 
       const exists = await getSuggestionPosts({
         amount: Number(amount),
         categories: categories_array,
-        is_only_published,
       });
 
       return {

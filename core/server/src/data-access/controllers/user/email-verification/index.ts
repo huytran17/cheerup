@@ -5,7 +5,7 @@ import {
   getEmailVerification,
   deleteEmailVerification,
 } from "../../../../use-cases/email-verification";
-import { getUser } from "../../../../use-cases/user";
+import { getUser, getUserByEmail } from "../../../../use-cases/user";
 import { logger } from "../../../../config/logs/logger";
 import { generateOtpCode } from "../../../../config/otp";
 import {
@@ -36,6 +36,7 @@ const sendEmailVerificationCodeController =
 
 const getEmailVerificationByEmailAndVerificationCodeController =
   makeGetEmailVerificationByEmailAndVerificationCodeController({
+    getUserByEmail,
     getEmailVerificationByEmailAndVerificationCode,
     logger,
   });

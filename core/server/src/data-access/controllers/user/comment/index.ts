@@ -8,6 +8,7 @@ import {
   replyComment,
 } from "../../../../use-cases/comment";
 import { getPost } from "../../../../use-cases/post";
+import { getUser } from "../../../../use-cases/user";
 import { logger } from "../../../../config/logs/logger";
 
 import makeGetCommentController from "./get-comment";
@@ -25,6 +26,7 @@ const replyCommentController = makeReplyCommentController({
   getComment,
   updateComment,
   getPost,
+  getUser,
   logger,
 });
 
@@ -32,6 +34,7 @@ const dislikeCommentController = makeDislikeCommentController({
   getComment,
   updateComment,
   getPost,
+  getUser,
   logger,
 });
 
@@ -39,6 +42,7 @@ const likeCommentController = makeLikeCommentController({
   getComment,
   updateComment,
   getPost,
+  getUser,
   logger,
 });
 
@@ -56,6 +60,7 @@ const getCommentsController = makeGetCommentsController({
 const createCommentController = makeCreateCommentController({
   createComment,
   getPost,
+  getUser,
   logger,
 });
 
@@ -68,6 +73,7 @@ const deleteCommentController = makeDeleteCommentController({
   getComment,
   deleteComment,
   getPost,
+  getUser,
   logger,
 });
 
@@ -75,6 +81,7 @@ const updateCommentController = makeUpdateCommentController({
   getComment,
   updateComment,
   getPost,
+  getUser,
   logger,
 });
 

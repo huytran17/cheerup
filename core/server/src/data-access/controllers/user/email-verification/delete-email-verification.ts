@@ -24,7 +24,7 @@ export default function makeDeleteEmailVerificationController({
       const { _id } = _.get(httpRequest, "context.validated");
       const exists = await getEmailVerification({ _id });
 
-      const not_exists = !exists || _.isNil(exists);
+      const not_exists = _.isEmpty(exists) || _.isNil(exists);
       if (not_exists) {
         throw new Error(`EmailVerification by ${_id} does not exist`);
       }

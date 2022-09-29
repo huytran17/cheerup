@@ -110,7 +110,13 @@ export default function makeCategoryDb({
       return null;
     }
 
-    async findById({ _id }: { _id: string }): Promise<Category | null> {
+    async findById({
+      _id,
+      is_include_deleted = true,
+    }: {
+      _id: string;
+      is_include_deleted?: boolean;
+    }): Promise<Category | null> {
       const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
       const is_mongo_id = mongo_id_regex.test(_id);
       if (!is_mongo_id || !_id) {
@@ -120,6 +126,10 @@ export default function makeCategoryDb({
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
       };
+
+      if (is_include_deleted) {
+        delete query_conditions.deleted_at;
+      }
 
       if (_id) {
         query_conditions["_id"] = _id;
@@ -140,8 +150,12 @@ export default function makeCategoryDb({
     }
 
     async findOne(): Promise<Category | null> {
+      const query_conditions = {
+        deleted_at: { $in: [null, undefined] },
+      };
+
       const existing = await categoryDbModel
-        .findOne()
+        .findOne(query_conditions)
         .populate({
           path: "created_by",
           select: "-__v",

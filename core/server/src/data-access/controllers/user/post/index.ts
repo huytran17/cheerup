@@ -9,7 +9,7 @@ import { logger } from "../../../../config/logs/logger";
 
 import makeGetPostController from "./get-post";
 import makeGetPostsController from "./get-posts";
-import makeGetLatestPostsController from "./get-suggestion-posts";
+import makeGetSuggestionPostsController from "./get-suggestion-posts";
 import makeGetPostsPaginatedController from "./get-posts-paginated";
 
 const getPostsPaginatedController = makeGetPostsPaginatedController({
@@ -29,7 +29,7 @@ const getPostController = makeGetPostController({
   logger,
 });
 
-const getSuggestionPostsController = makeGetLatestPostsController({
+const getSuggestionPostsController = makeGetSuggestionPostsController({
   getSuggestionPosts,
   logger,
 });

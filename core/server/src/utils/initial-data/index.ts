@@ -1,0 +1,31 @@
+import { hashPassword } from "../../config/password";
+import { getOneAdmin, createAdmin } from "../../use-cases/admin";
+import { logger } from "../../config/logs/logger";
+import {
+  getOneSystemConfiguration,
+  createSystemConfiguration,
+} from "../../use-cases/system-configuration";
+
+import makeCreateDefaultAdmin from "./make-default-admin";
+import makeCreateDefaultSystemConfiguration from "./make-default-system-configuration";
+
+const createDefaultSystemConfiguration = makeCreateDefaultSystemConfiguration({
+  getOneSystemConfiguration,
+  createSystemConfiguration,
+  logger,
+});
+
+const createDefaultAdmin = makeCreateDefaultAdmin({
+  getOneAdmin,
+  hashPassword,
+  createAdmin,
+  logger,
+  DEFAULT_ADMIN_PASSWORD: process.env.DEFAULT_ADMIN_PASSWORD,
+});
+
+export default Object.freeze({
+  createDefaultAdmin,
+  createDefaultSystemConfiguration,
+});
+
+export { createDefaultAdmin, createDefaultSystemConfiguration };

@@ -16,7 +16,7 @@ export default function makeGetUserByEmailController({
 
     try {
       const { email } = _.get(httpRequest, "context.validated");
-      const exists = await getUserByEmail({ email });
+      const exists = await getUserByEmail({ email, is_include_deleted: false });
       if (!exists) {
         throw new Error(`User ${email} does not exists`);
       }

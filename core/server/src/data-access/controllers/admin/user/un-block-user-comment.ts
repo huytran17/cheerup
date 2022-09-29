@@ -28,10 +28,13 @@ export default function makeUnBlockUserCommentController({
       }
 
       const final_user_details = Object.assign({}, exists, {
-        is_blocked_comment: false
+        is_blocked_comment: false,
       });
 
-      const updated_user = await updateUser({ userDetails: final_user_details });
+      const updated_user = await updateUser({
+        userDetails: final_user_details,
+      });
+
       return {
         headers,
         statusCode: 200,

@@ -19,7 +19,11 @@ export default function makeGetPostController({
 
     try {
       const { _id } = _.get(httpRequest, "context.validated");
-      const exists = await getPost({ _id, is_only_published: true });
+      const exists = await getPost({
+        _id,
+        is_only_published: true,
+        is_include_deleted: false,
+      });
 
       const not_exists = !exists || _.isNil(exists);
       if (not_exists) {

@@ -26,9 +26,10 @@ export default function makeGetCommentsByPostController({
       const post_exists = await getPost({
         _id: post_id,
         is_only_published: true,
+        is_include_deleted: false,
       });
 
-      const post_not_exists = !post_exists || _.isNil(post_exists);
+      const post_not_exists = _.isEmpty(post_exists) || _.isNil(post_exists);
       if (post_not_exists) {
         throw new Error(`Post by ${post_id} does not exist`);
       }

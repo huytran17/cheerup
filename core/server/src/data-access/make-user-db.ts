@@ -190,7 +190,13 @@ export default function makeUserDb({
       return null;
     }
 
-    async findById({ _id }: { _id: string }): Promise<User | null> {
+    async findById({
+      _id,
+      is_include_deleted = true,
+    }: {
+      _id: string;
+      is_include_deleted?: boolean;
+    }): Promise<User | null> {
       const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
       const is_mongo_id = mongo_id_regex.test(_id);
       if (!is_mongo_id || !_id) {
@@ -200,6 +206,10 @@ export default function makeUserDb({
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
       };
+
+      if (is_include_deleted) {
+        delete query_conditions.deleted_at;
+      }
 
       if (_id) {
         query_conditions["_id"] = _id;
@@ -215,7 +225,13 @@ export default function makeUserDb({
     }
 
     async findOne(): Promise<User | null> {
-      const existing = await userDbModel.findOne().lean({ virtuals: true });
+      const query_conditions = {
+        deleted_at: { $in: [null, undefined] },
+      };
+
+      const existing = await userDbModel
+        .findOne(query_conditions)
+        .lean({ virtuals: true });
 
       if (existing) {
         return new User(existing);
@@ -224,11 +240,22 @@ export default function makeUserDb({
       return null;
     }
 
-    async findByEmail({ email }: { email: string }): Promise<User | null> {
+    async findByEmail({
+      email,
+      is_include_deleted = true,
+    }: {
+      email: string;
+      is_include_deleted?: boolean;
+    }): Promise<User | null> {
       const query_conditions = {
         email,
         deleted_at: { $in: [undefined, null] },
       };
+
+      if (is_include_deleted) {
+        delete query_conditions.deleted_at;
+      }
+
       const existing = await userDbModel.findOne(query_conditions);
 
       if (existing) {
@@ -289,6 +316,21 @@ export default function makeUserDb({
         return new User(updated);
       }
 
+      return null;
+    }
+
+    async restore({ _id }: { _id: string }): Promise<User | null> {
+      const existing = await userDbModel.findOneAndUpdate(
+        { _id },
+        { deleted_at: null }
+      );
+
+      const updated = await userDbModel
+        .findOne({ _id })
+        .lean({ virtuals: true });
+      if (updated) {
+        return new User(updated);
+      }
       return null;
     }
   })();
