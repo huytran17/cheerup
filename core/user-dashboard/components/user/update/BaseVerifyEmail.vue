@@ -6,7 +6,17 @@
           <span class="app-title" v-html="$t('Email Verification')"></span>
         </div>
       </v-col>
-      <v-col v-if="!me.is_email_verified" cols="12">
+      <v-col v-if="is_email_verified">
+        <div
+          class="text-body-2 px-1 d-flex green accent-3 py-3 px-4 flex-column justify-center"
+        >
+          <span
+            class="app-body"
+            v-html="$t('Your email has been verified!')"
+          ></span>
+        </div>
+      </v-col>
+      <v-col v-else cols="12">
         <div
           class="text-body-2 px-1 d-flex amber lighten-2 py-3 px-4 flex-column justify-center"
         >
@@ -52,16 +62,6 @@
           </v-col>
         </v-row>
       </v-col>
-      <v-col v-else>
-        <div
-          class="text-body-2 px-1 d-flex green accent-3 py-3 px-4 flex-column justify-center"
-        >
-          <span
-            class="app-body"
-            v-html="$t('Your email has been verified!')"
-          ></span>
-        </div>
-      </v-col>
     </v-row>
   </v-form>
 </template>
@@ -83,6 +83,13 @@ export default {
       show_new_password: false,
     };
   },
+
+  computed: {
+    is_email_verified() {
+      return !_.isNil(_.get(this.me, "email_verified_at"));
+    },
+  },
+
   methods: {
     async getEmailVerificationCode() {
       try {
@@ -98,10 +105,15 @@ export default {
 
     async verifyEmail() {
       try {
-        await this.VERIFY_EMAIL({
+        const user = await this.VERIFY_EMAIL({
           data: {
             verification_code: this.verification_code,
           },
+        });
+
+        this.updateMeObject({
+          variable_path: "email_verified_at",
+          data: _.get(user, "email_verified_at"),
         });
       } catch (err) {
         console.error(err);
