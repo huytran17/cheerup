@@ -18,7 +18,7 @@
           class="rounded-circle"
         ></v-img>
         <avatar
-          v-else
+          v-else-if="owner_name"
           :username="owner_name"
           :name="owner_name"
           :size="60"
