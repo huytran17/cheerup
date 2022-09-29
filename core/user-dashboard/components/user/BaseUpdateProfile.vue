@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-15">
+  <div class="my-15">
     <BaseVerifyEmail />
 
     <div class="mt-8">
