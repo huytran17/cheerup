@@ -335,6 +335,8 @@ export default function makePostDb({
       const result = await postDbModel.create([updated_payload]);
       const updated = await postDbModel
         .findOne({ _id: result[0]?._id })
+        .populate("author", "full_name")
+        .populate("categories", "title")
         .lean({ virtuals: true });
 
       if (updated) {
@@ -371,12 +373,12 @@ export default function makePostDb({
     async update(payload: Partial<IPost>): Promise<Post | null> {
       const result = await postDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)
-        .populate("author", "-_v")
-        .populate("categories", "-_v")
         .lean({ virtuals: true });
 
       const updated = await postDbModel
         .findOne({ _id: result?._id })
+        .populate("author", "full_name")
+        .populate("categories", "title")
         .lean({ virtuals: true });
 
       if (updated) {

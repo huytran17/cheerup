@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="color-scheme" content="light dark" />
     <meta name="supported-color-schemes" content="light dark" />
-    <title>Email verification</title>
+    <title>New Post From {{product_name}}</title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com" async />
     <link
@@ -32,14 +32,6 @@
         padding-right: 16px;
       }
 
-      .primary--text {
-        color: #0657a9 !important;
-      }
-
-      .danger--text {
-        color: #cb3a31 !important;
-      }
-
       @media (max-width: 768px) {
         body {
           max-width: 100%;
@@ -52,27 +44,43 @@
     <div class="body-text">
       <br />
 
-      <span>Hi {{full_name}}!</span>
+      <span>Hi {{email}}!</span>
 
-      <h3 class="primary--text">SECURITY CODE</h3>
-
-      <span>Please use the following security code for your account.</span>
-
-      <br />
-      <br />
-
-      <span> Security code: {{verification_code}} </span>
+      <span class="primary--text"
+        >{{product_name}} just posted a new post!</span
+      >
 
       <br />
       <br />
 
-      <span> Use this code to authenticate your email. </span>
+      <span> Title: {{title}} </span>
 
       <br />
       <br />
 
-      <span class="danger--text">
-        <small><i>* Security code valid for 15 minutes</i></small>
+      <span> Description: {{description}} </span>
+
+      <br />
+      <br />
+
+      <span> Categories: {{categories}} </span>
+
+      <br />
+      <br />
+
+      <span> Author: {{author}} </span>
+
+      <br />
+      <br />
+
+      <span> Tags: {{tags}} </span>
+
+      <br />
+      <br />
+
+      <span>
+        Thank you for following and supporting our during the past time, wish
+        you have relaxing moments and lots of fun.
       </span>
 
       <br />

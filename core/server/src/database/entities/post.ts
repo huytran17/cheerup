@@ -9,6 +9,7 @@ export default class Post implements IPost {
   public readonly thumbnail_url: string;
   public readonly is_blocked_comment: boolean;
   public readonly is_highlight: boolean;
+  public readonly is_notified_to_user: boolean;
   public readonly thumbnail: Record<string, unknown>;
   public readonly content: string;
   public readonly source: string;
@@ -41,6 +42,7 @@ export default class Post implements IPost {
     deleted_at,
     is_highlight,
     tags,
+    is_notified_to_user,
   }) {
     this._id = _id;
     this.title = title;
@@ -59,5 +61,6 @@ export default class Post implements IPost {
     this.updated_at = updated_at;
     this.deleted_at = deleted_at;
     this.tags = tags;
+    this.is_notified_to_user = is_notified_to_user;
   }
 }

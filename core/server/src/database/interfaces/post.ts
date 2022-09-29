@@ -10,6 +10,7 @@ export default interface IPost {
   is_blocked_comment: boolean;
   is_highlight: boolean;
   is_published: boolean;
+  is_notified_to_user: boolean;
   thumbnail: Record<string, unknown>;
   content: string;
   tags: string[];

@@ -9,7 +9,13 @@ import {
   getHighlightPost,
 } from "../../../../use-cases/post";
 import { getAdmin } from "../../../../use-cases/admin";
+import { getSubscriptions } from "../../../../use-cases/subscription";
 import { logger } from "../../../../config/logs/logger";
+import {
+  getEmailContent,
+  renderEmailContent,
+  sendEmail,
+} from "../../../../config/emailManager";
 
 import makeGetPostController from "./get-post";
 import makeDeletePostController from "./delete-post";
@@ -47,6 +53,10 @@ const getPostAnalysticsController = makeGetPostAnalysticsController({
 const publishPostController = makePublishPostController({
   getPost,
   updatePost,
+  getSubscriptions,
+  getEmailContent,
+  renderEmailContent,
+  sendEmail,
   logger,
 });
 
@@ -93,6 +103,11 @@ const getPostsController = makeGetPostsController({
 const createPostController = makeCreatePostController({
   createPost,
   getAdmin,
+  getSubscriptions,
+  getEmailContent,
+  renderEmailContent,
+  sendEmail,
+  updatePost,
   logger,
 });
 
