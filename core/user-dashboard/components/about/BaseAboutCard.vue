@@ -9,6 +9,7 @@
     <div class="sidebar__card py-6 px-6">
       <div class="d-flex justify-center pb-6">
         <v-img
+          v-if="owner_avatar_url"
           :src="owner_avatar_url"
           :lazy-src="owner_avatar_url"
           :alt="owner_name"
@@ -16,6 +17,12 @@
           max-width="150px"
           class="rounded-circle"
         ></v-img>
+        <avatar
+          v-else
+          :username="owner_name"
+          :name="owner_name"
+          :size="60"
+        ></avatar>
       </div>
       <div class="small--text text-left">
         <span class="app-body" v-html="$t(owner_description)"></span>
@@ -25,6 +32,8 @@
 </template>
 
 <script>
+import Avatar from "vue-avatar";
+
 export default {
   name: "BaseAboutCard",
   props: {
@@ -33,7 +42,7 @@ export default {
       required: true,
     },
   },
-
+  components: { Avatar },
   computed: {
     owner_avatar_url() {
       return _.get(this.system_configuration_data, "client_owner_avatar_url");

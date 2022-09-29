@@ -38,6 +38,7 @@ export default {
     { src: "~/plugins/vue-scroll-to-top", mode: "client" },
     { src: "~/plugins/vue-slick", mode: "client" },
     { src: "~/plugins/vue2-dropzone", ssr: false },
+    { src: "~/plugins/vue-avatar", mode: "client" },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
