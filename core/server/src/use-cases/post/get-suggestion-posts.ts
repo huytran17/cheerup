@@ -5,9 +5,11 @@ import { Logger } from "winston";
 export type IGetSuggestionPosts = ({
   amount,
   categories,
+  exclude_ids,
 }: {
   amount: number;
   categories: string[];
+  exclude_ids?: string[];
 }) => Promise<Post[]>;
 
 export default function makeGetSuggestionPosts({
@@ -20,13 +22,16 @@ export default function makeGetSuggestionPosts({
   return async function getSuggestionPosts({
     amount,
     categories,
+    exclude_ids,
   }: {
     amount: number;
     categories: string[];
+    exclude_ids?: string[];
   }): Promise<Post[]> {
     const posts = await postDb.findSuggestionPosts({
       amount,
       categories,
+      exclude_ids,
     });
     return posts;
   };

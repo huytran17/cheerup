@@ -18,13 +18,18 @@ export default function makeGetSuggestionPostsController({
     };
 
     try {
-      const { amount, categories } = _.get(httpRequest, "context.validated");
+      const { amount, categories, exclude_ids } = _.get(
+        httpRequest,
+        "context.validated"
+      );
 
       const categories_array = _.split(categories, ",");
+      const exclude_ids_array = _.split(exclude_ids, ",");
 
       const exists = await getSuggestionPosts({
         amount: Number(amount),
         categories: categories_array,
+        exclude_ids: exclude_ids_array,
       });
 
       return {

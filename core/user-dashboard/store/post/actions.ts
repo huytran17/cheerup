@@ -16,7 +16,8 @@ const actions: ActionTree<PostState, RootState> = {
 
   async [ActionTypes.GET_SUGGESTION_POSTS]({ commit }, params = {}) {
     const amount = _.get(params, "amount", 5);
-    const categories = _.get(params, "categories", "");
+    const categories = _.get(params, "categories", []);
+    const exclude_ids = _.get(params, "exclude_ids", []);
     const is_only_published = _.get(params, "is_only_published", true);
 
     const url_query = new URLSearchParams();
@@ -30,7 +31,11 @@ const actions: ActionTree<PostState, RootState> = {
     }
 
     if (!_.isEmpty(categories)) {
-      url_query.set("categories", categories);
+      url_query.set("categories", _.join(categories, ","));
+    }
+
+    if (!_.isEmpty(exclude_ids)) {
+      url_query.set("exclude_ids", _.join(exclude_ids, ","));
     }
 
     const { data: posts } = await this.$axios.$get(

@@ -263,9 +263,11 @@ export default function makePostDb({
     async findSuggestionPosts({
       amount,
       categories,
+      exclude_ids,
     }: {
       amount: number;
       categories: string[];
+      exclude_ids?: string[];
     }): Promise<Post[]> {
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
@@ -274,6 +276,10 @@ export default function makePostDb({
 
       if (!_.isEmpty(categories)) {
         query_conditions["categories"] = { $in: categories };
+      }
+
+      if (!_.isEmpty(exclude_ids)) {
+        query_conditions["_id"] = { $nin: exclude_ids };
       }
 
       const existing = await postDbModel

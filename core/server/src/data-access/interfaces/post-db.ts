@@ -25,9 +25,11 @@ export default interface IPostDb {
   findSuggestionPosts: ({
     amount,
     categories,
+    exclude_ids,
   }: {
     amount: number;
     categories: string[];
+    exclude_ids?: string[];
   }) => Promise<Post[]>;
   findById: ({
     _id,

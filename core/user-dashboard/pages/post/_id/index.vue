@@ -40,7 +40,8 @@ export default {
 
       await Promise.all([
         this.GET_SUGGESTION_POSTS({
-          categories: _.join(category_ids, ","),
+          categories: category_ids,
+          exclude_ids: [post_id],
         }),
         this.GET_COMMENTS_BY_POST({ post_id }),
       ]);
