@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-column">
     <div class="d-flex flex-column">
-      <div v-if="has_categories" class="d-flex justify-center">
+      <div v-if="has_categories" class="text-center">
         <v-chip
           v-for="(category, index) in post_data.categories"
           :key="index"
@@ -60,22 +60,39 @@
       </div>
     </div>
 
-    <div class="text-center text-sm-right pt-2 pt-sm-0">
-      <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.FACEBOOK })">
-        <v-icon color="facebook">mdi-facebook</v-icon>
-      </v-btn>
-      <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.TWITTER })">
-        <v-icon color="twitter">mdi-twitter</v-icon>
-      </v-btn>
-      <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.GOOGLE_PLUS })">
-        <v-icon color="google_plus">mdi-google-plus</v-icon>
-      </v-btn>
-      <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.PINTEREST })">
-        <v-icon color="pinterest">mdi-pinterest</v-icon>
-      </v-btn>
-      <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.LINKEDIN })">
-        <v-icon color="linkedin">mdi-linkedin</v-icon>
-      </v-btn>
+    <div class="d-flex justify-space-between">
+      <div class="d-flex flex-column justify-center">
+        <v-tooltip right>
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon color="brick" v-bind="attrs" v-on="on" class="clickable"
+              >mdi-heart-outline</v-icon
+            >
+          </template>
+          <div class="text-body-2 d-flex flex-column justify-center">
+            <span class="app-body" v-html="$t('Add to favourite')"></span>
+          </div>
+        </v-tooltip>
+      </div>
+      <div class="text-center text-sm-right pt-2 pt-sm-0">
+        <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.FACEBOOK })">
+          <v-icon color="facebook">mdi-facebook</v-icon>
+        </v-btn>
+        <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.TWITTER })">
+          <v-icon color="twitter">mdi-twitter</v-icon>
+        </v-btn>
+        <v-btn
+          icon
+          @click="sharePost({ type: SOCIAL_MEDIA_TYPES.GOOGLE_PLUS })"
+        >
+          <v-icon color="google_plus">mdi-google-plus</v-icon>
+        </v-btn>
+        <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.PINTEREST })">
+          <v-icon color="pinterest">mdi-pinterest</v-icon>
+        </v-btn>
+        <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.LINKEDIN })">
+          <v-icon color="linkedin">mdi-linkedin</v-icon>
+        </v-btn>
+      </div>
     </div>
   </div>
 </template>
