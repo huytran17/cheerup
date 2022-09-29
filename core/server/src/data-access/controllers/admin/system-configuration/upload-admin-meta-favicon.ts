@@ -19,27 +19,17 @@ export default function makeUploadAdminMetaFaviconController({
 
     try {
       const exists = await getLatestSystemConfiguration();
-      if (!exists) {
-        return {
-          headers,
-          statusCode: 200,
-          body: {
-            is_error: true,
-            message: `Category does not exists.`,
-          },
-        };
+      const system_configuration_not_exists =
+        _.isEmpty(exists) || _.isNil(exists);
+
+      if (system_configuration_not_exists) {
+        throw new Error(`System configuration by ${exists._id} does not exist`);
       }
 
       const file = _.get(httpRequest, "context.file");
-      if (!file) {
-        return {
-          headers,
-          statusCode: 200,
-          body: {
-            is_error: true,
-            message: `File does not exists.`,
-          },
-        };
+      const file_not_exists = _.isEmpty(file) || _.isNil(file);
+      if (file_not_exists) {
+        throw new Error(`File does not exist`);
       }
 
       const aws_payload = {

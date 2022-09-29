@@ -48,7 +48,6 @@
               @vdropzone-success="
                 (file, response) =>
                   onUploadSuccsess({
-                    ref: 'user_avatar_dropzone',
                     file,
                     response,
                     update_paths: ['avatar', 'avatar_url'],
@@ -124,8 +123,8 @@ export default {
       return `${base_url}/${_.get(this.me, "_id")}`;
     },
 
-    onUploadSuccsess({ ref, file, response, update_paths }) {
-      this.$refs[ref].removeFile(file);
+    onUploadSuccsess({ file, response, update_paths }) {
+      this.$refs.user_avatar_dropzone.removeFile(file);
 
       const { data: updated_user } = response;
 

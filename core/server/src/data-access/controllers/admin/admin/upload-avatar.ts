@@ -21,27 +21,15 @@ export default function makeUploadAdminAvatarController({
       const { _id }: { _id: string } = _.get(httpRequest, "context.validated");
 
       const exists = await getAdmin({ _id });
-      if (!exists) {
-        return {
-          headers,
-          statusCode: 200,
-          body: {
-            is_error: true,
-            message: `Admin does not exists.`,
-          },
-        };
+      const admin_not_exists = _.isEmpty(exists) || _.isNil(exists);
+      if (admin_not_exists) {
+        throw new Error(`Admin by ${_id} does not exist`);
       }
 
       const file = _.get(httpRequest, "context.file");
-      if (!file) {
-        return {
-          headers,
-          statusCode: 200,
-          body: {
-            is_error: true,
-            message: `File does not exists.`,
-          },
-        };
+      const file_not_exists = _.isEmpty(file) || _.isNil(file);
+      if (file_not_exists) {
+        throw new Error(`File does not exist`);
       }
 
       const aws_payload = {

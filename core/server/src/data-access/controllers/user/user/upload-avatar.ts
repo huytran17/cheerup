@@ -1,5 +1,5 @@
 import { Request } from "express";
-import * as _ from "lodash";
+import _ from "lodash";
 import { IGetUser } from "../../../../use-cases/user/get-user";
 import { IUpdateUser } from "../../../../use-cases/user/update-user";
 
