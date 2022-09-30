@@ -5,7 +5,9 @@
   "main": "app.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/app.ts"
+    "dev": "nodemon src/app.ts",
+    "dc:up": "docker-compose up -d",
+    "dc:down": "docker-compose down"
   },
   "repository": {
     "type": "git",
