@@ -119,7 +119,7 @@ select:-webkit-autofill:focus {
 .sidebar__header::before {
   content: "";
   position: absolute;
-  top: 9.1px;
+  top: 9.45px;
   left: 0;
   width: 100%;
   height: 100%;
