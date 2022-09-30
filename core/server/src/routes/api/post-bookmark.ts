@@ -21,8 +21,8 @@ postBookmarkRouter.get(
   makeExpressCallback(getPostBookmarksPaginatedController)
 ); // DONE
 
-postBookmarkRouter.put(
-  "/",
+postBookmarkRouter.delete(
+  "/:_id",
   makeValidator(hardDeletePostBookmarkRules),
   makeExpressCallback(hardDeletePostBookmarkController)
 ); // DONE
