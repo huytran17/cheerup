@@ -19,6 +19,8 @@ File storage => AWS S3
 
 Cache management => Redis
 
+Virtual platform => Docker
+
 JWT issuer => jsonwebtoken npm
 
 Authentication => passport.js
