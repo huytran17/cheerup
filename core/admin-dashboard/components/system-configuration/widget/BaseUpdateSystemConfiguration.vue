@@ -576,12 +576,14 @@ export default {
 
       const { data: updated_system_configuration } = response;
 
-      let updated_thumbnail_data = Object.assign({}, this.system_configuration);
+      let updated_thumbnail_data = _.cloneDeep(this.system_configuration);
 
       update_paths.forEach((update_path) => {
-        updated_thumbnail_data = Object.assign({}, this.system_configuration, {
-          [update_path]: updated_system_configuration[update_path],
-        });
+        updated_thumbnail_data = _.update(
+          updated_thumbnail_data,
+          update_path,
+          (data) => _.get(updated_system_configuration, update_path)
+        );
       });
 
       this.SET_SYSTEM_CONFIGURATION({ data: updated_thumbnail_data });
