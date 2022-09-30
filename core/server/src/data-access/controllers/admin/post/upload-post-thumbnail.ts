@@ -1,5 +1,4 @@
 import { Request } from "express";
-import Storage from "../../../../config/storage";
 import _ from "lodash";
 import { IGetPost } from "../../../../use-cases/post/get-post";
 import { IUpdatePost } from "../../../../use-cases/post/update-post";

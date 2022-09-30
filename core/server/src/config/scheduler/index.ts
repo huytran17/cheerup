@@ -62,6 +62,8 @@ export default class Scheduler {
       this.agenda_instance.on("ready", async () => {
         await Scheduler.scheduler_instance?.defineJobs();
       });
+
+      Scheduler.scheduler_instance = this;
     } catch (err) {
       console.error(err);
     }
@@ -72,7 +74,8 @@ export default class Scheduler {
       return Scheduler.scheduler_instance;
     }
 
-    return; // we have an instance initizlized from app.ts for now
+    new Scheduler();
+    return Scheduler.scheduler_instance;
   }
 
   async defineJobs() {}
