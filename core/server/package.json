@@ -54,6 +54,7 @@
     "otp-generator": "^4.0.0",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
+    "redis": "^4.3.1",
     "ts-node": "^10.8.1",
     "typescript": "^4.7.3",
     "validatorjs": "^3.22.1",

@@ -14,6 +14,7 @@ import {
 import { initializeMailer } from "./config/emailManager/mailer";
 import Scheduler from "./config/scheduler";
 import Storage from "./config/storage";
+import Redis from "./config/redis";
 import { upload } from "./config/middlewares/file-upload-middleware";
 
 import cors from "cors";
@@ -46,4 +47,5 @@ makeDb().then(async () => {
   await Promise.all([createDefaultAdmin(), createDefaultSystemConfiguration()]);
   new Storage();
   new Scheduler();
+  new Redis();
 });
