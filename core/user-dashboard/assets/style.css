@@ -123,5 +123,5 @@ select:-webkit-autofill:focus {
   left: 0;
   width: 100%;
   height: 100%;
-  border-bottom: 2px solid var(--color-tab-border);
+  border-bottom: 2px solid var(--color-brick);
 }
