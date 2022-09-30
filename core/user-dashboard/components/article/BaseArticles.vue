@@ -4,7 +4,8 @@
       cols="12"
       v-for="(post, index) in posts_data"
       :key="index"
-      class="mt-15 card__article"
+      class="card__article"
+      :class="index === 0 ? '' : 'mt-15'"
     >
       <BaseArticle :post_data="post" />
     </v-col>

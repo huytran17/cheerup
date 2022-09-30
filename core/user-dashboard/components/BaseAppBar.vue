@@ -12,7 +12,7 @@
           @click="$router.push(localePath('/'))"
         ></v-img>
       </div>
-      <div class="d-flex flex-column w-100 pt-4">
+      <!-- <div class="d-flex flex-column w-100 pt-4">
         <v-row>
           <v-col cols="12" md="6" class="mx-auto">
             <v-text-field
@@ -27,7 +27,7 @@
             ></v-text-field>
           </v-col>
         </v-row>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
