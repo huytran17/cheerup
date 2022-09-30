@@ -8,4 +8,4 @@ export const state = () => ({
   },
 });
 
-export type SubscriptionState = ReturnType<typeof state>;
+export type PostBookmarkState = ReturnType<typeof state>;

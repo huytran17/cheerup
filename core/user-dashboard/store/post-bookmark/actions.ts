@@ -1,11 +1,11 @@
 import { ActionTypes } from "./action-types";
 import { MutationTypes } from "./mutation-types";
 import { ActionTree } from "vuex";
-import { SubscriptionState } from ".";
+import { PostBookmarkState } from ".";
 import { RootState } from "..";
 import _ from "lodash";
 
-const actions: ActionTree<SubscriptionState, RootState> = {
+const actions: ActionTree<PostBookmarkState, RootState> = {
   async [ActionTypes.CREATE_POST_BOOKMARK](
     { commit },
     { data }: { data: any }

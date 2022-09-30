@@ -1,9 +1,9 @@
 import { MutationTypes } from "./mutation-types";
 import { MutationTree } from "vuex";
-import { SubscriptionState } from ".";
+import { PostBookmarkState } from ".";
 import _ from "lodash";
 
-const mutations: MutationTree<SubscriptionState> = {
+const mutations: MutationTree<PostBookmarkState> = {
   [MutationTypes.SET_POST_BOOKMARK](state, { data }: { data: any }) {
     state.post_bookmark = data;
   },
@@ -37,6 +37,17 @@ const mutations: MutationTree<SubscriptionState> = {
     }
   ) {
     state.pagination = data;
+  },
+
+  [MutationTypes.UPDATE_POST_BOOKMARK_DATA](
+    state,
+    { variable_path, data }: { variable_path: string; data: any }
+  ) {
+    state.post_bookmark = _.update(
+      state.post_bookmark,
+      variable_path,
+      (n) => data
+    );
   },
 };
 
