@@ -12,5 +12,5 @@ COPY . .
 RUN yarn build
 
 USER 1001
-EXPOSE 3000
+EXPOSE 3001
 CMD ["yarn", "serve"]
