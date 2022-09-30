@@ -38,7 +38,7 @@
         :lazy-src="post_data.thumbnail_url"
         :alt="post_data.title"
         cover
-        max-height="500"
+        max-height="400"
       ></v-img>
     </div>
 
