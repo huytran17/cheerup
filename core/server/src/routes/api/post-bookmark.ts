@@ -6,11 +6,13 @@ import {
   createPostBookmarkRules,
   hardDeletePostBookmarkRules,
   getPostBookmarksPaginatedRules,
+  createOrDeletePostBookmarkRules,
 } from "../../data-access/controllers/user/post-bookmark/validators";
 import {
   createPostBookmarkController,
   hardDeletePostBookmarkController,
   getPostBookmarksPaginatedController,
+  createOrDeletePostBookmarkController,
 } from "../../data-access/controllers/user/post-bookmark";
 
 const postBookmarkRouter = express.Router();
@@ -31,6 +33,12 @@ postBookmarkRouter.post(
   "/",
   makeValidator(createPostBookmarkRules),
   makeExpressCallback(createPostBookmarkController)
+); // DONE
+
+postBookmarkRouter.put(
+  "/create-or-delete",
+  makeValidator(createOrDeletePostBookmarkRules),
+  makeExpressCallback(createOrDeletePostBookmarkController)
 ); // DONE
 
 export default postBookmarkRouter;

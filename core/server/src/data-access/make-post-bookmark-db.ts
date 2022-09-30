@@ -129,17 +129,23 @@ export default function makePostBookmarkDb({
       return null;
     }
 
-    async findByEmail({
-      email,
+    async findByUserAndPost({
+      user_id,
+      post_id,
     }: {
-      email: string;
+      user_id: string;
+      post_id: string;
     }): Promise<PostBookmark | null> {
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
       };
 
-      if (email) {
-        query_conditions["email"] = email;
+      if (user_id) {
+        query_conditions["user"] = user_id;
+      }
+
+      if (post_id) {
+        query_conditions["post"] = post_id;
       }
 
       const existing = await postBookmarkDbModel

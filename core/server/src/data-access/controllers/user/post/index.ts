@@ -5,6 +5,7 @@ import {
   getPostsPaginated,
 } from "../../../../use-cases/post";
 import { countCommentsByPost } from "../../../../use-cases/comment";
+import { getPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark";
 import { logger } from "../../../../config/logs/logger";
 
 import makeGetPostController from "./get-post";
@@ -15,6 +16,7 @@ import makeGetPostsPaginatedController from "./get-posts-paginated";
 const getPostsPaginatedController = makeGetPostsPaginatedController({
   getPostsPaginated,
   countCommentsByPost,
+  getPostBookmarkByUserAndPost,
   logger,
 });
 

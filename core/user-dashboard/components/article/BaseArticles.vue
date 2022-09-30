@@ -20,7 +20,7 @@
             getMorePosts({
               page: post_pagination.current_page + 1,
               query: post_search_query,
-              categories: this.categories_filters,
+              categories: categories_filters,
             }).then((posts) => {
               if (!posts || (posts && posts.length === 0)) {
                 $state.complete();
@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import postMixins from "@/mixins/post";
 import BaseArticle from "@/components/article/BaseArticle";
 export default {
@@ -52,6 +53,14 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      me: "auth/me",
+    }),
+
+    user_id() {
+      return _.get(this.me, "_id");
+    },
+
     has_posts() {
       return !_.isEmpty(this.posts_data);
     },

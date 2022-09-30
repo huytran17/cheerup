@@ -18,6 +18,18 @@ const actions: ActionTree<PostBookmarkState, RootState> = {
     return post_bookmark;
   },
 
+  async [ActionTypes.CREATE_OR_DELETE_POST_BOOKMARK](
+    { commit },
+    { data }: { data: any }
+  ) {
+    const { data: post_bookmark } = await this.$axios.$put(
+      `/post-bookmark/create-or-delete`,
+      data
+    );
+
+    return post_bookmark;
+  },
+
   async [ActionTypes.REMOVE_POST_BOOKMARK](
     { commit },
     { _id }: { _id: string }

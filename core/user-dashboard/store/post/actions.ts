@@ -55,7 +55,7 @@ const actions: ActionTree<PostState, RootState> = {
     return posts;
   },
 
-  async [ActionTypes.GET_POSTS_PAGINATED]({ commit }, params = {}) {
+  async [ActionTypes.GET_POSTS_PAGINATED]({ commit, state }, params = {}) {
     const query = _.get(params, "query");
     const page = _.get(params, "page", 1);
     const entries_per_page = _.get(params, "entries_per_page", 15);

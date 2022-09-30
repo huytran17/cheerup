@@ -12,8 +12,14 @@ export default interface IPostBookmarkDb {
     entries_per_page?: number;
   }) => Promise<PaginatedPostBookmarkResult | null>;
   findOne: () => Promise<PostBookmark | null>;
-  findByEmail: ({ email }: { email: string }) => Promise<PostBookmark | null>;
   findById: ({ _id }: { _id: string }) => Promise<PostBookmark | null>;
+  findByUserAndPost: ({
+    user_id,
+    post_id,
+  }: {
+    user_id: string;
+    post_id: string;
+  }) => Promise<PostBookmark | null>;
   insert: (payload: Partial<IPostBookmark>) => Promise<PostBookmark | null>;
   delete: ({ _id }: { _id: string }) => Promise<PostBookmark | null>;
   hardDelete: ({ _id }: { _id: string }) => Promise<PostBookmark | null>;

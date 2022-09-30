@@ -24,7 +24,7 @@ export default function makeCreateCommentController({
     };
 
     try {
-      const user_id = _.get(httpRequest, "context.user");
+      const { _id: user_id } = _.get(httpRequest, "context.user");
       const commentDetails = _.get(httpRequest, "context.validated");
 
       const { post: post_id } = commentDetails;

@@ -64,8 +64,12 @@ export default {
   },
   async fetch() {
     try {
+      const access_token = localStorage.getItem("access_token");
+      if (!_.isNil(access_token)) {
+        await this.GET_ME();
+      }
+
       await Promise.all([
-        this.GET_ME(),
         this.GET_LATEST_SYSTEM_CONFIGURATION(),
         this.GET_CATEGORY_TITLES(),
       ]);

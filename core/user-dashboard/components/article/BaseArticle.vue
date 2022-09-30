@@ -64,8 +64,14 @@
       <div class="d-flex flex-column justify-center">
         <v-tooltip right>
           <template v-slot:activator="{ on, attrs }">
-            <v-icon color="brick" v-bind="attrs" v-on="on" class="clickable"
-              >mdi-heart-outline</v-icon
+            <v-icon
+              color="brick"
+              v-bind="attrs"
+              v-on="on"
+              class="clickable"
+              @click="addPostToBookmark"
+            >
+              {{ is_bookmarked ? "mdi-heart" : "mdi-heart-outline" }}</v-icon
             >
           </template>
           <div class="text-body-2 d-flex flex-column justify-center">
@@ -98,11 +104,14 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import systemMixins from "@/mixins/system";
+import postBookmarkMixins from "@/mixins/post-bookmark";
+
 import { SOCIAL_MEDIA_TYPES } from "@/constants";
 export default {
   name: "BaseArticle",
-  mixins: [systemMixins],
+  mixins: [systemMixins, postBookmarkMixins],
   props: {
     post_data: {
       type: Object,
@@ -112,17 +121,38 @@ export default {
   data() {
     return {
       SOCIAL_MEDIA_TYPES: SOCIAL_MEDIA_TYPES,
+      is_bookmarked: false,
     };
   },
   computed: {
+    ...mapGetters({
+      me: "auth/me",
+    }),
+
     author_name() {
       return _.get(this.post_data, "author.full_name");
     },
+
     has_categories() {
       return !_.isEmpty(this.post_data.categories);
     },
   },
   methods: {
+    async addPostToBookmark() {
+      try {
+        const post_bookmark_data = {
+          user: _.get(this.me, "_id"),
+          post: _.get(this.post_data, "_id"),
+        };
+
+        await this.CREATE_OR_DELETE_POST_BOOKMARK({ data: post_bookmark_data });
+
+        this.is_bookmarked = !this.is_bookmarked;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
     sharePost({ type }) {
       const current_url_origin = window.location.origin;
       const post_url = `${current_url_origin}/post/${this.post_data._id}`;
@@ -163,6 +193,10 @@ export default {
       }
     },
   },
+
+  created() {
+    this.is_bookmarked = _.get(this.post_data, "is_bookmarked", false);
+  },
 };
 </script>
 
@@ -175,5 +209,8 @@ export default {
 }
 .post__title {
   transition: 0.1s linear all;
+}
+:deep(button.v-icon::after) {
+  background: transparent !important;
 }
 </style>
