@@ -59,7 +59,7 @@ export default function makeCommentDb({
           populate: [
             {
               path: "user",
-              select: "_id full_name avatar_url",
+              select: "_id full_name avatar_url avatar",
             },
             {
               path: "parent",
@@ -69,7 +69,7 @@ export default function makeCommentDb({
         })
         .populate({
           path: "user",
-          select: "_id full_name avatar_url",
+          select: "_id full_name avatar_url avatar",
         })
         .sort({
           created_at: "desc",

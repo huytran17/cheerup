@@ -197,12 +197,6 @@ export default function makeUserDb({
       _id: string;
       is_include_deleted?: boolean;
     }): Promise<User | null> {
-      const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
-      const is_mongo_id = mongo_id_regex.test(_id);
-      if (!is_mongo_id || !_id) {
-        return null;
-      }
-
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
       };
