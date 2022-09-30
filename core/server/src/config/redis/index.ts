@@ -66,7 +66,7 @@ export default class Redis {
 
     const invald_data = !key;
     if (invald_data) {
-      logger.warn("Redis Client: Invalid data to set");
+      logger.warn("Redis Client: Invalid dataset");
       return;
     }
 
@@ -91,7 +91,7 @@ export default class Redis {
 
     const invald_data = !key;
     if (invald_data) {
-      logger.warn("Redis Client: Invalid data to set");
+      logger.warn("Redis Client: Invalid key to get");
       return;
     }
 
