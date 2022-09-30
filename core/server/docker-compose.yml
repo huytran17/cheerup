@@ -21,6 +21,8 @@ services:
   mongo:
     image: mongo
     restart: unless-stopped
+    volumes:
+      - ./mongo/data:/data/db
     ports:
       - ${MONGO_PORT:-27017}:27017
     environment:
@@ -30,6 +32,8 @@ services:
   mongo-express:
     image: mongo-express
     restart: unless-stopped
+    volumes:
+      - ./mongo/data:/data/db
     ports:
       - 8081:8081
     depends_on:
