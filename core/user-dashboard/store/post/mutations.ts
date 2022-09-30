@@ -48,7 +48,7 @@ const mutations: MutationTree<PostState> = {
     state.posts = _.uniqBy(_.concat(state.posts, data), "_id");
   },
 
-  [MutationTypes.SET_suggestion_posts](state, { data }: { data: any[] }) {
+  [MutationTypes.SET_SUGGESTION_POSTS](state, { data }: { data: any[] }) {
     state.suggestion_posts = data;
   },
 };

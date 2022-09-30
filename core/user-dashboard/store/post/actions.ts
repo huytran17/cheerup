@@ -42,7 +42,7 @@ const actions: ActionTree<PostState, RootState> = {
       `/post/suggestion-posts?${url_query}`
     );
 
-    commit(MutationTypes.SET_suggestion_posts, { data: posts });
+    commit(MutationTypes.SET_SUGGESTION_POSTS, { data: posts });
 
     return posts;
   },
