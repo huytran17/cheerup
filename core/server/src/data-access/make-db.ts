@@ -23,7 +23,7 @@ export function makeDatabaseURL(): string {
     MONGO_PASSWORD = "Passw0rd",
     MONGO_HOSTNAME = "localhost",
     MONGO_PORT = 27017,
-    MONGO_DB = "kinobi",
+    MONGO_DB = "blog",
   } = process.env;
   const DATABASE_URL =
     process.env.MONGO_URL ||
