@@ -1,5 +1,7 @@
 <template>
   <div v-if="is_published">
+    <a href="#" ref="scrollToMe"></a>
+
     <BasePostPanel :post_data="post" id="post" />
     <div class="pt-12">
       <BaseSuggestionPosts :posts_data="suggestion_posts" />

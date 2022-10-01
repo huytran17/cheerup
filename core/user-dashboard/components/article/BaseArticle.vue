@@ -24,7 +24,10 @@
         ></span>
       </div>
 
-      <div class="text-uppercase text__description grey--text text-center">
+      <div
+        class="text-uppercase grey--text text-center"
+        :class="is_mobile ? 'text--small' : 'text__description'"
+      >
         <span class="app-body">{{
           formatDate(post_data.created_at, "LL")
         }}</span>
@@ -43,7 +46,7 @@
       ></v-img>
     </div>
 
-    <div class="text__description matte__black--text">
+    <div class="text__description matte__black--text text__ellipsis">
       <span class="app-body" v-html="$t(post_data.description)"></span>
     </div>
 
@@ -60,45 +63,60 @@
       </div>
     </div>
 
-    <div class="d-flex justify-space-between">
-      <div class="d-flex flex-column justify-center">
-        <v-tooltip right>
-          <template v-slot:activator="{ on, attrs }">
-            <v-icon
-              color="brick"
-              v-bind="attrs"
-              v-on="on"
-              class="clickable"
-              @click="addPostToBookmark"
-            >
+    <div class="text-center text-sm-right pt-2 pt-sm-0">
+      <v-tooltip right>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            icon
+            @click="addPostToBookmark"
+            v-bind="attrs"
+            v-on="on"
+            :small="is_mobile"
+          >
+            <v-icon color="brick" class="clickable" :small="is_mobile">
               {{ is_bookmarked ? "mdi-heart" : "mdi-heart-outline" }}</v-icon
             >
-          </template>
-          <div class="text-body-2 d-flex flex-column justify-center">
-            <span class="app-body" v-html="$t('Add to favourite')"></span>
-          </div>
-        </v-tooltip>
-      </div>
-      <div class="text-center text-sm-right pt-2 pt-sm-0">
-        <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.FACEBOOK })">
-          <v-icon color="facebook">mdi-facebook</v-icon>
-        </v-btn>
-        <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.TWITTER })">
-          <v-icon color="twitter">mdi-twitter</v-icon>
-        </v-btn>
-        <v-btn
-          icon
-          @click="sharePost({ type: SOCIAL_MEDIA_TYPES.GOOGLE_PLUS })"
-        >
-          <v-icon color="google_plus">mdi-google-plus</v-icon>
-        </v-btn>
-        <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.PINTEREST })">
-          <v-icon color="pinterest">mdi-pinterest</v-icon>
-        </v-btn>
-        <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.LINKEDIN })">
-          <v-icon color="linkedin">mdi-linkedin</v-icon>
-        </v-btn>
-      </div>
+          </v-btn>
+        </template>
+        <div class="text-body-2 d-flex flex-column justify-center">
+          <span class="app-body" v-html="$t('Add to favourite')"></span>
+        </div>
+      </v-tooltip>
+      <v-btn
+        icon
+        @click="sharePost({ type: SOCIAL_MEDIA_TYPES.FACEBOOK })"
+        :small="is_mobile"
+      >
+        <v-icon color="facebook" :small="is_mobile">mdi-facebook</v-icon>
+      </v-btn>
+      <v-btn
+        icon
+        @click="sharePost({ type: SOCIAL_MEDIA_TYPES.TWITTER })"
+        :small="is_mobile"
+      >
+        <v-icon color="twitter" :small="is_mobile">mdi-twitter</v-icon>
+      </v-btn>
+      <v-btn
+        icon
+        @click="sharePost({ type: SOCIAL_MEDIA_TYPES.GOOGLE_PLUS })"
+        :small="is_mobile"
+      >
+        <v-icon color="google_plus" :small="is_mobile">mdi-google-plus</v-icon>
+      </v-btn>
+      <v-btn
+        icon
+        @click="sharePost({ type: SOCIAL_MEDIA_TYPES.PINTEREST })"
+        :small="is_mobile"
+      >
+        <v-icon color="pinterest" :small="is_mobile">mdi-pinterest</v-icon>
+      </v-btn>
+      <v-btn
+        icon
+        @click="sharePost({ type: SOCIAL_MEDIA_TYPES.LINKEDIN })"
+        :small="is_mobile"
+      >
+        <v-icon color="linkedin" :small="is_mobile">mdi-linkedin</v-icon>
+      </v-btn>
     </div>
   </div>
 </template>
@@ -212,5 +230,12 @@ export default {
 }
 :deep(button.v-icon::after) {
   background: transparent !important;
+}
+.text__ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 </style>

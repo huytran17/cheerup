@@ -23,7 +23,10 @@
         ></span>
       </div>
 
-      <div class="text-uppercase text__description grey--text text-center">
+      <div
+        class="text-uppercase grey--text text-center"
+        :class="is_mobile ? 'text--small' : 'text__description'"
+      >
         <span class="app-body">{{
           formatDate(post_data.created_at, "LL")
         }}</span>

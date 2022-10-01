@@ -13,7 +13,7 @@
           </v-col>
           <v-col cols="12" md="4">
             <v-row>
-              <v-col cols="12" class="mt-0 mt-md-15">
+              <v-col cols="12">
                 <BaseAboutCard
                   :system_configuration_data="system_configuration"
                 />

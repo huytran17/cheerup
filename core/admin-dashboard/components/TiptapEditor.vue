@@ -37,6 +37,7 @@ import {
   HardBreak,
   HorizontalRule,
   History,
+  Image,
 } from "tiptap-vuetify";
 
 export default {
@@ -83,6 +84,7 @@ export default {
         HorizontalRule,
         Paragraph,
         HardBreak,
+        Image,
       ],
     };
   },

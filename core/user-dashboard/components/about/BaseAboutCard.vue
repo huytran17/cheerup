@@ -13,8 +13,9 @@
           :src="owner_avatar_url"
           :lazy-src="owner_avatar_url"
           :alt="owner_name"
-          contain
+          cover
           max-width="110px"
+          max-height="110px"
           class="rounded-circle"
         ></v-img>
         <avatar
