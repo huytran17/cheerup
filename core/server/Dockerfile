@@ -13,4 +13,4 @@ RUN yarn build
 
 USER 1001
 EXPOSE 80
-CMD ["yarn", "serve"]
+# CMD ["yarn", "serve"]
