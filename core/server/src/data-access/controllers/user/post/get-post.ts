@@ -25,7 +25,7 @@ export default function makeGetPostController({
         is_include_deleted: false,
       });
 
-      const not_exists = !exists || _.isNil(exists);
+      const not_exists = _.isEmpty(exists) || _.isNil(exists);
       if (not_exists) {
         throw new Error(`Post ${_id} does not exists`);
       }

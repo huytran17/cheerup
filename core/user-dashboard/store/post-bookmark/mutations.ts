@@ -8,6 +8,10 @@ const mutations: MutationTree<PostBookmarkState> = {
     state.post_bookmark = data;
   },
 
+  [MutationTypes.SET_POST_BOOKMARKS_COUNT](state, { data }: { data: number }) {
+    state.post_bookmarks_count = data;
+  },
+
   [MutationTypes.SET_POST_BOOKMARKS](
     state,
     { data, new_state }: { data: any[]; new_state: boolean }

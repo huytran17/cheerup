@@ -18,6 +18,18 @@ const actions: ActionTree<PostBookmarkState, RootState> = {
     return post_bookmark;
   },
 
+  async [ActionTypes.COUNT_POST_BOOKMARKS]({ commit }) {
+    const { data: post_bookmark_count } = await this.$axios.$get(
+      `/post-bookmark/count-post-bookmarks`
+    );
+
+    commit(MutationTypes.SET_POST_BOOKMARKS_COUNT, {
+      data: post_bookmark_count,
+    });
+
+    return post_bookmark_count;
+  },
+
   async [ActionTypes.GET_POST_BOOKMARKS_PAGINATED]({ commit }, params = {}) {
     const new_state = _.get(params, "new_state", true);
     const keep_in_store = _.get(params, "keep_in_store", true);

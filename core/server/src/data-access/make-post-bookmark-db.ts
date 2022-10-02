@@ -77,7 +77,7 @@ export default function makePostBookmarkDb({
             },
             {
               path: "categories",
-              select: "_id title",
+              select: "_id title badge_color",
             },
           ],
         })
@@ -183,6 +183,22 @@ export default function makePostBookmarkDb({
       }
 
       return null;
+    }
+
+    async countPostBookmarks({
+      user_id,
+    }: {
+      user_id: string;
+    }): Promise<number> {
+      const query_conditions = {};
+
+      if (user_id) {
+        query_conditions["user"] = user_id;
+      }
+
+      const count = await postBookmarkDbModel.countDocuments(query_conditions);
+
+      return count;
     }
 
     async insert(

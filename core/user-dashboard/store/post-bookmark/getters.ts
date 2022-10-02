@@ -9,6 +9,7 @@ export const getters: GetterTree<PostBookmarkState, RootState> = {
   post_bookmark: (state) => state.post_bookmark,
   post_bookmarks: (state) => state.post_bookmarks,
   pagination: (state) => state.pagination,
+  post_bookmarks_count: (state) => state.post_bookmarks_count,
 };
 
 export default getters;

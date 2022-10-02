@@ -13,6 +13,7 @@ export default interface IPostBookmarkDb {
   }) => Promise<PaginatedPostBookmarkResult | null>;
   findOne: () => Promise<PostBookmark | null>;
   findById: ({ _id }: { _id: string }) => Promise<PostBookmark | null>;
+  countPostBookmarks: ({ user_id }: { user_id: string }) => Promise<number>;
   findByUserAndPost: ({
     user_id,
     post_id,

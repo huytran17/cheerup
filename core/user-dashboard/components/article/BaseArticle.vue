@@ -36,7 +36,7 @@
       </div>
     </div>
 
-    <div class="d-flex justify-center pt-7 pb-6">
+    <div class="d-flex justify-center pt-6 pb-3 pb-sm-4">
       <v-img
         :src="post_data.thumbnail_url"
         :lazy-src="post_data.thumbnail_url"
@@ -47,7 +47,10 @@
     </div>
 
     <div class="text__description matte__black--text" v-line-clamp="2">
-      <span class="app-body" v-html="$t(post_data.description)"></span>
+      <span
+        class="app-body no-margin"
+        v-html="$t(post_data.description)"
+      ></span>
     </div>
 
     <div class="text-left">
@@ -68,7 +71,7 @@
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             icon
-            @click="addPostToBookmark"
+            @click="addOrDeletePostToBookmark"
             v-bind="attrs"
             v-on="on"
             :small="is_mobile"
@@ -151,7 +154,7 @@ export default {
     },
   },
   methods: {
-    async addPostToBookmark() {
+    async addOrDeletePostToBookmark() {
       try {
         const post_bookmark_data = {
           post: _.get(this.post_data, "_id"),
@@ -160,6 +163,8 @@ export default {
         await this.CREATE_OR_DELETE_POST_BOOKMARK({ data: post_bookmark_data });
 
         this.is_bookmarked = !this.is_bookmarked;
+
+        await this.COUNT_POST_BOOKMARKS();
       } catch (error) {
         console.log(error);
       }
@@ -208,6 +213,15 @@ export default {
 
   created() {
     this.is_bookmarked = _.get(this.post_data, "is_bookmarked", false);
+  },
+
+  mounted() {
+    const no_margin_wrapper = document.getElementsByClassName("no-margin");
+    for (let i = 0; i < no_margin_wrapper.length; i++) {
+      const element = no_margin_wrapper[i];
+      const child_el = element.querySelector("p");
+      child_el.style.margin = 0;
+    }
   },
 };
 </script>

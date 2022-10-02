@@ -5,6 +5,11 @@ import makeGetPostBookmarksPaginated from "./get-post-bookmarks-paginated";
 import makeGetPostBookmarkAnalystics from "./hard-delete-post-bookmark";
 import makeGetPostBookmark from "./get-post-bookmark";
 import makeGetPostBookmarkByUserAndPost from "./get-post-bookmark-by-user-and-post";
+import makeCountPostBookmarks from "./count-post-bookmarks";
+
+const countPostBookmarks = makeCountPostBookmarks({
+  postBookmarkDb: PostBookmarkDb,
+});
 
 const getPostBookmarkByUserAndPost = makeGetPostBookmarkByUserAndPost({
   postBookmarkDb: PostBookmarkDb,
@@ -33,6 +38,7 @@ const subscriptionServices = Object.freeze({
   hardDeletePostBookmark,
   getPostBookmark,
   getPostBookmarkByUserAndPost,
+  countPostBookmarks,
 });
 
 export default subscriptionServices;
@@ -43,4 +49,5 @@ export {
   hardDeletePostBookmark,
   getPostBookmark,
   getPostBookmarkByUserAndPost,
+  countPostBookmarks,
 };

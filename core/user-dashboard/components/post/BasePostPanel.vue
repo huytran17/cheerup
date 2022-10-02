@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <div class="d-flex justify-center pt-7 pb-6">
+    <div class="d-flex justify-center pt-6 pb-3">
       <v-img
         :src="post_data.thumbnail_url"
         :lazy-src="post_data.thumbnail_url"

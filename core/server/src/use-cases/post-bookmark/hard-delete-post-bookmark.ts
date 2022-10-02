@@ -17,7 +17,7 @@ export default function makeHardDeletePostBookmark({
   }: {
     _id: string;
   }): Promise<PostBookmark | null> {
-    const user = await postBookmarkDb.hardDelete({ _id });
-    return user;
+    const post_bookmark = await postBookmarkDb.hardDelete({ _id });
+    return post_bookmark;
   };
 }

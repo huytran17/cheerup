@@ -1,6 +1,7 @@
 export const state = () => ({
   post_bookmark: {} as any,
   post_bookmarks: [] as any[],
+  post_bookmarks_count: 0,
   pagination: {
     current_page: 1,
     per_page: 15,

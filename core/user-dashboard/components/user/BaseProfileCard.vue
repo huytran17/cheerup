@@ -62,7 +62,11 @@
               <span
                 class="app-body clickable profile-item__title"
                 v-html="$t('Favourites')"
+                @click="$router.push(localePath('/favourites'))"
               ></span>
+              <span class="app-body clickable profile-item__title"
+                >({{ post_bookmarks_count }})</span
+              >
             </div>
           </div>
         </div>
@@ -88,9 +92,11 @@
 
 <script>
 import authMixins from "@/mixins/auth";
+import postBookmarkMixins from "@/mixins/post-bookmark";
+
 export default {
   name: "BaseProfileCard",
-  mixins: [authMixins],
+  mixins: [authMixins, postBookmarkMixins],
   data() {
     return {
       default_user_avatar: require("@/assets/images/default/user-avatar.png"),
@@ -100,6 +106,13 @@ export default {
     user_avatar() {
       return _.get(this.me, "avatar_url") || this.default_user_avatar;
     },
+  },
+  async fetch() {
+    try {
+      await this.COUNT_POST_BOOKMARKS();
+    } catch (error) {
+      console.error(error);
+    }
   },
 };
 </script>

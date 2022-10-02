@@ -17,7 +17,7 @@ export default function makeGetPostBookmark({
   }: {
     _id: string;
   }): Promise<PostBookmark | null> {
-    const user = await postBookmarkDb.findById({ _id });
-    return user;
+    const post_bookmark = await postBookmarkDb.findById({ _id });
+    return post_bookmark;
   };
 }

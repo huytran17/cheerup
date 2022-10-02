@@ -7,6 +7,7 @@ export default {
       post_bookmark: "post-bookmark/post_bookmark",
       post_bookmarks: "post-bookmark/post_bookmarks",
       pagination: "post-bookmark/pagination",
+      post_bookmarks_count: "post-bookmark/post_bookmarks_count",
     }),
   },
   methods: {
@@ -15,6 +16,7 @@ export default {
         "post-bookmark/CREATE_OR_DELETE_POST_BOOKMARK",
       GET_POST_BOOKMARKS_PAGINATED:
         "post-bookmark/GET_POST_BOOKMARKS_PAGINATED",
+      COUNT_POST_BOOKMARKS: "post-bookmark/COUNT_POST_BOOKMARKS",
     }),
 
     ...mapMutations({
