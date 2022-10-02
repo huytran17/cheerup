@@ -156,16 +156,10 @@ export default {
 
         this.is_bookmarked = !this.is_bookmarked;
 
-        const updated_post_bookmarks = this.post_bookmarks.filter(
-          (post_bookmark) => _.get(post_bookmark, "post._id") !== this.post_id
-        );
-
-        this.SET_POST_BOOKMARKS({
-          data: updated_post_bookmarks,
-          new_state: true,
-        });
-
-        await this.COUNT_POST_BOOKMARKS();
+        await Promise.all([
+          this.GET_POST_BOOKMARKS_PAGINATED(),
+          this.COUNT_POST_BOOKMARKS(),
+        ]);
       } catch (error) {
         console.log(error);
       }
