@@ -11,8 +11,6 @@ export default {
   },
   methods: {
     ...mapActions({
-      CREATE_POST_BOOKMARK: "post-bookmark/CREATE_POST_BOOKMARK",
-      REMOVE_POST_BOOKMARK: "post-bookmark/REMOVE_POST_BOOKMARK",
       CREATE_OR_DELETE_POST_BOOKMARK:
         "post-bookmark/CREATE_OR_DELETE_POST_BOOKMARK",
       GET_POST_BOOKMARKS_PAGINATED:

@@ -20,7 +20,7 @@ apiRouter.use(
   emailVerificationRouter
 );
 apiRouter.use("/category", categoryRouter);
-apiRouter.use("/post-bookmark", postBookmarkRouter);
+apiRouter.use("/post-bookmark", authenticateUserJWT(), postBookmarkRouter);
 apiRouter.use("/subscription", authenticateUserJWT(), subscriptionRouter);
 apiRouter.use("/comment", authenticateUserJWT(), commentRouter);
 apiRouter.use("/post", postRouter);

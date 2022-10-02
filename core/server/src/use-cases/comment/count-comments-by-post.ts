@@ -20,6 +20,6 @@ export default function makeCountCommentsByPost({
     post_id: string;
   }): Promise<number | null> {
     const comments_count = await commentDb.countByPost({ post_id });
-    return comments_count;
+    return comments_count || 0;
   };
 }

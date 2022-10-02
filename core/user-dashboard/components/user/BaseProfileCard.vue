@@ -37,6 +37,35 @@
             >{{ me.full_name }}</span
           >
         </div>
+
+        <div class="profile__list pt-3">
+          <div class="text-body-3 text-sm-body-2 text-uppercase text-left">
+            <div class="py-2 profile-item__wrapper">
+              <span
+                class="app-body clickable profile-item__title"
+                v-html="$t('Followers')"
+              ></span>
+            </div>
+          </div>
+
+          <div class="text-body-3 text-sm-body-2 text-uppercase text-left">
+            <div class="py-2 profile-item__wrapper">
+              <span
+                class="app-body clickable profile-item__title"
+                v-html="$t('Following')"
+              ></span>
+            </div>
+          </div>
+
+          <div class="text-body-3 text-sm-body-2 text-uppercase text-left">
+            <div class="py-2 profile-item__wrapper">
+              <span
+                class="app-body clickable profile-item__title"
+                v-html="$t('Favourites')"
+              ></span>
+            </div>
+          </div>
+        </div>
       </div>
       <div v-else>
         <div class="small--text font-italic">
@@ -74,3 +103,19 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.profile-item__wrapper {
+  border-bottom: 1px solid var(--color-article-baseline);
+}
+.profile-item__title {
+  transition: all 0.2s linear;
+}
+.profile-item__title:hover {
+  padding-left: 15px;
+}
+.profile__list {
+  max-height: 210px;
+  overflow-y: auto;
+}
+</style>

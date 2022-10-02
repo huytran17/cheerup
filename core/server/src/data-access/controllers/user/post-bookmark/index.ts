@@ -1,5 +1,4 @@
 import {
-  getPostBookmark,
   hardDeletePostBookmark,
   getPostBookmarksPaginated,
   createPostBookmark,
@@ -7,9 +6,8 @@ import {
 } from "../../../../use-cases/post-bookmark";
 import { logger } from "../../../../config/logs/logger";
 import { countCommentsByPost } from "../../../../use-cases/comment";
+import moment from "moment";
 
-import makeHardDeletePostBookmarkController from "./hard-delete-post-bookmark";
-import makeCreatePostBookmarkController from "./create-post-bookmark";
 import makeGetPostBookmarksPaginatedController from "./get-post-bookmarks-paginated";
 import makeCreateOrDeletePostBookmarkController from "./create-or-delete-post-bookmark";
 
@@ -19,18 +17,8 @@ const createOrDeletePostBookmarkController =
     hardDeletePostBookmark,
     getPostBookmarkByUserAndPost,
     logger,
+    moment,
   });
-
-const createPostBookmarkController = makeCreatePostBookmarkController({
-  createPostBookmark,
-  logger,
-});
-
-const hardDeletePostBookmarkController = makeHardDeletePostBookmarkController({
-  getPostBookmark,
-  hardDeletePostBookmark,
-  logger,
-});
 
 const getPostBookmarksPaginatedController =
   makeGetPostBookmarksPaginatedController({
@@ -41,14 +29,10 @@ const getPostBookmarksPaginatedController =
 
 export default Object.freeze({
   getPostBookmarksPaginatedController,
-  createPostBookmarkController,
-  hardDeletePostBookmarkController,
   createOrDeletePostBookmarkController,
 });
 
 export {
   getPostBookmarksPaginatedController,
-  createPostBookmarkController,
-  hardDeletePostBookmarkController,
   createOrDeletePostBookmarkController,
 };

@@ -16,7 +16,7 @@
         </v-chip>
       </div>
 
-      <div class="text-h5 text-sm-h4 text-uppercase text-center py-4">
+      <div class="text-h6 text-sm-h4 text-uppercase text-center py-4">
         <span
           class="app-body post__title position-relative clickable"
           v-html="$t(post_data.title)"
@@ -46,7 +46,7 @@
       ></v-img>
     </div>
 
-    <div class="text__description matte__black--text text__ellipsis">
+    <div class="text__description matte__black--text" v-line-clamp="2">
       <span class="app-body" v-html="$t(post_data.description)"></span>
     </div>
 
@@ -122,7 +122,6 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 import systemMixins from "@/mixins/system";
 import postBookmarkMixins from "@/mixins/post-bookmark";
 
@@ -143,10 +142,6 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({
-      me: "auth/me",
-    }),
-
     author_name() {
       return _.get(this.post_data, "author.full_name");
     },
@@ -159,7 +154,6 @@ export default {
     async addPostToBookmark() {
       try {
         const post_bookmark_data = {
-          user: _.get(this.me, "_id"),
           post: _.get(this.post_data, "_id"),
         };
 
@@ -230,12 +224,5 @@ export default {
 }
 :deep(button.v-icon::after) {
   background: transparent !important;
-}
-.text__ellipsis {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
 }
 </style>

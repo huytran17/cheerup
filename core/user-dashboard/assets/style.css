@@ -102,6 +102,11 @@ select:-webkit-autofill:focus {
   font-size: 11px !important;
 }
 
+.text-body-3 {
+  font-size: 12px !important;
+  font-family: "Lato", sans-serif !important;
+}
+
 .text__description {
   font-size: 14px !important;
   font-weight: 400;

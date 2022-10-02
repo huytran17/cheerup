@@ -53,20 +53,35 @@ export default function makePostBookmarkDb({
     }): Promise<PaginatedPostBookmarkResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
-      const query_conditions = Object.assign({});
-
-      if (query) {
-        query_conditions["$or"] = [
-          {
-            email: { $regex: ".*" + query + ".*", $options: "si" },
-          },
-        ];
-      }
+      const query_conditions = Object.assign({
+        deleted_at: { $in: [null, undefined] },
+        is_published: true,
+      });
 
       const existing = await postBookmarkDbModel
         .find(query_conditions)
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)
+        .populate({
+          path: "user",
+          select: "_id",
+        })
+        .populate({
+          path: "post",
+          select:
+            "_id title description comments_count thumbnail tags created_at author categories",
+          populate: [
+            {
+              path: "author",
+              select: "_id full_name",
+            },
+            {
+              path: "categories",
+              select: "_id title",
+            },
+          ],
+        })
+        .select("-__v")
         .sort({
           created_at: "desc",
         })

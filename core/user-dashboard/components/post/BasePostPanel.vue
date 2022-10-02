@@ -16,7 +16,7 @@
         </v-chip>
       </div>
 
-      <div class="text-h5 text-sm-h4 text-uppercase text-center py-4">
+      <div class="text-h6 text-sm-h4 text-uppercase text-center py-4">
         <span
           class="app-body post__title position-relative clickable"
           v-html="$t(post_data.title)"

@@ -8,7 +8,7 @@
     </div>
     <div class="sidebar__card py-6 px-6 category__list horizontal__scrollbar">
       <div
-        class="text-body-2 text-uppercase text-left"
+        class="text-body-3 text-sm-body-2 text-uppercase text-left"
         v-for="(category, index) in category_titles"
         :key="category._id"
       >

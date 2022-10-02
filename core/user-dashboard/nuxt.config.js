@@ -39,6 +39,7 @@ export default {
     { src: "~/plugins/vue-slick", mode: "client" },
     { src: "~/plugins/vue2-dropzone", ssr: false },
     { src: "~/plugins/vue-avatar", mode: "client" },
+    { src: "~/plugins/vue-line-clamp", mode: "client" },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

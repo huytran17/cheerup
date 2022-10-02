@@ -4,17 +4,20 @@ import { IGetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookma
 import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
+import Moment from "moment";
 
 export default function makeCreateOrDeletePostBookmarkController({
   createPostBookmark,
   hardDeletePostBookmark,
   getPostBookmarkByUserAndPost,
   logger,
+  moment,
 }: {
   createPostBookmark: ICreatePostBookmark;
   hardDeletePostBookmark: IHardDeletePostBookmark;
   getPostBookmarkByUserAndPost: IGetPostBookmarkByUserAndPost;
   logger: Logger;
+  moment: typeof Moment;
 }) {
   return async function createOrDeletePostBookmarkController(
     httpRequest: Request & { context: { validated: {} } }
@@ -24,8 +27,8 @@ export default function makeCreateOrDeletePostBookmarkController({
     };
 
     try {
-      const postBookmarkDetails = _.get(httpRequest, "context.validated");
-      const { user: user_id, post: post_id } = postBookmarkDetails;
+      const { post: post_id } = _.get(httpRequest, "context.validated");
+      const { _id: user_id } = _.get(httpRequest, "context.user");
 
       const post_bookmark_exists = await getPostBookmarkByUserAndPost({
         user_id,
@@ -38,8 +41,17 @@ export default function makeCreateOrDeletePostBookmarkController({
       let post_bookmark_data = Object.assign({});
 
       if (post_bookmark_not_exists) {
+        const post_bookmark_details = Object.assign(
+          {},
+          {
+            user: user_id,
+            post: post_id,
+            timeline_date: moment(new Date()).format("YYYY-MM-DD"),
+          }
+        );
+
         post_bookmark_data = await createPostBookmark({
-          postBookmarkDetails,
+          postBookmarkDetails: post_bookmark_details,
         });
       } else {
         post_bookmark_data = await hardDeletePostBookmark({
