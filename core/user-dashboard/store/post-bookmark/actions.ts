@@ -58,8 +58,9 @@ const actions: ActionTree<PostBookmarkState, RootState> = {
       data: post_bookmarks,
       new_state,
     });
-
     commit(MutationTypes.SET_POST_BOOKMARK_PAGINATION, { data: pagination });
+
+    return post_bookmarks;
   },
 };
 

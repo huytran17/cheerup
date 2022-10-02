@@ -3,7 +3,7 @@ export const state = () => ({
   pagination: {
     current_page: 1,
     per_page: 15,
-    total: 0,
+    total_pages: 0,
   },
   posts: [] as any[],
   suggestion_posts: [] as any[],
