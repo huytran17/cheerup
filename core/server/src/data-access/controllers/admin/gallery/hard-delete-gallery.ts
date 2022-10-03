@@ -1,16 +1,16 @@
 import { Request } from "express";
-import { IGetSubscription } from "../../../../use-cases/subscription/get-subscription";
+import { IHardDeleteGallery } from "../../../../use-cases/gallery/hard-delete-gallery";
 import _ from "lodash";
 import { Logger } from "winston";
 
-export default function makeGetSubscriptionController({
-  getSubscription,
+export default function makeHardDeleteGalleryController({
+  hardDeleteGallery,
   logger,
 }: {
-  getSubscription: IGetSubscription;
+  hardDeleteGallery: IHardDeleteGallery;
   logger: Logger;
 }) {
-  return async function getSubscriptionController(
+  return async function hardDeleteGalleryController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
@@ -18,12 +18,12 @@ export default function makeGetSubscriptionController({
     };
 
     try {
-      const { subscription_id } = _.get(httpRequest, "context.validated");
-      const exists = await getSubscription({ _id: subscription_id });
+      const { gallery_id } = _.get(httpRequest, "context.validated");
+      const exists = await hardDeleteGallery({ _id: gallery_id });
 
       const not_exists = _.isEmpty(exists) || _.isNil(exists);
       if (not_exists) {
-        throw new Error(`Subscription ${subscription_id} does not exists`);
+        throw new Error(`Gallery by id ${gallery_id} does not exists`);
       }
 
       return {

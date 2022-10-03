@@ -10,6 +10,7 @@ import makeSubscriptionDb from "./make-subscription-db";
 import makeSystemConfigurationDb from "./make-system-configuration-db";
 import makeEmailVerificationDb from "./make-email-verification-db";
 import makePostBookmarkDb from "./make-post-bookmark-db";
+import makeGalleryDb from "./make-gallery-db";
 
 import {
   UserModel,
@@ -22,7 +23,13 @@ import {
   SystemConfigurationModel,
   EmailVerificationModel,
   PostBookmarkModel,
+  GalleryModel,
 } from "./models";
+
+const GalleryDb = makeGalleryDb({
+  galleryDbModel: GalleryModel,
+  moment,
+});
 
 const PostBookmarkDb = makePostBookmarkDb({
   postBookmarkDbModel: PostBookmarkModel,
@@ -70,6 +77,7 @@ export default Object.freeze({
   SystemConfigurationDb,
   EmailVerificationDb,
   PostBookmarkDb,
+  GalleryDb,
 });
 
 export {
@@ -83,4 +91,5 @@ export {
   SystemConfigurationDb,
   EmailVerificationDb,
   PostBookmarkDb,
+  GalleryDb,
 };
