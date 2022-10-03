@@ -1,0 +1,5 @@
+export enum MutationTypes {
+  SET_GALLERY = "SET_GALLERY",
+  SET_GALLERIES = "SET_GALLERIES",
+  SET_LOADING = "SET_LOADING",
+}
