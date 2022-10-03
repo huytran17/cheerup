@@ -7,7 +7,7 @@
         :alt="post_title"
         cover
         :max-width="is_mobile ? '100%' : '250px'"
-        :max-height="is_mobile ? '300px' : '138px'"
+        :max-height="is_mobile ? '300px' : '143.77px'"
       ></v-img>
     </div>
     <div class="d-flex flex-column px-0 px-sm-3 w-100">
@@ -63,6 +63,8 @@
         <span class="app-body">{{ formatDate(post_created_at, "LL") }}</span>
         <span>/</span>
         <span class="app-body">{{ post_author_name }}</span>
+        <span>/</span>
+        <span class="app-body">{{ reading_time }}</span>
       </div>
       <div class="text-left">
         <div class="text-caption grey--text text-uppercase">
@@ -104,6 +106,10 @@ export default {
   },
 
   computed: {
+    reading_time() {
+      return _.get(this.bookmark_data, "post.reading_time.text");
+    },
+
     has_bookmark_data() {
       return !_.isEmpty(this.bookmark_data) && !_.isNil(this.bookmark_data);
     },

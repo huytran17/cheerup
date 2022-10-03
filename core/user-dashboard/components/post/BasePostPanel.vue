@@ -32,6 +32,8 @@
         }}</span>
         <span>/</span>
         <span class="app-body">{{ author_name }}</span>
+        <span>/</span>
+        <span class="app-body">{{ reading_time }}</span>
       </div>
     </div>
 
@@ -101,6 +103,10 @@ export default {
     };
   },
   computed: {
+    reading_time() {
+      return _.get(this.post_data, "reading_time.text");
+    },
+
     author_name() {
       return _.get(this.post_data, "author.full_name");
     },
