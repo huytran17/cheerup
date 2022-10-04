@@ -1,12 +1,7 @@
 import _ from "lodash";
-import { mapGetters, mapMutations } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters({
-      drawer: "drawer",
-      app_loading: "app_loading",
-    }),
     /**
      *
      * @returns true if xs;
@@ -16,10 +11,6 @@ export default {
     },
   },
   methods: {
-    ...mapMutations({
-      SET_DRAWER: "SET_DRAWER",
-      SET_APP_LOADING: "SET_APP_LOADING",
-    }),
     /**
      *
      * @param {*} date

@@ -5,6 +5,7 @@ export default {
   computed: {
     ...mapGetters({
       login_redirect_url: "login_redirect_url",
+      is_open_login_snackbar: "is_open_login_snackbar",
     }),
     /**
      *
@@ -25,6 +26,7 @@ export default {
   methods: {
     ...mapMutations({
       SET_LOGIN_REDIRECT_URL: "SET_LOGIN_REDIRECT_URL",
+      SET_OPEN_LOGIN_SNACKBAR: "SET_OPEN_LOGIN_SNACKBAR",
     }),
     /**
      *
