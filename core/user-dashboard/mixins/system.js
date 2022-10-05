@@ -4,6 +4,7 @@ import { mapGetters, mapMutations } from "vuex";
 export default {
   computed: {
     ...mapGetters({
+      is_open_login_requiring_snackbar: "is_open_login_requiring_snackbar",
       login_redirect_url: "login_redirect_url",
     }),
     /**
@@ -25,6 +26,8 @@ export default {
   methods: {
     ...mapMutations({
       SET_LOGIN_REDIRECT_URL: "SET_LOGIN_REDIRECT_URL",
+      SET_IS_OPEN_LOGIN_REQUIRING_SNACKBAR:
+        "SET_IS_OPEN_LOGIN_REQUIRING_SNACKBAR",
     }),
     /**
      *
