@@ -1,6 +1,7 @@
 import { Request } from "express";
 import { IGetPostBookmarksPaginated } from "../../../../use-cases/post-bookmark/get-post-bookmarks-paginated";
 import { ICountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
+import { IReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import _ from "lodash";
 import { Logger } from "winston";
 import PostBookmark from "../../../../database/entities/post-bookmark";
@@ -8,10 +9,12 @@ import PostBookmark from "../../../../database/entities/post-bookmark";
 export default function makeGetPostBookmarksPaginatedController({
   getPostBookmarksPaginated,
   countCommentsByPost,
+  readingTimeAnalyzer,
   logger,
 }: {
   getPostBookmarksPaginated: IGetPostBookmarksPaginated;
   countCommentsByPost: ICountCommentsByPost;
+  readingTimeAnalyzer: IReadingTimeAnalyzer;
   logger: Logger;
 }) {
   return async function getPostBookmarksPaginatedController(
@@ -45,10 +48,19 @@ export default function makeGetPostBookmarksPaginatedController({
             post_id: _.get(post_bookmark, "post._id"),
           });
 
+          const analyzing_text = `
+          ${_.get(post_bookmark, "post.title", "")} 
+          ${_.get(post_bookmark, "post.description", "")} 
+          ${_.get(post_bookmark, "post.content", "")}
+          `.replace(/<[^>]*>?/gm, "");
+
+          const reading_time = readingTimeAnalyzer({ text: analyzing_text });
+
           return Object.assign({}, post_bookmark, {
             post: {
               ...post_bookmark.post,
               comments_count,
+              reading_time,
             },
           });
         }

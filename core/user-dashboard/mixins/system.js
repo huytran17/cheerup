@@ -6,6 +6,7 @@ export default {
     ...mapGetters({
       is_open_login_requiring_snackbar: "is_open_login_requiring_snackbar",
       login_redirect_url: "login_redirect_url",
+      is_open_login_snackbar: "is_open_login_snackbar",
     }),
     /**
      *
@@ -28,6 +29,7 @@ export default {
       SET_LOGIN_REDIRECT_URL: "SET_LOGIN_REDIRECT_URL",
       SET_IS_OPEN_LOGIN_REQUIRING_SNACKBAR:
         "SET_IS_OPEN_LOGIN_REQUIRING_SNACKBAR",
+      SET_OPEN_LOGIN_SNACKBAR: "SET_OPEN_LOGIN_SNACKBAR",
     }),
     /**
      *

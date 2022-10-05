@@ -8,6 +8,7 @@ import {
 import { countCommentsByPost } from "../../../../use-cases/comment";
 import { getUser } from "../../../../use-cases/user";
 import { logger } from "../../../../config/logs/logger";
+import { readingTimeAnalyzer } from "../../../../config/reading-time";
 import moment from "moment";
 
 import makeGetPostBookmarksPaginatedController from "./get-post-bookmarks-paginated";
@@ -33,6 +34,7 @@ const getPostBookmarksPaginatedController =
   makeGetPostBookmarksPaginatedController({
     getPostBookmarksPaginated,
     countCommentsByPost,
+    readingTimeAnalyzer,
     logger,
   });
 

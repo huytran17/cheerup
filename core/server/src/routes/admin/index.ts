@@ -12,9 +12,11 @@ import adminAdminRouter from "./admin";
 import feedbackRouter from "./feedback";
 import subscriptionRouter from "./subscription";
 import systemConfigurationRouter from "./system-configuration";
+import galleryRouter from "../admin/gallery";
 
 adminRouter.use("/auth", authRouter);
 adminRouter.use("/user", authenticateAdminJWT(), userRouter);
+adminRouter.use("/gallery", authenticateAdminJWT(), galleryRouter);
 adminRouter.use("/category", authenticateAdminJWT(), categoryRouter);
 adminRouter.use("/comment", authenticateAdminJWT(), commentRouter);
 adminRouter.use("/post", authenticateAdminJWT(), postRouter);

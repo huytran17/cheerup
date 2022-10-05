@@ -1,13 +1,16 @@
 import { Request } from "express";
 import { IGetPost } from "../../../../use-cases/post/get-post";
+import { IReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import _ from "lodash";
 import { Logger } from "winston";
 
 export default function makeGetPostController({
   getPost,
+  readingTimeAnalyzer,
   logger,
 }: {
   getPost: IGetPost;
+  readingTimeAnalyzer: IReadingTimeAnalyzer;
   logger: Logger;
 }) {
   return async function getPostController(
@@ -30,11 +33,20 @@ export default function makeGetPostController({
         throw new Error(`Post ${_id} does not exists`);
       }
 
+      const analyzing_text =
+        `${exists.title} ${exists.description} ${exists.content}`.replace(
+          /<[^>]*>?/gm,
+          ""
+        );
+      const reading_time = readingTimeAnalyzer({ text: analyzing_text });
+
+      const final_data = Object.assign({}, exists, { reading_time });
+
       return {
         headers,
         statusCode: 200,
         body: {
-          data: exists,
+          data: final_data,
         },
       };
     } catch (err) {

@@ -7,6 +7,7 @@ import {
 import { countCommentsByPost } from "../../../../use-cases/comment";
 import { getPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark";
 import { logger } from "../../../../config/logs/logger";
+import { readingTimeAnalyzer } from "../../../../config/reading-time";
 
 import makeGetPostController from "./get-post";
 import makeGetPostsController from "./get-posts";
@@ -17,6 +18,7 @@ const getPostsPaginatedController = makeGetPostsPaginatedController({
   getPostsPaginated,
   countCommentsByPost,
   getPostBookmarkByUserAndPost,
+  readingTimeAnalyzer,
   logger,
 });
 
@@ -28,6 +30,7 @@ const getPostsController = makeGetPostsController({
 
 const getPostController = makeGetPostController({
   getPost,
+  readingTimeAnalyzer,
   logger,
 });
 

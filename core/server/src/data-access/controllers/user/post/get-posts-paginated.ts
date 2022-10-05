@@ -1,5 +1,6 @@
 import { Request } from "express";
 import { IGetPostsPaginated } from "../../../../use-cases/post/get-posts-paginated";
+import { IReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import { ICountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
 import { IGetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
 import _ from "lodash";
@@ -10,11 +11,13 @@ export default function makeGetPostsPaginatedController({
   getPostsPaginated,
   countCommentsByPost,
   getPostBookmarkByUserAndPost,
+  readingTimeAnalyzer,
   logger,
 }: {
   getPostsPaginated: IGetPostsPaginated;
   countCommentsByPost: ICountCommentsByPost;
   getPostBookmarkByUserAndPost: IGetPostBookmarkByUserAndPost;
+  readingTimeAnalyzer: IReadingTimeAnalyzer;
   logger: Logger;
 }) {
   return async function getPostsPaginatedController(
@@ -65,10 +68,18 @@ export default function makeGetPostsPaginatedController({
             }),
           ]);
 
+          const analyzing_text =
+            `${post.title} ${post.description} ${post.content}`.replace(
+              /<[^>]*>?/gm,
+              ""
+            );
+          const reading_time = readingTimeAnalyzer({ text: analyzing_text });
+
           return Object.assign({}, post, {
             comments_count,
             is_bookmarked:
               !_.isEmpty(post_bookmarked) && !_.isNil(post_bookmarked),
+            reading_time,
           });
         }
       );

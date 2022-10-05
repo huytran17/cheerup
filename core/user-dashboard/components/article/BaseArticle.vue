@@ -16,7 +16,7 @@
         </v-chip>
       </div>
 
-      <div class="text-h6 text-sm-h4 text-uppercase text-center py-4">
+      <div class="text-h6 text-sm-h4 text-uppercase text-center pb-4 pt-2">
         <span
           class="app-body post__title position-relative clickable"
           v-html="$t(post_data.title)"
@@ -33,6 +33,8 @@
         }}</span>
         <span>/</span>
         <span class="app-body">{{ author_name }}</span>
+        <span>/</span>
+        <span class="app-body">{{ reading_time }}</span>
       </div>
     </div>
 
@@ -147,6 +149,10 @@ export default {
   computed: {
     author_name() {
       return _.get(this.post_data, "author.full_name");
+    },
+
+    reading_time() {
+      return _.get(this.post_data, "reading_time.text");
     },
 
     has_categories() {

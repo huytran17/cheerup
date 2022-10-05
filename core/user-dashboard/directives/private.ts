@@ -1,19 +1,14 @@
 import Vue from "vue";
 
 Vue.directive("private", {
-  inserted: (el, binding, vnode) => {
+  inserted: (el, binding, vNode) => {
     el.addEventListener("click", (event) => {
-      event.preventDefault();
-      event.stopPropagation();
+      const has_user = vNode.context?.$store.getters("auth/has_user");
 
-      const has_user = vnode.context?.$store.getters("auth/has_user");
-      if (has_user) {
-        return;
+      if (!has_user) {
+        event.preventDefault();
+        vNode.context?.$store.commit("SET_OPEN_LOGIN_SNACKBAR", { data: true });
       }
-
-      vnode.context?.$store.commit("SET_IS_OPEN_LOGIN_REQUIRING_SNACKBAR", {
-        data: true,
-      });
     });
   },
 });
