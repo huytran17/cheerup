@@ -4,6 +4,8 @@ services:
   redis:
     image: redis
     restart: always
+    volumes:
+      - ./redis/data:/data/redis
     ports:
       - 6379:6379
     networks:
@@ -17,6 +19,8 @@ services:
   redis-admin:
     image: erikdubbelboer/phpredisadmin
     restart: always
+    volumes:
+      - ./redis/data:/data/redis
     ports:
       - 8085:80
     depends_on:
