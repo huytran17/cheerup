@@ -1,12 +1,19 @@
 version: "2.0"
 
-services: 
+services:
   redis:
     image: redis
     restart: always
     ports:
       - 6379:6379
-  
+    networks:
+      - redis-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
   redis-admin:
     image: erikdubbelboer/phpredisadmin
     restart: always
@@ -18,6 +25,8 @@ services:
       REDIS_1_HOST: redis
       REDIS_1_NAME: redis
       REDIS_1_PORT: 6379
+    networks:
+      - redis-network
   mongo:
     image: mongo
     restart: unless-stopped
@@ -28,6 +37,13 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    networks:
+      - mongodb-network
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo db:${MONGO_PORT}/speech-api --quiet
+      interval: 30s
+      timeout: 15s
+      retries: 5
 
   mongo-express:
     image: mongo-express
@@ -43,3 +59,11 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_ADMIN_PASSWORD}
       ME_CONFIG_MONGODB_URL: ${MONGO_ADMIN_URL}
       ME_CONFIG_MONGODB_SERVER: ${MONGO_ADMIN_SERVER}
+    networks:
+      - mongodb-network
+
+networks:
+  redis-network:
+    driver: bridge
+  mongodb-network:
+    driver: bridge
