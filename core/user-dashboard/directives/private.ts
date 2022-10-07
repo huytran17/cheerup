@@ -7,7 +7,9 @@ Vue.directive("private", {
 
       if (!has_user) {
         event.preventDefault();
-        vNode.context?.$store.commit("SET_OPEN_LOGIN_SNACKBAR", { data: true });
+        vNode.context?.$store.commit("SET_IS_OPEN_LOGIN_REQUIRING_SNACKBAR", {
+          data: true,
+        });
       }
     });
   },

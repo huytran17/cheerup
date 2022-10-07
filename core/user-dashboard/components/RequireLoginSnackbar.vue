@@ -9,10 +9,10 @@
 
     <template v-slot:action="{ attrs }">
       <v-btn
-        color="pink"
+        color="primary"
         text
         v-bind="attrs"
-        @click="SET_OPEN_LOGIN_SNACKBAR({ data: false })"
+        @click="SET_IS_OPEN_LOGIN_REQUIRING_SNACKBAR({ data: false })"
       >
         <div class="text-body-2">
           <span class="app-body" v-html="$t('Close')"></span>
@@ -39,17 +39,18 @@ export default {
   },
   watch: {
     is_open_snackbar(value) {
-      this.SET_OPEN_LOGIN_SNACKBAR({ data: value });
+      this.SET_IS_OPEN_LOGIN_REQUIRING_SNACKBAR({ data: value });
+    },
+
+    is_open_login_requiring_snackbar(value) {
+      this.is_open_snackbar = value;
     },
   },
   methods: {
     ...mapMutations({
-      SET_OPEN_LOGIN_SNACKBAR: "SET_OPEN_LOGIN_SNACKBAR",
+      SET_IS_OPEN_LOGIN_REQUIRING_SNACKBAR:
+        "SET_IS_OPEN_LOGIN_REQUIRING_SNACKBAR",
     }),
-  },
-  created() {
-    console.log("---------ok");
-    this.is_open_snackbar = this.is_open_login_requiring_snackbar;
   },
 };
 </script>

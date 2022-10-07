@@ -32,10 +32,6 @@ export const mutations: MutationTree<RootState> = {
     state.is_open_edit_comment = data;
   },
 
-  SET_OPEN_LOGIN_SNACKBAR(state, { data }: { data: boolean }) {
-    state.is_open_login_snackbar = data;
-  },
-
   SET_LOGIN_REDIRECT_URL(state, { data }: { data: string }) {
     state.login_redirect_url = data;
   },
