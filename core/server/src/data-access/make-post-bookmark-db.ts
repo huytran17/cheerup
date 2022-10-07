@@ -153,11 +153,8 @@ export default function makePostBookmarkDb({
     }): Promise<PostBookmark | null> {
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
+        user: user_id,
       };
-
-      if (user_id) {
-        query_conditions["user"] = user_id;
-      }
 
       if (post_id) {
         query_conditions["post"] = post_id;

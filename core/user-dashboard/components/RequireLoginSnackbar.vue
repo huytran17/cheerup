@@ -34,7 +34,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      is_open_login_snackbar: "is_open_login_snackbar",
+      is_open_login_requiring_snackbar: "is_open_login_requiring_snackbar",
     }),
   },
   watch: {
@@ -46,6 +46,10 @@ export default {
     ...mapMutations({
       SET_OPEN_LOGIN_SNACKBAR: "SET_OPEN_LOGIN_SNACKBAR",
     }),
+  },
+  created() {
+    console.log("---------ok");
+    this.is_open_snackbar = this.is_open_login_requiring_snackbar;
   },
 };
 </script>

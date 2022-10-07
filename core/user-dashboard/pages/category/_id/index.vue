@@ -15,6 +15,7 @@ export default {
     ...mapGetters({
       posts: "post/posts",
       categories_filters: "post/categories_filters",
+      me: "auth/me",
     }),
   },
   methods: {
@@ -33,6 +34,7 @@ export default {
 
       await this.GET_POSTS_PAGINATED({
         categories: this.categories_filters,
+        user_id: _.get(this.me, "_id"),
       });
     } catch (err) {
       console.error(err);

@@ -69,6 +69,16 @@
               >
             </div>
           </div>
+
+          <div class="text-body-3 text-sm-body-2 text-uppercase text-left">
+            <div class="py-2 profile-item__wrapper">
+              <span
+                class="app-body clickable profile-item__title"
+                v-html="$t('Logout')"
+                @click="SIGN_OUT"
+              ></span>
+            </div>
+          </div>
         </div>
       </div>
       <div v-else>
@@ -109,6 +119,10 @@ export default {
   },
   async fetch() {
     try {
+      if (!this.has_user) {
+        return;
+      }
+
       await this.COUNT_POST_BOOKMARKS();
     } catch (error) {
       console.error(error);

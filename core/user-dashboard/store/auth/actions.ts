@@ -30,7 +30,15 @@ const actions: ActionTree<AuthState, RootState> = {
 
   async [ActionTypes.SIGN_OUT]({ commit }) {
     const { data } = await this.$axios.$post("/auth/sign-out");
-    return data;
+
+    const { valid_signout } = data;
+
+    if (valid_signout) {
+      localStorage.removeItem("access_token");
+      window.location.replace(""); //FIXME: redirect with locale path
+    }
+
+    return valid_signout;
   },
 
   async [ActionTypes.SIGN_UP]({ commit }, { data }: { data: any }) {

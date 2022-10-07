@@ -30,7 +30,7 @@ const plugin: Plugin = ({ $axios, redirect, store }: Context, inject) => {
     const expired = _.get(error, "response.status", 404);
     if (expired === 401) {
       const origin = `${window.location.origin}/login?message=${error.response?.data}`;
-      window.location.replace(origin);
+      // window.location.replace(origin);
       return;
     }
 

@@ -72,6 +72,7 @@
       <v-tooltip right>
         <template v-slot:activator="{ on, attrs }">
           <v-btn
+            v-private
             icon
             @click="addOrDeletePostToBookmark"
             v-bind="attrs"
@@ -127,6 +128,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import systemMixins from "@/mixins/system";
 import postBookmarkMixins from "@/mixins/post-bookmark";
 
@@ -147,6 +149,10 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      has_user: "auth/has_user",
+    }),
+
     author_name() {
       return _.get(this.post_data, "author.full_name");
     },
@@ -162,6 +168,10 @@ export default {
   methods: {
     async addOrDeletePostToBookmark() {
       try {
+        if (!this.has_user) {
+          return;
+        }
+
         const post_bookmark_data = {
           post: _.get(this.post_data, "_id"),
         };

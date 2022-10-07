@@ -18,6 +18,7 @@ export default {
     ...mapGetters({
       posts: "post/posts",
       loading: "post/loading",
+      me: "auth/me",
     }),
   },
   methods: {
@@ -34,7 +35,7 @@ export default {
     try {
       this.SET_POST_LOADING({ data: true });
 
-      await this.GET_POSTS_PAGINATED();
+      await this.GET_POSTS_PAGINATED({ user_id: _.get(this.me, "_id") });
     } catch (err) {
       console.error(err);
     } finally {

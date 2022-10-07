@@ -22,7 +22,7 @@ apiRouter.use(
 apiRouter.use("/category", categoryRouter);
 apiRouter.use("/post-bookmark", authenticateUserJWT(), postBookmarkRouter);
 apiRouter.use("/subscription", authenticateUserJWT(), subscriptionRouter);
-apiRouter.use("/comment", authenticateUserJWT(), commentRouter);
+apiRouter.use("/comment", commentRouter);
 apiRouter.use("/post", postRouter);
 apiRouter.use("/auth", authRouter);
 apiRouter.use("/system-configuration", systemConfigurationRouter);

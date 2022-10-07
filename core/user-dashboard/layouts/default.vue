@@ -35,6 +35,7 @@
         </v-row>
       </v-container>
       <v-scroll-to-top></v-scroll-to-top>
+      <RequireLoginSnackbar />
     </v-main>
   </v-app>
 </template>
@@ -50,6 +51,7 @@ import BaseSocialiteList from "@/components/socialite/BaseSocialiteList";
 import BaseProfileCard from "@/components/user/BaseProfileCard";
 import BaseCategoriesCard from "@/components/category/BaseCategoriesCard";
 import BaseAdvertisingCard from "@/components/advertising/BaseAdvertisingCard";
+import RequireLoginSnackbar from "@/components/RequireLoginSnackbar";
 
 export default {
   name: "DefaultLayout",
@@ -61,6 +63,7 @@ export default {
     BaseProfileCard,
     BaseCategoriesCard,
     BaseAdvertisingCard,
+    RequireLoginSnackbar,
   },
   async fetch() {
     try {
