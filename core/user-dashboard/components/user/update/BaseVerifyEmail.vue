@@ -94,12 +94,16 @@ export default {
     async getEmailVerificationCode() {
       try {
         await this.SEND_VERIFICATION_CODE();
-      } catch (err) {
-        console.error(err);
-      } finally {
+
         this.$toast.success(
           this.$t("Please check your email and follow the instructions")
         );
+      } catch (err) {
+        console.error(err);
+        this.$toast.error(
+          this.$t("Encountered error when sending verification email")
+        );
+      } finally {
       }
     },
 
@@ -117,7 +121,7 @@ export default {
         });
       } catch (err) {
         console.error(err);
-        this.$toast.success(
+        this.$toast.error(
           this.$t("The security code is incorrect or has expired")
         );
       }

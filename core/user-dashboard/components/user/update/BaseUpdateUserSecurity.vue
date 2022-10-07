@@ -42,7 +42,7 @@
               data: $event,
             })
           "
-          :rules="passwordConfirmationRules"
+          :rules="newPasswordConfirmationRules"
         ></v-text-field>
       </v-col>
       <v-col cols="12" class="d-flex justify-end pb-0">

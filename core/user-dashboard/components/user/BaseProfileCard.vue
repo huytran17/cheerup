@@ -21,7 +21,7 @@
                 max-width="100px"
                 max-height="100px"
                 class="rounded-circle clickable"
-                @click="$router.push(localePath(`/profile/${me._id}`))"
+                @click="$router.push(localePath(`/profile`))"
               ></v-img>
             </template>
             <span v-html="$t('View your profile')"></span>
@@ -33,7 +33,7 @@
         >
           <span
             class="app-body clickable"
-            @click="$router.push(localePath(`/profile/${me._id}`))"
+            @click="$router.push(localePath(`/profile`))"
             >{{ me.full_name }}</span
           >
         </div>
@@ -82,8 +82,8 @@
         </div>
       </div>
       <div v-else>
-        <div class="small--text font-italic">
-          <span class="app-body" v-html="$t('No data to display.')"></span>
+        <div class="small--text">
+          <span class="app-body" v-html="$t('No data to display')"></span>
         </div>
         <div class="d-flex justify-center pt-3">
           <v-btn
@@ -119,10 +119,6 @@ export default {
   },
   async fetch() {
     try {
-      if (!this.has_user) {
-        return;
-      }
-
       await this.COUNT_POST_BOOKMARKS();
     } catch (error) {
       console.error(error);

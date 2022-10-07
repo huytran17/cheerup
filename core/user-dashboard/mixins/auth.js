@@ -26,6 +26,14 @@ export default {
           this.user.password === v ||
           this.$t("Password confirmation must match password."),
       ],
+      newPasswordConfirmationRules: [
+        (v) => !!v || this.$t("Password confirmation is required."),
+        (v) =>
+          (v && v.length > 7) || this.$t("Password must be min 8 characters."),
+        (v) =>
+          this.user.new_password === v ||
+          this.$t("Password confirmation must match password."),
+      ],
     };
   },
   computed: {

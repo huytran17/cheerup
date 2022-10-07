@@ -21,8 +21,19 @@ export default function makeDeleteUserController({
     };
 
     try {
-      const userDetails = _.get(httpRequest, "context.validated");
-      const { _id } = userDetails;
+      const { _id } = _.get(httpRequest, "context.validated");
+
+      const { _id: curent_user_id } = _.get(httpRequest, "context.user");
+
+      const current_exists = await getUser({
+        _id: curent_user_id,
+        is_include_deleted: false,
+      });
+      const current_user_not_exists =
+        _.isEmpty(current_exists) || _.isNil(current_exists);
+      if (current_user_not_exists) {
+        throw new Error(`Current user by id ${_id} does not exists`);
+      }
 
       const exists = await getUser({ _id, is_include_deleted: false });
 
