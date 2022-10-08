@@ -11,7 +11,6 @@ import postBookmarkMixins from "@/mixins/post-bookmark";
 
 export default {
   name: "FavouriteIndex",
-  mixins: [postBookmarkMixins],
   async asyncData({ store }) {
     try {
       const access_token = localStorage.getItem("access_token");
@@ -24,6 +23,7 @@ export default {
       console.log(err);
     }
   },
+  mixins: [postBookmarkMixins],
   components: {
     BaseFavouriteCards,
     BaseNoData,

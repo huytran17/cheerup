@@ -22,7 +22,6 @@ import BaseCommentPanel from "@/components/comment/BaseCommentPanel";
 
 export default {
   name: "PostPanel",
-  mixins: [postMixins, commentMixins],
   async asyncData({ store, params, app, $toast }) {
     try {
       const access_token = localStorage.getItem("access_token");
@@ -52,6 +51,7 @@ export default {
       console.log(err);
     }
   },
+  mixins: [postMixins, commentMixins],
   components: {
     BasePostPanel,
     BaseSuggestionPosts,
