@@ -22,7 +22,7 @@ import BaseCommentPanel from "@/components/comment/BaseCommentPanel";
 
 export default {
   name: "PostPanel",
-  async asyncData({ store, params, app, $toast }) {
+  async asyncData({ store, params }) {
     try {
       const access_token = localStorage.getItem("access_token");
       if (!_.isNil(access_token)) {
