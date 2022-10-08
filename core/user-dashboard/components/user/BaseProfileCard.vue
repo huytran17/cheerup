@@ -89,7 +89,8 @@
           <v-btn
             depressed
             tile
-            color="primary"
+            color="brick"
+            class="white--text"
             @click="$router.push(localePath('/login'))"
           >
             <span class="app-body" v-html="$t('Login')"></span>

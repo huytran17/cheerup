@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import postMixins from "@/mixins/post";
 import commentMixins from "@/mixins/comment";
 import BasePostPanel from "@/components/post/BasePostPanel";
@@ -22,23 +23,42 @@ import BaseCommentPanel from "@/components/comment/BaseCommentPanel";
 export default {
   name: "PostPanel",
   mixins: [postMixins, commentMixins],
+  async asyncData({ store, params }) {
+    const access_token = localStorage.getItem("access_token");
+    if (!_.isNil(access_token)) {
+      await store.dispatch("auth/GET_ME");
+    }
+
+    const post_id = params.id;
+    await store.dispatch("post/GET_POST", {
+      id: post_id,
+      user_id: _.get(store.getters["auth/me"], "_id"),
+    });
+  },
   components: {
     BasePostPanel,
     BaseSuggestionPosts,
     BaseCommentPanel,
   },
   computed: {
+    ...mapGetters({
+      me: "auth/me",
+    }),
+
     is_published() {
       return _.get(this.post, "is_published", false);
     },
   },
+
   async fetch() {
     try {
       this.SET_POST_LOADING({ data: true });
 
       const post_id = this.$route.params.id;
-      const post = await this.GET_POST({ id: post_id });
-      const category_ids = post.categories?.map((category) => category._id);
+
+      const category_ids = this.post.categories?.map(
+        (category) => category._id
+      );
 
       await Promise.all([
         this.GET_SUGGESTION_POSTS({

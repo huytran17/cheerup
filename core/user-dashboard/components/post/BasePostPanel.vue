@@ -66,6 +66,25 @@
     </div>
 
     <div class="text-center text-sm-right pt-3 pt-sm-2">
+      <v-tooltip right>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            v-private
+            icon
+            @click="addOrDeletePostToBookmark"
+            v-bind="attrs"
+            v-on="on"
+            :small="is_mobile"
+          >
+            <v-icon color="brick" class="clickable" :small="is_mobile">
+              {{ is_bookmarked ? "mdi-heart" : "mdi-heart-outline" }}</v-icon
+            >
+          </v-btn>
+        </template>
+        <div class="text-body-2 d-flex flex-column justify-center">
+          <span class="app-body" v-html="$t('Add to favourite')"></span>
+        </div>
+      </v-tooltip>
       <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.FACEBOOK })">
         <v-icon color="facebook">mdi-facebook</v-icon>
       </v-btn>
@@ -86,6 +105,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 import systemMixins from "@/mixins/system";
 import { SOCIAL_MEDIA_TYPES } from "@/constants";
 export default {
@@ -100,9 +120,14 @@ export default {
   data() {
     return {
       SOCIAL_MEDIA_TYPES: SOCIAL_MEDIA_TYPES,
+      is_bookmarked: false,
     };
   },
   computed: {
+    ...mapGetters({
+      has_user: "auth/has_user",
+    }),
+
     reading_time() {
       return _.get(this.post_data, "reading_time.text");
     },
@@ -120,6 +145,32 @@ export default {
     },
   },
   methods: {
+    ...mapActions({
+      CREATE_OR_DELETE_POST_BOOKMARK:
+        "post-bookmark/CREATE_OR_DELETE_POST_BOOKMARK",
+      COUNT_POST_BOOKMARKS: "post-bookmark/COUNT_POST_BOOKMARKS",
+    }),
+
+    async addOrDeletePostToBookmark() {
+      try {
+        if (!this.has_user) {
+          return;
+        }
+
+        const post_bookmark_data = {
+          post: _.get(this.post_data, "_id"),
+        };
+
+        await this.CREATE_OR_DELETE_POST_BOOKMARK({ data: post_bookmark_data });
+
+        this.is_bookmarked = !this.is_bookmarked;
+
+        await this.COUNT_POST_BOOKMARKS();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
     sharePost({ type }) {
       const current_url_origin = window.location.origin;
       const post_url = `${current_url_origin}/post/${this.post_data._id}`;
@@ -159,6 +210,10 @@ export default {
         window.open(share_url, "_blank");
       }
     },
+  },
+
+  created() {
+    this.is_bookmarked = _.get(this.post_data, "is_bookmarked", false);
   },
 };
 </script>

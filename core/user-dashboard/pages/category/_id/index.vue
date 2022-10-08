@@ -3,42 +3,39 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import BaseArticles from "@/components/article/BaseArticles";
 
 export default {
   name: "CategoryIndexPage",
+  async asyncData({ store, params }) {
+    const access_token = localStorage.getItem("access_token");
+    if (!_.isNil(access_token)) {
+      await store.dispatch("auth/GET_ME");
+    }
+
+    const category_id = params.id;
+
+    store.commit("post/SET_CATEGORIES_FILTERS", { data: [category_id] });
+
+    await store.dispatch("post/GET_POSTS_PAGINATED", {
+      categories: store.getters["category/categories_filters"],
+      user_id: _.get(store.getters["auth/me"], "_id"),
+    });
+  },
   components: {
     BaseArticles,
   },
   computed: {
     ...mapGetters({
       posts: "post/posts",
-      categories_filters: "post/categories_filters",
       me: "auth/me",
     }),
   },
   methods: {
-    ...mapActions({
-      GET_POSTS_PAGINATED: "post/GET_POSTS_PAGINATED",
-    }),
-
     ...mapMutations({
       SET_CATEGORIES_FILTERS: "post/SET_CATEGORIES_FILTERS",
     }),
-  },
-  async fetch() {
-    try {
-      const category_id = this.$route.params.id;
-      this.SET_CATEGORIES_FILTERS({ data: [category_id] });
-
-      await this.GET_POSTS_PAGINATED({
-        categories: this.categories_filters,
-        user_id: _.get(this.me, "_id"),
-      });
-    } catch (err) {
-      console.error(err);
-    }
   },
 
   beforeDestroy() {

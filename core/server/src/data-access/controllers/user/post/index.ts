@@ -31,6 +31,7 @@ const getPostsController = makeGetPostsController({
 const getPostController = makeGetPostController({
   getPost,
   readingTimeAnalyzer,
+  getPostBookmarkByUserAndPost,
   logger,
 });
 

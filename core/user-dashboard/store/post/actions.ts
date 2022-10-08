@@ -6,8 +6,17 @@ import { RootState } from "..";
 import _ from "lodash";
 
 const actions: ActionTree<PostState, RootState> = {
-  async [ActionTypes.GET_POST]({ commit }, { id }: { id: string }) {
-    const { data: post } = await this.$axios.$get(`/post/${id}`);
+  async [ActionTypes.GET_POST](
+    { commit },
+    { id, user_id }: { id: string; user_id: string }
+  ) {
+    const url_query = new URLSearchParams();
+
+    if (user_id) {
+      url_query.set("user_id", user_id);
+    }
+
+    const { data: post } = await this.$axios.$get(`/post/${id}?${url_query}`);
 
     commit(MutationTypes.SET_POST, { data: post });
 
