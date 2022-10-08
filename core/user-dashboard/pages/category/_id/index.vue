@@ -9,19 +9,23 @@ import BaseArticles from "@/components/article/BaseArticles";
 export default {
   name: "CategoryIndexPage",
   async asyncData({ store, params }) {
-    const access_token = localStorage.getItem("access_token");
-    if (!_.isNil(access_token)) {
-      await store.dispatch("auth/GET_ME");
+    try {
+      const access_token = localStorage.getItem("access_token");
+      if (!_.isNil(access_token)) {
+        await store.dispatch("auth/GET_ME");
+      }
+
+      const category_id = params.id;
+
+      store.commit("post/SET_CATEGORIES_FILTERS", { data: [category_id] });
+
+      await store.dispatch("post/GET_POSTS_PAGINATED", {
+        categories: store.getters["category/categories_filters"],
+        user_id: _.get(store.getters["auth/me"], "_id"),
+      });
+    } catch (err) {
+      console.log(err);
     }
-
-    const category_id = params.id;
-
-    store.commit("post/SET_CATEGORIES_FILTERS", { data: [category_id] });
-
-    await store.dispatch("post/GET_POSTS_PAGINATED", {
-      categories: store.getters["category/categories_filters"],
-      user_id: _.get(store.getters["auth/me"], "_id"),
-    });
   },
   components: {
     BaseArticles,

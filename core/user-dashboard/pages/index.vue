@@ -11,9 +11,13 @@ import BaseArticles from "@/components/article/BaseArticles";
 export default {
   name: "IndexPage",
   async asyncData({ store }) {
-    const access_token = localStorage.getItem("access_token");
-    if (!_.isNil(access_token)) {
-      await store.dispatch("auth/GET_ME");
+    try {
+      const access_token = localStorage.getItem("access_token");
+      if (!_.isNil(access_token)) {
+        await store.dispatch("auth/GET_ME");
+      }
+    } catch (err) {
+      console.log(err);
     }
   },
   components: {

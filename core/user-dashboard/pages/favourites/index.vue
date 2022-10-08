@@ -13,9 +13,15 @@ export default {
   name: "FavouriteIndex",
   mixins: [postBookmarkMixins],
   async asyncData({ store }) {
-    const access_token = localStorage.getItem("access_token");
-    if (!_.isNil(access_token)) {
-      await store.dispatch("auth/GET_ME");
+    try {
+      const access_token = localStorage.getItem("access_token");
+      if (!_.isNil(access_token)) {
+        await store.dispatch("auth/GET_ME");
+      }
+
+      await store.dispatch("post-bookmark/GET_POST_BOOKMARKS_PAGINATED");
+    } catch (err) {
+      console.log(err);
     }
   },
   components: {
@@ -26,17 +32,6 @@ export default {
     ...mapGetters({
       has_user: "auth/has_user",
     }),
-  },
-  async fetch() {
-    try {
-      this.SET_POST_BOOKMARK_LOADING({ data: true });
-
-      await this.GET_POST_BOOKMARKS_PAGINATED();
-    } catch (error) {
-      console.error(error);
-    } finally {
-      this.SET_POST_BOOKMARK_LOADING({ data: false });
-    }
   },
 };
 </script>

@@ -23,17 +23,34 @@ import BaseCommentPanel from "@/components/comment/BaseCommentPanel";
 export default {
   name: "PostPanel",
   mixins: [postMixins, commentMixins],
-  async asyncData({ store, params }) {
-    const access_token = localStorage.getItem("access_token");
-    if (!_.isNil(access_token)) {
-      await store.dispatch("auth/GET_ME");
-    }
+  async asyncData({ store, params, app, $toast }) {
+    try {
+      const access_token = localStorage.getItem("access_token");
+      if (!_.isNil(access_token)) {
+        await store.dispatch("auth/GET_ME");
+      }
 
-    const post_id = params.id;
-    await store.dispatch("post/GET_POST", {
-      id: post_id,
-      user_id: _.get(store.getters["auth/me"], "_id"),
-    });
+      const post_id = params.id;
+      const post = await store.dispatch("post/GET_POST", {
+        id: post_id,
+        user_id: _.get(store.getters["auth/me"], "_id"),
+      });
+
+      const post_categories = _.get(post, "categories", []) || [];
+      const category_ids = post_categories.map((category) => category._id);
+
+      await Promise.all([
+        store.dispatch("post/GET_SUGGESTION_POSTS", {
+          categories: category_ids,
+          exclude_ids: [post_id],
+        }),
+        store.dispatch("comment/GET_COMMENTS_BY_POST", {
+          post_id,
+        }),
+      ]);
+    } catch (err) {
+      console.log(err);
+    }
   },
   components: {
     BasePostPanel,
@@ -50,30 +67,6 @@ export default {
     },
   },
 
-  async fetch() {
-    try {
-      this.SET_POST_LOADING({ data: true });
-
-      const post_id = this.$route.params.id;
-
-      const category_ids = this.post.categories?.map(
-        (category) => category._id
-      );
-
-      await Promise.all([
-        this.GET_SUGGESTION_POSTS({
-          categories: category_ids,
-          exclude_ids: [post_id],
-        }),
-        this.GET_COMMENTS_BY_POST({ post_id }),
-      ]);
-    } catch (err) {
-      console.log(err);
-      this.$toast.error(`Encountered error while getting post`);
-    } finally {
-      this.SET_POST_LOADING({ data: false });
-    }
-  },
   updated() {
     if (this.comment_loading) {
       return;
