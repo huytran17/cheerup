@@ -60,7 +60,15 @@
         <v-icon small color="black">mdi-tag</v-icon>
         <span class="app-body">
           <span v-html="$t('Tags: ')"></span>
-          <span class="clickable" v-html="$t(post_data.tags.join(', '))"></span>
+          <span v-for="(tag, index) in post_data.tags" :key="Date.now() + tag">
+            <span
+              class="clickable"
+              @click="$router.push(localePath(`/tag?tags=${tag}`))"
+              v-html="
+                $t(index !== post_data.tags.length - 1 ? `${tag}, ` : `${tag}`)
+              "
+            ></span>
+          </span>
         </span>
       </div>
     </div>

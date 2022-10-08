@@ -8,7 +8,8 @@ export type IGetPostsPaginated = (
   {
     categories,
     is_only_published,
-  }: { categories?: string[]; is_only_published?: boolean },
+    tags,
+  }: { categories?: string[]; is_only_published?: boolean; tags?: string[] },
   {
     query,
     page,
@@ -31,9 +32,11 @@ export default function makeGetPostsPaginated({
     {
       categories = [],
       is_only_published,
+      tags,
     }: {
       categories?: string[];
       is_only_published?: boolean;
+      tags?: string[];
     },
     {
       query,
@@ -46,7 +49,7 @@ export default function makeGetPostsPaginated({
     }
   ): Promise<PaginatedPostResult | null> {
     const posts = await postDb.findAllPaginated(
-      { categories, is_only_published },
+      { categories, is_only_published, tags },
       {
         query,
         page,

@@ -35,6 +35,7 @@ export default function makeGetPostsPaginatedController({
         categories,
         is_only_published,
         user_id,
+        tags,
       }: {
         query: string;
         page: string;
@@ -42,14 +43,16 @@ export default function makeGetPostsPaginatedController({
         categories?: string;
         is_only_published?: boolean;
         user_id: string;
+        tags?: string;
       } = _.get(httpRequest, "context.validated");
 
       const categories_array = _.isEmpty(categories)
         ? []
         : _.split(categories, ",");
+      const tags_array = _.isEmpty(tags) ? [] : _.split(tags, ",");
 
       const paginated_data = await getPostsPaginated(
-        { categories: categories_array, is_only_published },
+        { categories: categories_array, is_only_published, tags: tags_array },
         {
           query,
           page: Number(page),

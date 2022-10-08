@@ -8,19 +8,18 @@ import BaseArticles from "@/components/article/BaseArticles";
 
 export default {
   name: "CategoryIndexPage",
-  async asyncData({ store, params }) {
+  async asyncData({ store, query }) {
     try {
       const access_token = localStorage.getItem("access_token");
       if (!_.isNil(access_token)) {
         await store.dispatch("auth/GET_ME");
       }
 
-      const category_id = params.id;
-
-      store.commit("post/SET_CATEGORIES_FILTERS", { data: [category_id] }); // use for infinite loading
+      const tags = query.tags;
+      store.commit("post/SET_TAGS_FILTERS", { data: [tags] }); // use for infinite loading
 
       await store.dispatch("post/GET_POSTS_PAGINATED", {
-        categories: [category_id],
+        tags: [tags],
         user_id: _.get(store.getters["auth/me"], "_id"),
       });
     } catch (err) {
@@ -38,12 +37,12 @@ export default {
   },
   methods: {
     ...mapMutations({
-      SET_CATEGORIES_FILTERS: "post/SET_CATEGORIES_FILTERS",
+      SET_TAGS_FILTERS: "post/SET_TAGS_FILTERS",
     }),
   },
 
   beforeDestroy() {
-    this.SET_CATEGORIES_FILTERS({ data: [] });
+    this.SET_TAGS_FILTERS({ data: [] });
   },
 };
 </script>

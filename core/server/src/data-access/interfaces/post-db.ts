@@ -7,9 +7,11 @@ export default interface IPostDb {
     {
       categories,
       is_only_published,
+      tags,
     }: {
       categories?: string[];
       is_only_published?: boolean;
+      tags?: string[];
     },
     {
       query,

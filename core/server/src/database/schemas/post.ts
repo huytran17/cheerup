@@ -15,7 +15,7 @@ const postSchema = new Schema(
     thumbnail: { type: Object },
     content: { type: String, trim: true },
     source: { type: String, trim: true },
-    tags: [{ type: String, trim: true }],
+    tags: [{ type: String, trim: true, default: [] }],
     author: { type: Schema.Types.ObjectId, ref: "Admin" },
     categories: [{ type: Schema.Types.ObjectId, ref: "Category" }],
     meta: {

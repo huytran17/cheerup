@@ -11,6 +11,7 @@ export default {
       post_pagination: "post/pagination",
       post_search_query: "post/post_search_query",
       categories_filters: "post/categories_filters",
+      tags_filters: "post/tags_filters",
     }),
   },
   methods: {
@@ -24,6 +25,7 @@ export default {
     ...mapMutations({
       SET_POST_LOADING: "post/SET_LOADING",
       SET_CATEGORIES_FILTERS: "post/SET_CATEGORIES_FILTERS",
+      SET_TAGS_FILTERS: "post/SET_TAGS_FILTERS",
     }),
 
     async getMorePosts({
@@ -32,6 +34,7 @@ export default {
       new_state = false,
       entries_per_page = 15,
       categories = [],
+      tags = [],
     }) {
       const need_load_more = page === 1;
       try {
@@ -58,6 +61,7 @@ export default {
           new_state,
           entries_per_page,
           categories,
+          tags,
         });
       } catch (err) {
         console.error(err);

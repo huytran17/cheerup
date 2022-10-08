@@ -71,6 +71,7 @@ const actions: ActionTree<PostState, RootState> = {
     const new_state = _.get(params, "new_state", true);
     const is_only_published = _.get(params, "is_only_published", true);
     const categories = _.get(params, "categories", []);
+    const tags = _.get(params, "tags", []);
     const user_id = _.get(params, "user_id");
 
     const url_query = new URLSearchParams();
@@ -97,6 +98,10 @@ const actions: ActionTree<PostState, RootState> = {
 
     if (!_.isEmpty(categories)) {
       url_query.set("categories", categories.join(","));
+    }
+
+    if (!_.isEmpty(tags)) {
+      url_query.set("tags", tags.join(","));
     }
 
     const { data: posts, pagination } = await this.$axios.$get(

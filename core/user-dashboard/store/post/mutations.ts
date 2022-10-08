@@ -28,6 +28,10 @@ const mutations: MutationTree<PostState> = {
     state.categories_filters = data;
   },
 
+  [MutationTypes.SET_TAGS_FILTERS](state, { data }: { data: string[] }) {
+    state.tags_filters = data;
+  },
+
   [MutationTypes.SET_POST_SEARCH_QUERY](state, { data }: { data: string }) {
     state.post_search_query = data;
   },

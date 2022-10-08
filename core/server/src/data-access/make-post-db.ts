@@ -141,9 +141,11 @@ export default function makePostDb({
       {
         categories,
         is_only_published = false,
+        tags,
       }: {
         categories: string[];
         is_only_published?: boolean;
+        tags: string[];
       },
       {
         query = "",
@@ -168,6 +170,11 @@ export default function makePostDb({
       const has_categories = !_.isEmpty(categories);
       if (has_categories) {
         query_conditions["categories"] = { $in: categories };
+      }
+
+      const has_tags = !_.isEmpty(tags);
+      if (has_tags) {
+        query_conditions["tags"] = { $in: tags };
       }
 
       if (query) {

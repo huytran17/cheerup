@@ -13,6 +13,7 @@ export const getters: GetterTree<PostState, RootState> = {
   post_search_query: (state) => state.post_search_query,
   loading: (state) => state.loading,
   categories_filters: (state) => state.categories_filters,
+  tags_filters: (state) => state.tags_filters,
 };
 
 export default getters;

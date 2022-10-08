@@ -21,6 +21,7 @@
               page: post_pagination.current_page + 1,
               query: post_search_query,
               categories: categories_filters,
+              tags: tags_filters,
             }).then((posts) => {
               if (!posts || (posts && posts.length === 0)) {
                 $state.complete();
