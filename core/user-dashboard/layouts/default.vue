@@ -41,10 +41,9 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 import systemMixins from "@/mixins/system";
-import systemConfigurationMixins from "@/mixins/system-configuration";
 import authMixins from "@/mixins/auth";
-import categoryMixins from "@/mixins/category";
 import BaseAppBar from "@/components/BaseAppBar";
 import BaseAboutCard from "@/components/about/BaseAboutCard";
 import BaseSocialiteList from "@/components/socialite/BaseSocialiteList";
@@ -55,7 +54,7 @@ import RequireLoginSnackbar from "@/components/RequireLoginSnackbar";
 
 export default {
   name: "DefaultLayout",
-  mixins: [systemMixins, authMixins, systemConfigurationMixins, categoryMixins],
+  mixins: [systemMixins, authMixins],
   components: {
     BaseAppBar,
     BaseAboutCard,
@@ -64,6 +63,19 @@ export default {
     BaseCategoriesCard,
     BaseAdvertisingCard,
     RequireLoginSnackbar,
+  },
+  computed: {
+    ...mapGetters({
+      system_configuration: "system-configuration/system_configuration",
+      category_titles: "category/category_titles",
+    }),
+  },
+  methods: {
+    ...mapActions({
+      GET_LATEST_SYSTEM_CONFIGURATION:
+        "system-configuration/GET_LATEST_SYSTEM_CONFIGURATION",
+      GET_CATEGORY_TITLES: "category/GET_CATEGORY_TITLES",
+    }),
   },
   async fetch() {
     try {

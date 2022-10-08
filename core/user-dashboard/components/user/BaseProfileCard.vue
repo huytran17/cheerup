@@ -118,6 +118,13 @@ export default {
       return _.get(this.me, "avatar_url") || this.default_user_avatar;
     },
   },
+  async fetch() {
+    try {
+      await this.COUNT_POST_BOOKMARKS();
+    } catch (error) {
+      console.error(error);
+    }
+  },
 };
 </script>
 
