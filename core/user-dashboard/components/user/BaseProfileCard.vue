@@ -39,7 +39,7 @@
         </div>
 
         <div class="profile__list pt-3">
-          <div class="text-body-3 text-sm-body-2 text-uppercase text-left">
+          <!-- <div class="text-body-3 text-sm-body-2 text-uppercase text-left">
             <div class="py-2 profile-item__wrapper">
               <span
                 class="app-body clickable profile-item__title"
@@ -55,7 +55,7 @@
                 v-html="$t('Following')"
               ></span>
             </div>
-          </div>
+          </div> -->
 
           <div class="text-body-3 text-sm-body-2 text-uppercase text-left">
             <div class="py-2 profile-item__wrapper">
@@ -117,13 +117,6 @@ export default {
     user_avatar() {
       return _.get(this.me, "avatar_url") || this.default_user_avatar;
     },
-  },
-  async fetch() {
-    try {
-      await this.COUNT_POST_BOOKMARKS();
-    } catch (error) {
-      console.error(error);
-    }
   },
 };
 </script>

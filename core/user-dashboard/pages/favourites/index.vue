@@ -18,6 +18,11 @@ export default {
         await store.dispatch("auth/GET_ME");
       }
 
+      const has_user = store.getters["auth/has_user"];
+      if (!has_user) {
+        return;
+      }
+
       await store.dispatch("post-bookmark/GET_POST_BOOKMARKS_PAGINATED");
     } catch (err) {
       console.log(err);
