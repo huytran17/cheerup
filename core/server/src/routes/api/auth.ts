@@ -1,4 +1,6 @@
 import authenticateUserJWT from "../../config/middlewares/authenticateUserJWT";
+import authenticateUserFacebook from "../../config/middlewares/authenticateUserFacebook";
+import authenticateUserGoogle from "../../config/middlewares/authenticateUserGoogle";
 import makeValidator from "../../config/middlewares/validator-middleware";
 import express from "express";
 import makeExpressCallback from "../../config/express-callback";
@@ -22,33 +24,6 @@ authRouter.get(
   makeExpressCallback(getMeController)
 );
 
-/**
- * @openapi
- *
- * /api/auth/sign-in:
- *   post:
- *     description: Login user
- *     requestBody:
- *        required: true
- *        content:
- *          application/json:
- *            schema:
- *              type: object
- *              properties:
- *                email:
- *                  type: string
- *                  format: email
- *                password:
- *                  type: string
- *              required:
- *                - email
- *                - password
- *     responses:
- *       200:
- *         description: Returns the access token and user object.
- *     tags:
- *     - /api/auth
- */
 authRouter.post(
   "/sign-in",
   makeValidator(signInRules),
@@ -64,6 +39,30 @@ authRouter.post(
   authenticateUserJWT(),
   makeValidator(signOutRules),
   makeExpressCallback(signOutController)
+);
+
+// Facebook login
+authRouter.get("/facebook", authenticateUserFacebook());
+
+authRouter.get(
+  "/facebook/callback",
+  authenticateUserFacebook(),
+  function (req, res) {
+    // Successful authentication, redirect home.
+    res.redirect("/");
+  }
+);
+
+// Google login
+authRouter.get("/google", authenticateUserGoogle());
+
+authRouter.get(
+  "/google/callback",
+  authenticateUserGoogle(),
+  function (req, res) {
+    // Successful authentication, redirect home.
+    res.redirect("/");
+  }
 );
 
 export default authRouter;

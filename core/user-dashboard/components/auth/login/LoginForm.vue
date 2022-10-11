@@ -11,6 +11,9 @@
             <div
               class="d-flex flex-column justify-center rounded-icon mr-2 pa-1 rounded-circle clickable"
             >
+              <a href="http://localhost:3000/api/auth/google" target="_blank"
+                >fklsakdladksal</a
+              >
               <v-icon class="mx-auto">mdi-facebook</v-icon>
             </div>
             <div
