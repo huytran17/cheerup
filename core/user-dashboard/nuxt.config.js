@@ -8,7 +8,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: "%s - user-dashboard",
+    titleTemplate: "%s",
     title: "user-dashboard",
     htmlAttrs: {
       lang: "en",
