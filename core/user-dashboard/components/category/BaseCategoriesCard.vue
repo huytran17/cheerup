@@ -16,12 +16,12 @@
           :class="[
             index === category_titles.length - 1
               ? 'pt-2'
-              : 'py-2 category-item__wrapper',
+              : 'py-2 card-item__wrapper',
             index === 0 ? 'pt-0' : '',
           ]"
         >
           <span
-            class="app-body clickable category-item__title"
+            class="app-body clickable card-item__title"
             v-html="$t(category.title)"
             @click="$router.push(localePath(`/category/${category._id}`))"
           ></span>
@@ -44,13 +44,13 @@ export default {
 </script>
 
 <style scoped>
-.category-item__wrapper {
+.card-item__wrapper {
   border-bottom: 1px solid var(--color-article-baseline);
 }
-.category-item__title {
+.card-item__title {
   transition: all 0.2s linear;
 }
-.category-item__title:hover {
+.card-item__title:hover {
   padding-left: 15px;
 }
 .category__list {

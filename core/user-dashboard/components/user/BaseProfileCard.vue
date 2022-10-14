@@ -40,40 +40,40 @@
 
         <div class="profile__list pt-3">
           <!-- <div class="text-body-3 text-sm-body-2 text-uppercase text-left">
-            <div class="py-2 profile-item__wrapper">
+            <div class="py-2 card-item__wrapper">
               <span
-                class="app-body clickable profile-item__title"
+                class="app-body clickable card-item__title"
                 v-html="$t('Followers')"
               ></span>
             </div>
           </div>
 
           <div class="text-body-3 text-sm-body-2 text-uppercase text-left">
-            <div class="py-2 profile-item__wrapper">
+            <div class="py-2 card-item__wrapper">
               <span
-                class="app-body clickable profile-item__title"
+                class="app-body clickable card-item__title"
                 v-html="$t('Following')"
               ></span>
             </div>
           </div> -->
 
           <div class="text-body-3 text-sm-body-2 text-uppercase text-left">
-            <div class="py-2 profile-item__wrapper">
+            <div class="py-2 card-item__wrapper">
               <span
-                class="app-body clickable profile-item__title"
+                class="app-body clickable card-item__title"
                 v-html="$t('Favourites')"
                 @click="$router.push(localePath('/favourites'))"
               ></span>
-              <span class="app-body clickable profile-item__title"
+              <span class="app-body clickable card-item__title"
                 >({{ post_bookmarks_count }})</span
               >
             </div>
           </div>
 
           <div class="text-body-3 text-sm-body-2 text-uppercase text-left">
-            <div class="py-2 profile-item__wrapper">
+            <div class="py-2 card-item__wrapper">
               <span
-                class="app-body clickable profile-item__title"
+                class="app-body clickable card-item__title"
                 v-html="$t('Logout')"
                 @click="SIGN_OUT"
               ></span>
@@ -129,13 +129,13 @@ export default {
 </script>
 
 <style scoped>
-.profile-item__wrapper {
+.card-item__wrapper {
   border-bottom: 1px solid var(--color-article-baseline);
 }
-.profile-item__title {
+.card-item__title {
   transition: all 0.2s linear;
 }
-.profile-item__title:hover {
+.card-item__title:hover {
   padding-left: 15px;
 }
 .profile__list {
