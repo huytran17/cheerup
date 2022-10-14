@@ -25,19 +25,24 @@
           :size="60"
         ></avatar>
       </div>
-      <div class="small--text text-left" v-line-clamp="5">
-        <span
-          class="app-body text--ellipsis"
-          v-html="$t(owner_description)"
-        ></span>
+      <div class="position-relative">
+        <v-icon color="brick" class="quote__description position-absolute" large
+          >mdi-format-quote-open</v-icon
+        >
+        <div class="small--text text-left" v-line-clamp="5">
+          <span
+            class="app-body text--ellipsis me__description"
+            v-html="$t(owner_description)"
+          ></span>
+        </div>
       </div>
 
       <div class="text-body-3 text-sm-body-2 text-uppercase text-left">
         <div class="py-2 card-item__wrapper">
           <span
-            class="app-body clickable card-item__title"
-            v-html="$t('Favourites')"
-            @click="$router.push(localePath('/favourites'))"
+            class="app-body clickable card-item__title brick--text"
+            v-html="$t('More about me')"
+            @click="$router.push(localePath('/about'))"
           ></span>
         </div>
       </div>
@@ -75,3 +80,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.quote__description {
+  top: -15px;
+  left: -10px;
+}
+</style>

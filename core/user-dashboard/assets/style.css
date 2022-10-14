@@ -142,3 +142,10 @@ select:-webkit-autofill:focus {
 .text--ellipsis p:first-child {
   margin: 0 !important;
 }
+.me__description {
+  text-indent: 24px;
+  word-break: break-word;
+  word-wrap: break-word;
+  hyphens: manual;
+  -webkit-hyphens: manual;
+}
