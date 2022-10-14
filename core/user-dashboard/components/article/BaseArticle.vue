@@ -50,7 +50,7 @@
 
     <div class="text__description matte__black--text" v-line-clamp="2">
       <span
-        class="app-body no-margin"
+        class="app-body text--ellipsis"
         v-html="$t(post_data.description)"
       ></span>
     </div>
@@ -229,15 +229,6 @@ export default {
 
   created() {
     this.is_bookmarked = _.get(this.post_data, "is_bookmarked", false);
-  },
-
-  mounted() {
-    const no_margin_wrapper = document.getElementsByClassName("no-margin");
-    for (let i = 0; i < no_margin_wrapper.length; i++) {
-      const element = no_margin_wrapper[i];
-      const child_el = element.querySelector("p");
-      child_el.style.margin = 0;
-    }
   },
 };
 </script>

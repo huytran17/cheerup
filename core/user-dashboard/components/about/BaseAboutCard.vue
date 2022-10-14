@@ -25,8 +25,21 @@
           :size="60"
         ></avatar>
       </div>
-      <div class="small--text text-left">
-        <span class="app-body" v-html="$t(owner_description)"></span>
+      <div class="small--text text-left" v-line-clamp="5">
+        <span
+          class="app-body text--ellipsis"
+          v-html="$t(owner_description)"
+        ></span>
+      </div>
+
+      <div class="text-body-3 text-sm-body-2 text-uppercase text-left">
+        <div class="py-2 card-item__wrapper">
+          <span
+            class="app-body clickable card-item__title"
+            v-html="$t('Favourites')"
+            @click="$router.push(localePath('/favourites'))"
+          ></span>
+        </div>
       </div>
     </div>
   </div>

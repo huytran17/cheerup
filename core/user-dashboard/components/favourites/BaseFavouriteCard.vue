@@ -79,7 +79,10 @@
         </div>
       </div>
       <div class="text__description matte__black--text" v-line-clamp="2">
-        <span class="app-body no-margin" v-html="$t(post_description)"></span>
+        <span
+          class="app-body text--ellipsis"
+          v-html="$t(post_description)"
+        ></span>
       </div>
     </div>
   </div>
@@ -170,14 +173,6 @@ export default {
         console.log(error);
       }
     },
-  },
-  mounted() {
-    const no_margin_wrapper = document.getElementsByClassName("no-margin");
-    for (let i = 0; i < no_margin_wrapper.length; i++) {
-      const element = no_margin_wrapper[i];
-      const child_el = element.querySelector("p");
-      child_el.style.margin = 0;
-    }
   },
 };
 </script>

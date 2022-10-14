@@ -139,3 +139,6 @@ select:-webkit-autofill:focus {
 .card-item__title:hover {
   padding-left: 15px;
 }
+.text--ellipsis p:first-child {
+  margin: 0 !important;
+}
