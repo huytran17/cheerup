@@ -107,7 +107,7 @@ export default {
 
   computed: {
     reading_time() {
-      return _.get(this.bookmark_data, "post.reading_time.text");
+      return _.get(this.bookmark_data, "reading_time.text");
     },
 
     has_bookmark_data() {
@@ -123,7 +123,7 @@ export default {
     },
 
     post_comments_count() {
-      return _.get(this.bookmark_data, "post.comments_count");
+      return _.get(this.bookmark_data, "comments_count");
     },
 
     post_description() {

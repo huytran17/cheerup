@@ -57,11 +57,8 @@ export default function makeGetPostBookmarksPaginatedController({
           const reading_time = readingTimeAnalyzer({ text: analyzing_text });
 
           return Object.assign({}, post_bookmark, {
-            post: {
-              ...post_bookmark.post,
-              comments_count,
-              reading_time,
-            },
+            reading_time,
+            comments_count,
           });
         }
       );

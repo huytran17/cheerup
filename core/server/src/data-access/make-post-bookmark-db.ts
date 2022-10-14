@@ -69,7 +69,7 @@ export default function makePostBookmarkDb({
         .populate({
           path: "post",
           select:
-            "_id title description comments_count thumbnail tags created_at author categories",
+            "_id title description comments_count thumbnail tags created_at author categories content",
           populate: [
             {
               path: "author",
