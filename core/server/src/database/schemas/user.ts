@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
+    geo: { type: String, trim: true },
     hash_password: { type: String, trim: true },
     full_name: { type: String, trim: true },
     is_blocked_comment: { type: Boolean, default: false },
