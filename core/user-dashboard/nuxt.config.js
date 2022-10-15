@@ -112,5 +112,6 @@ export default {
 
   env: {
     SERVER_URL: process.env.SERVER_URL || "http://localhost:3000",
+    OWNER_EMAIL: process.env.OWNER_EMAIL,
   },
 };

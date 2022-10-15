@@ -13,12 +13,8 @@
         :key="category._id"
       >
         <div
-          :class="[
-            index === category_titles.length - 1
-              ? 'pt-2'
-              : 'py-2 card-item__wrapper',
-            index === 0 ? 'pt-0' : '',
-          ]"
+          class="py-2 card-item__wrapper"
+          :class="[index === 0 ? 'pt-0' : '']"
         >
           <span
             class="app-body clickable card-item__title"

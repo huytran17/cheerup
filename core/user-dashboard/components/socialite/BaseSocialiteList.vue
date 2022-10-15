@@ -23,6 +23,15 @@
           </div>
         </v-col>
       </v-row>
+      <div class="text-body-3 text-sm-body-2 text-uppercase text-left pt-2">
+        <div class="py-2 card-item__wrapper">
+          <span
+            class="app-body clickable card-item__title"
+            v-html="$t('Contact me')"
+            @click="openContactWindow"
+          ></span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -59,24 +68,16 @@ export default {
           color: "instagram",
           to: SOCIALITE_URL.INSTAGRAM,
         },
-        {
-          icon: "mdi-pinterest",
-          text: "Pinterest",
-          color: "pinterest",
-          to: SOCIALITE_URL.PINTEREST,
-        },
-        {
-          icon: "mdi-google-plus",
-          text: "Google+",
-          color: "google_plus",
-          to: SOCIALITE_URL.GOOGLE_PLUS,
-        },
       ],
     },
   },
   methods: {
     goToSocialiteUrl({ url }) {
       return window.open(url, "__blank");
+    },
+
+    openContactWindow() {
+      window.location.href = `mailto:${process.env.OWNER_EMAIL}`;
     },
   },
 };
