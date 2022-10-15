@@ -4,6 +4,7 @@ import _ from "lodash";
 import { ICreateUser } from "../../../../use-cases/user/create-user";
 import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { IHashPassword } from "../../../../config/password/hash-password";
+import { geoip } from "../../../../config/geoip";
 import User from "../../../../database/entities/user";
 
 export type IUserRawData = Omit<User, "hash_password"> & {
@@ -31,6 +32,7 @@ export default function makeSignUpController({
     };
 
     try {
+      const client_ip = _.get(httpRequest, "context.ip");
       const user: IUserRawData = _.get(httpRequest, "context.validated");
       const { email, password, password_confirmation } = user;
 
@@ -44,12 +46,15 @@ export default function makeSignUpController({
         password_confirmation,
       });
 
+      const client_geo_ip = geoip.lookup(client_ip);
+
       const user_details = Object.assign(
         {},
         _.omit(user, ["_id", "password", "password_confirmation"]),
         {
           email,
           hash_password: hashed_password,
+          geoip: Object.assign({}, client_geo_ip, { client_ip }),
         }
       );
 

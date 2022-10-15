@@ -9,6 +9,7 @@ import {
   getUserByEmail,
   getUser,
   createUser,
+  updateUser,
 } from "../../../../use-cases/user";
 import { generateAccessToken } from "../../../../config/accessTokenManager";
 import { logger } from "../../../../config/logs/logger";
@@ -16,6 +17,7 @@ import { logger } from "../../../../config/logs/logger";
 const getMeController = makeGetMeController({
   getUser,
   getSubscriptionByEmail,
+  updateUser,
 });
 
 const signInController = makeSignInController({

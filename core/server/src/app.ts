@@ -22,6 +22,7 @@ import bodyParser from "body-parser";
 import appRouter from "./routes";
 import passport from "./config/passport";
 import helmet from "helmet";
+import requestIp from "request-ip";
 
 const app = express();
 
@@ -29,6 +30,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(expressRateLimit());
 }
 
+app.use(requestIp.mw());
 app.use(cors());
 app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
