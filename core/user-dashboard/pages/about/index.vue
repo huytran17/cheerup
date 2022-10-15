@@ -6,6 +6,16 @@
 import AboutMe from "@/components/about/AboutMe.vue";
 export default {
   name: "AboutMeIndex",
+  async asyncData({ store }) {
+    try {
+      const access_token = localStorage.getItem("access_token");
+      if (!_.isNil(access_token)) {
+        await store.dispatch("auth/GET_ME");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  },
   components: {
     AboutMe,
   },
