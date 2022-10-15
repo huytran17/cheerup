@@ -34,6 +34,7 @@
     "@types/passport-facebook": "^2.1.11",
     "@types/passport-google-oauth2": "^0.1.5",
     "@types/passport-jwt": "^3.0.6",
+    "@types/request-ip": "^0.0.37",
     "@types/validatorjs": "^3.15.0",
     "agenda": "^4.3.0",
     "bcrypt": "^5.0.1",

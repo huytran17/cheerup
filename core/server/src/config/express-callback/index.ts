@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import request_ip from "request-ip";
 import _ from "lodash";
 import Storage from "../storage";
 
@@ -11,6 +12,7 @@ export default function makeExpressCallback(controller: IController) {
         validated: Object.assign({}, req.body, req.params, req.query),
         user: req.user,
         file: req.file,
+        ip: request_ip.getClientIp(req),
       },
       query: req.query,
       params: req.params,
