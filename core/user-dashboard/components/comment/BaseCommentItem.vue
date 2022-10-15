@@ -5,7 +5,9 @@
         :src="user_avatar"
         :lazy-src="user_avatar"
         :alt="user_fullname"
-        max-width="35px"
+        max-height="45px"
+        max-width="45px"
+        cover
         class="rounded-circle"
       ></v-img>
     </div>
