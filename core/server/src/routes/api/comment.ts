@@ -8,7 +8,7 @@ import {
   deleteCommentRules,
   updateCommentRules,
   createCommentRules,
-  getCommentsByPostRules,
+  getCommentsByPostPaginatedRules,
   likeCommentRules,
   dislikeCommentRules,
   replyCommentRules,
@@ -19,7 +19,7 @@ import {
   updateCommentController,
   createCommentController,
   getCommentsController,
-  getCommentsByPostController,
+  getCommentsByPostPaginatedController,
   likeCommentController,
   dislikeCommentController,
   replyCommentController,
@@ -49,9 +49,9 @@ commentRouter.put(
 ); // DONE
 
 commentRouter.get(
-  "/by-post/:post_id",
-  makeValidator(getCommentsByPostRules),
-  makeExpressCallback(getCommentsByPostController)
+  "/by-post-paginated",
+  makeValidator(getCommentsByPostPaginatedRules),
+  makeExpressCallback(getCommentsByPostPaginatedController)
 ); // DONE
 
 commentRouter.get(

@@ -34,15 +34,34 @@ export default function makeCommentDb({
       return null;
     }
 
-    async findAllByPost({
-      post_id,
-    }: {
-      post_id: string;
-    }): Promise<Comment[] | null> {
-      let query_conditions = Object.assign({
-        deleted_at: { $in: [null, undefined] },
+    async findAllByPost(
+      {
+        post_id,
+        is_include_deleted,
+      }: {
+        post_id: string;
+        is_include_deleted?: boolean;
+      },
+      {
+        query,
+        page,
+        entries_per_page,
+      }: {
+        query: string;
+        page: number;
+        entries_per_page: number;
+      }
+    ): Promise<PaginatedCommentResult | null> {
+      const number_of_entries_to_skip = (page - 1) * entries_per_page;
+
+      const query_conditions = Object.assign({
         parent: { $in: [null, undefined] },
+        deleted_at: { $in: [null, undefined] },
       });
+
+      if (is_include_deleted) {
+        delete query_conditions.deleted_at;
+      }
 
       if (post_id) {
         query_conditions["post"] = post_id;
@@ -71,13 +90,36 @@ export default function makeCommentDb({
           path: "user",
           select: "_id full_name avatar_url avatar",
         })
+        .limit(entries_per_page)
+        .skip(number_of_entries_to_skip)
         .sort({
           created_at: "desc",
         })
         .lean({ virtuals: true });
 
+      const total_count = await commentDbModel.countDocuments(query_conditions);
+
       if (existing) {
-        return existing.map((comment) => new Comment(comment));
+        const data = existing.map((comment) => new Comment(comment));
+
+        const from = page - 1 > 0 ? page - 1 : null;
+        const has_more_entries =
+          existing.length === entries_per_page &&
+          page * entries_per_page !== total_count;
+        const to = has_more_entries ? page + 1 : null;
+        const total_pages = Math.ceil(total_count / entries_per_page);
+
+        return {
+          data,
+          pagination: {
+            current_page: page,
+            from,
+            to,
+            per_page: entries_per_page,
+            total: total_count,
+            total_pages,
+          },
+        };
       }
 
       return null;

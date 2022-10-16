@@ -159,7 +159,7 @@ export default {
         this.SET_COMMENT_LOADING({ data: true });
 
         await this.LIKE_COMMENT({ id: _.get(this.comment_data, "_id") });
-        await this.GET_COMMENTS_BY_POST({
+        await this.GET_COMMENTS_BY_POST_PAGINATED({
           post_id: _.get(this.post, "_id", ""),
         });
       } catch (err) {
@@ -174,7 +174,7 @@ export default {
         this.SET_COMMENT_LOADING({ data: true });
 
         await this.DISLIKE_COMMENT({ id: _.get(this.comment_data, "_id") });
-        await this.GET_COMMENTS_BY_POST({
+        await this.GET_COMMENTS_BY_POST_PAGINATED({
           post_id: _.get(this.post, "_id", ""),
         });
       } catch (err) {
@@ -189,7 +189,7 @@ export default {
         this.SET_COMMENT_LOADING({ data: true });
 
         await this.DELETE_COMMENT({ id: _.get(this.comment_data, "_id") });
-        await this.GET_COMMENTS_BY_POST({
+        await this.GET_COMMENTS_BY_POST_PAGINATED({
           post_id: _.get(this.post, "_id", ""),
         });
       } catch (err) {

@@ -79,15 +79,37 @@ const actions: ActionTree<CommentState, RootState> = {
     return comment;
   },
 
-  async [ActionTypes.GET_COMMENTS_BY_POST](
-    { commit },
-    { post_id }: { post_id: string }
-  ) {
-    const { data: comments } = await this.$axios.$get(
-      `/comment/by-post/${post_id}`
+  async [ActionTypes.GET_COMMENTS_BY_POST_PAGINATED]({ commit }, params) {
+    const query = _.get(params, "query");
+    const page = _.get(params, "page", 1);
+    const entries_per_page = _.get(params, "entries_per_page", 15);
+    const post_id = _.get(params, "post_id");
+    const new_state = _.get(params, "new_state", true);
+
+    const url_query = new URLSearchParams();
+
+    if (query) {
+      url_query.set("query", query);
+    }
+
+    if (page) {
+      url_query.set("page", page);
+    }
+
+    if (entries_per_page) {
+      url_query.set("entries_per_page", entries_per_page);
+    }
+
+    if (post_id) {
+      url_query.set("post_id", post_id);
+    }
+
+    const { data: comments, pagination } = await this.$axios.$get(
+      `/comment/by-post-paginated?${url_query}`
     );
 
-    commit(MutationTypes.SET_COMMENTS, { data: comments });
+    commit(MutationTypes.SET_COMMENTS, { data: comments, new_state });
+    commit(MutationTypes.SET_COMMENT_PAGINATION, { data: pagination });
 
     return comments;
   },

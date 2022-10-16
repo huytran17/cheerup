@@ -43,7 +43,7 @@ export default {
           categories: category_ids,
           exclude_ids: [post_id],
         }),
-        store.dispatch("comment/GET_COMMENTS_BY_POST", {
+        store.dispatch("comment/GET_COMMENTS_BY_POST_PAGINATED", {
           post_id,
         }),
       ]);
@@ -66,18 +66,5 @@ export default {
       return _.get(this.post, "is_published", false);
     },
   },
-
-  updated() {
-    if (this.comment_loading) {
-      return;
-    }
-
-    const el = this.$refs.scrollToMe;
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  },
 };
 </script>
-
-<style></style>

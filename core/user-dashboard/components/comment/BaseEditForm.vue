@@ -88,7 +88,9 @@ export default {
 
         ++this.refresh_edit_comment_editor_key;
 
-        await this.GET_COMMENTS_BY_POST({ post_id });
+        await this.GET_COMMENTS_BY_POST_PAGINATED({ post_id });
+
+        this.$emit("dont-need-to-scroll-to-top-of-post", true);
       } catch (err) {
         console.error(err);
       } finally {

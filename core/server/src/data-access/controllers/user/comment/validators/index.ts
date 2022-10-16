@@ -4,7 +4,7 @@ import updateCommentRules from "./update-comment";
 import createCommentRules from "./create-comment";
 import dislikeCommentRules from "./dislike-comment";
 import likeCommentRules from "./like-comment";
-import getCommentsByPostRules from "./get-comments-by-post";
+import getCommentsByPostPaginatedRules from "./get-comments-by-post-paginated";
 import replyCommentRules from "./reply-comment";
 
 export default Object.freeze({
@@ -12,7 +12,7 @@ export default Object.freeze({
   deleteCommentRules,
   updateCommentRules,
   createCommentRules,
-  getCommentsByPostRules,
+  getCommentsByPostPaginatedRules,
   likeCommentRules,
   dislikeCommentRules,
   replyCommentRules,
@@ -23,7 +23,7 @@ export {
   deleteCommentRules,
   updateCommentRules,
   createCommentRules,
-  getCommentsByPostRules,
+  getCommentsByPostPaginatedRules,
   likeCommentRules,
   dislikeCommentRules,
   replyCommentRules,

@@ -83,8 +83,19 @@
       </v-row>
     </v-col>
 
-    <v-col cols="12"> <BaseReplyForm /> </v-col>
-    <v-col cols="12"> <BaseEditForm /> </v-col>
+    <v-col cols="12" class="pa-0"> <BaseReplyForm /> </v-col>
+    <v-col cols="12" class="pa-0"> <BaseEditForm /> </v-col>
+    <v-col v-if="has_more_comments" cols="12" class="pa-4">
+      <div
+        class="text__description text-sm-body-2 text-uppercase text-center brick--text"
+      >
+        <span
+          class="app-body clickable"
+          v-html="$t('View more comments')"
+          @click="getMoreComments"
+        ></span>
+      </div>
+    </v-col>
   </v-row>
 </template>
 
@@ -122,6 +133,13 @@ export default {
     };
   },
   computed: {
+    has_more_comments() {
+      return (
+        this.comment_pagination.current_page !==
+        this.comment_pagination.total_pages
+      );
+    },
+
     is_post_blocked_comment() {
       const is_post_blocked_comment = _.get(
         this.post_data,
@@ -154,19 +172,21 @@ export default {
 
     async createComment() {
       try {
+        this.SET_COMMENT_LOADING({ data: true });
+
         const new_comment_content = _.get(this.new_comment, "content", "");
         if (!new_comment_content) {
           return;
         }
-
-        this.SET_COMMENT_LOADING({ data: true });
 
         const post_id = _.get(this.post_data, "_id");
         const final_comment_data = Object.assign({}, this.new_comment, {
           post: post_id,
         });
 
-        await this.CREATE_COMMENT({ data: final_comment_data });
+        const new_comment_data = await this.CREATE_COMMENT({
+          data: final_comment_data,
+        });
 
         this.updateNewCommentObject({
           variable_path: "content",
@@ -175,7 +195,11 @@ export default {
 
         ++this.refresh_comment_editor_key;
 
-        await this.GET_COMMENTS_BY_POST({ post_id });
+        const cloned_comments_data = _.cloneDeep(this.comments);
+        cloned_comments_data.unshift(new_comment_data);
+        this.UPDATE_COMMENTS_DATA({
+          data: cloned_comments_data,
+        });
       } catch (err) {
         console.error(err);
       } finally {
@@ -186,6 +210,24 @@ export default {
     redirectToLoginPage() {
       this.SET_LOGIN_REDIRECT_URL({ data: this.$route.fullPath });
       return this.$router.push(this.localePath("/login"));
+    },
+
+    async getMoreComments() {
+      try {
+        this.SET_COMMENT_LOADING({ data: true });
+
+        const post_id = _.get(this.post_data, "_id");
+
+        await this.GET_COMMENTS_BY_POST_PAGINATED({
+          page: this.comment_pagination.current_page + 1,
+          new_state: false,
+          post_id,
+        });
+      } catch (err) {
+        console.error(err);
+      } finally {
+        this.SET_COMMENT_LOADING({ data: false });
+      }
     },
   },
 };

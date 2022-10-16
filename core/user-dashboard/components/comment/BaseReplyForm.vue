@@ -97,7 +97,7 @@ export default {
 
         ++this.refresh_comment_reply_editor_key;
 
-        await this.GET_COMMENTS_BY_POST({ post_id });
+        await this.GET_COMMENTS_BY_POST_PAGINATED({ post_id });
       } catch (err) {
         console.error(err);
       } finally {

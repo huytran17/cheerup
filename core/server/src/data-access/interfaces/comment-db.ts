@@ -21,11 +21,24 @@ export default interface ICommentDb {
     is_only_parent?: boolean;
     is_include_deleted?: boolean;
   }) => Promise<Comment | null>;
-  findAllByPost: ({
-    post_id,
-  }: {
-    post_id: string;
-  }) => Promise<Comment[] | null>;
+  findAllByPost: (
+    {
+      post_id,
+      is_include_deleted,
+    }: {
+      post_id: string;
+      is_include_deleted?: boolean;
+    },
+    {
+      query,
+      page,
+      entries_per_page,
+    }: {
+      query: string;
+      page: number;
+      entries_per_page: number;
+    }
+  ) => Promise<PaginatedCommentResult | null>;
   countByPost: ({ post_id }: { post_id: string }) => Promise<number | null>;
   findAllByParent: ({
     parent_id,

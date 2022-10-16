@@ -9,7 +9,7 @@ import makeGetComments from "./get-comments";
 import makeCreateComment from "./create-comment";
 import makeGetCommentsByParent from "./get-comments-by-parent";
 import makeCountCommentsByPost from "./count-comments-by-post";
-import makeGetCommentsByPost from "./get-comments-by-post";
+import makeGetCommentsByPostPaginated from "./get-comments-by-post-paginated";
 import makeReplyComment from "./reply-comment";
 
 const replyComment = makeReplyComment({
@@ -17,7 +17,7 @@ const replyComment = makeReplyComment({
   logger,
 });
 
-const getCommentsByPost = makeGetCommentsByPost({
+const getCommentsByPostPaginated = makeGetCommentsByPostPaginated({
   commentDb: CommentDb,
   logger,
 });
@@ -63,7 +63,7 @@ const commentServices = Object.freeze({
   createComment,
   getCommentsByParent,
   countCommentsByPost,
-  getCommentsByPost,
+  getCommentsByPostPaginated,
   replyComment,
 });
 
@@ -77,6 +77,6 @@ export {
   createComment,
   getCommentsByParent,
   countCommentsByPost,
-  getCommentsByPost,
+  getCommentsByPostPaginated,
   replyComment,
 };
