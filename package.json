@@ -11,5 +11,6 @@
     "url": "Blog"
   },
   "author": "HuyTran",
-  "license": "MIT"
+  "license": "MIT",
+  "type": "module"
 }
