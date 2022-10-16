@@ -1,1 +1,0 @@
-web: node core/server/src/app.ts
