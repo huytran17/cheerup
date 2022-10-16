@@ -13,7 +13,6 @@
     "type": "git",
     "url": "Blog"
   },
-  "type": "module",
   "author": "HuyTran",
   "license": "MIT",
   "dependencies": {
