@@ -1,1 +1,1 @@
-web: node ./core/server/app.ts
+web: node core/server/app.ts
