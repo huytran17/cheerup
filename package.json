@@ -2,7 +2,7 @@
   "name": "huytran",
   "version": "1.0.0",
   "description": "huytran",
-  "main": "server/app.ts",
+  "main": "/core/server/app.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
