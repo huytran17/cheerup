@@ -104,24 +104,10 @@
       </v-btn>
       <v-btn
         icon
-        @click="sharePost({ type: SOCIAL_MEDIA_TYPES.GOOGLE_PLUS })"
-        :small="is_mobile"
-      >
-        <v-icon color="google_plus" :small="is_mobile">mdi-google-plus</v-icon>
-      </v-btn>
-      <v-btn
-        icon
         @click="sharePost({ type: SOCIAL_MEDIA_TYPES.PINTEREST })"
         :small="is_mobile"
       >
         <v-icon color="pinterest" :small="is_mobile">mdi-pinterest</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click="sharePost({ type: SOCIAL_MEDIA_TYPES.LINKEDIN })"
-        :small="is_mobile"
-      >
-        <v-icon color="linkedin" :small="is_mobile">mdi-linkedin</v-icon>
       </v-btn>
     </div>
   </div>
@@ -202,22 +188,12 @@ export default {
             this.post_data.title
           }?url=${encodeURIComponent(post_url)}`;
           break;
-        case SOCIAL_MEDIA_TYPES.GOOGLE_PLUS:
-          share_url = `https://plus.google.com/share?url=${encodeURIComponent(
-            post_url
-          )}`;
-          break;
         case SOCIAL_MEDIA_TYPES.PINTEREST:
           share_url = `http://pinterest.com/pin/create/button?url=${encodeURIComponent(
             post_url
           )}&description=${this.post_data.description}&media=${
             this.post_data.thumbnail_url
           }`;
-          break;
-        case SOCIAL_MEDIA_TYPES.LINKEDIN:
-          share_url = `http://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(
-            post_url
-          )}&title=${this.post_data.title}&source=${this.post_data.source}`;
           break;
       }
 
