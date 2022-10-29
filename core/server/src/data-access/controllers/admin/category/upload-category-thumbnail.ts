@@ -2,6 +2,7 @@ import { Request } from "express";
 import * as _ from "lodash";
 import { IGetCategory } from "../../../../use-cases/category/get-category";
 import { IUpdateCategory } from "../../../../use-cases/category/update-category";
+import Storage from "../../../../config/storage";
 
 export default function makeUploadCategoryThumbnailController({
   getCategory,
@@ -31,6 +32,15 @@ export default function makeUploadCategoryThumbnailController({
       if (file_not_exists) {
         throw new Error(`File does not exist`);
       }
+
+      const current_bucket = _.get(exists, "thumbnail.meta.bucket", "");
+      const current_key = _.get(exists, "thumbnail.meta.key", "");
+      const s3_params = {
+        Bucket: current_bucket,
+        Key: current_key,
+      };
+
+      Storage.deleteS3Object(s3_params);
 
       const aws_payload = {
         mime_type: file.mimetype,

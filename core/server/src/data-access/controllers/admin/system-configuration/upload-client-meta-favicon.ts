@@ -2,6 +2,7 @@ import { Request } from "express";
 import * as _ from "lodash";
 import { IGetLatestSystemConfiguration } from "../../../../use-cases/system-configuration/get-latest-system-configuraion";
 import { IUpdateSystemConfiguration } from "../../../../use-cases/system-configuration/update-system-configuraion";
+import Storage from "../../../../config/storage";
 
 export default function makeUploadClientMetaFaviconController({
   getLatestSystemConfiguration,
@@ -31,6 +32,15 @@ export default function makeUploadClientMetaFaviconController({
       if (file_not_exists) {
         throw new Error(`File does not exist`);
       }
+
+      const current_bucket = _.get(exists, "favicon.meta.bucket", "");
+      const current_key = _.get(exists, "favicon.meta.key", "");
+      const s3_params = {
+        Bucket: current_bucket,
+        Key: current_key,
+      };
+
+      Storage.deleteS3Object(s3_params);
 
       const aws_payload = {
         mime_type: file.mimetype,

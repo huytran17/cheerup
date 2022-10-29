@@ -45,4 +45,15 @@ export default class Storage {
     });
     return signed_url;
   }
+
+  static deleteS3Object(params: { Bucket: string; Key: string }): void {
+    Storage.s3.deleteObject(params, function (err, data) {
+      if (err) {
+        console.log(err, err.stack);
+      } // an error occurred
+      else {
+        console.log(data);
+      } // successful response
+    });
+  }
 }

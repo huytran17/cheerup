@@ -2,6 +2,7 @@ import { Request } from "express";
 import _ from "lodash";
 import { IGetUser } from "../../../../use-cases/user/get-user";
 import { IUpdateUser } from "../../../../use-cases/user/update-user";
+import Storage from "../../../../config/storage";
 
 export default function makeUploadUserAvatarController({
   getUser,
@@ -43,6 +44,15 @@ export default function makeUploadUserAvatarController({
       if (file_not_exists) {
         throw new Error(`File does not exist`);
       }
+
+      const current_bucket = _.get(exists, "avatar.meta.bucket", "");
+      const current_key = _.get(exists, "avatar.meta.key", "");
+      const s3_params = {
+        Bucket: current_bucket,
+        Key: current_key,
+      };
+
+      Storage.deleteS3Object(s3_params);
 
       const aws_payload = {
         mime_type: file.mimetype,

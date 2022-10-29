@@ -2,6 +2,7 @@ import { Request } from "express";
 import _ from "lodash";
 import { IGetPost } from "../../../../use-cases/post/get-post";
 import { IUpdatePost } from "../../../../use-cases/post/update-post";
+import Storage from "../../../../config/storage";
 
 export default function makeUploadPostThumbnailController({
   getPost,
@@ -31,6 +32,15 @@ export default function makeUploadPostThumbnailController({
       if (file_not_exists) {
         throw new Error(`File does not exist`);
       }
+
+      const current_bucket = _.get(exists, "thumbnail.meta.bucket", "");
+      const current_key = _.get(exists, "thumbnail.meta.key", "");
+      const s3_params = {
+        Bucket: current_bucket,
+        Key: current_key,
+      };
+
+      Storage.deleteS3Object(s3_params);
 
       const aws_payload = {
         mime_type: file.mimetype,
