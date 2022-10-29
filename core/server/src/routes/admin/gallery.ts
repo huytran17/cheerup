@@ -39,7 +39,7 @@ galleryRouter.get(
   makeExpressCallback(getGalleryController)
 ); // DONE
 
-galleryRouter.delete(
+galleryRouter.put(
   "/delete-gallery-item/:_id/:item_id",
   makeValidator(deleteGalleryItemRules),
   makeExpressCallback(deleteGalleryItemController)
