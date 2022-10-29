@@ -3,7 +3,7 @@ import IGalleryDb from "../../data-access/interfaces/gallery-db";
 import IGallery from "../../database/interfaces/gallery";
 
 export interface IUpdateGalleryData {
-  galleryDetails: Omit<IGallery, "_id">;
+  galleryDetails: IGallery;
 }
 
 export type IUpdateGallery = ({

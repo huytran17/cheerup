@@ -3,24 +3,46 @@ import makeValidator from "../../config/middlewares/validator-middleware";
 import makeExpressCallback from "../../config/express-callback";
 
 import {
-  getGalleriesByPostRules,
-  hardDeleteGalleryItemRules,
+  getGalleriesPaginatedRules,
+  deleteGalleryItemRules,
   hardDeleteGalleryRules,
   uploadGalleryItemRules,
+  createGalleryRules,
+  getGalleryRules,
 } from "../../data-access/controllers/admin/gallery/validators";
 import {
-  hardDeleteGalleryController,
-  hardDeleteGalleryItemController,
-  getGalleriesByPostController,
+  deleteGalleryItemController,
+  getGalleryController,
+  getGalleriesPaginatedController,
   uploadGalleryItemController,
+  hardDeleteGalleryController,
+  createGalleryController,
 } from "../../data-access/controllers/admin/gallery";
 
 const galleryRouter = express.Router();
 
+galleryRouter.post(
+  "/",
+  makeValidator(createGalleryRules),
+  makeExpressCallback(createGalleryController)
+); // DONE
+
 galleryRouter.get(
-  "/by-post/:post_id",
-  makeValidator(getGalleriesByPostRules),
-  makeExpressCallback(getGalleriesByPostController)
+  "/",
+  makeValidator(getGalleriesPaginatedRules),
+  makeExpressCallback(getGalleriesPaginatedController)
+); // DONE
+
+galleryRouter.get(
+  "/:_id",
+  makeValidator(getGalleryRules),
+  makeExpressCallback(getGalleryController)
+); // DONE
+
+galleryRouter.delete(
+  "/delete-gallery-item/:_id/:item_id",
+  makeValidator(deleteGalleryItemRules),
+  makeExpressCallback(deleteGalleryItemController)
 ); // DONE
 
 galleryRouter.put(
@@ -33,12 +55,6 @@ galleryRouter.delete(
   "/hard-delete/:_id",
   makeValidator(hardDeleteGalleryRules),
   makeExpressCallback(hardDeleteGalleryController)
-); // DONE
-
-galleryRouter.delete(
-  "/hard-delete-gallery-item/:gallery_id/:_item_id",
-  makeValidator(hardDeleteGalleryItemRules),
-  makeExpressCallback(hardDeleteGalleryItemController)
 ); // DONE
 
 export default galleryRouter;

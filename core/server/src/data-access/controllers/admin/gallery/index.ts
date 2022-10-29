@@ -1,16 +1,29 @@
 import {
   getGallery,
   updateGallery,
-  getGalleriesByPost,
+  createGallery,
   hardDeleteGallery,
+  getGalleriesPaginated,
 } from "../../../../use-cases/gallery";
-import { getPost } from "../../../../use-cases/post";
 import { logger } from "../../../../config/logs/logger";
 
+import makeDeleteGalleryItemController from "./delete-gallery-item";
 import makeHardDeleteGalleryController from "./hard-delete-gallery";
-import makeHardDeleteGalleryItemController from "./hard-delete-gallery-item";
-import makeGetGalleriesByPostController from "./get-galleries-by-post";
+import makeGetGalleriesPaginatedController from "./get-galleries-paginated";
 import makeUploadGalleryItemController from "./upload-gallery-item";
+import makeGetGalleryController from "./get-gallery";
+import makeCreateGalleryController from "./create-gallery";
+
+const createGalleryController = makeCreateGalleryController({
+  createGallery,
+  logger,
+});
+
+const hardDeleteGalleryController = makeHardDeleteGalleryController({
+  getGallery,
+  hardDeleteGallery,
+  logger,
+});
 
 const uploadGalleryItemController = makeUploadGalleryItemController({
   getGallery,
@@ -18,33 +31,36 @@ const uploadGalleryItemController = makeUploadGalleryItemController({
   logger,
 });
 
-const getGalleriesByPostController = makeGetGalleriesByPostController({
-  getGalleriesByPost,
-  getPost,
+const getGalleriesPaginatedController = makeGetGalleriesPaginatedController({
+  getGalleriesPaginated,
   logger,
 });
 
-const hardDeleteGalleryItemController = makeHardDeleteGalleryItemController({
+const getGalleryController = makeGetGalleryController({
+  getGallery,
+  logger,
+});
+
+const deleteGalleryItemController = makeDeleteGalleryItemController({
   getGallery,
   updateGallery,
   logger,
 });
 
-const hardDeleteGalleryController = makeHardDeleteGalleryController({
-  hardDeleteGallery,
-  logger,
-});
-
 export default Object.freeze({
-  hardDeleteGalleryController,
-  hardDeleteGalleryItemController,
-  getGalleriesByPostController,
+  deleteGalleryItemController,
+  getGalleryController,
+  getGalleriesPaginatedController,
   uploadGalleryItemController,
+  hardDeleteGalleryController,
+  createGalleryController,
 });
 
 export {
-  hardDeleteGalleryController,
-  hardDeleteGalleryItemController,
-  getGalleriesByPostController,
+  deleteGalleryItemController,
+  getGalleryController,
+  getGalleriesPaginatedController,
   uploadGalleryItemController,
+  hardDeleteGalleryController,
+  createGalleryController,
 };

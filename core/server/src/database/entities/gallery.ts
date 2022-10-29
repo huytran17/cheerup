@@ -1,34 +1,28 @@
 import IGallery from "../interfaces/gallery";
-import { ModelType } from "../interfaces/gallery";
-import Post from "../entities/post";
-import User from "../entities/user";
 import Admin from "../entities/admin";
 
 export default class Gallery implements IGallery {
   public readonly _id: string;
-  public readonly post: Post;
+  public readonly name: string;
   public readonly items: {
     s3: Record<string, unknown>;
   }[];
-  public readonly model_type: ModelType;
-  public readonly created_by: Admin | User;
+  public readonly uploaded_by: Admin;
   public readonly created_at: Date;
   public readonly updated_at: Date;
 
   constructor({
     _id,
-    post,
+    name,
     items,
-    model_type,
-    created_by,
+    uploaded_by,
     created_at,
     updated_at,
   }: IGallery) {
     this._id = _id;
-    this.post = post;
+    this.name = name;
     this.items = items;
-    this.model_type = model_type;
-    this.created_by = created_by;
+    this.uploaded_by = uploaded_by;
     this.created_at = created_at;
     this.updated_at = updated_at;
   }

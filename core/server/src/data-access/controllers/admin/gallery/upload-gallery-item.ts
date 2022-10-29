@@ -21,7 +21,7 @@ export default function makeUploadGalleryItemController({
     };
 
     try {
-      const { _id: gallery_id } = _.get(httpRequest, "context.validated");
+      const { _id } = _.get(httpRequest, "context.validated");
       const file = _.get(httpRequest, "context.file");
 
       const file_not_exists = _.isEmpty(file) || _.isNil(file);
@@ -29,11 +29,12 @@ export default function makeUploadGalleryItemController({
         throw new Error(`File does not exist`);
       }
 
-      const gallery_exists = await getGallery({ _id: gallery_id });
+      const gallery_exists = await getGallery({ _id });
       const gallery_not_exists =
         _.isEmpty(gallery_exists) || _.isNil(gallery_exists);
+
       if (gallery_not_exists) {
-        throw new Error(`Gallery by id ${gallery_id} does not exist`);
+        throw new Error(`Gallery by id ${_id} does not exist`);
       }
 
       const aws_payload = {

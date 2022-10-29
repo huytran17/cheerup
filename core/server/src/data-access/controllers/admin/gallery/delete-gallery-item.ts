@@ -3,8 +3,9 @@ import { IUpdateGallery } from "../../../../use-cases/gallery/update-gallery";
 import { IGetGallery } from "../../../../use-cases/gallery/get-gallery";
 import _ from "lodash";
 import { Logger } from "winston";
+import Storage from "../../../../config/storage";
 
-export default function makeHardDeleteGalleryItemController({
+export default function makeDeleteGalleryItemController({
   getGallery,
   updateGallery,
   logger,
@@ -13,7 +14,7 @@ export default function makeHardDeleteGalleryItemController({
   updateGallery: IUpdateGallery;
   logger: Logger;
 }) {
-  return async function hardDeleteGalleryItemController(
+  return async function deleteGalleryItemController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
@@ -21,7 +22,7 @@ export default function makeHardDeleteGalleryItemController({
     };
 
     try {
-      const { _id: gallery_id, _item_id: item_id } = _.get(
+      const { _id: gallery_id, item_id } = _.get(
         httpRequest,
         "context.validated"
       );
@@ -35,6 +36,20 @@ export default function makeHardDeleteGalleryItemController({
       }
 
       const current_gallery_items = _.get(gallery_exists, "items", []);
+
+      const item_to_delete = current_gallery_items.filter(
+        (item) => item.id === item_id
+      );
+
+      const current_bucket = _.get(item_to_delete, "meta.bucket", "");
+      const current_key = _.get(item_to_delete, "meta.key", "");
+      const s3_params = {
+        Bucket: current_bucket,
+        Key: current_key,
+      };
+
+      Storage.deleteS3Object(s3_params);
+
       const updated_gallery_items = current_gallery_items.filter(
         (item) => item.id !== item_id
       );

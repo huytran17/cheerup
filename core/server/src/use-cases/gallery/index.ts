@@ -1,14 +1,14 @@
 import { logger } from "../../config/logs/logger";
 import { GalleryDb } from "../../data-access";
 import makeGetGallery from "./get-gallery";
-import makeGetGalleriesByPost from "./get-galleries-by-post";
 import makeUpdateGallery from "./update-gallery";
 import makeCreateGallery from "./create-gallery";
 import makeHardDeleteGallery from "./hard-delete-gallery";
-import makeGetGalleryByPost from "./get-gallery-by-post";
+import makeGetGalleriesPaginated from "./get-galleries-paginated";
 
-const getGalleryByPost = makeGetGalleryByPost({
+const getGalleriesPaginated = makeGetGalleriesPaginated({
   galleryDb: GalleryDb,
+  logger,
 });
 
 const hardDeleteGallery = makeHardDeleteGallery({
@@ -16,11 +16,6 @@ const hardDeleteGallery = makeHardDeleteGallery({
 });
 
 const getGallery = makeGetGallery({
-  galleryDb: GalleryDb,
-  logger,
-});
-
-const getGalleriesByPost = makeGetGalleriesByPost({
   galleryDb: GalleryDb,
   logger,
 });
@@ -35,20 +30,18 @@ const createGallery = makeCreateGallery({
 
 const galleryServices = Object.freeze({
   getGallery,
-  getGalleriesByPost,
   updateGallery,
   createGallery,
   hardDeleteGallery,
-  getGalleryByPost,
+  getGalleriesPaginated,
 });
 
 export default galleryServices;
 
 export {
   getGallery,
-  getGalleriesByPost,
   updateGallery,
   createGallery,
   hardDeleteGallery,
-  getGalleryByPost,
+  getGalleriesPaginated,
 };

@@ -1,19 +1,16 @@
 import { Request } from "express";
 import { IGetGallery } from "../../../../use-cases/gallery/get-gallery";
-import { IHardDeleteGallery } from "../../../../use-cases/gallery/hard-delete-gallery";
 import _ from "lodash";
 import { Logger } from "winston";
 
-export default function makeHardDeleteGalleryController({
+export default function makeGetGalleryController({
   getGallery,
-  hardDeleteGallery,
   logger,
 }: {
   getGallery: IGetGallery;
-  hardDeleteGallery: IHardDeleteGallery;
   logger: Logger;
 }) {
-  return async function hardDeleteGalleryController(
+  return async function getGalleryController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
@@ -22,20 +19,19 @@ export default function makeHardDeleteGalleryController({
 
     try {
       const { _id } = _.get(httpRequest, "context.validated");
+
       const exists = await getGallery({ _id });
 
       const not_exists = _.isEmpty(exists) || _.isNil(exists);
       if (not_exists) {
-        throw new Error(`Gallery by id ${_id} does not exists`);
+        throw new Error(`Post by id ${exists} does not exists`);
       }
-
-      const deleted = await hardDeleteGallery({ _id });
 
       return {
         headers,
         statusCode: 200,
         body: {
-          data: deleted,
+          data: exists,
         },
       };
     } catch (err) {
