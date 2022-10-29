@@ -26,7 +26,7 @@ export function initializeMailer(): Transporter {
       if (error) {
         console.log(error);
       } else {
-        console.log("SMTP Server is ready to take your email.");
+        console.log("SMTP Server is ready to take your email");
       }
     });
 

@@ -39,7 +39,7 @@ export default class Scheduler {
           })
         );
 
-        console.log("Initialized Agenda for development.");
+        console.log("Initialized Agenda for development");
       } else if (is_production) {
         this.agenda_instance = new Agenda(
           Object.assign({}, configurations, {
