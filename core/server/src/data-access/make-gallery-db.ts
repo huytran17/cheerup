@@ -1,6 +1,6 @@
 import _ from "lodash";
 import mongoose from "mongoose";
-import IGalleryDb from "./interfaces/gallery-db";
+import IGalleryDb, { PaginatedGalleryResult } from "./interfaces/gallery-db";
 import Gallery from "../database/entities/gallery";
 import IGallery from "../database/interfaces/gallery";
 
@@ -15,6 +15,66 @@ export default function makeGalleryDb({
   moment: any;
 }): IGalleryDb {
   return new (class MongooseGalleryDb implements IGalleryDb {
+    async findAllPaginated({
+      query = "",
+      page = 1,
+      entries_per_page = 15,
+    }: {
+      query: string;
+      page: number;
+      entries_per_page?: number;
+    }): Promise<PaginatedGalleryResult | null> {
+      const number_of_entries_to_skip = (page - 1) * entries_per_page;
+
+      const query_conditions = {};
+
+      if (query) {
+        query_conditions["$or"] = [
+          {
+            name: { $regex: ".*" + query + ".*", $options: "si" },
+            item_name: { $regex: ".*" + query + ".*", $options: "si" },
+          },
+        ];
+      }
+
+      const existing = await galleryDbModel
+        .find(query_conditions)
+        .populate("uploaded_by", "-_v")
+        .skip(number_of_entries_to_skip)
+        .limit(entries_per_page)
+        .sort({
+          created_at: "desc",
+        })
+        .lean({ virtuals: true });
+
+      const total_count = await galleryDbModel.countDocuments(query_conditions);
+
+      if (existing) {
+        const data = existing.map((post) => new Gallery(post));
+
+        const from = page - 1 > 0 ? page - 1 : null;
+        const has_more_entries =
+          existing.length === entries_per_page &&
+          page * entries_per_page !== total_count;
+        const to = has_more_entries ? page + 1 : null;
+        const total_pages = Math.ceil(total_count / entries_per_page);
+
+        return {
+          data,
+          pagination: {
+            current_page: page,
+            from,
+            to,
+            per_page: entries_per_page,
+            total: total_count,
+            total_pages,
+          },
+        };
+      }
+
+      return null;
+    }
+
     async findById({ _id }: { _id: string }): Promise<Gallery | null> {
       const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
       const is_mongo_id = mongo_id_regex.test(_id);
