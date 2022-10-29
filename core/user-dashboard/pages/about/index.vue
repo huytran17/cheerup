@@ -1,8 +1,12 @@
 <template>
-  <AboutMe :informations="informations" />
+  <AboutMe
+    :informations="informations"
+    :system_configuration_data="system_configuration"
+  />
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import AboutMe from "@/components/about/AboutMe.vue";
 export default {
   name: "AboutMeIndex",
@@ -103,6 +107,11 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    ...mapGetters({
+      system_configuration: "system-configuration/system_configuration",
+    }),
   },
 };
 </script>
