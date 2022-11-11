@@ -37,7 +37,6 @@ export default {
     { src: "~/plugins/vue-toastification", ssr: false },
     { src: "~/plugins/vue-infinite-loading", mode: "client" },
     { src: "~/plugins/vue-scroll-to-top", mode: "client" },
-    { src: "~/plugins/vue-slick", mode: "client" },
     { src: "~/plugins/vue2-dropzone", ssr: false },
     { src: "~/plugins/vue-avatar", mode: "client" },
     { src: "~/plugins/vue-line-clamp", mode: "client" },
