@@ -6,12 +6,13 @@ const Schema = mongoose.Schema;
 const gallerySchema = new Schema(
   {
     name: { type: String, trim: true, required: true },
+    parent: { type: Schema.Types.ObjectId, ref: "Gallery" },
     items: [
       {
         s3: { type: Object },
       },
     ],
-    uploaded_by: { type: Schema.Types.ObjectId, red: "Admin" },
+    uploaded_by: { type: Schema.Types.ObjectId, ref: "Admin" },
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now },
   },
