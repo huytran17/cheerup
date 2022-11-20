@@ -69,6 +69,11 @@ export default {
             icon: "bx-news",
           },
           {
+            name: "Gallery",
+            link: "/gallery",
+            icon: "bx-images",
+          },
+          {
             name: "Comment",
             link: "/comment",
             icon: "bx-message-square-detail",

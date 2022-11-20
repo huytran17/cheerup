@@ -4,6 +4,7 @@ import {
   createGallery,
   hardDeleteGallery,
   getGalleriesPaginated,
+  getGalleriesByParent,
 } from "../../../../use-cases/gallery";
 import { logger } from "../../../../config/logs/logger";
 
@@ -13,6 +14,13 @@ import makeGetGalleriesPaginatedController from "./get-galleries-paginated";
 import makeUploadGalleryItemController from "./upload-gallery-item";
 import makeGetGalleryController from "./get-gallery";
 import makeCreateGalleryController from "./create-gallery";
+import makeGetGalleriesByParentController from "./get-galleries-by-parent";
+
+const getGalleriesByParentController = makeGetGalleriesByParentController({
+  getGallery,
+  getGalleriesByParent,
+  logger,
+});
 
 const createGalleryController = makeCreateGalleryController({
   createGallery,
@@ -54,6 +62,7 @@ export default Object.freeze({
   uploadGalleryItemController,
   hardDeleteGalleryController,
   createGalleryController,
+  getGalleriesByParentController,
 });
 
 export {
@@ -63,4 +72,5 @@ export {
   uploadGalleryItemController,
   hardDeleteGalleryController,
   createGalleryController,
+  getGalleriesByParentController,
 };

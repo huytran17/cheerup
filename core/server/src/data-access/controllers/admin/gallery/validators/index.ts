@@ -4,6 +4,7 @@ import hardDeleteGalleryRules from "./hard-delete-gallery";
 import uploadGalleryItemRules from "./upload-gallery-item";
 import createGalleryRules from "./create-gallery";
 import getGalleryRules from "./get-gallery";
+import getGalleriesByParentRules from "./get-galleries-by-parent";
 
 export default Object.freeze({
   getGalleriesPaginatedRules,
@@ -12,6 +13,7 @@ export default Object.freeze({
   uploadGalleryItemRules,
   createGalleryRules,
   getGalleryRules,
+  getGalleriesByParentRules,
 });
 
 export {
@@ -21,4 +23,5 @@ export {
   uploadGalleryItemRules,
   createGalleryRules,
   getGalleryRules,
+  getGalleriesByParentRules,
 };

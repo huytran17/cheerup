@@ -38,15 +38,7 @@ export default function makeUploadGalleryItemController({
       }
 
       const aws_payload = {
-        mime_type: file.mimetype,
-        dirname: file.key,
-        size: file.size,
-        name: file.originalname,
-        meta: {
-          bucket: file.bucket,
-          acl: file.bucket,
-          ...file,
-        },
+        ...file,
       };
 
       const current_gallery_items = _.get(gallery_exists, "items", []);

@@ -15,18 +15,29 @@ export default function makeGalleryDb({
   moment: any;
 }): IGalleryDb {
   return new (class MongooseGalleryDb implements IGalleryDb {
-    async findAllPaginated({
-      query = "",
-      page = 1,
-      entries_per_page = 15,
-    }: {
-      query: string;
-      page: number;
-      entries_per_page?: number;
-    }): Promise<PaginatedGalleryResult | null> {
+    async findAllPaginated(
+      {
+        query = "",
+        page = 1,
+        entries_per_page = 15,
+      }: {
+        query: string;
+        page: number;
+        entries_per_page?: number;
+      },
+      {
+        is_parent,
+      }: {
+        is_parent: boolean;
+      }
+    ): Promise<PaginatedGalleryResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = {};
+
+      if (is_parent) {
+        query_conditions["parent"] = { $in: [null, undefined] };
+      }
 
       if (query) {
         query_conditions["$or"] = [
@@ -39,7 +50,7 @@ export default function makeGalleryDb({
 
       const existing = await galleryDbModel
         .find(query_conditions)
-        .populate("uploaded_by", "-_v")
+        .populate("created_by", "-_v")
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)
         .sort({
@@ -136,6 +147,28 @@ export default function makeGalleryDb({
 
       if (post_id) {
         query_conditions["post"] = post_id;
+      }
+
+      const existing = await galleryDbModel
+        .find(query_conditions)
+        .lean({ virtuals: true });
+
+      if (existing) {
+        return existing.map((gallery) => new Gallery(gallery));
+      }
+
+      return null;
+    }
+
+    async findAllByParent({
+      parent_id,
+    }: {
+      parent_id: string;
+    }): Promise<Gallery[] | null> {
+      const query_conditions = {};
+
+      if (parent_id) {
+        query_conditions["parent"] = parent_id;
       }
 
       const existing = await galleryDbModel

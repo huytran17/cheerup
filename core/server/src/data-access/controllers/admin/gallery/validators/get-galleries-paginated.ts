@@ -1,7 +1,7 @@
 const getGalleriesPaginatedRules = {
   query: "string",
-  page: "number",
-  entries_per_page: "number",
+  page: "string",
+  entries_per_page: "string",
 };
 
 export default getGalleriesPaginatedRules;

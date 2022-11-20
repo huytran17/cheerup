@@ -2,6 +2,11 @@ import _ from "lodash";
 import { mapActions, mapMutations, mapGetters } from "vuex";
 
 export default {
+  data() {
+    return {
+      folderNameRules: [(v) => !!v || this.$t("Folder name is required.")],
+    };
+  },
   computed: {
     ...mapGetters({
       gallery: "gallery/gallery",
@@ -18,12 +23,13 @@ export default {
       CREATE_GALLERY: "gallery/CREATE_GALLERY",
       UPLOAD_GALLERY_ITEM: "gallery/UPLOAD_GALLERY_ITEM",
       GET_GALLERY: "gallery/GET_GALLERY",
+      GET_GALLERIES_BY_PARENT: "gallery/GET_GALLERIES_BY_PARENT",
     }),
     ...mapMutations({
-      SET_GALLERY: "post/SET_GALLERY",
-      SET_GALLERIES: "post/SET_GALLERIES",
-      SET_LOADING: "post/SET_LOADING",
-      SET_GALLERY_PAGINATION: "post/SET_GALLERY_PAGINATION",
+      SET_GALLERY: "gallery/SET_GALLERY",
+      SET_GALLERIES: "gallery/SET_GALLERIES",
+      SET_LOADING: "gallery/SET_LOADING",
+      SET_GALLERY_PAGINATION: "gallery/SET_GALLERY_PAGINATION",
     }),
   },
 };

@@ -66,9 +66,8 @@
 
     <BaseHardDeleteDialog
       :is_open="is_open_hard_delete_dialog"
-      :data="comment"
-      :closeDialog="() => (is_open_hard_delete_dialog = false)"
-      :confirmDelete="() => hardDeleteComment()"
+      @close-dialog="is_open_hard_delete_dialog = false"
+      @confirm-dialog="hardDeleteComment"
       :title="`comment ${comment.content}`"
     />
   </div>

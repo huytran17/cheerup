@@ -8,7 +8,7 @@ export default function makeS3FileUploadMiddleware() {
   // TODO: add in file limit and file name sanitisation
   const upload = multer({
     storage: multerS3({
-      s3: s3,
+      s3,
       bucket: process.env.BUCKET_NAME || "some-bucket",
       cacheControl: "max-age=31536000",
       metadata: function (req, file, cb) {

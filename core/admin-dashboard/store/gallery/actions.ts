@@ -9,7 +9,8 @@ const actions: ActionTree<GalleryState, RootState> = {
   async [ActionTypes.GET_GALLERIES_PAGINATED]({ commit }, params = {}) {
     const query = _.get(params, "query");
     const page = _.get(params, "page", 1);
-    const entries_per_page = _.get(params, "page", 1);
+    const entries_per_page = _.get(params, "page", 15);
+    const is_parent = _.get(params, "is_parent", true);
     const new_state = _.get(params, "new_state", true);
     const keep_in_store = _.get(params, "keep_in_store", true);
 
@@ -23,11 +24,17 @@ const actions: ActionTree<GalleryState, RootState> = {
       url_query.set("page", page);
     }
 
+    if (is_parent) {
+      url_query.set("is_parent", is_parent);
+    }
+
     if (entries_per_page) {
       url_query.set("entries_per_page", entries_per_page);
     }
 
-    const { data, pagination } = await this.$axios.$get(`/gallery${url_query}`);
+    const { data, pagination } = await this.$axios.$get(
+      `/gallery?${url_query}`
+    );
 
     if (!keep_in_store) {
       return { data, pagination };
@@ -39,15 +46,24 @@ const actions: ActionTree<GalleryState, RootState> = {
     return data;
   },
 
-  async [ActionTypes.DELETE_GALLERY_ITEM](
+  async [ActionTypes.GET_GALLERIES_BY_PARENT](
     { commit },
-    { _id }: { _id: string }
+    { parent_id }: { parent_id: string }
   ) {
-    const { data } = await this.$axios.$put(
-      `/gallery/delete-gallery-item/${_id}`
-    );
+    const { data } = await this.$axios.$get(`/gallery/by-parent/${parent_id}`);
+
+    commit(MutationTypes.SET_GALLERIES, { data, new_state: true });
 
     return data;
+  },
+
+  async [ActionTypes.DELETE_GALLERY_ITEM]({ commit }, { data }: { data: any }) {
+    const { data: updated_gallery } = await this.$axios.$put(
+      `/gallery/delete-gallery-item`,
+      data
+    );
+
+    return updated_gallery;
   },
 
   async [ActionTypes.HARD_DELETE_GALLERY]({ commit }, { id }: { id: string }) {
@@ -68,7 +84,7 @@ const actions: ActionTree<GalleryState, RootState> = {
     { commit },
     { _id }: { _id: string }
   ) {
-    const { data: gallery } = await this.$axios.$put(
+    const { data: gallery } = await this.$axios.$post(
       `/upload-gallery-item/${_id}`
     );
 
@@ -78,6 +94,7 @@ const actions: ActionTree<GalleryState, RootState> = {
   async [ActionTypes.GET_GALLERY]({ commit }, { _id }: { _id: string }) {
     const { data: gallery } = await this.$axios.$get(`/gallery/${_id}`);
 
+    commit(MutationTypes.SET_GALLERY, { data: gallery });
     return gallery;
   },
 };

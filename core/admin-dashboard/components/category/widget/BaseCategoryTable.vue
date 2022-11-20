@@ -38,7 +38,9 @@
         </template>
 
         <template v-slot:item.badge_color="{ item }">
-          <v-icon v-if="item.badge_color" :color="item.badge_color">mdi-circle</v-icon>
+          <v-icon v-if="item.badge_color" :color="item.badge_color"
+            >mdi-circle</v-icon
+          >
         </template>
 
         <template v-slot:item.updated_at="{ item }">
@@ -115,9 +117,8 @@
 
     <BaseHardDeleteDialog
       :is_open="is_open_hard_delete_dialog"
-      :data="category"
-      :closeDialog="() => (is_open_hard_delete_dialog = false)"
-      :confirmDelete="() => hardDeleteCategory()"
+      @close-dialog="is_open_hard_delete_dialog = false"
+      @confirm-dialog="hardDeleteCategory"
       :title="`category ${category.title}`"
     />
   </v-row>

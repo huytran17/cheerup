@@ -22,24 +22,29 @@ export default function makeGetGalleriesPaginatedController({
         query,
         page,
         entries_per_page,
+        is_parent,
       }: {
         query: string;
         page: number;
         entries_per_page: number;
+        is_parent?: boolean;
       } = _.get(httpRequest, "context.validated");
 
-      const galleries = await getGalleriesPaginated({
-        query,
-        page,
-        entries_per_page,
-      });
+      const galleries = await getGalleriesPaginated(
+        {
+          query,
+          page,
+          entries_per_page,
+        },
+        {
+          is_parent,
+        }
+      );
 
       return {
         headers,
         statusCode: 200,
-        body: {
-          data: galleries,
-        },
+        body: galleries,
       };
     } catch (err) {
       return {

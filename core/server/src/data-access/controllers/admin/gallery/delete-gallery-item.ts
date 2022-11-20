@@ -22,10 +22,11 @@ export default function makeDeleteGalleryItemController({
     };
 
     try {
-      const { _id: gallery_id, item_id } = _.get(
-        httpRequest,
-        "context.validated"
-      );
+      const {
+        _id: gallery_id,
+        bucket,
+        key,
+      } = _.get(httpRequest, "context.validated");
 
       const gallery_exists = await getGallery({ _id: gallery_id });
       const gallery_not_exists =
@@ -38,7 +39,7 @@ export default function makeDeleteGalleryItemController({
       const current_gallery_items = _.get(gallery_exists, "items", []);
 
       const item_to_delete = current_gallery_items.filter(
-        (item) => item.id === item_id
+        (item) => item.bucket === bucket && item.key === key
       );
 
       const current_bucket = _.get(item_to_delete, "meta.bucket", "");
@@ -51,7 +52,7 @@ export default function makeDeleteGalleryItemController({
       Storage.deleteS3Object(s3_params);
 
       const updated_gallery_items = current_gallery_items.filter(
-        (item) => item.id !== item_id
+        (item) => item.key !== key
       );
 
       const final_gallery_details = Object.assign({}, gallery_exists, {

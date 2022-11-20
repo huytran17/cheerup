@@ -1,6 +1,7 @@
 import express from "express";
 import makeValidator from "../../config/middlewares/validator-middleware";
 import makeExpressCallback from "../../config/express-callback";
+import { upload } from "../../config/middlewares/file-upload-middleware";
 
 import {
   getGalleriesPaginatedRules,
@@ -9,6 +10,7 @@ import {
   uploadGalleryItemRules,
   createGalleryRules,
   getGalleryRules,
+  getGalleriesByParentRules,
 } from "../../data-access/controllers/admin/gallery/validators";
 import {
   deleteGalleryItemController,
@@ -17,9 +19,16 @@ import {
   uploadGalleryItemController,
   hardDeleteGalleryController,
   createGalleryController,
+  getGalleriesByParentController,
 } from "../../data-access/controllers/admin/gallery";
 
 const galleryRouter = express.Router();
+
+galleryRouter.get(
+  "/by-parent/:_id",
+  makeValidator(getGalleriesByParentRules),
+  makeExpressCallback(getGalleriesByParentController)
+); // DONE
 
 galleryRouter.post(
   "/",
@@ -40,13 +49,14 @@ galleryRouter.get(
 ); // DONE
 
 galleryRouter.put(
-  "/delete-gallery-item/:_id/:item_id",
+  "/delete-gallery-item",
   makeValidator(deleteGalleryItemRules),
   makeExpressCallback(deleteGalleryItemController)
 ); // DONE
 
-galleryRouter.put(
+galleryRouter.post(
   "/upload-gallery-item/:_id",
+  upload.single("file"),
   makeValidator(uploadGalleryItemRules),
   makeExpressCallback(uploadGalleryItemController)
 ); // DONE

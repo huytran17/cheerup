@@ -29,7 +29,34 @@ export default function makeHardDeleteGalleryController({
         throw new Error(`Gallery by id ${_id} does not exists`);
       }
 
+      const items = _.get(exists, "items", []);
+
+      for (const item of items) {
+        const s3_params = {
+          Bucket: item.bucket,
+          Key: item.key,
+        };
+
+        Storage.deleteS3Object(s3_params);
+      }
+
+      logger.verbose(`Deleted all items from gallery ${_id}`);
+
+      const galleriesByParent = await getGalleriesByParent({
+        parent_id: _id,
+      });
+
+      const deleteChildrenPromises = galleriesByParent.map(
+        async (gallery) => await hardDeleteGallery({ _id: gallery._id })
+      );
+
+      logger.verbose(`Deleted all children from gallery ${this._id}`);
+
+      await Promise.all(deleteChildrenPromises);
+
       const deleted = await hardDeleteGallery({ _id });
+
+      logger.verbose(`Deleted gallery ${_id} successfully`);
 
       return {
         headers,

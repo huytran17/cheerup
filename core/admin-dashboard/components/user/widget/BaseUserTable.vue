@@ -129,9 +129,8 @@
 
     <BaseHardDeleteDialog
       :is_open="is_open_hard_delete_dialog"
-      :data="user"
-      :closeDialog="() => (is_open_hard_delete_dialog = false)"
-      :confirmDelete="() => hardDeleteUser()"
+      @close-dialog="is_open_hard_delete_dialog = false"
+      @confirm-dialog="hardDeleteUser"
       :title="`user ${user.email}`"
     />
   </div>

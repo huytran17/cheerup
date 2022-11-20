@@ -5,6 +5,12 @@ import makeUpdateGallery from "./update-gallery";
 import makeCreateGallery from "./create-gallery";
 import makeHardDeleteGallery from "./hard-delete-gallery";
 import makeGetGalleriesPaginated from "./get-galleries-paginated";
+import makeGetGalleriesByParent from "./get-galleries-by-parent";
+
+const getGalleriesByParent = makeGetGalleriesByParent({
+  galleryDb: GalleryDb,
+  logger,
+});
 
 const getGalleriesPaginated = makeGetGalleriesPaginated({
   galleryDb: GalleryDb,
@@ -34,6 +40,7 @@ const galleryServices = Object.freeze({
   createGallery,
   hardDeleteGallery,
   getGalleriesPaginated,
+  getGalleriesByParent,
 });
 
 export default galleryServices;
@@ -44,4 +51,5 @@ export {
   createGallery,
   hardDeleteGallery,
   getGalleriesPaginated,
+  getGalleriesByParent,
 };

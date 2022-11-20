@@ -212,9 +212,8 @@
 
     <BaseHardDeleteDialog
       :is_open="is_open_hard_delete_dialog"
-      :data="post"
-      :closeDialog="() => (is_open_hard_delete_dialog = false)"
-      :confirmDelete="() => hardDeletePost()"
+      @close-dialog="is_open_hard_delete_dialog = false"
+      @confirm-dialog="hardDeletePost"
       :title="`post ${post.title}`"
     />
   </div>

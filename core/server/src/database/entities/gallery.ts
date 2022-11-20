@@ -6,9 +6,9 @@ export default class Gallery implements IGallery {
   public readonly name: string;
   public readonly parent: Gallery;
   public readonly items: {
-    s3: Record<string, unknown>;
+    [key: string]: Record<string, unknown>;
   }[];
-  public readonly uploaded_by: Admin;
+  public readonly created_by: Admin;
   public readonly created_at: Date;
   public readonly updated_at: Date;
 
@@ -17,7 +17,7 @@ export default class Gallery implements IGallery {
     name,
     items,
     parent,
-    uploaded_by,
+    created_by,
     created_at,
     updated_at,
   }: IGallery) {
@@ -25,7 +25,7 @@ export default class Gallery implements IGallery {
     this.name = name;
     this.items = items;
     this.parent = parent;
-    this.uploaded_by = uploaded_by;
+    this.created_by = created_by;
     this.created_at = created_at;
     this.updated_at = updated_at;
   }

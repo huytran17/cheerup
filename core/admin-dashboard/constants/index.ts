@@ -1,4 +1,5 @@
 const S3_UPLOAD_URL_TYPES = {
+  GALLERY_ITEM: `${process.env.SERVER_URL}/admin/gallery/upload-gallery-item`,
   CATEGORY_THUMBNAIL: `${process.env.SERVER_URL}/admin/category/upload-thumbnail`,
   POST_THUMBNAIL: `${process.env.SERVER_URL}/admin/post/upload-thumbnail`,
   ADMIN_AVATAR: `${process.env.SERVER_URL}/admin/admin/upload-avatar`,

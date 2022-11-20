@@ -6,31 +6,26 @@
       <v-btn icon class="close-dialog-btn" @click="close">
         <v-icon color="black">mdi-close</v-icon>
       </v-btn>
-      <div class="d-flex justify-center pt-5">
-        <v-icon color="warning">mdi-alert</v-icon>
-      </div>
-      <div class="text-body-1 text-center pt-3 error--text">
-        <span
-          class="app-body word-break--all"
-          v-html="
-            $t(`Do you want to delete {title} forever?`, {
-              title,
-            })
-          "
-        ></span>
-      </div>
-      <div class="text-body-2 text-center error--text font-weight-bold">
-        <span
-          class="app-body"
-          v-html="$t(`This action can not be restore.`)"
-        ></span>
-      </div>
-      <div class="d-flex justify-center mt-4">
+
+      <v-container class="mt-2">
+        <v-row>
+          <v-col cols="12">
+            <v-text-field
+              v-model="folder_name"
+              :label="$t('Folder Name')"
+              required
+              :rules="folderNameRules"
+            ></v-text-field>
+          </v-col>
+        </v-row>
+      </v-container>
+
+      <div class="d-flex justify-center mt-2">
         <v-btn depressed color="primary" text @click="close">
           <span v-html="$t('Cancel')"></span>
         </v-btn>
         <v-btn depressed color="error" text @click="confirm">
-          <span v-html="$t('Confirm')"></span>
+          <span v-html="$t('Create')"></span>
         </v-btn>
       </div>
     </div>
@@ -38,8 +33,10 @@
 </template>
 
 <script>
+import galleryMixins from "@/mixins/gallery";
 export default {
-  name: "BaseHardDeleteDialog",
+  name: "BaseModalCreateGallery",
+  mixins: [galleryMixins],
   props: {
     is_open: {
       type: Boolean,
@@ -47,10 +44,11 @@ export default {
         return false;
       },
     },
-    title: {
-      type: String,
-      required: true,
-    },
+  },
+  data() {
+    return {
+      folder_name: "",
+    };
   },
   methods: {
     close() {

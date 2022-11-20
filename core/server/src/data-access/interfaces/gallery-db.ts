@@ -2,15 +2,27 @@ import Gallery from "../../database/entities/gallery";
 import IGallery from "../../database/interfaces/gallery";
 export default interface IGalleryDb {
   findOne: () => Promise<Gallery | null>;
-  findAllPaginated: ({
-    query,
-    page,
-    entries_per_page,
+  findAllPaginated: (
+    {
+      query,
+      page,
+      entries_per_page,
+    }: {
+      query: string;
+      page: number;
+      entries_per_page?: number;
+    },
+    {
+      is_parent,
+    }: {
+      is_parent?: boolean;
+    }
+  ) => Promise<PaginatedGalleryResult | null>;
+  findAllByParent: ({
+    parent_id,
   }: {
-    query: string;
-    page: number;
-    entries_per_page?: number;
-  }) => Promise<PaginatedGalleryResult | null>;
+    parent_id: string;
+  }) => Promise<Gallery[] | null>;
   findByPost: ({ post_id }: { post_id: string }) => Promise<Gallery[] | null>;
   findById: ({ _id }: { _id: string }) => Promise<Gallery | null>;
   findOneByPost: ({ post_id }: { post_id: string }) => Promise<Gallery | null>;

@@ -66,9 +66,8 @@
 
     <BaseHardDeleteDialog
       :is_open="is_open_hard_delete_dialog"
-      :data="feedback"
-      :closeDialog="() => (is_open_hard_delete_dialog = false)"
-      :confirmDelete="() => hardDeleteFeedback()"
+      @close-dialog="is_open_hard_delete_dialog = false"
+      @confirm-dialog="hardDeleteFeedback"
       :title="`feedback ${feedback.title}`"
     />
   </div>

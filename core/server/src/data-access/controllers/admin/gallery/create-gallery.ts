@@ -23,7 +23,7 @@ export default function makeCreateGalleryController({
       const { _id: user_id } = _.get(httpRequest, "context.user");
 
       const final_gallery_data = Object.assign({}, galleryDetails, {
-        uploaded_by: user_id,
+        created_by: user_id,
       });
 
       const created_gallery = await createGallery({

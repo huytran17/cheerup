@@ -147,9 +147,8 @@
 
     <BaseHardDeleteDialog
       :is_open="is_open_hard_delete_dialog"
-      :data="admin"
-      :closeDialog="() => (is_open_hard_delete_dialog = false)"
-      :confirmDelete="() => hardDeleteAdmin()"
+      @close-dialog="is_open_hard_delete_dialog = false"
+      @confirm-dialog="hardDeleteAdmin"
       :title="`admin ${admin.email}`"
     />
   </div>
