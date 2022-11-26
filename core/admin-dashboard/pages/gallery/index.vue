@@ -29,15 +29,7 @@
       <div class="text-body-1 text-sm-h6">
         <span class="app-body" v-html="$t('Folders')"></span>
       </div>
-      <div class="grid-container grid-container--fill mt-8">
-        <div
-          v-for="gallery in galleries"
-          :key="gallery._id"
-          class="folder__item position-relative mx-auto mt-4"
-        >
-          <BaseFolderItem :data="gallery" />
-        </div>
-      </div>
+      <BaseGalleryFolders :data="galleries" />
     </div>
 
     <BaseModalCreateGallery
@@ -51,10 +43,10 @@
 
 <script>
 import BaseModalCreateGallery from "@/components/gallery/widget/BaseModalCreateGallery";
-import BaseFolderItem from "@/components/gallery/widget/BaseFolderItem";
+import BaseGalleryFolders from "@/components/gallery/widget/BaseGalleryFolders";
 import galleryMixins from "@/mixins/gallery";
 export default {
-  components: { BaseModalCreateGallery, BaseFolderItem },
+  components: { BaseModalCreateGallery, BaseGalleryFolders },
   mixins: [galleryMixins],
   data() {
     return {

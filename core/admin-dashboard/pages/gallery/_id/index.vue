@@ -63,17 +63,10 @@
         <div class="text-body-1 text-sm-h6">
           <span class="app-body" v-html="$t('Folders')"></span>
         </div>
-        <div class="grid-container grid-container--fill mt-8">
-          <div
-            v-for="gallery in galleries"
-            :key="gallery._id"
-            class="folder__item position-relative mx-auto mt-4"
-          >
-            <BaseFolderItem :data="gallery" />
-          </div>
-        </div>
       </v-col>
     </v-row>
+    <BaseGalleryFolders :data="galleries" />
+
     <v-row>
       <v-col cols="12" class="d-flex flex-column">
         <div class="text-body-1 text-sm-h6">
@@ -81,27 +74,7 @@
         </div>
       </v-col>
     </v-row>
-    <v-row class="item-container">
-      <v-col
-        v-for="(item, index) in gallery_items"
-        :key="index"
-        class="image-item"
-        cols="12"
-        sm="6"
-        md="4"
-        lg="3"
-      >
-        <BaseGalleryItem
-          :data="item"
-          @open-delete-item-dialog="
-            (data) => {
-              is_open_delete_item_dialog = true;
-              selected_item = data;
-            }
-          "
-        />
-      </v-col>
-    </v-row>
+    <BaseGalleryItems :data="gallery_items" />
 
     <BaseModalCreateGallery
       ref="modalCreateGallery"
@@ -109,19 +82,12 @@
       @close-dialog="is_open_create_gallery_dialog = false"
       @confirm-dialog="createGallery"
     />
-
-    <BaseHardDeleteDialog
-      :is_open="is_open_delete_item_dialog"
-      @close-dialog="is_open_delete_item_dialog = false"
-      @confirm-dialog="deleteGalleryItem"
-      :title="`item ${selected_item.originalname}`"
-    />
   </v-container>
 </template>
 
 <script>
-import BaseFolderItem from "@/components/gallery/widget/BaseFolderItem";
-import BaseGalleryItem from "@/components/gallery/widget/BaseGalleryItem";
+import BaseGalleryFolders from "@/components/gallery/widget/BaseGalleryFolders";
+import BaseGalleryItems from "@/components/gallery/widget/BaseGalleryItems";
 import dropzoneMixins from "@/mixins/dropzone";
 import { S3_UPLOAD_URL_TYPES } from "@/constants";
 import BaseHardDeleteDialog from "@/components/BaseHardDeleteDialog";
@@ -131,16 +97,14 @@ export default {
   components: {
     BaseModalCreateGallery,
     BaseHardDeleteDialog,
-    BaseFolderItem,
-    BaseGalleryItem,
+    BaseGalleryFolders,
+    BaseGalleryItems,
   },
   mixins: [galleryMixins, dropzoneMixins],
   data() {
     return {
       is_open_create_gallery_dialog: false,
-      is_open_delete_item_dialog: false,
       folder_image: require("@/assets/images/app/folder.png"),
-      selected_item: {},
     };
   },
   computed: {
@@ -154,26 +118,6 @@ export default {
     },
   },
   methods: {
-    async deleteGalleryItem() {
-      try {
-        const gallery_id = this.$route.params.id;
-
-        const payload = {
-          _id: gallery_id,
-          bucket: _.get(this.selected_item, "bucket"),
-          key: _.get(this.selected_item, "key"),
-        };
-
-        await this.DELETE_GALLERY_ITEM({ data: payload });
-
-        await this.GET_GALLERY({ _id: gallery_id });
-        this.is_open_delete_item_dialog = false;
-
-        this.$toast.success("Updated gallery successfully");
-      } catch (err) {
-        console.error(err);
-      }
-    },
     async createGallery() {
       try {
         const parent_id = this.$route.params.id;

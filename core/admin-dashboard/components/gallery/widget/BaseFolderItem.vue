@@ -43,10 +43,9 @@
 
 <script>
 import systemMixins from "@/mixins/system";
-import galleryMixins from "@/mixins/gallery";
 export default {
   name: "BaseFolderItem",
-  mixins: [systemMixins, galleryMixins],
+  mixins: [systemMixins],
   props: {
     data: {
       type: Object,
@@ -60,12 +59,12 @@ export default {
         {
           text: this.$t("Delete"),
           icon: "mdi-close",
-          action: async () => await this.deleteFolder(),
+          action: () => this.$emit("open-delete-folder-dialog"),
         },
         {
           text: this.$t("Rename"),
           icon: "mdi-pencil-outline",
-          // action: this.deleteFolder(),
+          action: () => this.$emit("open-rename-folder-dialog"),
         },
       ],
     };
@@ -73,14 +72,6 @@ export default {
   methods: {
     openFolder() {
       this.$router.push(this.localePath(`/gallery/${this.data._id}`));
-    },
-
-    async deleteFolder() {
-      try {
-        await this.HARD_DELETE_GALLERY({ id: this.data._id });
-      } catch (err) {
-        console.error(err);
-      }
     },
   },
 };

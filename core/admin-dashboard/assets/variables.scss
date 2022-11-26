@@ -3,8 +3,21 @@
 // The variables you want to modify
 // $font-size-root: 20px;
 :root {
-  --color-primary: #3989d8;
+  --color-brick: #ff2e55;
+  --color-success: #06a958;
+  --color-danger: #cb3a31;
+  --color-primary: #0657a9;
   --color-black: #000000;
+  --color-grey: #acacac;
   --color-white: #ffffff;
-  --color-grey: #eceff1;
+  --color-facebook: #4267b2;
+  --color-twitter: #1da1f2;
+  --color-description: #343434;
+  --color-title-hover: #777777;
+  --color-article-baseline: #ebebeb;
+  --color-tab-border: #eec7bc;
+  --color-scrollbar-track: #f1f1f1;
+  --color-scrollbar-thumb: #ff2e55;
+  --color-scrollbar-thumb-hover: rgba(255, 46, 84, 0.797);
+  --color-header-baseline-border: #eec7bc;
 }
