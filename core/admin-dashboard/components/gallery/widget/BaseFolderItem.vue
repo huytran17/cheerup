@@ -11,7 +11,7 @@
         <v-list-item
           v-for="(item, index) in folder_menu_items"
           :key="index"
-          @click="item.action"
+          @click.stop="() => item.action()"
           dense
         >
           <v-list-item-title>
@@ -24,7 +24,7 @@
       </v-list>
     </v-menu>
 
-    <div class="d-flex flex-column clickable" @click="openFolder(data)">
+    <div class="d-flex flex-column clickable" @click.stop="openFolder">
       <div class="folder__symbol">
         <v-img
           :src="folder_image"
@@ -60,24 +60,24 @@ export default {
         {
           text: this.$t("Delete"),
           icon: "mdi-close",
-          action: () => this.deleteFolder(),
+          action: async () => await this.deleteFolder(),
         },
         {
           text: this.$t("Rename"),
           icon: "mdi-pencil-outline",
-          action: () => this.deleteFolder(),
+          // action: this.deleteFolder(),
         },
       ],
     };
   },
   methods: {
-    openFolder(gallery) {
-      this.$router.push(this.localePath(`/gallery/${gallery._id}`));
+    openFolder() {
+      this.$router.push(this.localePath(`/gallery/${this.data._id}`));
     },
 
     async deleteFolder() {
       try {
-        await this.HARD_DELETE_GALLERY({ _id: _.get(this.data, "_id") });
+        await this.HARD_DELETE_GALLERY({ id: this.data._id });
       } catch (err) {
         console.error(err);
       }

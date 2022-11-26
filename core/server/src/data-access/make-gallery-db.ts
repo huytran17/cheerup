@@ -207,7 +207,9 @@ export default function makeGalleryDb({
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<Gallery | null> {
-      const existing = await galleryDbModel.deleteOne({ _id: _id });
+      const existing = await galleryDbModel.findOne({ _id });
+      await existing.deleteOne();
+
       const updated = await galleryDbModel
         .findOne({ _id })
         .lean({ virtuals: true });
