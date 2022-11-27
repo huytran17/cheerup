@@ -37,13 +37,9 @@ export default function makeUploadGalleryItemController({
         throw new Error(`Gallery by id ${_id} does not exist`);
       }
 
-      const aws_payload = {
-        ...file,
-      };
-
       const current_gallery_items = _.get(gallery_exists, "items", []);
       const final_gallery_data = Object.assign({}, gallery_exists, {
-        items: _.concat(current_gallery_items, [aws_payload]),
+        items: _.concat(current_gallery_items, [file]),
       });
 
       const updated_data = await updateGallery({

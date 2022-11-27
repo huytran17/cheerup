@@ -145,6 +145,51 @@
               </v-col>
             </v-row>
           </v-col>
+          <v-col cols="12">
+            <v-row>
+              <v-col cols="12" class="pb-0">
+                <div class="text-body-2">
+                  <span class="app-body">
+                    <span v-html="$t('Folder Icon')"></span>
+                  </span>
+                </div>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-dropzone
+                  ref="admin_folder_icon_dropzone"
+                  id="admin_favicon"
+                  :options="
+                    getDropzoneOptions({
+                      upload_url: admin_upload_folder_icon_url,
+                    })
+                  "
+                  :destroyDropzone="true"
+                  @vdropzone-success="
+                    (file, response) =>
+                      onUploadSuccsess({
+                        ref: 'admin_folder_icon_dropzone',
+                        file,
+                        response,
+                        update_paths: [
+                          'admin_meta.folder_icon',
+                          'admin_folder_icon_url',
+                        ],
+                      })
+                  "
+                ></v-dropzone>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-img
+                  v-if="admin_folder_icon_url"
+                  :src="admin_folder_icon_url"
+                  :alt="admin_meta_title"
+                  contain
+                  max-width="200px"
+                  class="mx-auto"
+                ></v-img>
+              </v-col>
+            </v-row>
+          </v-col>
         </v-row>
 
         <v-row class="soft-box-shadow rounded-lg mt-8 px-4 py-5">
@@ -513,6 +558,12 @@ export default {
       });
     },
 
+    admin_upload_folder_icon_url() {
+      return this.getUploadUrl({
+        base_url: S3_UPLOAD_URL_TYPES.SYSTEM_CONFIG_ADMIN_META_FOLDER_ICON,
+      });
+    },
+
     client_upload_logo_url() {
       return this.getUploadUrl({
         base_url: S3_UPLOAD_URL_TYPES.SYSTEM_CONFIG_CLIENT_META_LOGO,
@@ -533,6 +584,10 @@ export default {
 
     admin_logo_url() {
       return _.get(this.system_configuration, "admin_logo_url");
+    },
+
+    admin_folder_icon_url() {
+      return _.get(this.system_configuration, "admin_folder_icon_url");
     },
 
     admin_favicon_url() {

@@ -27,6 +27,7 @@ const systemConfigurationSchema = new Schema(
       author: { type: String, default: "" },
       logo: { type: Object },
       favicon: { type: Object },
+      folder_icon: { type: Object },
     },
   },
   {
@@ -37,23 +38,27 @@ const systemConfigurationSchema = new Schema(
 systemConfigurationSchema.index({ created_at: -1 });
 
 systemConfigurationSchema.virtual("admin_logo_url").get(function () {
-  return _.get(this, "admin_meta.logo.meta.location");
+  return _.get(this, "admin_meta.logo.location");
 });
 
 systemConfigurationSchema.virtual("admin_favicon_url").get(function () {
-  return _.get(this, "admin_meta.favicon.meta.location");
+  return _.get(this, "admin_meta.favicon.location");
 });
 
 systemConfigurationSchema.virtual("client_logo_url").get(function () {
-  return _.get(this, "client_meta.logo.meta.location");
+  return _.get(this, "client_meta.logo.location");
 });
 
 systemConfigurationSchema.virtual("client_favicon_url").get(function () {
-  return _.get(this, "client_meta.favicon.meta.location");
+  return _.get(this, "client_meta.favicon.location");
 });
 
 systemConfigurationSchema.virtual("client_owner_avatar_url").get(function () {
-  return _.get(this, "client_meta.owner.avatar.meta.location");
+  return _.get(this, "client_meta.owner.avatar.location");
+});
+
+systemConfigurationSchema.virtual("admin_folder_icon_url").get(function () {
+  return _.get(this, "admin_meta.folder_icon.location");
 });
 
 systemConfigurationSchema.plugin(mongoose_lean_virtuals);

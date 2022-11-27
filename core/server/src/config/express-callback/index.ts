@@ -34,8 +34,8 @@ export default function makeExpressCallback(controller: IController) {
       .catch((errorObject: any) => {
         res.status(errorObject.statusCode).send(errorObject.body);
 
-        const Bucket: string = _.get(httpRequest, "context.file.meta.bucket");
-        const Key: string = _.get(httpRequest, "context.file.meta.key");
+        const Bucket: string = _.get(httpRequest, "context.file.bucket");
+        const Key: string = _.get(httpRequest, "context.file.key");
         if (httpRequest.context.file) {
           // A file upload was executed but an error occurred. An S3 revert is required.
           const s3 = Storage.getS3();

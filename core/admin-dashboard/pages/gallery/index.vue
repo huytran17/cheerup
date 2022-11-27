@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import BaseModalCreateGallery from "@/components/gallery/widget/BaseModalCreateGallery";
 import BaseGalleryFolders from "@/components/gallery/widget/BaseGalleryFolders";
 import galleryMixins from "@/mixins/gallery";
@@ -54,6 +55,10 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      GET_LATEST_SYSTEM_CONFIGURATION:
+        "system-configuration/GET_LATEST_SYSTEM_CONFIGURATION",
+    }),
     async createFolder() {
       try {
         await this.CREATE_GALLERY({
@@ -71,7 +76,10 @@ export default {
   },
   async fetch() {
     try {
-      await this.GET_GALLERIES_PAGINATED({ is_parent: true });
+      await Promise.all([
+        this.GET_GALLERIES_PAGINATED({ is_parent: true }),
+        this.GET_LATEST_SYSTEM_CONFIGURATION(),
+      ]);
     } catch (err) {
       console.error(err);
     }

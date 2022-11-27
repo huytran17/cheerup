@@ -35,7 +35,7 @@ const postSchema = new Schema(
 postSchema.index({ created_at: -1 });
 
 postSchema.virtual("thumbnail_url").get(function () {
-  return _.get(this, "thumbnail.meta.location");
+  return _.get(this, "thumbnail.location");
 });
 
 postSchema.plugin(mongoose_lean_virtuals);

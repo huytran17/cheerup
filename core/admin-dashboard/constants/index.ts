@@ -7,6 +7,7 @@ const S3_UPLOAD_URL_TYPES = {
   SYSTEM_CONFIG_ADMIN_META_LOGO: `${process.env.SERVER_URL}/admin/system-configuration/upload-admin-meta-logo`,
   SYSTEM_CONFIG_CLIENT_META_LOGO: `${process.env.SERVER_URL}/admin/system-configuration/upload-client-meta-logo`,
   SYSTEM_CONFIG_ADMIN_META_FAVICON: `${process.env.SERVER_URL}/admin/system-configuration/upload-admin-meta-favicon`,
+  SYSTEM_CONFIG_ADMIN_META_FOLDER_ICON: `${process.env.SERVER_URL}/admin/system-configuration/upload-admin-meta-folder-icon`,
   SYSTEM_CONFIG_CLIENT_META_FAVICON: `${process.env.SERVER_URL}/admin/system-configuration/upload-client-meta-favicon`,
   SYSTEM_CONFIG_CLIENT_META_OWNER_AVATAR: `${process.env.SERVER_URL}/admin/system-configuration/upload-client-meta-owner-avatar`,
 };

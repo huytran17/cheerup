@@ -33,8 +33,8 @@ export default function makeUploadClientMetaFaviconController({
         throw new Error(`File does not exist`);
       }
 
-      const current_bucket = _.get(exists, "favicon.meta.bucket", "");
-      const current_key = _.get(exists, "favicon.meta.key", "");
+      const current_bucket = _.get(exists, "client_meta.favicon.bucket", "");
+      const current_key = _.get(exists, "client_meta.favicon.key", "");
       const s3_params = {
         Bucket: current_bucket,
         Key: current_key,
@@ -42,22 +42,10 @@ export default function makeUploadClientMetaFaviconController({
 
       Storage.deleteS3Object(s3_params);
 
-      const aws_payload = {
-        mime_type: file.mimetype,
-        dirname: file.key,
-        size: file.size,
-        name: file.originalname,
-        meta: {
-          bucket: file.bucket,
-          acl: file.bucket,
-          ...file,
-        },
-      };
-
       const system_configuration_details = Object.assign({}, exists, {
         client_meta: {
           ...exists.client_meta,
-          favicon: aws_payload,
+          favicon: file,
         },
       });
 

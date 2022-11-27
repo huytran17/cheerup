@@ -13,6 +13,13 @@ import makeUploadAdminMetaLogoController from "./upload-admin-meta-logo";
 import makeUploadClientMetaFaviconController from "./upload-client-meta-favicon";
 import makeUploadClientMetaLogoController from "./upload-client-meta-logo";
 import makeUploadClientMetaOwnerAvatarController from "./upload-client-meta-owner-avatar";
+import makeUploadAdminMetaFolderIconController from "./upload-admin-meta-folder-icon";
+
+const uploadAdminMetaFolderIconController =
+  makeUploadAdminMetaFolderIconController({
+    getLatestSystemConfiguration,
+    updateSystemConfiguration,
+  });
 
 const uploadClientMetaOwnerAvatarController =
   makeUploadClientMetaOwnerAvatarController({
@@ -69,6 +76,7 @@ export default Object.freeze({
   uploadClientMetaFaviconController,
   uploadClientMetaLogoController,
   uploadClientMetaOwnerAvatarController,
+  uploadAdminMetaFolderIconController,
 });
 
 export {
@@ -80,4 +88,5 @@ export {
   uploadClientMetaFaviconController,
   uploadClientMetaLogoController,
   uploadClientMetaOwnerAvatarController,
+  uploadAdminMetaFolderIconController,
 };

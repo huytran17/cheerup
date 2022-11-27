@@ -11,6 +11,7 @@ import {
   uploadClientMetaLogoRules,
   uploadClientMetaFaviconRules,
   uploadClientMetaOwnerAvatarRules,
+  uploadAdminMetaFolderIconRules,
 } from "../../data-access/controllers/admin/system-configuration/validators";
 import {
   getSystemConfigurationController,
@@ -21,9 +22,17 @@ import {
   uploadClientMetaLogoController,
   uploadClientMetaFaviconController,
   uploadClientMetaOwnerAvatarController,
+  uploadAdminMetaFolderIconController,
 } from "../../data-access/controllers/admin/system-configuration";
 
 const systemConfigurationRouter = express.Router();
+
+systemConfigurationRouter.post(
+  "/upload-admin-meta-folder-icon/:_id",
+  upload.single("file"),
+  makeValidator(uploadAdminMetaFolderIconRules),
+  makeExpressCallback(uploadAdminMetaFolderIconController)
+);
 
 systemConfigurationRouter.post(
   "/upload-client-meta-owner-avatar/:_id",

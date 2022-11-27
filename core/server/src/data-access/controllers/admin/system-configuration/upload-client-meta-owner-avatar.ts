@@ -33,8 +33,12 @@ export default function makeUploadClientMetaOwnerAvatarController({
         throw new Error(`File does not exist`);
       }
 
-      const current_bucket = _.get(exists, "owner.avatar.meta.bucket", "");
-      const current_key = _.get(exists, "owner.avatar.meta.key", "");
+      const current_bucket = _.get(
+        exists,
+        "client_meta.owner.avatar.bucket",
+        ""
+      );
+      const current_key = _.get(exists, "client_meta.owner.avatar.key", "");
       const s3_params = {
         Bucket: current_bucket,
         Key: current_key,
@@ -42,24 +46,12 @@ export default function makeUploadClientMetaOwnerAvatarController({
 
       Storage.deleteS3Object(s3_params);
 
-      const aws_payload = {
-        mime_type: file.mimetype,
-        dirname: file.key,
-        size: file.size,
-        name: file.originalname,
-        meta: {
-          bucket: file.bucket,
-          acl: file.bucket,
-          ...file,
-        },
-      };
-
       const system_configuration_details = Object.assign({}, exists, {
         client_meta: {
           ...exists.client_meta,
           owner: {
             ...exists.client_meta?.owner,
-            avatar: aws_payload,
+            avatar: file,
           },
         },
       });

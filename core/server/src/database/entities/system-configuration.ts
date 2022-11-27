@@ -6,6 +6,7 @@ export default class SystemConfiguration implements ISystemConfiguration {
   public readonly is_maintaining: boolean;
   public readonly admin_logo_url?: string;
   public readonly admin_favicon_url?: string;
+  public readonly admin_folder_icon_url?: string;
   public readonly client_logo_url?: string;
   public readonly client_favicon_url?: string;
   public readonly client_owner_avatar_url?: string;
@@ -28,6 +29,7 @@ export default class SystemConfiguration implements ISystemConfiguration {
     author: string;
     logo: Record<string, unknown>;
     favicon: Record<string, unknown>;
+    folder_icon: Record<string, unknown>;
   };
 
   constructor({
@@ -41,6 +43,7 @@ export default class SystemConfiguration implements ISystemConfiguration {
     client_logo_url,
     client_favicon_url,
     client_owner_avatar_url,
+    admin_folder_icon_url,
   }: ISystemConfiguration) {
     this._id = _id;
     this.is_blocked_comment = is_blocked_comment;
@@ -52,5 +55,6 @@ export default class SystemConfiguration implements ISystemConfiguration {
     this.client_logo_url = client_logo_url;
     this.client_favicon_url = client_favicon_url;
     this.client_owner_avatar_url = client_owner_avatar_url;
+    this.admin_folder_icon_url = admin_folder_icon_url;
   }
 }

@@ -4,14 +4,14 @@ import { IGetLatestSystemConfiguration } from "../../../../use-cases/system-conf
 import { IUpdateSystemConfiguration } from "../../../../use-cases/system-configuration/update-system-configuraion";
 import Storage from "../../../../config/storage";
 
-export default function makeUploadAdminMetaLogoController({
+export default function makeUploadAdminMetaFolderIconController({
   getLatestSystemConfiguration,
   updateSystemConfiguration,
 }: {
   getLatestSystemConfiguration: IGetLatestSystemConfiguration;
   updateSystemConfiguration: IUpdateSystemConfiguration;
 }) {
-  return async function uploadAdminMetaLogoController(
+  return async function uploadAdminMetaFolderIconController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
@@ -33,8 +33,8 @@ export default function makeUploadAdminMetaLogoController({
         throw new Error(`File does not exist`);
       }
 
-      const current_bucket = _.get(exists, "admin_meta.logo.bucket", "");
-      const current_key = _.get(exists, "admin_meta.logo.key", "");
+      const current_bucket = _.get(exists, "admin_meta.folder_icon.bucket", "");
+      const current_key = _.get(exists, "admin_meta.folder_icon.key", "");
       const s3_params = {
         Bucket: current_bucket,
         Key: current_key,
@@ -45,7 +45,7 @@ export default function makeUploadAdminMetaLogoController({
       const system_configuration_details = Object.assign({}, exists, {
         admin_meta: {
           ...exists.admin_meta,
-          logo: file,
+          folder_icon: file,
         },
       });
 

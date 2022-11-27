@@ -1,33 +1,13 @@
 <template>
-  <div>
-    <v-menu bottom left origin="right right" transition="slide-y-transition">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn icon v-bind="attrs" v-on="on" class="folder__menu-button">
-          <v-icon>mdi-dots-horizontal</v-icon>
-        </v-btn>
-      </template>
-
-      <v-list>
-        <v-list-item
-          v-for="(item, index) in folder_menu_items"
-          :key="index"
-          @click.stop="() => item.action()"
-          dense
-        >
-          <v-list-item-title>
-            <v-icon small>{{ item.icon }}</v-icon>
-            <span class="text-body-2">
-              <span class="app-body" v-html="item.text"></span>
-            </span>
-          </v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
-
-    <div class="d-flex flex-column clickable" @click.stop="openFolder">
-      <div class="folder__symbol">
+  <div class="item-wrapper">
+    <div
+      class="d-flex flex-column clickable item-wrapper__item"
+      @contextmenu.prevent="$refs.ctxMenu.open"
+      @click="openFolder"
+    >
+      <div class="folder__symbol rounded-lg">
         <v-img
-          :src="folder_image"
+          :src="system_configuration.admin_folder_icon_url"
           contain
           :max-width="is_mobile ? '50' : '70'"
           :max-height="is_mobile ? '50' : '70'"
@@ -38,10 +18,25 @@
         <span class="app-body">{{ data.name }}</span>
       </div>
     </div>
+
+    <context-menu ref="ctxMenu">
+      <li
+        v-for="(item, index) in options"
+        :key="index"
+        @click.stop="() => item.action()"
+        class="d-flex ctx-menu__item clickable"
+      >
+        <v-icon small class="mr-2">{{ item.icon }}</v-icon>
+        <span class="text-body-2">
+          <span class="app-body" v-html="item.text"></span>
+        </span>
+      </li>
+    </context-menu>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import systemMixins from "@/mixins/system";
 export default {
   name: "BaseFolderItem",
@@ -54,11 +49,10 @@ export default {
   },
   data() {
     return {
-      folder_image: require("@/assets/images/app/folder.png"),
-      folder_menu_items: [
+      options: [
         {
           text: this.$t("Delete"),
-          icon: "mdi-close",
+          icon: "mdi-delete-outline",
           action: () => this.$emit("open-delete-folder-dialog"),
         },
         {
@@ -68,6 +62,11 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    ...mapGetters({
+      system_configuration: "system-configuration/system_configuration",
+    }),
   },
   methods: {
     openFolder() {
@@ -84,5 +83,28 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
+}
+
+.folder__symbol:hover {
+  background: rgba(172, 172, 172, 0.5);
+}
+:deep(#folderContextMenu) {
+  top: 100% !important;
+  left: 100% !important;
+}
+:deep(.ctx-menu) {
+  padding: 0;
+  box-shadow: none;
+  border-radius: 0;
+  border: 1px solid var(--color-grey);
+}
+:deep(.ctx-menu__item) {
+  padding: 6px 8px;
+}
+:deep(.ctx-menu__item:hover) {
+  background: var(--color-brick);
+}
+:deep(.ctx-menu__item:hover > *) {
+  color: var(--color-white);
 }
 </style>

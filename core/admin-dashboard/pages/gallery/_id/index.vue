@@ -104,7 +104,6 @@ export default {
   data() {
     return {
       is_open_create_gallery_dialog: false,
-      folder_image: require("@/assets/images/app/folder.png"),
     };
   },
   computed: {

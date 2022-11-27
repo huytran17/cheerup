@@ -30,7 +30,7 @@ const adminSchema = new Schema(
 adminSchema.index({ created_at: -1 });
 
 adminSchema.virtual("avatar_url").get(function () {
-  return _.get(this, "avatar.meta.location");
+  return _.get(this, "avatar.location");
 });
 
 adminSchema.plugin(mongoose_lean_virtuals);

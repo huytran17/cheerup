@@ -45,8 +45,8 @@ export default function makeUploadUserAvatarController({
         throw new Error(`File does not exist`);
       }
 
-      const current_bucket = _.get(exists, "avatar.meta.bucket", "");
-      const current_key = _.get(exists, "avatar.meta.key", "");
+      const current_bucket = _.get(exists, "avatar.bucket", "");
+      const current_key = _.get(exists, "avatar.key", "");
       const s3_params = {
         Bucket: current_bucket,
         Key: current_key,
@@ -54,20 +54,8 @@ export default function makeUploadUserAvatarController({
 
       Storage.deleteS3Object(s3_params);
 
-      const aws_payload = {
-        mime_type: file.mimetype,
-        dirname: file.key,
-        size: file.size,
-        name: file.originalname,
-        meta: {
-          bucket: file.bucket,
-          acl: file.bucket,
-          ...file,
-        },
-      };
-
       const user_details = Object.assign({}, exists, {
-        avatar: aws_payload,
+        avatar: file,
       });
 
       const updated_user = await updateUser({
