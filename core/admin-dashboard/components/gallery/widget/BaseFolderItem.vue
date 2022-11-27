@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import systemMixins from "@/mixins/system";
 export default {
   name: "BaseFolderItem",
@@ -58,7 +58,7 @@ export default {
         {
           text: this.$t("Rename"),
           icon: "mdi-pencil-outline",
-          action: () => this.$emit("open-rename-folder-dialog"),
+          action: () => this.$emit("open-update-folder-dialog"),
         },
       ],
     };
@@ -69,7 +69,12 @@ export default {
     }),
   },
   methods: {
+    ...mapMutations({
+      SET_GALLERY: "gallery/SET_GALLERY",
+    }),
+
     openFolder() {
+      this.SET_GALLERY({ data: this.data });
       this.$router.push(this.localePath(`/gallery/${this.data._id}`));
     },
   },

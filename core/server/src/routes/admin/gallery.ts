@@ -11,6 +11,7 @@ import {
   createGalleryRules,
   getGalleryRules,
   getGalleriesByParentRules,
+  updateGalleryRules,
 } from "../../data-access/controllers/admin/gallery/validators";
 import {
   deleteGalleryItemController,
@@ -20,9 +21,16 @@ import {
   hardDeleteGalleryController,
   createGalleryController,
   getGalleriesByParentController,
+  updateGalleryController,
 } from "../../data-access/controllers/admin/gallery";
 
 const galleryRouter = express.Router();
+
+galleryRouter.put(
+  "/:_id",
+  makeValidator(updateGalleryRules),
+  makeExpressCallback(updateGalleryController)
+); // DONE
 
 galleryRouter.get(
   "/by-parent/:_id",

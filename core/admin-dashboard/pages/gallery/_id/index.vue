@@ -119,7 +119,7 @@ export default {
   methods: {
     async createGallery() {
       try {
-        const parent_id = this.$route.params.id;
+        const parent_id = this.gallery._id;
 
         await this.CREATE_GALLERY({
           data: {
@@ -138,7 +138,7 @@ export default {
     async onUploadItemSuccsess({ file, response }) {
       this.$refs.upload_item_dropzone.removeFile(file);
 
-      const gallery_id = this.$route.params.id;
+      const gallery_id = this.gallery._id;
 
       await this.GET_GALLERY({ _id: gallery_id });
       this.$toast.success("Uploaded successfully");
@@ -146,7 +146,8 @@ export default {
   },
   async fetch() {
     try {
-      const gallery_id = this.$route.params.id;
+      const gallery_id = this.gallery._id;
+
       await Promise.all([
         this.GET_GALLERIES_BY_PARENT({ parent_id: gallery_id }),
         this.GET_GALLERY({ _id: gallery_id }),

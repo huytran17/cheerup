@@ -5,6 +5,7 @@ import uploadGalleryItemRules from "./upload-gallery-item";
 import createGalleryRules from "./create-gallery";
 import getGalleryRules from "./get-gallery";
 import getGalleriesByParentRules from "./get-galleries-by-parent";
+import updateGalleryRules from "./update-gallery";
 
 export default Object.freeze({
   getGalleriesPaginatedRules,
@@ -14,6 +15,7 @@ export default Object.freeze({
   createGalleryRules,
   getGalleryRules,
   getGalleriesByParentRules,
+  updateGalleryRules,
 });
 
 export {
@@ -24,4 +26,5 @@ export {
   createGalleryRules,
   getGalleryRules,
   getGalleriesByParentRules,
+  updateGalleryRules,
 };

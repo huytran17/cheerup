@@ -97,6 +97,14 @@ const actions: ActionTree<GalleryState, RootState> = {
     commit(MutationTypes.SET_GALLERY, { data: gallery });
     return gallery;
   },
+
+  async [ActionTypes.UPDATE_GALLERY]({ commit }, { data }: { data: any }) {
+    const { _id } = data;
+    const { data: gallery } = await this.$axios.$put(`/gallery/${_id}`, data);
+
+    commit(MutationTypes.SET_GALLERY, { data: gallery });
+    return gallery;
+  },
 };
 
 export default actions;

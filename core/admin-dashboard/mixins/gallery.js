@@ -24,12 +24,21 @@ export default {
       UPLOAD_GALLERY_ITEM: "gallery/UPLOAD_GALLERY_ITEM",
       GET_GALLERY: "gallery/GET_GALLERY",
       GET_GALLERIES_BY_PARENT: "gallery/GET_GALLERIES_BY_PARENT",
+      UPDATE_GALLERY: "gallery/UPDATE_GALLERY",
     }),
     ...mapMutations({
       SET_GALLERY: "gallery/SET_GALLERY",
       SET_GALLERIES: "gallery/SET_GALLERIES",
       SET_LOADING: "gallery/SET_LOADING",
       SET_GALLERY_PAGINATION: "gallery/SET_GALLERY_PAGINATION",
+      UPDATE_GALLERY_DATA: "gallery/UPDATE_GALLERY_DATA",
     }),
+
+    updateGalleryObject({ variable_path, data }) {
+      this.UPDATE_GALLERY_DATA({
+        variable_path,
+        data,
+      });
+    },
   },
 };

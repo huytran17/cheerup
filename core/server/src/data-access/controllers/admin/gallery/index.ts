@@ -15,6 +15,13 @@ import makeUploadGalleryItemController from "./upload-gallery-item";
 import makeGetGalleryController from "./get-gallery";
 import makeCreateGalleryController from "./create-gallery";
 import makeGetGalleriesByParentController from "./get-galleries-by-parent";
+import makeUpdateGalleryController from "./update-gallery";
+
+const updateGalleryController = makeUpdateGalleryController({
+  getGallery,
+  updateGallery,
+  logger,
+});
 
 const getGalleriesByParentController = makeGetGalleriesByParentController({
   getGallery,
@@ -63,6 +70,7 @@ export default Object.freeze({
   hardDeleteGalleryController,
   createGalleryController,
   getGalleriesByParentController,
+  updateGalleryController,
 });
 
 export {
@@ -73,4 +81,5 @@ export {
   hardDeleteGalleryController,
   createGalleryController,
   getGalleriesByParentController,
+  updateGalleryController,
 };
