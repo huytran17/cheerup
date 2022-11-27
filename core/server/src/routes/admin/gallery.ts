@@ -57,7 +57,7 @@ galleryRouter.get(
 ); // DONE
 
 galleryRouter.put(
-  "/delete-gallery-item",
+  "/delete-gallery-item/:_id",
   makeValidator(deleteGalleryItemRules),
   makeExpressCallback(deleteGalleryItemController)
 ); // DONE

@@ -11,13 +11,11 @@
         <v-row>
           <v-col cols="12">
             <v-text-field
-              :value="gallery.name"
+              :value="data.name"
               :label="$t('Folder Name')"
               required
               :rules="folderNameRules"
-              @input="
-                updateGalleryObject({ variable_path: 'name', data: $event })
-              "
+              @input="folder_name = $event"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -47,6 +45,15 @@ export default {
         return false;
       },
     },
+    data: {
+      type: Object,
+      default: () => {},
+    },
+  },
+  data() {
+    return {
+      folder_name: "",
+    };
   },
   methods: {
     close() {

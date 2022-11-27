@@ -14,7 +14,7 @@
         @open-delete-item-dialog="
           () => {
             is_open_delete_dialog = true;
-            SET_GALLERY({ data: item });
+            selected_item = item;
           }
         "
       />
@@ -24,7 +24,7 @@
       :is_open="is_open_delete_dialog"
       @close-dialog="is_open_delete_dialog = false"
       @confirm-dialog="deleteGalleryItem"
-      :title="`item ${gallery.originalname}`"
+      :title="`item ${selected_item.originalname}`"
     />
   </v-row>
 
@@ -55,24 +55,27 @@ export default {
   data() {
     return {
       is_open_delete_dialog: false,
+      selected_item: {},
     };
   },
   methods: {
     async deleteGalleryItem() {
       try {
-        const gallery_id = this.gallery._id;
+        const gallery_id = this.$route.params.id;
 
         const payload = {
           _id: gallery_id,
-          bucket: _.get(this.gallery, "bucket"),
-          key: _.get(this.gallery, "key"),
+          bucket: _.get(this.selected_item, "bucket"),
+          key: _.get(this.selected_item, "key"),
         };
 
         await this.DELETE_GALLERY_ITEM({ data: payload });
 
-        this.is_open_delete_item_dialog = false;
+        this.is_open_delete_dialog = false;
 
         this.$toast.success("Updated gallery successfully");
+
+        await this.GET_GALLERY({ _id: gallery_id });
       } catch (err) {
         console.error(err);
       }

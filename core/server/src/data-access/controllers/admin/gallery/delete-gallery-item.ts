@@ -38,12 +38,12 @@ export default function makeDeleteGalleryItemController({
 
       const current_gallery_items = _.get(gallery_exists, "items", []);
 
-      const item_to_delete = current_gallery_items.filter(
+      const item_to_delete = current_gallery_items.find(
         (item) => item.bucket === bucket && item.key === key
       );
 
-      const current_bucket = _.get(item_to_delete, "meta.bucket", "");
-      const current_key = _.get(item_to_delete, "meta.key", "");
+      const current_bucket = _.get(item_to_delete, "bucket", "");
+      const current_key = _.get(item_to_delete, "key", "");
       const s3_params = {
         Bucket: current_bucket,
         Key: current_key,
