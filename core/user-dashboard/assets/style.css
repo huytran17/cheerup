@@ -149,3 +149,6 @@ select:-webkit-autofill:focus {
   hyphens: manual;
   -webkit-hyphens: manual;
 }
+.text__content img {
+  max-width: -webkit-fill-available !important;
+}

@@ -5,7 +5,7 @@
     >
       <span class="app-body" v-html="$t('You may also like')"></span>
     </div>
-    <slick
+    <slick-carousel
       v-if="posts_data.length"
       :arrows="true"
       :dots="true"
@@ -54,7 +54,7 @@
           >
         </div>
       </div>
-    </slick>
+    </slick-carousel>
   </div>
 </template>
 
