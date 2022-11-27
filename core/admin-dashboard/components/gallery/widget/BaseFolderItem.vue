@@ -27,7 +27,7 @@
         class="d-flex ctx-menu__item clickable"
       >
         <v-icon small class="mr-2">{{ item.icon }}</v-icon>
-        <span class="text-body-2">
+        <span class="text-body-2" v-line-clamp="1">
           <span class="app-body" v-html="item.text"></span>
         </span>
       </li>
