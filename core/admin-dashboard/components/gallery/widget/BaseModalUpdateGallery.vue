@@ -28,7 +28,7 @@
           <span v-html="$t('Cancel')"></span>
         </v-btn>
         <v-btn depressed color="error" text @click="confirm">
-          <span v-html="$t('Create')"></span>
+          <span v-html="$t('Save')"></span>
         </v-btn>
       </div>
     </div>

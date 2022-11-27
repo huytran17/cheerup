@@ -45,13 +45,13 @@
 
     <v-row>
       <v-col cols="12" sm="6">
-        <v-btn text @click="$router.go(-1)">
+        <v-btn text @click="$router.go(-1)" outlined>
           <v-icon>mdi-arrow-left-thin</v-icon>
           <span v-html="$t('Back')"></span>
         </v-btn>
       </v-col>
       <v-col cols="12" sm="6" class="d-flex justify-end">
-        <v-btn text @click="$router.go(1)">
+        <v-btn text @click="$router.go(1)" outlined>
           <span v-html="$t('Next')"></span>
           <v-icon>mdi-arrow-right-thin</v-icon>
         </v-btn>
@@ -67,7 +67,7 @@
     </v-row>
     <BaseGalleryFolders :data="galleries" />
 
-    <v-row>
+    <v-row class="mt-4">
       <v-col cols="12" class="d-flex flex-column">
         <div class="text-body-1 text-sm-h6">
           <span class="app-body" v-html="$t('Items')"></span>
@@ -86,6 +86,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import BaseGalleryFolders from "@/components/gallery/widget/BaseGalleryFolders";
 import BaseGalleryItems from "@/components/gallery/widget/BaseGalleryItems";
 import dropzoneMixins from "@/mixins/dropzone";
@@ -93,6 +94,7 @@ import { S3_UPLOAD_URL_TYPES } from "@/constants";
 import BaseHardDeleteDialog from "@/components/BaseHardDeleteDialog";
 import BaseModalCreateGallery from "@/components/gallery/widget/BaseModalCreateGallery";
 import galleryMixins from "@/mixins/gallery";
+
 export default {
   components: {
     BaseModalCreateGallery,
@@ -117,9 +119,14 @@ export default {
     },
   },
   methods: {
+    ...mapActions({
+      GET_LATEST_SYSTEM_CONFIGURATION:
+        "system-configuration/GET_LATEST_SYSTEM_CONFIGURATION",
+    }),
+
     async createGallery() {
       try {
-        const parent_id = this.gallery._id;
+        const parent_id = this.$route.params.id;
 
         await this.CREATE_GALLERY({
           data: {
@@ -138,7 +145,7 @@ export default {
     async onUploadItemSuccsess({ file, response }) {
       this.$refs.upload_item_dropzone.removeFile(file);
 
-      const gallery_id = this.gallery._id;
+      const gallery_id = this.$route.params.id;
 
       await this.GET_GALLERY({ _id: gallery_id });
       this.$toast.success("Uploaded successfully");
@@ -146,11 +153,12 @@ export default {
   },
   async fetch() {
     try {
-      const gallery_id = this.gallery._id;
+      const gallery_id = this.$route.params.id;
 
       await Promise.all([
         this.GET_GALLERIES_BY_PARENT({ parent_id: gallery_id }),
         this.GET_GALLERY({ _id: gallery_id }),
+        this.GET_LATEST_SYSTEM_CONFIGURATION(),
       ]);
     } catch (err) {
       console.error(err);

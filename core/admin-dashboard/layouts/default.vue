@@ -3,18 +3,26 @@
     <v-main>
       <TheSideNav />
       <nuxt />
+      <BaseAppOverlay v-if="app_loading" />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import TheSideNav from "@/components/TheSideNav";
+import BaseAppOverlay from "@/components/BaseAppOverlay";
 
 export default {
   name: "DefaultLayout",
   components: {
     TheSideNav,
+    BaseAppOverlay,
+  },
+  computed: {
+    ...mapGetters({
+      app_loading: "app_loading",
+    }),
   },
   methods: {
     ...mapActions({

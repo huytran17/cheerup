@@ -25,7 +25,7 @@
       </v-col>
     </v-row>
 
-    <div class="d-flex flex-column">
+    <div class="d-flex flex-column mt-8">
       <div class="text-body-1 text-sm-h6">
         <span class="app-body" v-html="$t('Folders')"></span>
       </div>
@@ -46,6 +46,7 @@ import { mapActions } from "vuex";
 import BaseModalCreateGallery from "@/components/gallery/widget/BaseModalCreateGallery";
 import BaseGalleryFolders from "@/components/gallery/widget/BaseGalleryFolders";
 import galleryMixins from "@/mixins/gallery";
+
 export default {
   components: { BaseModalCreateGallery, BaseGalleryFolders },
   mixins: [galleryMixins],
@@ -59,6 +60,7 @@ export default {
       GET_LATEST_SYSTEM_CONFIGURATION:
         "system-configuration/GET_LATEST_SYSTEM_CONFIGURATION",
     }),
+
     async createFolder() {
       try {
         await this.CREATE_GALLERY({

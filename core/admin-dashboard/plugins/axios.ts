@@ -10,11 +10,20 @@ declare module "@nuxt/types" {
 
 const plugin: Plugin = ({ $axios, redirect, store }: Context, inject) => {
   $axios.onRequest((config) => {
-    console.log("Making request to " + config.url);
+    console.log(`Making request to ${config.url}`);
     config.headers.common["Authorization"] = `Bearer ${localStorage.getItem(
       "admin_access_token"
     )}`;
     config.headers.common["token-type"] = "bearer";
+    store.commit("SET_APP_LOADING", { data: true });
+  });
+
+  $axios.onResponse((response) => {
+    console.log(
+      `Got response with status code ${response.status} from ${response.config.url}`
+    );
+
+    store.commit("SET_APP_LOADING", { data: false });
   });
 
   $axios.onError((error) => {

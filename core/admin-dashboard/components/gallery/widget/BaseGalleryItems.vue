@@ -29,7 +29,7 @@
   </v-row>
 
   <div v-else>
-    <div class="text-body-2 text-sm-body-1 text-center">
+    <div class="text-body-2 text-sm-body-1 text-center mt-4">
       <span class="app-body grey--text" v-html="$t('No items')"></span>
     </div>
   </div>
@@ -69,7 +69,6 @@ export default {
         };
 
         await this.DELETE_GALLERY_ITEM({ data: payload });
-        await this.$fetch();
 
         this.is_open_delete_item_dialog = false;
 

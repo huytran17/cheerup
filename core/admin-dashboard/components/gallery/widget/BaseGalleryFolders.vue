@@ -1,5 +1,5 @@
 <template>
-  <div v-if="data.length" class="grid-container grid-container--fill mt-8">
+  <div v-if="data.length" class="grid-container grid-container--fill">
     <div
       v-for="gallery in data"
       :key="gallery._id"
@@ -36,7 +36,7 @@
     />
   </div>
 
-  <div v-else class="text-body-2 text-sm-body-1 text-center">
+  <div v-else class="text-body-2 text-sm-body-1 text-center mt-4">
     <span class="app-body grey--text" v-html="$t('No folders')"></span>
   </div>
 </template>
@@ -91,7 +91,6 @@ export default {
         });
 
         this.is_open_update_dialog = false;
-        await this.$fetch();
       } catch (err) {
         console.error(err);
       }
