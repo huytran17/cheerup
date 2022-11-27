@@ -14,7 +14,7 @@
           :alt="$t('image')"
         ></v-img>
       </div>
-      <div class="text-body-2">
+      <div class="text-body-2 folder__name" v-line-clamp="1">
         <span class="app-body">{{ data.name }}</span>
       </div>
     </div>
@@ -27,7 +27,7 @@
         class="d-flex ctx-menu__item clickable"
       >
         <v-icon small class="mr-2">{{ item.icon }}</v-icon>
-        <span class="text-body-2" v-line-clamp="1">
+        <span class="text-body-2">
           <span class="app-body" v-html="item.text"></span>
         </span>
       </li>
@@ -89,7 +89,9 @@ export default {
   transform: translate(-50%, -50%);
   z-index: 1;
 }
-
+.item-wrapper__item {
+  max-width: 70px;
+}
 .folder__symbol:hover {
   background: rgba(172, 172, 172, 0.5);
 }
