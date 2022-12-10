@@ -39,6 +39,7 @@ export default {
     { src: "~/plugins/vue-avatar", mode: "client" },
     { src: "~/plugins/vue-context-menu", mode: "client" },
     { src: "~/plugins/vue-line-clamp", mode: "client" },
+    { src: "~/plugins/vue-scroll-to-top", mode: "client" },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

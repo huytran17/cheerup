@@ -3,6 +3,7 @@
     <v-main>
       <TheSideNav />
       <nuxt />
+      <v-scroll-to-top></v-scroll-to-top>
       <BaseAppOverlay v-if="app_loading" />
     </v-main>
   </v-app>
