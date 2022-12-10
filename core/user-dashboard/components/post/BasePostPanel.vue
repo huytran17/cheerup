@@ -18,7 +18,7 @@
 
       <div class="text-h6 text-sm-h4 text-uppercase text-center py-4">
         <span
-          class="app-body post__title position-relative clickable"
+          class="app-body position-relative"
           v-html="$t(post_data.title)"
         ></span>
       </div>
@@ -69,6 +69,15 @@
               "
             ></span>
           </span>
+        </span>
+      </div>
+    </div>
+
+    <div v-if="post_data.source" class="text-left">
+      <div class="text-body-2 text-sm-body-1 text-right font-italic grey--text">
+        <span class="app-body">
+          <span v-html="$t('Source: ')"></span>
+          <span>{{ post_data.source }}</span>
         </span>
       </div>
     </div>
@@ -229,11 +238,5 @@ export default {
 <style scoped>
 :deep(.v-chip--label) {
   border-radius: 0 !important;
-}
-.post__title:hover {
-  color: var(--color-title-hover);
-}
-.post__title {
-  transition: 0.1s linear all;
 }
 </style>
