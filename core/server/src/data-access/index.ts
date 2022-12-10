@@ -5,7 +5,6 @@ import makeAdminDb from "./make-admin-db";
 import makeCategoryDb from "./make-category-db";
 import makeCommentDb from "./make-comment-db";
 import makePostDb from "./make-post-db";
-import makeFeedbackDb from "./make-feedback-db";
 import makeSubscriptionDb from "./make-subscription-db";
 import makeSystemConfigurationDb from "./make-system-configuration-db";
 import makeEmailVerificationDb from "./make-email-verification-db";
@@ -18,7 +17,6 @@ import {
   CategoryModel,
   CommentModel,
   PostModel,
-  FeedbackModel,
   SubscriptionModel,
   SystemConfigurationModel,
   EmailVerificationModel,
@@ -51,8 +49,6 @@ const SystemConfigurationDb = makeSystemConfigurationDb({
   moment,
 });
 
-const FeedbackDb = makeFeedbackDb({ feedbackDbModel: FeedbackModel, moment });
-
 const PostDb = makePostDb({ postDbModel: PostModel, moment });
 
 const CommentDb = makeCommentDb({ commentDbModel: CommentModel, moment });
@@ -72,7 +68,6 @@ export default Object.freeze({
   CategoryDb,
   CommentDb,
   PostDb,
-  FeedbackDb,
   SubscriptionDb,
   SystemConfigurationDb,
   EmailVerificationDb,
@@ -86,7 +81,6 @@ export {
   CategoryDb,
   CommentDb,
   PostDb,
-  FeedbackDb,
   SubscriptionDb,
   SystemConfigurationDb,
   EmailVerificationDb,

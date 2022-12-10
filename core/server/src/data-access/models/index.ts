@@ -4,7 +4,6 @@ import adminSchema from "../../database/schemas/admin";
 import postSchema from "../../database/schemas/post";
 import categorySchema from "../../database/schemas/category";
 import commentSchema from "../../database/schemas/comment";
-import feedbackSchema from "../../database/schemas/feedback";
 import subscriptionSchema from "../../database/schemas/subscription";
 import systemConfigurationSchema from "../../database/schemas/system-configuration";
 import emailVerificationSchema from "../../database/schemas/email-verification";
@@ -19,7 +18,6 @@ import IAdmin from "../../database/interfaces/admin";
 import IPost from "../../database/interfaces/post";
 import ICategory from "../../database/interfaces/category";
 import IComment from "../../database/interfaces/comment";
-import IFeedback from "../../database/interfaces/feedback";
 import IPostBookmark from "../../database/interfaces/post-bookmark";
 import IGallery from "../../database/interfaces/gallery";
 
@@ -32,7 +30,6 @@ type IAdminModel = IAdmin & mongoose.Document;
 type IPostModel = IPost & mongoose.Document;
 type ICategoryModel = ICategory & mongoose.Document;
 type ICommentModel = IComment & mongoose.Document;
-type IFeedbackModel = IFeedback & mongoose.Document;
 type IGalleryModel = IGallery & mongoose.Document;
 
 // Models
@@ -48,10 +45,6 @@ const EmailVerificationModel = mongoose.model<IEmailVerificationModel>(
 const SystemConfigurationModel = mongoose.model<ISystemConfigurationModel>(
   "SystemConfiguration",
   systemConfigurationSchema
-);
-const FeedbackModel = mongoose.model<IFeedbackModel>(
-  "Feedback",
-  feedbackSchema
 );
 const SubscriptionModel = mongoose.model<ISubscriptionModel>(
   "Subscription",
@@ -72,7 +65,6 @@ export default Object.freeze({
   PostModel,
   CategoryModel,
   CommentModel,
-  FeedbackModel,
   SubscriptionModel,
   SystemConfigurationModel,
   EmailVerificationModel,
@@ -86,7 +78,6 @@ export {
   PostModel,
   CategoryModel,
   CommentModel,
-  FeedbackModel,
   SubscriptionModel,
   SystemConfigurationModel,
   EmailVerificationModel,
