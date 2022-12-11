@@ -1,44 +1,8 @@
 <template>
   <v-container class="px-6">
     <v-row class="my-4">
-      <v-col cols="12" md="8" class="rounded-lg soft-box-shadow">
+      <v-col cols="12" class="rounded-lg soft-box-shadow">
         <BaseDashboardBanner :admin_data="me" />
-      </v-col>
-      <v-col cols="12" md="4" class="rounded-lg d-flex">
-        <v-row>
-          <v-col
-            cols="12"
-            md="6"
-            class="d-flex flex-column text-center soft-box-shadow rounded-lg justify-center"
-          >
-            <div class="d-flex justify-center">
-              <div class="blue lighten-4 w-fit-content pa-1 rounded-lg">
-                <v-icon color="blue darken-1"
-                  >mdi-account-supervisor-circle</v-icon
-                >
-              </div>
-            </div>
-            <div class="text-body-1 py-3 primary--text">
-              <span class="app-title" v-html="$t('Total Users')"></span>
-            </div>
-            <span class="text-h6">{{ total_user }}</span>
-          </v-col>
-          <v-col
-            cols="12"
-            md="6"
-            class="d-flex flex-column text-center soft-box-shadow rounded-lg justify-center"
-          >
-            <div class="d-flex justify-center">
-              <div class="green lighten-4 w-fit-content pa-1 rounded-lg">
-                <v-icon color="green darken-1">mdi-book-open-outline</v-icon>
-              </div>
-            </div>
-            <div class="text-body-1 py-3 primary--text">
-              <span class="app-title" v-html="$t('Total Posts')"></span>
-            </div>
-            <span class="text-h6">{{ total_post }}</span>
-          </v-col>
-        </v-row>
       </v-col>
     </v-row>
     <v-row class="my-4">
@@ -75,23 +39,14 @@
       </v-col>
     </v-row>
     <v-row class="my-4">
-      <v-col cols="12" md="4" class="d-flex flex-column rounded-lg">
+      <v-col cols="12" md="6" class="d-flex flex-column rounded-lg">
         <div class="text-body-1 pb-4 primary--text">
           <v-icon color="primary" class="mb-1">mdi-email-fast-outline</v-icon>
           <span class="app-title" v-html="$t('Subscription Analytics')"></span>
         </div>
         <RadarChart :chartData="subscription_chart_data" />
       </v-col>
-      <v-col cols="12" md="4" class="d-flex flex-column rounded-lg">
-        <div class="text-body-1 pb-4 primary--text">
-          <v-icon color="primary" class="mb-1"
-            >mdi-comment-quote-outline</v-icon
-          >
-          <span class="app-title" v-html="$t('Feedback Analytics')"></span>
-        </div>
-        <LineChart :chartData="feedback_chart_data" />
-      </v-col>
-      <v-col cols="12" md="4" class="rounded-lg">
+      <v-col cols="12" md="6" class="rounded-lg">
         <v-row class="mt-13">
           <v-col
             cols="12"
@@ -125,17 +80,35 @@
           </v-col>
           <v-col
             cols="12"
+            md="6"
             class="d-flex flex-column text-center soft-box-shadow rounded-lg justify-center"
           >
             <div class="d-flex justify-center">
-              <div class="yellow lighten-4 w-fit-content pa-1 rounded-lg">
-                <v-icon color="yellow darken-1">mdi-star-outline</v-icon>
+              <div class="blue lighten-4 w-fit-content pa-1 rounded-lg">
+                <v-icon color="blue darken-1"
+                  >mdi-account-supervisor-circle</v-icon
+                >
               </div>
             </div>
             <div class="text-body-1 py-3 primary--text">
-              <span class="app-title" v-html="$t('Total Feedbacks')"></span>
+              <span class="app-title" v-html="$t('Total Users')"></span>
             </div>
-            <span class="text-h6">{{ total_feedback }}</span>
+            <span class="text-h6">{{ total_user }}</span>
+          </v-col>
+          <v-col
+            cols="12"
+            md="6"
+            class="d-flex flex-column text-center soft-box-shadow rounded-lg justify-center"
+          >
+            <div class="d-flex justify-center">
+              <div class="green lighten-4 w-fit-content pa-1 rounded-lg">
+                <v-icon color="green darken-1">mdi-book-open-outline</v-icon>
+              </div>
+            </div>
+            <div class="text-body-1 py-3 primary--text">
+              <span class="app-title" v-html="$t('Total Posts')"></span>
+            </div>
+            <span class="text-h6">{{ total_post }}</span>
           </v-col>
         </v-row>
       </v-col>
@@ -172,7 +145,6 @@ export default {
       me: "auth/me",
       user_analys_data: "user/user_analys_data",
       admin_analys_data: "admin/admin_analys_data",
-      feedback_analys_data: "feedback/feedback_analys_data",
       post_analys_data: "post/post_analys_data",
       subscription_analys_data: "subscription/subscription_analys_data",
     }),
@@ -287,19 +259,6 @@ export default {
       };
     },
 
-    feedback_chart_data() {
-      return {
-        labels: _.get(this.user_analys_data, "formatted_dates", []),
-        datasets: [
-          {
-            label: "Created",
-            backgroundColor: "rgba(0, 255, 46, 1)",
-            data: _.get(this.user_analys_data, "total_created_counts", []),
-          },
-        ],
-      };
-    },
-
     subscription_chart_data() {
       return {
         labels: _.get(this.subscription_analys_data, "formatted_dates", []),
@@ -334,10 +293,6 @@ export default {
       return _.get(this.post_analys_data, "total_count", 0);
     },
 
-    total_feedback() {
-      return _.get(this.feedback_analys_data, "total_count", 0);
-    },
-
     total_subscription() {
       return _.get(this.subscription_analys_data, "total_count", 0);
     },
@@ -357,7 +312,6 @@ export default {
     ...mapActions({
       GET_USER_ANALYTICS: "user/GET_USER_ANALYTICS",
       GET_ADMIN_ANALYTICS: "admin/GET_ADMIN_ANALYTICS",
-      GET_FEEDBACK_ANALYTICS: "feedback/GET_FEEDBACK_ANALYTICS",
       GET_POST_ANALYTICS: "post/GET_POST_ANALYTICS",
       GET_SUBSCRIPTION_ANALYTICS: "subscription/GET_SUBSCRIPTION_ANALYTICS",
     }),
@@ -369,7 +323,6 @@ export default {
       await Promise.all([
         this.GET_USER_ANALYTICS(),
         this.GET_ADMIN_ANALYTICS(),
-        this.GET_FEEDBACK_ANALYTICS(),
         this.GET_POST_ANALYTICS(),
         this.GET_SUBSCRIPTION_ANALYTICS(),
       ]);
