@@ -16,7 +16,6 @@ const userSchema = new Schema(
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now },
     deleted_at: { type: Date, default: null },
-    email_verified_at: { type: Date, default: null },
     created_by: { type: Schema.Types.ObjectId, ref: "Admin" },
   },
   {
@@ -28,11 +27,6 @@ userSchema.index({ created_at: -1 });
 
 userSchema.virtual("avatar_url").get(function () {
   return _.get(this, "avatar.location");
-});
-
-userSchema.virtual("is_email_verified").get(function () {
-  const email_verified_at = _.get(this, "email_verified_at");
-  return !!email_verified_at && !_.isNil(email_verified_at);
 });
 
 userSchema.plugin(mongoose_lean_virtuals);

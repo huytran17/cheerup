@@ -7,7 +7,6 @@ import makeCommentDb from "./make-comment-db";
 import makePostDb from "./make-post-db";
 import makeSubscriptionDb from "./make-subscription-db";
 import makeSystemConfigurationDb from "./make-system-configuration-db";
-import makeEmailVerificationDb from "./make-email-verification-db";
 import makePostBookmarkDb from "./make-post-bookmark-db";
 import makeGalleryDb from "./make-gallery-db";
 
@@ -19,7 +18,6 @@ import {
   PostModel,
   SubscriptionModel,
   SystemConfigurationModel,
-  EmailVerificationModel,
   PostBookmarkModel,
   GalleryModel,
 } from "./models";
@@ -31,11 +29,6 @@ const GalleryDb = makeGalleryDb({
 
 const PostBookmarkDb = makePostBookmarkDb({
   postBookmarkDbModel: PostBookmarkModel,
-  moment,
-});
-
-const EmailVerificationDb = makeEmailVerificationDb({
-  emailVerificationDbModel: EmailVerificationModel,
   moment,
 });
 
@@ -70,7 +63,6 @@ export default Object.freeze({
   PostDb,
   SubscriptionDb,
   SystemConfigurationDb,
-  EmailVerificationDb,
   PostBookmarkDb,
   GalleryDb,
 });
@@ -83,7 +75,6 @@ export {
   PostDb,
   SubscriptionDb,
   SystemConfigurationDb,
-  EmailVerificationDb,
   PostBookmarkDb,
   GalleryDb,
 };

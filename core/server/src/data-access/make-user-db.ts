@@ -84,7 +84,6 @@ export default function makeUserDb({
           userDbModel.countDocuments({
             ...query_conditions,
             deleted_at: { $in: [null, undefined] },
-            email_verified_at: { $nin: [null, undefined] },
             created_at: {
               $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
               $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),

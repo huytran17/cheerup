@@ -9,7 +9,6 @@ export default class Admin implements IAdmin {
   public readonly type: AdminType;
   public readonly full_name: string;
   public readonly is_auto_censorship_post?: boolean;
-  public readonly email_verified_at?: Date;
   public readonly created_at: Date;
   public readonly updated_at: Date;
   public readonly deleted_at: Date;
@@ -26,7 +25,6 @@ export default class Admin implements IAdmin {
     created_at,
     updated_at,
     deleted_at,
-    email_verified_at,
   }: IAdmin) {
     this._id = _id;
     this.avatar = avatar;
@@ -39,6 +37,5 @@ export default class Admin implements IAdmin {
     this.created_at = created_at;
     this.updated_at = updated_at;
     this.deleted_at = deleted_at;
-    this.email_verified_at = email_verified_at;
   }
 }

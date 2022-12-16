@@ -6,11 +6,9 @@ import categorySchema from "../../database/schemas/category";
 import commentSchema from "../../database/schemas/comment";
 import subscriptionSchema from "../../database/schemas/subscription";
 import systemConfigurationSchema from "../../database/schemas/system-configuration";
-import emailVerificationSchema from "../../database/schemas/email-verification";
 import postBookmarkSchema from "../../database/schemas/post-bookmark";
 import gallerySchema from "../../database/schemas/gallery";
 
-import IEmailVerification from "../../database/interfaces/email-verification";
 import ISystemConfiguration from "../../database/interfaces/system-configuration";
 import ISubscription from "../../database/interfaces/subscription";
 import IUser from "../../database/interfaces/user";
@@ -22,7 +20,6 @@ import IPostBookmark from "../../database/interfaces/post-bookmark";
 import IGallery from "../../database/interfaces/gallery";
 
 type IPostBookmarkModel = IPostBookmark & mongoose.Document;
-type IEmailVerificationModel = IEmailVerification & mongoose.Document;
 type ISystemConfigurationModel = ISystemConfiguration & mongoose.Document;
 type ISubscriptionModel = ISubscription & mongoose.Document;
 type IUserModel = IUser & mongoose.Document;
@@ -37,10 +34,6 @@ const GalleryModel = mongoose.model<IGalleryModel>("Gallery", gallerySchema);
 const PostBookmarkModel = mongoose.model<IPostBookmarkModel>(
   "PostBookmark",
   postBookmarkSchema
-);
-const EmailVerificationModel = mongoose.model<IEmailVerificationModel>(
-  "EmailVerification",
-  emailVerificationSchema
 );
 const SystemConfigurationModel = mongoose.model<ISystemConfigurationModel>(
   "SystemConfiguration",
@@ -67,7 +60,6 @@ export default Object.freeze({
   CommentModel,
   SubscriptionModel,
   SystemConfigurationModel,
-  EmailVerificationModel,
   PostBookmarkModel,
   GalleryModel,
 });
@@ -80,7 +72,6 @@ export {
   CommentModel,
   SubscriptionModel,
   SystemConfigurationModel,
-  EmailVerificationModel,
   PostBookmarkModel,
   GalleryModel,
 };
