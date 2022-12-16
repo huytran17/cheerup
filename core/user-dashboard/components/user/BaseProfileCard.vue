@@ -39,23 +39,15 @@
         </div>
 
         <div class="profile__list pt-3">
-          <!-- <div class="text-body-3 text-sm-body-2 text-uppercase text-left">
-            <div class="py-2 card-item__wrapper">
-              <span
-                class="app-body clickable card-item__title"
-                v-html="$t('Followers')"
-              ></span>
-            </div>
-          </div>
-
           <div class="text-body-3 text-sm-body-2 text-uppercase text-left">
             <div class="py-2 card-item__wrapper">
               <span
                 class="app-body clickable card-item__title"
-                v-html="$t('Following')"
+                v-html="$t('View Profile')"
+                @click="$router.push(localePath('/profile'))"
               ></span>
             </div>
-          </div> -->
+          </div>
 
           <div class="text-body-3 text-sm-body-2 text-uppercase text-left">
             <div class="py-2 card-item__wrapper">

@@ -41,10 +41,8 @@ export default function makeGalleryDb({
 
       if (query) {
         query_conditions["$or"] = [
-          {
-            name: { $regex: ".*" + query + ".*", $options: "si" },
-            item_name: { $regex: ".*" + query + ".*", $options: "si" },
-          },
+          { name: { $regex: ".*" + query + ".*", $options: "si" } },
+          { item_name: { $regex: ".*" + query + ".*", $options: "si" } },
         ];
       }
 

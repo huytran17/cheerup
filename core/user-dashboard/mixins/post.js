@@ -26,6 +26,7 @@ export default {
       SET_POST_LOADING: "post/SET_LOADING",
       SET_CATEGORIES_FILTERS: "post/SET_CATEGORIES_FILTERS",
       SET_TAGS_FILTERS: "post/SET_TAGS_FILTERS",
+      SET_POST_SEARCH_QUERY: "post/SET_POST_SEARCH_QUERY",
     }),
 
     async getMorePosts({

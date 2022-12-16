@@ -1,7 +1,5 @@
 <template>
   <div class="mb-15">
-    <BaseVerifyEmail />
-
     <div class="mt-8">
       <BaseUpdateUserInformation />
     </div>
@@ -19,7 +17,6 @@
 <script>
 import BaseUpdateUserInformation from "@/components/user/update/BaseUpdateUserInformation";
 import BaseUpdateUserSecurity from "@/components/user/update/BaseUpdateUserSecurity";
-import BaseVerifyEmail from "@/components/user/update/BaseVerifyEmail";
 import BaseAccountFeatures from "@/components/user/update/BaseAccountFeatures";
 
 export default {
@@ -27,10 +24,7 @@ export default {
   components: {
     BaseUpdateUserInformation,
     BaseUpdateUserSecurity,
-    BaseVerifyEmail,
     BaseAccountFeatures,
   },
 };
 </script>
-
-<style></style>

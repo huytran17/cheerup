@@ -28,7 +28,7 @@
                 <BaseCategoriesCard :category_titles="category_titles" />
               </v-col>
               <v-col cols="12" class="mt-3">
-                <BaseAdvertisingCard />
+                <BaseSearchCard />
               </v-col>
             </v-row>
           </v-col>
@@ -49,7 +49,7 @@ import BaseAboutCard from "@/components/about/BaseAboutCard";
 import BaseSocialiteList from "@/components/socialite/BaseSocialiteList";
 import BaseProfileCard from "@/components/user/BaseProfileCard";
 import BaseCategoriesCard from "@/components/category/BaseCategoriesCard";
-import BaseAdvertisingCard from "@/components/advertising/BaseAdvertisingCard";
+import BaseSearchCard from "@/components/searching/BaseSearchCard";
 import RequireLoginSnackbar from "@/components/RequireLoginSnackbar";
 
 export default {
@@ -61,7 +61,7 @@ export default {
     BaseSocialiteList,
     BaseProfileCard,
     BaseCategoriesCard,
-    BaseAdvertisingCard,
+    BaseSearchCard,
     RequireLoginSnackbar,
   },
   computed: {
