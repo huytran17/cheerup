@@ -108,14 +108,8 @@
       <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.TWITTER })">
         <v-icon color="twitter">mdi-twitter</v-icon>
       </v-btn>
-      <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.GOOGLE_PLUS })">
-        <v-icon color="google_plus">mdi-google-plus</v-icon>
-      </v-btn>
       <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.PINTEREST })">
         <v-icon color="pinterest">mdi-pinterest</v-icon>
-      </v-btn>
-      <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.LINKEDIN })">
-        <v-icon color="linkedin">mdi-linkedin</v-icon>
       </v-btn>
     </div>
   </div>
