@@ -35,12 +35,16 @@ export default function makeUploadCategoryThumbnailController({
 
       const current_bucket = _.get(exists, "thumbnail.bucket", "");
       const current_key = _.get(exists, "thumbnail.key", "");
-      const s3_params = {
-        Bucket: current_bucket,
-        Key: current_key,
-      };
 
-      Storage.deleteS3Object(s3_params);
+      const validCredentials = current_bucket && current_key;
+      if (!validCredentials) {
+        const s3_params = {
+          Bucket: current_bucket,
+          Key: current_key,
+        };
+
+        Storage.deleteS3Object(s3_params);
+      }
 
       const category_details = Object.assign({}, exists, {
         thumbnail: file,

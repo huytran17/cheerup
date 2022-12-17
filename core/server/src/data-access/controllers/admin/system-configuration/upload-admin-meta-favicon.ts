@@ -35,12 +35,16 @@ export default function makeUploadAdminMetaFaviconController({
 
       const current_bucket = _.get(exists, "admin_meta.favicon.bucket", "");
       const current_key = _.get(exists, "admin_meta.favicon.key", "");
-      const s3_params = {
-        Bucket: current_bucket,
-        Key: current_key,
-      };
 
-      Storage.deleteS3Object(s3_params);
+      const validCredentials = current_bucket && current_key;
+      if (!validCredentials) {
+        const s3_params = {
+          Bucket: current_bucket,
+          Key: current_key,
+        };
+
+        Storage.deleteS3Object(s3_params);
+      }
 
       const system_configuration_details = Object.assign({}, exists, {
         admin_meta: {

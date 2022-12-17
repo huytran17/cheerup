@@ -2,6 +2,7 @@ import { Request } from "express";
 import * as _ from "lodash";
 import { IGetAdmin } from "../../../../use-cases/admin/get-admin";
 import { IUpdateAdmin } from "../../../../use-cases/admin/update-admin";
+import Storage from "../../../../config/storage";
 
 export default function makeUploadAdminAvatarController({
   getAdmin,
@@ -32,20 +33,21 @@ export default function makeUploadAdminAvatarController({
         throw new Error(`File does not exist`);
       }
 
-      const aws_payload = {
-        mime_type: file.mimetype,
-        dirname: file.key,
-        size: file.size,
-        name: file.originalname,
-        meta: {
-          bucket: file.bucket,
-          acl: file.bucket,
-          ...file,
-        },
-      };
+      const current_bucket = _.get(exists, "avatar.bucket", "");
+      const current_key = _.get(exists, "avatar.key", "");
+
+      const validCredentials = current_bucket && current_key;
+      if (!validCredentials) {
+        const s3_params = {
+          Bucket: current_bucket,
+          Key: current_key,
+        };
+
+        Storage.deleteS3Object(s3_params);
+      }
 
       const admin_details = Object.assign({}, exists, {
-        avatar: aws_payload,
+        avatar: file,
       });
 
       const updated_admin = await updateAdmin({

@@ -39,12 +39,16 @@ export default function makeUploadClientMetaOwnerAvatarController({
         ""
       );
       const current_key = _.get(exists, "client_meta.owner.avatar.key", "");
-      const s3_params = {
-        Bucket: current_bucket,
-        Key: current_key,
-      };
 
-      Storage.deleteS3Object(s3_params);
+      const validCredentials = current_bucket && current_key;
+      if (!validCredentials) {
+        const s3_params = {
+          Bucket: current_bucket,
+          Key: current_key,
+        };
+
+        Storage.deleteS3Object(s3_params);
+      }
 
       const system_configuration_details = Object.assign({}, exists, {
         client_meta: {

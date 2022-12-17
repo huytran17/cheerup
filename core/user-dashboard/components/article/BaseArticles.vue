@@ -36,6 +36,15 @@
       </infinite-loading>
     </v-col>
   </v-row>
+  <v-row v-else>
+    <v-col cols="12">
+      <div
+        class="text__description text-sm-body-2 text-uppercase text-center grey--text"
+      >
+        <span class="app-body" v-html="$t('No posts available')"></span>
+      </div>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
