@@ -35,10 +35,11 @@ export default {
 
   watch: {
     "$route.query": {
-      async handler(value) {
+      async handler(query) {
         window.scrollTo({ top: 0, behavior: "smooth" });
+
         await this.GET_POSTS_PAGINATED({
-          query: value.search,
+          query: query.search,
         });
       },
     },
