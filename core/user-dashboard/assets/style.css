@@ -178,6 +178,10 @@ select:-webkit-autofill:focus {
   margin: 0 !important;
 }
 
+.post__description p:has(img) {
+  display: none !important;
+}
+
 .me__description {
   text-indent: 24px;
   word-break: break-word;

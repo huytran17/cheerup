@@ -3,11 +3,11 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import BaseArticles from "@/components/article/BaseArticles";
 export default {
   name: "IndexPage",
-  async asyncData({ store }) {
+  async asyncData({ store, route }) {
     try {
       const access_token = localStorage.getItem("access_token");
       if (!_.isNil(access_token)) {
@@ -16,6 +16,7 @@ export default {
 
       await store.dispatch("post/GET_POSTS_PAGINATED", {
         user_id: _.get(store.getters["auth/me"], "_id"),
+        query: route.query.search,
       });
     } catch (err) {
       console.log(err);
@@ -29,6 +30,23 @@ export default {
     ...mapGetters({
       posts: "post/posts",
       me: "auth/me",
+    }),
+  },
+
+  watch: {
+    "$route.query": {
+      async handler(value) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        await this.GET_POSTS_PAGINATED({
+          query: value.search,
+        });
+      },
+    },
+  },
+
+  methods: {
+    ...mapActions({
+      GET_POSTS_PAGINATED: "post/GET_POSTS_PAGINATED",
     }),
   },
 };

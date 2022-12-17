@@ -9,36 +9,31 @@
           max-width="319px"
           contain
           class="mx-auto clickable"
-          @click="$router.push(localePath('/'))"
+          @click="goToHomePage"
         ></v-img>
       </div>
-      <!-- <div class="d-flex flex-column w-100 pt-4">
-        <v-row>
-          <v-col cols="12" md="6" class="mx-auto">
-            <v-text-field
-              id="search_box"
-              :placeholder="$t('Search post by title...')"
-              filled
-              rounded
-              dense
-              hide-details
-              append-icon="mdi-magnify"
-              class="w-100"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-      </div> -->
     </div>
   </div>
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   name: "BaseAppBar",
   data() {
     return {
       logo_url: require("@/assets/images/app/logo.png"),
     };
+  },
+  methods: {
+    ...mapMutations({
+      SET_POST_SEARCH_QUERY: "post/SET_POST_SEARCH_QUERY",
+    }),
+
+    goToHomePage() {
+      this.SET_POST_SEARCH_QUERY({ data: "" });
+      this.$router.push(this.localePath("/"));
+    },
   },
 };
 </script>

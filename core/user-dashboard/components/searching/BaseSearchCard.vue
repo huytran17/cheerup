@@ -14,6 +14,8 @@
         hide-details
         type="search"
         :placeholder="$t('Search your favourites...')"
+        :value="post_search_query"
+        @keyup="(event) => SET_POST_SEARCH_QUERY({ data: event.target.value })"
         @keyup.enter="search"
       ></v-text-field>
     </div>
@@ -21,22 +23,25 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 export default {
   name: "BaseSearchCard",
-  methods: {
-    ...mapActions({
-      GET_POSTS_PAGINATED: "post/GET_POSTS_PAGINATED",
+  computed: {
+    ...mapGetters({
+      post_search_query: "post/post_search_query",
     }),
-
+  },
+  methods: {
     ...mapMutations({
       SET_POST_SEARCH_QUERY: "post/SET_POST_SEARCH_QUERY",
     }),
 
-    async search(event) {
-      this.SET_POST_SEARCH_QUERY({ data: event.target.value });
-      await this.GET_POSTS_PAGINATED({
-        query: event.target.value,
+    async search() {
+      this.$router.push({
+        path: this.localePath("/"),
+        query: {
+          search: this.post_search_query,
+        },
       });
     },
   },

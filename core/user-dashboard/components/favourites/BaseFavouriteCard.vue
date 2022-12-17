@@ -78,7 +78,10 @@
           ></span>
         </div>
       </div>
-      <div class="text__description matte__black--text" v-line-clamp="2">
+      <div
+        class="post__description text__description matte__black--text"
+        v-line-clamp="2"
+      >
         <span
           class="app-body text--ellipsis"
           v-html="$t(post_description)"
