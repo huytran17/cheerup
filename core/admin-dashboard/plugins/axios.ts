@@ -16,9 +16,6 @@ const plugin: Plugin = ({ $axios, redirect, store }: Context, inject) => {
       "admin_access_token"
     )}`;
     config.headers.common["token-type"] = "bearer";
-    config.headers.common["client"] = store.state.user.headers.client;
-    config.headers.common["expiry"] = store.state.user.headers.expiry;
-    config.headers.common["uid"] = store.state.user.headers.uid;
 
     store.commit("SET_APP_LOADING", { data: true });
   });
