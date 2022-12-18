@@ -2,6 +2,7 @@ import { Request } from "express";
 import { IGetUser } from "../../../../use-cases/user/get-user";
 import _ from "lodash";
 import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetUserController({
   getUser,
@@ -40,7 +41,7 @@ export default function makeGetUserController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: exists,
         },
@@ -48,7 +49,7 @@ export default function makeGetUserController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           data: error.message,
         },

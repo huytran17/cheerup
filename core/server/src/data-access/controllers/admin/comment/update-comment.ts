@@ -3,6 +3,7 @@ import { IUpdateComment } from "../../../../use-cases/comment/update-comment";
 import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeUpdateCommentController({
   getComment,
@@ -31,7 +32,7 @@ export default function makeUpdateCommentController({
       const updated_comment = await updateComment({ commentDetails });
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: updated_comment,
         },
@@ -39,9 +40,9 @@ export default function makeUpdateCommentController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
-          data: error,
+          data: error.message,
         },
       };
     }

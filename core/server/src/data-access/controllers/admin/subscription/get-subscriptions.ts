@@ -2,6 +2,7 @@ import { Request } from "express";
 import { IGetSubscriptions } from "../../../../use-cases/subscription/get-subscriptions";
 import _ from "lodash";
 import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetSubscriptionsController({
   getSubscriptions,
@@ -22,7 +23,7 @@ export default function makeGetSubscriptionsController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: subscriptions,
         },
@@ -30,7 +31,7 @@ export default function makeGetSubscriptionsController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           data: error.message,
         },

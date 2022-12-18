@@ -2,6 +2,7 @@ import { Request } from "express";
 import { IGetCategories } from "../../../../use-cases/category/get-categories";
 import _ from "lodash";
 import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetCategoriesController({
   getCategories,
@@ -22,7 +23,7 @@ export default function makeGetCategoriesController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: categories,
         },
@@ -30,7 +31,7 @@ export default function makeGetCategoriesController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           data: error.message,
         },

@@ -3,6 +3,7 @@ import { IHardDeletePost } from "../../../../use-cases/post/hard-delete-post";
 import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeHardDeletePostController({
   getPost,
@@ -31,7 +32,7 @@ export default function makeHardDeletePostController({
       const deleted_post = await hardDeletePost({ _id });
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: deleted_post,
         },
@@ -39,9 +40,9 @@ export default function makeHardDeletePostController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
-          data: error,
+          data: error.message,
         },
       };
     }

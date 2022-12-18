@@ -6,6 +6,7 @@ import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { IHashPassword } from "../../../../config/password/hash-password";
 import { geoip } from "../../../../config/geoip";
 import User from "../../../../database/entities/user";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export type IUserRawData = Omit<User, "hash_password"> & {
   email: string;
@@ -66,7 +67,7 @@ export default function makeSignUpController({
 
       return {
         headers,
-        statusCode: 201,
+        statusCode: HttpStatusCode.CREATED,
         body: {
           data: created_user,
         },
@@ -74,7 +75,7 @@ export default function makeSignUpController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           data: error.message,
         },

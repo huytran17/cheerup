@@ -4,6 +4,7 @@ import { IGetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email
 import { IGenerateAccessToken } from "../../../../config/accessTokenManager/generate-access-token";
 import { IVerifyPassword } from "../../../../config/password/verify-password";
 import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export type ILoginData = {
   email: string;
@@ -54,7 +55,7 @@ export default function makeSignInController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: {
             access_token,
@@ -65,7 +66,7 @@ export default function makeSignInController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           error: error.message,
         },

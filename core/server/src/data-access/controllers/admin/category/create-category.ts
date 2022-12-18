@@ -2,6 +2,7 @@ import { ICreateCategory } from "../../../../use-cases/category/create-category"
 import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeCreateCategoryController({
   createCategory,
@@ -31,7 +32,7 @@ export default function makeCreateCategoryController({
       });
       return {
         headers,
-        statusCode: 200,
+        statusCode: 201,
         body: {
           data: created_category,
         },
@@ -39,9 +40,9 @@ export default function makeCreateCategoryController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
-          data: error,
+          data: error.message,
         },
       };
     }

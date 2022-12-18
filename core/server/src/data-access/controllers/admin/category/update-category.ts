@@ -3,6 +3,7 @@ import { IUpdateCategory } from "../../../../use-cases/category/update-category"
 import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeUpdateCategoryController({
   getCategory,
@@ -31,7 +32,7 @@ export default function makeUpdateCategoryController({
       const updated_category = await updateCategory({ categoryDetails });
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: updated_category,
         },
@@ -39,9 +40,9 @@ export default function makeUpdateCategoryController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
-          data: error,
+          data: error.message,
         },
       };
     }

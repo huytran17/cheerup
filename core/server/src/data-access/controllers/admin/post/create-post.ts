@@ -9,6 +9,7 @@ import { IGetEmailContent } from "../../../../config/emailManager/get-email-cont
 import { IGetSubscriptions } from "../../../../use-cases/subscription/get-subscriptions";
 import { convert } from "html-to-text";
 import _ from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeCreatePostController({
   createPost,
@@ -116,7 +117,7 @@ export default function makeCreatePostController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: 201,
         body: {
           data: created_post,
         },
@@ -124,9 +125,9 @@ export default function makeCreatePostController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
-          data: error,
+          data: error.message,
         },
       };
     }

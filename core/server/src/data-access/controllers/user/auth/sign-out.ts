@@ -1,6 +1,7 @@
 import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { Request } from "express";
 import _ from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeSignOutController({
   getUserByEmail,
@@ -23,7 +24,7 @@ export default function makeSignOutController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: {
             valid_signout: true,
@@ -33,7 +34,7 @@ export default function makeSignOutController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           data: error.message,
           valid_signout: false,

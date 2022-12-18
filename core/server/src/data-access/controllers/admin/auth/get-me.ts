@@ -1,6 +1,7 @@
 import { Request } from "express";
 import { IGetAdmin } from "../../../../use-cases/admin/get-admin";
 import _ from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetMeController({
   getAdmin,
@@ -24,7 +25,7 @@ export default function makeGetMeController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: exists,
         },
@@ -34,7 +35,7 @@ export default function makeGetMeController({
         headers: {
           "Content-Type": "application/json",
         },
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           error: error.message,
         },

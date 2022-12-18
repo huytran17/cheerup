@@ -4,6 +4,7 @@ import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
 import { IHashPassword } from "../../../../config/password/hash-password";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeUpdateUserPasswordController({
   getUser,
@@ -50,7 +51,7 @@ export default function makeUpdateUserPasswordController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: updated_user,
         },
@@ -58,9 +59,9 @@ export default function makeUpdateUserPasswordController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
-          data: error,
+          data: error.message,
         },
       };
     }

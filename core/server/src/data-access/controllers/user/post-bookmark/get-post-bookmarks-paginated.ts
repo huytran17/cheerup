@@ -5,6 +5,7 @@ import { IReadingTimeAnalyzer } from "../../../../config/reading-time/reading-ti
 import _ from "lodash";
 import { Logger } from "winston";
 import PostBookmark from "../../../../database/entities/post-bookmark";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetPostBookmarksPaginatedController({
   getPostBookmarksPaginated,
@@ -71,7 +72,7 @@ export default function makeGetPostBookmarksPaginatedController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           ...final_paginated_data,
         },
@@ -79,7 +80,7 @@ export default function makeGetPostBookmarksPaginatedController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           data: error.message,
         },

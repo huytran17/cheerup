@@ -3,6 +3,7 @@ import _ from "lodash";
 import { IGetPost } from "../../../../use-cases/post/get-post";
 import { IUpdatePost } from "../../../../use-cases/post/update-post";
 import Storage from "../../../../config/storage";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeUploadPostThumbnailController({
   getPost,
@@ -56,21 +57,17 @@ export default function makeUploadPostThumbnailController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: updated_post,
         },
       };
     } catch (error) {
-      // await session.abortTransaction();
-      console.error(error);
-      throw {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        statusCode: 404,
+      return {
+        headers,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
-          error: error.message,
+          data: error.message,
         },
       };
     }

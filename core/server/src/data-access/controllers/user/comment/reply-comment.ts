@@ -6,6 +6,7 @@ import { IGetUser } from "../../../../use-cases/user/get-user";
 import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeReplyCommentController({
   replyComment,
@@ -105,7 +106,7 @@ export default function makeReplyCommentController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: 201,
         body: {
           data: created_reply_comment,
         },
@@ -113,9 +114,9 @@ export default function makeReplyCommentController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
-          data: error,
+          data: error.message,
         },
       };
     }

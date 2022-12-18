@@ -4,6 +4,7 @@ import { IGetGallery } from "../../../../use-cases/gallery/get-gallery";
 import _ from "lodash";
 import { Logger } from "winston";
 import Storage from "../../../../config/storage";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeDeleteGalleryItemController({
   getGallery,
@@ -69,7 +70,7 @@ export default function makeDeleteGalleryItemController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: updated_data,
         },
@@ -77,7 +78,7 @@ export default function makeDeleteGalleryItemController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           data: error.message,
         },

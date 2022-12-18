@@ -3,6 +3,7 @@ import { IUpdatePost } from "../../../../use-cases/post/update-post";
 import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeUnPublishPostController({
   getPost,
@@ -36,7 +37,7 @@ export default function makeUnPublishPostController({
       });
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: updated_post,
         },
@@ -44,9 +45,9 @@ export default function makeUnPublishPostController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
-          data: error,
+          data: error.message,
         },
       };
     }

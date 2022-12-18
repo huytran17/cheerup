@@ -2,6 +2,7 @@ import { Request } from "express";
 import { IGetPost } from "../../../../use-cases/post/get-post";
 import _ from "lodash";
 import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetPostController({
   getPost,
@@ -26,7 +27,7 @@ export default function makeGetPostController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: exists,
         },
@@ -34,7 +35,7 @@ export default function makeGetPostController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           data: error.message,
         },

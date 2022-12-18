@@ -1,6 +1,7 @@
 import { IVerifyAccessToken } from "../../../../config/accessTokenManager/verify-access-token";
 import { Request } from "express";
 import _ from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeVerifyAccessController({
   verifyAccessToken,
@@ -20,7 +21,7 @@ export default function makeVerifyAccessController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: decoded_access_token,
         },
@@ -28,7 +29,7 @@ export default function makeVerifyAccessController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           data: error.message,
         },

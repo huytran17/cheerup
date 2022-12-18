@@ -3,6 +3,7 @@ import { IUpdatePost } from "../../../../use-cases/post/update-post";
 import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeUpdatePostController({
   getPost,
@@ -31,7 +32,7 @@ export default function makeUpdatePostController({
       const updated_post = await updatePost({ postDetails });
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: updated_post,
         },
@@ -39,9 +40,9 @@ export default function makeUpdatePostController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
-          data: error,
+          data: error.message,
         },
       };
     }

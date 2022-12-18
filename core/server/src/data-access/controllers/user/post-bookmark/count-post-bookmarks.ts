@@ -3,6 +3,7 @@ import { ICountPostBookmarks } from "../../../../use-cases/post-bookmark/count-p
 import { IGetUser } from "../../../../use-cases/user/get-user";
 import _ from "lodash";
 import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeCountPostBookmarkController({
   countPostBookmarks,
@@ -39,7 +40,7 @@ export default function makeCountPostBookmarkController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: post_bookmarks_count,
         },
@@ -47,7 +48,7 @@ export default function makeCountPostBookmarkController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           data: error.message,
         },

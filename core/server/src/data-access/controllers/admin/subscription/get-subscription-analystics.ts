@@ -1,6 +1,7 @@
 import { Request } from "express";
 import { IGetSubscriptionAnalystics } from "../../../../use-cases/subscription/get-subscription-analystics";
 import _ from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetSubscriptionAnalysticsController({
   getSubscriptionAnalystics,
@@ -29,7 +30,7 @@ export default function makeGetSubscriptionAnalysticsController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: analystics_data,
         },
@@ -39,7 +40,7 @@ export default function makeGetSubscriptionAnalysticsController({
         headers: {
           "Content-Type": "application/json",
         },
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           error: error.message,
         },

@@ -219,7 +219,7 @@ export default function makeGetExampleController({
 function controllerFunction(httpRequest) {
   const param = httpRequest.context.validated.param;
   return {
-    statusCode: 200,
+    statusCode: HttpStatusCode.OK,
   };
 }
 ```
@@ -231,7 +231,7 @@ function controllerFunction(httpRequest) {
   try {
     const param = httpRequest.context.validated.param;
     return {
-      statusCode: 200,
+      statusCode: HttpStatusCode.OK,
     };
   } catch (error) {
     return {

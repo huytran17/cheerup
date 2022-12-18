@@ -5,6 +5,7 @@ import { Request } from "express";
 import _ from "lodash";
 import { IHashPassword } from "../../../../config/password/hash-password";
 import { IVerifyPassword } from "../../../../config/password/verify-password";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeUpdateAdminPersonalPasswordController({
   getAdmin,
@@ -62,7 +63,7 @@ export default function makeUpdateAdminPersonalPasswordController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: updated_admin,
         },
@@ -70,7 +71,7 @@ export default function makeUpdateAdminPersonalPasswordController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           data: error.message,
         },

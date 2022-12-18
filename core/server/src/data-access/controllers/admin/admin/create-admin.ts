@@ -4,6 +4,7 @@ import _ from "lodash";
 import { ICreateAdmin } from "../../../../use-cases/admin/create-admin";
 import { IGetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email";
 import { IHashPassword } from "../../../../config/password/hash-password";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeCreateAdminController({
   createAdmin,
@@ -57,7 +58,7 @@ export default function makeCreateAdminController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           data: error.message,
         },

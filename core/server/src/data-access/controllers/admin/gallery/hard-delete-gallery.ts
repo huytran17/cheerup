@@ -3,6 +3,7 @@ import { IGetGallery } from "../../../../use-cases/gallery/get-gallery";
 import { IHardDeleteGallery } from "../../../../use-cases/gallery/hard-delete-gallery";
 import _ from "lodash";
 import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeHardDeleteGalleryController({
   getGallery,
@@ -35,7 +36,7 @@ export default function makeHardDeleteGalleryController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: deleted,
         },
@@ -43,7 +44,7 @@ export default function makeHardDeleteGalleryController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           data: error.message,
         },

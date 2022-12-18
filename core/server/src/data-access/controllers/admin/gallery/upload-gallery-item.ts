@@ -3,6 +3,7 @@ import { Request } from "express";
 import { IUpdateGallery } from "../../../../use-cases/gallery/update-gallery";
 import { IGetGallery } from "../../../../use-cases/gallery/get-gallery";
 import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeUploadGalleryItemController({
   getGallery,
@@ -48,7 +49,7 @@ export default function makeUploadGalleryItemController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: updated_data,
         },
@@ -56,7 +57,7 @@ export default function makeUploadGalleryItemController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           data: error.message,
         },

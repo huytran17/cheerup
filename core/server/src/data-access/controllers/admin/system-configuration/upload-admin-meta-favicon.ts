@@ -3,6 +3,7 @@ import * as _ from "lodash";
 import { IGetLatestSystemConfiguration } from "../../../../use-cases/system-configuration/get-latest-system-configuraion";
 import { IUpdateSystemConfiguration } from "../../../../use-cases/system-configuration/update-system-configuraion";
 import Storage from "../../../../config/storage";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeUploadAdminMetaFaviconController({
   getLatestSystemConfiguration,
@@ -59,23 +60,17 @@ export default function makeUploadAdminMetaFaviconController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: updated_system_configuration,
         }, // TODO: add in implementation of resource
       };
     } catch (error) {
-      // TODO: add in error handling here
-      // TODO: revert the file upload that was done
-      // await session.abortTransaction();
-      console.error(error);
-      throw {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        statusCode: 404,
+      return {
+        headers,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
-          error: error.message,
+          data: error.message,
         },
       };
     }

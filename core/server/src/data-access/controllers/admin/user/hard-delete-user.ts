@@ -3,6 +3,7 @@ import { IHardDeleteUser } from "../../../../use-cases/user/hard-delete-user";
 import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeHardDeleteUserController({
   getUser,
@@ -30,7 +31,7 @@ export default function makeHardDeleteUserController({
       const deleted_user = await hardDeleteUser({ _id });
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: deleted_user,
         },
@@ -38,9 +39,9 @@ export default function makeHardDeleteUserController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
-          data: error,
+          data: error.message,
         },
       };
     }

@@ -5,6 +5,7 @@ import { ICreateUser } from "../../../../use-cases/user/create-user";
 import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { IHashPassword } from "../../../../config/password/hash-password";
 import User from "../../../../database/entities/user";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export type IUserRawData = Omit<User, "hash_password"> & {
   email: string;
@@ -74,7 +75,7 @@ export default function makeCreateUserController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           data: error.message,
         },

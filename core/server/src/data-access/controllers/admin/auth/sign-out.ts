@@ -1,7 +1,7 @@
 import { IGetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email";
 import { Request } from "express";
 import _ from "lodash";
-import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeSignOutController({
   getAdminByEmail,
@@ -24,7 +24,7 @@ export default function makeSignOutController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: {
             signed_out: true,
@@ -34,7 +34,7 @@ export default function makeSignOutController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           data: error.message,
         },

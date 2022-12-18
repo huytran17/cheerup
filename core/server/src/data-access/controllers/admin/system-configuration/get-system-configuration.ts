@@ -2,6 +2,7 @@ import { Request } from "express";
 import { IGetSystemConfiguration } from "../../../../use-cases/system-configuration/get-system-configuraion";
 import _ from "lodash";
 import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetSystemConfigurationController({
   getSystemConfiguration,
@@ -26,7 +27,7 @@ export default function makeGetSystemConfigurationController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: exists,
         },
@@ -34,7 +35,7 @@ export default function makeGetSystemConfigurationController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           data: error.message,
         },

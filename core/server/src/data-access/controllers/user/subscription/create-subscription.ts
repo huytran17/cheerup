@@ -4,6 +4,7 @@ import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
 import { IGetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeCreateSubscriptionController({
   createSubscription,
@@ -52,7 +53,7 @@ export default function makeCreateSubscriptionController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: 201,
         body: {
           data: subscription_data,
         },
@@ -60,9 +61,9 @@ export default function makeCreateSubscriptionController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
-          data: error,
+          data: error.message,
         },
       };
     }

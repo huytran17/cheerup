@@ -3,6 +3,7 @@ import { IGetPosts } from "../../../../use-cases/post/get-posts";
 import { ICountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
 import _ from "lodash";
 import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetPostsController({
   getPosts,
@@ -34,7 +35,7 @@ export default function makeGetPostsController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: final_data,
         },
@@ -42,7 +43,7 @@ export default function makeGetPostsController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           data: error.message,
         },

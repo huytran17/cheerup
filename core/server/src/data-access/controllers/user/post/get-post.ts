@@ -4,6 +4,7 @@ import { IReadingTimeAnalyzer } from "../../../../config/reading-time/reading-ti
 import { IGetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
 import _ from "lodash";
 import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetPostController({
   getPost,
@@ -60,7 +61,7 @@ export default function makeGetPostController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: final_data,
         },
@@ -68,7 +69,7 @@ export default function makeGetPostController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           data: error.message,
         },

@@ -3,6 +3,7 @@ import { IUpdateSubscription } from "../../../../use-cases/subscription/update-s
 import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeDeleteSubscriptionController({
   getSubscriptionByEmail,
@@ -40,7 +41,7 @@ export default function makeDeleteSubscriptionController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: canceled_subscription,
         },
@@ -48,9 +49,9 @@ export default function makeDeleteSubscriptionController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
-          data: error,
+          data: error.message,
         },
       };
     }

@@ -2,6 +2,7 @@ import { Request } from "express";
 import { IGetComments } from "../../../../use-cases/comment/get-comments";
 import _ from "lodash";
 import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetCommentsController({
   getComments,
@@ -22,7 +23,7 @@ export default function makeGetCommentsController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: comments,
         },
@@ -30,7 +31,7 @@ export default function makeGetCommentsController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           data: error.message,
         },

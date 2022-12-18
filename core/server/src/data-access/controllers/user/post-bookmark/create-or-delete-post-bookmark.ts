@@ -5,6 +5,7 @@ import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
 import Moment from "moment";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeCreateOrDeletePostBookmarkController({
   createPostBookmark,
@@ -61,7 +62,7 @@ export default function makeCreateOrDeletePostBookmarkController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: post_bookmark_data,
         },
@@ -69,9 +70,9 @@ export default function makeCreateOrDeletePostBookmarkController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
-          data: error,
+          data: error.message,
         },
       };
     }

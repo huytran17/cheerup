@@ -2,6 +2,7 @@ import { Request } from "express";
 import { IGetSuggestionPosts } from "../../../../use-cases/post/get-suggestion-posts";
 import _ from "lodash";
 import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetSuggestionPostsController({
   getSuggestionPosts,
@@ -34,7 +35,7 @@ export default function makeGetSuggestionPostsController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: exists,
         },
@@ -42,7 +43,7 @@ export default function makeGetSuggestionPostsController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           data: error.message,
         },

@@ -3,6 +3,7 @@ import * as _ from "lodash";
 import { IGetUser } from "../../../../use-cases/user/get-user";
 import { IUpdateUser } from "../../../../use-cases/user/update-user";
 import Storage from "../../../../config/storage";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeUploadUserAvatarController({
   getUser,
@@ -56,23 +57,17 @@ export default function makeUploadUserAvatarController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: updated_user,
         }, // TODO: add in implementation of resource
       };
     } catch (error) {
-      // TODO: add in error handling here
-      // TODO: revert the file upload that was done
-      // await session.abortTransaction();
-      console.error(error);
-      throw {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        statusCode: 404,
+      return {
+        headers,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
-          error: error.message,
+          data: error.message,
         },
       };
     }

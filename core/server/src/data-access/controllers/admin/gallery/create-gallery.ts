@@ -2,6 +2,7 @@ import { ICreateGallery } from "../../../../use-cases/gallery/create-gallery";
 import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeCreateGalleryController({
   createGallery,
@@ -31,7 +32,7 @@ export default function makeCreateGalleryController({
       });
       return {
         headers,
-        statusCode: 200,
+        statusCode: 201,
         body: {
           data: created_gallery,
         },
@@ -39,9 +40,9 @@ export default function makeCreateGalleryController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
-          data: error,
+          data: error.message,
         },
       };
     }

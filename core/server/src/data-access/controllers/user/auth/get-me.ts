@@ -4,6 +4,7 @@ import { IGetSubscriptionByEmail } from "../../../../use-cases/subscription/get-
 import { IUpdateUser } from "../../../../use-cases/user/update-user";
 import { geoip } from "../../../../config/geoip";
 import _ from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetMeController({
   getUser,
@@ -54,7 +55,7 @@ export default function makeGetMeController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: final_user_data,
         },
@@ -64,7 +65,7 @@ export default function makeGetMeController({
         headers: {
           "Content-Type": "application/json",
         },
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           error: error.message,
         },

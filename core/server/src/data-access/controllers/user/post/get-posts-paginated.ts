@@ -6,6 +6,7 @@ import { IGetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookma
 import _ from "lodash";
 import { Logger } from "winston";
 import Post from "../../../../database/entities/post";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetPostsPaginatedController({
   getPostsPaginated,
@@ -95,7 +96,7 @@ export default function makeGetPostsPaginatedController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           ...final_paginated_data,
         },
@@ -103,7 +104,7 @@ export default function makeGetPostsPaginatedController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           data: error.message,
         },

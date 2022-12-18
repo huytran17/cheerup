@@ -4,6 +4,7 @@ import { ICreateComment } from "../../../../use-cases/comment/create-comment";
 import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeCreateCommentController({
   createComment,
@@ -76,7 +77,7 @@ export default function makeCreateCommentController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: 201,
         body: {
           data: created_comment,
         },
@@ -84,9 +85,9 @@ export default function makeCreateCommentController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
-          data: error,
+          data: error.message,
         },
       };
     }

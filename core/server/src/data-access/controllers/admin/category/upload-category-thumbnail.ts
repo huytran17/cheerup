@@ -3,6 +3,7 @@ import * as _ from "lodash";
 import { IGetCategory } from "../../../../use-cases/category/get-category";
 import { IUpdateCategory } from "../../../../use-cases/category/update-category";
 import Storage from "../../../../config/storage";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeUploadCategoryThumbnailController({
   getCategory,
@@ -56,23 +57,17 @@ export default function makeUploadCategoryThumbnailController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: updated_category,
         }, // TODO: add in implementation of resource
       };
     } catch (error) {
-      // TODO: add in error handling here
-      // TODO: revert the file upload that was done
-      // await session.abortTransaction();
-      console.error(error);
-      throw {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        statusCode: 404,
+      return {
+        headers,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
-          error: error.message,
+          data: error.message,
         },
       };
     }

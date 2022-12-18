@@ -1,6 +1,7 @@
 import { Request } from "express";
 import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import _ from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetUserByEmailController({
   getUserByEmail,
@@ -23,7 +24,7 @@ export default function makeGetUserByEmailController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: exists,
         },
@@ -31,7 +32,7 @@ export default function makeGetUserByEmailController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           data: error.message,
         },

@@ -1,6 +1,7 @@
 import { Request } from "express";
 import { IGetUserAnalystics } from "../../../../use-cases/user/get-user-analystics";
 import _ from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetUserAnalysticsController({
   getUserAnalystics,
@@ -24,7 +25,7 @@ export default function makeGetUserAnalysticsController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: analystics_data,
         },
@@ -34,7 +35,7 @@ export default function makeGetUserAnalysticsController({
         headers: {
           "Content-Type": "application/json",
         },
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           error: error.message,
         },

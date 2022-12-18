@@ -3,6 +3,7 @@ import { IHardDeleteAdmin } from "../../../../use-cases/admin/hard-delete-admin"
 import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeHardDeleteAdminController({
   getAdmin,
@@ -30,7 +31,7 @@ export default function makeHardDeleteAdminController({
       const deleted_admin = await hardDeleteAdmin({ _id });
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: deleted_admin,
         },
@@ -38,9 +39,9 @@ export default function makeHardDeleteAdminController({
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
-          data: error,
+          data: error.message,
         },
       };
     }

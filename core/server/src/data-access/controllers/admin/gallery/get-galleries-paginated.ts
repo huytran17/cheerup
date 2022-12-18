@@ -2,6 +2,7 @@ import { Request } from "express";
 import { IGetGalleriesPaginated } from "../../../../use-cases/gallery/get-galleries-paginated";
 import _ from "lodash";
 import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetGalleriesPaginatedController({
   getGalleriesPaginated,
@@ -43,13 +44,13 @@ export default function makeGetGalleriesPaginatedController({
 
       return {
         headers,
-        statusCode: 200,
+        statusCode: HttpStatusCode.OK,
         body: galleries,
       };
     } catch (error) {
       return {
         headers,
-        statusCode: 500,
+        statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           data: error.message,
         },
