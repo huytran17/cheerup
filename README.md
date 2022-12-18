@@ -233,14 +233,14 @@ function controllerFunction(httpRequest) {
     return {
       statusCode: 200,
     };
-  } catch (err) {
+  } catch (error) {
     return {
       headers: {
         "Content-Type": "application/json",
       },
-      statusCode: err.status.code,
+      statusCode: error.status.code,
       body: {
-        error: err.message,
+        error: error.message,
       },
     };
   }
