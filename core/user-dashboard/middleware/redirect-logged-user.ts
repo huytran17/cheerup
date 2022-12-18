@@ -9,9 +9,9 @@ export default async function ({ store, redirect }: Context) {
     });
 
     if (verified_access_token) {
-      return redirect("/login");
+      return redirect("/");
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }

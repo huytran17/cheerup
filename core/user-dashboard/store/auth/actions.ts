@@ -13,6 +13,17 @@ const actions: ActionTree<AuthState, RootState> = {
     return user;
   },
 
+  async [ActionTypes.VERIFY_ACCESS](
+    { commit },
+    { access_token }: { access_token: string }
+  ) {
+    const { data } = await this.$axios.$post("/auth/verify-access", {
+      access_token,
+    });
+
+    return data;
+  },
+
   async [ActionTypes.SIGN_IN]({ commit }, { data }: { data: any }) {
     const { data: returned_data } = await this.$axios.$post(
       "/auth/sign-in",

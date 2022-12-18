@@ -1,7 +1,6 @@
 import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { Request } from "express";
 import _ from "lodash";
-import { Logger } from "winston";
 
 export default function makeSignOutController({
   getUserByEmail,

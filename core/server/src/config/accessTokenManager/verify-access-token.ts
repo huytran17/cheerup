@@ -4,7 +4,7 @@ import { JwtPayload } from "jsonwebtoken";
 export type IVerifyAccessToken = (
   payload: string,
   options?: object
-) => Promise<string> | JwtPayload;
+) => string | JwtPayload;
 
 export default function makeVerifyAccessToken({
   verify,
@@ -13,7 +13,7 @@ export default function makeVerifyAccessToken({
   verify: IJwtVerify;
   secret: string;
 }): IVerifyAccessToken {
-  return async function verifyAccessToken(payload: string, options?: object) {
+  return function verifyAccessToken(payload: string, options?: object) {
     const decoded = verify(payload, secret, options);
     return decoded;
   };

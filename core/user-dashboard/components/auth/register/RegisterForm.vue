@@ -153,10 +153,11 @@
 
 <script>
 import authMixins from "@/mixins/auth";
+import userMixins from "@/mixins/user";
 
 export default {
   name: "RegisterForm",
-  mixins: [authMixins],
+  mixins: [authMixins, userMixins],
   data() {
     return {
       form_valid: false,

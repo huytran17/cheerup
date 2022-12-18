@@ -8,15 +8,23 @@ import {
   signOutRules,
   signInRules,
   signUpRules,
+  verifyAccessRules,
 } from "../../data-access/controllers/user/auth/validators";
 import {
   signOutController,
   signInController,
   signUpController,
   getMeController,
+  verifyAccessController,
 } from "../../data-access/controllers/user/auth";
 
 const authRouter = express.Router();
+
+authRouter.post(
+  "/verify-access",
+  makeValidator(verifyAccessRules),
+  makeExpressCallback(verifyAccessController)
+);
 
 authRouter.get(
   "/me",

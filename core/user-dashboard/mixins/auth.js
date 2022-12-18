@@ -49,6 +49,7 @@ export default {
       SIGN_UP: "auth/SIGN_UP",
       SIGN_OUT: "auth/SIGN_OUT",
       GET_ME: "auth/GET_ME",
+      VERIFY_ACCESS: "auth/VERIFY_ACCESS",
     }),
 
     ...mapMutations({
