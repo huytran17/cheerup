@@ -18,16 +18,11 @@ export default function makeVerifyAccessController({
       const { access_token } = _.get(httpRequest, "context.validated");
       const decoded_access_token = verifyAccessToken(access_token);
 
-      const exists = !!decoded_access_token;
-      if (!exists) {
-        throw new Error(`User is not logged in`);
-      }
-
       return {
         headers,
         statusCode: 200,
         body: {
-          data: access_token,
+          data: decoded_access_token,
         },
       };
     } catch (error) {
