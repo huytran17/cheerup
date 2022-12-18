@@ -1,7 +1,7 @@
-import { Store } from "vuex";
+import { Context } from "@nuxt/types";
 import { isNil } from "lodash";
 
-export default async function ({ store }: { store: Store<any> }) {
+export default async function ({ store }: Context) {
   try {
     const access_token = localStorage.getItem("access_token");
 

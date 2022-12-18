@@ -9,7 +9,7 @@ import BaseUpdateProfile from "@/components/user/BaseUpdateProfile";
 import BaseNoData from "@/components/BaseNoData";
 export default {
   name: "ProfileIndexPage",
-  middleware: ["authentication"],
+  middleware: ["authentication", "authenticated"],
   components: {
     BaseUpdateProfile,
     BaseNoData,
