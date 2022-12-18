@@ -67,7 +67,7 @@ export default function makeCreateUserController({
 
       return {
         headers,
-        statusCode: 201,
+        statusCode: HttpStatusCode.CREATED,
         body: {
           data: created_user,
         },

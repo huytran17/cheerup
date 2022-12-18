@@ -106,7 +106,7 @@ export default function makeReplyCommentController({
 
       return {
         headers,
-        statusCode: 201,
+        statusCode: HttpStatusCode.CREATED,
         body: {
           data: created_reply_comment,
         },

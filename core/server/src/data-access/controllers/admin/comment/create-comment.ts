@@ -24,7 +24,7 @@ export default function makeCreateCommentController({
       const created_comment = await createComment({ commentDetails });
       return {
         headers,
-        statusCode: 201,
+        statusCode: HttpStatusCode.CREATED,
         body: {
           data: created_comment,
         },

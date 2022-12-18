@@ -77,7 +77,7 @@ export default function makeCreateCommentController({
 
       return {
         headers,
-        statusCode: 201,
+        statusCode: HttpStatusCode.CREATED,
         body: {
           data: created_comment,
         },

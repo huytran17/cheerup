@@ -53,7 +53,7 @@ export default function makeCreateSubscriptionController({
 
       return {
         headers,
-        statusCode: 201,
+        statusCode: HttpStatusCode.CREATED,
         body: {
           data: subscription_data,
         },

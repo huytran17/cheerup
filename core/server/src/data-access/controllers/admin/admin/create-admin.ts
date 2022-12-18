@@ -50,7 +50,7 @@ export default function makeCreateAdminController({
 
       return {
         headers,
-        statusCode: 201,
+        statusCode: HttpStatusCode.CREATED,
         body: {
           data: created_admin,
         },

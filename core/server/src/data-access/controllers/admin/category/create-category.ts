@@ -32,7 +32,7 @@ export default function makeCreateCategoryController({
       });
       return {
         headers,
-        statusCode: 201,
+        statusCode: HttpStatusCode.CREATED,
         body: {
           data: created_category,
         },
