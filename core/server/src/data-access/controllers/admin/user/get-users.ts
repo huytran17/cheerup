@@ -27,12 +27,12 @@ export default function makeGetUsersController({
           data: users,
         },
       };
-    } catch (err) {
+    } catch (error) {
       return {
         headers,
         statusCode: 500,
         body: {
-          data: err.message,
+          data: error.message,
         },
       };
     }

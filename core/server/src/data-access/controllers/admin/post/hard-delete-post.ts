@@ -36,12 +36,12 @@ export default function makeHardDeletePostController({
           data: deleted_post,
         },
       };
-    } catch (err) {
+    } catch (error) {
       return {
         headers,
         statusCode: 500,
         body: {
-          data: err,
+          data: error,
         },
       };
     }

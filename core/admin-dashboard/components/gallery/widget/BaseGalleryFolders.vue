@@ -83,8 +83,8 @@ export default {
         }
 
         await this.GET_GALLERIES_PAGINATED({ is_parent: true });
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
       }
     },
 
@@ -107,8 +107,8 @@ export default {
         }
 
         await this.GET_GALLERIES_PAGINATED({ is_parent: true });
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
       }
     },
   },

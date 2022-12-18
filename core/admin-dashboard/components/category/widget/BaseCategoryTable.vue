@@ -193,8 +193,8 @@ export default {
         await this.DELETE_CATEGORY({ id });
         this.$toast.success(`Deleted category ${title} successfully`);
         await this.$fetch();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(`Encountered error while deleting category`);
       }
     },
@@ -207,8 +207,8 @@ export default {
         await this.HARD_DELETE_CATEGORY({ id });
         this.$toast.success(`Forever deleted category ${title} successfully`);
         await this.$fetch();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(`Encountered error while deleting category`);
       } finally {
         this.is_open_hard_delete_dialog = false;
@@ -223,8 +223,8 @@ export default {
         await this.RESTORE_CATEGORY({ id });
         this.$toast.success(`Restored category ${title} successfully`);
         await this.$fetch();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(`Encountered error while restoring category`);
       }
     },
@@ -234,8 +234,8 @@ export default {
     try {
       this.initial_loading = true;
       await this.GET_CATEGORIES();
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     } finally {
       this.initial_loading = false;
     }

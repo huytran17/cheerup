@@ -36,12 +36,12 @@ export default function makeUpdateCategoryController({
           data: updated_category,
         },
       };
-    } catch (err) {
+    } catch (error) {
       return {
         headers,
         statusCode: 500,
         body: {
-          data: err,
+          data: error,
         },
       };
     }

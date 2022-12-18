@@ -121,12 +121,12 @@ export default function makeCreatePostController({
           data: created_post,
         },
       };
-    } catch (err) {
+    } catch (error) {
       return {
         headers,
         statusCode: 500,
         body: {
-          data: err,
+          data: error,
         },
       };
     }

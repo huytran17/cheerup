@@ -222,8 +222,8 @@ export default {
         this.SET_ADMIN({ data: updated_admin });
         this.$toast.success("Updated admin successfully");
         this.$router.push(this.localePath(`/admin/${updated_admin._id}`));
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error("Encountered error while updating admin");
       }
     },
@@ -243,8 +243,8 @@ export default {
         this.SET_ADMIN({ data: updated_admin });
         this.$toast.success("Updated admin password successfully");
         this.$router.push(this.localePath(`/admin/${updated_admin._id}`));
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error("Encountered error while updating admin password");
       }
     },
@@ -266,8 +266,8 @@ export default {
     try {
       this.loading = true;
       await this.GET_ADMIN({ id: this.$route.params.id });
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     } finally {
       this.loading = false;
     }

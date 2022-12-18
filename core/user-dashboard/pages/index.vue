@@ -18,8 +18,8 @@ export default {
         user_id: _.get(store.getters["auth/me"], "_id"),
         query: route.query.search,
       });
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
     }
   },
   components: {

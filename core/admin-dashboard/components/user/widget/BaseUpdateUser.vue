@@ -204,8 +204,8 @@ export default {
         this.SET_USER({ data: updated_user });
         this.$toast.success("Updated user successfully");
         this.$router.push(this.localePath(`/user/${updated_user._id}`));
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error("Encountered error while updating user");
       }
     },
@@ -225,8 +225,8 @@ export default {
         this.SET_USER({ data: updated_user });
         this.$toast.success("Updated user password successfully");
         this.$router.push(this.localePath(`/user/${updated_user._id}`));
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error("Encountered error while updating user password");
       }
     },
@@ -248,8 +248,8 @@ export default {
     try {
       this.loading = true;
       await this.GET_USER({ id: this.$route.params.id });
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     } finally {
       this.loading = false;
     }

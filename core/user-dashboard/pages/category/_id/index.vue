@@ -8,13 +8,9 @@ import BaseArticles from "@/components/article/BaseArticles";
 
 export default {
   name: "CategoryIndexPage",
+  middleware: ["authentication"],
   async asyncData({ store, params }) {
     try {
-      const access_token = localStorage.getItem("access_token");
-      if (!_.isNil(access_token)) {
-        await store.dispatch("auth/GET_ME");
-      }
-
       const category_id = params.id;
 
       store.commit("post/SET_CATEGORIES_FILTERS", { data: [category_id] }); // use for infinite loading
@@ -23,8 +19,8 @@ export default {
         categories: [category_id],
         user_id: _.get(store.getters["auth/me"], "_id"),
       });
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
     }
   },
   components: {

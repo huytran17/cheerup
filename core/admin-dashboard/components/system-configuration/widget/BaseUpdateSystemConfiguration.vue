@@ -58,8 +58,8 @@ export default {
           data: this.system_configuration,
         });
         this.$toast.success("Updated system configuration successfully");
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(
           "Encountered error while updating system configuration"
         );
@@ -71,8 +71,8 @@ export default {
     try {
       this.loading = true;
       await this.GET_LATEST_SYSTEM_CONFIGURATION();
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     } finally {
       this.loading = false;
     }

@@ -61,8 +61,8 @@ export type Mailer = {
 export default Object.freeze({
   sendMail: async (payload: IEmailData) => {
     const transport = initializeMailer();
-    transport.sendMail(payload).catch((err) => {
-      console.log(err);
+    transport.sendMail(payload).catch((error) => {
+      console.log(error);
     });
     return payload;
   },

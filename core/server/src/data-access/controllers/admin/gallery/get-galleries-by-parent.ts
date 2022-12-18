@@ -39,12 +39,12 @@ export default function makeGetGalleriesByParentController({
           data: galleries,
         },
       };
-    } catch (err) {
+    } catch (error) {
       return {
         headers,
         statusCode: 500,
         body: {
-          data: err.message,
+          data: error.message,
         },
       };
     }

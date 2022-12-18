@@ -35,12 +35,12 @@ export default function makeDeleteAdminController({
           data: deleted_admin,
         },
       };
-    } catch (err) {
+    } catch (error) {
       return {
         headers,
         statusCode: 500,
         body: {
-          data: err,
+          data: error,
         },
       };
     }

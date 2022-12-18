@@ -241,8 +241,8 @@ export default {
 
         this.SET_ME({ data: updated_admin });
         this.$toast.success("Updated successfully");
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error("Encountered error while updating your account");
       }
     },
@@ -262,8 +262,8 @@ export default {
 
         this.SET_ME({ data: updated_admin });
         this.$toast.success("Updated password successfully");
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error("Encountered error while updating your account");
       }
     },
@@ -285,8 +285,8 @@ export default {
     try {
       this.loading = true;
       await this.GET_ME();
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     } finally {
       this.loading = false;
     }

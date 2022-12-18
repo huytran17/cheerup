@@ -170,8 +170,8 @@ export default {
         this.SET_POST({ data: created_post });
         this.$toast.success("Created post successfully");
         this.$router.push(this.localePath(`/post/${created_post._id}`));
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error("Encountered error while updating post");
       }
     },
@@ -180,8 +180,8 @@ export default {
     try {
       await this.GET_CATEGORIES();
       this.SET_POST({ data: {} });
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
       this.$toast.error("Encountered error while updating post");
     }
   },

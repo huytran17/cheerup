@@ -44,12 +44,12 @@ export default function makeRestoreAdminController({
           data: updated_admin,
         },
       };
-    } catch (err) {
+    } catch (error) {
       return {
         headers,
         statusCode: 500,
         body: {
-          data: err,
+          data: error,
         },
       };
     }

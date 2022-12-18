@@ -115,8 +115,8 @@ export default {
         this.SET_USER({ data: created_user });
         this.$toast.success("Created user successfully");
         this.$router.push(this.localePath(`/user/${created_user._id}`));
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error("Encountered error while creating user");
       }
     },

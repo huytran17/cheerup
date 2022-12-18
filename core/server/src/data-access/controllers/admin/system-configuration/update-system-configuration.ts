@@ -40,7 +40,7 @@ export default function makeUpdateSystemConfigurationController({
       const updated_post = await updateSystemConfiguration({
         systemConfigurationDetails: final_system_configuration_details,
       });
-      
+
       return {
         headers,
         statusCode: 200,
@@ -48,12 +48,12 @@ export default function makeUpdateSystemConfigurationController({
           data: updated_post,
         },
       };
-    } catch (err) {
+    } catch (error) {
       return {
         headers,
         statusCode: 500,
         body: {
-          data: err,
+          data: error,
         },
       };
     }

@@ -62,12 +62,12 @@ export default function makeSignInController({
           },
         },
       };
-    } catch (err) {
+    } catch (error) {
       return {
         headers,
         statusCode: 500,
         body: {
-          error: err.message,
+          error: error.message,
         },
       };
     }

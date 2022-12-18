@@ -139,8 +139,8 @@ export default {
       try {
         await this.SIGN_OUT();
         await this.GET_ME();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
       }
     },
   },

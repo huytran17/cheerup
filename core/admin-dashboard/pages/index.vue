@@ -326,8 +326,8 @@ export default {
         this.GET_POST_ANALYTICS(),
         this.GET_SUBSCRIPTION_ANALYTICS(),
       ]);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     } finally {
       this.loading = false;
     }

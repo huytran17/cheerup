@@ -22,13 +22,9 @@ import BaseCommentPanel from "@/components/comment/BaseCommentPanel";
 
 export default {
   name: "PostPanel",
+  middleware: ["authentication"],
   async asyncData({ store, params }) {
     try {
-      const access_token = localStorage.getItem("access_token");
-      if (!_.isNil(access_token)) {
-        await store.dispatch("auth/GET_ME");
-      }
-
       const post_id = params.id;
       const post = await store.dispatch("post/GET_POST", {
         id: post_id,
@@ -47,8 +43,8 @@ export default {
           post_id,
         }),
       ]);
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
     }
   },
   mixins: [postMixins, commentMixins],

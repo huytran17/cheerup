@@ -167,8 +167,8 @@ export default {
       try {
         await this.SIGN_UP({ data: this.user });
         this.$router.push(this.localePath("/login"));
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        console.log(error);
         this.$toast.error("Register information is incorrect");
       }
     },

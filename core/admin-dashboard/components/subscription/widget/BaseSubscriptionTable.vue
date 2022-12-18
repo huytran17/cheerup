@@ -103,8 +103,8 @@ export default {
           `Forever deleted subscription ${content} successfully`
         );
         await this.$fetch();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(`Encountered error while deleting subscription`);
       } finally {
         this.is_open_hard_delete_dialog = false;
@@ -116,8 +116,8 @@ export default {
     try {
       this.initial_loading = true;
       await this.GET_SUBSCRIPTIONS();
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     } finally {
       this.initial_loading = false;
     }

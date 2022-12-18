@@ -162,8 +162,8 @@ export default {
         await this.GET_COMMENTS_BY_POST_PAGINATED({
           post_id: _.get(this.post, "_id", ""),
         });
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
       } finally {
         this.SET_COMMENT_LOADING({ data: false });
       }
@@ -177,8 +177,8 @@ export default {
         await this.GET_COMMENTS_BY_POST_PAGINATED({
           post_id: _.get(this.post, "_id", ""),
         });
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
       } finally {
         this.SET_COMMENT_LOADING({ data: false });
       }
@@ -192,8 +192,8 @@ export default {
         await this.GET_COMMENTS_BY_POST_PAGINATED({
           post_id: _.get(this.post, "_id", ""),
         });
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
       } finally {
         this.SET_COMMENT_LOADING({ data: false });
       }

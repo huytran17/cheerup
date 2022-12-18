@@ -60,9 +60,9 @@ export default {
           new_state,
           entries_per_page,
         });
-      } catch (err) {
-        console.error(err);
-        this.$notification.error(`Encountered error getting posts: ${err}`);
+      } catch (error) {
+        console.error(error);
+        this.$notification.error(`Encountered error getting posts: ${error}`);
       } finally {
         this.SET_POST_BOOKMARK_LOADING({
           data: false,

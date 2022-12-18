@@ -73,18 +73,18 @@ export default function makeUploadUserAvatarController({
           data: updated_user,
         }, // TODO: add in implementation of resource
       };
-    } catch (err) {
+    } catch (error) {
       // TODO: add in error handling here
       // TODO: revert the file upload that was done
       // await session.abortTransaction();
-      console.error(err);
+      console.error(error);
       throw {
         headers: {
           "Content-Type": "application/json",
         },
         statusCode: 404,
         body: {
-          error: err.message,
+          error: error.message,
         },
       };
     }

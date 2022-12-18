@@ -28,14 +28,14 @@ export default function makeGetUserController({
           data: exists,
         },
       };
-    } catch (err) {
+    } catch (error) {
       throw {
         headers: {
           "Content-Type": "application/json",
         },
         statusCode: 500,
         body: {
-          error: err.message,
+          error: error.message,
         },
       };
     }

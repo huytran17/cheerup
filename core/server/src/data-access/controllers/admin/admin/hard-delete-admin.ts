@@ -21,7 +21,7 @@ export default function makeHardDeleteAdminController({
     };
 
     try {
-      const { _id } =  _.get(httpRequest, "context.validated");
+      const { _id } = _.get(httpRequest, "context.validated");
       const exists = await getAdmin({ _id });
       if (!exists) {
         throw new Error(`Admin by ${_id} does not exist`);
@@ -35,12 +35,12 @@ export default function makeHardDeleteAdminController({
           data: deleted_admin,
         },
       };
-    } catch (err) {
+    } catch (error) {
       return {
         headers,
         statusCode: 500,
         body: {
-          data: err,
+          data: error,
         },
       };
     }

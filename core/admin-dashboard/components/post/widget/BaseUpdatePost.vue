@@ -222,8 +222,8 @@ export default {
           data: this.post,
         });
         this.$toast.success("Updated post successfully");
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error("Encountered error while updating post");
       }
     },
@@ -250,8 +250,8 @@ export default {
         this.GET_POST({ id: post_id }),
         this.GET_CATEGORIES({ id: post_id }),
       ]);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     } finally {
       this.loading = false;
     }

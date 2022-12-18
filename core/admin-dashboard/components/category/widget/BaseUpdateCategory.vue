@@ -160,8 +160,8 @@ export default {
           data: this.category,
         });
         this.$toast.success("Updated category successfully");
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error("Encountered error while updating category");
       }
     },
@@ -184,8 +184,8 @@ export default {
     try {
       this.loading = true;
       await this.GET_CATEGORY({ id: this.$route.params.id });
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     } finally {
       this.loading = false;
     }

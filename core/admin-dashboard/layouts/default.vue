@@ -33,8 +33,8 @@ export default {
   async fetch() {
     try {
       await this.GET_ME();
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     }
   },
 };

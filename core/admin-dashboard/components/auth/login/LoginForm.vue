@@ -111,8 +111,8 @@ export default {
       try {
         await this.SIGN_IN({ data: this.me });
         this.$router.push(this.localePath("/"));
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        console.log(error);
         this.$toast.error("Email address or password is incorrect");
       }
     },

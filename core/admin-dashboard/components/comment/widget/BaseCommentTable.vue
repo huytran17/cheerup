@@ -141,8 +141,8 @@ export default {
         await this.HARD_DELETE_COMMENT({ id });
         this.$toast.success(`Forever deleted comment ${content} successfully`);
         await this.$fetch();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(`Encountered error while deleting comment`);
       } finally {
         this.is_open_hard_delete_dialog = false;
@@ -154,8 +154,8 @@ export default {
     try {
       this.initial_loading = true;
       await this.GET_COMMENTS();
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     } finally {
       this.initial_loading = false;
     }

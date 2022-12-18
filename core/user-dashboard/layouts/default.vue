@@ -83,8 +83,8 @@ export default {
         this.GET_LATEST_SYSTEM_CONFIGURATION(),
         this.GET_CATEGORY_TITLES(),
       ]);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     }
   },
 };

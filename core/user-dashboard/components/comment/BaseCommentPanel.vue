@@ -200,8 +200,8 @@ export default {
         this.UPDATE_COMMENTS_DATA({
           data: cloned_comments_data,
         });
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
       } finally {
         this.SET_COMMENT_LOADING({ data: false });
       }
@@ -223,8 +223,8 @@ export default {
           new_state: false,
           post_id,
         });
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
       } finally {
         this.SET_COMMENT_LOADING({ data: false });
       }

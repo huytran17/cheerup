@@ -137,8 +137,8 @@ export default {
 
         this.is_open_create_gallery_dialog = false;
         await this.$fetch();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
       }
     },
 
@@ -160,8 +160,8 @@ export default {
         this.GET_GALLERY({ _id: gallery_id }),
         this.GET_LATEST_SYSTEM_CONFIGURATION(),
       ]);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     }
   },
 };

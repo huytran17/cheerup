@@ -199,8 +199,8 @@ export default {
         await this.RESTORE_USER({ id });
         this.$toast.success(`Restored user ${title} successfully`);
         await this.$fetch();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(`Encountered error while restoring user`);
       }
     },
@@ -213,8 +213,8 @@ export default {
         await this.DELETE_USER({ id });
         this.$toast.success(`Deleted user ${title} successfully`);
         await this.$fetch();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(`Encountered error while deleting user`);
       }
     },
@@ -226,8 +226,8 @@ export default {
         await this.HARD_DELETE_USER({ id });
         this.$toast.success(`Forever deleted user successfully`);
         await this.$fetch();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(`Encountered error while deleting user`);
       } finally {
         this.is_open_hard_delete_dialog = false;
@@ -242,8 +242,8 @@ export default {
         await this.UNBLOCK_USER_COMMENT({ id });
         this.$toast.success(`Un-block comment for user ${email} successfully`);
         await this.$fetch();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(`Encountered error while un-blocking comment`);
       }
     },
@@ -256,8 +256,8 @@ export default {
         await this.BLOCK_USER_COMMENT({ id });
         this.$toast.success(`Block comment for user ${email} successfully`);
         await this.$fetch();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(`Encountered error while blocking comment`);
       }
     },
@@ -267,8 +267,8 @@ export default {
     try {
       this.initial_loading = true;
       await this.GET_USERS();
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     } finally {
       this.initial_loading = false;
     }

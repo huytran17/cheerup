@@ -297,8 +297,8 @@ export default {
         await this.BLOCK_POST_COMMENT({ id });
         this.$toast.success(`Blocked comment for post ${title} successfully`);
         await this.$fetch();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(`Encountered error while blocking comment for post`);
       }
     },
@@ -313,8 +313,8 @@ export default {
           `Un-blocked comment for post ${title} successfully`
         );
         await this.$fetch();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(
           `Encountered error while un-blocking comment for post`
         );
@@ -329,8 +329,8 @@ export default {
         await this.HIGHLIGHT_POST({ id });
         this.$toast.success(`Highlighted post ${title} successfully`);
         await this.$fetch();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(`Encountered error while highlighting post`);
       }
     },
@@ -343,8 +343,8 @@ export default {
         await this.UNHIGHLIGHT_POST({ id });
         this.$toast.success(`Un-highlighted post ${title} successfully`);
         await this.$fetch();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(`Encountered error while un-highlighting post`);
       }
     },
@@ -357,8 +357,8 @@ export default {
         await this.PUBLISH_POST({ id });
         this.$toast.success(`Published comment for post ${title} successfully`);
         await this.$fetch();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(
           `Encountered error while publishing comment for post`
         );
@@ -375,8 +375,8 @@ export default {
           `Un-published comment for post ${title} successfully`
         );
         await this.$fetch();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(
           `Encountered error while un-publishing comment for post`
         );
@@ -391,8 +391,8 @@ export default {
         await this.DELETE_POST({ id });
         this.$toast.success(`Deleted post ${title} successfully`);
         await this.$fetch();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(`Encountered error while deleting post`);
       }
     },
@@ -405,8 +405,8 @@ export default {
         await this.HARD_DELETE_POST({ id });
         this.$toast.success(`Forever deleted post ${title} successfully`);
         await this.$fetch();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(`Encountered error while deleting post`);
       } finally {
         this.is_open_hard_delete_dialog = false;
@@ -421,8 +421,8 @@ export default {
         await this.RESTORE_POST({ id });
         this.$toast.success(`Restored post ${title} successfully`);
         await this.$fetch();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(`Encountered error while restoring post`);
       }
     },
@@ -432,8 +432,8 @@ export default {
     try {
       this.initial_loading = true;
       await this.GET_POSTS();
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     } finally {
       this.initial_loading = false;
     }

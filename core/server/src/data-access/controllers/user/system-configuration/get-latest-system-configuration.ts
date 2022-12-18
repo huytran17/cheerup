@@ -30,12 +30,12 @@ export default function makeGetLatestSystemConfigurationController({
           data: exists,
         },
       };
-    } catch (err) {
+    } catch (error) {
       return {
         headers,
         statusCode: 500,
         body: {
-          data: err.message,
+          data: error.message,
         },
       };
     }

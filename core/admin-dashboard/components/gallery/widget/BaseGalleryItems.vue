@@ -76,8 +76,8 @@ export default {
         this.$toast.success("Updated gallery successfully");
 
         await this.GET_GALLERY({ _id: gallery_id });
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
       }
     },
   },

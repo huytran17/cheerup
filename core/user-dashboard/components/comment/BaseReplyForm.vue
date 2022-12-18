@@ -98,8 +98,8 @@ export default {
         ++this.refresh_comment_reply_editor_key;
 
         await this.GET_COMMENTS_BY_POST_PAGINATED({ post_id });
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
       } finally {
         this.SET_COMMENT_LOADING({ data: false });
         this.SET_IS_OPEN_REPLY_COMMENT({ data: false });

@@ -50,12 +50,12 @@ export default function makeDeleteComment({
           data: null,
         },
       };
-    } catch (err) {
+    } catch (error) {
       return {
         headers,
         statusCode: 500,
         body: {
-          data: err,
+          data: error,
         },
       };
     }

@@ -36,7 +36,8 @@ export default function makeGetPostController({
         throw new Error(`Post by id ${post_id} does not exists`);
       }
 
-      if (post_id && user_id) {
+      const validPayload = post_id && user_id;
+      if (validPayload) {
         const post_bookmarked = await getPostBookmarkByUserAndPost({
           user_id,
           post_id,
@@ -64,12 +65,12 @@ export default function makeGetPostController({
           data: final_data,
         },
       };
-    } catch (err) {
+    } catch (error) {
       return {
         headers,
         statusCode: 500,
         body: {
-          data: err.message,
+          data: error.message,
         },
       };
     }

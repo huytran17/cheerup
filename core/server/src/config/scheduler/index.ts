@@ -64,8 +64,8 @@ export default class Scheduler {
       });
 
       Scheduler.scheduler_instance = this;
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     }
   }
 

@@ -87,8 +87,8 @@ export default {
 
         await this.UPDATE_USER_PASSWORD({ data: final_user_data });
         this.$toast.success(this.$t("Updated password successfully"));
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(
           this.$t("Encountered error: Check your password and try again")
         );

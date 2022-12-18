@@ -138,12 +138,12 @@ export default function makeDislikeCommentController({
           data: updated_comment,
         },
       };
-    } catch (err) {
+    } catch (error) {
       return {
         headers,
         statusCode: 500,
         body: {
-          data: err,
+          data: error,
         },
       };
     }

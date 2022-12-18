@@ -95,12 +95,12 @@ export default function makeUpdateCommentController({
           data: updated_comment,
         },
       };
-    } catch (err) {
+    } catch (error) {
       return {
         headers,
         statusCode: 500,
         body: {
-          data: err,
+          data: error,
         },
       };
     }

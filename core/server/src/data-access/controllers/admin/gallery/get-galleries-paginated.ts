@@ -46,12 +46,12 @@ export default function makeGetGalleriesPaginatedController({
         statusCode: 200,
         body: galleries,
       };
-    } catch (err) {
+    } catch (error) {
       return {
         headers,
         statusCode: 500,
         body: {
-          data: err.message,
+          data: error.message,
         },
       };
     }

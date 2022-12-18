@@ -91,8 +91,8 @@ export default {
         await this.GET_COMMENTS_BY_POST_PAGINATED({ post_id });
 
         this.$emit("dont-need-to-scroll-to-top-of-post", true);
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
       } finally {
         this.SET_COMMENT_LOADING({ data: false });
         this.SET_IS_OPEN_EDIT_COMMENT({ data: false });

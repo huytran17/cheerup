@@ -74,12 +74,12 @@ export default function makeDeleteGalleryItemController({
           data: updated_data,
         },
       };
-    } catch (err) {
+    } catch (error) {
       return {
         headers,
         statusCode: 500,
         body: {
-          data: err.message,
+          data: error.message,
         },
       };
     }

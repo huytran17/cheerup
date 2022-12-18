@@ -61,16 +61,16 @@ export default function makeUploadPostThumbnailController({
           data: updated_post,
         },
       };
-    } catch (err) {
+    } catch (error) {
       // await session.abortTransaction();
-      console.error(err);
+      console.error(error);
       throw {
         headers: {
           "Content-Type": "application/json",
         },
         statusCode: 404,
         body: {
-          error: err.message,
+          error: error.message,
         },
       };
     }

@@ -59,14 +59,14 @@ export default function makeGetMeController({
           data: final_user_data,
         },
       };
-    } catch (err) {
+    } catch (error) {
       throw {
         headers: {
           "Content-Type": "application/json",
         },
         statusCode: 500,
         body: {
-          error: err.message,
+          error: error.message,
         },
       };
     }

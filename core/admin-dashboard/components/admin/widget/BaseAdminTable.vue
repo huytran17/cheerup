@@ -227,8 +227,8 @@ export default {
           `Disable auto censorship for admin ${email} successfully`
         );
         await this.$fetch();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(`Encountered error while disabling auto censorship`);
       }
     },
@@ -243,8 +243,8 @@ export default {
           `Enable auto censorship for admin ${email} successfully`
         );
         await this.$fetch();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(`Encountered error while enabling auto censorship`);
       }
     },
@@ -257,8 +257,8 @@ export default {
         await this.RESTORE_ADMIN({ id });
         this.$toast.success(`Restored admin ${title} successfully`);
         await this.$fetch();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(`Encountered error while restoring admin`);
       }
     },
@@ -271,8 +271,8 @@ export default {
         await this.DELETE_ADMIN({ id });
         this.$toast.success(`Deleted admin ${title} successfully`);
         await this.$fetch();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(`Encountered error while deleting admin`);
       }
     },
@@ -285,8 +285,8 @@ export default {
         await this.HARD_DELETE_ADMIN({ id });
         this.$toast.success(`Forever deleted admin ${title} successfully`);
         await this.$fetch();
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error(`Encountered error while deleting admin`);
       } finally {
         this.is_open_hard_delete_dialog = false;
@@ -298,8 +298,8 @@ export default {
     try {
       this.initial_loading = true;
       await this.GET_ADMINS();
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     } finally {
       this.initial_loading = false;
     }

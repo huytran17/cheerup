@@ -43,9 +43,9 @@ export default function makeExpressCallback(controller: IController) {
             Bucket,
             Key,
           };
-          s3.deleteObject(params, function (err, data) {
-            if (err) {
-              console.log(err, err.stack);
+          s3.deleteObject(params, function (error, data) {
+            if (error) {
+              console.log(error, error.stack);
             } // an error occurred
             else {
               console.log(data);

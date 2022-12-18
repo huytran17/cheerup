@@ -11,21 +11,17 @@ import postBookmarkMixins from "@/mixins/post-bookmark";
 
 export default {
   name: "FavouriteIndex",
+  middleware: ["authentication"],
   async asyncData({ store }) {
     try {
-      const access_token = localStorage.getItem("access_token");
-      if (!_.isNil(access_token)) {
-        await store.dispatch("auth/GET_ME");
-      }
-
       const has_user = store.getters["auth/has_user"];
       if (!has_user) {
         return;
       }
 
       await store.dispatch("post-bookmark/GET_POST_BOOKMARKS_PAGINATED");
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
     }
   },
   mixins: [postBookmarkMixins],

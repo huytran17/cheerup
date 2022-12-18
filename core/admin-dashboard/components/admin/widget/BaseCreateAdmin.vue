@@ -132,8 +132,8 @@ export default {
         this.SET_ADMIN({ data: created_admin });
         this.$toast.success("Created admin successfully");
         this.$router.push(this.localePath(`/admin/${created_admin._id}`));
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error("Encountered error while creating admin");
       }
     },

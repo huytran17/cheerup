@@ -71,12 +71,12 @@ export default function makeUpdatePasswordController({
           data: updated_user,
         },
       };
-    } catch (err) {
+    } catch (error) {
       return {
         headers,
         statusCode: 500,
         body: {
-          data: err.message,
+          data: error.message,
         },
       };
     }

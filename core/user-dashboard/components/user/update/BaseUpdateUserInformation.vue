@@ -114,8 +114,8 @@ export default {
       try {
         await this.UPDATE_USER({ data: this.me });
         this.$toast.success(this.$t("Updated profile successfully"));
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
       }
     },
 

@@ -34,14 +34,14 @@ export default function makeGetSubscriptionAnalysticsController({
           data: analystics_data,
         },
       };
-    } catch (err) {
+    } catch (error) {
       throw {
         headers: {
           "Content-Type": "application/json",
         },
         statusCode: 500,
         body: {
-          error: err.message,
+          error: error.message,
         },
       };
     }

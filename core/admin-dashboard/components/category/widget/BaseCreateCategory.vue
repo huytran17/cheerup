@@ -18,7 +18,7 @@
             ></v-text-field>
           </v-col>
         </v-row>
-        
+
         <v-row>
           <v-col cols="12">
             <div class="text-body-2 mb-2">
@@ -94,7 +94,7 @@ export default {
 
       return hex_color;
     },
-    
+
     async createCategory() {
       try {
         const created_category = await this.CREATE_CATEGORY({
@@ -103,8 +103,8 @@ export default {
         this.SET_CATEGORY({ data: created_category });
         this.$toast.success("Created category successfully");
         this.$router.push(this.localePath(`/category/${created_category._id}`));
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error(error);
         this.$toast.error("Encountered error while creating category");
       }
     },

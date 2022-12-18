@@ -104,12 +104,12 @@ export default function makeDeleteCommentController({
           data: deleted_comment,
         },
       };
-    } catch (err) {
+    } catch (error) {
       return {
         headers,
         statusCode: 500,
         body: {
-          data: err,
+          data: error,
         },
       };
     }

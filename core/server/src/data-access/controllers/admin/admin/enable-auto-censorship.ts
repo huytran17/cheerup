@@ -28,10 +28,12 @@ export default function makeEnableAutoCensorshipController({
       }
 
       const final_admin_details = Object.assign({}, exists, {
-        is_auto_censorship_post: true
+        is_auto_censorship_post: true,
       });
 
-      const updated_admin = await updateAdmin({ adminDetails: final_admin_details });
+      const updated_admin = await updateAdmin({
+        adminDetails: final_admin_details,
+      });
       return {
         headers,
         statusCode: 200,
@@ -39,12 +41,12 @@ export default function makeEnableAutoCensorshipController({
           data: updated_admin,
         },
       };
-    } catch (err) {
+    } catch (error) {
       return {
         headers,
         statusCode: 500,
         body: {
-          data: err,
+          data: error,
         },
       };
     }
