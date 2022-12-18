@@ -6,17 +6,11 @@ name: Node.js CI
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
     
-defaults:
-  run:
-    working-directory: "./server"
-
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     strategy:
       matrix:
@@ -31,5 +25,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
+      working-directory: './server'
     - run: npm run build --if-present
+      working-directory: './server'
     - run: npm test
+      working-directory: './server'
