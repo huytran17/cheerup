@@ -62,9 +62,7 @@ export default function makeGetMeController({
       };
     } catch (error) {
       throw {
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers,
         statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
           error: error.message,
