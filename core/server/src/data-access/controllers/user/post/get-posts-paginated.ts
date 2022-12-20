@@ -102,7 +102,7 @@ export default function makeGetPostsPaginatedController({
         },
       };
     } catch (error) {
-      return {
+      throw {
         headers,
         statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {

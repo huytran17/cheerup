@@ -47,7 +47,7 @@ export default function makeGetUserController({
         },
       };
     } catch (error) {
-      return {
+      throw {
         headers,
         statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {

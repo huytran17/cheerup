@@ -73,7 +73,7 @@ export default function makeSignUpController({
         },
       };
     } catch (error) {
-      return {
+      throw {
         headers,
         statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {

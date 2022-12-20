@@ -75,7 +75,7 @@ export default function makeUploadUserAvatarController({
         }, // TODO: add in implementation of resource
       };
     } catch (error) {
-      return {
+      throw {
         headers,
         statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
