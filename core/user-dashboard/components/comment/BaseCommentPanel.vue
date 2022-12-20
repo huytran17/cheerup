@@ -25,8 +25,8 @@
         <span
           class="app-body"
           v-html="
-            $tc('{count} Comment', comments.length, {
-              count: comments.length,
+            $tc('{count} Comment', comment_pagination.total, {
+              count: comment_pagination.total,
             })
           "
         ></span>
