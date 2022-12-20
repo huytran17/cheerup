@@ -27,9 +27,8 @@ export default {
     formatDate(date, format) {
       if (format) {
         return this.$moment(date).format(format);
-      } else {
-        return this.$moment(date).fromNow();
       }
+      return this.$moment(date).fromNow();
     },
   },
   filters: {
