@@ -67,7 +67,7 @@ export function makeMongooseVerboseLogger() {
 }
 
 let mongooseErrorLogger = null;
-// FIXME: not working
+
 export function makeMongooseErrorLogger() {
   if (mongooseErrorLogger) {
     return mongooseErrorLogger;

@@ -4,6 +4,7 @@ import Storage from "../storage";
 
 // FIXME: fix all the any
 type IController = (httpRequest: any) => any;
+
 export default function makeExpressCallback(controller: IController) {
   return (req: Request, res: Response, next: NextFunction) => {
     const httpRequest = {
