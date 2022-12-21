@@ -2,7 +2,6 @@ import { Request } from "express";
 import { IGetUser } from "../../../../use-cases/user/get-user";
 import { IGetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
 import { IUpdateUser } from "../../../../use-cases/user/update-user";
-import { geoip } from "../../../../config/geoip";
 import _ from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
@@ -33,18 +32,11 @@ export default function makeGetMeController({
         throw new Error(`User ${_id} does not exist`);
       }
 
-      const client_geo_ip = geoip.lookup(client_ip);
-
-      const has_client_geo_ip =
-        !_.isEmpty(client_geo_ip) && !_.isNil(client_geo_ip);
-
-      if (has_client_geo_ip) {
-        await updateUser({
-          userDetails: Object.assign({}, exists, {
-            geoip: { ...client_geo_ip, client_ip },
-          }),
-        });
-      }
+      await updateUser({
+        userDetails: Object.assign({}, exists, {
+          ip: client_ip,
+        }),
+      });
 
       const subscription = await getSubscriptionByEmail({ email });
       const is_subscribed = _.get(subscription, "is_active", false);

@@ -3,7 +3,7 @@ import Admin from "../entities/admin";
 
 export default class User implements IUser {
   public readonly _id: string;
-  public readonly geoip?: Record<string, unknown>;
+  public readonly ip?: Record<string, unknown>;
   public readonly hash_password: string;
   public readonly avatar_url?: string;
   public readonly avatar?: Record<string, unknown>;
@@ -18,7 +18,7 @@ export default class User implements IUser {
 
   constructor({
     _id,
-    geoip,
+    ip,
     hash_password,
     avatar,
     email,
@@ -32,7 +32,7 @@ export default class User implements IUser {
     blocked_comment_at,
   }: IUser) {
     this._id = _id;
-    this.geoip = geoip;
+    this.ip = ip;
     this.avatar = avatar;
     this.avatar_url = avatar_url;
     this.hash_password = hash_password;

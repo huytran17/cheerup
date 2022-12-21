@@ -4,7 +4,6 @@ import _ from "lodash";
 import { ICreateUser } from "../../../../use-cases/user/create-user";
 import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { IHashPassword } from "../../../../config/password/hash-password";
-import { geoip } from "../../../../config/geoip";
 import User from "../../../../database/entities/user";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
@@ -47,15 +46,13 @@ export default function makeSignUpController({
         password_confirmation,
       });
 
-      const client_geo_ip = geoip.lookup(client_ip);
-
       const user_details = Object.assign(
         {},
         _.omit(user, ["_id", "password", "password_confirmation"]),
         {
           email,
           hash_password: hashed_password,
-          geoip: Object.assign({}, client_geo_ip, { client_ip }),
+          ip: client_ip,
         }
       );
 
