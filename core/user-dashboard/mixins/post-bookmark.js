@@ -35,7 +35,6 @@ export default {
       new_state = false,
       entries_per_page = 15,
     }) {
-      const need_load_more = page === 1;
       try {
         const more_to_fetch =
           this.post_bookmark_pagination.current_page <=
@@ -49,11 +48,6 @@ export default {
           return;
         }
 
-        need_load_more &&
-          this.SET_POST_BOOKMARK_LOADING({
-            data: true,
-          });
-
         return await this.GET_POST_BOOKMARKS_PAGINATED({
           page,
           query,
@@ -63,10 +57,6 @@ export default {
       } catch (error) {
         console.error(error);
         this.$notification.error(`Encountered error getting posts: ${error}`);
-      } finally {
-        this.SET_POST_BOOKMARK_LOADING({
-          data: false,
-        });
       }
     },
 

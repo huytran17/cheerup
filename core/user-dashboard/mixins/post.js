@@ -37,7 +37,6 @@ export default {
       categories = [],
       tags = [],
     }) {
-      const need_load_more = page === 1;
       try {
         const more_to_fetch =
           this.post_pagination.current_page <=
@@ -51,11 +50,6 @@ export default {
           return;
         }
 
-        need_load_more &&
-          this.SET_POST_LOADING({
-            data: true,
-          });
-
         return await this.GET_POSTS_PAGINATED({
           page,
           query,
@@ -67,10 +61,6 @@ export default {
       } catch (error) {
         console.error(error);
         this.$notification.error(`Encountered error getting posts: ${error}`);
-      } finally {
-        this.SET_POST_LOADING({
-          data: false,
-        });
       }
     },
   },
