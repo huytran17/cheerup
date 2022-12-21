@@ -43,7 +43,9 @@ export default function makeUpdateCommentController({
       }
 
       const comment_user_id = _.get(exists, "user._id");
-      const user_not_own_comment = comment_user_id !== user_id;
+      const user_not_own_comment =
+        comment_user_id.toString() !== user_id.toString();
+
       if (user_not_own_comment) {
         throw new Error(`You have not own this comment`);
       }

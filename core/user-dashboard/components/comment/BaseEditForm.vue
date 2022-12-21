@@ -33,6 +33,7 @@
             color="black"
             tile
             class="white--text"
+            :disabled="comment_loading"
             @click="updateComment"
           >
             <span class="app-body" v-html="$t('Save')"></span>
