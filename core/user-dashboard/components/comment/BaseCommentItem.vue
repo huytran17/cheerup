@@ -156,46 +156,39 @@ export default {
   methods: {
     async likeComment() {
       try {
-        this.SET_COMMENT_LOADING({ data: true });
-
         await this.LIKE_COMMENT({ id: _.get(this.comment_data, "_id") });
         await this.GET_COMMENTS_BY_POST_PAGINATED({
           post_id: _.get(this.post, "_id", ""),
         });
       } catch (error) {
         console.error(error);
-      } finally {
-        this.SET_COMMENT_LOADING({ data: false });
       }
     },
 
     async dislikeComment() {
       try {
-        this.SET_COMMENT_LOADING({ data: true });
-
         await this.DISLIKE_COMMENT({ id: _.get(this.comment_data, "_id") });
         await this.GET_COMMENTS_BY_POST_PAGINATED({
           post_id: _.get(this.post, "_id", ""),
         });
       } catch (error) {
         console.error(error);
-      } finally {
-        this.SET_COMMENT_LOADING({ data: false });
       }
     },
 
     async deleteComment() {
       try {
-        this.SET_COMMENT_LOADING({ data: true });
+        const post_id = _.get(this.post, "_id");
 
         await this.DELETE_COMMENT({ id: _.get(this.comment_data, "_id") });
-        await this.GET_COMMENTS_BY_POST_PAGINATED({
-          post_id: _.get(this.post, "_id", ""),
-        });
+        await Promise.all([
+          this.GET_COMMENTS_BY_POST_PAGINATED({
+            post_id,
+          }),
+          this.COUNT_COMMENT_BY_POST({ post_id }),
+        ]);
       } catch (error) {
         console.error(error);
-      } finally {
-        this.SET_COMMENT_LOADING({ data: false });
       }
     },
   },

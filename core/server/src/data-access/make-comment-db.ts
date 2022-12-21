@@ -277,6 +277,7 @@ export default function makeCommentDb({
 
       const query_conditions = {
         post: post_id,
+        deleted_at: { $in: [null, undefined] },
       };
 
       const number_of_comments = await commentDbModel.countDocuments(

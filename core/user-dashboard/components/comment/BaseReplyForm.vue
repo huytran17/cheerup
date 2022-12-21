@@ -33,6 +33,7 @@
             color="black"
             tile
             class="white--text"
+            :disabled="comment_loading"
             @click="replyComment"
           >
             <span class="app-body" v-html="$t('Send')"></span>
@@ -97,7 +98,10 @@ export default {
 
         ++this.refresh_comment_reply_editor_key;
 
-        await this.GET_COMMENTS_BY_POST_PAGINATED({ post_id });
+        await Promise.all([
+          this.GET_COMMENTS_BY_POST_PAGINATED({ post_id }),
+          this.COUNT_COMMENT_BY_POST({ post_id }),
+        ]);
       } catch (error) {
         console.error(error);
       } finally {

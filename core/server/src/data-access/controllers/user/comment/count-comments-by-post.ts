@@ -1,20 +1,20 @@
 import { Request } from "express";
-import { IGetCommentsByPostPaginated } from "../../../../use-cases/comment/get-comments-by-post-paginated";
+import { ICountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
 import { IGetPost } from "../../../../use-cases/post/get-post";
 import _ from "lodash";
 import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
-export default function makeGetCommentsByPostPaginatedController({
-  getCommentsByPostPaginated,
+export default function makeCountCommentsByPostController({
+  countCommentsByPost,
   getPost,
   logger,
 }: {
-  getCommentsByPostPaginated: IGetCommentsByPostPaginated;
+  countCommentsByPost: ICountCommentsByPost;
   getPost: IGetPost;
   logger: Logger;
 }) {
-  return async function getCommentsByPostPaginatedController(
+  return async function countCommentsByPostController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
@@ -23,14 +23,8 @@ export default function makeGetCommentsByPostPaginatedController({
 
     try {
       const {
-        query,
-        page,
-        entries_per_page,
         post_id,
       }: {
-        query: string;
-        page: string;
-        entries_per_page: string;
         post_id: string;
       } = _.get(httpRequest, "context.validated");
 
@@ -45,20 +39,13 @@ export default function makeGetCommentsByPostPaginatedController({
         throw new Error(`Post by ${post_id} does not exist`);
       }
 
-      const data = await getCommentsByPostPaginated(
-        { post_id, is_include_deleted: false },
-        {
-          query,
-          page: Number(page),
-          entries_per_page: Number(entries_per_page),
-        }
-      );
+      const data = await countCommentsByPost({ post_id });
 
       return {
         headers,
         statusCode: HttpStatusCode.OK,
         body: {
-          ...data,
+          data,
         },
       };
     } catch (error) {

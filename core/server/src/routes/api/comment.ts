@@ -12,6 +12,7 @@ import {
   likeCommentRules,
   dislikeCommentRules,
   replyCommentRules,
+  countCommentsByPostRules,
 } from "../../data-access/controllers/user/comment/validators";
 import {
   getCommentController,
@@ -23,65 +24,72 @@ import {
   likeCommentController,
   dislikeCommentController,
   replyCommentController,
+  countCommentsByPostController,
 } from "../../data-access/controllers/user/comment";
 
 const commentRouter = express.Router();
+
+commentRouter.get(
+  "/count-by-post",
+  makeValidator(countCommentsByPostRules),
+  makeExpressCallback(countCommentsByPostController)
+);
 
 commentRouter.post(
   "/reply",
   authenticateUserJWT(),
   makeValidator(replyCommentRules),
   makeExpressCallback(replyCommentController)
-); // DONE
+);
 
 commentRouter.put(
   "/like/:_id",
   authenticateUserJWT(),
   makeValidator(likeCommentRules),
   makeExpressCallback(likeCommentController)
-); // DONE
+);
 
 commentRouter.put(
   "/dislike/:_id",
   authenticateUserJWT(),
   makeValidator(dislikeCommentRules),
   makeExpressCallback(dislikeCommentController)
-); // DONE
+);
 
 commentRouter.get(
   "/by-post-paginated",
   makeValidator(getCommentsByPostPaginatedRules),
   makeExpressCallback(getCommentsByPostPaginatedController)
-); // DONE
+);
 
 commentRouter.get(
   "/:_id",
   authenticateUserJWT(),
   makeValidator(getCommentRules),
   makeExpressCallback(getCommentController)
-); // DONE
+);
 
 commentRouter.delete(
   "/:_id",
   authenticateUserJWT(),
   makeValidator(deleteCommentRules),
   makeExpressCallback(deleteCommentController)
-); // DONE
+);
 
 commentRouter.put(
   "/:_id",
   authenticateUserJWT(),
   makeValidator(updateCommentRules),
   makeExpressCallback(updateCommentController)
-); // DONE
+);
 
 commentRouter.post(
   "/",
   authenticateUserJWT(),
   makeValidator(createCommentRules),
   makeExpressCallback(createCommentController)
-); // DONE
+);
 
-commentRouter.get("/", makeExpressCallback(getCommentsController)); // DONE
+commentRouter.get("/", makeExpressCallback(getCommentsController));
 
 export default commentRouter;

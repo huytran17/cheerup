@@ -25,8 +25,8 @@
         <span
           class="app-body"
           v-html="
-            $tc('{count} Comment', comment_pagination.total, {
-              count: comment_pagination.total,
+            $tc('{count} Comment', comment_count_by_post, {
+              count: comment_count_by_post,
             })
           "
         ></span>
@@ -53,7 +53,7 @@
           <v-btn
             depressed
             tile
-            :disabled="!has_user"
+            :disabled="!has_user || comment_loading"
             color="black"
             class="white--text"
             @click="createComment"
@@ -188,6 +188,8 @@ export default {
           data: final_comment_data,
         });
 
+        await this.COUNT_COMMENT_BY_POST({ post_id });
+
         this.updateNewCommentObject({
           variable_path: "content",
           data: "",
@@ -214,8 +216,6 @@ export default {
 
     async getMoreComments() {
       try {
-        this.SET_COMMENT_LOADING({ data: true });
-
         const post_id = _.get(this.post_data, "_id");
 
         await this.GET_COMMENTS_BY_POST_PAGINATED({
@@ -225,10 +225,18 @@ export default {
         });
       } catch (error) {
         console.error(error);
-      } finally {
-        this.SET_COMMENT_LOADING({ data: false });
       }
     },
+  },
+
+  async fetch() {
+    try {
+      await this.COUNT_COMMENT_BY_POST({
+        post_id: _.get(this.post_data, "_id"),
+      });
+    } catch (error) {
+      console.error(error);
+    }
   },
 };
 </script>

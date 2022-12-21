@@ -11,14 +11,14 @@ import {
 
 const categoryRouter = express.Router();
 
-categoryRouter.get("/titles", makeExpressCallback(getCategoryTitlesController)); // DONE
+categoryRouter.get("/titles", makeExpressCallback(getCategoryTitlesController));
 
 categoryRouter.get(
   "/:_id",
   makeValidator(getCategoryRules),
   makeExpressCallback(getCategoryController)
-); // DONE
+);
 
-categoryRouter.get("/", makeExpressCallback(getCategoriesController)); // DONE
+categoryRouter.get("/", makeExpressCallback(getCategoriesController));
 
 export default categoryRouter;

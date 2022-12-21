@@ -13,6 +13,7 @@ export default {
       is_open_reply_comment: "is_open_reply_comment",
       is_open_edit_comment: "is_open_edit_comment",
       comment_pagination: "comment/pagination",
+      comment_count_by_post: "comment/comment_count_by_post",
     }),
   },
   methods: {
@@ -27,6 +28,7 @@ export default {
       LIKE_COMMENT: "comment/LIKE_COMMENT",
       DISLIKE_COMMENT: "comment/DISLIKE_COMMENT",
       REPLY_COMMENT: "comment/REPLY_COMMENT",
+      COUNT_COMMENT_BY_POST: "comment/COUNT_COMMENT_BY_POST",
     }),
     ...mapMutations({
       SET_COMMENT: "comment/SET_COMMENT",

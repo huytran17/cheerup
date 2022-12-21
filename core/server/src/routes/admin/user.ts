@@ -93,8 +93,8 @@ userRouter.put(
   "/",
   makeValidator(updateUserRules),
   makeExpressCallback(updateUserController)
-); // DONE
+);
 
-userRouter.get("/", makeExpressCallback(getUsersController)); // DONE
+userRouter.get("/", makeExpressCallback(getUsersController));
 
 export default userRouter;

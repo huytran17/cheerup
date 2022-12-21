@@ -44,49 +44,49 @@ postRouter.put(
   "/un-highlight/:_id",
   makeValidator(unHighlightPostRules),
   makeExpressCallback(unHightlightPostController)
-); // DONE
+);
 
 postRouter.put(
   "/highlight/:_id",
   makeValidator(highlightPostRules),
   makeExpressCallback(hightlightPostController)
-); // DONE
+);
 
 postRouter.put(
   "/publish/:_id",
   makeValidator(publishPostRules),
   makeExpressCallback(publishPostController)
-); // DONE
+);
 
 postRouter.put(
   "/un-publish/:_id",
   makeValidator(unPublishPostRules),
   makeExpressCallback(unPublishPostController)
-); // DONE
+);
 
 postRouter.delete(
   "/hard-delete/:_id",
   makeValidator(hardDeletePostRules),
   makeExpressCallback(hardDeletePostController)
-); // DONE
+);
 
 postRouter.put(
   "/block-comment/:_id",
   makeValidator(blockPostCommentRules),
   makeExpressCallback(blockPostCommentController)
-); // DONE
+);
 
 postRouter.put(
   "/un-block-comment/:_id",
   makeValidator(unBlockPostCommentRules),
   makeExpressCallback(unblockPostCommentController)
-); // DONE
+);
 
 postRouter.put(
   "/restore/:_id",
   makeValidator(restorePostRules),
   makeExpressCallback(restorePostController)
-); // DONE
+);
 
 postRouter.post(
   "/upload-thumbnail/:_id",
@@ -99,26 +99,26 @@ postRouter.get(
   "/:_id",
   makeValidator(getPostRules),
   makeExpressCallback(getPostController)
-); // DONE
+);
 
 postRouter.delete(
   "/:_id",
   makeValidator(deletePostRules),
   makeExpressCallback(deletePostController)
-); // DONE
+);
 
 postRouter.put(
   "/:_id",
   makeValidator(updatePostRules),
   makeExpressCallback(updatePostController)
-); // DONE
+);
 
 postRouter.post(
   "/",
   makeValidator(createPostRules),
   makeExpressCallback(createPostController)
-); // DONE
+);
 
-postRouter.get("/", makeExpressCallback(getPostsController)); // DONE
+postRouter.get("/", makeExpressCallback(getPostsController));
 
 export default postRouter;

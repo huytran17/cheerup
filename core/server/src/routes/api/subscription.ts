@@ -17,12 +17,12 @@ subscriptionRouter.put(
   "/",
   makeValidator(cancelSubscriptionRules),
   makeExpressCallback(cancelSubscriptionController)
-); // DONE
+);
 
 subscriptionRouter.post(
   "/",
   makeValidator(createSubscriptionRules),
   makeExpressCallback(createSubscriptionController)
-); // DONE
+);
 
 export default subscriptionRouter;

@@ -10,6 +10,7 @@ export const state = () => ({
     per_page: 15,
     total_pages: 0,
   },
+  comment_count_by_post: 0,
 });
 
 export type CommentState = ReturnType<typeof state>;

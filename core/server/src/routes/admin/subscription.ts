@@ -20,8 +20,8 @@ subscriptionRouter.get(
   "/:_id",
   makeValidator(getSubscriptionRules),
   makeExpressCallback(getSubscriptionController)
-); // DONE
+);
 
-subscriptionRouter.get("/", makeExpressCallback(getSubscriptionsController)); // DONE
+subscriptionRouter.get("/", makeExpressCallback(getSubscriptionsController));
 
 export default subscriptionRouter;

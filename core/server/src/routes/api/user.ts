@@ -49,6 +49,6 @@ userRouter.put(
   "/",
   makeValidator(updateUserRules),
   makeExpressCallback(updateUserController)
-); // DONE
+);
 
 export default userRouter;

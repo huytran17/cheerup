@@ -14,8 +14,8 @@ commentRouter.delete(
   "/:_id",
   makeValidator(deleteCommentRules),
   makeExpressCallback(deleteCommentController)
-); // DONE
+);
 
-commentRouter.get("/", makeExpressCallback(getCommentsController)); // DONE
+commentRouter.get("/", makeExpressCallback(getCommentsController));
 
 export default commentRouter;

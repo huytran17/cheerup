@@ -6,6 +6,24 @@ import { RootState } from "..";
 import _ from "lodash";
 
 const actions: ActionTree<CommentState, RootState> = {
+  async [ActionTypes.COUNT_COMMENT_BY_POST]({ commit }, params = {}) {
+    const post_id = _.get(params, "post_id");
+
+    const url_query = new URLSearchParams();
+
+    if (post_id) {
+      url_query.set("post_id", post_id);
+    }
+
+    const { data } = await this.$axios.$get(
+      `/comment/count-by-post?${url_query}`
+    );
+
+    commit(MutationTypes.SET_COMMENT_COUNT_BY_POST, { data });
+
+    return data;
+  },
+
   async [ActionTypes.GET_COMMENTS]({ commit }, params = {}) {
     const keep_in_store = _.get(params, "keep_in_store", true);
 

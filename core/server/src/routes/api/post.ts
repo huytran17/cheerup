@@ -20,24 +20,24 @@ postRouter.get(
   "/suggestion-posts",
   makeValidator(getSuggestionPostsRules),
   makeExpressCallback(getSuggestionPostsController)
-); // DONE
+);
 
 postRouter.get(
   "/all-paginated",
   makeValidator(getPostsPaginatedRules),
   makeExpressCallback(getPostsPaginatedController)
-); // DONE
+);
 
 postRouter.get(
   "/:_id",
   makeValidator(getPostRules),
   makeExpressCallback(getPostController)
-); // DONE
+);
 
 postRouter.get(
   "/",
   makeValidator(getPostRules),
   makeExpressCallback(getPostsController)
-); // DONE
+);
 
 export default postRouter;

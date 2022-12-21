@@ -72,18 +72,18 @@ systemConfigurationRouter.post(
 systemConfigurationRouter.get(
   "/",
   makeExpressCallback(getLatestSystemConfigurationController)
-); // DONE
+);
 
 systemConfigurationRouter.get(
   "/:_id",
   makeValidator(getSystemConfigurationRules),
   makeExpressCallback(getSystemConfigurationController)
-); // DONE
+);
 
 systemConfigurationRouter.put(
   "/:_id",
   makeValidator(updateSystemConfigurationRules),
   makeExpressCallback(updateSystemConfigurationController)
-); // DONE
+);
 
 export default systemConfigurationRouter;

@@ -6,6 +6,7 @@ import {
   getComments,
   getCommentsByPostPaginated,
   replyComment,
+  countCommentsByPost,
 } from "../../../../use-cases/comment";
 import { getPost } from "../../../../use-cases/post";
 import { getUser } from "../../../../use-cases/user";
@@ -20,6 +21,13 @@ import makeDislikeCommentController from "./dislike-comment";
 import makeLikeCommentController from "./like-comment";
 import makeGetCommentsByPostPaginatedController from "./get-comments-by-post-paginated";
 import makeReplyCommentController from "./reply-comment";
+import makeCountCommentsByPostController from "./count-comments-by-post";
+
+const countCommentsByPostController = makeCountCommentsByPostController({
+  countCommentsByPost,
+  getPost,
+  logger,
+});
 
 const replyCommentController = makeReplyCommentController({
   replyComment,
@@ -96,6 +104,7 @@ export default Object.freeze({
   dislikeCommentController,
   likeCommentController,
   replyCommentController,
+  countCommentsByPostController,
 });
 
 export {
@@ -108,4 +117,5 @@ export {
   dislikeCommentController,
   likeCommentController,
   replyCommentController,
+  countCommentsByPostController,
 };

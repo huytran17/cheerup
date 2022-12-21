@@ -13,6 +13,7 @@ export const getters: GetterTree<CommentState, RootState> = {
   comments: (state) => state.comments,
   loading: (state) => state.loading,
   pagination: (state) => state.pagination,
+  comment_count_by_post: (state) => state.comment_count_by_post,
 };
 
 export default getters;

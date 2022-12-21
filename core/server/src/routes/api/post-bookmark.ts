@@ -17,18 +17,18 @@ const postBookmarkRouter = express.Router();
 postBookmarkRouter.get(
   "/count-post-bookmarks",
   makeExpressCallback(countPostBookmarkController)
-); // DONE
+);
 
 postBookmarkRouter.get(
   "/all-paginated",
   makeValidator(getPostBookmarksPaginatedRules),
   makeExpressCallback(getPostBookmarksPaginatedController)
-); // DONE
+);
 
 postBookmarkRouter.put(
   "/create-or-delete",
   makeValidator(createOrDeletePostBookmarkRules),
   makeExpressCallback(createOrDeletePostBookmarkController)
-); // DONE
+);
 
 export default postBookmarkRouter;

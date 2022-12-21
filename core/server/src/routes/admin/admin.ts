@@ -104,8 +104,8 @@ adminRouter.put(
   "/",
   makeValidator(updateAdminRules),
   makeExpressCallback(updateAdminController)
-); // DONE
+);
 
-adminRouter.get("/", makeExpressCallback(getAdminsController)); // DONE
+adminRouter.get("/", makeExpressCallback(getAdminsController));
 
 export default adminRouter;

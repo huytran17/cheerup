@@ -24,6 +24,10 @@ const mutations: MutationTree<CommentState> = {
     state.comment = data;
   },
 
+  [MutationTypes.SET_COMMENT_COUNT_BY_POST](state, { data }: { data: any }) {
+    state.comment_count_by_post = data;
+  },
+
   [MutationTypes.SET_LOADING](state, { data }: { data: boolean }) {
     state.loading = data;
   },
