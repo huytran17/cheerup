@@ -27,7 +27,7 @@ export default function makeGetEmailContent({
   subjectTemplate,
   htmlToText,
   email_from,
-  email_sender_name = "Kinobi Community",
+  email_sender_name = "Huy Tran",
 }: {
   emailTextTemplate: { [type: string]: string };
   subjectTemplate: { [type: string]: string };
@@ -43,8 +43,8 @@ export default function makeGetEmailContent({
     from,
     sender_name,
   }: IGetEmailContentData): Promise<IEmailData> {
-    const invalid_to = !to || (to && to.length === 0);
-    if (invalid_to) {
+    const invalid_destination = !to || (to && to.length === 0);
+    if (invalid_destination) {
       throw new Error(`email ${to} cannot be empty.`);
     }
 
