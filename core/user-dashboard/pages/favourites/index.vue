@@ -21,7 +21,7 @@ export default {
 
       await store.dispatch("post-bookmark/GET_POST_BOOKMARKS_PAGINATED");
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
   mixins: [postBookmarkMixins],

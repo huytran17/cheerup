@@ -20,7 +20,7 @@ export default {
         user_id: _.get(store.getters["auth/me"], "_id"),
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
   components: {

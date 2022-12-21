@@ -19,7 +19,7 @@ export default {
         query: route.query.search,
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
   components: {

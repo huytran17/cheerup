@@ -171,7 +171,7 @@ export default {
 
         await this.COUNT_POST_BOOKMARKS();
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     },
 

@@ -24,7 +24,7 @@ export function initializeMailer(): Transporter {
 
     transport.verify(function (error: any, success: any) {
       if (error) {
-        console.log(error);
+        console.error(error);
       } else {
         console.log("SMTP Server is ready to take your email");
       }
@@ -62,7 +62,7 @@ export default Object.freeze({
   sendMail: async (payload: IEmailData) => {
     const transport = initializeMailer();
     transport.sendMail(payload).catch((error) => {
-      console.log(error);
+      console.error(error);
     });
     return payload;
   },

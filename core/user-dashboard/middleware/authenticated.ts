@@ -12,6 +12,6 @@ export default async function ({ store, redirect }: Context) {
       return redirect("/login");
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
