@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import _ from "lodash";
-// import audit from "./db-audit";
 
 async function makeDb() {
   const DATABASE_URL = makeDatabaseURL();
@@ -12,7 +11,6 @@ async function makeDb() {
     await mongoose.connect(DATABASE_URL, DATABASE_OPTIONS);
     console.log("Successfully connected to DB");
   }
-  // mongoose.set("debug", audit)
 
   return mongoose;
 }
@@ -43,8 +41,6 @@ export function makeDatabaseOptions() {
     useNewUrlParser: true,
     connectTimeoutMS: 10000,
     useUnifiedTopology: true,
-    // useFindAndModify: false,
-    // useCreateIndex: true,
   };
 
   return options;

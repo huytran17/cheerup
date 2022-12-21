@@ -46,7 +46,7 @@ const actions: ActionTree<AuthState, RootState> = {
 
     if (valid_signout) {
       localStorage.removeItem("access_token");
-      window.location.replace(""); //FIXME: redirect with locale path
+      window.location.replace("");
     }
 
     return valid_signout;

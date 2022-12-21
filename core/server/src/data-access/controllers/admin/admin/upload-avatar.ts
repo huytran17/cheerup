@@ -60,7 +60,7 @@ export default function makeUploadAdminAvatarController({
         statusCode: HttpStatusCode.OK,
         body: {
           data: updated_admin,
-        }, // TODO: add in implementation of resource
+        },
       };
     } catch (error) {
       return {

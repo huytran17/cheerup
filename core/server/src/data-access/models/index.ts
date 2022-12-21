@@ -29,7 +29,6 @@ type ICategoryModel = ICategory & mongoose.Document;
 type ICommentModel = IComment & mongoose.Document;
 type IGalleryModel = IGallery & mongoose.Document;
 
-// Models
 const GalleryModel = mongoose.model<IGalleryModel>("Gallery", gallerySchema);
 const PostBookmarkModel = mongoose.model<IPostBookmarkModel>(
   "PostBookmark",

@@ -50,7 +50,7 @@ export default class Storage {
     Storage.s3.deleteObject(params, function (error, data) {
       if (error) {
         console.log(error, error.stack);
-      } // an error occurred
+      }
     });
   }
 }

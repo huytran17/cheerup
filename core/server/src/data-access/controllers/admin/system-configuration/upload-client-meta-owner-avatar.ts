@@ -70,7 +70,7 @@ export default function makeUploadClientMetaOwnerAvatarController({
         statusCode: HttpStatusCode.OK,
         body: {
           data: updated_system_configuration,
-        }, // TODO: add in implementation of resource
+        },
       };
     } catch (error) {
       throw {

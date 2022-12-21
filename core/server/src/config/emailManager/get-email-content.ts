@@ -51,7 +51,6 @@ export default function makeGetEmailContent({
     const template_html_message = emailTextTemplate[type];
     const subject_message = subjectTemplate[type];
 
-    // from and sender_name from params takes precedence
     const final_from = from || email_from;
     const final_sender_name = sender_name || email_sender_name;
 

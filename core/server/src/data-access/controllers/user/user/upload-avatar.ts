@@ -72,7 +72,7 @@ export default function makeUploadUserAvatarController({
         statusCode: HttpStatusCode.OK,
         body: {
           data: updated_user,
-        }, // TODO: add in implementation of resource
+        },
       };
     } catch (error) {
       throw {

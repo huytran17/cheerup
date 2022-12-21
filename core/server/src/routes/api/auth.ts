@@ -49,26 +49,22 @@ authRouter.post(
   makeExpressCallback(signOutController)
 );
 
-// Facebook login
 authRouter.get("/facebook", authenticateUserFacebook());
 
 authRouter.get(
   "/facebook/callback",
   authenticateUserFacebook(),
   function (req, res) {
-    // Successful authentication, redirect home.
     res.redirect("/");
   }
 );
 
-// Google login
 authRouter.get("/google", authenticateUserGoogle());
 
 authRouter.get(
   "/google/callback",
   authenticateUserGoogle(),
   function (req, res) {
-    // Successful authentication, redirect home.
     res.redirect("/");
   }
 );

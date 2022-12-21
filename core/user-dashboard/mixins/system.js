@@ -32,12 +32,6 @@ export default {
       SET_IS_OPEN_LOGIN_REQUIRING_SNACKBAR:
         "SET_IS_OPEN_LOGIN_REQUIRING_SNACKBAR",
     }),
-    /**
-     *
-     * @param {*} date
-     * @param {*} format
-     * @returns format the date // default: "DD MMMM YYYY, hh:mm"
-     */
     formatDate(date, format) {
       if (format) {
         return this.$moment(date).format(format);

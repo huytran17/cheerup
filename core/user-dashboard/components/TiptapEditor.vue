@@ -16,10 +16,6 @@
 </template>
 
 <script>
-/**
- * @description Find out more information here https://github.com/iliyaZelenko/tiptap-vuetify
- */
-// import the component and the necessary extensions
 import {
   TiptapVuetify,
   Heading,
@@ -41,7 +37,6 @@ import {
 
 export default {
   name: "BaseCommentEditor",
-  // specify TiptapVuetify component in "components"
   components: { TiptapVuetify },
   props: {
     content: {
@@ -66,7 +61,6 @@ export default {
     },
   },
   data() {
-    // declare extensions you want to use
     return {
       extensions: [
         History,

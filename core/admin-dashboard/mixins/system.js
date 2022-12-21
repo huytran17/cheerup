@@ -18,12 +18,6 @@ export default {
     ...mapMutations({
       SET_APP_LOADING: "SET_APP_LOADING",
     }),
-    /**
-     *
-     * @param {*} date
-     * @param {*} format
-     * @returns format the date // default: "DD MMMM YYYY, hh:mm"
-     */
     formatDate(date, format) {
       if (format) {
         return this.$moment(date).format(format);

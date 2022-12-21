@@ -60,7 +60,7 @@ export default function makeUploadCategoryThumbnailController({
         statusCode: HttpStatusCode.OK,
         body: {
           data: updated_category,
-        }, // TODO: add in implementation of resource
+        },
       };
     } catch (error) {
       throw {

@@ -63,7 +63,7 @@ export default function makeUploadAdminMetaFaviconController({
         statusCode: HttpStatusCode.OK,
         body: {
           data: updated_system_configuration,
-        }, // TODO: add in implementation of resource
+        },
       };
     } catch (error) {
       throw {
