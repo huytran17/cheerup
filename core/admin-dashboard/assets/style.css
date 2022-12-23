@@ -162,3 +162,11 @@ select:-webkit-autofill:focus {
   display: block;
   margin: 0 auto;
 }
+
+.tiptap__text-no-margin p {
+  margin-bottom: 0 !important;
+}
+
+.tiptap__text-no-image p:has(img) {
+  display: none !important;
+}

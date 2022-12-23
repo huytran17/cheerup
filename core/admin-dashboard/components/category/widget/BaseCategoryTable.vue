@@ -32,7 +32,10 @@
         </template>
 
         <template v-slot:item.description="{ item }">
-          <div class="text-body-2 category__description--ellipsis">
+          <div
+            class="text-body-2 tiptap__text-no-margin tiptap__text-no-image"
+            v-line-clamp="3"
+          >
             <span class="app-body" v-html="$t(item.description)"></span>
           </div>
         </template>
@@ -242,13 +245,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.category__description--ellipsis {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-}
-</style>

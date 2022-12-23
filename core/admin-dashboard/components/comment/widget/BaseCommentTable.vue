@@ -11,15 +11,23 @@
           ></v-text-field>
         </v-card-title>
         <v-data-table :headers="headers" :items="comments" :search="search">
+          <template v-slot:item.content="{ item }">
+            <div class="text-body-2">
+              <span class="app-body" v-html="item.content"></span>
+            </div>
+          </template>
+
           <template v-slot:item.user="{ item }">
-            <div v-if="item.user" class="text-body-2">
-              <span class="app-body">{{ item.user.full_name }}</span>
+            <div class="text-body-2">
+              <span class="app-body">{{ item.user?.full_name }}</span>
             </div>
           </template>
 
           <template v-slot:item.post="{ item }">
-            <div v-if="item.post" class="text-body-2">
-              <span class="app-body">{{ item.post.title }}</span>
+            <div class="text-body-2" @click="goToPost(item)">
+              <span class="app-body primary--text clickable">{{
+                item.post?.title
+              }}</span>
             </div>
           </template>
 
@@ -133,6 +141,10 @@ export default {
   },
 
   methods: {
+    goToPost(post) {
+      const url = new URL(`${process.env.USER_DASHBOARD_URL}/post/${post._id}`);
+      window.open(url, "__blank");
+    },
     async hardDeleteComment() {
       try {
         const id = _.get(this.comment, "_id");
