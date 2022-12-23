@@ -1,5 +1,3 @@
-import _ from "lodash";
-
 export default {
   computed: {
     access_token() {
@@ -8,6 +6,11 @@ export default {
   },
 
   methods: {
+    uploadUserAvatarOptions({ id }) {
+      const upload_url = `${process.env.SERVER_URL}/api/user/upload-avatar/${id}`;
+      return this.getDropzoneOptions({ upload_url });
+    },
+
     getDropzoneOptions({ upload_url }) {
       return {
         url: `${upload_url}`,

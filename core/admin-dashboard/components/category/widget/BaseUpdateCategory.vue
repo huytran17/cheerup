@@ -53,13 +53,10 @@
           </v-col>
           <v-col cols="12" sm="6">
             <v-dropzone
+              v-if="category._id"
               ref="thumbnail_dropzone"
               id="thumbnail"
-              :options="
-                getDropzoneOptions({
-                  upload_url: category_upload_thumbnail_url,
-                })
-              "
+              :options="uploadCategoryThumbnailOptions({ id: category._id })"
               :destroyDropzone="true"
               @vdropzone-success="
                 (file, response) =>
@@ -118,7 +115,6 @@
 <script>
 import categoryMixins from "@/mixins/category";
 import dropzoneMixins from "@/mixins/dropzone";
-import { S3_UPLOAD_URL_TYPES } from "@/constants";
 
 import BaseCircularLoader from "@/components/loaders/BaseCircularLoader";
 
@@ -136,10 +132,6 @@ export default {
     };
   },
   computed: {
-    category_upload_thumbnail_url() {
-      return `${S3_UPLOAD_URL_TYPES.CATEGORY_THUMBNAIL}/${this.$route.params.id}`;
-    },
-
     category_thumbnail_url() {
       return _.get(this.category, "thumbnail_url");
     },

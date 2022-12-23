@@ -17,10 +17,6 @@ const SOCIALITE_URL = {
   LINKEDIN: "https://github.com/huytran17",
 };
 
-const S3_UPLOAD_URL_TYPES = {
-  USER_AVATAR: `${process.env.SERVER_URL}/api/user/upload-avatar`,
-};
-
 const HTTP_STATUS_CODE = {
   OK: 200,
   CREATED: 201,
@@ -35,13 +31,7 @@ const HTTP_STATUS_CODE = {
 export default Object.freeze({
   SOCIAL_MEDIA_TYPES,
   SOCIALITE_URL,
-  S3_UPLOAD_URL_TYPES,
   HTTP_STATUS_CODE,
 });
 
-export {
-  SOCIAL_MEDIA_TYPES,
-  SOCIALITE_URL,
-  S3_UPLOAD_URL_TYPES,
-  HTTP_STATUS_CODE,
-};
+export { SOCIAL_MEDIA_TYPES, SOCIALITE_URL, HTTP_STATUS_CODE };

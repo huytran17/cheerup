@@ -81,13 +81,10 @@
           </v-col>
           <v-col cols="12" sm="6">
             <v-dropzone
+              v-if="admin._id"
               ref="avatar_dropzone"
               id="avatar"
-              :options="
-                getDropzoneOptions({
-                  upload_url: admin_upload_avatar_url,
-                })
-              "
+              :options="uploadAdminAvatarOptions({ id: admin._id })"
               :destroyDropzone="true"
               @vdropzone-success="
                 (file, response) => onUploadAvatarSuccsess({ file, response })
@@ -183,7 +180,6 @@
 
 <script>
 import adminMixins from "@/mixins/admin";
-import { S3_UPLOAD_URL_TYPES } from "@/constants";
 import dropzoneMixins from "@/mixins/dropzone";
 
 export default {
@@ -198,10 +194,6 @@ export default {
     };
   },
   computed: {
-    admin_upload_avatar_url() {
-      return `${S3_UPLOAD_URL_TYPES.ADMIN_AVATAR}/${this.$route.params.id}`;
-    },
-
     admin_avatar_url() {
       return _.get(this.admin, "avatar_url");
     },

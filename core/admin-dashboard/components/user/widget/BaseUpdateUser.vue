@@ -65,11 +65,7 @@
             <v-dropzone
               ref="avatar_dropzone"
               id="avatar"
-              :options="
-                getDropzoneOptions({
-                  upload_url: user_upload_avatar_url,
-                })
-              "
+              :options="uploadUserAvatarOptions({ id: user._id })"
               :destroyDropzone="true"
               @vdropzone-success="
                 (file, response) => onUploadAvatarSuccsess({ file, response })
@@ -165,7 +161,6 @@
 
 <script>
 import userMixins from "@/mixins/user";
-import { S3_UPLOAD_URL_TYPES } from "@/constants";
 import dropzoneMixins from "@/mixins/dropzone";
 
 export default {
@@ -180,10 +175,6 @@ export default {
     };
   },
   computed: {
-    user_upload_avatar_url() {
-      return `${S3_UPLOAD_URL_TYPES.USER_AVATAR}/${this.$route.params.id}`;
-    },
-
     user_avatar_url() {
       return _.get(this.user, "avatar_url");
     },

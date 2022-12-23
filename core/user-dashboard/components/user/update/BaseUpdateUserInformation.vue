@@ -39,11 +39,7 @@
             <v-dropzone
               ref="user_avatar_dropzone"
               id="admin_logo"
-              :options="
-                getDropzoneOptions({
-                  upload_url: user_upload_avatar_url,
-                })
-              "
+              :options="uploadUserAvatarOptions({ id: me._id })"
               :destroyDropzone="true"
               @vdropzone-success="
                 (file, response) =>
@@ -88,7 +84,6 @@
 import authMixins from "@/mixins/auth";
 import userMixins from "@/mixins/user";
 import dropzoneMixins from "@/mixins/dropzone";
-import { S3_UPLOAD_URL_TYPES } from "@/constants";
 
 export default {
   name: "BaseUpdateUserInformation",
@@ -99,12 +94,6 @@ export default {
     };
   },
   computed: {
-    user_upload_avatar_url() {
-      return this.getUploadUrl({
-        base_url: S3_UPLOAD_URL_TYPES.USER_AVATAR,
-      });
-    },
-
     user_avatar_url() {
       return _.get(this.me, "avatar_url");
     },
@@ -117,10 +106,6 @@ export default {
       } catch (error) {
         console.error(error);
       }
-    },
-
-    getUploadUrl({ base_url }) {
-      return `${base_url}/${_.get(this.me, "_id")}`;
     },
 
     onUploadSuccsess({ file, response, update_paths }) {

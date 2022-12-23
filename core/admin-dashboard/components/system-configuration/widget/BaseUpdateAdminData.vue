@@ -55,13 +55,10 @@
         </v-col>
         <v-col cols="12" md="6">
           <v-dropzone
+            v-if="system_configuration._id"
             ref="admin_logo_dropzone"
             id="admin_logo"
-            :options="
-              getDropzoneOptions({
-                upload_url: admin_upload_logo_url,
-              })
-            "
+            :options="uploadAdminLogoOptions({ id: system_configuration._id })"
             :destroyDropzone="true"
             @vdropzone-success="
               (file, response) =>
@@ -98,12 +95,11 @@
         </v-col>
         <v-col cols="12" md="6">
           <v-dropzone
+            v-if="system_configuration._id"
             ref="admin_favicon_dropzone"
             id="admin_favicon"
             :options="
-              getDropzoneOptions({
-                upload_url: admin_upload_favicon_url,
-              })
+              uploadAdminFaviconOptions({ id: system_configuration._id })
             "
             :destroyDropzone="true"
             @vdropzone-success="
@@ -140,12 +136,11 @@
         </v-col>
         <v-col cols="12" md="6">
           <v-dropzone
+            v-if="system_configuration._id"
             ref="admin_folder_icon_dropzone"
             id="admin_favicon"
             :options="
-              getDropzoneOptions({
-                upload_url: admin_upload_folder_icon_url,
-              })
+              uploadAdminFolderIconOptions({ id: system_configuration._id })
             "
             :destroyDropzone="true"
             @vdropzone-success="
@@ -178,7 +173,6 @@
 </template>
 
 <script>
-import { S3_UPLOAD_URL_TYPES } from "@/constants";
 import systemConfigurationMixins from "@/mixins/system-configuration";
 import dropzoneMixins from "@/mixins/dropzone";
 
@@ -196,24 +190,6 @@ export default {
 
     admin_meta_description() {
       return _.get(this.system_configuration, "admin_meta.description");
-    },
-
-    admin_upload_logo_url() {
-      return this.getUploadUrl({
-        base_url: S3_UPLOAD_URL_TYPES.SYSTEM_CONFIG_ADMIN_META_LOGO,
-      });
-    },
-
-    admin_upload_folder_icon_url() {
-      return this.getUploadUrl({
-        base_url: S3_UPLOAD_URL_TYPES.SYSTEM_CONFIG_ADMIN_META_FOLDER_ICON,
-      });
-    },
-
-    admin_upload_favicon_url() {
-      return this.getUploadUrl({
-        base_url: S3_UPLOAD_URL_TYPES.SYSTEM_CONFIG_ADMIN_META_FAVICON,
-      });
     },
 
     admin_logo_url() {
@@ -247,11 +223,6 @@ export default {
 
       this.SET_SYSTEM_CONFIGURATION({ data: updated_thumbnail_data });
       this.$toast.success("Updated system configuration successfully");
-    },
-
-    getUploadUrl({ base_url }) {
-      const system_configuration_id = _.get(this.system_configuration, "_id");
-      return `${base_url}/${system_configuration_id}`;
     },
   },
 };

@@ -83,11 +83,7 @@
               v-if="has_user"
               ref="avatar_dropzone"
               id="avatar"
-              :options="
-                getDropzoneOptions({
-                  upload_url: admin_upload_avatar_url,
-                })
-              "
+              :options="uploadAdminAvatarOptions({ id: me._id })"
               :destroyDropzone="true"
               @vdropzone-success="
                 (file, response) => onUploadAvatarSuccsess({ file, response })
@@ -196,7 +192,6 @@
 <script>
 import { mapActions } from "vuex";
 import authMixins from "@/mixins/auth";
-import { S3_UPLOAD_URL_TYPES } from "@/constants";
 import dropzoneMixins from "@/mixins/dropzone";
 
 export default {
@@ -212,10 +207,6 @@ export default {
     };
   },
   computed: {
-    admin_upload_avatar_url() {
-      return `${S3_UPLOAD_URL_TYPES.ADMIN_AVATAR}/${this.me._id}`;
-    },
-
     admin_avatar_url() {
       return _.get(this.me, "avatar_url");
     },

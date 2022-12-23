@@ -74,11 +74,7 @@
           <v-dropzone
             ref="client_logo_dropzone"
             id="client_logo"
-            :options="
-              getDropzoneOptions({
-                upload_url: client_upload_logo_url,
-              })
-            "
+            :options="uploadClientLogoOptions({ id: system_configuration._id })"
             :destroyDropzone="true"
             @vdropzone-success="
               (file, response) =>
@@ -119,9 +115,7 @@
             ref="client_favicon_dropzone"
             id="client_favicon"
             :options="
-              getDropzoneOptions({
-                upload_url: client_upload_favicon_url,
-              })
+              uploadClientFaviconOptions({ id: system_configuration._id })
             "
             :destroyDropzone="true"
             @vdropzone-success="
@@ -194,9 +188,7 @@
             ref="client_owner_avatar_dropzone"
             id="client_owner_avatar"
             :options="
-              getDropzoneOptions({
-                upload_url: client_upload_owner_avatar_url,
-              })
+              uploadClientOwnerAvatarOptions({ id: system_configuration._id })
             "
             :destroyDropzone="true"
             @vdropzone-success="
@@ -229,7 +221,6 @@
 </template>
 
 <script>
-import { S3_UPLOAD_URL_TYPES } from "@/constants";
 import systemConfigurationMixins from "@/mixins/system-configuration";
 import dropzoneMixins from "@/mixins/dropzone";
 
@@ -265,24 +256,6 @@ export default {
       return _.get(this.system_configuration, "client_meta.owner", {});
     },
 
-    client_upload_owner_avatar_url() {
-      return this.getUploadUrl({
-        base_url: S3_UPLOAD_URL_TYPES.SYSTEM_CONFIG_CLIENT_META_OWNER_AVATAR,
-      });
-    },
-
-    client_upload_logo_url() {
-      return this.getUploadUrl({
-        base_url: S3_UPLOAD_URL_TYPES.SYSTEM_CONFIG_CLIENT_META_LOGO,
-      });
-    },
-
-    client_upload_favicon_url() {
-      return this.getUploadUrl({
-        base_url: S3_UPLOAD_URL_TYPES.SYSTEM_CONFIG_CLIENT_META_FAVICON,
-      });
-    },
-
     client_logo_url() {
       return _.get(this.system_configuration, "client_logo_url");
     },
@@ -313,11 +286,6 @@ export default {
 
       this.SET_SYSTEM_CONFIGURATION({ data: updated_thumbnail_data });
       this.$toast.success("Updated system configuration successfully");
-    },
-
-    getUploadUrl({ base_url }) {
-      const system_configuration_id = _.get(this.system_configuration, "_id");
-      return `${base_url}/${system_configuration_id}`;
     },
   },
 };

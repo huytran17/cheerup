@@ -118,13 +118,10 @@
             </v-col>
             <v-col cols="12" sm="6">
               <v-dropzone
+                v-if="post._id"
                 ref="thumbnail_dropzone"
                 id="thumbnail"
-                :options="
-                  getDropzoneOptions({
-                    upload_url: post_upload_thumbnail_url,
-                  })
-                "
+                :options="uploadPostThumbnailOptions({ id: post._id })"
                 :destroyDropzone="true"
                 @vdropzone-success="
                   (file, response) =>
@@ -186,7 +183,6 @@
 import categoryMixins from "@/mixins/category";
 import postMixins from "@/mixins/post";
 import dropzoneMixins from "@/mixins/dropzone";
-import { S3_UPLOAD_URL_TYPES } from "@/constants";
 
 import TiptapEditor from "@/components/TiptapEditor";
 import BasePreviewPostDialog from "@/components/post/widget/BasePreviewPostDialog";
@@ -206,11 +202,6 @@ export default {
     };
   },
   computed: {
-    post_upload_thumbnail_url() {
-      const post_id = _.get(this.post, "_id");
-      return `${S3_UPLOAD_URL_TYPES.POST_THUMBNAIL}/${post_id}`;
-    },
-
     post_thumbnail_url() {
       return _.get(this.post, "thumbnail_url");
     },

@@ -30,11 +30,7 @@
         <v-dropzone
           ref="upload_item_dropzone"
           id="thumbnail"
-          :options="
-            getDropzoneOptions({
-              upload_url: gallery_upload_item_url,
-            })
-          "
+          :options="uploadGalleryItemOptions({ id: gallery._id })"
           :destroyDropzone="true"
           @vdropzone-success="
             (file, response) => onUploadItemSuccsess({ file, response })
@@ -90,7 +86,6 @@ import { mapActions } from "vuex";
 import BaseGalleryFolders from "@/components/gallery/widget/BaseGalleryFolders";
 import BaseGalleryItems from "@/components/gallery/widget/BaseGalleryItems";
 import dropzoneMixins from "@/mixins/dropzone";
-import { S3_UPLOAD_URL_TYPES } from "@/constants";
 import BaseHardDeleteDialog from "@/components/BaseHardDeleteDialog";
 import BaseModalCreateGallery from "@/components/gallery/widget/BaseModalCreateGallery";
 import galleryMixins from "@/mixins/gallery";
@@ -111,11 +106,6 @@ export default {
   computed: {
     gallery_items() {
       return _.get(this.gallery, "items", []);
-    },
-
-    gallery_upload_item_url() {
-      const gallery_id = this.$route.params.id;
-      return `${S3_UPLOAD_URL_TYPES.GALLERY_ITEM}/${gallery_id}`;
     },
   },
   methods: {
