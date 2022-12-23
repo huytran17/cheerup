@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row v-if="!loading">
     <v-col cols="12">
       <v-icon color="black" @click="$router.go(-1)"
         >mdi-keyboard-backspace</v-icon
@@ -75,8 +75,7 @@
 
           <v-col cols="12" sm="6">
             <v-img
-              v-if="user_avatar_url"
-              :src="user_avatar_url"
+              :src="user.avatar_url"
               :alt="user.full_name"
               contain
               max-width="200px"
@@ -172,12 +171,8 @@ export default {
       security_form_valid: false,
       show_password_confirmation: false,
       show_password: false,
+      loading: false,
     };
-  },
-  computed: {
-    user_avatar_url() {
-      return _.get(this.user, "avatar_url");
-    },
   },
   methods: {
     async updateUser() {

@@ -1,5 +1,5 @@
 <template>
-  <v-row class="soft-box-shadow rounded-lg mt-8 px-4 py-5">
+  <v-row v-if="has_data" class="soft-box-shadow rounded-lg mt-8 px-4 py-5">
     <v-col cols="12" class="py-0">
       <div class="text-body-1 primary--text">
         <span class="app-title" v-html="$t('Client Meta')"></span>
@@ -7,7 +7,7 @@
     </v-col>
     <v-col cols="12" md="6">
       <v-text-field
-        :value="client_meta_title"
+        :value="system_configuration.client_meta?.title"
         :rules="titleRules"
         :label="$t('Title')"
         @input="
@@ -20,7 +20,7 @@
     </v-col>
     <v-col cols="12" md="6">
       <v-text-field
-        :value="client_meta_description"
+        :value="system_configuration.client_meta?.description"
         :rules="descriptionRules"
         :label="$t('Description')"
         @input="
@@ -33,7 +33,7 @@
     </v-col>
     <v-col cols="12" md="6">
       <v-text-field
-        :value="client_meta_author"
+        :value="system_configuration.client_meta?.author"
         :rules="authorRules"
         :label="$t('Author')"
         @input="
@@ -46,7 +46,7 @@
     </v-col>
     <v-col cols="12" md="6">
       <v-combobox
-        :value="client_meta_keywords"
+        :value="system_configuration.client_meta?.keywords"
         :label="$t('Keywords')"
         multiple
         chips
@@ -90,9 +90,8 @@
 
         <v-col cols="12" md="6">
           <v-img
-            v-if="client_logo_url"
-            :src="client_logo_url"
-            :alt="client_meta_title"
+            :src="system_configuration.client_logo_url"
+            :alt="system_configuration.client_meta?.title"
             contain
             max-width="200px"
             class="mx-auto"
@@ -131,9 +130,8 @@
         </v-col>
         <v-col cols="12" md="6">
           <v-img
-            v-if="client_favicon_url"
-            :src="client_favicon_url"
-            :alt="client_meta_title"
+            :src="system_configuration.client_favicon_url"
+            :alt="system_configuration.client_meta?.title"
             contain
             max-width="200px"
             class="mx-auto"
@@ -144,7 +142,7 @@
 
     <v-col cols="12" md="6">
       <v-text-field
-        :value="client_meta_owner_name"
+        :value="system_configuration.client_meta?.owner?.name"
         :rules="ownerNameRules"
         :label="$t('Owner Name')"
         @input="
@@ -163,7 +161,7 @@
         </span>
       </div>
       <TiptapEditor
-        :content="client_meta_owner"
+        :content="system_configuration.client_meta?.owner?.description"
         attr="description"
         @on-input="
           updateSystemConfigurationObject({
@@ -207,9 +205,8 @@
         </v-col>
         <v-col cols="12" md="6">
           <v-img
-            v-if="client_owner_avatar_url"
-            :src="client_owner_avatar_url"
-            :alt="client_meta_owner_name"
+            :src="system_configuration.client_owner_avatar_url"
+            :alt="system_configuration.client_meta_owner_name"
             contain
             max-width="200px"
             class="mx-auto"
@@ -228,44 +225,11 @@ export default {
   name: "BaseUpdateClientData",
   mixins: [systemConfigurationMixins, dropzoneMixins],
   computed: {
-    client_meta_keywords() {
-      return _.get(this.system_configuration, "client_meta.keywords");
-    },
-
-    client_meta_title() {
-      return _.get(this.system_configuration, "client_meta.title");
-    },
-
-    client_meta_author() {
-      return _.get(this.system_configuration, "client_meta.author");
-    },
-
-    client_meta_description() {
-      return _.get(this.system_configuration, "client_meta.description");
-    },
-
-    client_meta_owner_description() {
-      return _.get(this.system_configuration, "client_meta.owner.description");
-    },
-
-    client_meta_owner_name() {
-      return _.get(this.system_configuration, "client_meta.owner.name");
-    },
-
-    client_meta_owner() {
-      return _.get(this.system_configuration, "client_meta.owner", {});
-    },
-
-    client_logo_url() {
-      return _.get(this.system_configuration, "client_logo_url");
-    },
-
-    client_owner_avatar_url() {
-      return _.get(this.system_configuration, "client_owner_avatar_url");
-    },
-
-    client_favicon_url() {
-      return _.get(this.system_configuration, "client_favicon_url");
+    has_data() {
+      return (
+        !_.isEmpty(this.system_configuration) &&
+        !_.isNil(this.system_configuration)
+      );
     },
   },
   methods: {
@@ -290,5 +254,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

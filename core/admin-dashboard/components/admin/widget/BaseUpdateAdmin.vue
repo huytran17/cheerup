@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row v-if="!loading">
     <v-col cols="12">
       <v-icon color="black" @click="$router.go(-1)"
         >mdi-keyboard-backspace</v-icon
@@ -81,7 +81,6 @@
           </v-col>
           <v-col cols="12" sm="6">
             <v-dropzone
-              v-if="admin._id"
               ref="avatar_dropzone"
               id="avatar"
               :options="uploadAdminAvatarOptions({ id: admin._id })"
@@ -94,8 +93,7 @@
 
           <v-col cols="12" sm="6">
             <v-img
-              v-if="admin_avatar_url"
-              :src="admin_avatar_url"
+              :src="admin.avatar_url"
               :alt="admin.full_name"
               contain
               max-width="200px"
@@ -191,12 +189,8 @@ export default {
       security_form_valid: false,
       show_password_confirmation: false,
       show_password: false,
+      loading: false,
     };
-  },
-  computed: {
-    admin_avatar_url() {
-      return _.get(this.admin, "avatar_url");
-    },
   },
   methods: {
     async updateAdmin() {

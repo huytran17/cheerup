@@ -39,5 +39,3 @@ export default {
   components: { BaseUserTable },
 };
 </script>
-
-<style></style>

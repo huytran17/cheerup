@@ -39,5 +39,3 @@ export default {
   components: { BaseCategoryTable },
 };
 </script>
-
-<style></style>

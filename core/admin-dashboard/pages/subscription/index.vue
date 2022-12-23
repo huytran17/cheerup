@@ -22,5 +22,3 @@ export default {
   components: { BaseSubscriptionTable },
 };
 </script>
-
-<style></style>

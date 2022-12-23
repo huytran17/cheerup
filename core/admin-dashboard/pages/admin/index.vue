@@ -39,5 +39,3 @@ export default {
   components: { BaseAdminTable },
 };
 </script>
-
-<style></style>

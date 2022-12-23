@@ -25,5 +25,3 @@ export default {
   components: { BaseUpdateSystemConfiguration },
 };
 </script>
-
-<style></style>

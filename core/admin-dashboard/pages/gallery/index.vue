@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container v-if="!loading">
     <v-row>
       <v-col cols="12" class="pb-0">
         <div class="text-h6 pb-3 text-center cyan--text">
@@ -53,6 +53,7 @@ export default {
   data() {
     return {
       is_open_create_gallery_dialog: false,
+      loading: false,
     };
   },
   methods: {
@@ -78,12 +79,16 @@ export default {
   },
   async fetch() {
     try {
+      this.loading = true;
+
       await Promise.all([
         this.GET_GALLERIES_PAGINATED({ is_parent: true }),
         this.GET_LATEST_SYSTEM_CONFIGURATION(),
       ]);
     } catch (error) {
       console.error(error);
+    } finally {
+      this.loading = false;
     }
   },
 };

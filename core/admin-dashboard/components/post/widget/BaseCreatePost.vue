@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!loading">
     <v-row>
       <v-col cols="12" sm="6">
         <v-icon color="black" @click="$router.go(-1)"
@@ -159,6 +159,7 @@ export default {
     return {
       form_valid: false,
       is_open_preview_dialog: false,
+      loading: false,
     };
   },
   methods: {
@@ -178,11 +179,15 @@ export default {
   },
   async fetch() {
     try {
+      this.loading = true;
+
       await this.GET_CATEGORIES();
       this.SET_POST({ data: {} });
     } catch (error) {
       console.error(error);
       this.$toast.error("Encountered error while updating post");
+    } finally {
+      this.loading = false;
     }
   },
 };

@@ -1,5 +1,5 @@
 <template>
-  <v-container class="px-6">
+  <v-container v-if="!loading" class="px-6">
     <v-row class="my-4">
       <v-col cols="12" class="rounded-lg soft-box-shadow">
         <BaseDashboardBanner :admin_data="me" />
@@ -334,5 +334,3 @@ export default {
   },
 };
 </script>
-
-<style scoped></style>

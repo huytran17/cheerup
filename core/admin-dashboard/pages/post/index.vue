@@ -39,5 +39,3 @@ export default {
   components: { BasePostTable },
 };
 </script>
-
-<style></style>

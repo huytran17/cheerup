@@ -1,5 +1,5 @@
 <template>
-  <v-row class="soft-box-shadow rounded-lg px-4 py-5">
+  <v-row v-if="has_data" class="soft-box-shadow rounded-lg px-4 py-5">
     <v-col cols="12" class="py-0">
       <div class="text-body-1 primary--text">
         <span class="app-title" v-html="$t('Admin Meta')"></span>
@@ -7,7 +7,7 @@
     </v-col>
     <v-col cols="12" md="6">
       <v-text-field
-        :value="admin_meta_title"
+        :value="system_configuration.admin_meta?.title"
         :rules="titleRules"
         :label="$t('Title')"
         @input="
@@ -20,7 +20,7 @@
     </v-col>
     <v-col cols="12" md="6">
       <v-text-field
-        :value="admin_meta_description"
+        :value="system_configuration.admin_meta?.description"
         :rules="descriptionRules"
         :label="$t('Description')"
         @input="
@@ -33,7 +33,7 @@
     </v-col>
     <v-col cols="12" md="6">
       <v-text-field
-        :value="admin_meta_author"
+        :value="system_configuration.admin_meta?.author"
         :rules="authorRules"
         :label="$t('Author')"
         @input="
@@ -55,7 +55,6 @@
         </v-col>
         <v-col cols="12" md="6">
           <v-dropzone
-            v-if="system_configuration._id"
             ref="admin_logo_dropzone"
             id="admin_logo"
             :options="uploadAdminLogoOptions({ id: system_configuration._id })"
@@ -74,9 +73,8 @@
 
         <v-col cols="12" md="6">
           <v-img
-            v-if="admin_logo_url"
-            :src="admin_logo_url"
-            :alt="admin_meta_title"
+            :src="system_configuration.admin_logo_url"
+            :alt="system_configuration.admin_meta?.title"
             contain
             max-width="200px"
             class="mx-auto"
@@ -95,7 +93,6 @@
         </v-col>
         <v-col cols="12" md="6">
           <v-dropzone
-            v-if="system_configuration._id"
             ref="admin_favicon_dropzone"
             id="admin_favicon"
             :options="
@@ -115,9 +112,8 @@
         </v-col>
         <v-col cols="12" md="6">
           <v-img
-            v-if="admin_favicon_url"
-            :src="admin_favicon_url"
-            :alt="admin_meta_title"
+            :src="system_configuration.admin_favicon_url"
+            :alt="system_configuration.admin_meta?.title"
             contain
             max-width="200px"
             class="mx-auto"
@@ -136,7 +132,6 @@
         </v-col>
         <v-col cols="12" md="6">
           <v-dropzone
-            v-if="system_configuration._id"
             ref="admin_folder_icon_dropzone"
             id="admin_favicon"
             :options="
@@ -159,9 +154,8 @@
         </v-col>
         <v-col cols="12" md="6">
           <v-img
-            v-if="admin_folder_icon_url"
-            :src="admin_folder_icon_url"
-            :alt="admin_meta_title"
+            :src="system_configuration.admin_folder_icon_url"
+            :alt="system_configuration.admin_meta?.title"
             contain
             max-width="200px"
             class="mx-auto"
@@ -180,28 +174,11 @@ export default {
   name: "BaseUpdateAdminData",
   mixins: [systemConfigurationMixins, dropzoneMixins],
   computed: {
-    admin_meta_title() {
-      return _.get(this.system_configuration, "admin_meta.title");
-    },
-
-    admin_meta_author() {
-      return _.get(this.system_configuration, "admin_meta.author");
-    },
-
-    admin_meta_description() {
-      return _.get(this.system_configuration, "admin_meta.description");
-    },
-
-    admin_logo_url() {
-      return _.get(this.system_configuration, "admin_logo_url");
-    },
-
-    admin_folder_icon_url() {
-      return _.get(this.system_configuration, "admin_folder_icon_url");
-    },
-
-    admin_favicon_url() {
-      return _.get(this.system_configuration, "admin_favicon_url");
+    has_data() {
+      return (
+        !_.isEmpty(this.system_configuration) &&
+        !_.isNil(this.system_configuration)
+      );
     },
   },
 
@@ -227,5 +204,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

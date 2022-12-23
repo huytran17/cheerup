@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!loading">
     <v-row>
       <v-col cols="12" sm="6">
         <v-icon color="black" @click="$router.go(-1)"
@@ -118,7 +118,6 @@
             </v-col>
             <v-col cols="12" sm="6">
               <v-dropzone
-                v-if="post._id"
                 ref="thumbnail_dropzone"
                 id="thumbnail"
                 :options="uploadPostThumbnailOptions({ id: post._id })"
@@ -132,8 +131,7 @@
 
             <v-col cols="12" sm="6">
               <v-img
-                v-if="post_thumbnail_url"
-                :src="post_thumbnail_url"
+                :src="post.thumbnail_url"
                 :alt="post.title"
                 contain
                 max-width="200px"
@@ -196,15 +194,10 @@ export default {
   },
   data() {
     return {
-      loading: true,
+      loading: false,
       form_valid: false,
       is_open_preview_dialog: false,
     };
-  },
-  computed: {
-    post_thumbnail_url() {
-      return _.get(this.post, "thumbnail_url");
-    },
   },
   methods: {
     async updatePost() {
@@ -236,6 +229,7 @@ export default {
   async fetch() {
     try {
       this.loading = true;
+
       const post_id = this.$route.params.id;
       await Promise.all([
         this.GET_POST({ id: post_id }),
@@ -249,5 +243,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

@@ -1,10 +1,5 @@
 <template>
-  <v-row v-if="loading">
-    <v-col cols="12" class="d-flex justify-center">
-      <BaseCircularLoader />
-    </v-col>
-  </v-row>
-  <v-row v-else>
+  <v-row v-if="!loading">
     <v-col cols="12">
       <v-icon color="black" @click="$router.go(-1)"
         >mdi-keyboard-backspace</v-icon
@@ -53,7 +48,6 @@
           </v-col>
           <v-col cols="12" sm="6">
             <v-dropzone
-              v-if="category._id"
               ref="thumbnail_dropzone"
               id="thumbnail"
               :options="uploadCategoryThumbnailOptions({ id: category._id })"
@@ -67,8 +61,7 @@
 
           <v-col cols="12" sm="6">
             <v-img
-              v-if="category_thumbnail_url"
-              :src="category_thumbnail_url"
+              :src="category.thumbnail_url"
               :alt="category.title"
               contain
               max-width="200px"
@@ -116,25 +109,15 @@
 import categoryMixins from "@/mixins/category";
 import dropzoneMixins from "@/mixins/dropzone";
 
-import BaseCircularLoader from "@/components/loaders/BaseCircularLoader";
-
 export default {
   name: "BaseUpdateCategory",
   mixins: [categoryMixins, dropzoneMixins],
-  components: {
-    BaseCircularLoader,
-  },
   data() {
     return {
       loading: true,
       form_valid: false,
       color_picked: null,
     };
-  },
-  computed: {
-    category_thumbnail_url() {
-      return _.get(this.category, "thumbnail_url");
-    },
   },
   methods: {
     getBadgeColor(event) {
@@ -184,5 +167,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

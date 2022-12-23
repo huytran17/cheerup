@@ -22,5 +22,3 @@ export default {
   components: { BaseFeedbackTable },
 };
 </script>
-
-<style></style>

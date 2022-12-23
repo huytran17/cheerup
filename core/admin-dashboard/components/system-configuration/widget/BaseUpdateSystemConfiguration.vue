@@ -46,7 +46,7 @@ export default {
   },
   data() {
     return {
-      loading: true,
+      loading: false,
       form_valid: false,
     };
   },

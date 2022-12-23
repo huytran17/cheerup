@@ -22,5 +22,3 @@ export default {
   components: { BaseCommentTable },
 };
 </script>
-
-<style></style>

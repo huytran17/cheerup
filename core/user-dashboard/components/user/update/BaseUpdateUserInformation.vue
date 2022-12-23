@@ -1,5 +1,5 @@
 <template>
-  <v-form v-model="form_valid">
+  <v-form v-if="has_user" v-model="form_valid">
     <v-row class="soft-box-shadow rounded-lg px-4 py-5 w-100 mx-auto">
       <v-col cols="12" class="py-0">
         <div class="text-body-1 text-sm-h6">
@@ -54,8 +54,7 @@
 
           <v-col cols="12" md="6">
             <v-img
-              v-if="user_avatar_url"
-              :src="user_avatar_url"
+              :src="user.avatar_url"
               :alt="me.full_name"
               contain
               max-width="200px"
@@ -93,11 +92,6 @@ export default {
       form_valid: false,
     };
   },
-  computed: {
-    user_avatar_url() {
-      return _.get(this.me, "avatar_url");
-    },
-  },
   methods: {
     async updateUser() {
       try {
@@ -127,5 +121,3 @@ export default {
   },
 };
 </script>
-
-<style></style>
