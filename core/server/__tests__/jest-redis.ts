@@ -1,5 +1,5 @@
 import { createClient } from "redis";
-import { logger } from "../logs/logger";
+import { logger } from "./jest-logger";
 
 export type RedisClientType = ReturnType<typeof createClient>;
 

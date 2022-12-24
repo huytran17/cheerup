@@ -1,6 +1,6 @@
 import nodemailer, { Transporter } from "nodemailer";
 import handlebars from "handlebars";
-import { IEmailData } from "./get-email-content";
+import { IEmailData } from "../src/config/emailManager/get-email-content";
 import _ from "lodash";
 
 let mailer: undefined | Transporter | any = undefined;
@@ -59,11 +59,8 @@ export type Mailer = {
   }) => string;
 };
 
+// NOTE: disabled email sending for unit testing purposes only
 const sendMail = (payload: IEmailData) => {
-  const transport = initializeMailer();
-  transport.sendMail(payload).catch((error) => {
-    console.error(error);
-  });
   return payload;
 };
 
