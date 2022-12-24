@@ -2,7 +2,7 @@ import IPostBookmark from "../../src/database/interfaces/post-bookmark";
 
 export type FakePostBookmark = () => IPostBookmark;
 
-export default function makeFakeCategory({
+export default function makeFakePostBookmark({
   faker,
 }: {
   faker: any;

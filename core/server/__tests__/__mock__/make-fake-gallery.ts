@@ -2,7 +2,11 @@ import IGallery from "../../src/database/interfaces/gallery";
 
 export type FakeGallery = () => IGallery;
 
-export default function makeFakeUser({ faker }: { faker: any }): FakeGallery {
+export default function makeFakeGallery({
+  faker,
+}: {
+  faker: any;
+}): FakeGallery {
   return function fakeGallery(): IGallery {
     return {
       _id: faker.database.mongodbObjectId(),
