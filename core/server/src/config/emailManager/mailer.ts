@@ -59,29 +59,28 @@ export type Mailer = {
   }) => string;
 };
 
-const sendMail = (payload: IEmailData) => {
-  const transport = initializeMailer();
-  transport.sendMail(payload).catch((error) => {
-    console.error(error);
-  });
-  return payload;
-};
-
-const render = ({
-  email_content,
-  email_data,
-  object_data,
-}: {
-  email_content: string;
-  email_data: { [key: string]: string };
-  object_data?: { [key: string]: any };
-}) => {
-  const final_email_data = Object.assign({}, { ...email_data, ...object_data });
-  const template = handlebars.compile(email_content);
-  return template(final_email_data);
-};
-
 export default Object.freeze({
-  sendMail,
-  render,
+  sendMail: async (payload: IEmailData) => {
+    const transport = initializeMailer();
+    transport.sendMail(payload).catch((error) => {
+      console.error(error);
+    });
+    return payload;
+  },
+  render: ({
+    email_content,
+    email_data,
+    object_data,
+  }: {
+    email_content: string;
+    email_data: { [key: string]: string };
+    object_data?: { [key: string]: any };
+  }) => {
+    const final_email_data = Object.assign(
+      {},
+      { ...email_data, ...object_data }
+    );
+    const template = handlebars.compile(email_content);
+    return template(final_email_data);
+  },
 });

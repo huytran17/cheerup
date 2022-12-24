@@ -59,26 +59,25 @@ export type Mailer = {
   }) => string;
 };
 
-// NOTE: disabled email sending for unit testing purposes only
-const sendMail = (payload: IEmailData) => {
-  return payload;
-};
-
-const render = ({
-  email_content,
-  email_data,
-  object_data,
-}: {
-  email_content: string;
-  email_data: { [key: string]: string };
-  object_data?: { [key: string]: any };
-}) => {
-  const final_email_data = Object.assign({}, { ...email_data, ...object_data });
-  const template = handlebars.compile(email_content);
-  return template(final_email_data);
-};
-
 export default Object.freeze({
-  sendMail,
-  render,
+  // NOTE: disabled email sending for unit testing purposes only
+  sendMail: async (payload: IEmailData) => {
+    return payload;
+  },
+  render: ({
+    email_content,
+    email_data,
+    object_data,
+  }: {
+    email_content: string;
+    email_data: { [key: string]: string };
+    object_data?: { [key: string]: any };
+  }) => {
+    const final_email_data = Object.assign(
+      {},
+      { ...email_data, ...object_data }
+    );
+    const template = handlebars.compile(email_content);
+    return template(final_email_data);
+  },
 });
