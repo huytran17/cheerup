@@ -4,9 +4,9 @@ import Redis from "./jest-redis";
 import { mongod, connectDatabase } from "./jest-mongo";
 
 module.exports = async function () {
-  const mongoNotInitialized = (global as any).__MONGOD__;
+  const mongo_not_initialized = (global as any).__MONGOD__;
 
-  if (mongoNotInitialized) {
+  if (mongo_not_initialized) {
     connectDatabase().then(() => {
       new Storage();
       new Redis();

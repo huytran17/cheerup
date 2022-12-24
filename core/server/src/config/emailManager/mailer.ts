@@ -9,11 +9,11 @@ export function initializeMailer(): Transporter {
     return mailer;
   }
 
-  const validEnvironment =
+  const valid_environment =
     process.env.NODE_ENV === "development" ||
     process.env.NODE_ENV === "production";
 
-  if (validEnvironment) {
+  if (valid_environment) {
     const transport = nodemailer.createTransport({
       host: "smtp.mailtrap.io",
       port: 2525,
