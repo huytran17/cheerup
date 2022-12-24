@@ -1,10 +1,10 @@
-import User from "../../src/database/entities/user";
+import IUser from "../../src/database/interfaces/user";
 import Randexp from "randexp";
 
-export type FakeUser = () => User;
+export type FakeUser = () => IUser;
 
 export default function makeFakeUser({ faker }: { faker: any }): FakeUser {
-  return function fakeUser(): User {
+  return function fakeUser(): IUser {
     return {
       _id: new Randexp(/^[0-9a-f]{24}$/).gen(),
       ip: faker.internet.ipv4(),
