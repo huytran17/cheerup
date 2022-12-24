@@ -4,10 +4,10 @@ import Admin from "../entities/admin";
 export default class Category implements ICategory {
   public readonly _id: string;
   public readonly description: string;
-  public readonly thumbnail: Record<string, unknown>;
+  public readonly thumbnail?: Record<string, unknown>;
   public readonly title: string;
   public readonly badge_color?: string;
-  public readonly thumbnail_url: string;
+  public readonly thumbnail_url?: string;
   public readonly created_by: Admin;
   public readonly created_at: Date;
   public readonly updated_at: Date;
@@ -23,7 +23,7 @@ export default class Category implements ICategory {
     deleted_at,
     created_by,
     thumbnail_url,
-    badge_color
+    badge_color,
   }: ICategory) {
     this._id = _id;
     this.title = title;
