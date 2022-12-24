@@ -5,8 +5,6 @@ import Post from "../entities/post";
 export default class Comment implements IComment {
   public readonly _id: string;
   public readonly content: string;
-  public readonly likes_count: number;
-  public readonly dislikes_count: number;
   public readonly user: User;
   public readonly reports?: {
     created_by: User;
@@ -37,12 +35,8 @@ export default class Comment implements IComment {
     created_at,
     updated_at,
     deleted_at,
-    dislikes_count,
-    likes_count
   }: IComment) {
     this._id = _id;
-    this.dislikes_count = dislikes_count;
-    this.likes_count = likes_count;
     this.content = content;
     this.user = user;
     this.post = post;

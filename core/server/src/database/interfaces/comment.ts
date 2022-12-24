@@ -5,8 +5,6 @@ import Comment from "../entities/comment";
 export default interface IComment {
   _id: string;
   content: string;
-  likes_count: number;
-  dislikes_count: number;
   user: User;
   post: Post;
   children: Comment[];
