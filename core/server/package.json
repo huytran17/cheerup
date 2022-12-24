@@ -59,7 +59,6 @@
     "passport-facebook": "^3.0.0",
     "passport-google-oauth2": "^0.2.0",
     "passport-jwt": "^4.0.0",
-    "randexp": "^0.5.3",
     "reading-time": "^1.5.0",
     "redis": "^4.3.1",
     "request-ip": "^3.3.0",
