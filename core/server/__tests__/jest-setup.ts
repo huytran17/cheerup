@@ -11,6 +11,8 @@ module.exports = async function () {
   }
 
   connectDatabase().then(() => {
+    console.log("Successfully connected to Mongo Database");
+
     new Storage();
     new Redis();
     initializeMailer();

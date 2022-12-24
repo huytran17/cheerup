@@ -12,6 +12,7 @@ export default class Storage {
   static makeS3() {
     // NOTE: disabled connection to s3 for unit testing purposes only
     const s3 = new AWS.S3();
+    console.log("Successfully connected to AWS S3");
     return s3;
   }
 
