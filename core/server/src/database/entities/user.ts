@@ -3,7 +3,7 @@ import Admin from "../entities/admin";
 
 export default class User implements IUser {
   public readonly _id: string;
-  public readonly ip?: Record<string, unknown>;
+  public readonly ip?: string;
   public readonly hash_password: string;
   public readonly avatar_url?: string;
   public readonly avatar?: Record<string, unknown>;

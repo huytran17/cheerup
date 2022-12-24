@@ -1,7 +1,15 @@
 import mongoose from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server-core";
 
-const mongod = (global as any).__MONGOD__ || new MongoMemoryServer();
+let mongod = (global as any).__MONGOD__;
+
+const initializeMongod = async () => {
+  if (!mongod) {
+    mongod = await MongoMemoryServer.create();
+  }
+
+  (global as any).__MONGOD__ = mongod;
+};
 
 async function connectDatabase(): Promise<void> {
   const uri = mongod.getUri();
@@ -37,9 +45,10 @@ async function clearDatabase(): Promise<void> {
 }
 
 export default Object.freeze({
+  initializeMongod,
   connectDatabase,
   closeConnection,
   clearDatabase,
 });
 
-export { connectDatabase, closeConnection, clearDatabase, mongod };
+export { initializeMongod, connectDatabase, closeConnection, clearDatabase };

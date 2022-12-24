@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
-    ip: { type: Object, default: null },
+    ip: { type: String, trim: true },
     hash_password: { type: String, trim: true },
     full_name: { type: String, trim: true },
     is_blocked_comment: { type: Boolean, default: false },
