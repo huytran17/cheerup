@@ -4,7 +4,7 @@ import Admin from "../entities/admin";
 export default class Gallery implements IGallery {
   public readonly _id: string;
   public readonly name: string;
-  public readonly parent: Gallery;
+  public readonly parent?: Gallery;
   public readonly items: {
     [key: string]: Record<string, unknown>;
   }[];
