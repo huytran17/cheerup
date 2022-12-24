@@ -6,11 +6,11 @@ export default class Post implements IPost {
   public readonly _id: string;
   public readonly title: string;
   public readonly description: string;
-  public readonly thumbnail_url: string;
+  public readonly thumbnail_url?: string;
   public readonly is_blocked_comment: boolean;
   public readonly is_highlight: boolean;
   public readonly is_notified_to_user: boolean;
-  public readonly thumbnail: Record<string, unknown>;
+  public readonly thumbnail?: Record<string, unknown>;
   public readonly content: string;
   public readonly source: string;
   public readonly tags: string[];

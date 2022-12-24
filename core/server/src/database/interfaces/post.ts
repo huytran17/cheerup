@@ -6,12 +6,12 @@ export default interface IPost {
   title: string;
   description: string;
   source: string;
-  thumbnail_url: string;
+  thumbnail_url?: string;
   is_blocked_comment: boolean;
   is_highlight: boolean;
   is_published: boolean;
   is_notified_to_user: boolean;
-  thumbnail: Record<string, unknown>;
+  thumbnail?: Record<string, unknown>;
   content: string;
   tags: string[];
   author: Admin;
