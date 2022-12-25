@@ -39,7 +39,7 @@ jobs:
       env:
         cache-name: cache-node-modules
       with:
-        path: ~/.yarn
+        path: .yarn
         key: ${{ runner.os }}-build-${{ env.cache-name }}
         restore-key: |
           ${{ runner.os }}-build-${{ env.cache-name }}-
