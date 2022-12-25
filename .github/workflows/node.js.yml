@@ -59,4 +59,4 @@ jobs:
       env:
         DIFF_FILE: get_diff_files.txt
         CHANGELOG_CACHE_FILE_PATH: __tests__/__fixtures__/changelog-feed.json
-      run: yarn test
+      run: yarn test:ci
