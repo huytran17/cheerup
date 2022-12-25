@@ -7,7 +7,8 @@
     "test": "jest --passWithNoTests --detectOpenHandles",
     "dev": "nodemon src/app.ts",
     "dc:up": "docker-compose up -d",
-    "dc:down": "docker-compose down"
+    "dc:down": "docker-compose down",
+    "ts:build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -16,10 +17,8 @@
   "author": "HuyTran",
   "license": "MIT",
   "dependencies": {
-    "@types/agenda": "^4.1.0",
     "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.12",
-    "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.13",
     "@types/express-rate-limit": "^6.0.0",
     "@types/html-to-text": "^8.1.1",
@@ -35,7 +34,6 @@
     "@types/passport-jwt": "^3.0.6",
     "@types/request-ip": "^0.0.37",
     "@types/validatorjs": "^3.15.0",
-    "agenda": "^4.3.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
