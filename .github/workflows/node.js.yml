@@ -16,7 +16,7 @@ jobs:
 
     defaults:
        run:
-         working-directory: ./server
+         working-directory: ./packages/server
 
     strategy:
       matrix:
@@ -39,7 +39,7 @@ jobs:
       env:
         cache-name: cache-node-modules
       with:
-        path: .yarn
+        path: ~/.yarn
         key: ${{ runner.os }}-build-${{ env.cache-name }}
         restore-key: |
           ${{ runner.os }}-build-${{ env.cache-name }}-
