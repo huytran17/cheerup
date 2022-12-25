@@ -1,5 +1,5 @@
 import ICategory from "../interfaces/category";
-import Admin from "../entities/admin";
+import Admin from "./admin";
 
 export default class Category implements ICategory {
   public readonly _id: string;

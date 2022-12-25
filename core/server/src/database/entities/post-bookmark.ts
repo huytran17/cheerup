@@ -1,6 +1,6 @@
 import IPostBookmark from "../interfaces/post-bookmark";
-import Post from "../entities/post";
-import User from "../entities/user";
+import Post from "./post";
+import User from "./user";
 
 export default class PostBookmark implements IPostBookmark {
   public readonly _id: string;

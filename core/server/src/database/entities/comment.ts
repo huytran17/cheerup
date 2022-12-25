@@ -1,6 +1,6 @@
 import IComment from "../interfaces/comment";
-import User from "../entities/user";
-import Post from "../entities/post";
+import User from "./user";
+import Post from "./post";
 
 export default class Comment implements IComment {
   public readonly _id: string;

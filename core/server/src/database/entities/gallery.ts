@@ -1,5 +1,5 @@
 import IGallery from "../interfaces/gallery";
-import Admin from "../entities/admin";
+import Admin from "./admin";
 
 export default class Gallery implements IGallery {
   public readonly _id: string;

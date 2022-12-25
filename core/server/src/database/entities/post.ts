@@ -1,6 +1,6 @@
 import IPost from "../interfaces/post";
-import Admin from "../entities/admin";
-import Category from "../entities/category";
+import Admin from "./admin";
+import Category from "./category";
 
 export default class Post implements IPost {
   public readonly _id: string;
@@ -43,7 +43,7 @@ export default class Post implements IPost {
     is_highlight,
     tags,
     is_notified_to_user,
-  }) {
+  }: IPost) {
     this._id = _id;
     this.title = title;
     this.is_highlight = is_highlight;
