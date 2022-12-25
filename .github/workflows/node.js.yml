@@ -16,7 +16,7 @@ jobs:
 
     defaults:
        run:
-         working-directory: ./server/
+         working-directory: ./server
 
     strategy:
       matrix:
@@ -56,4 +56,7 @@ jobs:
       run: yarn ts:build
 
     - name: Unit testing
+      env:
+        DIFF_FILE: get_diff_files.txt
+        CHANGELOG_CACHE_FILE_PATH: __tests__/__fixtures__/changelog-feed.json
       run: yarn test
