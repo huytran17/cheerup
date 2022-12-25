@@ -18,11 +18,6 @@ export default function makeUserDb({
   moment: any;
 }): IUserDb {
   return new (class MongooseUserDb implements IUserDb {
-    /**
-     * get the number of resumes daily for past "distance & unit" (including today)
-     * @param param0
-     * @returns
-     */
     async getUserAnalystics({
       distance = 7,
       unit = "day",
@@ -106,12 +101,7 @@ export default function makeUserDb({
         total_count,
       };
     }
-    /**
-     * @description used by user dashboard
-     * FIXME: Currently not in used. To be removed and should never be used.
-     * @param param0
-     * @returns
-     */
+
     async findAll(): Promise<User[] | null> {
       let query_conditions = Object.assign({});
 
@@ -125,12 +115,7 @@ export default function makeUserDb({
 
       return null;
     }
-    /**
-     *
-     * @description used by user API
-     * @param param0
-     * @param param1
-     */
+
     async findAllPaginated({
       query = "",
       page = 1,

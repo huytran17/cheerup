@@ -18,11 +18,6 @@ export default function makePostDb({
   moment: any;
 }): IPostDb {
   return new (class MongoosePostDb implements IPostDb {
-    /**
-     * get the number of resumes daily for past "distance & unit" (including today)
-     * @param param0
-     * @returns
-     */
     async getPostAnalystics({
       distance = 7,
       unit = "day",
@@ -107,12 +102,7 @@ export default function makePostDb({
         total_published_counts,
       };
     }
-    /**
-     * @description used by post dashboard
-     * FIXME: Currently not in used. To be removed and should never be used.
-     * @param param0
-     * @returns
-     */
+
     async findAll(): Promise<Post[] | null> {
       let query_conditions = Object.assign({});
 
@@ -131,12 +121,7 @@ export default function makePostDb({
 
       return null;
     }
-    /**
-     *
-     * @description used by post API
-     * @param param0
-     * @param param1
-     */
+
     async findAllPaginated(
       {
         categories,

@@ -15,12 +15,6 @@ export default function makeCategoryDb({
   moment: any;
 }): ICategoryDb {
   return new (class MongooseCategoryDb implements ICategoryDb {
-    /**
-     * @description used by category dashboard
-     * FIXME: Currently not in used. To be removed and should never be used.
-     * @param param0
-     * @returns
-     */
     async findAll(): Promise<Category[] | null> {
       let query_conditions = Object.assign({});
 
@@ -40,12 +34,7 @@ export default function makeCategoryDb({
 
       return null;
     }
-    /**
-     *
-     * @description used by category API
-     * @param param0
-     * @param param1
-     */
+
     async findAllPaginated({
       query = "",
       page = 1,

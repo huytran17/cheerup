@@ -143,12 +143,7 @@ export default function makeCommentDb({
 
       return null;
     }
-    /**
-     *
-     * @description used by comment API
-     * @param param0
-     * @param param1
-     */
+
     async findAllPaginated({
       query = "",
       page = 1,

@@ -18,11 +18,6 @@ export default function makeSubscriptionDb({
   moment: any;
 }): ISubscriptionDb {
   return new (class MongooseSubscriptionDb implements ISubscriptionDb {
-    /**
-     * get the number of resumes daily for past "distance & unit" (including today)
-     * @param param0
-     * @returns
-     */
     async getSubscriptionAnalystics({
       distance = 7,
       unit = "day",
@@ -76,12 +71,7 @@ export default function makeSubscriptionDb({
         total_count,
       };
     }
-    /**
-     * @description used by subscription dashboard
-     * FIXME: Currently not in used. To be removed and should never be used.
-     * @param param0
-     * @returns
-     */
+
     async findAll(): Promise<Subscription[] | null> {
       let query_conditions = Object.assign({});
 
@@ -95,12 +85,7 @@ export default function makeSubscriptionDb({
 
       return null;
     }
-    /**
-     *
-     * @description used by subscription API
-     * @param param0
-     * @param param1
-     */
+
     async findAllPaginated({
       query = "",
       page = 1,

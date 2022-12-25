@@ -6,10 +6,7 @@ export default {
     ...mapGetters({
       app_loading: "app_loading",
     }),
-    /**
-     *
-     * @returns true if xs;
-     */
+
     is_mobile() {
       return this.$vuetify.breakpoint.name === "xs";
     },

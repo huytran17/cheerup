@@ -8,18 +8,11 @@ export default {
       login_redirect_url: "login_redirect_url",
       is_open_login_snackbar: "is_open_login_snackbar",
     }),
-    /**
-     *
-     * @returns true if xs;
-     */
+
     is_mobile() {
       return this.$vuetify.breakpoint.name === "xs";
     },
 
-    /**
-     *
-     * @returns true if xs;
-     */
     is_small_screen() {
       return this.$vuetify.breakpoint.name === "sm";
     },

@@ -18,11 +18,6 @@ export default function makeAdminDb({
   moment: any;
 }): IAdminDb {
   return new (class MongooseAdminDb implements IAdminDb {
-    /**
-     * get the number of resumes daily for past "distance & unit" (including today)
-     * @param param0
-     * @returns
-     */
     async getAdminAnalystics({
       distance = 7,
       unit = "day",
@@ -120,12 +115,7 @@ export default function makeAdminDb({
         total_verified_email_counts,
       };
     }
-    /**
-     * @description used by admin dashboard
-     * FIXME: Currently not in used. To be removed and should never be used.
-     * @param param0
-     * @returns
-     */
+
     async findAll(): Promise<Admin[] | null> {
       let query_conditions = Object.assign({});
 
@@ -138,12 +128,7 @@ export default function makeAdminDb({
 
       return null;
     }
-    /**
-     *
-     * @description used by admin API
-     * @param param0
-     * @param param1
-     */
+
     async findAllPaginated({
       query = "",
       page = 1,

@@ -17,12 +17,6 @@ export default function makePostBookmarkDb({
   moment: any;
 }): IPostBookmarkDb {
   return new (class MongoosePostBookmarkDb implements IPostBookmarkDb {
-    /**
-     * @description used by post bookmark dashboard
-     * FIXME: Currently not in used. To be removed and should never be used.
-     * @param param0
-     * @returns
-     */
     async findAll(): Promise<PostBookmark[] | null> {
       let query_conditions = Object.assign({});
 
@@ -36,12 +30,7 @@ export default function makePostBookmarkDb({
 
       return null;
     }
-    /**
-     *
-     * @description used by post bookmark API
-     * @param param0
-     * @param param1
-     */
+
     async findAllPaginated({
       query = "",
       page = 1,

@@ -23,9 +23,6 @@ const getEmailContent = makeGetEmailContent({
   email_sender_name,
 });
 
-/**
- * @description render the email content
- */
 const renderEmailContent = makeRenderEmailContent({
   mailer,
   defaultTemplateData,
