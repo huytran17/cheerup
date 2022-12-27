@@ -15,14 +15,11 @@ export default class Redis {
     try {
       const client = createClient();
 
-      client.on("error", (error) => console.error(error));
-
-      client
-        .connect()
-        .then(() => console.log("Successfully connected to Redis server"));
-
       this.redis_client = client;
       Redis.redis_instance = this;
+
+      // NOTE: disabled connection to Redis for unit testing purposes only
+      console.log("Successfully connected to Redis server");
     } catch (error) {
       console.error(error);
     }
