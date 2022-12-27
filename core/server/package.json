@@ -5,7 +5,7 @@
   "main": "app.ts",
   "scripts": {
     "test": "jest --passWithNoTests --detectOpenHandles",
-    "test:ci": "node --max-old-space-size=8192 --expose-gc ./node_modules/.bin/jest --config jest.config.js --silent --cache --noStackTrace --forceExit --ci --logHeapUsage",
+    "test:ci": "node --max-old-space-size=8192 --expose-gc ./node_modules/.bin/jest --config jest.config.js --silent --cache --noStackTrace --forceExit --ci --logHeapUsage --detectOpenHandles --runInBand",
     "dev": "nodemon src/app.ts",
     "dc:up": "docker-compose up -d",
     "dc:down": "docker-compose down",
