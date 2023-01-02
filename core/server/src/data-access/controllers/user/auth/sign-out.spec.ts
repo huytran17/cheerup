@@ -4,17 +4,14 @@ import {
   clearDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { fakeUser } from "../../../../../__tests__/__mock__";
-import { logger } from "../../../../../__tests__/jest-logger";
 import makeUserDb from "../../../make-user-db";
 import { UserModel } from "../../../models";
 import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeGetUserByEmail from "../../../../use-cases/user/get-user-by-email";
-import makeSignInController from "./sign-in";
+import makeSignOutController from "./sign-out";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { verifyPassword } from "../../../../config/password";
-import { generateAccessToken } from "../../../../config/accessTokenManager";
 
-describe("signIn", () => {
+describe("signOut", () => {
   beforeAll(async () => {
     await connectDatabase();
   });
@@ -23,7 +20,7 @@ describe("signIn", () => {
     await clearDatabase();
   });
 
-  it("it should return a body that contains an user entity and an JWT access token", async () => {
+  it("it should return a body that contains a flag for signed out state", async () => {
     const headers = {
       "Content-Type": "application/json",
     };
@@ -35,31 +32,26 @@ describe("signIn", () => {
     const mock_user_data = fakeUser();
     const created_user = await createUser({ userDetails: mock_user_data });
 
-    const signInController = makeSignInController({
+    const signOutController = makeSignOutController({
       getUserByEmail,
-      generateAccessToken,
-      verifyPassword,
-      logger,
     });
 
     const request = {
       context: {
         validated: {
           email: created_user.email,
-          password: "qwer1234",
         },
       },
     };
 
-    const result = await signInController(request as any);
+    const result = await signOutController(request as any);
 
     const expected = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: {
         data: {
-          user: result?.body?.data?.user,
-          access_token: result?.body?.data?.access_token,
+          valid_signout: result?.body?.data?.valid_signout,
         },
       },
     };
