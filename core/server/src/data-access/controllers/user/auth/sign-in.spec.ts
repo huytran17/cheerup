@@ -35,6 +35,7 @@ describe("signIn", () => {
     const getUserByEmail = makeGetUserByEmail({ userDb });
 
     const mock_user_data = fakeUser();
+    await createUser({ userDetails: mock_user_data });
 
     const signInController = makeSignInController({
       getUserByEmail,
@@ -42,8 +43,6 @@ describe("signIn", () => {
       verifyPassword,
       logger,
     });
-
-    await createUser({ userDetails: mock_user_data });
 
     const request = {
       context: {
