@@ -39,8 +39,12 @@ jobs:
       env:
         cache-name: cache-node-modules
       with:
-        path: ~/.jest-cache
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-
+        path: ~/.yarn
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
 
     - name: Install dependencies
       run: yarn install --pure-lockfile --silent
