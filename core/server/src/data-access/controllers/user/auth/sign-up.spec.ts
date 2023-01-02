@@ -14,7 +14,7 @@ import makeSignUpController from "./sign-up";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { hashPassword } from "../../../../config/password";
 
-describe("signUp", async () => {
+describe("signUp", () => {
   beforeAll(async () => {
     await connectDatabase();
   });
