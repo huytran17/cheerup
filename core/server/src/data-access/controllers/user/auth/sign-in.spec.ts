@@ -2,7 +2,6 @@ import moment from "moment";
 import {
   connectDatabase,
   clearDatabase,
-  closeConnection,
 } from "../../../../../__tests__/jest-mongo";
 import { fakeUser } from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
@@ -22,7 +21,6 @@ describe("signIn", () => {
 
   afterAll(async () => {
     await clearDatabase();
-    await closeConnection();
   });
 
   it("it should return a body that contains an user entity and an JWT access token", async () => {

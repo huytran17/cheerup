@@ -2,7 +2,6 @@ import moment from "moment";
 import {
   connectDatabase,
   clearDatabase,
-  closeConnection,
 } from "../../../../../__tests__/jest-mongo";
 import { fakeUser } from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
@@ -21,7 +20,6 @@ describe("signUp", () => {
 
   afterAll(async () => {
     await clearDatabase();
-    await closeConnection();
   });
 
   it("it should return a body that is an object of the user entity class", async () => {
