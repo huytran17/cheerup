@@ -26,6 +26,7 @@ describe("signOut", () => {
     };
 
     const userDb = makeUserDb({ userDbModel: UserModel, moment });
+
     const createUser = makeCreateUser({ userDb });
     const getUserByEmail = makeGetUserByEmail({ userDb });
 
