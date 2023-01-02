@@ -48,7 +48,7 @@ describe("signIn", () => {
       context: {
         validated: {
           email: mock_user_data.email,
-          password: "qwert1234",
+          password: "qwer1234",
         },
       },
     };
