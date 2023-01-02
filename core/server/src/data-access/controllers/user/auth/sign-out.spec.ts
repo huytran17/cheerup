@@ -38,7 +38,7 @@ describe("signOut", () => {
 
     const request = {
       context: {
-        validated: {
+        user: {
           email: created_user.email,
         },
       },
