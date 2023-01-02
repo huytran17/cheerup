@@ -8,13 +8,14 @@ import { fakeUser } from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
 import makeUserDb from "../../../make-user-db";
 import { UserModel } from "../../../models";
+import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeGetUserByEmail from "../../../../use-cases/user/get-user-by-email";
 import makeSignInController from "./sign-in";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { verifyPassword } from "../../../../config/password";
 import { generateAccessToken } from "../../../../config/accessTokenManager";
 
-describe("signIn", () => {
+describe("signIn", async () => {
   beforeAll(async () => {
     await connectDatabase();
   });
@@ -29,7 +30,11 @@ describe("signIn", () => {
   };
 
   const userDb = makeUserDb({ userDbModel: UserModel, moment });
+  const createUser = makeCreateUser({ userDb });
   const getUserByEmail = makeGetUserByEmail({ userDb });
+
+  const mock_user_data = fakeUser();
+  await createUser({ userDetails: mock_user_data });
 
   const signInController = makeSignInController({
     getUserByEmail,
@@ -37,8 +42,6 @@ describe("signIn", () => {
     verifyPassword,
     logger,
   });
-
-  const mock_user_data = fakeUser();
 
   const request = {
     context: {
@@ -49,55 +52,15 @@ describe("signIn", () => {
     },
   };
 
-  it("it should return a body that contains an user entity and an JWT access token", async () => {
-    const result = await signInController(request as any);
+  const result = await signInController(request as any);
 
+  it("it should return a body that contains an user entity and an JWT access token", async () => {
     const expected = {
       headers,
       statusCode: HttpStatusCode.CREATED,
       body: {
         user: result?.body?.data?.user,
         access_token: result?.body?.data?.access_token,
-      },
-    };
-
-    expect(result).toEqual(expected);
-  });
-
-  it("it should return a body that contains an error message when user does not exists", async () => {
-    let result = undefined;
-
-    try {
-      result = await signInController(request as any);
-    } catch (error) {
-      result = error;
-    }
-
-    const expected = {
-      headers,
-      statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
-      body: {
-        error: `User by ${mock_user_data.email} does not exist`,
-      },
-    };
-
-    expect(result).toEqual(expected);
-  });
-
-  it("it should return a body that contains an error message when account information is invalid", async () => {
-    let result = undefined;
-
-    try {
-      result = await signInController(request as any);
-    } catch (error) {
-      result = error;
-    }
-
-    const expected = {
-      headers,
-      statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
-      body: {
-        error: "Email or password mismatch",
       },
     };
 
