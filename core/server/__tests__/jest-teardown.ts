@@ -10,9 +10,10 @@ module.exports = async function ({
 } = {}) {
   const notWatching = !watch && !watchAll;
   if (notWatching) {
-    const mongo_instance: MongoMemoryServer = (global as any).__MONGOD__;
+    const mongod: MongoMemoryServer = (global as any).__MONGOD__;
+
     await clearDatabase();
     await closeConnection();
-    await mongo_instance.stop();
+    await mongod.stop();
   }
 };

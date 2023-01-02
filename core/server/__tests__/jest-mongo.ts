@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { MongoMemoryServerCoreState } from "../src/constants/mongodb-memory-server-core";
 import { MongoMemoryServer } from "mongodb-memory-server-core";
 
 let mongod = (global as any).__MONGOD__;
@@ -12,7 +13,12 @@ const initializeMongod = async () => {
 };
 
 async function connectDatabase(): Promise<void> {
-  await mongod.start();
+  const mongoIsNotRunning = mongod.state !== MongoMemoryServerCoreState.RUNNING;
+  if (mongoIsNotRunning) {
+    await mongod.start();
+  }
+
+  await mongod.ensureInstance();
 
   const uri = mongod.getUri();
 
