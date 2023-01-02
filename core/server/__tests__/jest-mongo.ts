@@ -12,10 +12,6 @@ const initializeMongod = async () => {
 };
 
 async function connectDatabase(): Promise<void> {
-  if (!!mongoose.connection) {
-    return;
-  }
-
   await mongod.start();
 
   const uri = mongod.getUri();
