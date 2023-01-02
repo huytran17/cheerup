@@ -57,7 +57,7 @@ describe("signIn", () => {
 
     const expected = {
       headers,
-      statusCode: HttpStatusCode.CREATED,
+      statusCode: HttpStatusCode.OK,
       body: {
         user: result?.body?.data?.user,
         access_token: result?.body?.data?.access_token,
