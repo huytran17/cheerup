@@ -15,7 +15,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { verifyPassword } from "../../../../config/password";
 import { generateAccessToken } from "../../../../config/accessTokenManager";
 
-describe("signIn", async () => {
+describe("signIn", () => {
   beforeAll(async () => {
     await connectDatabase();
   });
@@ -25,36 +25,37 @@ describe("signIn", async () => {
     await closeConnection();
   });
 
-  const headers = {
-    "Content-Type": "application/json",
-  };
-
-  const userDb = makeUserDb({ userDbModel: UserModel, moment });
-  const createUser = makeCreateUser({ userDb });
-  const getUserByEmail = makeGetUserByEmail({ userDb });
-
-  const mock_user_data = fakeUser();
-  await createUser({ userDetails: mock_user_data });
-
-  const signInController = makeSignInController({
-    getUserByEmail,
-    generateAccessToken,
-    verifyPassword,
-    logger,
-  });
-
-  const request = {
-    context: {
-      validated: {
-        email: mock_user_data.email,
-        password: "qwert1234",
-      },
-    },
-  };
-
-  const result = await signInController(request as any);
-
   it("it should return a body that contains an user entity and an JWT access token", async () => {
+    const headers = {
+      "Content-Type": "application/json",
+    };
+
+    const userDb = makeUserDb({ userDbModel: UserModel, moment });
+    const createUser = makeCreateUser({ userDb });
+    const getUserByEmail = makeGetUserByEmail({ userDb });
+
+    const mock_user_data = fakeUser();
+
+    const signInController = makeSignInController({
+      getUserByEmail,
+      generateAccessToken,
+      verifyPassword,
+      logger,
+    });
+
+    await createUser({ userDetails: mock_user_data });
+
+    const request = {
+      context: {
+        validated: {
+          email: mock_user_data.email,
+          password: "qwert1234",
+        },
+      },
+    };
+
+    const result = await signInController(request as any);
+
     const expected = {
       headers,
       statusCode: HttpStatusCode.CREATED,
