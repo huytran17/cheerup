@@ -59,8 +59,10 @@ describe("signIn", () => {
       headers,
       statusCode: HttpStatusCode.OK,
       body: {
-        user: result?.body?.data?.user,
-        access_token: result?.body?.data?.access_token,
+        data: {
+          user: result?.body?.data?.user,
+          access_token: result?.body?.data?.access_token,
+        },
       },
     };
 
