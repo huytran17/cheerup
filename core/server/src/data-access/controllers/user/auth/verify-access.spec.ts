@@ -4,17 +4,19 @@ import {
   clearDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { fakeUser } from "../../../../../__tests__/__mock__";
-import { logger } from "../../../../../__tests__/jest-logger";
 import makeUserDb from "../../../make-user-db";
 import { UserModel } from "../../../models";
 import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeGetUserByEmail from "../../../../use-cases/user/get-user-by-email";
+import makeVerifyAccessController from "./verify-access";
 import makeSignInController from "./sign-in";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { verifyAccessToken } from "../../../../config/accessTokenManager";
+import { logger } from "../../../../../__tests__/jest-logger";
 import { verifyPassword } from "../../../../config/password";
 import { generateAccessToken } from "../../../../config/accessTokenManager";
 
-describe("signIn", () => {
+describe("verifyAccess", () => {
   beforeAll(async () => {
     await connectDatabase();
   });
@@ -23,7 +25,7 @@ describe("signIn", () => {
     await clearDatabase();
   });
 
-  it("it should return a body that contains an user entity and an JWT access token", async () => {
+  it("it should return a body that is an decoded JWT token", async () => {
     const headers = {
       "Content-Type": "application/json",
     };
@@ -43,7 +45,7 @@ describe("signIn", () => {
       logger,
     });
 
-    const request = {
+    const sign_in_request = {
       context: {
         validated: {
           email: created_user?.email,
@@ -52,16 +54,27 @@ describe("signIn", () => {
       },
     };
 
-    const result = await signInController(request as any);
+    const signed_in_data = await signInController(sign_in_request as any);
+
+    const verifyAccessController = makeVerifyAccessController({
+      verifyAccessToken,
+    });
+
+    const verify_access_request = {
+      context: {
+        validated: {
+          access_token: signed_in_data?.body?.data?.access_token,
+        },
+      },
+    };
+
+    const result = await verifyAccessController(verify_access_request as any);
 
     const expected = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: {
-        data: {
-          user: result?.body?.data?.user,
-          access_token: result?.body?.data?.access_token,
-        },
+        data: result?.body?.data,
       },
     };
 
