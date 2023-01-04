@@ -6,11 +6,11 @@ import {
 import { logger } from "../../../../../__tests__/jest-logger";
 import makeCategoryDb from "../../../make-category-db";
 import { CategoryModel } from "../../../models";
-import makeGetCategories from "../../../../use-cases/category/get-categories";
-import makeGetCategoriesController from "./get-categories";
+import makeGetCategoryTitles from "../../../../use-cases/category/get-category-titles";
+import makeGetCategoryTitlesController from "./get-category-titles";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
-describe("getCategories", () => {
+describe("getCategoryTitles", () => {
   beforeAll(async () => {
     await connectDatabase();
   });
@@ -19,7 +19,7 @@ describe("getCategories", () => {
     await clearDatabase();
   });
 
-  it("it should return a body that contains an array of categories", async () => {
+  it("it should return a body that contains an array of category' titles", async () => {
     const headers = {
       "Content-Type": "application/json",
     };
@@ -29,10 +29,10 @@ describe("getCategories", () => {
       moment,
     });
 
-    const getCategories = makeGetCategories({ categoryDb, logger });
+    const getCategoryTitles = makeGetCategoryTitles({ categoryDb, logger });
 
-    const getCategoriesController = makeGetCategoriesController({
-      getCategories,
+    const getCategoryTitlesController = makeGetCategoryTitlesController({
+      getCategoryTitles,
       logger,
     });
 
@@ -44,7 +44,7 @@ describe("getCategories", () => {
       },
     };
 
-    const result = await getCategoriesController(request as any);
+    const result = await getCategoryTitlesController(request as any);
 
     const expected = {
       headers,
