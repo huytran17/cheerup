@@ -19,10 +19,9 @@ export default function makeGetCategoryTitlesController({
     };
 
     try {
-      const { category_id } = _.get(httpRequest, "context.validated");
       const exists = await getCategoryTitles();
       if (!exists) {
-        throw new Error(`Category ${category_id} does not exists`);
+        throw new Error(`No category titles found`);
       }
 
       return {
