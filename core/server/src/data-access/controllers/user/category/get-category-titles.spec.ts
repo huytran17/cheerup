@@ -38,9 +38,7 @@ describe("getCategoryTitles", () => {
 
     const request = {
       context: {
-        user: {
-          validated: {},
-        },
+        validated: {},
       },
     };
 

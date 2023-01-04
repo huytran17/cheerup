@@ -47,10 +47,8 @@ describe("getCategory", () => {
 
     const request = {
       context: {
-        user: {
-          validated: {
-            category_id: created_category._id,
-          },
+        validated: {
+          category_id: created_category._id,
         },
       },
     };
