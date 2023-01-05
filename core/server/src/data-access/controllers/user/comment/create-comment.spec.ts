@@ -75,7 +75,7 @@ describe("createComment", () => {
     const request = {
       context: {
         validated: Object.assign({}, mock_comment_data, {
-          post_id: created_post._id,
+          post: created_post._id,
         }),
         user: {
           _id: created_user._id,
