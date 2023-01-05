@@ -12,7 +12,7 @@ export default function makeFakePost({ faker }: { faker: any }): FakePost {
       thumbnail_url: faker.internet.url(),
       is_blocked_comment: faker.datatype.boolean(),
       is_highlight: faker.datatype.boolean(),
-      is_published: faker.datatype.boolean(),
+      is_published: true,
       is_notified_to_user: faker.datatype.boolean(),
       content: faker.lorem.paragraphs(),
       tags: faker.helpers.arrayElements(),
