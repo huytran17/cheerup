@@ -3,7 +3,7 @@ import {
   connectDatabase,
   clearDatabase,
 } from "../../../../../__tests__/jest-mongo";
-import { fakeComment } from "../../../../../__tests__/__mock__";
+import { fakeComment, fakeUser } from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
 import makeCommentDb from "../../../make-comment-db";
 import makePostDb from "../../../make-post-db";
@@ -11,6 +11,7 @@ import makeUserDb from "../../../make-user-db";
 import { CommentModel, PostModel, UserModel } from "../../../models";
 import makeGetPost from "../../../../use-cases/post/get-post";
 import makeGetUser from "../../../../use-cases/user/get-user";
+import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeCreateComment from "../../../../use-cases/comment/create-comment";
 import makeDeleteComment from "../../../../use-cases/comment/delete-comment";
 import makeGetComment from "../../../../use-cases/comment/get-comment";
@@ -49,11 +50,19 @@ describe("deleteComment", () => {
     const deleteComment = makeDeleteComment({ commentDb, logger });
     const getComment = makeGetComment({ commentDb, logger });
     const getUser = makeGetUser({ userDb, logger });
+    const createUser = makeCreateUser({ userDb, logger });
 
     const mock_comment_data = fakeComment();
+    const mock_user_data = fakeUser();
+
+    const created_user = await createUser({
+      userDetails: mock_user_data,
+    });
 
     const created_comment = await createComment({
-      commentDetails: mock_comment_data,
+      commentDetails: Object.assign(mock_comment_data, {
+        user: created_user._id,
+      }),
     });
 
     const deleteCommentController = makeDeleteCommentController({
@@ -70,7 +79,7 @@ describe("deleteComment", () => {
           _id: created_comment._id,
         },
         user: {
-          _id: created_comment.user,
+          _id: created_user._id,
         },
       },
     };
