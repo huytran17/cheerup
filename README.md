@@ -27,9 +27,11 @@ Authentication => passport.js
 
 API validator => validatorjs
 
-Backend server = nodejs, expressjs
+Backend server => nodejs, expressjs
 
-Backend logs = winston
+Backend logs => winston
+
+Unit testing => Jest
 
 Dashboard => Nuxtjs
 
