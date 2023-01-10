@@ -307,7 +307,7 @@ export default function makeCommentDb({
       const result = await commentDbModel.create([updated_payload]);
       const updated = await commentDbModel
         .findOne({ _id: result[0]?._id })
-        .populate("user", "id avatar full_name")
+        .populate("user", "_id avatar full_name")
         .lean({ virtuals: true });
 
       if (updated) {
