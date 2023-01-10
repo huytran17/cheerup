@@ -87,7 +87,7 @@ describe("getCommentsByPostPaginated", () => {
       headers,
       statusCode: HttpStatusCode.OK,
       body: {
-        ...result,
+        ...result.body,
       },
     };
 
