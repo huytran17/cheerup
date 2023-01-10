@@ -79,7 +79,7 @@ describe("dislikeComment", () => {
           _id: created_comment._id,
         },
         user: {
-          _id: created_comment.user._id,
+          _id: created_comment.user.toString(),
         },
       },
     };
