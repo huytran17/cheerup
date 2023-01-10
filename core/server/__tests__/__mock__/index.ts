@@ -8,6 +8,7 @@ import makeFakeGallery from "./make-fake-gallery";
 import makeFakePostBookmark from "./make-fake-post-bookmark";
 import makeFakePost from "./make-fake-post";
 import makeFakeSubscription from "./make-fake-subscription";
+import makeFakeQueryParams from "./make-fake-query-params";
 
 const fakeUser = makeFakeUser({ faker });
 const fakeAdmin = makeFakeAdmin({ faker });
@@ -17,6 +18,7 @@ const fakeGallery = makeFakeGallery({ faker });
 const fakePostBookmark = makeFakePostBookmark({ faker });
 const fakePost = makeFakePost({ faker });
 const fakeSubscription = makeFakeSubscription({ faker });
+const fakeQueryParams = makeFakeQueryParams({ faker });
 
 export default Object.freeze({
   fakeUser,
@@ -27,6 +29,7 @@ export default Object.freeze({
   fakePostBookmark,
   fakePost,
   fakeSubscription,
+  fakeQueryParams,
 });
 
 export {
@@ -38,4 +41,5 @@ export {
   fakePostBookmark,
   fakePost,
   fakeSubscription,
+  fakeQueryParams,
 };
