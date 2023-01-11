@@ -8,7 +8,7 @@ import {
   fakeUser,
   fakeComment,
 } from "../../../../../__tests__/__mock__";
-import { ExpectSingleEntity } from "../../../../../__tests__/__types__/expect-types";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import Comment from "../../../../database/entities/comment";
 import { logger } from "../../../../../__tests__/jest-logger";
 import makeCommentDb from "../../../make-comment-db";
@@ -87,7 +87,7 @@ describe("createComment", () => {
 
     const result = await createCommentController(request as any);
 
-    const expected: ExpectSingleEntity<Comment> = {
+    const expected: ExpectSingleResult<Comment> = {
       headers,
       statusCode: HttpStatusCode.CREATED,
       body: {

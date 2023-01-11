@@ -8,7 +8,7 @@ import {
   fakePost,
   fakeQueryParams,
 } from "../../../../../__tests__/__mock__";
-import { ExpectPaginatedEntities } from "../../../../../__tests__/__types__/expect-types";
+import { ExpectPaginatedResult } from "../../../../../__tests__/__types__/expect-types";
 import Comment from "../../../../database/entities/comment";
 import { logger } from "../../../../../__tests__/jest-logger";
 import makeCommentDb from "../../../make-comment-db";
@@ -85,7 +85,7 @@ describe("getCommentsByPostPaginated", () => {
 
     const result = await getCommentsByPostPaginatedController(request as any);
 
-    const expected: ExpectPaginatedEntities<Comment> = {
+    const expected: ExpectPaginatedResult<Comment> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: {

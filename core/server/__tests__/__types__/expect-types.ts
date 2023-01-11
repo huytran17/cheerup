@@ -1,4 +1,4 @@
-export type ExpectSingleEntity<T> = {
+export type ExpectSingleResult<T> = {
   headers: Record<string, unknown>;
   statusCode: number;
   body: {
@@ -6,7 +6,7 @@ export type ExpectSingleEntity<T> = {
   };
 };
 
-export type ExpectPaginatedEntities<T> = {
+export type ExpectPaginatedResult<T> = {
   headers: Record<string, unknown>;
   statusCode: number;
   body: {

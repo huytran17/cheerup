@@ -3,7 +3,7 @@ import {
   connectDatabase,
   clearDatabase,
 } from "../../../../../__tests__/jest-mongo";
-import { ExpectSingleEntity } from "../../../../../__tests__/__types__/expect-types";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakePost } from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
 import makeCommentDb from "../../../make-comment-db";
@@ -64,7 +64,7 @@ describe("countCommentsByPost", () => {
 
     const result = await countCommentsByPostController(request as any);
 
-    const expected: ExpectSingleEntity<number> = {
+    const expected: ExpectSingleResult<number> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: {
