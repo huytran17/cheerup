@@ -3,9 +3,11 @@ import {
   connectDatabase,
   clearDatabase,
 } from "../../../../../__tests__/jest-mongo";
+import { ExpectSingleEntity } from "../../../../../__tests__/__types__/expect-types";
 import { fakeComment } from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
 import makeCommentDb from "../../../make-comment-db";
+import Comment from "../../../../database/entities/comment";
 import { CommentModel } from "../../../models";
 import makeCreateComment from "../../../../use-cases/comment/create-comment";
 import makeGetComment from "../../../../use-cases/comment/get-comment";
@@ -55,7 +57,7 @@ describe("getComment", () => {
 
     const result = await getCommentController(request as any);
 
-    const expected = {
+    const expected: ExpectSingleEntity<Comment> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: {
