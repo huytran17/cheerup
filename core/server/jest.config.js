@@ -5,6 +5,7 @@ module.exports = {
   testPathIgnorePatterns: [
     "/node_modules/",
     "/__mock__/",
+    "/__types__/",
     "/redis/",
     "/mongo/",
     "/dist/",
@@ -12,6 +13,7 @@ module.exports = {
   modulePathIgnorePatterns: [
     "/node_modules/",
     "/__mock__/",
+    "/__types__/",
     "/redis/",
     "/mongo/",
     "/dist/",
