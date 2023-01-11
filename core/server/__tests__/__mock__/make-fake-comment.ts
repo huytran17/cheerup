@@ -13,7 +13,7 @@ export default function makeFakeComment({
       content: faker.lorem.paragraph(),
       user: faker.database.mongodbObjectId(),
       post: faker.database.mongodbObjectId(),
-      parent: faker.database.mongodbObjectId(),
+      parent: null,
       children: faker.helpers.arrayElements([
         faker.database.mongodbObjectId(),
         faker.database.mongodbObjectId(),
