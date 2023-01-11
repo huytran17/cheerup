@@ -9,6 +9,8 @@ import {
   fakeUser,
 } from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
+import { ExpectSingleEntity } from "../../../../../__tests__/__types__/expect-types";
+import Comment from "../../../../database/entities/comment";
 import makeCommentDb from "../../../make-comment-db";
 import makePostDb from "../../../make-post-db";
 import makeUserDb from "../../../make-user-db";
@@ -98,7 +100,7 @@ describe("dislikeComment", () => {
 
     const result = await dislikeCommentController(request as any);
 
-    const expected = {
+    const expected: ExpectSingleEntity<Comment> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: {
