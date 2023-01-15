@@ -51,7 +51,7 @@ describe("getSuggestionPosts", () => {
       context: {
         validated: {
           amount: 5,
-          categories: [created_post.categories[0]],
+          categories: [created_post.categories[0].toString()],
         },
       },
     };
