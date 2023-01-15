@@ -332,8 +332,14 @@ export default function makePostDb({
       const result = await postDbModel.create([updated_payload]);
       const updated = await postDbModel
         .findOne({ _id: result[0]?._id })
-        .populate("author", "full_name")
-        .populate("categories", "title")
+        .populate({
+          path: "author",
+          select: "full_name",
+        })
+        .populate({
+          path: "categories",
+          select: "_id title",
+        })
         .lean({ virtuals: true });
 
       if (updated) {
