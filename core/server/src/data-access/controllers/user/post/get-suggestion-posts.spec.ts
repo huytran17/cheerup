@@ -51,7 +51,7 @@ describe("getSuggestionPosts", () => {
       categoryDetails: mock_category_data,
     });
 
-    await createPost({
+    const created_post = await createPost({
       postDetails: { ...mock_post_data, categories: [created_category] },
     });
 
@@ -65,6 +65,7 @@ describe("getSuggestionPosts", () => {
         validated: {
           amount: 5,
           categories: [created_category._id],
+          exclude_ids: [created_post._id],
         },
       },
     };
