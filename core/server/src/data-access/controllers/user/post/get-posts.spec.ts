@@ -3,30 +3,22 @@ import {
   connectDatabase,
   clearDatabase,
 } from "../../../../../__tests__/jest-mongo";
-import { ExpectPaginatedPartialResult } from "../../../../../__tests__/__types__/expect-types";
+import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
 import { fakePost, fakeUser } from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
-import { readingTimeAnalyzer } from "../../../../../__tests__/reading-time";
 import makePostDb from "../../../make-post-db";
 import makeCommentDb from "../../../make-comment-db";
 import makeUserDb from "../../../make-user-db";
-import makePostBookmarkDb from "../../../make-post-bookmark-db";
 import Post from "../../../../database/entities/post";
-import {
-  PostModel,
-  PostBookmarkModel,
-  UserModel,
-  CommentModel,
-} from "../../../models";
+import { PostModel, UserModel, CommentModel } from "../../../models";
 import makeCreatePost from "../../../../use-cases/post/create-post";
-import makeGetPostsPaginated from "../../../../use-cases/post/get-posts-paginated";
+import makeGetPosts from "../../../../use-cases/post/get-posts";
 import makeCountCommentsByPost from "../../../../use-cases/comment/count-comments-by-post";
 import makeCreateUser from "../../../../use-cases/user/create-user";
-import makeGetPostBookmarkByUserAndPost from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
-import makeGetPostsPaginatedController from "./get-posts-paginated";
+import makeGetPostsController from "./get-posts";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
-describe("getPostsPaginated", () => {
+describe("getPosts", () => {
   beforeAll(async () => {
     await connectDatabase();
   });
@@ -35,17 +27,13 @@ describe("getPostsPaginated", () => {
     await clearDatabase();
   });
 
-  it("it should return a body that contains a list of posts entities paginated", async () => {
+  it("it should return a body that contains a list of posts entities", async () => {
     const headers = {
       "Content-Type": "application/json",
     };
 
     const postDb = makePostDb({
       postDbModel: PostModel,
-      moment,
-    });
-    const postBookmarkDb = makePostBookmarkDb({
-      postBookmarkDbModel: PostBookmarkModel,
       moment,
     });
     const userDb = makeUserDb({
@@ -58,13 +46,9 @@ describe("getPostsPaginated", () => {
     });
 
     const createPost = makeCreatePost({ postDb, logger });
-    const getPostsPaginated = makeGetPostsPaginated({ postDb, logger });
+    const getPosts = makeGetPosts({ postDb, logger });
     const countCommentsByPost = makeCountCommentsByPost({ commentDb, logger });
     const createUser = makeCreateUser({ userDb, logger });
-    const getPostBookmarkByUserAndPost = makeGetPostBookmarkByUserAndPost({
-      postBookmarkDb,
-      logger,
-    });
 
     const mock_post_data = fakePost();
     const mock_user_data = fakeUser();
@@ -77,11 +61,9 @@ describe("getPostsPaginated", () => {
       userDetails: mock_user_data,
     });
 
-    const getPostsPaginatedController = makeGetPostsPaginatedController({
-      getPostsPaginated,
+    const getPostsController = makeGetPostsController({
+      getPosts,
       countCommentsByPost,
-      getPostBookmarkByUserAndPost,
-      readingTimeAnalyzer,
       logger,
     });
 
@@ -94,9 +76,9 @@ describe("getPostsPaginated", () => {
       },
     };
 
-    const result = await getPostsPaginatedController(request as any);
+    const result = await getPostsController(request as any);
 
-    const expected: ExpectPaginatedPartialResult<Post> = {
+    const expected: ExpectMultipleResults<Post> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,
