@@ -4,12 +4,10 @@ import {
   clearDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
-import { fakePost } from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
 import makePostDb from "../../../make-post-db";
 import Post from "../../../../database/entities/post";
 import { PostModel } from "../../../models";
-import makeCreatePost from "../../../../use-cases/post/create-post";
 import makeGetSuggestionPosts from "../../../../use-cases/post/get-suggestion-posts";
 import makeGetSuggestionPostsController from "./get-suggestion-posts";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -33,14 +31,7 @@ describe("getSuggestionPosts", () => {
       moment,
     });
 
-    const createPost = makeCreatePost({ postDb, logger });
     const getSuggestionPosts = makeGetSuggestionPosts({ postDb, logger });
-
-    const mock_post_data = fakePost();
-
-    const created_post = await createPost({
-      postDetails: mock_post_data,
-    });
 
     const getSuggestionPostsController = makeGetSuggestionPostsController({
       getSuggestionPosts,
