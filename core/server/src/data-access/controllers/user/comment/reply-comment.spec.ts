@@ -99,7 +99,9 @@ describe("replyComment", () => {
         validated: Object.assign(final_mock_comment_data, {
           parent: created_parent_comment._id,
         }),
-        user: created_user,
+        user: {
+          user_id: created_user._id,
+        },
       },
     };
 
