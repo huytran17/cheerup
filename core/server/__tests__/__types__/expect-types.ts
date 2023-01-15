@@ -6,6 +6,14 @@ export type ExpectSingleResult<T> = {
   };
 };
 
+export type ExpectMultipleResults<T> = {
+  headers: Record<string, unknown>;
+  statusCode: number;
+  body: {
+    data: T[];
+  };
+};
+
 export type ExpectPaginatedResult<T> = {
   headers: Record<string, unknown>;
   statusCode: number;
