@@ -72,12 +72,12 @@ describe("getCommentsByPostPaginated", () => {
         logger,
       });
 
-    const queryParams = fakeQueryParams();
+    const query_params = fakeQueryParams();
 
     const request = {
       context: {
         validated: {
-          ...queryParams,
+          ...query_params,
           post_id: created_post._id,
         },
       },
