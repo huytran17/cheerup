@@ -90,9 +90,11 @@ describe("replyComment", () => {
       logger,
     });
 
+    delete created_parent_comment._id;
+
     const request = {
       context: {
-        validated: Object.assign({}, created_parent_comment, {
+        validated: Object.assign(created_parent_comment, {
           parent: created_parent_comment._id,
         }),
         user: created_user,
