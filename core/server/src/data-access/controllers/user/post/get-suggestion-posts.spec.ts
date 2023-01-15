@@ -4,11 +4,14 @@ import {
   clearDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
-import { fakePost } from "../../../../../__tests__/__mock__";
+import { fakePost, fakeCategory } from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
 import makePostDb from "../../../make-post-db";
+import makeCategoryDb from "../../../make-category-db";
 import Post from "../../../../database/entities/post";
-import { PostModel } from "../../../models";
+import Category from "../../../../database/entities/category";
+import { PostModel, CategoryModel } from "../../../models";
+import makeCreateCategory from "../../../../use-cases/category/create-category";
 import makeCreatePost from "../../../../use-cases/post/create-post";
 import makeGetSuggestionPosts from "../../../../use-cases/post/get-suggestion-posts";
 import makeGetSuggestionPostsController from "./get-suggestion-posts";
@@ -32,14 +35,24 @@ describe("getSuggestionPosts", () => {
       postDbModel: PostModel,
       moment,
     });
+    const categoryDb = makeCategoryDb({
+      categoryDbModel: CategoryModel,
+      moment,
+    });
 
     const createPost = makeCreatePost({ postDb, logger });
+    const createCategory = makeCreateCategory({ categoryDb, logger });
     const getSuggestionPosts = makeGetSuggestionPosts({ postDb, logger });
 
     const mock_post_data = fakePost();
+    const mock_category_data = fakeCategory();
 
-    const created_post = await createPost({
-      postDetails: mock_post_data,
+    const created_category = await createCategory({
+      categoryDetails: mock_category_data,
+    });
+
+    await createPost({
+      postDetails: { ...mock_post_data, categories: [created_category] },
     });
 
     const getSuggestionPostsController = makeGetSuggestionPostsController({
@@ -51,7 +64,7 @@ describe("getSuggestionPosts", () => {
       context: {
         validated: {
           amount: 5,
-          categories: [created_post.categories[0]?._id],
+          categories: [created_category._id],
         },
       },
     };
