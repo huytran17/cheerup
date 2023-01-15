@@ -74,11 +74,13 @@ describe("replyComment", () => {
       userDetails: mock_user_data,
     });
 
+    const final_mock_comment_data = Object.assign(mock_comment_data, {
+      post: created_post._id,
+      user: created_user._id,
+    });
+
     const created_parent_comment = await createComment({
-      commentDetails: Object.assign(mock_comment_data, {
-        post: created_post._id,
-        user: created_user._id,
-      }),
+      commentDetails: final_mock_comment_data,
     });
 
     const replyCommentController = makeReplyCommentController({
@@ -90,11 +92,9 @@ describe("replyComment", () => {
       logger,
     });
 
-    delete created_parent_comment._id;
-
     const request = {
       context: {
-        validated: Object.assign(created_parent_comment, {
+        validated: Object.assign(final_mock_comment_data, {
           parent: created_parent_comment._id,
         }),
         user: created_user,
