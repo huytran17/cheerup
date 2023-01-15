@@ -79,9 +79,7 @@ describe("createComment", () => {
         validated: Object.assign({}, mock_comment_data, {
           post: created_post._id,
         }),
-        user: {
-          _id: created_user._id,
-        },
+        user: created_user,
       },
     };
 

@@ -54,11 +54,7 @@ describe("getMe", () => {
 
     const request = {
       context: {
-        user: {
-          _id: created_user._id,
-          email: created_user.email,
-          ip: created_user.ip,
-        },
+        user: created_user,
       },
     };
 

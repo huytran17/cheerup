@@ -92,9 +92,7 @@ describe("likeComment", () => {
         validated: {
           _id: created_comment._id,
         },
-        user: {
-          _id: created_user._id,
-        },
+        user: created_user,
       },
     };
 

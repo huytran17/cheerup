@@ -39,9 +39,7 @@ describe("signOut", () => {
 
     const request = {
       context: {
-        user: {
-          email: created_user.email,
-        },
+        user: created_user,
       },
     };
 
