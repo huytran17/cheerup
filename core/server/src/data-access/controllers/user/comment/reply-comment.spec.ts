@@ -92,6 +92,8 @@ describe("replyComment", () => {
       logger,
     });
 
+    delete final_mock_comment_data._id;
+
     const request = {
       context: {
         validated: Object.assign(final_mock_comment_data, {
