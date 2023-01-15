@@ -4,7 +4,11 @@ import {
   clearDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { ExpectPaginatedPartialResult } from "../../../../../__tests__/__types__/expect-types";
-import { fakePost, fakeUser } from "../../../../../__tests__/__mock__";
+import {
+  fakePost,
+  fakeUser,
+  fakeQueryParams,
+} from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
 import { readingTimeAnalyzer } from "../../../../../__tests__/reading-time";
 import makePostDb from "../../../make-post-db";
@@ -68,8 +72,9 @@ describe("getPostsPaginated", () => {
 
     const mock_post_data = fakePost();
     const mock_user_data = fakeUser();
+    const query_params = fakeQueryParams();
 
-    const created_post = await createPost({
+    await createPost({
       postDetails: mock_post_data,
     });
 
@@ -88,7 +93,7 @@ describe("getPostsPaginated", () => {
     const request = {
       context: {
         validated: {
-          ...created_post,
+          ...query_params,
           user_id: created_User._id,
         },
       },
