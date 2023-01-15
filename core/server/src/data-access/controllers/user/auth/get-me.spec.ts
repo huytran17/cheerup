@@ -63,9 +63,7 @@ describe("getMe", () => {
     const expected = {
       headers,
       statusCode: HttpStatusCode.OK,
-      body: {
-        data: result?.body?.data,
-      },
+      body: result?.body,
     };
 
     expect(result).toEqual(expected);

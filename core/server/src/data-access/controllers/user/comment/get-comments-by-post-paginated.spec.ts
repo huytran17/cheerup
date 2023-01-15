@@ -88,9 +88,7 @@ describe("getCommentsByPostPaginated", () => {
     const expected: ExpectPaginatedResult<Comment> = {
       headers,
       statusCode: HttpStatusCode.OK,
-      body: {
-        ...result.body,
-      },
+      body: result?.body,
     };
 
     expect(result).toEqual(expected);

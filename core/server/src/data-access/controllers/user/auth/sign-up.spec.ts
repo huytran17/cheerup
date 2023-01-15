@@ -57,9 +57,7 @@ describe("signUp", () => {
     const expected = {
       headers,
       statusCode: HttpStatusCode.CREATED,
-      body: {
-        data: result?.body?.data,
-      },
+      body: result?.body,
     };
 
     expect(result).toEqual(expected);
