@@ -42,8 +42,8 @@ export default function makeGetPostBookmarksPaginatedController({
         entries_per_page: Number(entries_per_page),
       });
 
-      const post_data = _.get(paginated_data, "data", []);
-      const map_count_comments_promises = post_data.map(
+      const post_bookmarks = _.get(paginated_data, "data", []);
+      const map_count_comments_promises = post_bookmarks.map(
         async (post_bookmark: Partial<PostBookmark>) => {
           const comments_count = await countCommentsByPost({
             post_id: _.get(post_bookmark, "post._id"),
@@ -57,18 +57,20 @@ export default function makeGetPostBookmarksPaginatedController({
 
           const reading_time = readingTimeAnalyzer({ text: analyzing_text });
 
-          return Object.assign({}, post_bookmark, {
+          return {
+            ...post_bookmark,
             reading_time,
             comments_count,
-          });
+          };
         }
       );
 
       const final_post_data = await Promise.all(map_count_comments_promises);
 
-      const final_paginated_data = Object.assign({}, paginated_data, {
+      const final_paginated_data = {
+        ...paginated_data,
         data: final_post_data,
-      });
+      };
 
       return {
         headers,
