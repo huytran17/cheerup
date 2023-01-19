@@ -9,7 +9,6 @@ import { logger } from "../../../../../__tests__/jest-logger";
 import makePostDb from "../../../make-post-db";
 import makeCategoryDb from "../../../make-category-db";
 import Post from "../../../../database/entities/post";
-import Category from "../../../../database/entities/category";
 import { PostModel, CategoryModel } from "../../../models";
 import makeCreateCategory from "../../../../use-cases/category/create-category";
 import makeCreatePost from "../../../../use-cases/post/create-post";
