@@ -82,7 +82,10 @@ describe("getPostBookmarksPaginated", () => {
     const expected: ExpectPaginatedResult<PostBookmark> = {
       headers,
       statusCode: HttpStatusCode.OK,
-      body: result?.body.data,
+      body: {
+        data: result?.body?.data?.data,
+        pagination: result?.body?.data?.pagination,
+      },
     };
 
     expect(result).toEqual(expected);
