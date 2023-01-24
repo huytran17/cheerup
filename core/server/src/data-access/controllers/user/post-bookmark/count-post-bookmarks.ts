@@ -46,7 +46,7 @@ export default function makeCountPostBookmarkController({
         },
       };
     } catch (error) {
-      return {
+      throw {
         headers,
         statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
