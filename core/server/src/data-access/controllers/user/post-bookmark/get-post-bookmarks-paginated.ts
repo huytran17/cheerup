@@ -5,7 +5,9 @@ import { IReadingTimeAnalyzer } from "../../../../config/reading-time/reading-ti
 import _ from "lodash";
 import { Logger } from "winston";
 import PostBookmark from "../../../../database/entities/post-bookmark";
+import IPostBookmark from "../../../../database/interfaces/post-bookmark";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { PaginatedPostBookmarkResult } from "../../../../data-access/interfaces/post-bookmark-db";
 
 export default function makeGetPostBookmarksPaginatedController({
   getPostBookmarksPaginated,
@@ -65,9 +67,11 @@ export default function makeGetPostBookmarksPaginatedController({
         }
       );
 
-      const final_post_data = await Promise.all(map_count_comments_promises);
+      const final_post_data: IPostBookmark[] = await Promise.all(
+        map_count_comments_promises
+      );
 
-      const final_paginated_data = {
+      const final_paginated_data: PaginatedPostBookmarkResult = {
         ...paginated_data,
         data: final_post_data,
       };
@@ -80,7 +84,7 @@ export default function makeGetPostBookmarksPaginatedController({
         },
       };
     } catch (error) {
-      return {
+      throw {
         headers,
         statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
