@@ -79,7 +79,7 @@ describe("countPostBookmarks", () => {
 
     const result = await countPostBookmarksController(request as any);
 
-    const expected: ExpectSingleResult<PostBookmark> = {
+    const expected: ExpectSingleResult<number> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,
