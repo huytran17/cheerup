@@ -73,7 +73,7 @@ describe("countPostBookmarks", () => {
 
     const request = {
       context: {
-        validated: created_user,
+        user: created_user,
       },
     };
 
