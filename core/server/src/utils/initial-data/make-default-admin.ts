@@ -28,7 +28,7 @@ export default function makeCreateDefaultAdmin({
     const adminDetails = {
       full_name: process.env.DEFAULT_ADMIN_FULLNAME || "Huy Tran",
       email: process.env.DEFAULT_ADMIN_EMAIL || "huytran.13022k@gmail.com",
-      type: AdminType.Super,
+      type: AdminType.Owner,
       hash_password,
     };
 

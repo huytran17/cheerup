@@ -13,6 +13,7 @@ export default interface IAdmin {
 }
 
 export enum AdminType {
-  Super = "super",
-  Normal = "normal",
+  Owner = "owner",
+  Collaborator = "collaborator",
+  Editor = "editor",
 }

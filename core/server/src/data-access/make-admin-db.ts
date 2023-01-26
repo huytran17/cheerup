@@ -71,7 +71,7 @@ export default function makeAdminDb({
           }),
           adminDbModel.countDocuments({
             ...query_conditions,
-            type: AdminType.Super,
+            type: AdminType.Owner,
             deleted_at: { $in: [null, undefined] },
             created_at: {
               $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
@@ -80,7 +80,7 @@ export default function makeAdminDb({
           }),
           adminDbModel.countDocuments({
             ...query_conditions,
-            type: AdminType.Normal,
+            type: AdminType.Collaborator,
             deleted_at: { $in: [null, undefined] },
             created_at: {
               $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
@@ -89,7 +89,7 @@ export default function makeAdminDb({
           }),
           adminDbModel.countDocuments({
             ...query_conditions,
-            type: AdminType.Normal,
+            type: AdminType.Collaborator,
             deleted_at: { $in: [null, undefined] },
             created_at: {
               $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),

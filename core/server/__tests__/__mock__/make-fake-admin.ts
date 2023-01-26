@@ -12,7 +12,7 @@ export default function makeFakeAdmin({ faker }: { faker: any }): FakeAdmin {
       full_name: faker.name.fullName(),
       is_blocked_comment: faker.datatype.boolean(),
       email: faker.internet.email(),
-      type: AdminType.Super,
+      type: AdminType.Owner,
       created_at: faker.date.recent(),
       updated_at: faker.date.recent(),
       deleted_at: null,
