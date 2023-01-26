@@ -1,11 +1,11 @@
 import _ from "lodash";
 import mongoose from "mongoose";
-import ISubscriptionDb, {
-  PaginatedSubscriptionResult,
-  ISubscriptionAnalyticsData,
-} from "./interfaces/subscription-db";
 import Subscription from "../database/entities/subscription";
 import ISubscription from "../database/interfaces/subscription";
+import ISubscriptionDb, {
+  ISubscriptionAnalyticsData,
+  PaginatedSubscriptionResult,
+} from "./interfaces/subscription-db";
 
 export default function makeSubscriptionDb({
   subscriptionDbModel,
@@ -73,7 +73,20 @@ export default function makeSubscriptionDb({
     }
 
     async findAll(): Promise<Subscription[] | null> {
-      let query_conditions = Object.assign({});
+      const existing = await subscriptionDbModel
+        .find()
+        .lean({ virtuals: true });
+
+      if (existing) {
+        return existing.map((subscription) => new Subscription(subscription));
+      }
+
+      return null;
+    }
+    async findAllActivating(): Promise<Subscription[] | null> {
+      const query_conditions = {
+        is_active: true,
+      };
 
       const existing = await subscriptionDbModel
         .find(query_conditions)

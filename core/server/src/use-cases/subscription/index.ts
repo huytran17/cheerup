@@ -1,14 +1,20 @@
 import { logger } from "../../config/logs/logger";
 import { SubscriptionDb } from "../../data-access";
-import makeGetSubscription from "./get-subscription";
-import makeGetSubscriptionByEmail from "./get-subscription-by-email";
-import makeUpdateSubscription from "./update-subscription";
 import makeCreateSubscription from "./create-subscription";
-import makeGetSubscriptions from "./get-subscriptions";
+import makeGetActivatingSubscriptions from "./get-activating-subscriptions";
+import makeGetSubscription from "./get-subscription";
 import makeGetSubscriptionAnalystics from "./get-subscription-analystics";
+import makeGetSubscriptionByEmail from "./get-subscription-by-email";
+import makeGetSubscriptions from "./get-subscriptions";
+import makeUpdateSubscription from "./update-subscription";
 
 const getSubscriptionAnalystics = makeGetSubscriptionAnalystics({
   subscriptionDb: SubscriptionDb,
+});
+
+const getActivatingSubscriptions = makeGetActivatingSubscriptions({
+  subscriptionDb: SubscriptionDb,
+  logger,
 });
 
 const getSubscription = makeGetSubscription({
@@ -41,6 +47,7 @@ const subscriptionServices = Object.freeze({
   getSubscriptions,
   createSubscription,
   getSubscriptionAnalystics,
+  getActivatingSubscriptions,
 });
 
 export default subscriptionServices;
@@ -52,4 +59,5 @@ export {
   getSubscriptions,
   createSubscription,
   getSubscriptionAnalystics,
+  getActivatingSubscriptions,
 };

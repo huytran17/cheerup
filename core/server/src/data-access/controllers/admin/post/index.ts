@@ -1,37 +1,37 @@
 import {
-  getPost,
-  deletePost,
-  updatePost,
-  createPost,
-  getPosts,
-  hardDeletePost,
-  getPostAnalystics,
-  getHighlightPost,
-} from "../../../../use-cases/post";
-import { getAdmin } from "../../../../use-cases/admin";
-import { getSubscriptions } from "../../../../use-cases/subscription";
-import { logger } from "../../../../config/logs/logger";
-import {
   getEmailContent,
   renderEmailContent,
   sendEmail,
 } from "../../../../config/emailManager";
+import { logger } from "../../../../config/logs/logger";
+import { getAdmin } from "../../../../use-cases/admin";
+import {
+  createPost,
+  deletePost,
+  getHighlightPost,
+  getPost,
+  getPostAnalystics,
+  getPosts,
+  hardDeletePost,
+  updatePost,
+} from "../../../../use-cases/post";
+import { getActivatingSubscriptions } from "../../../../use-cases/subscription";
 
-import makeGetPostController from "./get-post";
-import makeDeletePostController from "./delete-post";
-import makeUpdatePostController from "./update-post";
-import makeCreatePostController from "./create-post";
-import makeGetPostsController from "./get-posts";
-import makeRestorePostController from "./restore-post";
-import makeUploadPostThumbnailController from "./upload-post-thumbnail";
 import makeBlockPostCommentController from "./block-post-comment";
-import makeUnblockPostCommentController from "./unblock-post-comment";
-import makeHardDeletePostController from "./hard-delete-post";
-import makePublishPostController from "./publish-post";
-import makeUnPublishPostController from "./un-publish-post";
+import makeCreatePostController from "./create-post";
+import makeDeletePostController from "./delete-post";
+import makeGetPostController from "./get-post";
 import makeGetPostAnalysticsController from "./get-post-analystics";
+import makeGetPostsController from "./get-posts";
+import makeHardDeletePostController from "./hard-delete-post";
 import makeHightlightPostController from "./highlight-post";
+import makePublishPostController from "./publish-post";
+import makeRestorePostController from "./restore-post";
 import makeUnHightlightPostController from "./un-highlight-post";
+import makeUnPublishPostController from "./un-publish-post";
+import makeUnblockPostCommentController from "./unblock-post-comment";
+import makeUpdatePostController from "./update-post";
+import makeUploadPostThumbnailController from "./upload-post-thumbnail";
 
 const unHightlightPostController = makeUnHightlightPostController({
   getPost,
@@ -53,7 +53,7 @@ const getPostAnalysticsController = makeGetPostAnalysticsController({
 const publishPostController = makePublishPostController({
   getPost,
   updatePost,
-  getSubscriptions,
+  getActivatingSubscriptions,
   getEmailContent,
   renderEmailContent,
   sendEmail,
@@ -103,7 +103,7 @@ const getPostsController = makeGetPostsController({
 const createPostController = makeCreatePostController({
   createPost,
   getAdmin,
-  getSubscriptions,
+  getActivatingSubscriptions,
   getEmailContent,
   renderEmailContent,
   sendEmail,

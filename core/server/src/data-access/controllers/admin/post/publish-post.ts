@@ -1,19 +1,19 @@
+import { Request } from "express";
+import { convert } from "html-to-text";
+import _ from "lodash";
+import { Logger } from "winston";
+import { IGetEmailContent } from "../../../../config/emailManager/get-email-content";
+import { IRenderEmailContent } from "../../../../config/emailManager/render-email-content";
+import { ISendEmail } from "../../../../config/emailManager/send-email";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { IGetPost } from "../../../../use-cases/post/get-post";
 import { IUpdatePost } from "../../../../use-cases/post/update-post";
-import { ISendEmail } from "../../../../config/emailManager/send-email";
-import { IRenderEmailContent } from "../../../../config/emailManager/render-email-content";
-import { IGetEmailContent } from "../../../../config/emailManager/get-email-content";
-import { IGetSubscriptions } from "../../../../use-cases/subscription/get-subscriptions";
-import { Logger } from "winston";
-import { convert } from "html-to-text";
-import { Request } from "express";
-import _ from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { IGetActivatingSubscriptions } from "../../../../use-cases/subscription/get-activating-subscriptions";
 
 export default function makePublishPostController({
   getPost,
   updatePost,
-  getSubscriptions,
+  getActivatingSubscriptions,
   getEmailContent,
   renderEmailContent,
   sendEmail,
@@ -21,7 +21,7 @@ export default function makePublishPostController({
 }: {
   getPost: IGetPost;
   updatePost: IUpdatePost;
-  getSubscriptions: IGetSubscriptions;
+  getActivatingSubscriptions: IGetActivatingSubscriptions;
   getEmailContent: IGetEmailContent;
   renderEmailContent: IRenderEmailContent;
   sendEmail: ISendEmail;
@@ -59,15 +59,10 @@ export default function makePublishPostController({
       } = updated_post;
 
       if (!is_notified_to_user) {
-        const subscriptions = await getSubscriptions();
+        const subscriptions = await getActivatingSubscriptions();
 
         const send_notification_promises = subscriptions.map(
           async (subscription) => {
-            const { is_active } = subscription;
-            if (!is_active) {
-              return;
-            }
-
             const user_email = _.get(subscription, "email", "");
 
             const email_content = await getEmailContent({

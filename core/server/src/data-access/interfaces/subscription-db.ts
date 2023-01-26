@@ -2,6 +2,7 @@ import Subscription from "../../database/entities/subscription";
 import ISubscription from "../../database/interfaces/subscription";
 export default interface ISubscriptionDb {
   findAll: () => Promise<Subscription[] | null>;
+  findAllActivating: () => Promise<Subscription[] | null>;
   findAllPaginated: ({
     query,
     page,
