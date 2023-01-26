@@ -22,6 +22,7 @@ export default {
           },
           position: "bottom",
         },
+        maintainAspectRatio: false,
       }),
     },
   },

@@ -8,7 +8,7 @@
           class="app-title"
           v-html="
             $t(`Welcome, {admin_name}!`, {
-              admin_name: admin_data.full_name,
+              admin_name: me.full_name,
             })
           "
         ></span>
@@ -39,13 +39,14 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "BaseDashboardBanner",
-  props: {
-    admin_data: {
-      type: Object,
-      required: true,
-    },
+  computed: {
+    ...mapGetters({
+      me: "auth/me",
+    }),
   },
   data() {
     return {
