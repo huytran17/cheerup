@@ -9,8 +9,15 @@
     "dev": "nodemon src/app.ts",
     "dc:up": "docker-compose up -d",
     "dc:down": "docker-compose down",
-    "build:ts": "tsc"
+    "build": "rimraf dist && tsc",
+    "ts.check": "tsc --project tsconfig.json",
+    "add-build": "git add dist"
   },
+  "pre-commit": [
+    "ts.check",
+    "build",
+    "add-build"
+  ],
   "repository": {
     "type": "git",
     "url": "Blog"
@@ -70,6 +77,8 @@
     "@faker-js/faker": "^7.6.0",
     "@types/jest": "^29.2.4",
     "jest": "^29.3.1",
+    "pre-commit": "^1.2.2",
+    "rimraf": "^4.1.2",
     "ts-jest": "^29.0.3"
   }
 }
