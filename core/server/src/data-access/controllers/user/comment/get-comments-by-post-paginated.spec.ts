@@ -7,15 +7,23 @@ import {
   fakeComment,
   fakePost,
   fakeQueryParams,
+  fakeUser,
 } from "../../../../../__tests__/__mock__";
 import { ExpectPaginatedResult } from "../../../../../__tests__/__types__/expect-types";
 import Comment from "../../../../database/entities/comment";
 import { logger } from "../../../../../__tests__/jest-logger";
 import makeCommentDb from "../../../make-comment-db";
 import makePostDb from "../../../make-post-db";
+import makeUserDb from "../../../make-user-db";
 import makeCommentLikeDb from "../../../make-comment-like-db";
-import { CommentModel, PostModel, CommentLikeModel } from "../../../models";
+import {
+  CommentModel,
+  PostModel,
+  CommentLikeModel,
+  UserModel,
+} from "../../../models";
 import makeGetPost from "../../../../use-cases/post/get-post";
+import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeCreatePost from "../../../../use-cases/post/create-post";
 import makeCreateComment from "../../../../use-cases/comment/create-comment";
 import makeCountCommentLikeByCommentAndType from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
@@ -50,7 +58,12 @@ describe("getCommentsByPostPaginated", () => {
       commentLikeDbModel: CommentLikeModel,
       moment,
     });
+    const userDb = makeUserDb({
+      userDbModel: UserModel,
+      moment,
+    });
 
+    const createUser = makeCreateUser({ userDb, logger });
     const getPost = makeGetPost({ postDb, logger });
     const createPost = makeCreatePost({ postDb, logger });
     const countCommentLikeByCommentAndType =
@@ -67,9 +80,14 @@ describe("getCommentsByPostPaginated", () => {
 
     const mock_comment_data = fakeComment();
     const mock_post_data = fakePost();
+    const mock_user_data = fakeUser();
 
     const created_post = await createPost({
       postDetails: mock_post_data,
+    });
+
+    const created_user = await createUser({
+      userDetails: mock_user_data,
     });
 
     await createComment({
@@ -95,6 +113,7 @@ describe("getCommentsByPostPaginated", () => {
           ...query_params,
           post_id: created_post._id,
         },
+        user: created_user,
       },
     };
 
