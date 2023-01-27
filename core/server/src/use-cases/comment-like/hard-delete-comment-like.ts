@@ -1,7 +1,7 @@
 import CommentLike from "../../database/entities/comment-like";
 import ICommentLikeDb from "../../data-access/interfaces/comment-like-db";
 
-export type HardDeleteCommentLike = ({
+export type IHardDeleteCommentLike = ({
   _id,
 }: {
   _id: string;
@@ -11,7 +11,7 @@ export default function makeHardDeleteCommentLike({
   commentLikeDb,
 }: {
   commentLikeDb: ICommentLikeDb;
-}): HardDeleteCommentLike {
+}): IHardDeleteCommentLike {
   return async function hardDeleteCommentLike({
     _id,
   }: {

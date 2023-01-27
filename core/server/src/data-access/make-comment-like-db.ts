@@ -55,6 +55,29 @@ export default function makeCommentLikeDb({
       return null;
     }
 
+    async findByUserAndComment({
+      user_id,
+      comment_id,
+    }: {
+      user_id: string;
+      comment_id: string;
+    }): Promise<CommentLike | null> {
+      const query_conditions = {
+        user: user_id,
+        comment: comment_id,
+      };
+
+      const existing = await commentLikeDbModel
+        .findOne(query_conditions)
+        .lean({ virtuals: true });
+
+      if (existing) {
+        return new CommentLike(existing);
+      }
+
+      return null;
+    }
+
     async update(payload: Partial<ICommentLike>): Promise<CommentLike | null> {
       const result = await commentLikeDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)

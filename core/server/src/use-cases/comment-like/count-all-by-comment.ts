@@ -1,6 +1,6 @@
 import ICommentLikeDb from "../../data-access/interfaces/comment-like-db";
 
-export type CountAllByComment = ({
+export type ICountAllByComment = ({
   comment_id,
 }: {
   comment_id: string;
@@ -10,7 +10,7 @@ export default function makeCountAllByComment({
   commentLikeDb,
 }: {
   commentLikeDb: ICommentLikeDb;
-}): CountAllByComment {
+}): ICountAllByComment {
   return async function countAllByComment({
     comment_id,
   }: {

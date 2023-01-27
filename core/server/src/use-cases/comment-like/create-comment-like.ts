@@ -2,22 +2,22 @@ import CommentLike from "../../database/entities/comment-like";
 import ICommentLikeDb from "../../data-access/interfaces/comment-like-db";
 import ICommentLike from "../../database/interfaces/comment-like";
 
-export interface ICreateCommentLike {
+export interface ICreateCommentLikeData {
   commentLikeDetails: Omit<ICommentLike, "_id">;
 }
 
-export type CreateCommentLike = ({
+export type ICreateCommentLike = ({
   commentLikeDetails,
-}: ICreateCommentLike) => Promise<CommentLike | null>;
+}: ICreateCommentLikeData) => Promise<CommentLike | null>;
 
 export default function makeCreateCommentLike({
   commentLikeDb,
 }: {
   commentLikeDb: ICommentLikeDb;
-}): CreateCommentLike {
+}): ICreateCommentLike {
   return async function createCommentLike({
     commentLikeDetails,
-  }: ICreateCommentLike): Promise<CommentLike | null> {
+  }: ICreateCommentLikeData): Promise<CommentLike | null> {
     const comment_like = await commentLikeDb.insert(commentLikeDetails);
     return comment_like;
   };
