@@ -1,7 +1,7 @@
-import createCommentLikeRules from "./create-comment-like";
+import createOrUpdateCommentLikeRules from "./create-or-update-comment-like";
 
 export default Object.freeze({
-  createCommentLikeRules,
+  createOrUpdateCommentLikeRules,
 });
 
-export { createCommentLikeRules };
+export { createOrUpdateCommentLikeRules };

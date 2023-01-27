@@ -7,19 +7,20 @@ import {
 } from "../../../../use-cases/comment-like";
 import { getComment } from "../../../../use-cases/comment";
 
-import makeCreateCommentLikeController from "./create-or-update-comment-like";
+import makeCreateOrUpdateCommentLikeController from "./create-or-update-comment-like";
 
-const createCommentLikeController = makeCreateCommentLikeController({
-  createCommentLike,
-  updateCommentLike,
-  getUser,
-  getComment,
-  getCommentLikeByUserAndComment,
-  logger,
-});
+const createOrUpdateCommentLikeController =
+  makeCreateOrUpdateCommentLikeController({
+    createCommentLike,
+    updateCommentLike,
+    getUser,
+    getComment,
+    getCommentLikeByUserAndComment,
+    logger,
+  });
 
 export default Object.freeze({
-  createCommentLikeController,
+  createOrUpdateCommentLikeController,
 });
 
-export { createCommentLikeController };
+export { createOrUpdateCommentLikeController };

@@ -11,11 +11,14 @@ import postRouter from "./post";
 import systemConfigurationRouter from "./system-configuration";
 import subscriptionRouter from "./subscription";
 import postBookmarkRouter from "./post-bookmark";
+import commentLikeRouter from "./comment-like";
 
 apiRouter.use("/user", authenticateUserJWT(), userRouter);
-apiRouter.use("/category", categoryRouter);
 apiRouter.use("/post-bookmark", authenticateUserJWT(), postBookmarkRouter);
 apiRouter.use("/subscription", authenticateUserJWT(), subscriptionRouter);
+apiRouter.use("/comment-like", authenticateUserJWT(), commentLikeRouter);
+
+apiRouter.use("/category", categoryRouter);
 apiRouter.use("/comment", commentRouter);
 apiRouter.use("/post", postRouter);
 apiRouter.use("/auth", authRouter);
