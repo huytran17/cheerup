@@ -18,10 +18,6 @@ export default function makeFakeComment({
         faker.database.mongodbObjectId(),
         faker.database.mongodbObjectId(),
       ]),
-      meta: {
-        likes: faker.database.mongodbObjectId(),
-        dislikes: faker.database.mongodbObjectId(),
-      },
       created_by: faker.database.mongodbObjectId(),
       updated_at: faker.date.recent(),
       created_at: faker.date.recent(),

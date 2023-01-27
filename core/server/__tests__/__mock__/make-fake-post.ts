@@ -22,9 +22,7 @@ export default function makeFakePost({ faker }: { faker: any }): FakePost {
         faker.database.mongodbObjectId(),
       ]),
       meta: {
-        views: faker.helpers.objectValue({
-          myProperty: faker.random.numeric(),
-        }),
+        views: faker.random.numeric(),
       },
       created_at: faker.date.recent(),
       updated_at: faker.date.recent(),

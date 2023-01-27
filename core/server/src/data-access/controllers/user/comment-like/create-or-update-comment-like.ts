@@ -8,6 +8,7 @@ import { IUpdateCommentLike } from "../../../../use-cases/comment-like/update-co
 import { IGetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
 import { IGetComment } from "../../../../use-cases/comment/get-comment";
 import { isEmpty } from "../../../../utils/is-empty";
+import { CommentLikeType } from "../../../../database/interfaces/comment-like";
 
 export default function makeCreateCommentLikeController({
   createCommentLike,
@@ -55,22 +56,33 @@ export default function makeCreateCommentLikeController({
         user_id,
       });
 
-      let comment_like = {};
+      let comment_like_data = {};
       if (isEmpty(comment_like_exists)) {
-        comment_like = await createCommentLike({
+        comment_like_data = await createCommentLike({
+          commentLikeDetails,
+        });
+      } else {
+        switch (commentLikeDetails.type) {
+          case CommentLikeType.Like:
+            commentLikeDetails.type = CommentLikeType.Dislike;
+            break;
+          case CommentLikeType.Dislike:
+            commentLikeDetails.type = CommentLikeType.Like;
+            break;
+          default:
+            break;
+        }
+
+        comment_like_data = await updateCommentLike({
           commentLikeDetails,
         });
       }
-
-      comment_like = await updateCommentLike({
-        commentLikeDetails,
-      });
 
       return {
         headers,
         statusCode: HttpStatusCode.CREATED,
         body: {
-          data: comment_like,
+          data: comment_like_data,
         },
       };
     } catch (error) {

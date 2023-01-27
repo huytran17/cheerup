@@ -5,7 +5,7 @@ import { CommentLikeDb } from "../../data-access";
 import makeUpdateCommentLike from "./update-comment-like";
 import makeCreateCommentLike from "./create-comment-like";
 import makeHardDeleteCommentLike from "./hard-delete-comment-like";
-import makeCountAllByComment from "./count-all-by-comment";
+import makeCountCommentLikeByCommentAndType from "./count-comment-like-by-comment-and-type";
 import makeGetCommentLikeByUserAndComment from "./get-comment-like-by-user-and-comment";
 
 const getCommentLikeByUserAndComment = makeGetCommentLikeByUserAndComment({
@@ -13,7 +13,7 @@ const getCommentLikeByUserAndComment = makeGetCommentLikeByUserAndComment({
   logger,
 });
 
-const countAllByComment = makeCountAllByComment({
+const countCommentLikeByCommentAndType = makeCountCommentLikeByCommentAndType({
   commentLikeDb: CommentLikeDb,
   logger,
 });
@@ -35,7 +35,7 @@ const commentLikeServices = Object.freeze({
   updateCommentLike,
   createCommentLike,
   hardDeleteCommentLike,
-  countAllByComment,
+  countCommentLikeByCommentAndType,
   getCommentLikeByUserAndComment,
 });
 
@@ -45,6 +45,6 @@ export {
   updateCommentLike,
   createCommentLike,
   hardDeleteCommentLike,
-  countAllByComment,
+  countCommentLikeByCommentAndType,
   getCommentLikeByUserAndComment,
 };

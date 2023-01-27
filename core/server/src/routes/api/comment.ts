@@ -9,8 +9,6 @@ import {
   updateCommentRules,
   createCommentRules,
   getCommentsByPostPaginatedRules,
-  likeCommentRules,
-  dislikeCommentRules,
   replyCommentRules,
   countCommentsByPostRules,
 } from "../../data-access/controllers/user/comment/validators";
@@ -21,8 +19,6 @@ import {
   createCommentController,
   getCommentsController,
   getCommentsByPostPaginatedController,
-  likeCommentController,
-  dislikeCommentController,
   replyCommentController,
   countCommentsByPostController,
 } from "../../data-access/controllers/user/comment";
@@ -40,20 +36,6 @@ commentRouter.post(
   authenticateUserJWT(),
   makeValidator(replyCommentRules),
   makeExpressCallback(replyCommentController)
-);
-
-commentRouter.put(
-  "/like/:_id",
-  authenticateUserJWT(),
-  makeValidator(likeCommentRules),
-  makeExpressCallback(likeCommentController)
-);
-
-commentRouter.put(
-  "/dislike/:_id",
-  authenticateUserJWT(),
-  makeValidator(dislikeCommentRules),
-  makeExpressCallback(dislikeCommentController)
 );
 
 commentRouter.get(

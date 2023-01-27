@@ -13,10 +13,13 @@ import Comment from "../../../../database/entities/comment";
 import { logger } from "../../../../../__tests__/jest-logger";
 import makeCommentDb from "../../../make-comment-db";
 import makePostDb from "../../../make-post-db";
-import { CommentModel, PostModel } from "../../../models";
+import makeCommentLikeDb from "../../../make-comment-like-db";
+import { CommentModel, PostModel, CommentLikeModel } from "../../../models";
 import makeGetPost from "../../../../use-cases/post/get-post";
 import makeCreatePost from "../../../../use-cases/post/create-post";
 import makeCreateComment from "../../../../use-cases/comment/create-comment";
+import makeCountCommentLikeByCommentAndType from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
+import makeGetCommentLikeByUserAndComment from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
 import makeGetCommentsByPostPaginated from "../../../../use-cases/comment/get-comments-by-post-paginated";
 import makeGetCommentsByPostPaginatedController from "./get-comments-by-post-paginated";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -43,9 +46,19 @@ describe("getCommentsByPostPaginated", () => {
       postDbModel: PostModel,
       moment,
     });
+    const commentLikeDb = makeCommentLikeDb({
+      commentLikeDbModel: CommentLikeModel,
+      moment,
+    });
 
     const getPost = makeGetPost({ postDb, logger });
     const createPost = makeCreatePost({ postDb, logger });
+    const countCommentLikeByCommentAndType =
+      makeCountCommentLikeByCommentAndType({ commentLikeDb, logger });
+    const getCommentLikeByUserAndComment = makeGetCommentLikeByUserAndComment({
+      commentLikeDb,
+      logger,
+    });
     const createComment = makeCreateComment({ commentDb, logger });
     const getCommentsByPostPaginated = makeGetCommentsByPostPaginated({
       commentDb,
@@ -69,6 +82,8 @@ describe("getCommentsByPostPaginated", () => {
       makeGetCommentsByPostPaginatedController({
         getCommentsByPostPaginated,
         getPost,
+        countCommentLikeByCommentAndType,
+        getCommentLikeByUserAndComment,
         logger,
       });
 

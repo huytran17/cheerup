@@ -8,6 +8,10 @@ import {
   replyComment,
   countCommentsByPost,
 } from "../../../../use-cases/comment";
+import {
+  countCommentLikeByCommentAndType,
+  getCommentLikeByUserAndComment,
+} from "../../../../use-cases/comment-like";
 import { getPost } from "../../../../use-cases/post";
 import { getUser } from "../../../../use-cases/user";
 import { logger } from "../../../../config/logs/logger";
@@ -17,8 +21,6 @@ import makeDeleteCommentController from "./delete-comment";
 import makeUpdateCommentController from "./update-comment";
 import makeCreateCommentController from "./create-comment";
 import makeGetCommentsController from "./get-comments";
-import makeDislikeCommentController from "./dislike-comment";
-import makeLikeCommentController from "./like-comment";
 import makeGetCommentsByPostPaginatedController from "./get-comments-by-post-paginated";
 import makeReplyCommentController from "./reply-comment";
 import makeCountCommentsByPostController from "./count-comments-by-post";
@@ -38,26 +40,12 @@ const replyCommentController = makeReplyCommentController({
   logger,
 });
 
-const dislikeCommentController = makeDislikeCommentController({
-  getComment,
-  updateComment,
-  getPost,
-  getUser,
-  logger,
-});
-
-const likeCommentController = makeLikeCommentController({
-  getComment,
-  updateComment,
-  getPost,
-  getUser,
-  logger,
-});
-
 const getCommentsByPostPaginatedController =
   makeGetCommentsByPostPaginatedController({
     getCommentsByPostPaginated,
     getPost,
+    countCommentLikeByCommentAndType,
+    getCommentLikeByUserAndComment,
     logger,
   });
 
@@ -101,8 +89,6 @@ export default Object.freeze({
   createCommentController,
   getCommentsController,
   getCommentsByPostPaginatedController,
-  dislikeCommentController,
-  likeCommentController,
   replyCommentController,
   countCommentsByPostController,
 });
@@ -114,8 +100,6 @@ export {
   createCommentController,
   getCommentsController,
   getCommentsByPostPaginatedController,
-  dislikeCommentController,
-  likeCommentController,
   replyCommentController,
   countCommentsByPostController,
 };

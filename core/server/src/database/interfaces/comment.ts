@@ -9,10 +9,6 @@ export default interface IComment {
   post: Post;
   children: Comment[];
   parent: Comment;
-  meta: {
-    likes: User[];
-    dislikes: User[];
-  };
   reports?: {
     created_by: User;
     created_at: Date;

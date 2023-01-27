@@ -5,11 +5,11 @@ export default interface ICommentLike {
   _id: string;
   comment: Comment;
   user: User;
-  type: LikeType;
+  type: CommentLikeType;
   created_at: Date;
 }
 
-export enum LikeType {
+export enum CommentLikeType {
   Like = "like",
   Dislike = "dislike",
 }

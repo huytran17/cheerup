@@ -119,15 +119,11 @@ export default {
     },
 
     is_liked() {
-      const users_liked = _.get(this.comment_data, "meta.likes", []);
-      const user_id = _.get(this.me, "_id");
-      return _.includes(users_liked, user_id);
+      return _.get(this.comment_data, "is_liked", false);
     },
 
     is_disliked() {
-      const users_disliked = _.get(this.comment_data, "meta.dislikes", []);
-      const user_id = _.get(this.me, "_id");
-      return _.includes(users_disliked, user_id);
+      return _.get(this.comment_data, "is_disliked", false);
     },
 
     user_avatar() {

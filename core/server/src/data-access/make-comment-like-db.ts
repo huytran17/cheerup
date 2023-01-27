@@ -13,13 +13,16 @@ export default function makeCommentLikeDb({
   >;
 }): ICommentLikeDb {
   return new (class MongooseCommentLikeDb implements ICommentLikeDb {
-    async countAllByComment({
+    async countCommentLikeByCommentAndType({
       comment_id,
+      type,
     }: {
       comment_id: string;
+      type: string;
     }): Promise<number> {
       const query_conditions = {
         comment: comment_id,
+        type,
       };
 
       const total_count = await commentLikeDbModel.countDocuments(
