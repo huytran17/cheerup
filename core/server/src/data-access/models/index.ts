@@ -8,6 +8,7 @@ import subscriptionSchema from "../../database/schemas/subscription";
 import systemConfigurationSchema from "../../database/schemas/system-configuration";
 import postBookmarkSchema from "../../database/schemas/post-bookmark";
 import gallerySchema from "../../database/schemas/gallery";
+import commentLikeSchema from "../../database/schemas/comment-like";
 
 import ISystemConfiguration from "../../database/interfaces/system-configuration";
 import ISubscription from "../../database/interfaces/subscription";
@@ -18,6 +19,7 @@ import ICategory from "../../database/interfaces/category";
 import IComment from "../../database/interfaces/comment";
 import IPostBookmark from "../../database/interfaces/post-bookmark";
 import IGallery from "../../database/interfaces/gallery";
+import ICommentLike from "../../database/interfaces/comment-like";
 
 type IPostBookmarkModel = IPostBookmark & mongoose.Document;
 type ISystemConfigurationModel = ISystemConfiguration & mongoose.Document;
@@ -28,7 +30,12 @@ type IPostModel = IPost & mongoose.Document;
 type ICategoryModel = ICategory & mongoose.Document;
 type ICommentModel = IComment & mongoose.Document;
 type IGalleryModel = IGallery & mongoose.Document;
+type ICommentLikeModel = ICommentLike & mongoose.Document;
 
+const CommentLikeModel = mongoose.model<IGalleryModel>(
+  "CommentLike",
+  commentLikeSchema
+);
 const GalleryModel = mongoose.model<IGalleryModel>("Gallery", gallerySchema);
 const PostBookmarkModel = mongoose.model<IPostBookmarkModel>(
   "PostBookmark",
@@ -61,6 +68,7 @@ export default Object.freeze({
   SystemConfigurationModel,
   PostBookmarkModel,
   GalleryModel,
+  CommentLikeModel,
 });
 
 export {
@@ -73,4 +81,5 @@ export {
   SystemConfigurationModel,
   PostBookmarkModel,
   GalleryModel,
+  CommentLikeModel,
 };

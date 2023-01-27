@@ -3,7 +3,7 @@ import mongoose_lean_virtuals from "mongoose-lean-virtuals";
 
 const Schema = mongoose.Schema;
 
-const subscriptionSchema = new Schema(
+const postBookmarkSchema = new Schema(
   {
     user: { type: Schema.Types.ObjectId, ref: "User", required: true },
     post: { type: Schema.Types.ObjectId, ref: "Post", required: true },
@@ -16,8 +16,8 @@ const subscriptionSchema = new Schema(
   }
 );
 
-subscriptionSchema.index({ created_at: -1 });
+postBookmarkSchema.index({ created_at: -1 });
 
-subscriptionSchema.plugin(mongoose_lean_virtuals);
+postBookmarkSchema.plugin(mongoose_lean_virtuals);
 
-export default subscriptionSchema;
+export default postBookmarkSchema;
