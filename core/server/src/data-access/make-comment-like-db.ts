@@ -1,0 +1,74 @@
+import _ from "lodash";
+import mongoose from "mongoose";
+import ICommentLikeDb from "./interfaces/comment-like-db";
+import CommentLike from "../database/entities/comment-like";
+import ICommentLike from "../database/interfaces/comment-like";
+
+export default function makeCommentLikeDb({
+  commentLikeDbModel,
+}: {
+  commentLikeDbModel: mongoose.Model<
+    ICommentLike & mongoose.Document,
+    Record<string, unknown>
+  >;
+}): ICommentLikeDb {
+  return new (class MongooseCommentLikeDb implements ICommentLikeDb {
+    async countAllByComment({
+      comment_id,
+    }: {
+      comment_id: string;
+    }): Promise<number> {
+      const query_conditions = {
+        comment: comment_id,
+      };
+
+      const total_count = await commentLikeDbModel.countDocuments(
+        query_conditions
+      );
+
+      return total_count;
+    }
+
+    async insert(payload: Partial<ICommentLike>): Promise<CommentLike | null> {
+      const result = await commentLikeDbModel.create([payload]);
+      const created = await commentLikeDbModel
+        .findOne({ _id: result[0]?._id })
+        .lean({ virtuals: true });
+
+      if (created) {
+        return new CommentLike(created);
+      }
+
+      return null;
+    }
+
+    async hardDelete({ _id }: { _id: string }): Promise<CommentLike | null> {
+      const existing = await commentLikeDbModel.deleteOne({ _id: _id });
+      const deleted = await commentLikeDbModel
+        .findOne({ _id })
+        .lean({ virtuals: true });
+
+      if (deleted) {
+        return new CommentLike(deleted);
+      }
+
+      return null;
+    }
+
+    async update(payload: Partial<ICommentLike>): Promise<CommentLike | null> {
+      const result = await commentLikeDbModel
+        .findOneAndUpdate({ _id: payload._id }, payload)
+        .lean({ virtuals: true });
+
+      const updated = await commentLikeDbModel
+        .findOne({ _id: result?._id })
+        .lean({ virtuals: true });
+
+      if (updated) {
+        return new CommentLike(updated);
+      }
+
+      return null;
+    }
+  })();
+}

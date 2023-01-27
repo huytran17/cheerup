@@ -32,7 +32,7 @@ type ICommentModel = IComment & mongoose.Document;
 type IGalleryModel = IGallery & mongoose.Document;
 type ICommentLikeModel = ICommentLike & mongoose.Document;
 
-const CommentLikeModel = mongoose.model<IGalleryModel>(
+const CommentLikeModel = mongoose.model<ICommentLikeModel>(
   "CommentLike",
   commentLikeSchema
 );

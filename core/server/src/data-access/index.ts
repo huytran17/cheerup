@@ -9,6 +9,7 @@ import makeSubscriptionDb from "./make-subscription-db";
 import makeSystemConfigurationDb from "./make-system-configuration-db";
 import makePostBookmarkDb from "./make-post-bookmark-db";
 import makeGalleryDb from "./make-gallery-db";
+import makeCommentLikeDb from "./make-comment-like-db";
 
 import {
   UserModel,
@@ -20,7 +21,12 @@ import {
   SystemConfigurationModel,
   PostBookmarkModel,
   GalleryModel,
+  CommentLikeModel,
 } from "./models";
+
+const CommentLikeDb = makeCommentLikeDb({
+  commentLikeDbModel: CommentLikeModel,
+});
 
 const GalleryDb = makeGalleryDb({
   galleryDbModel: GalleryModel,
@@ -65,6 +71,7 @@ export default Object.freeze({
   SystemConfigurationDb,
   PostBookmarkDb,
   GalleryDb,
+  CommentLikeDb,
 });
 
 export {
@@ -77,4 +84,5 @@ export {
   SystemConfigurationDb,
   PostBookmarkDb,
   GalleryDb,
+  CommentLikeDb,
 };
