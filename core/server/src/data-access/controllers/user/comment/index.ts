@@ -7,6 +7,7 @@ import {
   getCommentsByPostPaginated,
   replyComment,
   countCommentsByPost,
+  getCommentsByParent,
 } from "../../../../use-cases/comment";
 import {
   countCommentLikeByCommentAndType,
@@ -24,6 +25,13 @@ import makeGetCommentsController from "./get-comments";
 import makeGetCommentsByPostPaginatedController from "./get-comments-by-post-paginated";
 import makeReplyCommentController from "./reply-comment";
 import makeCountCommentsByPostController from "./count-comments-by-post";
+import makeGetCommentsByParentController from "./get-comments-by-parent";
+
+const getCommentsByParentController = makeGetCommentsByParentController({
+  getCommentsByParent,
+  getComment,
+  logger,
+});
 
 const countCommentsByPostController = makeCountCommentsByPostController({
   countCommentsByPost,
@@ -93,6 +101,7 @@ export default Object.freeze({
   getCommentsByPostPaginatedController,
   replyCommentController,
   countCommentsByPostController,
+  getCommentsByParentController,
 });
 
 export {
@@ -104,4 +113,5 @@ export {
   getCommentsByPostPaginatedController,
   replyCommentController,
   countCommentsByPostController,
+  getCommentsByParentController,
 };

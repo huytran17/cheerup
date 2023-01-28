@@ -16,10 +16,10 @@ export default function makeCommentDb({
 }): ICommentDb {
   return new (class MongooseCommentDb implements ICommentDb {
     async findAll(): Promise<Comment[] | null> {
-      let query_conditions = Object.assign({
+      const query_conditions = {
         deleted_at: { $in: [null, undefined] },
         parent: { $in: [null, undefined] },
-      });
+      };
 
       const existing = await commentDbModel
         .find(query_conditions)
@@ -71,20 +71,6 @@ export default function makeCommentDb({
         .find(query_conditions)
         .select("_id children parent content user post created_at updated_at")
         .populate({
-          path: "children",
-          select: "_id content user parent post created_at updated_at",
-          populate: [
-            {
-              path: "user",
-              select: "_id full_name avatar_url avatar",
-            },
-            {
-              path: "parent",
-              select: "_id",
-            },
-          ],
-        })
-        .populate({
           path: "user",
           select: "_id full_name avatar_url avatar",
         })
@@ -132,13 +118,23 @@ export default function makeCommentDb({
     }: {
       parent_id: string;
     }): Promise<Comment[] | null> {
-      let query_conditions = Object.assign({
+      const query_conditions = {
         parent: parent_id,
-      });
+      };
 
       const existing = await commentDbModel
         .find(query_conditions)
+        .select("_id parent content user post created_at updated_at")
+        .populate({
+          path: "user",
+          select: "_id full_name avatar_url avatar",
+        })
+        .populate({
+          path: "parent",
+          select: "_id",
+        })
         .lean({ virtuals: true });
+
       if (existing) {
         return _.map(existing, (comment) => new Comment(comment));
       }
@@ -225,7 +221,7 @@ export default function makeCommentDb({
         return null;
       }
 
-      let query_conditions = {
+      const query_conditions = {
         deleted_at: { $in: [null, undefined] },
         _id,
       };
@@ -240,21 +236,7 @@ export default function makeCommentDb({
 
       const existing = await commentDbModel
         .findOne(query_conditions)
-        .select("-__v")
-        .populate({
-          path: "children",
-          select: "_id content user parent post created_at updated_at",
-          populate: [
-            {
-              path: "user",
-              select: "_id full_name avatar_url avatar",
-            },
-            {
-              path: "parent",
-              select: "_id",
-            },
-          ],
-        })
+        .select("_id children parent content user post created_at updated_at")
         .populate({
           path: "user",
           select: "_id full_name avatar_url avatar",

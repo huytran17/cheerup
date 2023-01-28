@@ -5,6 +5,7 @@ import createCommentRules from "./create-comment";
 import getCommentsByPostPaginatedRules from "./get-comments-by-post-paginated";
 import replyCommentRules from "./reply-comment";
 import countCommentsByPostRules from "./count-comments-by-post";
+import getCommentsByParentRules from "./get-comments-by-parent";
 
 export default Object.freeze({
   getCommentRules,
@@ -14,6 +15,7 @@ export default Object.freeze({
   getCommentsByPostPaginatedRules,
   replyCommentRules,
   countCommentsByPostRules,
+  getCommentsByParentRules,
 });
 
 export {
@@ -24,4 +26,5 @@ export {
   getCommentsByPostPaginatedRules,
   replyCommentRules,
   countCommentsByPostRules,
+  getCommentsByParentRules,
 };

@@ -10,6 +10,7 @@ export default interface IComment {
   children: Comment[];
   parent: Comment;
   is_parent: boolean;
+  has_children: boolean;
   reports?: {
     created_by: User;
     created_at: Date;

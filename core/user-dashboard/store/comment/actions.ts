@@ -6,6 +6,17 @@ import { RootState } from "..";
 import _ from "lodash";
 
 const actions: ActionTree<CommentState, RootState> = {
+  async [ActionTypes.GET_COMMENTS_BY_PARENT](
+    { commit },
+    { parent_id }: { parent_id: string }
+  ) {
+    const { data: comments } = await this.$axios.$get(
+      `/comment/by-parent/${parent_id}`
+    );
+
+    return comments;
+  },
+
   async [ActionTypes.COUNT_COMMENT_BY_POST]({ commit }, params = {}) {
     const post_id = _.get(params, "post_id");
 

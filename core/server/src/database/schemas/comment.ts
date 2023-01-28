@@ -35,6 +35,10 @@ commentSchema.virtual("is_parent").get(function () {
   return isEmpty(_.get(this, "parent"));
 });
 
+commentSchema.virtual("has_children").get(function () {
+  return !isEmpty(_.get(this, "children"));
+});
+
 commentSchema.pre("deleteOne", { document: true }, async function (next) {
   const children = _.get(this, "children", []);
   const delete_children_promises = _.map(

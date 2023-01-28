@@ -15,6 +15,7 @@ export default function makeFakeComment({
       post: faker.database.mongodbObjectId(),
       parent: null,
       is_parent: true,
+      has_children: false,
       children: faker.helpers.arrayElements([
         faker.database.mongodbObjectId(),
         faker.database.mongodbObjectId(),

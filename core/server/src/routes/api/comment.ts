@@ -11,6 +11,7 @@ import {
   getCommentsByPostPaginatedRules,
   replyCommentRules,
   countCommentsByPostRules,
+  getCommentsByParentRules,
 } from "../../data-access/controllers/user/comment/validators";
 import {
   getCommentController,
@@ -21,6 +22,7 @@ import {
   getCommentsByPostPaginatedController,
   replyCommentController,
   countCommentsByPostController,
+  getCommentsByParentController,
 } from "../../data-access/controllers/user/comment";
 
 const commentRouter = express.Router();
@@ -43,6 +45,13 @@ commentRouter.get(
   authenticateUserJWT(),
   makeValidator(getCommentsByPostPaginatedRules),
   makeExpressCallback(getCommentsByPostPaginatedController)
+);
+
+commentRouter.get(
+  "/by-parent/:_id",
+  authenticateUserJWT(),
+  makeValidator(getCommentsByParentRules),
+  makeExpressCallback(getCommentsByParentController)
 );
 
 commentRouter.get(
