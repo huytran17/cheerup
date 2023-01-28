@@ -89,9 +89,7 @@ describe("hardDeleteComment", () => {
 
     const request = {
       context: {
-        validated: {
-          _id: created_comment._id,
-        },
+        validated: created_comment,
         user: created_user,
       },
     };
