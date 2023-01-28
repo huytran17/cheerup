@@ -59,7 +59,7 @@ export default function makeGalleryDb({
       const total_count = await galleryDbModel.countDocuments(query_conditions);
 
       if (existing) {
-        const data = existing.map((post) => new Gallery(post));
+        const data = _.map(existing, (post) => new Gallery(post));
 
         const from = page - 1 > 0 ? page - 1 : null;
         const has_more_entries =
@@ -152,7 +152,7 @@ export default function makeGalleryDb({
         .lean({ virtuals: true });
 
       if (existing) {
-        return existing.map((gallery) => new Gallery(gallery));
+        return _.map(existing, (gallery) => new Gallery(gallery));
       }
 
       return null;
@@ -174,7 +174,7 @@ export default function makeGalleryDb({
         .lean({ virtuals: true });
 
       if (existing) {
-        return existing.map((gallery) => new Gallery(gallery));
+        return _.map(existing, (gallery) => new Gallery(gallery));
       }
 
       return null;

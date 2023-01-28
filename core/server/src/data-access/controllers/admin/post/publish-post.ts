@@ -61,7 +61,8 @@ export default function makePublishPostController({
       if (!is_notified_to_user) {
         const subscriptions = await getActivatingSubscriptions();
 
-        const send_notification_promises = subscriptions.map(
+        const send_notification_promises = _.map(
+          subscriptions,
           async (subscription) => {
             const user_email = _.get(subscription, "email", "");
 
@@ -70,7 +71,7 @@ export default function makePublishPostController({
               type: "new-post-notification",
             });
 
-            const categories_titles = categories.map((category) =>
+            const categories_titles = _.map(categories, (category) =>
               _.get(category, "title", "")
             );
 

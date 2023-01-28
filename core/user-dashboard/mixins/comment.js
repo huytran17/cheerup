@@ -103,7 +103,7 @@ export default {
         (comment) => comment._id !== _id
       );
 
-      const updated_comments = filtered_comments.map((comment, index) => {
+      const updated_comments = _.map(filtered_comments, (comment, index) => {
         const comment_children = comment.children?.filter((child) => {
           return child._id !== _id;
         });

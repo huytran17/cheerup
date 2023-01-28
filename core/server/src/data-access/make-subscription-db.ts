@@ -78,7 +78,10 @@ export default function makeSubscriptionDb({
         .lean({ virtuals: true });
 
       if (existing) {
-        return existing.map((subscription) => new Subscription(subscription));
+        return _.map(
+          existing,
+          (subscription) => new Subscription(subscription)
+        );
       }
 
       return null;
@@ -93,7 +96,10 @@ export default function makeSubscriptionDb({
         .lean({ virtuals: true });
 
       if (existing) {
-        return existing.map((subscription) => new Subscription(subscription));
+        return _.map(
+          existing,
+          (subscription) => new Subscription(subscription)
+        );
       }
 
       return null;
@@ -134,7 +140,8 @@ export default function makeSubscriptionDb({
       );
 
       if (existing) {
-        const data = existing.map(
+        const data = _.map(
+          existing,
           (subscription) => new Subscription(subscription)
         );
 

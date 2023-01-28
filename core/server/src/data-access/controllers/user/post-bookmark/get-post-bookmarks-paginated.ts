@@ -45,7 +45,8 @@ export default function makeGetPostBookmarksPaginatedController({
       });
 
       const post_bookmarks = _.get(paginated_data, "data", []);
-      const map_count_comments_promises = post_bookmarks.map(
+      const map_count_comments_promises = _.map(
+        post_bookmarks,
         async (post_bookmark: PostBookmark) => {
           const comments_count = await countCommentsByPost({
             post_id: _.get(post_bookmark, "post._id"),

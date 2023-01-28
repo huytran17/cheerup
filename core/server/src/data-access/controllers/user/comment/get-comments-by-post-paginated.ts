@@ -99,7 +99,8 @@ export default function makeGetCommentsByPostPaginatedController({
       };
 
       const comments_data = _.get(paginated_data, "data", []);
-      const map_meta_data_promises = comments_data.map(
+      const map_meta_data_promises = _.map(
+        comments_data,
         async (comment: IComment) => {
           const map_meta_data_children_promises = comment.children?.map(
             async (child: IComment) => await map_meta_data(child)

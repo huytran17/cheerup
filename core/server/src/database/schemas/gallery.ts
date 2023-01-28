@@ -37,7 +37,7 @@ gallerySchema.pre("deleteOne", { document: true }, async function (next) {
   }
 
   const galleries = await GalleryModel.find({ parent: _.get(this, "_id") });
-  const delete_gallery_promises = galleries.map(async (doc) => {
+  const delete_gallery_promises = _.map(galleries, async (doc) => {
     await doc.deleteOne();
   });
 

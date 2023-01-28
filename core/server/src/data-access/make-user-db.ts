@@ -110,7 +110,7 @@ export default function makeUserDb({
         .lean({ virtuals: true });
 
       if (existing) {
-        return existing.map((user) => new User(user));
+        return _.map(existing, (user) => new User(user));
       }
 
       return null;
@@ -149,7 +149,7 @@ export default function makeUserDb({
       const total_count = await userDbModel.countDocuments(query_conditions);
 
       if (existing) {
-        const data = existing.map((user) => new User(user));
+        const data = _.map(existing, (user) => new User(user));
 
         const from = page - 1 > 0 ? page - 1 : null;
         const has_more_entries =

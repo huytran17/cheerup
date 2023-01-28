@@ -62,7 +62,8 @@ export default function makeGetPostsPaginatedController({
       );
 
       const post_data = _.get(paginated_data, "data", []);
-      const map_count_comments_promises = post_data.map(
+      const map_count_comments_promises = _.map(
+        post_data,
         async (post: Partial<Post>) => {
           const [comments_count, post_bookmarked] = await Promise.all([
             countCommentsByPost({ post_id: post._id }),

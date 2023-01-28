@@ -29,7 +29,7 @@ export default function makeCategoryDb({
         })
         .lean({ virtuals: true });
       if (existing) {
-        return existing.map((category) => new Category(category));
+        return _.map(existing, (category) => new Category(category));
       }
 
       return null;
@@ -74,7 +74,7 @@ export default function makeCategoryDb({
       );
 
       if (existing) {
-        const data = existing.map((category) => new Category(category));
+        const data = _.map(existing, (category) => new Category(category));
 
         const from = page - 1 > 0 ? page - 1 : null;
         const has_more_entries =
@@ -165,7 +165,7 @@ export default function makeCategoryDb({
         .lean({ virtuals: true });
 
       if (existing) {
-        return existing.map((category) => ({
+        return _.map(existing, (category) => ({
           _id: category._id,
           title: category.title,
         }));

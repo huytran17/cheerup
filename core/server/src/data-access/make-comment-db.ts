@@ -28,7 +28,7 @@ export default function makeCommentDb({
         .populate("post", "-_v")
         .lean({ virtuals: true });
       if (existing) {
-        return existing.map((comment) => new Comment(comment));
+        return _.map(existing, (comment) => new Comment(comment));
       }
 
       return null;
@@ -140,7 +140,7 @@ export default function makeCommentDb({
         .find(query_conditions)
         .lean({ virtuals: true });
       if (existing) {
-        return existing.map((comment) => new Comment(comment));
+        return _.map(existing, (comment) => new Comment(comment));
       }
 
       return null;
@@ -185,7 +185,7 @@ export default function makeCommentDb({
       const total_count = await commentDbModel.countDocuments(query_conditions);
 
       if (existing) {
-        const data = existing.map((comment) => new Comment(comment));
+        const data = _.map(existing, (comment) => new Comment(comment));
 
         const from = page - 1 > 0 ? page - 1 : null;
         const has_more_entries =

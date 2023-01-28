@@ -30,7 +30,7 @@ export default {
       });
 
       const post_categories = _.get(post, "categories", []) || [];
-      const category_ids = post_categories.map((category) => category._id);
+      const category_ids = _.map(post_categories, (category) => category._id);
 
       await Promise.all([
         store.dispatch("post/GET_SUGGESTION_POSTS", {

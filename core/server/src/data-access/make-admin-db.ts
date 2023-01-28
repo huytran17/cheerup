@@ -123,7 +123,7 @@ export default function makeAdminDb({
         .find(query_conditions)
         .lean({ virtuals: true });
       if (existing) {
-        return existing.map((admin) => new Admin(admin));
+        return _.map(existing, (admin) => new Admin(admin));
       }
 
       return null;
@@ -162,7 +162,7 @@ export default function makeAdminDb({
       const total_count = await adminDbModel.countDocuments(query_conditions);
 
       if (existing) {
-        const data = existing.map((admin) => new Admin(admin));
+        const data = _.map(existing, (admin) => new Admin(admin));
 
         const from = page - 1 > 0 ? page - 1 : null;
         const has_more_entries =

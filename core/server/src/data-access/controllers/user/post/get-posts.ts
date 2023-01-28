@@ -24,7 +24,7 @@ export default function makeGetPostsController({
     try {
       const posts = await getPosts();
 
-      const map_count_comments_promises = posts.map(async (post) => {
+      const map_count_comments_promises = _.map(posts, async (post) => {
         const comments_count = await countCommentsByPost({ post_id: post._id });
         return Object.assign({}, post, {
           comments_count,

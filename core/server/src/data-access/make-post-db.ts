@@ -116,7 +116,7 @@ export default function makePostDb({
         .lean({ virtuals: true });
 
       if (existing) {
-        return existing.map((post) => new Post(post));
+        return _.map(existing, (post) => new Post(post));
       }
 
       return null;
@@ -183,7 +183,7 @@ export default function makePostDb({
       const total_count = await postDbModel.countDocuments(query_conditions);
 
       if (existing) {
-        const data = existing.map((post) => new Post(post));
+        const data = _.map(existing, (post) => new Post(post));
 
         const from = page - 1 > 0 ? page - 1 : null;
         const has_more_entries =
@@ -284,7 +284,7 @@ export default function makePostDb({
         .lean({ virtuals: true });
 
       if (existing) {
-        return existing.map((post) => new Post(post));
+        return _.map(existing, (post) => new Post(post));
       }
 
       return null;

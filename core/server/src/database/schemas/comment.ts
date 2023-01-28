@@ -37,7 +37,8 @@ commentSchema.virtual("is_parent").get(function () {
 
 commentSchema.pre("deleteOne", { document: true }, async function (next) {
   const children = _.get(this, "children", []);
-  const delete_children_promises = children.map(
+  const delete_children_promises = _.map(
+    children,
     async (comment: mongoose.ObjectId) => {
       const comment_document = await CommentModel.findOne({
         _id: comment.toString(),
@@ -51,7 +52,8 @@ commentSchema.pre("deleteOne", { document: true }, async function (next) {
     comment: _.get(this, "_id"),
   });
 
-  const delete_comment_like_promises = comment_likes.map(
+  const delete_comment_like_promises = _.map(
+    comment_likes,
     async (comment_like) => comment_like && (await comment_like.deleteOne())
   );
 

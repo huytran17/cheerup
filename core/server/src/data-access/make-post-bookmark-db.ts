@@ -25,7 +25,10 @@ export default function makePostBookmarkDb({
         .lean({ virtuals: true });
 
       if (existing) {
-        return existing.map((post_bookmark) => new PostBookmark(post_bookmark));
+        return _.map(
+          existing,
+          (post_bookmark) => new PostBookmark(post_bookmark)
+        );
       }
 
       return null;
@@ -81,7 +84,8 @@ export default function makePostBookmarkDb({
       );
 
       if (existing) {
-        const data = existing.map(
+        const data = _.map(
+          existing,
           (post_bookmark) => new PostBookmark(post_bookmark)
         );
 
