@@ -4,18 +4,20 @@ import {
   clearDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
-import { fakeComment } from "../../../../../__tests__/__mock__";
+import { fakeComment, fakeUser } from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
 import makeCommentDb from "../../../make-comment-db";
 import makeCommentLikeDb from "../../../make-comment-like-db";
 import Comment from "../../../../database/entities/comment";
-import { CommentModel, CommentLikeModel } from "../../../models";
+import { CommentModel, CommentLikeModel, UserModel } from "../../../models";
 import makeCreateComment from "../../../../use-cases/comment/create-comment";
 import makeGetComment from "../../../../use-cases/comment/get-comment";
 import makeGetCommentController from "./get-comment";
 import makeCountCommentLikeByCommentAndType from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
 import makeGetCommentLikeByUserAndComment from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import makeCreateUser from "../../../../use-cases/user/create-user";
+import makeUserDb from "../../../make-user-db";
 
 describe("getComment", () => {
   beforeAll(async () => {
@@ -39,7 +41,12 @@ describe("getComment", () => {
       commentLikeDbModel: CommentLikeModel,
       moment,
     });
+    const userDb = makeUserDb({
+      userDbModel: UserModel,
+      moment,
+    });
 
+    const createUser = makeCreateUser({ userDb, logger });
     const createComment = makeCreateComment({ commentDb, logger });
     const getComment = makeGetComment({ commentDb, logger });
     const countCommentLikeByCommentAndType =
@@ -50,9 +57,13 @@ describe("getComment", () => {
     });
 
     const mock_comment_data = fakeComment();
+    const mock_user_data = fakeUser();
 
     const created_comment = await createComment({
       commentDetails: mock_comment_data,
+    });
+    const created_user = await createUser({
+      userDetails: mock_user_data,
     });
 
     const getCommentController = makeGetCommentController({
@@ -65,6 +76,7 @@ describe("getComment", () => {
     const request = {
       context: {
         validated: created_comment,
+        user: created_user,
       },
     };
 
