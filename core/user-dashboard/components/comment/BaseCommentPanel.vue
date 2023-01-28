@@ -70,7 +70,7 @@
             <v-row
               v-for="child in comment.children"
               :key="child._id"
-              class="pl-13 mt-6"
+              class="pl-15 mt-6"
             >
               <v-col cols="12" class="pt-0">
                 <BaseCommentItem :comment_data="child" />
