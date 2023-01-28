@@ -43,7 +43,7 @@ commentSchema.pre("deleteOne", { document: true }, async function (next) {
         _id: comment.toString(),
       });
 
-      return await comment_document.deleteOne();
+      return await comment_document?.deleteOne();
     }
   );
 
@@ -52,7 +52,7 @@ commentSchema.pre("deleteOne", { document: true }, async function (next) {
   });
 
   const delete_comment_like_promises = comment_likes.map(
-    async (comment_like) => await comment_like.deleteOne()
+    async (comment_like) => comment_like && (await comment_like.deleteOne())
   );
 
   await Promise.all([delete_children_promises, delete_comment_like_promises]);
