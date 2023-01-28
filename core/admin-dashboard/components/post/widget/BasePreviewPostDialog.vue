@@ -75,33 +75,22 @@
             <span class="app-body" v-html="$t(post.content)"></span>
           </div>
 
-          <div v-if="post.tags && post.tags.length" class="text-left">
-            <div class="text-caption grey--text text-uppercase">
-              <v-icon small color="black">mdi-tag</v-icon>
-              <span class="app-body">
-                <span v-html="$t('Tags: ')"></span>
-                <span v-for="(tag, index) in post.tags" :key="Date.now() + tag">
-                  <span
-                    class="clickable"
-                    @click="$router.push(localePath(`/tag?tags=${tag}`))"
-                    v-html="
-                      $t(index !== post.tags.length - 1 ? `${tag}, ` : `${tag}`)
-                    "
-                  ></span>
-                </span>
-              </span>
-            </div>
+          <div class="text-caption grey--text text-uppercase">
+            <v-icon small color="black">mdi-tag</v-icon>
+            <span class="app-body">
+              <span v-html="$t('Tags: ')"></span>
+              <span>{{ post.tags.join(", ") }}</span>
+            </span>
           </div>
 
-          <div v-if="post.source" class="text-left">
-            <div
-              class="text-body-2 text-sm-body-1 text-right font-italic grey--text"
-            >
-              <span class="app-body">
-                <span v-html="$t('Source: ')"></span>
-                <span>{{ post.source }}</span>
-              </span>
-            </div>
+          <div
+            v-if="post.source"
+            class="text-body-2 text-sm-body-1 grey--text mt-2"
+          >
+            <span class="app-body">
+              <span v-html="$t('Source: ')"></span>
+              <span class="font-italic">{{ post.source }}</span>
+            </span>
           </div>
         </v-col>
       </v-container>

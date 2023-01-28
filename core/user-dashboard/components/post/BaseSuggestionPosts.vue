@@ -6,7 +6,6 @@
       <span class="app-body" v-html="$t('You may also like')"></span>
     </div>
     <slick-carousel
-      v-if="posts_data.length"
       :arrows="true"
       :dots="true"
       :slidesToShow="3"

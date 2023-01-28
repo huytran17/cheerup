@@ -7,11 +7,14 @@ import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-ty
 import { fakeComment } from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
 import makeCommentDb from "../../../make-comment-db";
+import makeCommentLikeDb from "../../../make-comment-like-db";
 import Comment from "../../../../database/entities/comment";
-import { CommentModel } from "../../../models";
+import { CommentModel, CommentLikeModel } from "../../../models";
 import makeCreateComment from "../../../../use-cases/comment/create-comment";
 import makeGetComment from "../../../../use-cases/comment/get-comment";
 import makeGetCommentController from "./get-comment";
+import makeCountCommentLikeByCommentAndType from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
+import makeGetCommentLikeByUserAndComment from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 describe("getComment", () => {
@@ -32,9 +35,19 @@ describe("getComment", () => {
       commentDbModel: CommentModel,
       moment,
     });
+    const commentLikeDb = makeCommentLikeDb({
+      commentLikeDbModel: CommentLikeModel,
+      moment,
+    });
 
     const createComment = makeCreateComment({ commentDb, logger });
     const getComment = makeGetComment({ commentDb, logger });
+    const countCommentLikeByCommentAndType =
+      makeCountCommentLikeByCommentAndType({ commentLikeDb, logger });
+    const getCommentLikeByUserAndComment = makeGetCommentLikeByUserAndComment({
+      commentLikeDb,
+      logger,
+    });
 
     const mock_comment_data = fakeComment();
 
@@ -44,14 +57,14 @@ describe("getComment", () => {
 
     const getCommentController = makeGetCommentController({
       getComment,
+      countCommentLikeByCommentAndType,
+      getCommentLikeByUserAndComment,
       logger,
     });
 
     const request = {
       context: {
-        validated: {
-          comment_id: created_comment._id,
-        },
+        validated: created_comment,
       },
     };
 

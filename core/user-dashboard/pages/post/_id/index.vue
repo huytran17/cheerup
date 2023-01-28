@@ -1,13 +1,11 @@
 <template>
   <div v-if="is_published">
-    <a href="#" ref="scrollToMe"></a>
-
     <BasePostPanel :post_data="post" id="post" />
-    <div class="pt-12">
+    <div v-if="has_suggestion_posts" class="pt-12">
       <BaseSuggestionPosts :posts_data="suggestion_posts" />
     </div>
     <div class="pt-12">
-      <BaseCommentPanel :post_data="post" :comments_data="comments" />
+      <BaseCommentPanel />
     </div>
   </div>
 </template>
@@ -57,6 +55,10 @@ export default {
     ...mapGetters({
       me: "auth/me",
     }),
+
+    has_suggestion_posts() {
+      return this.suggestion_posts.length;
+    },
 
     is_published() {
       return _.get(this.post, "is_published", false);

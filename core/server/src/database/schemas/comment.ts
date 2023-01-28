@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import mongoose_lean_virtuals from "mongoose-lean-virtuals";
 import _ from "lodash";
+import { isEmpty } from "../../utils/is-empty";
 
 const Schema = mongoose.Schema;
 
@@ -28,6 +29,10 @@ const commentSchema = new Schema({
 });
 
 commentSchema.index({ created_at: -1 });
+
+commentSchema.virtual("is_parent").get(function () {
+  return isEmpty(_.get(this, "parent"));
+});
 
 commentSchema.plugin(mongoose_lean_virtuals);
 

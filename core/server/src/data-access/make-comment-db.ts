@@ -34,7 +34,7 @@ export default function makeCommentDb({
       return null;
     }
 
-    async findAllByPost(
+    async findAllByPostPaginated(
       {
         post_id,
         is_include_deleted,
@@ -69,10 +69,10 @@ export default function makeCommentDb({
 
       const existing = await commentDbModel
         .find(query_conditions)
-        .select("_id children content user meta post created_at updated_at")
+        .select("_id children parent content user post created_at updated_at")
         .populate({
           path: "children",
-          select: "_id content user meta parent post",
+          select: "_id content user parent post created_at updated_at",
           populate: [
             {
               path: "user",
@@ -87,6 +87,10 @@ export default function makeCommentDb({
         .populate({
           path: "user",
           select: "_id full_name avatar_url avatar",
+        })
+        .populate({
+          path: "parent",
+          select: "_id",
         })
         .limit(entries_per_page)
         .skip(number_of_entries_to_skip)
@@ -223,6 +227,7 @@ export default function makeCommentDb({
 
       let query_conditions = {
         deleted_at: { $in: [null, undefined] },
+        _id,
       };
 
       if (is_include_deleted) {
@@ -233,22 +238,31 @@ export default function makeCommentDb({
         query_conditions["parent"] = { $in: [null, undefined] };
       }
 
-      if (_id) {
-        query_conditions["_id"] = _id;
-      }
-
       const existing = await commentDbModel
         .findOne(query_conditions)
+        .select("-__v")
         .populate({
           path: "children",
-          select: "-_v",
-          populate: {
-            path: "parent",
-            select: "_id",
-          },
+          select: "_id content user parent post created_at updated_at",
+          populate: [
+            {
+              path: "user",
+              select: "_id full_name avatar_url avatar",
+            },
+            {
+              path: "parent",
+              select: "_id",
+            },
+          ],
         })
-        .populate("user", "-_v")
-        .populate("post", "-_v")
+        .populate({
+          path: "user",
+          select: "_id full_name avatar_url avatar",
+        })
+        .populate({
+          path: "parent",
+          select: "_id",
+        })
         .lean({ virtuals: true });
 
       if (existing) {

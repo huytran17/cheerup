@@ -66,7 +66,7 @@
         </div>
 
         <div
-          v-if="is_parent"
+          v-if="comment_data.is_parent"
           class="d-flex pl-2"
           @click="
             () => {
@@ -97,9 +97,12 @@
 import { mapGetters } from "vuex";
 import systemMixins from "@/mixins/system";
 import commentMixins from "@/mixins/comment";
+import commentLikeMixins from "@/mixins/comment-like";
+import { COMMENT_LIKE_TYPE } from "@/constants";
+
 export default {
   name: "BaseCommentItem",
-  mixins: [systemMixins, commentMixins],
+  mixins: [systemMixins, commentMixins, commentLikeMixins],
   props: {
     comment_data: {
       type: Object,
@@ -111,12 +114,6 @@ export default {
       me: "auth/me",
       post: "post/post",
     }),
-
-    is_parent() {
-      const parent = _.get(this.comment_data, "parent");
-      const is_parent_comment = _.isNil(parent);
-      return is_parent_comment;
-    },
 
     is_liked() {
       return _.get(this.comment_data, "is_liked", false);
@@ -152,10 +149,16 @@ export default {
   methods: {
     async likeComment() {
       try {
-        await this.LIKE_COMMENT({ id: _.get(this.comment_data, "_id") });
-        await this.GET_COMMENTS_BY_POST_PAGINATED({
-          post_id: _.get(this.post, "_id", ""),
+        const comment_id = _.get(this.comment_data, "_id");
+        await this.CREATE_OR_UPDATE_COMMENT_LIKE({
+          data: {
+            comment_id,
+            type: COMMENT_LIKE_TYPE.LIKE,
+          },
         });
+
+        await this.GET_COMMENT({ id: comment_id });
+        this.replaceCommentData({ data: this.comment });
       } catch (error) {
         console.error(error);
       }
@@ -163,10 +166,16 @@ export default {
 
     async dislikeComment() {
       try {
-        await this.DISLIKE_COMMENT({ id: _.get(this.comment_data, "_id") });
-        await this.GET_COMMENTS_BY_POST_PAGINATED({
-          post_id: _.get(this.post, "_id", ""),
+        const comment_id = _.get(this.comment_data, "_id");
+        await this.CREATE_OR_UPDATE_COMMENT_LIKE({
+          data: {
+            comment_id,
+            type: COMMENT_LIKE_TYPE.DISLIKE,
+          },
         });
+
+        await this.GET_COMMENT({ id: comment_id });
+        this.replaceCommentData({ data: this.comment });
       } catch (error) {
         console.error(error);
       }

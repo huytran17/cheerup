@@ -40,6 +40,7 @@ commentRouter.post(
 
 commentRouter.get(
   "/by-post-paginated",
+  authenticateUserJWT(),
   makeValidator(getCommentsByPostPaginatedRules),
   makeExpressCallback(getCommentsByPostPaginatedController)
 );

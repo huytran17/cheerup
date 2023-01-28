@@ -55,31 +55,22 @@
       <span class="app-body" v-html="$t(post_data.content)"></span>
     </div>
 
-    <div v-if="has_tags" class="text-left">
-      <div class="text-caption grey--text text-uppercase">
-        <v-icon small color="black">mdi-tag</v-icon>
-        <span class="app-body">
-          <span v-html="$t('Tags: ')"></span>
-          <span v-for="(tag, index) in post_data.tags" :key="Date.now() + tag">
-            <span
-              class="clickable"
-              @click="$router.push(localePath(`/tag?tags=${tag}`))"
-              v-html="
-                $t(index !== post_data.tags.length - 1 ? `${tag}, ` : `${tag}`)
-              "
-            ></span>
-          </span>
-        </span>
-      </div>
+    <div class="text-caption grey--text text-uppercase">
+      <v-icon small color="black">mdi-tag</v-icon>
+      <span class="app-body">
+        <span v-html="$t('Tags: ')"></span>
+        <span>{{ post_data.tags.join(", ") }}</span>
+      </span>
     </div>
 
-    <div v-if="post_data.source" class="text-left">
-      <div class="text-body-2 text-sm-body-1 text-right font-italic grey--text">
-        <span class="app-body">
-          <span v-html="$t('Source: ')"></span>
-          <span>{{ post_data.source }}</span>
-        </span>
-      </div>
+    <div
+      v-if="post_data.source"
+      class="text-body-2 text-sm-body-1 grey--text mt-2"
+    >
+      <span class="app-body">
+        <span v-html="$t('Source: ')"></span>
+        <span class="font-italic">{{ post_data.source }}</span>
+      </span>
     </div>
 
     <div class="text-center text-sm-right pt-3 pt-sm-2">
@@ -149,10 +140,6 @@ export default {
 
     has_categories() {
       return !_.isEmpty(this.post_data.categories);
-    },
-
-    has_tags() {
-      return !_.isEmpty(this.post_data.tags);
     },
   },
   methods: {

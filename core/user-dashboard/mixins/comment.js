@@ -70,5 +70,29 @@ export default {
         data,
       });
     },
+
+    replaceCommentData({ data }) {
+      const cloned_comments = _.cloneDeep(this.comments);
+
+      const updated_comments = cloned_comments.map((comment, index) => {
+        if (comment._id === data._id) {
+          return data;
+        }
+
+        const comment_children = comment.children?.map((child) => {
+          if (child._id === data._id) {
+            return data;
+          }
+
+          return child;
+        });
+
+        cloned_comments[index].children = comment_children;
+
+        return comment;
+      });
+
+      this.SET_COMMENTS({ data: updated_comments, new_state: true });
+    },
   },
 };

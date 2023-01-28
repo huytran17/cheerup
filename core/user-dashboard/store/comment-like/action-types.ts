@@ -1,0 +1,3 @@
+export enum ActionTypes {
+  CREATE_OR_UPDATE_COMMENT_LIKE = "CREATE_OR_UPDATE_COMMENT_LIKE",
+}

@@ -16,6 +16,7 @@ export default class Comment implements IComment {
   }[];
   public readonly post: Post;
   public readonly parent: Comment;
+  public readonly is_parent: boolean;
   public readonly children: Comment[];
   public readonly created_at: Date;
   public readonly updated_at: Date;
@@ -27,6 +28,8 @@ export default class Comment implements IComment {
     user,
     post,
     children,
+    parent,
+    is_parent,
     created_at,
     updated_at,
     deleted_at,
@@ -36,6 +39,8 @@ export default class Comment implements IComment {
     this.user = user;
     this.post = post;
     this.children = children;
+    this.parent = parent;
+    this.is_parent = is_parent;
     this.created_at = created_at;
     this.updated_at = updated_at;
     this.deleted_at = deleted_at;

@@ -8,9 +8,8 @@ import { IUpdateCommentLike } from "../../../../use-cases/comment-like/update-co
 import { IGetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
 import { IGetComment } from "../../../../use-cases/comment/get-comment";
 import { isEmpty } from "../../../../utils/is-empty";
-import { CommentLikeType } from "../../../../database/interfaces/comment-like";
 
-export default function makeCreateCommentLikeController({
+export default function makeCreateOrUpdateCommentLikeController({
   createCommentLike,
   updateCommentLike,
   getUser,
@@ -25,7 +24,7 @@ export default function makeCreateCommentLikeController({
   getCommentLikeByUserAndComment: IGetCommentLikeByUserAndComment;
   logger: Logger;
 }) {
-  return async function createCommentLikeController(
+  return async function createOrUpdateCommentLikeController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
@@ -45,6 +44,8 @@ export default function makeCreateCommentLikeController({
 
       const comment_exists = await getComment({
         _id: comment_id,
+        is_only_parent: false,
+        is_include_deleted: false,
       });
 
       if (isEmpty(comment_exists)) {
@@ -57,30 +58,28 @@ export default function makeCreateCommentLikeController({
       });
 
       let comment_like_data = {};
+      const final_comment_like_details = {
+        user: user_id,
+        comment: comment_id,
+        type: commentLikeDetails.type,
+      };
+
       if (isEmpty(comment_like_exists)) {
         comment_like_data = await createCommentLike({
-          commentLikeDetails,
+          commentLikeDetails: final_comment_like_details,
         });
       } else {
-        switch (commentLikeDetails.type) {
-          case CommentLikeType.Like:
-            commentLikeDetails.type = CommentLikeType.Dislike;
-            break;
-          case CommentLikeType.Dislike:
-            commentLikeDetails.type = CommentLikeType.Like;
-            break;
-          default:
-            break;
-        }
-
         comment_like_data = await updateCommentLike({
-          commentLikeDetails,
+          commentLikeDetails: {
+            ...final_comment_like_details,
+            _id: comment_like_exists._id,
+          },
         });
       }
 
       return {
         headers,
-        statusCode: HttpStatusCode.CREATED,
+        statusCode: HttpStatusCode.OK,
         body: {
           data: comment_like_data,
         },

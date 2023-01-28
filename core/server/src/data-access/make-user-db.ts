@@ -183,14 +183,11 @@ export default function makeUserDb({
     }): Promise<User | null> {
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
+        _id,
       };
 
       if (is_include_deleted) {
         delete query_conditions.deleted_at;
-      }
-
-      if (_id) {
-        query_conditions["_id"] = _id;
       }
 
       const existing = await userDbModel

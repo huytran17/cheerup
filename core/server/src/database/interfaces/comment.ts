@@ -9,6 +9,7 @@ export default interface IComment {
   post: Post;
   children: Comment[];
   parent: Comment;
+  is_parent: boolean;
   reports?: {
     created_by: User;
     created_at: Date;

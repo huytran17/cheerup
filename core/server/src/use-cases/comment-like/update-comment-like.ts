@@ -3,7 +3,7 @@ import ICommentLikeDb from "../../data-access/interfaces/comment-like-db";
 import ICommentLike from "../../database/interfaces/comment-like";
 
 export interface IUpdateCommentLikeData {
-  commentLikeDetails: Omit<ICommentLike, "_id">;
+  commentLikeDetails: Omit<ICommentLike, "created_at">;
 }
 
 export type IUpdateCommentLike = ({

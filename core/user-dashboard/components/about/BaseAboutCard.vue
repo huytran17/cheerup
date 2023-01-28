@@ -7,7 +7,7 @@
       ></span>
     </div>
     <div class="sidebar__card py-6 px-6">
-      <div class="d-flex justify-center pb-6">
+      <div v-if="should_show_avatar" class="d-flex justify-center pb-6">
         <v-img
           v-if="owner_avatar_url"
           :src="owner_avatar_url"
@@ -25,7 +25,7 @@
           :size="60"
         ></avatar>
       </div>
-      <div class="position-relative">
+      <div v-if="owner_description" class="position-relative">
         <v-icon color="brick" class="quote__description position-absolute" large
           >mdi-format-quote-open</v-icon
         >
@@ -63,6 +63,10 @@ export default {
   },
   components: { Avatar },
   computed: {
+    should_show_avatar() {
+      return this.owner_avatar_url || this.owner_name;
+    },
+
     owner_avatar_url() {
       return _.get(this.system_configuration_data, "client_owner_avatar_url");
     },

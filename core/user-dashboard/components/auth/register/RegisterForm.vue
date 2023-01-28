@@ -74,6 +74,32 @@
           </v-col>
         </v-row>
 
+        <v-row class="pb-0">
+          <v-col cols="12" class="pb-0">
+            <div class="text-body-2 black--text">
+              <span
+                class="app-body text-uppercase"
+                v-html="$t('Fullname')"
+              ></span>
+            </div>
+          </v-col>
+          <v-col cols="12">
+            <v-text-field
+              :placeholder="$t('Fullname')"
+              rounded
+              hide-details
+              filled
+              :rules="fullnameRules"
+              @input="
+                updateUserObject({
+                  variable_path: 'full_name',
+                  data: $event,
+                })
+              "
+            ></v-text-field>
+          </v-col>
+        </v-row>
+
         <v-row>
           <v-col cols="12" class="pb-0">
             <div class="text-body-2 black--text">

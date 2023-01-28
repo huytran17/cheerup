@@ -65,39 +65,52 @@ export default function makeGetCommentsByPostPaginatedController({
         }
       );
 
+      const map_meta_data = async (comment: IComment) => {
+        const likes_count = await countCommentLikeByCommentAndType({
+          comment_id: comment._id,
+          type: CommentLikeType.Like,
+        });
+
+        const dislikes_count = await countCommentLikeByCommentAndType({
+          comment_id: comment._id,
+          type: CommentLikeType.Dislike,
+        });
+
+        const comment_liked_by_user = await getCommentLikeByUserAndComment({
+          user_id,
+          comment_id: comment._id,
+        });
+
+        const is_liked =
+          !isEmpty(comment_liked_by_user) &&
+          comment_liked_by_user.type === CommentLikeType.Like;
+
+        const is_disliked =
+          !isEmpty(comment_liked_by_user) &&
+          comment_liked_by_user.type === CommentLikeType.Dislike;
+
+        return {
+          ...comment,
+          likes_count,
+          dislikes_count,
+          is_liked,
+          is_disliked,
+        };
+      };
+
       const comments_data = _.get(paginated_data, "data", []);
       const map_meta_data_promises = comments_data.map(
         async (comment: IComment) => {
-          const likes_count = await countCommentLikeByCommentAndType({
-            comment_id: comment._id,
-            type: CommentLikeType.Like,
-          });
+          const map_meta_data_children_promises = comment.children?.map(
+            async (child: IComment) => await map_meta_data(child)
+          );
 
-          const dislikes_count = await countCommentLikeByCommentAndType({
-            comment_id: comment._id,
-            type: CommentLikeType.Dislike,
-          });
+          const mapped_children_meta_data = await Promise.all(
+            map_meta_data_children_promises
+          );
+          comment.children = mapped_children_meta_data;
 
-          const comment_liked_by_user = await getCommentLikeByUserAndComment({
-            user_id,
-            comment_id: comment._id,
-          });
-
-          const is_liked =
-            !isEmpty(comment_liked_by_user) &&
-            comment_liked_by_user.type === CommentLikeType.Like;
-
-          const is_disliked =
-            !isEmpty(comment_liked_by_user) &&
-            comment_liked_by_user.type === CommentLikeType.Dislike;
-
-          return {
-            ...comment,
-            likes_count,
-            dislikes_count,
-            is_liked,
-            is_disliked,
-          };
+          return await map_meta_data(comment);
         }
       );
 

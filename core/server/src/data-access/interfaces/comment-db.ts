@@ -21,7 +21,7 @@ export default interface ICommentDb {
     is_only_parent?: boolean;
     is_include_deleted?: boolean;
   }) => Promise<Comment | null>;
-  findAllByPost: (
+  findAllByPostPaginated: (
     {
       post_id,
       is_include_deleted,

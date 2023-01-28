@@ -82,12 +82,12 @@ export default function makeCommentLikeDb({
     }
 
     async update(payload: Partial<ICommentLike>): Promise<CommentLike | null> {
-      const result = await commentLikeDbModel
+      await commentLikeDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)
         .lean({ virtuals: true });
 
       const updated = await commentLikeDbModel
-        .findOne({ _id: result?._id })
+        .findOne({ _id: payload._id })
         .lean({ virtuals: true });
 
       if (updated) {

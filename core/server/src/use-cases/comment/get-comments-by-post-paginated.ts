@@ -48,7 +48,7 @@ export default function makeGetCommentsByPostPaginated({
       entries_per_page: number;
     }
   ): Promise<PaginatedCommentResult | null> {
-    const data = await commentDb.findAllByPost(
+    const data = await commentDb.findAllByPostPaginated(
       { post_id, is_include_deleted },
       {
         query,

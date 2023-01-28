@@ -1,5 +1,5 @@
 <template>
-  <v-row v-if="is_post_blocked_comment || is_user_blocked_comment">
+  <v-row v-if="can_not_show_comment_panel">
     <v-col cols="12" class="pb-11">
       <div
         class="text__description text-sm-body-2 text-uppercase text-center grey--text"
@@ -7,12 +7,17 @@
         <span
           v-if="is_post_blocked_comment"
           class="app-body"
-          v-html="$t('This post has been locked from comments')"
+          v-html="$t('This post has been locked from commenting')"
         ></span>
         <span
           v-else-if="is_user_blocked_comment"
           class="app-body"
-          v-html="$t('You has been locked from comments')"
+          v-html="$t('You has been locked from commenting')"
+        ></span>
+        <span
+          v-else-if="!has_user"
+          class="app-body"
+          v-html="$t('You must be logged in to see the comments')"
         ></span>
       </div>
     </v-col>
@@ -42,19 +47,12 @@
         :key="`comment-editor-${refresh_comment_editor_key}`"
       />
       <div class="d-flex pt-4">
-        <div v-if="!has_user" class="text-body-2 primary--text mr-auto">
-          <span
-            class="app-body clickable"
-            @click="redirectToLoginPage"
-            v-html="$t('Login to your account')"
-          ></span>
-        </div>
         <div class="ml-auto">
           <v-btn
             depressed
             tile
             :disabled="!has_user || comment_loading"
-            color="black"
+            color="brick"
             class="white--text"
             @click="createComment"
           >
@@ -65,7 +63,7 @@
     </v-col>
 
     <v-col v-if="has_comments" cols="12">
-      <v-row v-for="comment in comments_data" :key="comment._id">
+      <v-row v-for="comment in comments" :key="comment._id">
         <v-col cols="12">
           <BaseCommentItem :comment_data="comment" />
           <div v-if="comment.children && comment.children.length">
@@ -102,6 +100,7 @@
 <script>
 import { mapMutations } from "vuex";
 import commentMixins from "@/mixins/comment";
+import postMixins from "@/mixins/post";
 import authMixins from "@/mixins/auth";
 import TiptapEditor from "@/components/TiptapEditor";
 import BaseCommentItem from "@/components/comment/BaseCommentItem";
@@ -110,22 +109,12 @@ import BaseEditForm from "@/components/comment/BaseEditForm";
 
 export default {
   name: "BaseCommentPanel",
-  mixins: [commentMixins, authMixins],
+  mixins: [commentMixins, authMixins, postMixins],
   components: {
     TiptapEditor,
     BaseCommentItem,
     BaseReplyForm,
     BaseEditForm,
-  },
-  props: {
-    post_data: {
-      type: Object,
-      default: () => {},
-    },
-    comments_data: {
-      type: Array,
-      default: () => [],
-    },
   },
   data() {
     return {
@@ -135,14 +124,23 @@ export default {
   computed: {
     has_more_comments() {
       return (
+        this.comment_pagination.total_pages &&
         this.comment_pagination.current_page !==
-        this.comment_pagination.total_pages
+          this.comment_pagination.total_pages
+      );
+    },
+
+    can_not_show_comment_panel() {
+      return (
+        this.is_post_blocked_comment ||
+        this.is_user_blocked_comment ||
+        !this.has_user
       );
     },
 
     is_post_blocked_comment() {
       const is_post_blocked_comment = _.get(
-        this.post_data,
+        this.post,
         "is_blocked_comment",
         false
       );
@@ -161,7 +159,7 @@ export default {
     },
 
     has_comments() {
-      return !_.isEmpty(this.comments_data);
+      return !_.isEmpty(this.comments);
     },
   },
   methods: {
@@ -179,7 +177,7 @@ export default {
           return;
         }
 
-        const post_id = _.get(this.post_data, "_id");
+        const post_id = _.get(this.post, "_id");
         const final_comment_data = Object.assign({}, this.new_comment, {
           post: post_id,
         });
@@ -216,7 +214,7 @@ export default {
 
     async getMoreComments() {
       try {
-        const post_id = _.get(this.post_data, "_id");
+        const post_id = _.get(this.post, "_id");
 
         await this.GET_COMMENTS_BY_POST_PAGINATED({
           page: this.comment_pagination.current_page + 1,
@@ -232,7 +230,7 @@ export default {
   async fetch() {
     try {
       await this.COUNT_COMMENT_BY_POST({
-        post_id: _.get(this.post_data, "_id"),
+        post_id: _.get(this.post, "_id"),
       });
     } catch (error) {
       console.error(error);
