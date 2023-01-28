@@ -74,8 +74,6 @@ export default {
 
         this.SET_COMMENT_LOADING({ data: true });
 
-        const post_id = _.get(this.post, "_id");
-
         const final_comment_data = Object.assign({}, this.comment, {
           content: new_comment_content,
         });
@@ -87,9 +85,10 @@ export default {
           data: "",
         });
 
-        ++this.refresh_edit_comment_editor_key;
+        await this.GET_COMMENT({ id: this.comment._id });
+        this.replaceCommentData({ data: this.comment });
 
-        await this.GET_COMMENTS_BY_POST_PAGINATED({ post_id });
+        ++this.refresh_edit_comment_editor_key;
 
         this.$emit("dont-need-to-scroll-to-top-of-post", true);
       } catch (error) {

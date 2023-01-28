@@ -99,9 +99,11 @@ export default {
         ++this.refresh_comment_reply_editor_key;
 
         await Promise.all([
-          this.GET_COMMENTS_BY_POST_PAGINATED({ post_id }),
           this.COUNT_COMMENT_BY_POST({ post_id }),
+          this.GET_COMMENT({ id: this.comment._id }),
         ]);
+
+        this.replaceCommentData({ data: this.comment });
       } catch (error) {
         console.error(error);
       } finally {
