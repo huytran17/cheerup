@@ -1,5 +1,5 @@
 import getCommentRules from "./get-comment";
-import deleteCommentRules from "./delete-comment";
+import hardDeleteCommentRules from "./hard-delete-comment";
 import updateCommentRules from "./update-comment";
 import createCommentRules from "./create-comment";
 import getCommentsByPostPaginatedRules from "./get-comments-by-post-paginated";
@@ -8,7 +8,7 @@ import countCommentsByPostRules from "./count-comments-by-post";
 
 export default Object.freeze({
   getCommentRules,
-  deleteCommentRules,
+  hardDeleteCommentRules,
   updateCommentRules,
   createCommentRules,
   getCommentsByPostPaginatedRules,
@@ -18,7 +18,7 @@ export default Object.freeze({
 
 export {
   getCommentRules,
-  deleteCommentRules,
+  hardDeleteCommentRules,
   updateCommentRules,
   createCommentRules,
   getCommentsByPostPaginatedRules,

@@ -1,6 +1,5 @@
 import { IGetComment } from "../../../../use-cases/comment/get-comment";
-import { IDeleteComment } from "../../../../use-cases/comment/delete-comment";
-import { IGetCommentsByParent } from "../../../../use-cases/comment/get-comments-by-parent";
+import { IHardDeleteComment } from "../../../../use-cases/comment/hard-delete-comment";
 import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
@@ -8,13 +7,11 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeDeleteComment({
   getComment,
-  deleteComment,
-  getCommentsByParent,
+  hardDeleteComment,
   logger,
 }: {
   getComment: IGetComment;
-  deleteComment: IDeleteComment;
-  getCommentsByParent: IGetCommentsByParent;
+  hardDeleteComment: IHardDeleteComment;
   logger: Logger;
 }) {
   return async function deleteCommentController(
@@ -32,15 +29,7 @@ export default function makeDeleteComment({
         throw new Error(`Comment by ${_id} does not exist`);
       }
 
-      const child_comments = await getCommentsByParent({ parent_id: _id });
-      const delete_child_comments_promises = child_comments.map(
-        async (comment) => await deleteComment({ _id: comment._id })
-      );
-
-      await Promise.all([
-        delete_child_comments_promises,
-        deleteComment({ _id }),
-      ]);
+      const deleted_comment = await hardDeleteComment({ _id });
 
       logger.verbose(`Deleted comment by ${_id} and its children successfully`);
 
@@ -48,7 +37,7 @@ export default function makeDeleteComment({
         headers,
         statusCode: HttpStatusCode.OK,
         body: {
-          data: null,
+          data: deleted_comment,
         },
       };
     } catch (error) {

@@ -185,7 +185,7 @@ export default {
       try {
         const post_id = _.get(this.post, "_id");
 
-        await this.DELETE_COMMENT({ id: _.get(this.comment_data, "_id") });
+        await this.HARD_DELETE_COMMENT({ id: _.get(this.comment_data, "_id") });
         await Promise.all([
           this.GET_COMMENTS_BY_POST_PAGINATED({
             post_id,

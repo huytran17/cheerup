@@ -3,7 +3,7 @@ import { logger } from "../../config/logs/logger";
 import { CommentDb } from "../../data-access";
 
 import makeGetComment from "./get-comment";
-import makeDeleteComment from "./delete-comment";
+import makeHardDeleteComment from "./hard-delete-comment";
 import makeUpdateComment from "./update-comment";
 import makeGetComments from "./get-comments";
 import makeCreateComment from "./create-comment";
@@ -42,7 +42,7 @@ const getComment = makeGetComment({
   logger,
 });
 
-const deleteComment = makeDeleteComment({
+const hardDeleteComment = makeHardDeleteComment({
   commentDb: CommentDb,
 });
 
@@ -57,7 +57,7 @@ const getComments = makeGetComments({
 
 const commentServices = Object.freeze({
   getComment,
-  deleteComment,
+  hardDeleteComment,
   updateComment,
   getComments,
   createComment,
@@ -71,7 +71,7 @@ export default commentServices;
 
 export {
   getComment,
-  deleteComment,
+  hardDeleteComment,
   updateComment,
   getComments,
   createComment,

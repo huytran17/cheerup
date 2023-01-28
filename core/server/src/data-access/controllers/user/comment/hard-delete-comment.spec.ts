@@ -20,12 +20,12 @@ import makeCreatePost from "../../../../use-cases/post/create-post";
 import makeGetUser from "../../../../use-cases/user/get-user";
 import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeCreateComment from "../../../../use-cases/comment/create-comment";
-import makeDeleteComment from "../../../../use-cases/comment/delete-comment";
+import makeHardDeleteComment from "../../../../use-cases/comment/hard-delete-comment";
 import makeGetComment from "../../../../use-cases/comment/get-comment";
-import makeDeleteCommentController from "./delete-comment";
+import makeHardDeleteCommentController from "./hard-delete-comment";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
-describe("deleteComment", () => {
+describe("hardDeleteComment", () => {
   beforeAll(async () => {
     await connectDatabase();
   });
@@ -55,7 +55,7 @@ describe("deleteComment", () => {
     const getPost = makeGetPost({ postDb, logger });
     const createPost = makeCreatePost({ postDb, logger });
     const createComment = makeCreateComment({ commentDb, logger });
-    const deleteComment = makeDeleteComment({ commentDb, logger });
+    const hardDeleteComment = makeHardDeleteComment({ commentDb, logger });
     const getComment = makeGetComment({ commentDb, logger });
     const getUser = makeGetUser({ userDb, logger });
     const createUser = makeCreateUser({ userDb, logger });
@@ -79,9 +79,9 @@ describe("deleteComment", () => {
       }),
     });
 
-    const deleteCommentController = makeDeleteCommentController({
+    const hardDeleteCommentController = makeHardDeleteCommentController({
       getComment,
-      deleteComment,
+      hardDeleteComment,
       getPost,
       getUser,
       logger,
@@ -96,7 +96,7 @@ describe("deleteComment", () => {
       },
     };
 
-    const result = await deleteCommentController(request as any);
+    const result = await hardDeleteCommentController(request as any);
 
     const expected: ExpectSingleResult<Comment> = {
       headers,

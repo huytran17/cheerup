@@ -5,7 +5,7 @@ import authenticateUserJWT from "../../config/middlewares/authenticateUserJWT";
 
 import {
   getCommentRules,
-  deleteCommentRules,
+  hardDeleteCommentRules,
   updateCommentRules,
   createCommentRules,
   getCommentsByPostPaginatedRules,
@@ -14,7 +14,7 @@ import {
 } from "../../data-access/controllers/user/comment/validators";
 import {
   getCommentController,
-  deleteCommentController,
+  hardDeleteCommentController,
   updateCommentController,
   createCommentController,
   getCommentsController,
@@ -53,10 +53,10 @@ commentRouter.get(
 );
 
 commentRouter.delete(
-  "/:_id",
+  "/hard-delete/:_id",
   authenticateUserJWT(),
-  makeValidator(deleteCommentRules),
-  makeExpressCallback(deleteCommentController)
+  makeValidator(hardDeleteCommentRules),
+  makeExpressCallback(hardDeleteCommentController)
 );
 
 commentRouter.put(

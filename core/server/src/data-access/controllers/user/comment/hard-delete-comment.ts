@@ -1,5 +1,5 @@
 import { IGetComment } from "../../../../use-cases/comment/get-comment";
-import { IDeleteComment } from "../../../../use-cases/comment/delete-comment";
+import { IHardDeleteComment } from "../../../../use-cases/comment/hard-delete-comment";
 import { IGetUser } from "../../../../use-cases/user/get-user";
 import { IGetPost } from "../../../../use-cases/post/get-post";
 import { Logger } from "winston";
@@ -9,13 +9,13 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeDeleteCommentController({
   getComment,
-  deleteComment,
+  hardDeleteComment,
   getPost,
   getUser,
   logger,
 }: {
   getComment: IGetComment;
-  deleteComment: IDeleteComment;
+  hardDeleteComment: IHardDeleteComment;
   getPost: IGetPost;
   getUser: IGetUser;
   logger: Logger;
@@ -87,18 +87,7 @@ export default function makeDeleteCommentController({
         throw new Error(`User by ${user_id} has been blocked from comments`);
       }
 
-      const children_comment = _.get(exists, "children", []);
-      const has_chilren = !_.isEmpty(children_comment);
-
-      if (has_chilren) {
-        const delete_children_comment_promises = children_comment.map(
-          async (child: any) => await deleteComment({ _id: child._id })
-        );
-
-        await Promise.all(delete_children_comment_promises);
-      }
-
-      const deleted_comment = await deleteComment({ _id: comment_id });
+      const deleted_comment = await hardDeleteComment({ _id: comment_id });
 
       return {
         headers,

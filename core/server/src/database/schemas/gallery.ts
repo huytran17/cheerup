@@ -36,12 +36,12 @@ gallerySchema.pre("deleteOne", { document: true }, async function (next) {
     Storage.deleteS3Object(s3_params);
   }
 
-  const galleries = await GalleryModel.find({ parent: this._id });
-  const deleteGalleryPromises = galleries.map(async (doc) => {
+  const galleries = await GalleryModel.find({ parent: _.get(this, "_id") });
+  const delete_gallery_promises = galleries.map(async (doc) => {
     await doc.deleteOne();
   });
 
-  await Promise.all(deleteGalleryPromises);
+  await Promise.all(delete_gallery_promises);
 
   next();
 });

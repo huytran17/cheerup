@@ -1,18 +1,18 @@
 import Comment from "../../database/entities/comment";
 import ICommentDb from "../../data-access/interfaces/comment-db";
 
-export type IDeleteComment = ({
+export type IHardDeleteComment = ({
   _id,
 }: {
   _id: string;
 }) => Promise<Comment | null>;
 
-export default function makeDeleteComment({
+export default function makeHardDeleteComment({
   commentDb,
 }: {
   commentDb: ICommentDb;
-}): IDeleteComment {
-  return async function deleteComment({
+}): IHardDeleteComment {
+  return async function hardDeleteComment({
     _id,
   }: {
     _id: string;

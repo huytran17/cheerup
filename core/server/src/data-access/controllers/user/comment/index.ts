@@ -1,6 +1,6 @@
 import {
   getComment,
-  deleteComment,
+  hardDeleteComment,
   updateComment,
   createComment,
   getComments,
@@ -17,7 +17,7 @@ import { getUser } from "../../../../use-cases/user";
 import { logger } from "../../../../config/logs/logger";
 
 import makeGetCommentController from "./get-comment";
-import makeDeleteCommentController from "./delete-comment";
+import makeHardDeleteCommentController from "./hard-delete-comment";
 import makeUpdateCommentController from "./update-comment";
 import makeCreateCommentController from "./create-comment";
 import makeGetCommentsController from "./get-comments";
@@ -68,9 +68,9 @@ const getCommentController = makeGetCommentController({
   logger,
 });
 
-const deleteCommentController = makeDeleteCommentController({
+const hardDeleteCommentController = makeHardDeleteCommentController({
   getComment,
-  deleteComment,
+  hardDeleteComment,
   getPost,
   getUser,
   logger,
@@ -86,7 +86,7 @@ const updateCommentController = makeUpdateCommentController({
 
 export default Object.freeze({
   getCommentController,
-  deleteCommentController,
+  hardDeleteCommentController,
   updateCommentController,
   createCommentController,
   getCommentsController,
@@ -97,7 +97,7 @@ export default Object.freeze({
 
 export {
   getCommentController,
-  deleteCommentController,
+  hardDeleteCommentController,
   updateCommentController,
   createCommentController,
   getCommentsController,
