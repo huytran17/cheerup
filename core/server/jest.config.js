@@ -22,4 +22,5 @@ module.exports = {
   globalTeardown: "./__tests__/jest-teardown.ts",
   cacheDirectory: ".jest-cache",
   testTimeout: 20000,
+  bail: true,
 };
