@@ -184,14 +184,12 @@ export default {
     async deleteComment() {
       try {
         const post_id = _.get(this.post, "_id");
+        const comment_id = _.get(this.comment_data, "_id");
 
-        await this.HARD_DELETE_COMMENT({ id: _.get(this.comment_data, "_id") });
-        await Promise.all([
-          this.GET_COMMENTS_BY_POST_PAGINATED({
-            post_id,
-          }),
-          this.COUNT_COMMENT_BY_POST({ post_id }),
-        ]);
+        await this.HARD_DELETE_COMMENT({ id: comment_id });
+        await this.COUNT_COMMENT_BY_POST({ post_id });
+
+        this.deleteCommentData({ _id: comment_id });
       } catch (error) {
         console.error(error);
       }

@@ -97,7 +97,7 @@ export default function makeCreatePostController({
           `Sending notifications email for new post to subscribers...`
         );
         await Promise.all(
-          send_notification_promises.filter((promise) => promise)
+          _.filter(send_notification_promises, (promise) => promise)
         );
         logger.verbose(
           `Sent notifications email for new post to subscribers!!!`

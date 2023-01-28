@@ -56,7 +56,8 @@ export default function makeDeleteGalleryItemController({
         Storage.deleteS3Object(s3_params);
       }
 
-      const updated_gallery_items = current_gallery_items.filter(
+      const updated_gallery_items = _.filter(
+        current_gallery_items,
         (item) => item.key !== key
       );
 

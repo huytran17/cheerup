@@ -74,7 +74,7 @@ export default {
     replaceCommentData({ data }) {
       const cloned_comments = _.cloneDeep(this.comments);
 
-      const updated_comments = cloned_comments.map((comment, index) => {
+      const updated_comments = _.map(cloned_comments, (comment, index) => {
         if (comment._id === data._id) {
           return data;
         }
@@ -88,6 +88,27 @@ export default {
         });
 
         cloned_comments[index].children = comment_children;
+
+        return comment;
+      });
+
+      this.SET_COMMENTS({ data: updated_comments, new_state: true });
+    },
+
+    deleteCommentData({ _id }) {
+      const cloned_comments = _.cloneDeep(this.comments);
+
+      const filtered_comments = _.filter(
+        cloned_comments,
+        (comment) => comment._id !== _id
+      );
+
+      const updated_comments = filtered_comments.map((comment, index) => {
+        const comment_children = comment.children?.filter((child) => {
+          return child._id !== _id;
+        });
+
+        filtered_comments[index].children = comment_children;
 
         return comment;
       });
