@@ -21,7 +21,6 @@ export default class Comment implements IComment {
   public readonly children: Comment[];
   public readonly created_at: Date;
   public readonly updated_at: Date;
-  public readonly deleted_at: Date;
 
   constructor({
     _id,
@@ -34,7 +33,6 @@ export default class Comment implements IComment {
     has_children,
     created_at,
     updated_at,
-    deleted_at,
   }: IComment) {
     this._id = _id;
     this.content = content;
@@ -46,6 +44,5 @@ export default class Comment implements IComment {
     this.is_parent = is_parent;
     this.created_at = created_at;
     this.updated_at = updated_at;
-    this.deleted_at = deleted_at;
   }
 }

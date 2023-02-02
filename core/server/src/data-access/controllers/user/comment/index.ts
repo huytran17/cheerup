@@ -30,6 +30,8 @@ import makeGetCommentsByParentController from "./get-comments-by-parent";
 const getCommentsByParentController = makeGetCommentsByParentController({
   getCommentsByParent,
   getComment,
+  countCommentLikeByCommentAndType,
+  getCommentLikeByUserAndComment,
   logger,
 });
 

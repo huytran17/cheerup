@@ -49,7 +49,6 @@ export default function makeReplyCommentController({
       const parent_comment = await getComment({
         _id: parent_id,
         is_only_parent: true,
-        is_include_deleted: false,
       });
 
       const is_post_blocked_comment = _.get(

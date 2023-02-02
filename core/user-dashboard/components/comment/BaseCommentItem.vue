@@ -157,7 +157,10 @@ export default {
           },
         });
 
-        await this.GET_COMMENT({ id: comment_id });
+        await this.GET_COMMENT({
+          id: comment_id,
+          is_show_children: this.comment_data.is_shown_children,
+        });
         this.replaceCommentData({ data: this.comment });
       } catch (error) {
         console.error(error);
@@ -174,7 +177,10 @@ export default {
           },
         });
 
-        await this.GET_COMMENT({ id: comment_id });
+        await this.GET_COMMENT({
+          id: comment_id,
+          is_show_children: this.comment_data.is_shown_children,
+        });
         this.replaceCommentData({ data: this.comment });
       } catch (error) {
         console.error(error);

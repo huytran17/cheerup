@@ -7,10 +7,8 @@ import { Logger } from "winston";
 export type IGetCommentsByPostPaginated = (
   {
     post_id,
-    is_include_deleted,
   }: {
     post_id: string;
-    is_include_deleted?: boolean;
   },
   {
     query,
@@ -33,10 +31,8 @@ export default function makeGetCommentsByPostPaginated({
   return async function getCommentsByPostPaginated(
     {
       post_id,
-      is_include_deleted = true,
     }: {
       post_id: string;
-      is_include_deleted?: boolean;
     },
     {
       query,
@@ -49,7 +45,7 @@ export default function makeGetCommentsByPostPaginated({
     }
   ): Promise<PaginatedCommentResult | null> {
     const data = await commentDb.findAllByPostPaginated(
-      { post_id, is_include_deleted },
+      { post_id },
       {
         query,
         page,

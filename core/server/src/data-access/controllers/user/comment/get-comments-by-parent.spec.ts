@@ -8,12 +8,15 @@ import { fakeComment } from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
 import makeCommentDb from "../../../make-comment-db";
 import Comment from "../../../../database/entities/comment";
-import { CommentModel } from "../../../models";
+import { CommentModel, CommentLikeModel } from "../../../models";
 import makeCreateComment from "../../../../use-cases/comment/create-comment";
 import makeGetComment from "../../../../use-cases/comment/get-comment";
 import makeGetCommentsByParentController from "./get-comments-by-parent";
 import makeGetCommentsByParent from "../../../../use-cases/comment/get-comments-by-parent";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import makeCountCommentLikeByCommentAndType from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
+import makeGetCommentLikeByUserAndComment from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
+import makeCommentLikeDb from "../../../make-comment-like-db";
 
 describe("getCommentsByParent", () => {
   beforeAll(async () => {
@@ -33,11 +36,21 @@ describe("getCommentsByParent", () => {
       commentDbModel: CommentModel,
       moment,
     });
+    const commentLikeDb = makeCommentLikeDb({
+      commentLikeDbModel: CommentLikeModel,
+      moment,
+    });
 
     const createComment = makeCreateComment({ commentDb, logger });
     const getComment = makeGetComment({ commentDb, logger });
     const getCommentsByParent = makeGetCommentsByParent({
       commentDb,
+      logger,
+    });
+    const countCommentLikeByCommentAndType =
+      makeCountCommentLikeByCommentAndType({ commentLikeDb, logger });
+    const getCommentLikeByUserAndComment = makeGetCommentLikeByUserAndComment({
+      commentLikeDb,
       logger,
     });
 
@@ -50,6 +63,8 @@ describe("getCommentsByParent", () => {
     const getCommentsByParentController = makeGetCommentsByParentController({
       getCommentsByParent,
       getComment,
+      countCommentLikeByCommentAndType,
+      getCommentLikeByUserAndComment,
       logger,
     });
 

@@ -49,8 +49,19 @@ const actions: ActionTree<CommentState, RootState> = {
     return comments;
   },
 
-  async [ActionTypes.GET_COMMENT]({ commit }, { id }: { id: string }) {
-    const { data: comment } = await this.$axios.$get(`/comment/${id}`);
+  async [ActionTypes.GET_COMMENT](
+    { commit },
+    { id, is_show_children = false }: { id: string; is_show_children: boolean }
+  ) {
+    const url_query = new URLSearchParams();
+
+    if (is_show_children) {
+      url_query.set("is_show_children", is_show_children.toString());
+    }
+
+    const { data: comment } = await this.$axios.$get(
+      `/comment/${id}?${url_query}`
+    );
 
     commit(MutationTypes.SET_COMMENT, { data: comment });
 
@@ -74,12 +85,6 @@ const actions: ActionTree<CommentState, RootState> = {
     const { data: comment } = await this.$axios.$put(`/comment/${_id}`, data);
 
     commit(MutationTypes.SET_COMMENT, { data: comment });
-
-    return comment;
-  },
-
-  async [ActionTypes.DELETE_COMMENT]({ commit }, { id }: { id: string }) {
-    const { data: comment } = await this.$axios.$delete(`/comment/${id}`);
 
     return comment;
   },

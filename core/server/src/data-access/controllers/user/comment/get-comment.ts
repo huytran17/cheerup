@@ -28,13 +28,16 @@ export default function makeGetCommentController({
     };
 
     try {
-      const { _id: comment_id } = _.get(httpRequest, "context.validated");
+      const { _id: comment_id, is_show_children } = _.get(
+        httpRequest,
+        "context.validated"
+      );
       const { _id: user_id } = _.get(httpRequest, "context.user");
 
       const exists = await getComment({
         _id: comment_id,
         is_only_parent: false,
-        is_include_deleted: false,
+        is_show_children,
       });
       const comment_not_exists = _.isEmpty(exists) || _.isNil(exists);
       if (comment_not_exists) {
@@ -75,16 +78,6 @@ export default function makeGetCommentController({
       };
 
       const final_comment_data = await map_meta_data(exists);
-      const map_meta_data_children_promises = exists.children?.map(
-        async (comment: IComment) => {
-          return await map_meta_data(comment);
-        }
-      );
-
-      const mapped_meta_data_children = await Promise.all(
-        map_meta_data_children_promises
-      );
-      final_comment_data.children = mapped_meta_data_children;
 
       return {
         headers,

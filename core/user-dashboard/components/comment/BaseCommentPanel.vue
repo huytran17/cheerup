@@ -66,16 +66,28 @@
       <v-row v-for="comment in comments" :key="comment._id">
         <v-col cols="12">
           <BaseCommentItem :comment_data="comment" />
-          <div v-if="comment.children && comment.children.length">
-            <v-row
-              v-for="child in comment.children"
-              :key="child._id"
-              class="pl-15 mt-6"
+          <div v-if="comment.has_children">
+            <div v-if="comment.is_shown_children">
+              <v-row
+                v-for="child in comment.children"
+                :key="child._id"
+                class="pl-15 mt-6"
+              >
+                <v-col cols="12" class="pt-0">
+                  <BaseCommentItem :comment_data="child" />
+                </v-col>
+              </v-row>
+            </div>
+            <div
+              v-else
+              class="text__description text-sm-body-2 text-uppercase brick--text pl-15 mt-4"
             >
-              <v-col cols="12" class="pt-0">
-                <BaseCommentItem :comment_data="child" />
-              </v-col>
-            </v-row>
+              <span
+                class="app-body clickable"
+                v-html="$t('Show reply')"
+                @click="getChildComments(comment)"
+              ></span>
+            </div>
           </div>
         </v-col>
       </v-row>
@@ -167,6 +179,28 @@ export default {
       SET_LOGIN_REDIRECT_URL: "SET_LOGIN_REDIRECT_URL",
       SET_POST: "post/SET_POST",
     }),
+
+    async getChildComments(comment) {
+      try {
+        const parent_id = comment._id;
+        const child_comments = await this.GET_COMMENTS_BY_PARENT({
+          parent_id,
+        });
+
+        this.replaceCommentDataAtPath({
+          _id: parent_id,
+          data: child_comments,
+        });
+
+        this.replaceCommentDataAtPath({
+          _id: parent_id,
+          data: true,
+          path: "is_shown_children",
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    },
 
     async createComment() {
       try {

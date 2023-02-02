@@ -57,7 +57,7 @@ export default function makeGetCommentsByPostPaginatedController({
       }
 
       const paginated_data = await getCommentsByPostPaginated(
-        { post_id, is_include_deleted: false },
+        { post_id },
         {
           query,
           page: Number(page),
@@ -102,15 +102,6 @@ export default function makeGetCommentsByPostPaginatedController({
       const map_meta_data_promises = _.map(
         comments_data,
         async (comment: IComment) => {
-          const map_meta_data_children_promises = comment.children?.map(
-            async (child: IComment) => await map_meta_data(child)
-          );
-
-          const mapped_children_meta_data = await Promise.all(
-            map_meta_data_children_promises
-          );
-          comment.children = mapped_children_meta_data;
-
           return await map_meta_data(comment);
         }
       );

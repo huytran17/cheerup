@@ -5,11 +5,11 @@ import { Logger } from "winston";
 export type IGetComment = ({
   _id,
   is_only_parent,
-  is_include_deleted,
+  is_show_children,
 }: {
   _id: string;
   is_only_parent?: boolean;
-  is_include_deleted?: boolean;
+  is_show_children?: boolean;
 }) => Promise<Comment | null>;
 
 export default function makeGetComment({
@@ -22,16 +22,16 @@ export default function makeGetComment({
   return async function getComment({
     _id,
     is_only_parent,
-    is_include_deleted,
+    is_show_children,
   }: {
     _id: string;
     is_only_parent?: boolean;
-    is_include_deleted?: boolean;
+    is_show_children?: boolean;
   }): Promise<Comment | null> {
     const comment = await commentDb.findById({
       _id,
       is_only_parent,
-      is_include_deleted,
+      is_show_children,
     });
     return comment;
   };

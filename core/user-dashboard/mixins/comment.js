@@ -23,7 +23,6 @@ export default {
       GET_COMMENT: "comment/GET_COMMENT",
       CREATE_COMMENT: "comment/CREATE_COMMENT",
       UPDATE_COMMENT: "comment/UPDATE_COMMENT",
-      DELETE_COMMENT: "comment/DELETE_COMMENT",
       HARD_DELETE_COMMENT: "comment/HARD_DELETE_COMMENT",
       GET_COMMENTS_BY_POST_PAGINATED: "comment/GET_COMMENTS_BY_POST_PAGINATED",
       LIKE_COMMENT: "comment/LIKE_COMMENT",
@@ -73,22 +72,46 @@ export default {
     },
 
     replaceCommentData({ data }) {
+      let is_replaced_data = false;
+      const cloned_comments = _.cloneDeep(this.comments);
+
+      for (let index = 0; index < cloned_comments.length; index++) {
+        if (is_replaced_data) {
+          break;
+        }
+
+        if (cloned_comments[index]._id === data._id) {
+          cloned_comments[index] = data;
+          break;
+        }
+
+        const children_comments = cloned_comments[index].children || [];
+
+        for (
+          let child_index = 0;
+          child_index < children_comments.length;
+          child_index++
+        ) {
+          if (children_comments[child_index]._id === data._id) {
+            children_comments[child_index] = data;
+            is_replaced_data = true;
+            break;
+          }
+        }
+
+        cloned_comments[index].children = children_comments;
+      }
+
+      this.SET_COMMENTS({ data: cloned_comments, new_state: true });
+    },
+
+    replaceCommentDataAtPath({ _id, path = "children", data }) {
       const cloned_comments = _.cloneDeep(this.comments);
 
       const updated_comments = _.map(cloned_comments, (comment, index) => {
-        if (comment._id === data._id) {
-          return data;
+        if (comment._id === _id) {
+          comment[path] = data;
         }
-
-        const comment_children = comment.children?.map((child) => {
-          if (child._id === data._id) {
-            return data;
-          }
-
-          return child;
-        });
-
-        cloned_comments[index].children = comment_children;
 
         return comment;
       });

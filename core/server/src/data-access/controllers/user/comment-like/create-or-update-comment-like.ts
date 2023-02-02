@@ -45,7 +45,6 @@ export default function makeCreateOrUpdateCommentLikeController({
       const comment_exists = await getComment({
         _id: comment_id,
         is_only_parent: false,
-        is_include_deleted: false,
       });
 
       if (isEmpty(comment_exists)) {

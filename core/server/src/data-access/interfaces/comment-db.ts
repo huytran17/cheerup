@@ -15,11 +15,11 @@ export default interface ICommentDb {
   findById: ({
     _id,
     is_only_parent,
-    is_include_deleted,
+    is_show_children,
   }: {
     _id: string;
     is_only_parent?: boolean;
-    is_include_deleted?: boolean;
+    is_show_children?: boolean;
   }) => Promise<Comment | null>;
   findAllByPostPaginated: (
     {
@@ -46,7 +46,6 @@ export default interface ICommentDb {
     parent_id: string;
   }) => Promise<Comment[] | null>;
   insert: (payload: Partial<IComment>) => Promise<Comment | null>;
-  delete: ({ _id }: { _id: string }) => Promise<Comment | null>;
   hardDelete: ({ _id }: { _id: string }) => Promise<Comment | null>;
   update: (payload: Partial<IComment>) => Promise<Comment | null>;
 }

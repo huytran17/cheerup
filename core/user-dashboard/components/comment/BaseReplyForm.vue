@@ -100,7 +100,10 @@ export default {
 
         await Promise.all([
           this.COUNT_COMMENT_BY_POST({ post_id }),
-          this.GET_COMMENT({ id: this.comment._id }),
+          this.GET_COMMENT({
+            id: this.comment._id,
+            is_show_children: this.comment.is_shown_children,
+          }),
         ]);
 
         this.replaceCommentData({ data: this.comment });

@@ -34,7 +34,6 @@ export default function makeDeleteCommentController({
       const exists = await getComment({
         _id: comment_id,
         is_only_parent: false,
-        is_include_deleted: false,
       });
       const comment_not_exists = _.isEmpty(exists) || _.isNil(exists);
       if (comment_not_exists) {

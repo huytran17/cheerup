@@ -26,7 +26,6 @@ const commentSchema = new Schema({
   ],
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now },
-  deleted_at: { type: Date, default: null },
 });
 
 commentSchema.index({ created_at: -1 });
@@ -60,6 +59,28 @@ commentSchema.pre("deleteOne", { document: true }, async function (next) {
     comment_likes,
     async (comment_like) => comment_like && (await comment_like.deleteOne())
   );
+
+  const is_child = !!this.parent;
+  if (is_child) {
+    const parent_comment = await CommentModel.findOne({
+      _id: this.parent.toString(),
+    });
+
+    const parents_children = _.get(parent_comment, "children", []);
+    const new_parents_children = _.filter(
+      parents_children,
+      (comment_id) => comment_id.toString() !== this._id.toString()
+    );
+
+    const updated_parent_comment = Object.assign({}, parent_comment, {
+      children: new_parents_children,
+    });
+
+    await CommentModel.findOneAndUpdate(
+      { _id: parent_comment.id },
+      updated_parent_comment
+    );
+  }
 
   await Promise.all([delete_children_promises, delete_comment_like_promises]);
 

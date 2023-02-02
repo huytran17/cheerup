@@ -17,7 +17,6 @@ export default function makeCommentDb({
   return new (class MongooseCommentDb implements ICommentDb {
     async findAll(): Promise<Comment[] | null> {
       const query_conditions = {
-        deleted_at: { $in: [null, undefined] },
         parent: { $in: [null, undefined] },
       };
 
@@ -37,10 +36,8 @@ export default function makeCommentDb({
     async findAllByPostPaginated(
       {
         post_id,
-        is_include_deleted,
       }: {
         post_id: string;
-        is_include_deleted?: boolean;
       },
       {
         query,
@@ -54,14 +51,9 @@ export default function makeCommentDb({
     ): Promise<PaginatedCommentResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
-      const query_conditions = Object.assign({
+      const query_conditions = {
         parent: { $in: [null, undefined] },
-        deleted_at: { $in: [null, undefined] },
-      });
-
-      if (is_include_deleted) {
-        delete query_conditions.deleted_at;
-      }
+      };
 
       if (post_id) {
         query_conditions["post"] = post_id;
@@ -153,10 +145,9 @@ export default function makeCommentDb({
     }): Promise<PaginatedCommentResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
-      const query_conditions = Object.assign({
-        deleted_at: { $in: [null, undefined] },
+      const query_conditions = {
         parent: { $in: [null, undefined] },
-      });
+      };
 
       if (query) {
         query_conditions["$or"] = [
@@ -209,11 +200,11 @@ export default function makeCommentDb({
     async findById({
       _id,
       is_only_parent = true,
-      is_include_deleted = true,
+      is_show_children = false,
     }: {
       _id: string;
       is_only_parent?: boolean;
-      is_include_deleted?: boolean;
+      is_show_children?: boolean;
     }): Promise<Comment | null> {
       const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
       const is_mongo_id = mongo_id_regex.test(_id);
@@ -222,18 +213,24 @@ export default function makeCommentDb({
       }
 
       const query_conditions = {
-        deleted_at: { $in: [null, undefined] },
         _id,
       };
-
-      if (is_include_deleted) {
-        delete query_conditions.deleted_at;
-      }
 
       if (is_only_parent) {
         query_conditions["parent"] = { $in: [null, undefined] };
       }
 
+      const existing = is_show_children
+        ? await this.findOneByIdWithChildren(query_conditions)
+        : await this.findOneById(query_conditions);
+
+      if (existing) {
+        return new Comment(existing);
+      }
+      return null;
+    }
+
+    async findOneById(query_conditions) {
       const existing = await commentDbModel
         .findOne(query_conditions)
         .select("_id children parent content user post created_at updated_at")
@@ -247,10 +244,38 @@ export default function makeCommentDb({
         })
         .lean({ virtuals: true });
 
-      if (existing) {
-        return new Comment(existing);
-      }
-      return null;
+      return existing;
+    }
+
+    async findOneByIdWithChildren(query_conditions) {
+      const existing = await commentDbModel
+        .findOne(query_conditions)
+        .select("_id children parent content user post created_at updated_at")
+        .populate({
+          path: "children",
+          select: "_id content user parent post created_at updated_at",
+          populate: [
+            {
+              path: "user",
+              select: "_id full_name avatar_url avatar",
+            },
+            {
+              path: "parent",
+              select: "_id",
+            },
+          ],
+        })
+        .populate({
+          path: "user",
+          select: "_id full_name avatar_url avatar",
+        })
+        .populate({
+          path: "parent",
+          select: "_id",
+        })
+        .lean({ virtuals: true });
+
+      return existing;
     }
 
     async countByPost({
@@ -266,7 +291,6 @@ export default function makeCommentDb({
 
       const query_conditions = {
         post: post_id,
-        deleted_at: { $in: [null, undefined] },
       };
 
       const number_of_comments = await commentDbModel.countDocuments(
@@ -277,12 +301,8 @@ export default function makeCommentDb({
     }
 
     async findOne(): Promise<Comment | null> {
-      const query_conditions = {
-        deleted_at: { $in: [null, undefined] },
-      };
-
       const existing = await commentDbModel
-        .findOne(query_conditions)
+        .findOne()
         .populate("children", "-_v")
         .populate("user", "-_v")
         .populate("post", "-_v")
@@ -307,20 +327,6 @@ export default function makeCommentDb({
         })
         .lean({ virtuals: true });
 
-      if (updated) {
-        return new Comment(updated);
-      }
-      return null;
-    }
-
-    async delete({ _id }: { _id: string }): Promise<Comment | null> {
-      const existing = await commentDbModel.findOneAndUpdate(
-        { _id },
-        { deleted_at: new Date() }
-      );
-      const updated = await commentDbModel
-        .findOne({ _id })
-        .lean({ virtuals: true });
       if (updated) {
         return new Comment(updated);
       }
