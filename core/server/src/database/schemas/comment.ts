@@ -3,6 +3,7 @@ import mongoose_lean_virtuals from "mongoose-lean-virtuals";
 import _ from "lodash";
 import { isEmpty } from "../../utils/is-empty";
 import { CommentLikeModel, CommentModel } from "../../data-access/models";
+import IComment from "../interfaces/comment";
 
 const Schema = mongoose.Schema;
 
@@ -66,18 +67,21 @@ commentSchema.pre("deleteOne", { document: true }, async function (next) {
       _id: this.parent.toString(),
     });
 
-    const parents_children = _.get(parent_comment, "children", []);
-    const new_parents_children = _.filter(
+    const parents_children: IComment[] = _.get(parent_comment, "children", []);
+    const new_parents_children: IComment[] = _.filter(
       parents_children,
       (comment_id) => comment_id.toString() !== this._id.toString()
     );
 
-    const updated_parent_comment = Object.assign({}, parent_comment, {
-      children: new_parents_children,
-    });
+    const updated_parent_comment: Partial<IComment> = Object.assign(
+      parent_comment,
+      {
+        children: new_parents_children,
+      }
+    );
 
     await CommentModel.findOneAndUpdate(
-      { _id: parent_comment.id },
+      { _id: parent_comment._id },
       updated_parent_comment
     );
   }
