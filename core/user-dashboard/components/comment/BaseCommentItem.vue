@@ -161,7 +161,10 @@ export default {
           id: comment_id,
           is_show_children: this.comment_data.is_shown_children,
         });
-        this.replaceCommentData({ data: this.comment });
+
+        this.replaceCommentData({
+          data: this.comment,
+        });
       } catch (error) {
         console.error(error);
       }
@@ -181,7 +184,10 @@ export default {
           id: comment_id,
           is_show_children: this.comment_data.is_shown_children,
         });
-        this.replaceCommentData({ data: this.comment });
+
+        this.replaceCommentData({
+          data: this.comment,
+        });
       } catch (error) {
         console.error(error);
       }

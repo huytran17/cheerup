@@ -39,8 +39,8 @@ export default function makeGetCommentController({
         is_only_parent: false,
         is_show_children,
       });
-      const comment_not_exists = _.isEmpty(exists) || _.isNil(exists);
-      if (comment_not_exists) {
+
+      if (isEmpty(exists)) {
         throw new Error(`Comment ${comment_id} does not exists`);
       }
 
@@ -77,7 +77,24 @@ export default function makeGetCommentController({
         };
       };
 
-      const final_comment_data = await map_meta_data(exists);
+      const children_comment = _.get(exists, "children", []);
+      const map_children_meta_data_promises = _.map(
+        children_comment,
+        async (child: IComment) => await map_meta_data(child)
+      );
+
+      const mapped_children_meta_data = await Promise.all(
+        map_children_meta_data_promises
+      );
+      const mapped_comment_meta_data = await map_meta_data(exists);
+
+      const final_comment_data: IComment = Object.assign(
+        {},
+        mapped_comment_meta_data,
+        {
+          children: mapped_children_meta_data,
+        }
+      );
 
       return {
         headers,

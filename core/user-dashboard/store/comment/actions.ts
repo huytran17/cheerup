@@ -63,7 +63,9 @@ const actions: ActionTree<CommentState, RootState> = {
       `/comment/${id}?${url_query}`
     );
 
-    commit(MutationTypes.SET_COMMENT, { data: comment });
+    commit(MutationTypes.SET_COMMENT, {
+      data: { ...comment, is_shown_children: is_show_children },
+    });
 
     return comment;
   },

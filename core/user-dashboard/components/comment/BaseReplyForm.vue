@@ -98,15 +98,21 @@ export default {
 
         ++this.refresh_comment_reply_editor_key;
 
+        const comment_data_from_list = this.comments?.find(
+          (comment) => comment._id === this.comment._id
+        );
+
         await Promise.all([
           this.COUNT_COMMENT_BY_POST({ post_id }),
           this.GET_COMMENT({
             id: this.comment._id,
-            is_show_children: this.comment.is_shown_children,
+            is_show_children: comment_data_from_list?.is_shown_children,
           }),
         ]);
 
-        this.replaceCommentData({ data: this.comment });
+        this.replaceCommentData({
+          data: this.comment,
+        });
       } catch (error) {
         console.error(error);
       } finally {
