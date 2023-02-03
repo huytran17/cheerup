@@ -30,7 +30,7 @@
         <div class="d-flex justify-end pt-4 pb-4">
           <v-btn
             depressed
-            color="black"
+            color="brick"
             tile
             class="white--text"
             :disabled="comment_loading"

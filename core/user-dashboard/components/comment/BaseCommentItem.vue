@@ -23,46 +23,67 @@
       </div>
       <div class="d-flex">
         <div class="d-flex">
-          <v-icon
-            :color="is_liked ? 'brick' : 'black'"
-            small
-            class="mr-1 clickable"
-            @click="likeComment"
-            >{{ is_liked ? "mdi-heart" : "mdi-heart-outline" }}</v-icon
-          >
-          <span class="text-body-2">
-            <span class="app-body">{{ comment_likes }}</span>
-          </span>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-icon
+                v-bind="attrs"
+                v-on="on"
+                :color="is_liked ? 'brick' : 'black'"
+                small
+                class="mr-1 clickable"
+                @click="likeComment"
+                >{{ is_liked ? "mdi-heart" : "mdi-heart-outline" }}</v-icon
+              >
+              <span class="text-body-2">
+                <span class="app-body">{{ comment_likes }}</span>
+              </span>
+            </template>
+            <span v-html="$t('Like')"></span>
+          </v-tooltip>
         </div>
 
         <div class="d-flex pl-3">
-          <v-icon
-            :color="is_disliked ? 'brick' : 'black'"
-            small
-            class="mr-1 clickable"
-            @click="dislikeComment"
-          >
-            {{
-              is_disliked ? "mdi-thumb-down" : "mdi-thumb-down-outline"
-            }}</v-icon
-          >
-          <span class="text-body-2">
-            <span class="app-body">{{ comment_dislikes }}</span>
-          </span>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-icon
+                v-bind="attrs"
+                v-on="on"
+                :color="is_disliked ? 'brick' : 'black'"
+                small
+                class="mr-1 clickable"
+                @click="dislikeComment"
+              >
+                {{
+                  is_disliked ? "mdi-thumb-down" : "mdi-thumb-down-outline"
+                }}</v-icon
+              >
+              <span class="text-body-2">
+                <span class="app-body">{{ comment_dislikes }}</span>
+              </span>
+            </template>
+            <span v-html="$t('Dislike')"></span>
+          </v-tooltip>
         </div>
 
         <div v-if="is_own_comment" class="d-flex pl-5">
-          <v-icon
-            small
-            class="mr-1 clickable icon__font--medium"
-            @click="
-              () => {
-                SET_COMMENT({ data: comment_data });
-                SET_IS_OPEN_EDIT_COMMENT({ data: true });
-              }
-            "
-            >mdi-playlist-edit</v-icon
-          >
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-icon
+                v-bind="attrs"
+                v-on="on"
+                small
+                class="mr-1 clickable icon__font--medium"
+                @click="
+                  () => {
+                    SET_COMMENT({ data: comment_data });
+                    SET_IS_OPEN_EDIT_COMMENT({ data: true });
+                  }
+                "
+                >mdi-playlist-edit</v-icon
+              >
+            </template>
+            <span v-html="$t('Edit')"></span>
+          </v-tooltip>
         </div>
 
         <div
@@ -75,18 +96,34 @@
             }
           "
         >
-          <v-icon small class="mr-1 clickable icon__font--medium"
-            >mdi-reply-outline</v-icon
-          >
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-icon
+                v-bind="attrs"
+                v-on="on"
+                small
+                class="mr-1 clickable icon__font--medium"
+                >mdi-reply-outline</v-icon
+              >
+            </template>
+            <span v-html="$t('Reply')"></span>
+          </v-tooltip>
         </div>
 
         <div v-if="is_own_comment" class="d-flex pl-2">
-          <v-icon
-            small
-            class="mr-1 clickable icon__font--medium"
-            @click="deleteComment"
-            >mdi-delete-outline</v-icon
-          >
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-icon
+                v-bind="attrs"
+                v-on="on"
+                small
+                class="mr-1 clickable icon__font--medium"
+                @click="deleteComment"
+                >mdi-delete-outline</v-icon
+              >
+            </template>
+            <span v-html="$t('Delete')"></span>
+          </v-tooltip>
         </div>
       </div>
     </div>
