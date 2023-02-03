@@ -5,16 +5,25 @@ import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import IComment from "../../../../database/interfaces/comment";
+import { ICountCommentLikeByCommentAndType } from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
+import { IGetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
+import { CommentLikeType } from "../../../../database/interfaces/comment-like";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeCreateCommentController({
   createComment,
   getPost,
   getUser,
+  countCommentLikeByCommentAndType,
+  getCommentLikeByUserAndComment,
   logger,
 }: {
   createComment: ICreateComment;
   getPost: IGetPost;
   getUser: IGetUser;
+  countCommentLikeByCommentAndType: ICountCommentLikeByCommentAndType;
+  getCommentLikeByUserAndComment: IGetCommentLikeByUserAndComment;
   logger: Logger;
 }) {
   return async function createCommentController(
@@ -75,11 +84,48 @@ export default function makeCreateCommentController({
         commentDetails: final_comment_data,
       });
 
+      const map_meta_data = async (comment: IComment) => {
+        const likes_count = await countCommentLikeByCommentAndType({
+          comment_id: comment._id,
+          type: CommentLikeType.Like,
+        });
+
+        const dislikes_count = await countCommentLikeByCommentAndType({
+          comment_id: comment._id,
+          type: CommentLikeType.Dislike,
+        });
+
+        const comment_liked_by_user = await getCommentLikeByUserAndComment({
+          user_id,
+          comment_id: comment._id,
+        });
+
+        const is_liked =
+          !isEmpty(comment_liked_by_user) &&
+          comment_liked_by_user.type === CommentLikeType.Like;
+
+        const is_disliked =
+          !isEmpty(comment_liked_by_user) &&
+          comment_liked_by_user.type === CommentLikeType.Dislike;
+
+        return {
+          ...comment,
+          likes_count,
+          dislikes_count,
+          is_liked,
+          is_disliked,
+        };
+      };
+
+      const updated_comment_data: IComment = await map_meta_data(
+        created_comment
+      );
+
       return {
         headers,
         statusCode: HttpStatusCode.CREATED,
         body: {
-          data: created_comment,
+          data: updated_comment_data,
         },
       };
     } catch (error) {

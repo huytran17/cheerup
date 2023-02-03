@@ -68,6 +68,8 @@ const createCommentController = makeCreateCommentController({
   createComment,
   getPost,
   getUser,
+  countCommentLikeByCommentAndType,
+  getCommentLikeByUserAndComment,
   logger,
 });
 

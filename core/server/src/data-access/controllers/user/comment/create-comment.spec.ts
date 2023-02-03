@@ -14,7 +14,12 @@ import { logger } from "../../../../../__tests__/jest-logger";
 import makeCommentDb from "../../../make-comment-db";
 import makePostDb from "../../../make-post-db";
 import makeUserDb from "../../../make-user-db";
-import { CommentModel, PostModel, UserModel } from "../../../models";
+import {
+  CommentModel,
+  PostModel,
+  UserModel,
+  CommentLikeModel,
+} from "../../../models";
 import makeGetPost from "../../../../use-cases/post/get-post";
 import makeGetUser from "../../../../use-cases/user/get-user";
 import makeCreateUser from "../../../../use-cases/user/create-user";
@@ -22,6 +27,9 @@ import makeCreatePost from "../../../../use-cases/post/create-post";
 import makeCreateComment from "../../../../use-cases/comment/create-comment";
 import makeCreateCommentController from "./create-comment";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import makeCountCommentLikeByCommentAndType from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
+import makeGetCommentLikeByUserAndComment from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
+import makeCommentLikeDb from "../../../make-comment-like-db";
 
 describe("createComment", () => {
   beforeAll(async () => {
@@ -49,12 +57,22 @@ describe("createComment", () => {
       userDbModel: UserModel,
       moment,
     });
+    const commentLikeDb = makeCommentLikeDb({
+      commentLikeDbModel: CommentLikeModel,
+      moment,
+    });
 
     const getPost = makeGetPost({ postDb, logger });
     const createPost = makeCreatePost({ postDb, logger });
     const createComment = makeCreateComment({ commentDb, logger });
     const createUser = makeCreateUser({ userDb, logger });
     const getUser = makeGetUser({ userDb, logger });
+    const countCommentLikeByCommentAndType =
+      makeCountCommentLikeByCommentAndType({ commentLikeDb, logger });
+    const getCommentLikeByUserAndComment = makeGetCommentLikeByUserAndComment({
+      commentLikeDb,
+      logger,
+    });
 
     const mock_post_data = fakePost();
     const mock_user_data = fakeUser();
@@ -71,6 +89,8 @@ describe("createComment", () => {
       createComment,
       getPost,
       getUser,
+      countCommentLikeByCommentAndType,
+      getCommentLikeByUserAndComment,
       logger,
     });
 
