@@ -1,4 +1,7 @@
 {
-    "Do you want to delete {title} forever?": "Do you want to delete <b>{title}</b> forever?",
-    "Welcome, {admin_name}!": "Welcome, {admin_name}!"
+  "Do you want to delete {title} forever?": "Do you want to delete <b>{title}</b> forever?",
+  "Welcome, {admin_name}!": "Welcome, {admin_name}!",
+  "+{count} per day": "+{count} per day",
+  "+{count} per month": "+{count} per month",
+  "+{count} per year": "+{count} per year"
 }

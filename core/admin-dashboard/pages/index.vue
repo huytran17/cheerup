@@ -3,12 +3,18 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import BaseDashboardAnalysis from "@/components/dashboard/BaseDashboardAnalysis";
 export default {
   name: "AdminDashboard",
   components: {
     BaseDashboardAnalysis,
+  },
+
+  computed: {
+    ...mapGetters({
+      analysis_unit: "analysis_unit",
+    }),
   },
 
   methods: {
@@ -23,10 +29,10 @@ export default {
   async fetch() {
     try {
       await Promise.all([
-        this.GET_USER_ANALYTICS(),
-        this.GET_ADMIN_ANALYTICS(),
-        this.GET_POST_ANALYTICS(),
-        this.GET_SUBSCRIPTION_ANALYTICS(),
+        this.GET_USER_ANALYTICS({ unit: this.analysis_unit }),
+        this.GET_ADMIN_ANALYTICS({ unit: this.analysis_unit }),
+        this.GET_POST_ANALYTICS({ unit: this.analysis_unit }),
+        this.GET_SUBSCRIPTION_ANALYTICS({ unit: this.analysis_unit }),
       ]);
     } catch (error) {
       console.error(error);

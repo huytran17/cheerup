@@ -16,9 +16,14 @@ export default {
       SET_APP_LOADING: "SET_APP_LOADING",
     }),
     formatDate(date, format) {
+      if (!date) {
+        return;
+      }
+
       if (format) {
         return this.$moment(date).format(format);
       }
+
       return this.$moment(date).fromNow();
     },
   },

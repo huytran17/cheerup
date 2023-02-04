@@ -6,6 +6,7 @@ import IUserDb, {
 } from "./interfaces/user-db";
 import User from "../database/entities/user";
 import IUser from "../database/interfaces/user";
+import { AnalyssisUnit } from "../constants/analysis-unit";
 
 export default function makeUserDb({
   userDbModel,
@@ -44,7 +45,20 @@ export default function makeUserDb({
 
       while (from_date_formatted.isSameOrBefore(to_date_formatted, unit)) {
         const date = from_date_formatted.format("YYYY-MM-DD");
-        formatted_dates.push(date);
+        let formatted_date = date;
+
+        switch (unit) {
+          case AnalyssisUnit.MONTH:
+            formatted_date = from_date_formatted.format("YYYY-MM");
+            break;
+          case AnalyssisUnit.YEAR:
+            formatted_date = from_date_formatted.format("YYYY");
+            break;
+          default:
+            break;
+        }
+
+        formatted_dates.push(formatted_date);
 
         const start_at = moment(from_date_formatted, "yyyy-MM-DD").startOf(
           unit
@@ -72,7 +86,6 @@ export default function makeUserDb({
           }),
           userDbModel.countDocuments({
             ...query_conditions,
-            deleted_at: { $in: [null, undefined] },
             is_blocked_comment: true,
             created_at: {
               $gte: start_at,

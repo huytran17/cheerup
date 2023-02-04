@@ -33,15 +33,26 @@
     </div>
     <div class="d-flex flex-column">
       <div class="text-body-1 green--text">
-        <span class="app-body">{{ data.total }}</span>
+        <span
+          class="app-title"
+          v-html="
+            $tc(`+{count} per ${analysis_unit}`, data.average || 0, {
+              count: data.average || 0,
+            })
+          "
+        ></span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import systemMixins from "@/mixins/system";
+
 export default {
   name: "BaseOverallCard",
+  mixins: [systemMixins],
   props: {
     data: {
       type: Object,
@@ -52,6 +63,11 @@ export default {
     return {
       options: [{ text: "Refresh" }],
     };
+  },
+  computed: {
+    ...mapGetters({
+      analysis_unit: "analysis_unit",
+    }),
   },
 };
 </script>
