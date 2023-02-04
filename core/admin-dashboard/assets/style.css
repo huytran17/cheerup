@@ -93,6 +93,10 @@
   box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px !important;
 }
 
+.card-box-shadow {
+  box-shadow: 0 2px 6px 0 rgb(67 89 113 / 12%) !important;
+}
+
 .no-box-shadow {
   box-shadow: none !important;
 }

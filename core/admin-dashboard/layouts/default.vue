@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-main>
+    <v-main class="background">
       <TheSideNav />
       <nuxt />
       <v-scroll-to-top></v-scroll-to-top>

@@ -91,6 +91,7 @@ export default {
           pinterest: "#E60023",
           linkedin: "#0A66C2",
           github: "#171515",
+          background: "#F5F5F9",
         },
       },
     },
