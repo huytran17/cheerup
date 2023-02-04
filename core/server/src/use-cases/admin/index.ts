@@ -1,4 +1,5 @@
 import { logger } from "../../config/logs/logger";
+import { redis } from "../../config/redis";
 
 import { AdminDb } from "../../data-access";
 
@@ -18,6 +19,8 @@ const getOneAdmin = makeGetOneAdmin({
 
 const getAdminAnalystics = makeGetAdminAnalystics({
   adminDb: AdminDb,
+  redis,
+  logger,
 });
 
 const hardDeleteAdmin = makeHardDeleteAdmin({

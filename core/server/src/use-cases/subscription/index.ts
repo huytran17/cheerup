@@ -1,4 +1,6 @@
 import { logger } from "../../config/logs/logger";
+import { redis } from "../../config/redis";
+
 import { SubscriptionDb } from "../../data-access";
 import makeCreateSubscription from "./create-subscription";
 import makeGetActivatingSubscriptions from "./get-activating-subscriptions";
@@ -10,6 +12,8 @@ import makeUpdateSubscription from "./update-subscription";
 
 const getSubscriptionAnalystics = makeGetSubscriptionAnalystics({
   subscriptionDb: SubscriptionDb,
+  redis,
+  logger,
 });
 
 const getActivatingSubscriptions = makeGetActivatingSubscriptions({

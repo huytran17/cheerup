@@ -1,4 +1,5 @@
 import { logger } from "../../config/logs/logger";
+import { redis } from "../../config/redis";
 
 import { PostDb } from "../../data-access";
 
@@ -30,6 +31,8 @@ const getHighlightPost = makeGetHighlightPost({
 
 const getPostAnalystics = makeGetPostAnalystics({
   postDb: PostDb,
+  redis,
+  logger,
 });
 
 const hardDeletePost = makeHardDeletePost({
