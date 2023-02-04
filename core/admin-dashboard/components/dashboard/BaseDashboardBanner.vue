@@ -1,6 +1,8 @@
 <template>
-  <v-row class="d-flex px-4 pt-4">
-    <v-col cols="12" md="9" class="d-flex flex-column">
+  <div
+    class="d-flex flex-column flex-md-row px-4 pt-4 card-box-shadow rounded-lg white"
+  >
+    <div class="mb-4 mb-md-0">
       <div
         class="text-body-1 text-md-h6 primary--text text-center text-md-left"
       >
@@ -24,18 +26,16 @@
           "
         ></span>
       </div>
-    </v-col>
-    <v-col cols="12" md="3">
-      <v-img
-        :src="welcome_image"
-        :lazy-src="welcome_image"
-        :alt="$t('welcome admin')"
-        contain
-        max-width="180px"
-        class="mx-auto"
-      ></v-img>
-    </v-col>
-  </v-row>
+    </div>
+    <v-img
+      :src="welcome_image"
+      :lazy-src="welcome_image"
+      :alt="$t('welcome admin')"
+      contain
+      max-width="180px"
+      class="mx-auto"
+    ></v-img>
+  </div>
 </template>
 
 <script>
