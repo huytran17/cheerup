@@ -38,7 +38,6 @@ build/Release
 node_modules/
 jspm_packages/
 mongo/
-redis/
 .jest-cache/
 
 # TypeScript v1 declaration files
