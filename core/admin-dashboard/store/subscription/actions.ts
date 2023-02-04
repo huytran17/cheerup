@@ -7,8 +7,8 @@ import _ from "lodash";
 
 const actions: ActionTree<SubscriptionState, RootState> = {
   async [ActionTypes.GET_SUBSCRIPTION_ANALYTICS]({ commit }, params = {}) {
-    const distance = _.get(params, "distance", 7);
-    const unit = _.get(params, "unit", "day");
+    const distance = _.get(params, "distance", 12);
+    const unit = _.get(params, "unit", "month");
 
     let url_query = new URLSearchParams();
 

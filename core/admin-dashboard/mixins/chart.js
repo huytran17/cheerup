@@ -75,15 +75,6 @@ export default {
               []
             ),
           },
-          {
-            label: "Verified Email",
-            backgroundColor: "rgba(250, 0, 255, 1)",
-            data: _.get(
-              this.user_analys_data,
-              "total_verified_email_counts",
-              []
-            ),
-          },
         ],
       };
     },

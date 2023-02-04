@@ -1,4 +1,5 @@
 import { logger } from "../../config/logs/logger";
+import { redis } from "../../config/redis";
 
 import { UserDb } from "../../data-access";
 
@@ -27,6 +28,8 @@ const createUser = makeCreateUser({
 
 const getUserAnalystics = makeGetUserAnalystics({
   userDb: UserDb,
+  redis,
+  logger,
 });
 
 const hardDeleteUser = makeHardDeleteUser({

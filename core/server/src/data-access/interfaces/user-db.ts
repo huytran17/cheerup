@@ -56,7 +56,6 @@ export interface IUserAnalyticsData {
   total_created_counts: number[];
   total_deleted_counts: number[];
   total_blocked_comment_counts: number[];
-  total_verified_email_counts: number[];
   total_count: number;
   formatted_dates: string[];
 }

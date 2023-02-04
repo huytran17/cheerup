@@ -34,7 +34,7 @@ export default class Redis {
     duration_in_seconds,
   }: {
     key: string;
-    value: string;
+    value: any;
     duration_in_seconds?: number;
   }): void {
     if (!this.redis_client) {
@@ -58,7 +58,7 @@ export default class Redis {
     return;
   }
 
-  async getData({ key }: { key: string }): Promise<void> {
+  async getData({ key }: { key: string }): Promise<any> {
     if (!this.redis_client) {
       logger.warn("Redis Client: Not available");
       return;
@@ -111,6 +111,22 @@ export default class Redis {
 
     new Redis();
     return Redis.redis_instance;
+  }
+
+  cacheKeyBuilder(params = {}): string {
+    if (!this.redis_client) {
+      return null;
+    }
+
+    const key_array = [];
+    for (const key in params) {
+      const value = params[key];
+      if (!value) {
+        continue;
+      }
+      key_array.push(`${key}=${params[key]}`);
+    }
+    return key_array.join("&");
   }
 }
 

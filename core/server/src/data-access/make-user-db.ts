@@ -31,7 +31,6 @@ export default function makeUserDb({
       const total_created_counts = [];
       const total_deleted_counts = [];
       const total_blocked_comment_counts = [];
-      const total_verified_email_counts = [];
 
       const query_conditions = {};
 
@@ -47,41 +46,37 @@ export default function makeUserDb({
         const date = from_date_formatted.format("YYYY-MM-DD");
         formatted_dates.push(date);
 
+        const start_at = moment(from_date_formatted, "yyyy-MM-DD").startOf(
+          unit
+        );
+        const end_at = moment(from_date_formatted, "yyyy-MM-DD").endOf(unit);
+
         const [
           total_deleted_count,
           total_created_count,
           total_blocked_comment_count,
-          total_verified_email_count,
         ] = await Promise.all([
           userDbModel.countDocuments({
             ...query_conditions,
             deleted_at: {
-              $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
-              $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
+              $gte: start_at,
+              $lte: end_at,
             },
           }),
           userDbModel.countDocuments({
             ...query_conditions,
             created_at: {
-              $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
-              $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
-            },
-          }),
-          userDbModel.countDocuments({
-            ...query_conditions,
-            deleted_at: { $in: [null, undefined] },
-            is_blocked_comment: { $nin: [null, undefined] },
-            created_at: {
-              $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
-              $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
+              $gte: start_at,
+              $lte: end_at,
             },
           }),
           userDbModel.countDocuments({
             ...query_conditions,
             deleted_at: { $in: [null, undefined] },
+            is_blocked_comment: true,
             created_at: {
-              $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
-              $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
+              $gte: start_at,
+              $lte: end_at,
             },
           }),
         ]);
@@ -89,14 +84,12 @@ export default function makeUserDb({
         total_created_counts.push(total_created_count);
         total_deleted_counts.push(total_deleted_count);
         total_blocked_comment_counts.push(total_blocked_comment_count);
-        total_verified_email_counts.push(total_verified_email_count);
         from_date_formatted.add(1, unit);
       }
       return {
         total_created_counts,
         total_deleted_counts,
         total_blocked_comment_counts,
-        total_verified_email_counts,
         formatted_dates,
         total_count,
       };
