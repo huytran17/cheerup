@@ -13,8 +13,9 @@ const S3_UPLOAD_URL_TYPES = {
 };
 
 const ADMIN_TYPES = {
-  SUPER: "super",
-  NORMAL: "normal",
+  OWNER: "owner",
+  COLLABORATOR: "collaborator",
+  EDITOR: "editor",
 };
 
 const HTTP_STATUS_CODE = {
