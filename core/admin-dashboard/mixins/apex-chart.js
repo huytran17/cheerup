@@ -52,23 +52,42 @@ export default {
       };
     },
 
-    user_chart_data() {
+    user_chart() {
       return {
-        labels: _.get(this.user_analys_data, "formatted_dates", []),
-        datasets: [
+        options: {
+          chart: {
+            id: "user-analytics",
+            type: "bar",
+          },
+          xaxis: {
+            categories: _.get(this.user_analys_data, "formatted_dates", []),
+          },
+          fill: {
+            opacity: 1,
+          },
+          stroke: {
+            show: true,
+            width: 2,
+            colors: ["transparent"],
+          },
+          plotOptions: {
+            bar: {
+              horizontal: false,
+            },
+          },
+          colors: ["#16e063", "#fc3232", "#f5fc32"],
+        },
+        series: [
           {
-            label: "Created",
-            backgroundColor: "rgba(0, 255, 46, 1)",
+            name: "Created",
             data: _.get(this.user_analys_data, "total_created_counts", []),
           },
           {
-            label: "Deleted",
-            backgroundColor: "rgba(232, 60, 60, 1)",
+            name: "Deleted",
             data: _.get(this.user_analys_data, "total_deleted_counts", []),
           },
           {
-            label: "Blocked Commenting",
-            backgroundColor: "rgba(255, 229, 0, 1)",
+            name: "Blocked Commenting",
             data: _.get(
               this.user_analys_data,
               "total_blocked_comment_counts",

@@ -1,5 +1,5 @@
 <template>
-  <v-container class="px-6 mt-4">
+  <v-container fluid class="mt-4">
     <v-row>
       <v-col cols="12" lg="8">
         <BaseDashboardBanner />
@@ -14,9 +14,17 @@
 
     <v-row>
       <v-col cols="12" lg="8">
-        <div class="card-box-shadow rounded-lg white pa-4">
-          <BarChart :chartData="user_chart_data" :height="375" />
-        </div>
+        <v-row>
+          <v-col cols="12" lg="8">
+            <div class="card-box-shadow rounded-lg white pa-4">
+              <apex-chart
+                :height="315"
+                :options="user_chart.options"
+                :series="user_chart.series"
+              />
+            </div>
+          </v-col>
+        </v-row>
       </v-col>
       <v-col cols="12" lg="4">
         <v-row>
@@ -36,20 +44,18 @@
 </template>
 
 <script>
-import chartMixins from "@/mixins/chart";
+import chartMixins from "~/mixins/apex-chart";
 import BaseDashboardBanner from "@/components/dashboard/BaseDashboardBanner";
 import BaseOverallAdminCard from "@/components/dashboard/BaseOverallAdminCard";
 import BaseOverallUserCard from "@/components/dashboard/BaseOverallUserCard";
 import BaseOverallSubscriptionCard from "@/components/dashboard/BaseOverallSubscriptionCard";
 import BaseOverallPostCard from "@/components/dashboard/BaseOverallPostCard";
-import BarChart from "@/components/charts/BarChart";
 
 export default {
   name: "BaseDashboardAnalysis",
   mixins: [chartMixins],
   components: {
     BaseDashboardBanner,
-    BarChart,
     BaseOverallAdminCard,
     BaseOverallUserCard,
     BaseOverallSubscriptionCard,
