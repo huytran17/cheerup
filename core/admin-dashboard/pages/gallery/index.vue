@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="!loading">
+  <div v-if="!loading">
     <v-row>
       <v-col cols="12" class="pb-0">
         <div class="text-h6 pb-3 text-center cyan--text">
@@ -38,7 +38,7 @@
       @close-dialog="is_open_create_gallery_dialog = false"
       @confirm-dialog="createFolder"
     />
-  </v-container>
+  </div>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div>
     <v-row>
       <v-col cols="12" class="pb-0">
         <div class="text-h6 pb-3 text-center cyan--text">
@@ -12,7 +12,7 @@
         <BaseCommentTable />
       </v-col>
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>

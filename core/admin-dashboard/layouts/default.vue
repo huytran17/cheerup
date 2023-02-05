@@ -2,7 +2,9 @@
   <v-app>
     <v-main class="background">
       <TheSideNav />
-      <nuxt />
+      <v-container fluid>
+        <nuxt />
+      </v-container>
       <v-scroll-to-top></v-scroll-to-top>
       <BaseAppOverlay v-if="app_loading" />
     </v-main>

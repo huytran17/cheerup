@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <v-container v-if="!loading" class="px-6">
     <v-row class="my-4">
       <v-col cols="12" class="rounded-lg soft-box-shadow">
@@ -333,4 +333,4 @@ export default {
     }
   },
 };
-</script>
+</script> -->
