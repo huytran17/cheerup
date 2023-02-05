@@ -36,7 +36,7 @@
         <span
           class="app-title"
           v-html="
-            $tc(`+{count} per ${analysis_unit}`, data.average || 0, {
+            $tc(`+{count} per ${analysis.unit}`, data.average || 0, {
               count: data.average || 0,
             })
           "
@@ -66,7 +66,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      analysis_unit: "analysis_unit",
+      analysis: "analysis",
     }),
   },
 };

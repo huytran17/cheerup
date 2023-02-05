@@ -13,7 +13,7 @@ export default {
 
   computed: {
     ...mapGetters({
-      analysis_unit: "analysis_unit",
+      analysis: "analysis",
     }),
   },
 
@@ -29,10 +29,10 @@ export default {
   async fetch() {
     try {
       await Promise.all([
-        this.GET_USER_ANALYTICS({ unit: this.analysis_unit }),
-        this.GET_ADMIN_ANALYTICS({ unit: this.analysis_unit }),
-        this.GET_POST_ANALYTICS({ unit: this.analysis_unit }),
-        this.GET_SUBSCRIPTION_ANALYTICS({ unit: this.analysis_unit }),
+        this.GET_USER_ANALYTICS({ ...this.analysis }),
+        this.GET_ADMIN_ANALYTICS({ ...this.analysis }),
+        this.GET_POST_ANALYTICS({ ...this.analysis }),
+        this.GET_SUBSCRIPTION_ANALYTICS({ ...this.analysis }),
       ]);
     } catch (error) {
       console.error(error);

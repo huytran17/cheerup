@@ -2,7 +2,10 @@ import { ActionTree, MutationTree, GetterTree } from "vuex";
 
 export const state = () => ({
   app_loading: false,
-  analysis_unit: "month",
+  analysis: {
+    unit: "month",
+    distance: 12,
+  },
 });
 
 export type RootState = ReturnType<typeof state>;
@@ -14,7 +17,7 @@ export const getters: GetterTree<RootState, RootState> = {
     return "/";
   },
   app_loading: (state) => state.app_loading,
-  analysis_unit: (state) => state.analysis_unit,
+  analysis: (state) => state.analysis,
 };
 
 export const mutations: MutationTree<RootState> = {
@@ -22,7 +25,7 @@ export const mutations: MutationTree<RootState> = {
     state.app_loading = data;
   },
 
-  SET_ANALYSIS_UNIT(state, { data }: { data: string }) {
-    state.analysis_unit = data;
+  SET_ANALYSIS_DATA(state, { data }: { data: any }) {
+    state.analysis = data;
   },
 };

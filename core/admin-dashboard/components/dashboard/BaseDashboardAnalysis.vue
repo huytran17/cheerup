@@ -14,17 +14,13 @@
 
     <v-row>
       <v-col cols="12" lg="8">
-        <v-row>
-          <v-col cols="12" lg="8">
-            <div class="card-box-shadow rounded-lg white pa-4">
-              <apex-chart
-                :height="315"
-                :options="user_chart.options"
-                :series="user_chart.series"
-              />
-            </div>
-          </v-col>
-        </v-row>
+        <div class="card-box-shadow rounded-lg white pa-4">
+          <apex-chart
+            :height="315"
+            :options="user_chart.options"
+            :series="user_chart.series"
+          />
+        </div>
       </v-col>
       <v-col cols="12" lg="4">
         <v-row>

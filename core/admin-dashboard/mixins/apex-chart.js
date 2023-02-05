@@ -62,20 +62,21 @@ export default {
           xaxis: {
             categories: _.get(this.user_analys_data, "formatted_dates", []),
           },
-          fill: {
-            opacity: 1,
+          colors: ["#16e063", "#fc3232", "#f5fc32"],
+          title: {
+            text: "Users",
+            align: "left",
+            style: {
+              color: "#1976D2",
+              fontFamily: "Lato, sans-serif",
+              fontWeight: "600",
+            },
           },
           stroke: {
             show: true,
             width: 2,
             colors: ["transparent"],
           },
-          plotOptions: {
-            bar: {
-              horizontal: false,
-            },
-          },
-          colors: ["#16e063", "#fc3232", "#f5fc32"],
         },
         series: [
           {
