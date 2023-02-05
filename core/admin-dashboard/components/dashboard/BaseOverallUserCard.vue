@@ -5,6 +5,8 @@
 <script>
 import { mapGetters } from "vuex";
 import BaseOverallCard from "@/components/dashboard/BaseOverallCard";
+import { financialAverage } from "@/utils";
+
 export default {
   name: "BaseOverallUser",
   components: {
@@ -16,13 +18,15 @@ export default {
     }),
 
     user_data() {
-      const total = _.get(this.user_analys_data, "total_count", 0);
-      const distances = _.get(this.user_analys_data, "formatted_dates", []);
-      const average = Math.round(total / distances.length);
+      const total_created_counts = _.get(
+        this.user_analys_data,
+        "total_created_counts",
+        []
+      );
 
       return {
         total: _.get(this.user_analys_data, "total_count", 0),
-        average,
+        average: financialAverage(total_created_counts),
         text: "Users",
         icon: "mdi-account-supervisor-circle",
       };
