@@ -1,4 +1,5 @@
 import { ActionTree, MutationTree, GetterTree } from "vuex";
+import { update } from "lodash";
 
 export const state = () => ({
   app_loading: false,
@@ -25,7 +26,12 @@ export const mutations: MutationTree<RootState> = {
     state.app_loading = data;
   },
 
-  SET_ANALYSIS_DATA(state, { data }: { data: any }) {
-    state.analysis = data;
+  UPDATE_ANALYSIS_DATA(
+    state,
+    { data, variable_path }: { data: any; variable_path: string }
+  ) {
+    state.analysis = update(state.analysis, variable_path, (n) => {
+      return data;
+    });
   },
 };

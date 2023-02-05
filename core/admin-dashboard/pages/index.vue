@@ -1,14 +1,20 @@
 <template>
-  <BaseDashboardAnalysis />
+  <div class="d-flex flex-column">
+    <BaseAnalysisToggler @refresh="$fetch" />
+    <BaseDashboardAnalysis />
+  </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
 import BaseDashboardAnalysis from "@/components/dashboard/BaseDashboardAnalysis";
+import BaseAnalysisToggler from "@/components/dashboard/BaseAnalysisToggler";
+
 export default {
   name: "AdminDashboard",
   components: {
     BaseDashboardAnalysis,
+    BaseAnalysisToggler,
   },
 
   computed: {
