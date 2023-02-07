@@ -19,10 +19,10 @@ export default interface IAdminDb {
   hardDelete: ({ _id }: { _id: string }) => Promise<Admin | null>;
   update: (updatePayload: Partial<IAdmin>) => Promise<Admin | null>;
   getAdminAnalystics: ({
-    distance,
+    range,
     unit,
   }: {
-    distance?: number;
+    range?: string[];
     unit?: string;
   }) => Promise<IAdminAnalyticsData>;
 }

@@ -5,10 +5,10 @@ import Redis from "../../config/redis";
 import { Logger } from "winston";
 
 export type IGetAdminAnalystics = ({
-  distance,
+  range,
   unit,
 }: {
-  distance?: number;
+  range?: string[];
   unit?: string;
 }) => Promise<IAdminAnalyticsData>;
 
@@ -23,15 +23,15 @@ export default function makeGetAdminAnalystics({
 }): IGetAdminAnalystics {
   return async function getAdminAnalystics({
     unit,
-    distance,
+    range,
   }: {
     unit?: string;
-    distance?: number;
+    range?: string[];
   }): Promise<IAdminAnalyticsData> {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "getAdminAnalystics",
       unit,
-      distance,
+      range,
     });
 
     const cached_data = await redis.getData({ key: cache_key });
@@ -40,7 +40,7 @@ export default function makeGetAdminAnalystics({
       return cached_data;
     }
 
-    const data = await adminDb.getAdminAnalystics({ distance, unit });
+    const data = await adminDb.getAdminAnalystics({ range, unit });
 
     const one_day_in_seconds = 24 * 60 * 60;
     redis.setData({

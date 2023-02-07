@@ -32,10 +32,10 @@ export default interface IUserDb {
   hardDelete: ({ _id }: { _id: string }) => Promise<User | null>;
   update: (updatePayload: Partial<IUser>) => Promise<User | null>;
   getUserAnalystics: ({
-    distance,
+    range,
     unit,
   }: {
-    distance?: number;
+    range?: string[];
     unit?: string;
   }) => Promise<IUserAnalyticsData>;
 }

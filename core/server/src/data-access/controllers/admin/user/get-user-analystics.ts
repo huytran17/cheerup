@@ -16,12 +16,17 @@ export default function makeGetUserAnalysticsController({
     };
 
     try {
-      const { distance, unit }: { distance?: number; unit?: string } = _.get(
+      const { range, unit }: { range?: string; unit?: string } = _.get(
         httpRequest,
         "context.validated"
       );
 
-      const analystics_data = await getUserAnalystics({ distance, unit });
+      const splitted_range = _.split(range, ",");
+
+      const analystics_data = await getUserAnalystics({
+        range: splitted_range,
+        unit,
+      });
 
       return {
         headers,

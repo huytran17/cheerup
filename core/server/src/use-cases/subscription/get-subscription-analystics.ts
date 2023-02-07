@@ -5,10 +5,10 @@ import Redis from "../../config/redis";
 import { Logger } from "winston";
 
 export type IGetSubscriptionAnalystics = ({
-  distance,
+  range,
   unit,
 }: {
-  distance?: number;
+  range?: string[];
   unit?: string;
 }) => Promise<ISubscriptionAnalyticsData>;
 
@@ -23,15 +23,15 @@ export default function makeGetSubscriptionAnalystics({
 }): IGetSubscriptionAnalystics {
   return async function getSubscriptionAnalystics({
     unit,
-    distance,
+    range,
   }: {
     unit?: string;
-    distance?: number;
+    range?: string[];
   }): Promise<ISubscriptionAnalyticsData> {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "getSubscriptionAnalystics",
       unit,
-      distance,
+      range,
     });
 
     const cached_data = await redis.getData({ key: cache_key });
@@ -41,7 +41,7 @@ export default function makeGetSubscriptionAnalystics({
     }
 
     const data = await subscriptionDb.getSubscriptionAnalystics({
-      distance,
+      range,
       unit,
     });
 

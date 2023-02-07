@@ -47,10 +47,10 @@ export default interface IPostDb {
   hardDelete: ({ _id }: { _id: string }) => Promise<Post | null>;
   update: (updatePayload: Partial<IPost>) => Promise<Post | null>;
   getPostAnalystics: ({
-    distance,
+    range,
     unit,
   }: {
-    distance?: number;
+    range?: string[];
     unit?: string;
   }) => Promise<IPostAnalyticsData>;
 }

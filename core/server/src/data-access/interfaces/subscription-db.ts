@@ -22,10 +22,10 @@ export default interface ISubscriptionDb {
     updatePayload: Partial<ISubscription>
   ) => Promise<Subscription | null>;
   getSubscriptionAnalystics: ({
-    distance,
+    range,
     unit,
   }: {
-    distance?: number;
+    range?: string[];
     unit?: string;
   }) => Promise<ISubscriptionAnalyticsData>;
 }

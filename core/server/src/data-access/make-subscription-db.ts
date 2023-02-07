@@ -6,6 +6,7 @@ import ISubscriptionDb, {
   ISubscriptionAnalyticsData,
   PaginatedSubscriptionResult,
 } from "./interfaces/subscription-db";
+import { AnalyssisUnit } from "../constants/analysis-unit";
 
 export default function makeSubscriptionDb({
   subscriptionDbModel,
@@ -19,14 +20,23 @@ export default function makeSubscriptionDb({
 }): ISubscriptionDb {
   return new (class MongooseSubscriptionDb implements ISubscriptionDb {
     async getSubscriptionAnalystics({
-      distance = 7,
+      range = [],
       unit = "day",
     }: {
-      distance?: number;
+      range?: string[];
       unit?: string;
     }): Promise<ISubscriptionAnalyticsData> {
-      const from_date_formatted = moment().subtract(distance, unit);
-      const to_date_formatted = moment();
+      const FROM_INDEX = 0;
+      const END_INDEX = 1;
+
+      const from_date_formatted = range[FROM_INDEX]
+        ? moment(range[FROM_INDEX])
+        : moment().subtract(1, AnalyssisUnit.YEAR);
+
+      const to_date_formatted = range[END_INDEX]
+        ? moment(range[END_INDEX])
+        : moment();
+
       const formatted_dates = [];
       const total_created_counts = [];
       const total_active_counts = [];
@@ -43,7 +53,20 @@ export default function makeSubscriptionDb({
 
       while (from_date_formatted.isSameOrBefore(to_date_formatted, unit)) {
         const date = from_date_formatted.format("YYYY-MM-DD");
-        formatted_dates.push(date);
+        let formatted_date = date;
+
+        switch (unit) {
+          case AnalyssisUnit.MONTH:
+            formatted_date = from_date_formatted.format("YYYY-MM");
+            break;
+          case AnalyssisUnit.YEAR:
+            formatted_date = from_date_formatted.format("YYYY");
+            break;
+          default:
+            break;
+        }
+
+        formatted_dates.push(formatted_date);
 
         const [total_active_count, total_created_count] = await Promise.all([
           subscriptionDbModel.countDocuments({

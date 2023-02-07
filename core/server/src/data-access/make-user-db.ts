@@ -20,14 +20,29 @@ export default function makeUserDb({
 }): IUserDb {
   return new (class MongooseUserDb implements IUserDb {
     async getUserAnalystics({
-      distance = 7,
+      range = [],
       unit = "day",
     }: {
-      distance?: number;
+      range?: string[];
       unit?: string;
     }): Promise<IUserAnalyticsData> {
-      const from_date_formatted = moment().subtract(distance, unit);
-      const to_date_formatted = moment();
+      const FROM_INDEX = 0;
+      const END_INDEX = 1;
+
+      const from_date_formatted = range[FROM_INDEX]
+        ? moment(range[FROM_INDEX])
+        : moment().subtract(1, AnalyssisUnit.YEAR);
+
+      const to_date_formatted = range[END_INDEX]
+        ? moment(range[END_INDEX])
+        : moment();
+      console.log(
+        "-----------------",
+        range,
+        from_date_formatted,
+        to_date_formatted
+      );
+
       const formatted_dates = [];
       const total_created_counts = [];
       const total_deleted_counts = [];
