@@ -1,11 +1,15 @@
 import { ActionTree, MutationTree, GetterTree } from "vuex";
 import { update } from "lodash";
+import moment from "moment";
 
 export const state = () => ({
   app_loading: false,
   analysis: {
     unit: "month",
-    distance: 12,
+    range: [
+      moment().subtract(1, "years").format("YYYY-MM-DD"),
+      moment().format("YYYY-MM-DD"),
+    ],
   },
 });
 

@@ -7,13 +7,14 @@ import _ from "lodash";
 
 const actions: ActionTree<SubscriptionState, RootState> = {
   async [ActionTypes.GET_SUBSCRIPTION_ANALYTICS]({ commit }, params = {}) {
-    const distance = _.get(params, "distance", 12);
+    const range = _.get(params, "range", []);
     const unit = _.get(params, "unit", "month");
 
     let url_query = new URLSearchParams();
 
-    if (distance) {
-      url_query.set("distance", distance);
+    const has_range = range && range.length;
+    if (has_range) {
+      url_query.set("range", _.join(range));
     }
 
     if (unit) {
