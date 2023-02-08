@@ -7,7 +7,7 @@
         <v-icon color="pink darken-1">{{ data.icon }}</v-icon>
       </div>
 
-      <v-menu offset-y class="soft-box-shadow">
+      <v-menu offset-y class="soft-box-shadow" left>
         <template v-slot:activator="{ on, attrs }">
           <v-btn small icon v-bind="attrs" v-on="on">
             <v-icon color="black">mdi-dots-vertical</v-icon>
