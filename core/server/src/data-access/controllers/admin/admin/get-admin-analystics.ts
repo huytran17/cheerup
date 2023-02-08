@@ -21,7 +21,7 @@ export default function makeGetAdminAnalysticsController({
         "context.validated"
       );
 
-      const splitted_range = _.split(range, ",");
+      const splitted_range = _.sortBy(_.split(range, ","));
 
       const analystics_data = await getAdminAnalystics({
         range: splitted_range,

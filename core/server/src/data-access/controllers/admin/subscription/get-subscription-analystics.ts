@@ -23,7 +23,7 @@ export default function makeGetSubscriptionAnalysticsController({
         "context.validated"
       );
 
-      const splitted_range = _.split(range, ",");
+      const splitted_range = _.sortBy(_.split(range, ","));
 
       const analystics_data = await getSubscriptionAnalystics({
         range: splitted_range,

@@ -21,7 +21,7 @@ export default function makeGetUserAnalysticsController({
         "context.validated"
       );
 
-      const splitted_range = _.split(range, ",");
+      const splitted_range = _.sortBy(_.split(range, ","));
 
       const analystics_data = await getUserAnalystics({
         range: splitted_range,
