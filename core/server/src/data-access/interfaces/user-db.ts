@@ -57,7 +57,9 @@ export interface IUserAnalyticsData {
   total_deleted_counts: number[];
   total_blocked_comment_counts: number[];
   total_count: number;
-  total_growth_percentage: number;
-  is_increased: boolean;
   formatted_dates: string[];
+  growth: {
+    total_percentage: number;
+    is_increased: boolean;
+  };
 }
