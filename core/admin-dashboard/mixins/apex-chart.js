@@ -100,49 +100,61 @@ export default {
     },
 
     user_growth_chart() {
+      const is_increased = _.get(this.user_analys_data, "is_increased", false);
+      const total_growth_percentage = _.get(
+        this.user_analys_data,
+        "total_growth_percentage",
+        0
+      );
+
       return {
-        series: [],
-        chart: {
-          height: 350,
-          type: "radialBar",
-          offsetY: -10,
-        },
-        plotOptions: {
-          radialBar: {
-            startAngle: -135,
-            endAngle: 135,
-            dataLabels: {
-              name: {
-                fontSize: "16px",
-                color: undefined,
-                offsetY: 120,
-              },
-              value: {
-                offsetY: 50,
-                fontSize: "22px",
-                color: undefined,
-                formatter: function (val) {
-                  return val + "%";
+        series: [total_growth_percentage],
+        options: {
+          chart: {
+            type: "radialBar",
+          },
+          plotOptions: {
+            radialBar: {
+              startAngle: -135,
+              endAngle: 135,
+              dataLabels: {
+                name: {
+                  fontSize: "16px",
+                  color: undefined,
+                  offsetY: 120,
+                },
+                value: {
+                  fontSize: "22px",
+                  color: is_increased ? "green" : "red",
+                  formatter: function (val) {
+                    let prefix = is_increased ? "+" : "-";
+
+                    if (!total_growth_percentage) {
+                      prefix = "+";
+                    }
+
+                    return `${prefix}${val}%`;
+                  },
                 },
               },
             },
           },
-        },
-        fill: {
-          type: "gradient",
-          gradient: {
-            shade: "dark",
-            shadeIntensity: 0.15,
-            inverseColors: false,
-            opacityFrom: 1,
-            opacityTo: 1,
-            stops: [0, 50, 65, 91],
+          fill: {
+            type: "gradient",
+            gradient: {
+              shade: "dark",
+              shadeIntensity: 0.15,
+              inverseColors: false,
+              opacityFrom: 1,
+              opacityTo: 1,
+              stops: [0, 50, 65, 91],
+            },
           },
+          stroke: {
+            dashArray: 4,
+          },
+          labels: [this.$t("User Growth")],
         },
-        stroke: {
-          dashArray: 4,
-        },
-        labels: [this.$t("User Growth")],
       };
     },
 

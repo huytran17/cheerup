@@ -15,8 +15,7 @@
     <v-row>
       <v-col cols="12" lg="8">
         <div class="card-box-shadow rounded-lg white pa-4">
-          <apex-chart
-            :height="315"
+          <BaseUserOverviewChart
             :options="user_chart.options"
             :series="user_chart.series"
           />
@@ -31,7 +30,12 @@
             <BaseOverallPostCard />
           </v-col>
           <v-col cols="12">
-            <BaseOverallSubscriptionCard />
+            <div class="card-box-shadow rounded-lg white pa-4">
+              <BaseUserGrowthChart
+                :options="user_growth_chart.options"
+                :series="user_growth_chart.series"
+              />
+            </div>
           </v-col>
         </v-row>
       </v-col>
@@ -46,6 +50,8 @@ import BaseOverallAdminCard from "@/components/dashboard/BaseOverallAdminCard";
 import BaseOverallUserCard from "@/components/dashboard/BaseOverallUserCard";
 import BaseOverallSubscriptionCard from "@/components/dashboard/BaseOverallSubscriptionCard";
 import BaseOverallPostCard from "@/components/dashboard/BaseOverallPostCard";
+import BaseUserGrowthChart from "@/components/dashboard/BaseUserGrowthChart";
+import BaseUserOverviewChart from "@/components/dashboard/BaseUserOverviewChart";
 
 export default {
   name: "BaseDashboardAnalysis",
@@ -56,6 +62,8 @@ export default {
     BaseOverallUserCard,
     BaseOverallSubscriptionCard,
     BaseOverallPostCard,
+    BaseUserGrowthChart,
+    BaseUserOverviewChart,
   },
 };
 </script>

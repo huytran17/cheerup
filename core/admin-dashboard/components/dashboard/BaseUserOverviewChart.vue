@@ -1,10 +1,10 @@
 <template>
-  <apex-chart :height="300" :options="options" :series="series" />
+  <apex-chart :height="315" :options="options" :series="series" />
 </template>
 
 <script>
 export default {
-  name: "BaseUserGrowthChart",
+  name: "BaseUserOverviewChart",
   props: {
     options: {
       type: Object,

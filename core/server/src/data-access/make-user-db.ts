@@ -108,12 +108,35 @@ export default function makeUserDb({
         total_blocked_comment_counts.push(total_blocked_comment_count);
         from_date_formatted.add(1, unit);
       }
+
+      const FIRST_INDEX = 0;
+      const LAST_INDEX = total_created_counts.length - 1;
+
+      const first_created_count = total_created_counts[FIRST_INDEX];
+      const last_created_count = total_created_counts[LAST_INDEX];
+
+      const is_increased = last_created_count > first_created_count;
+      const is_steady_status = first_created_count === last_created_count;
+
+      const growth_percentage =
+        (last_created_count / (first_created_count || 1)) * 100;
+
+      let total_growth_percentage = is_increased
+        ? growth_percentage
+        : 100 - growth_percentage;
+
+      if (is_steady_status) {
+        total_growth_percentage = 0;
+      }
+
       return {
         total_created_counts,
         total_deleted_counts,
         total_blocked_comment_counts,
         formatted_dates,
         total_count,
+        is_increased,
+        total_growth_percentage,
       };
     }
 
