@@ -110,7 +110,7 @@ export default function makeUserDb({
       }
 
       const FIRST_INDEX = 0;
-      const LAST_INDEX = total_created_counts.length - 1;
+      const LAST_INDEX = total_created_counts.length - 1 || 0;
 
       const first_created_count = total_created_counts[FIRST_INDEX];
       const last_created_count = total_created_counts[LAST_INDEX];
