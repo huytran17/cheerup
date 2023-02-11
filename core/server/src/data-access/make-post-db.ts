@@ -43,10 +43,7 @@ export default function makePostDb({
       const total_published_counts = [];
       const total_blocked_comment_counts = [];
 
-      const query_conditions = {};
-
       const total_count = await postDbModel.countDocuments({
-        ...query_conditions,
         created_at: {
           $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
           $lte: moment(to_date_formatted, "yyyy-MM-DD").endOf(unit),
@@ -77,21 +74,18 @@ export default function makePostDb({
           total_blocked_comment_count,
         ] = await Promise.all([
           postDbModel.countDocuments({
-            ...query_conditions,
             deleted_at: {
               $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
               $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
             },
           }),
           postDbModel.countDocuments({
-            ...query_conditions,
             created_at: {
               $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
               $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
             },
           }),
           postDbModel.countDocuments({
-            ...query_conditions,
             is_published: true,
             deleted_at: { $in: [null, undefined] },
             created_at: {
@@ -100,7 +94,6 @@ export default function makePostDb({
             },
           }),
           postDbModel.countDocuments({
-            ...query_conditions,
             is_blocked_comment: true,
             deleted_at: { $in: [null, undefined] },
             created_at: {
