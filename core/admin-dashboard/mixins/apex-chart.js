@@ -112,6 +112,7 @@ export default {
         options: {
           chart: {
             type: "radialBar",
+            offsetY: -10,
           },
           plotOptions: {
             radialBar: {
@@ -121,10 +122,10 @@ export default {
                 name: {
                   fontSize: "16px",
                   color: undefined,
-                  offsetY: 120,
+                  offsetY: 80,
                 },
                 value: {
-                  fontSize: "22px",
+                  fontSize: "20px",
                   color: is_increased ? "green" : "red",
                   formatter: function (val) {
                     let prefix = is_increased ? "+" : "-";

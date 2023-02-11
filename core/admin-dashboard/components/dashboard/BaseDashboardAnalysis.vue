@@ -14,12 +14,10 @@
 
     <v-row>
       <v-col cols="12" lg="8">
-        <div class="card-box-shadow rounded-lg white pa-4">
-          <BaseUserOverviewChart
-            :options="user_chart.options"
-            :series="user_chart.series"
-          />
-        </div>
+        <BaseUserOverviewChart
+          :options="user_chart.options"
+          :series="user_chart.series"
+        />
       </v-col>
       <v-col cols="12" lg="4">
         <v-row>
@@ -30,14 +28,18 @@
             <BaseOverallPostCard />
           </v-col>
           <v-col cols="12">
-            <div class="card-box-shadow rounded-lg white pa-4">
-              <BaseUserGrowthChart
-                :options="user_growth_chart.options"
-                :series="user_growth_chart.series"
-              />
-            </div>
+            <BaseUserGrowthChart
+              :options="user_growth_chart.options"
+              :series="user_growth_chart.series"
+            />
           </v-col>
         </v-row>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col cols="12" md="4">
+        <BaseStatisticPost />
       </v-col>
     </v-row>
   </v-container>
@@ -52,6 +54,7 @@ import BaseOverallSubscriptionCard from "@/components/dashboard/BaseOverallSubsc
 import BaseOverallPostCard from "@/components/dashboard/BaseOverallPostCard";
 import BaseUserGrowthChart from "@/components/dashboard/BaseUserGrowthChart";
 import BaseUserOverviewChart from "@/components/dashboard/BaseUserOverviewChart";
+import BaseStatisticPost from "@/components/dashboard/BaseStatisticPost";
 
 export default {
   name: "BaseDashboardAnalysis",
@@ -64,6 +67,7 @@ export default {
     BaseOverallPostCard,
     BaseUserGrowthChart,
     BaseUserOverviewChart,
+    BaseStatisticPost,
   },
 };
 </script>
