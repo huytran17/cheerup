@@ -129,6 +129,10 @@ export default function makeUserDb({
         total_growth_percentage = 0;
       }
 
+      const final_growth_percentage = parseFloat(
+        total_growth_percentage.toFixed(2)
+      );
+
       return {
         total_created_counts,
         total_deleted_counts,
@@ -136,7 +140,7 @@ export default function makeUserDb({
         formatted_dates,
         total_count,
         is_increased,
-        total_growth_percentage,
+        total_growth_percentage: final_growth_percentage,
       };
     }
 

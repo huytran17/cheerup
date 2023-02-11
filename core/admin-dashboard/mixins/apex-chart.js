@@ -151,7 +151,7 @@ export default {
             },
           },
           stroke: {
-            dashArray: 4,
+            dashArray: 6,
           },
           labels: [this.$t("User Growth")],
         },
