@@ -18,9 +18,7 @@ const postSchema = new Schema(
     tags: [{ type: String, trim: true, default: [] }],
     author: { type: Schema.Types.ObjectId, ref: "Admin" },
     categories: [{ type: Schema.Types.ObjectId, ref: "Category" }],
-    meta: {
-      views: { type: Number, default: 0 },
-    },
+    views: { type: Number, default: 0 },
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now },
     deleted_at: { type: Date, default: null },
@@ -32,7 +30,7 @@ const postSchema = new Schema(
   }
 );
 
-postSchema.index({ created_at: -1 });
+postSchema.index({ created_at: -1, views: -1 });
 
 postSchema.virtual("thumbnail_url").get(function () {
   return _.get(this, "thumbnail.location");

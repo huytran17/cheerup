@@ -16,9 +16,7 @@ export default interface IPost {
   tags: string[];
   author: Admin;
   categories: Category[];
-  meta: {
-    views: number;
-  };
+  views: number;
   created_at: Date;
   updated_at: Date;
   deleted_at: Date;
