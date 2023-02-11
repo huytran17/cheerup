@@ -100,10 +100,14 @@ export default {
     },
 
     user_growth_chart() {
-      const is_increased = _.get(this.user_analys_data, "is_increased", false);
+      const is_increased = _.get(
+        this.user_analys_data,
+        "growth.is_increased",
+        false
+      );
       const total_growth_percentage = _.get(
         this.user_analys_data,
-        "total_growth_percentage",
+        "growth.total_percentage",
         0
       );
 

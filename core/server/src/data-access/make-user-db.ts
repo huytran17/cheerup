@@ -121,17 +121,15 @@ export default function makeUserDb({
       const growth_percentage =
         (last_created_count / (first_created_count || 1)) * 100;
 
-      let total_growth_percentage = is_increased
+      let total_percentage = is_increased
         ? growth_percentage
         : 100 - growth_percentage;
 
       if (is_steady_status) {
-        total_growth_percentage = 0;
+        total_percentage = 0;
       }
 
-      const final_growth_percentage = parseFloat(
-        total_growth_percentage.toFixed(2)
-      );
+      const final_growth_percentage = parseFloat(total_percentage.toFixed(2));
 
       return {
         total_created_counts,
@@ -139,8 +137,10 @@ export default function makeUserDb({
         total_blocked_comment_counts,
         formatted_dates,
         total_count,
-        is_increased,
-        total_growth_percentage: final_growth_percentage,
+        growth: {
+          is_increased,
+          total_percentage: final_growth_percentage,
+        },
       };
     }
 
