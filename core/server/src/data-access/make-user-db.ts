@@ -36,12 +36,6 @@ export default function makeUserDb({
       const to_date_formatted = range[END_INDEX]
         ? moment(range[END_INDEX])
         : moment();
-      console.log(
-        "-----------------",
-        range,
-        from_date_formatted,
-        to_date_formatted
-      );
 
       const formatted_dates = [];
       const total_created_counts = [];
