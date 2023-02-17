@@ -133,22 +133,20 @@ export default function makePostDb({
           },
         ]);
 
-        const result_object = result[0] || {};
         const total_created_count =
-          result_object.total_created[0]?.total_created_count || 0;
+          result[0]?.total_created[0]?.total_created_count || 0;
         total_created_counts.push(total_created_count);
 
         const total_deleted_count =
-          result_object.total_deleted[0]?.total_deleted_count || 0;
+          result[0]?.total_deleted[0]?.total_deleted_count || 0;
         total_deleted_counts.push(total_deleted_count);
 
         const total_blocked_comment_count =
-          result_object.total_blocked_comment[0]?.total_blocked_comment_count ||
-          0;
+          result[0]?.total_blocked_comment[0]?.total_blocked_comment_count || 0;
         total_blocked_comment_counts.push(total_blocked_comment_count);
 
         const total_published_count =
-          result_object.total_published[0]?.total_published_count || 0;
+          result[0]?.total_published[0]?.total_published_count || 0;
         total_published_counts.push(total_published_count);
 
         return result;
