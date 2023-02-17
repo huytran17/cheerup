@@ -119,11 +119,11 @@ export default function makeUserDb({
 
         const total_deleted_count =
           result[0]?.total_deleted[0]?.total_deleted_count || 0;
-        total_created_counts.push(total_deleted_count);
+        total_deleted_counts.push(total_deleted_count);
 
         const total_blocked_comment_count =
           result[0]?.total_blocked_comment[0]?.total_blocked_comment_count || 0;
-        total_created_counts.push(total_blocked_comment_count);
+        total_blocked_comment_counts.push(total_blocked_comment_count);
       });
 
       await Promise.all(analysis_promises);
