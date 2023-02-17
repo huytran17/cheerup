@@ -42,9 +42,9 @@ export interface PaginatedAdminResult {
 export interface IAdminAnalyticsData {
   total_created_counts: number[];
   total_deleted_counts: number[];
-  total_super_admin_counts: number[];
-  total_normal_admin_counts: number[];
-  total_verified_email_counts: number[];
+  total_owner_counts: number[];
+  total_collaborator_counts: number[];
+  total_editor_counts: number[];
   total_count: number;
   formatted_dates: string[];
 }

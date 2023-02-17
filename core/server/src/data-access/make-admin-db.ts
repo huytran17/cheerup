@@ -29,113 +29,150 @@ export default function makeAdminDb({
       const FROM_INDEX = 0;
       const END_INDEX = 1;
 
-      const from_date_formatted = range[FROM_INDEX]
+      const from_date = range[FROM_INDEX]
         ? moment(range[FROM_INDEX])
         : moment().subtract(1, AnalyssisUnit.YEAR);
 
-      const to_date_formatted = range[END_INDEX]
+      const to_date = moment(range[END_INDEX])
         ? moment(range[END_INDEX])
         : moment();
 
       const formatted_dates = [];
+      const existing_dates = [];
       const total_created_counts = [];
       const total_deleted_counts = [];
-      const total_super_admin_counts = [];
-      const total_normal_admin_counts = [];
-      const total_verified_email_counts = [];
-
-      const query_conditions = {};
+      const total_editor_counts = [];
+      const total_owner_counts = [];
+      const total_collaborator_counts = [];
 
       const total_count = await adminDbModel.countDocuments({
-        ...query_conditions,
         created_at: {
-          $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
-          $lte: moment(to_date_formatted, "yyyy-MM-DD").endOf(unit),
+          $gte: moment(from_date, "yyyy-MM-DD").startOf(unit),
+          $lte: moment(to_date, "yyyy-MM-DD").endOf(unit),
         },
       });
 
-      while (from_date_formatted.isSameOrBefore(to_date_formatted, unit)) {
-        const date = from_date_formatted.format("YYYY-MM-DD");
-        let formatted_date = date;
+      while (from_date.isSameOrBefore(to_date, unit)) {
+        let formatted_date = from_date.format("YYYY-MM-DD");
 
         switch (unit) {
           case AnalyssisUnit.MONTH:
-            formatted_date = from_date_formatted.format("YYYY-MM");
+            formatted_date = from_date.format("YYYY-MM");
             break;
           case AnalyssisUnit.YEAR:
-            formatted_date = from_date_formatted.format("YYYY");
+            formatted_date = from_date.format("YYYY");
             break;
           default:
             break;
         }
 
         formatted_dates.push(formatted_date);
+        existing_dates.push(JSON.parse(JSON.stringify(from_date)));
+        from_date.add(1, unit);
+      }
 
-        const [
-          total_deleted_count,
-          total_created_count,
-          total_super_admin_count,
-          total_normal_admin_count,
-          total_verified_email_count,
-        ] = await Promise.all([
-          adminDbModel.countDocuments({
-            ...query_conditions,
-            deleted_at: {
-              $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
-              $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
+      const analysis_promises = existing_dates.map(async (date) => {
+        const start_of = new Date(moment(date, "yyyy-MM-DD").startOf(unit));
+        const end_of = new Date(moment(date, "yyyy-MM-DD").endOf(unit));
+
+        const result = await adminDbModel.aggregate([
+          {
+            $facet: {
+              total_created: [
+                {
+                  $match: {
+                    created_at: { $gte: start_of, $lte: end_of },
+                  },
+                },
+                {
+                  $count: "total_created_count",
+                },
+              ],
+
+              total_deleted: [
+                {
+                  $match: {
+                    deleted_at: { $gte: start_of, $lte: end_of },
+                  },
+                },
+                {
+                  $count: "total_deleted_count",
+                },
+              ],
+
+              total_owner: [
+                {
+                  $match: {
+                    type: AdminType.Owner,
+                    deleted_at: { $in: [null, undefined] },
+                    created_at: { $gte: start_of, $lte: end_of },
+                  },
+                },
+                {
+                  $count: "total_owner_count",
+                },
+              ],
+
+              total_collaborator: [
+                {
+                  $match: {
+                    type: AdminType.Collaborator,
+                    deleted_at: { $in: [null, undefined] },
+                    created_at: { $gte: start_of, $lte: end_of },
+                  },
+                },
+                {
+                  $count: "total_collaborator_count",
+                },
+              ],
+
+              total_editor: [
+                {
+                  $match: {
+                    type: AdminType.Editor,
+                    deleted_at: { $in: [null, undefined] },
+                    created_at: { $gte: start_of, $lte: end_of },
+                  },
+                },
+                {
+                  $count: "total_editor_count",
+                },
+              ],
             },
-          }),
-          adminDbModel.countDocuments({
-            ...query_conditions,
-            created_at: {
-              $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
-              $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
-            },
-          }),
-          adminDbModel.countDocuments({
-            ...query_conditions,
-            type: AdminType.Owner,
-            deleted_at: { $in: [null, undefined] },
-            created_at: {
-              $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
-              $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
-            },
-          }),
-          adminDbModel.countDocuments({
-            ...query_conditions,
-            type: AdminType.Collaborator,
-            deleted_at: { $in: [null, undefined] },
-            created_at: {
-              $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
-              $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
-            },
-          }),
-          adminDbModel.countDocuments({
-            ...query_conditions,
-            type: AdminType.Collaborator,
-            deleted_at: { $in: [null, undefined] },
-            created_at: {
-              $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
-              $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
-            },
-          }),
+          },
         ]);
 
+        const total_created_count =
+          result[0]?.total_created[0]?.total_created_count || 0;
         total_created_counts.push(total_created_count);
+
+        const total_deleted_count =
+          result[0]?.total_created[0]?.total_deleted_count || 0;
         total_deleted_counts.push(total_deleted_count);
-        total_super_admin_counts.push(total_super_admin_count);
-        total_normal_admin_counts.push(total_normal_admin_count);
-        total_verified_email_counts.push(total_verified_email_count);
-        from_date_formatted.add(1, unit);
-      }
+
+        const total_owner_count =
+          result[0]?.total_created[0]?.total_owner_count || 0;
+        total_owner_counts.push(total_owner_count);
+
+        const total_collaborator_count =
+          result[0]?.total_created[0]?.total_collaborator_count || 0;
+        total_collaborator_counts.push(total_collaborator_count);
+
+        const total_editor_count =
+          result[0]?.total_created[0]?.total_editor_count || 0;
+        total_editor_counts.push(total_editor_count);
+      });
+
+      await Promise.all(analysis_promises);
+
       return {
         total_created_counts,
         total_deleted_counts,
-        total_super_admin_counts,
-        total_normal_admin_counts,
+        total_owner_counts,
+        total_collaborator_counts,
+        total_editor_counts,
         formatted_dates,
         total_count,
-        total_verified_email_counts,
       };
     }
 
