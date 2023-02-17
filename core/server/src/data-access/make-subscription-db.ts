@@ -29,64 +29,89 @@ export default function makeSubscriptionDb({
       const FROM_INDEX = 0;
       const END_INDEX = 1;
 
-      const from_date_formatted = range[FROM_INDEX]
+      const from_date = range[FROM_INDEX]
         ? moment(range[FROM_INDEX])
         : moment().subtract(1, AnalyssisUnit.YEAR);
 
-      const to_date_formatted = range[END_INDEX]
+      const to_date = moment(range[END_INDEX])
         ? moment(range[END_INDEX])
         : moment();
 
       const formatted_dates = [];
+      const existing_dates = [];
       const total_created_counts = [];
       const total_active_counts = [];
 
-      const query_conditions = {};
-
       const total_count = await subscriptionDbModel.countDocuments({
-        ...query_conditions,
         created_at: {
-          $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
-          $lte: moment(to_date_formatted, "yyyy-MM-DD").endOf(unit),
+          $gte: moment(from_date, "yyyy-MM-DD").startOf(unit),
+          $lte: moment(to_date, "yyyy-MM-DD").endOf(unit),
         },
       });
 
-      while (from_date_formatted.isSameOrBefore(to_date_formatted, unit)) {
-        const date = from_date_formatted.format("YYYY-MM-DD");
-        let formatted_date = date;
+      while (from_date.isSameOrBefore(to_date, unit)) {
+        let formatted_date = from_date.format("YYYY-MM-DD");
 
         switch (unit) {
           case AnalyssisUnit.MONTH:
-            formatted_date = from_date_formatted.format("YYYY-MM");
+            formatted_date = from_date.format("YYYY-MM");
             break;
           case AnalyssisUnit.YEAR:
-            formatted_date = from_date_formatted.format("YYYY");
+            formatted_date = from_date.format("YYYY");
             break;
           default:
             break;
         }
 
         formatted_dates.push(formatted_date);
+        existing_dates.push(JSON.parse(JSON.stringify(from_date)));
+        from_date.add(1, unit);
+      }
 
-        const [total_active_count, total_created_count] = await Promise.all([
-          subscriptionDbModel.countDocuments({
-            ...query_conditions,
-            deleted_at: { $in: [null, undefined] },
-            is_active: true,
-          }),
-          subscriptionDbModel.countDocuments({
-            ...query_conditions,
-            created_at: {
-              $gte: moment(from_date_formatted, "yyyy-MM-DD").startOf(unit),
-              $lte: moment(from_date_formatted, "yyyy-MM-DD").endOf(unit),
+      const analysis_promises = existing_dates.map(async (date) => {
+        const start_of = new Date(moment(date, "yyyy-MM-DD").startOf(unit));
+        const end_of = new Date(moment(date, "yyyy-MM-DD").endOf(unit));
+
+        const result = await subscriptionDbModel.aggregate([
+          {
+            $facet: {
+              total_created: [
+                {
+                  $match: {
+                    created_at: { $gte: start_of, $lte: end_of },
+                  },
+                },
+                {
+                  $count: "total_created_count",
+                },
+              ],
+
+              total_active: [
+                {
+                  $match: {
+                    deleted_at: { $in: [null, undefined] },
+                    is_active: true,
+                  },
+                },
+                {
+                  $count: "total_active_count",
+                },
+              ],
             },
-          }),
+          },
         ]);
 
+        const total_created_count =
+          result[0]?.total_created[0]?.total_created_count || 0;
         total_created_counts.push(total_created_count);
+
+        const total_active_count =
+          result[0]?.total_created[0]?.total_active_count || 0;
         total_active_counts.push(total_active_count);
-        from_date_formatted.add(1, unit);
-      }
+      });
+
+      await Promise.all(analysis_promises);
+
       return {
         total_created_counts,
         total_active_counts,
