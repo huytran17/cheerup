@@ -126,6 +126,8 @@ export default function makeUserDb({
         total_created_counts.push(total_blocked_comment_count);
       });
 
+      await Promise.all(analysis_promises);
+
       const FIRST_INDEX = 0;
       const LAST_INDEX = total_created_counts.length - 1 || 0;
 
