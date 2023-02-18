@@ -11,6 +11,8 @@ import publishPostRules from "./publish-post";
 import unPublishPostRules from "./un-publish-post";
 import highlightPostRules from "./highlight-post";
 import unHighlightPostRules from "./un-highlight-post";
+import getMostPopularPostsAnalysticsRules from "./get-most-popular-posts-analystics";
+import getPostAnalysticsRules from "./get-post-analystics";
 
 export default Object.freeze({
   getPostRules,
@@ -26,6 +28,8 @@ export default Object.freeze({
   unPublishPostRules,
   highlightPostRules,
   unHighlightPostRules,
+  getMostPopularPostsAnalysticsRules,
+  getPostAnalysticsRules,
 });
 
 export {
@@ -42,4 +46,6 @@ export {
   unPublishPostRules,
   highlightPostRules,
   unHighlightPostRules,
+  getMostPopularPostsAnalysticsRules,
+  getPostAnalysticsRules,
 };

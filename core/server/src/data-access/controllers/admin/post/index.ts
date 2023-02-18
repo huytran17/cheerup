@@ -14,6 +14,7 @@ import {
   getPosts,
   hardDeletePost,
   updatePost,
+  getMostPopularPostsAnalystics,
 } from "../../../../use-cases/post";
 import { getActivatingSubscriptions } from "../../../../use-cases/subscription";
 
@@ -32,6 +33,12 @@ import makeUnPublishPostController from "./un-publish-post";
 import makeUnblockPostCommentController from "./unblock-post-comment";
 import makeUpdatePostController from "./update-post";
 import makeUploadPostThumbnailController from "./upload-post-thumbnail";
+import makeGetMostPopularPostsAnalysticsController from "./get-most-popular-posts-analystics";
+
+const getMostPopularPostsAnalysticsController =
+  makeGetMostPopularPostsAnalysticsController({
+    getMostPopularPostsAnalystics,
+  });
 
 const unHightlightPostController = makeUnHightlightPostController({
   getPost,
@@ -144,6 +151,7 @@ export default Object.freeze({
   getPostAnalysticsController,
   hightlightPostController,
   unHightlightPostController,
+  getMostPopularPostsAnalysticsController,
 });
 
 export {
@@ -162,4 +170,5 @@ export {
   getPostAnalysticsController,
   hightlightPostController,
   unHightlightPostController,
+  getMostPopularPostsAnalysticsController,
 };

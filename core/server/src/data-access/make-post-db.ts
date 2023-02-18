@@ -19,6 +19,60 @@ export default function makePostDb({
   moment: any;
 }): IPostDb {
   return new (class MongoosePostDb implements IPostDb {
+    async getMostPopularPostsAnalystics({
+      range = [],
+      unit = "day",
+      limit = 4,
+    }: {
+      range?: string[];
+      unit?: string;
+      limit?: number;
+    }): Promise<Post[] | null> {
+      const FROM_INDEX = 0;
+      const END_INDEX = 1;
+
+      const from_date = range[FROM_INDEX]
+        ? moment(range[FROM_INDEX])
+        : moment().subtract(1, AnalyssisUnit.YEAR);
+
+      const to_date = moment(range[END_INDEX])
+        ? moment(range[END_INDEX])
+        : moment();
+
+      const start_date_formatted = new Date(
+        moment(from_date, "yyyy-MM-DD").startOf(unit)
+      );
+      const end_date_formatted = new Date(
+        moment(to_date, "yyyy-MM-DD").endOf(unit)
+      );
+
+      const query_conditions = {
+        created_at: {
+          $gte: start_date_formatted,
+          $lte: end_date_formatted,
+        },
+      };
+
+      const existing = await postDbModel
+        .find(query_conditions)
+        .select("categories author title views is_published created_at")
+        .populate({
+          path: "categories",
+          select: "_id title color",
+        })
+        .populate({
+          path: "author",
+          select: "_id full_name",
+        })
+        .limit(limit)
+        .sort({ views: -1 })
+        .lean({ virtual: true });
+
+      if (existing) {
+        return _.map(existing, (post) => new Post(post));
+      }
+    }
+
     async getPostAnalystics({
       range = [],
       unit = "day",
@@ -44,39 +98,12 @@ export default function makePostDb({
       const total_published_counts = [];
       const total_blocked_comment_counts = [];
 
-      const start_date_formatted = new Date(
-        moment(from_date, "yyyy-MM-DD").startOf(unit)
-      );
-      const end_date_formatted = new Date(
-        moment(to_date, "yyyy-MM-DD").endOf(unit)
-      );
-
       const total_count = await postDbModel.countDocuments({
         created_at: {
-          $gte: start_date_formatted,
-          $lte: end_date_formatted,
+          $gte: moment(from_date, "yyyy-MM-DD").startOf(unit),
+          $lte: moment(to_date, "yyyy-MM-DD").endOf(unit),
         },
       });
-
-      const most_popular_posts: IPost[] = await postDbModel
-        .find({
-          created_at: {
-            $gte: start_date_formatted,
-            $lte: end_date_formatted,
-          },
-        })
-        .select("categories author title views is_published created_at")
-        .populate({
-          path: "categories",
-          select: "_id title",
-        })
-        .populate({
-          path: "author",
-          select: "_id full_name",
-        })
-        .limit(4)
-        .sort({ views: -1 })
-        .lean({ virtual: true });
 
       while (from_date.isSameOrBefore(to_date, unit)) {
         let formatted_date = from_date.format("YYYY-MM-DD");
@@ -188,7 +215,6 @@ export default function makePostDb({
         total_count,
         total_blocked_comment_counts,
         total_published_counts,
-        most_popular_posts,
       };
     }
 

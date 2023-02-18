@@ -17,6 +17,8 @@ import {
   unPublishPostRules,
   highlightPostRules,
   unHighlightPostRules,
+  getPostAnalysticsRules,
+  getMostPopularPostsAnalysticsRules,
 } from "../../data-access/controllers/admin/post/validators";
 import {
   getPostController,
@@ -32,13 +34,24 @@ import {
   publishPostController,
   unPublishPostController,
   getPostAnalysticsController,
+  getMostPopularPostsAnalysticsController,
   hightlightPostController,
   unHightlightPostController,
 } from "../../data-access/controllers/admin/post";
 
 const postRouter = express.Router();
 
-postRouter.get("/analystics", makeExpressCallback(getPostAnalysticsController));
+postRouter.get(
+  "/analystics",
+  makeValidator(getPostAnalysticsRules),
+  makeExpressCallback(getPostAnalysticsController)
+);
+
+postRouter.get(
+  "/most-popular-posts",
+  makeValidator(getMostPopularPostsAnalysticsRules),
+  makeExpressCallback(getMostPopularPostsAnalysticsController)
+);
 
 postRouter.put(
   "/un-highlight/:_id",

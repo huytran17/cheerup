@@ -13,6 +13,13 @@ import makeGetPostAnalystics from "./get-post-analystics";
 import makeGetHighlightPost from "./get-highlight-post";
 import makeGetSuggestionPosts from "./get-suggestion-posts";
 import makeGetPostsPaginated from "./get-posts-paginated";
+import makeGetMostPopularPostsAnalystics from "./get-most-popular-posts-analystics";
+
+const getMostPopularPostsAnalystics = makeGetMostPopularPostsAnalystics({
+  postDb: PostDb,
+  logger,
+  redis,
+});
 
 const getPostsPaginated = makeGetPostsPaginated({
   postDb: PostDb,
@@ -73,6 +80,7 @@ const postServices = Object.freeze({
   getHighlightPost,
   getSuggestionPosts,
   getPostsPaginated,
+  getMostPopularPostsAnalystics,
 });
 
 export default postServices;
@@ -88,4 +96,5 @@ export {
   getHighlightPost,
   getSuggestionPosts,
   getPostsPaginated,
+  getMostPopularPostsAnalystics,
 };

@@ -53,6 +53,15 @@ export default interface IPostDb {
     range?: string[];
     unit?: string;
   }) => Promise<IPostAnalyticsData>;
+  getMostPopularPostsAnalystics: ({
+    range,
+    unit,
+    limit,
+  }: {
+    range?: string[];
+    unit?: string;
+    limit?: number;
+  }) => Promise<Post[] | null>;
 }
 
 export interface PaginatedPostResult {
@@ -74,5 +83,4 @@ export interface IPostAnalyticsData {
   total_count: number;
   total_published_counts: number[];
   formatted_dates: string[];
-  most_popular_posts: IPost[];
 }
