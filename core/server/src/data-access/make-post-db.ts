@@ -44,29 +44,39 @@ export default function makePostDb({
       const total_published_counts = [];
       const total_blocked_comment_counts = [];
 
+      const start_date_formatted = new Date(
+        moment(from_date, "yyyy-MM-DD").startOf(unit)
+      );
+      const end_date_formatted = new Date(
+        moment(to_date, "yyyy-MM-DD").endOf(unit)
+      );
+
       const total_count = await postDbModel.countDocuments({
         created_at: {
-          $gte: moment(from_date, "yyyy-MM-DD").startOf(unit),
-          $lte: moment(to_date, "yyyy-MM-DD").endOf(unit),
+          $gte: start_date_formatted,
+          $lte: end_date_formatted,
         },
       });
 
-      const most_popular_posts: IPost[] = await postDbModel.aggregate([
-        {
-          $match: {
-            created_at: {
-              $gte: new Date(moment(from_date, "yyyy-MM-DD").startOf(unit)),
-              $lte: new Date(moment(to_date, "yyyy-MM-DD").endOf(unit)),
-            },
+      const most_popular_posts: IPost[] = await postDbModel
+        .find({
+          created_at: {
+            $gte: start_date_formatted,
+            $lte: end_date_formatted,
           },
-        },
-        {
-          $sort: { views: -1 },
-        },
-        {
-          $limit: 4,
-        },
-      ]);
+        })
+        .select("categories author title views is_published created_at")
+        .populate({
+          path: "categories",
+          select: "_id title",
+        })
+        .populate({
+          path: "author",
+          select: "_id full_name",
+        })
+        .limit(4)
+        .sort({ views: -1 })
+        .lean({ virtual: true });
 
       while (from_date.isSameOrBefore(to_date, unit)) {
         let formatted_date = from_date.format("YYYY-MM-DD");
@@ -223,9 +233,9 @@ export default function makePostDb({
     ): Promise<PaginatedPostResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
-      const query_conditions = Object.assign({
+      const query_conditions = {
         deleted_at: { $in: [null, undefined] },
-      });
+      };
 
       if (is_only_published) {
         query_conditions["is_published"] = true;
