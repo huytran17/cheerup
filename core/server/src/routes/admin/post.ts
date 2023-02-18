@@ -48,7 +48,7 @@ postRouter.get(
 );
 
 postRouter.get(
-  "/most-popular-posts",
+  "/most-popular-posts-analystics",
   makeValidator(getMostPopularPostsAnalysticsRules),
   makeExpressCallback(getMostPopularPostsAnalysticsController)
 );

@@ -8,6 +8,13 @@ const mutations: MutationTree<PostState> = {
     state.post_analys_data = data;
   },
 
+  [MutationTypes.SET_MOST_POPULAR_POSTS_ANALYS_DATA](
+    state,
+    { data }: { data: any }
+  ) {
+    state.most_popular_posts_analys_data = data;
+  },
+
   [MutationTypes.SET_POST](state, { data }: { data: any }) {
     state.post = data;
   },
