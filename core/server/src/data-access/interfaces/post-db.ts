@@ -74,4 +74,5 @@ export interface IPostAnalyticsData {
   total_count: number;
   total_published_counts: number[];
   formatted_dates: string[];
+  most_popular_posts: IPost[];
 }

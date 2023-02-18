@@ -51,6 +51,23 @@ export default function makePostDb({
         },
       });
 
+      const most_popular_posts: IPost[] = await postDbModel.aggregate([
+        {
+          $match: {
+            created_at: {
+              $gte: new Date(moment(from_date, "yyyy-MM-DD").startOf(unit)),
+              $lte: new Date(moment(to_date, "yyyy-MM-DD").endOf(unit)),
+            },
+          },
+        },
+        {
+          $sort: { views: -1 },
+        },
+        {
+          $limit: 4,
+        },
+      ]);
+
       while (from_date.isSameOrBefore(to_date, unit)) {
         let formatted_date = from_date.format("YYYY-MM-DD");
 
@@ -161,6 +178,7 @@ export default function makePostDb({
         total_count,
         total_blocked_comment_counts,
         total_published_counts,
+        most_popular_posts,
       };
     }
 
