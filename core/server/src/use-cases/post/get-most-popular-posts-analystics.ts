@@ -11,7 +11,7 @@ export type IGetMostPopularPostsAnalystics = ({
   range?: string[];
   unit?: string;
   limit?: number;
-}) => Promise<Post[]>;
+}) => Promise<Post[] | null>;
 
 export default function makeGetMostPopularPostsAnalystics({
   postDb,
@@ -30,7 +30,7 @@ export default function makeGetMostPopularPostsAnalystics({
     range?: string[];
     unit?: string;
     limit?: number;
-  }): Promise<Post[]> {
+  }): Promise<Post[] | null> {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "getMostPopularPostsAnalystics",
       range,
@@ -38,7 +38,7 @@ export default function makeGetMostPopularPostsAnalystics({
       limit,
     });
 
-    const cached_data = redis.getData({ key: cache_key });
+    const cached_data = await redis.getData({ key: cache_key });
     if (cached_data) {
       logger.verbose("Redis: Data found in cache", { cache_key });
       return cached_data;

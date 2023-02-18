@@ -58,7 +58,7 @@ export default function makePostDb({
         .select("categories author title views is_published created_at")
         .populate({
           path: "categories",
-          select: "_id title color",
+          select: "_id title badge_color",
         })
         .populate({
           path: "author",

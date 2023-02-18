@@ -28,6 +28,7 @@ export default {
       GET_USER_ANALYTICS: "user/GET_USER_ANALYTICS",
       GET_ADMIN_ANALYTICS: "admin/GET_ADMIN_ANALYTICS",
       GET_POST_ANALYTICS: "post/GET_POST_ANALYTICS",
+      GET_MOST_POPULAR_POSTS_ANALYTICS: "post/GET_MOST_POPULAR_POSTS_ANALYTICS",
       GET_SUBSCRIPTION_ANALYTICS: "subscription/GET_SUBSCRIPTION_ANALYTICS",
     }),
   },
@@ -39,6 +40,7 @@ export default {
         this.GET_ADMIN_ANALYTICS({ ...this.analysis }),
         this.GET_POST_ANALYTICS({ ...this.analysis }),
         this.GET_SUBSCRIPTION_ANALYTICS({ ...this.analysis }),
+        this.GET_MOST_POPULAR_POSTS_ANALYTICS({ ...this.analysis }),
       ]);
     } catch (error) {
       console.error(error);

@@ -1,7 +1,7 @@
 const getMostPopularPostsAnalysticsRules = {
   range: "string",
   unit: "string",
-  limit: "number",
+  limit: "string",
 };
 
 export default getMostPopularPostsAnalysticsRules;
