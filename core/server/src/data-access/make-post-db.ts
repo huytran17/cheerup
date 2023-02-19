@@ -55,7 +55,9 @@ export default function makePostDb({
 
       const existing = await postDbModel
         .find(query_conditions)
-        .select("categories author title views is_published created_at")
+        .select(
+          "categories author title views is_published created_at deleted_at"
+        )
         .populate({
           path: "categories",
           select: "_id title badge_color",

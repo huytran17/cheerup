@@ -18,7 +18,12 @@
           </div>
         </div>
 
-        <div class="d-flex justify-center"></div>
+        <div class="d-flex justify-center">
+          <BasePostAnalysisChart
+            :options="post_chart.options"
+            :series="post_chart.series"
+          />
+        </div>
 
         <div v-if="has_most_popular_posts" class="d-flex flex-column">
           <div
@@ -26,18 +31,47 @@
             :key="post._id"
             class="d-flex mt-4"
           >
-            <div class="d-flex flex-column justify-start">
-              <div
-                class="blue lighten-4 w-fit-content h-fit-content pa-1 rounded-lg"
-              >
-                <v-icon color="pink darken-1">mdi-book-open-outline</v-icon>
-              </div>
+            <div class="d-flex flex-column justify-start clickable">
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <div
+                    v-bind="attrs"
+                    v-on="on"
+                    class="blue lighten-4 w-fit-content h-fit-content pa-1 rounded-lg"
+                    @click="goToUpdatePost(post)"
+                  >
+                    <v-icon color="pink darken-1"
+                      >mdi-circle-edit-outline</v-icon
+                    >
+                  </div>
+                </template>
+                <span v-html="$t('Edit')"></span>
+              </v-tooltip>
             </div>
 
             <div class="d-flex flex-column ml-2">
-              <div class="text-body-2">
-                <span class="app-title">{{ $t(post.title) }}</span>
-              </div>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <div
+                    v-bind="attrs"
+                    v-on="on"
+                    class="text-body-2 clickable primary--text"
+                    :class="{
+                      'error--text': post.deleted_at || !post.is_published,
+                      'text-decoration-line-through': post.deleted_at,
+                    }"
+                    @click="goToPost(post)"
+                  >
+                    <span class="app-title">{{ $t(post.title) }}</span>
+                  </div>
+                </template>
+                <span v-if="post.deleted_at" v-html="$t('Deleted')"></span>
+                <span
+                  v-else-if="!post.is_published"
+                  v-html="$t('Not published')"
+                ></span>
+                <span v-else v-html="$t('Go to post')"></span>
+              </v-tooltip>
 
               <div class="text-caption text-grey">
                 <span class="app-body text--small">{{
@@ -76,13 +110,17 @@
 
 <script>
 import { mapGetters } from "vuex";
+import chartMixins from "~/mixins/apex-chart";
 import { kFormatter } from "@/utils";
 import BaseStatisticCard from "@/components/dashboard/BaseStatisticCard";
+import BasePostAnalysisChart from "@/components/dashboard/BasePostAnalysisChart";
 
 export default {
   name: "BaseStatisticPost",
+  mixins: [chartMixins],
   components: {
     BaseStatisticCard,
+    BasePostAnalysisChart,
   },
   computed: {
     ...mapGetters({
@@ -106,6 +144,15 @@ export default {
 
     formatViews(number) {
       return kFormatter(number);
+    },
+
+    goToPost(post) {
+      const post_url = `${process.env.USER_DASHBOARD_URL}/post/${post._id}`;
+      return window.open(post_url, "__blank");
+    },
+
+    goToUpdatePost(post) {
+      return this.$router.push(this.localePath(`/post/${post._id}`));
     },
   },
 };

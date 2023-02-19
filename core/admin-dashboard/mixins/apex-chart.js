@@ -163,35 +163,34 @@ export default {
       };
     },
 
-    post_chart_data() {
+    post_chart() {
       return {
-        labels: _.get(this.user_analys_data, "formatted_dates", []),
-        datasets: [
-          {
-            label: "Created",
-            backgroundColor: "rgba(0, 255, 46, 1)",
-            data: _.get(this.post_analys_data, "total_created_counts", []),
+        series: [44, 55, 13, 43, 22],
+        options: {
+          chart: {
+            width: 380,
+            type: "pie",
           },
-          {
-            label: "Deleted",
-            backgroundColor: "rgba(232, 60, 60, 1)",
-            data: _.get(this.post_analys_data, "total_deleted_counts", []),
+          labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
+          dataLabels: {
+            formatter: function (val, opts) {
+              return;
+            },
           },
-          {
-            label: "Blocked Commenting",
-            backgroundColor: "rgba(255, 229, 0, 1)",
-            data: _.get(
-              this.post_analys_data,
-              "total_blocked_comment_counts",
-              []
-            ),
+          responsive: [
+            {
+              breakpoint: 480,
+              options: {
+                chart: {
+                  width: 200,
+                },
+              },
+            },
+          ],
+          legend: {
+            show: false,
           },
-          {
-            label: "Published",
-            backgroundColor: "rgba(250, 0, 255, 1)",
-            data: _.get(this.post_analys_data, "total_published_counts", []),
-          },
-        ],
+        },
       };
     },
 
