@@ -1,7 +1,10 @@
 {
   "Do you want to delete {title} forever?": "Do you want to delete <b>{title}</b> forever?",
-  "Welcome, {admin_name}!": "Welcome, {admin_name}!",
+  "Welcome, {text}!": "Welcome, {text}!",
   "+{count} per day": "+{count} per day",
   "+{count} per month": "+{count} per month",
-  "+{count} per year": "+{count} per year"
+  "+{count} per year": "+{count} per year",
+  "{count} Total Post": "{count} Total Post | {count} Total Posts",
+  "{count} view": "{count} view | {count} views",
+  "by {text}": "by {text}"
 }

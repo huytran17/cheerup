@@ -29,6 +29,11 @@
   max-width: fit-content !important;
 }
 
+.h-fit-content {
+  height: fit-content !important;
+  max-height: fit-content !important;
+}
+
 .w-0 {
   width: 0% !important;
 }

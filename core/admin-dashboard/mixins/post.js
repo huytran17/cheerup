@@ -12,6 +12,7 @@ export default {
       post: "post/post",
       posts: "post/posts",
       post_analys_data: "post/post_analys_data",
+      most_popular_posts_analys_data: "post/most_popular_posts_analys_data",
     }),
   },
   methods: {

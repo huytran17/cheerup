@@ -9,7 +9,7 @@
         <span
           class="app-title"
           v-html="
-            $t(`Welcome, {admin_name}!`, {
+            $t(`Welcome, {text}!`, {
               admin_name: me.full_name,
             })
           "
