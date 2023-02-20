@@ -5,9 +5,9 @@ import {
   createCategory,
   getCategories,
   hardDeleteCategory,
+  getCategoryByTitle,
 } from "../../../../use-cases/category";
 import { logger } from "../../../../config/logs/logger";
-import mongoose from "mongoose";
 
 import makeGetCategoryController from "./get-category";
 import makeDeleteCategoryController from "./delete-category";
@@ -44,6 +44,7 @@ const getCategoriesController = makeGetCategoriesController({
 
 const createCategoryController = makeCreateCategoryController({
   createCategory,
+  getCategoryByTitle,
   logger,
 });
 
@@ -61,6 +62,7 @@ const deleteCategoryController = makeDeleteCategoryController({
 const updateCategoryController = makeUpdateCategoryController({
   getCategory,
   updateCategory,
+  getCategoryByTitle,
   logger,
 });
 

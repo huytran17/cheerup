@@ -137,6 +137,37 @@ export default function makeCategoryDb({
       if (existing) {
         return new Category(existing);
       }
+
+      return null;
+    }
+
+    async findByTitle({
+      title,
+      is_include_deleted = true,
+    }: {
+      title: string;
+      is_include_deleted?: boolean;
+    }): Promise<Category | null> {
+      const query_conditions = {
+        deleted_at: { $in: [null, undefined] },
+      };
+
+      if (is_include_deleted) {
+        delete query_conditions.deleted_at;
+      }
+
+      if (title) {
+        query_conditions["title"] = title;
+      }
+
+      const existing = await categoryDbModel
+        .findOne(query_conditions)
+        .lean({ virtuals: true });
+
+      if (existing) {
+        return new Category(existing);
+      }
+
       return null;
     }
 

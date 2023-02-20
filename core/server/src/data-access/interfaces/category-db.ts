@@ -20,6 +20,13 @@ export default interface ICategoryDb {
     _id: string;
     is_include_deleted?: boolean;
   }) => Promise<Category | null>;
+  findByTitle: ({
+    title,
+    is_include_deleted,
+  }: {
+    title: string;
+    is_include_deleted?: boolean;
+  }) => Promise<Category | null>;
   insert: (payload: Partial<ICategory>) => Promise<Category | null>;
   delete: ({ _id }: { _id: string }) => Promise<Category | null>;
   hardDelete: ({ _id }: { _id: string }) => Promise<Category | null>;
