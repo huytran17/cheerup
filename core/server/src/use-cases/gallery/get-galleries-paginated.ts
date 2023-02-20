@@ -1,6 +1,6 @@
 import { Logger } from "winston";
 import IGalleryDb, {
-  PaginatedGalleryResult,
+  IPaginatedGalleryResult,
 } from "../../data-access/interfaces/gallery-db";
 
 export type IGetGalleriesPaginated = (
@@ -18,7 +18,7 @@ export type IGetGalleriesPaginated = (
   }: {
     is_parent?: boolean;
   }
-) => Promise<PaginatedGalleryResult | null>;
+) => Promise<IPaginatedGalleryResult | null>;
 
 export default function makeGetGalleriesPaginated({
   galleryDb,
@@ -42,7 +42,7 @@ export default function makeGetGalleriesPaginated({
     }: {
       is_parent?: boolean;
     }
-  ): Promise<PaginatedGalleryResult | null> {
+  ): Promise<IPaginatedGalleryResult | null> {
     const posts = await galleryDb.findAllPaginated(
       {
         query,

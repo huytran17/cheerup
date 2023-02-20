@@ -1,7 +1,7 @@
 import { Logger } from "winston";
 import Post from "../../database/entities/post";
 import IPostDb, {
-  PaginatedPostResult,
+  IPaginatedPostResult,
 } from "../../data-access/interfaces/post-db";
 
 export type IGetPostsPaginated = (
@@ -19,7 +19,7 @@ export type IGetPostsPaginated = (
     page: number;
     entries_per_page: number;
   }
-) => Promise<PaginatedPostResult | null>;
+) => Promise<IPaginatedPostResult | null>;
 
 export default function makeGetPostsPaginated({
   postDb,
@@ -47,7 +47,7 @@ export default function makeGetPostsPaginated({
       page: number;
       entries_per_page: number;
     }
-  ): Promise<PaginatedPostResult | null> {
+  ): Promise<IPaginatedPostResult | null> {
     const posts = await postDb.findAllPaginated(
       { categories, is_only_published, tags },
       {

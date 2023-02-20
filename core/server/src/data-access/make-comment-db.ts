@@ -1,6 +1,6 @@
 import _ from "lodash";
 import mongoose from "mongoose";
-import ICommentDb, { PaginatedCommentResult } from "./interfaces/comment-db";
+import ICommentDb, { IPaginatedCommentResult } from "./interfaces/comment-db";
 import Comment from "../database/entities/comment";
 import IComment from "../database/interfaces/comment";
 
@@ -48,7 +48,7 @@ export default function makeCommentDb({
         page: number;
         entries_per_page: number;
       }
-    ): Promise<PaginatedCommentResult | null> {
+    ): Promise<IPaginatedCommentResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = {
@@ -142,7 +142,7 @@ export default function makeCommentDb({
       query: string;
       page: number;
       entries_per_page?: number;
-    }): Promise<PaginatedCommentResult | null> {
+    }): Promise<IPaginatedCommentResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = {

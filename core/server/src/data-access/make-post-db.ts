@@ -1,8 +1,9 @@
 import _ from "lodash";
 import mongoose from "mongoose";
 import IPostDb, {
-  PaginatedPostResult,
-  IPostAnalyticsData,
+  IPaginatedPostResult,
+  IPostAnalytics,
+  IMostPopularPostsAnalytics,
 } from "./interfaces/post-db";
 import Post from "../database/entities/post";
 import IPost from "../database/interfaces/post";
@@ -27,7 +28,7 @@ export default function makePostDb({
       range?: string[];
       unit?: string;
       limit?: number;
-    }): Promise<Post[] | null> {
+    }): Promise<IMostPopularPostsAnalytics | null> {
       const FROM_INDEX = 0;
       const END_INDEX = 1;
 
@@ -56,7 +57,7 @@ export default function makePostDb({
       const existing = await postDbModel
         .find(query_conditions)
         .select(
-          "categories author title views is_published created_at deleted_at"
+          "_id categories author title views is_published created_at deleted_at"
         )
         .populate({
           path: "categories",
@@ -70,9 +71,21 @@ export default function makePostDb({
         .sort({ views: -1 })
         .lean({ virtual: true });
 
-      if (existing) {
-        return _.map(existing, (post) => new Post(post));
+      if (!existing) {
+        return null;
       }
+
+      const data = _.map(existing, (post) => new Post(post));
+      const categories = _.flattenDeep(data.map((post) => post.categories));
+      const category_ratio = _.countBy(
+        categories.map((category) => category._id),
+        "title"
+      );
+
+      return {
+        data,
+        category_ratio,
+      };
     }
 
     async getPostAnalystics({
@@ -81,7 +94,7 @@ export default function makePostDb({
     }: {
       range?: string[];
       unit?: string;
-    }): Promise<IPostAnalyticsData> {
+    }): Promise<IPostAnalytics> {
       const FROM_INDEX = 0;
       const END_INDEX = 1;
 
@@ -258,7 +271,7 @@ export default function makePostDb({
         page: number;
         entries_per_page?: number;
       }
-    ): Promise<PaginatedPostResult | null> {
+    ): Promise<IPaginatedPostResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = {

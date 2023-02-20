@@ -10,7 +10,7 @@ export default interface ICommentDb {
     query: string;
     page: number;
     entries_per_page?: number;
-  }) => Promise<PaginatedCommentResult | null>;
+  }) => Promise<IPaginatedCommentResult | null>;
   findOne: () => Promise<Comment | null>;
   findById: ({
     _id,
@@ -38,7 +38,7 @@ export default interface ICommentDb {
       page: number;
       entries_per_page: number;
     }
-  ) => Promise<PaginatedCommentResult | null>;
+  ) => Promise<IPaginatedCommentResult | null>;
   countByPost: ({ post_id }: { post_id: string }) => Promise<number | null>;
   findAllByParent: ({
     parent_id,
@@ -50,7 +50,7 @@ export default interface ICommentDb {
   update: (payload: Partial<IComment>) => Promise<Comment | null>;
 }
 
-export interface PaginatedCommentResult {
+export interface IPaginatedCommentResult {
   data: Comment[];
   pagination: {
     current_page: number | null;

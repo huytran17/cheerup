@@ -1,6 +1,6 @@
 import _ from "lodash";
 import mongoose from "mongoose";
-import IGalleryDb, { PaginatedGalleryResult } from "./interfaces/gallery-db";
+import IGalleryDb, { IPaginatedGalleryResult } from "./interfaces/gallery-db";
 import Gallery from "../database/entities/gallery";
 import IGallery from "../database/interfaces/gallery";
 
@@ -30,7 +30,7 @@ export default function makeGalleryDb({
       }: {
         is_parent: boolean;
       }
-    ): Promise<PaginatedGalleryResult | null> {
+    ): Promise<IPaginatedGalleryResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = {};

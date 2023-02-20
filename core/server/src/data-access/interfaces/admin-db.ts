@@ -10,7 +10,7 @@ export default interface IAdminDb {
     query: string;
     page: number;
     entries_per_page?: number;
-  }) => Promise<PaginatedAdminResult | null>;
+  }) => Promise<IPaginatedAdminResult | null>;
   findOne: () => Promise<Admin | null>;
   findById: ({ _id }: { _id: string }) => Promise<Admin | null>;
   findByEmail: ({ email }: { email: string }) => Promise<Admin | null>;
@@ -27,7 +27,7 @@ export default interface IAdminDb {
   }) => Promise<IAdminAnalyticsData>;
 }
 
-export interface PaginatedAdminResult {
+export interface IPaginatedAdminResult {
   data: Admin[];
   pagination: {
     current_page: number | null;

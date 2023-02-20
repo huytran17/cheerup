@@ -10,7 +10,7 @@ export default interface ICategoryDb {
     query: string;
     page: number;
     entries_per_page?: number;
-  }) => Promise<PaginatedCategoryResult | null>;
+  }) => Promise<IPaginatedCategoryResult | null>;
   findOne: () => Promise<Category | null>;
   findAllCategoryTitles: () => Promise<{ _id: string; title: string }[]>;
   findById: ({
@@ -26,7 +26,7 @@ export default interface ICategoryDb {
   update: (updatePayload: Partial<ICategory>) => Promise<Category | null>;
 }
 
-export interface PaginatedCategoryResult {
+export interface IPaginatedCategoryResult {
   data: Category[];
   pagination: {
     current_page: number | null;

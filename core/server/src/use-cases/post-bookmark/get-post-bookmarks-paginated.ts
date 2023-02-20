@@ -1,6 +1,6 @@
 import { Logger } from "winston";
 import IPostBookmarkDb, {
-  PaginatedPostBookmarkResult,
+  IPaginatedPostBookmarkResult,
 } from "../../data-access/interfaces/post-bookmark-db";
 
 export type IGetPostBookmarksPaginated = ({
@@ -11,7 +11,7 @@ export type IGetPostBookmarksPaginated = ({
   query: string;
   page: number;
   entries_per_page: number;
-}) => Promise<PaginatedPostBookmarkResult | null>;
+}) => Promise<IPaginatedPostBookmarkResult | null>;
 
 export default function makeGetPostBookmarksPaginated({
   postBookmarkDb,
@@ -28,7 +28,7 @@ export default function makeGetPostBookmarksPaginated({
     query: string;
     page: number;
     entries_per_page: number;
-  }): Promise<PaginatedPostBookmarkResult | null> {
+  }): Promise<IPaginatedPostBookmarkResult | null> {
     const post_bookmarks = await postBookmarkDb.findAllPaginated({
       query,
       page,

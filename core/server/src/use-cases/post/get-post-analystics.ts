@@ -1,6 +1,4 @@
-import IPostDb, {
-  IPostAnalyticsData,
-} from "../../data-access/interfaces/post-db";
+import IPostDb, { IPostAnalytics } from "../../data-access/interfaces/post-db";
 import Redis from "../../config/redis";
 import { Logger } from "winston";
 
@@ -10,7 +8,7 @@ export type IGetPostAnalystics = ({
 }: {
   range?: string[];
   unit?: string;
-}) => Promise<IPostAnalyticsData>;
+}) => Promise<IPostAnalytics>;
 
 export default function makeGetPostAnalystics({
   postDb,
@@ -27,7 +25,7 @@ export default function makeGetPostAnalystics({
   }: {
     unit?: string;
     range?: string[];
-  }): Promise<IPostAnalyticsData> {
+  }): Promise<IPostAnalytics> {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "getPostAnalystics",
       unit,

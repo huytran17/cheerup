@@ -1,6 +1,8 @@
 import _ from "lodash";
 import mongoose from "mongoose";
-import ICategoryDb, { PaginatedCategoryResult } from "./interfaces/category-db";
+import ICategoryDb, {
+  IPaginatedCategoryResult,
+} from "./interfaces/category-db";
 import Category from "../database/entities/category";
 import ICategory from "../database/interfaces/category";
 
@@ -43,7 +45,7 @@ export default function makeCategoryDb({
       query: string;
       page: number;
       entries_per_page?: number;
-    }): Promise<PaginatedCategoryResult | null> {
+    }): Promise<IPaginatedCategoryResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = Object.assign({});

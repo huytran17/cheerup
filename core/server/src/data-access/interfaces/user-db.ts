@@ -10,7 +10,7 @@ export default interface IUserDb {
     query: string;
     page: number;
     entries_per_page?: number;
-  }) => Promise<PaginatedUserResult | null>;
+  }) => Promise<IPaginatedUserResult | null>;
   findOne: () => Promise<User | null>;
   findById: ({
     _id,
@@ -40,7 +40,7 @@ export default interface IUserDb {
   }) => Promise<IUserAnalyticsData>;
 }
 
-export interface PaginatedUserResult {
+export interface IPaginatedUserResult {
   data: User[];
   pagination: {
     current_page: number | null;

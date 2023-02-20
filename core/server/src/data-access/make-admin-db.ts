@@ -1,7 +1,7 @@
 import _ from "lodash";
 import mongoose from "mongoose";
 import IAdminDb, {
-  PaginatedAdminResult,
+  IPaginatedAdminResult,
   IAdminAnalyticsData,
 } from "./interfaces/admin-db";
 import Admin from "../database/entities/admin";
@@ -197,7 +197,7 @@ export default function makeAdminDb({
       query: string;
       page: number;
       entries_per_page?: number;
-    }): Promise<PaginatedAdminResult | null> {
+    }): Promise<IPaginatedAdminResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = Object.assign({});

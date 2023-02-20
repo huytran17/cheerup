@@ -10,7 +10,7 @@ export default interface IPostBookmarkDb {
     query: string;
     page: number;
     entries_per_page?: number;
-  }) => Promise<PaginatedPostBookmarkResult | null>;
+  }) => Promise<IPaginatedPostBookmarkResult | null>;
   findOne: () => Promise<PostBookmark | null>;
   findById: ({ _id }: { _id: string }) => Promise<PostBookmark | null>;
   countPostBookmarks: ({ user_id }: { user_id: string }) => Promise<number>;
@@ -29,7 +29,7 @@ export default interface IPostBookmarkDb {
   ) => Promise<PostBookmark | null>;
 }
 
-export interface PaginatedPostBookmarkResult {
+export interface IPaginatedPostBookmarkResult {
   data: PostBookmark[];
   pagination: {
     current_page: number | null;

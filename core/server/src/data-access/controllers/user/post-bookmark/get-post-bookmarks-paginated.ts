@@ -7,7 +7,7 @@ import { Logger } from "winston";
 import PostBookmark from "../../../../database/entities/post-bookmark";
 import IPostBookmark from "../../../../database/interfaces/post-bookmark";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { PaginatedPostBookmarkResult } from "../../../../data-access/interfaces/post-bookmark-db";
+import { IPaginatedPostBookmarkResult } from "../../../../data-access/interfaces/post-bookmark-db";
 
 export default function makeGetPostBookmarksPaginatedController({
   getPostBookmarksPaginated,
@@ -72,7 +72,7 @@ export default function makeGetPostBookmarksPaginatedController({
         map_count_comments_promises
       );
 
-      const final_paginated_data: PaginatedPostBookmarkResult = {
+      const final_paginated_data: IPaginatedPostBookmarkResult = {
         ...paginated_data,
         data: final_post_data,
       };

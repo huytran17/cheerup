@@ -22,7 +22,7 @@ export default interface IPostDb {
       page: number;
       entries_per_page?: number;
     }
-  ) => Promise<PaginatedPostResult | null>;
+  ) => Promise<IPaginatedPostResult | null>;
   findOne: () => Promise<Post | null>;
   findSuggestionPosts: ({
     amount,
@@ -52,7 +52,7 @@ export default interface IPostDb {
   }: {
     range?: string[];
     unit?: string;
-  }) => Promise<IPostAnalyticsData>;
+  }) => Promise<IPostAnalytics>;
   getMostPopularPostsAnalystics: ({
     range,
     unit,
@@ -61,10 +61,10 @@ export default interface IPostDb {
     range?: string[];
     unit?: string;
     limit?: number;
-  }) => Promise<Post[] | null>;
+  }) => Promise<IMostPopularPostsAnalytics | null>;
 }
 
-export interface PaginatedPostResult {
+export interface IPaginatedPostResult {
   data: Post[];
   pagination: {
     current_page: number | null;
@@ -76,11 +76,16 @@ export interface PaginatedPostResult {
   };
 }
 
-export interface IPostAnalyticsData {
+export interface IPostAnalytics {
   total_created_counts: number[];
   total_deleted_counts: number[];
   total_blocked_comment_counts: number[];
   total_count: number;
   total_published_counts: number[];
   formatted_dates: string[];
+}
+
+export interface IMostPopularPostsAnalytics {
+  data: Post[];
+  category_ratio: Record<string, unknown>;
 }

@@ -1,5 +1,6 @@
-import Post from "../../database/entities/post";
-import IPostDb from "../../data-access/interfaces/post-db";
+import IPostDb, {
+  IMostPopularPostsAnalytics,
+} from "../../data-access/interfaces/post-db";
 import { Logger } from "winston";
 import Redis from "../../config/redis";
 
@@ -11,7 +12,7 @@ export type IGetMostPopularPostsAnalystics = ({
   range?: string[];
   unit?: string;
   limit?: number;
-}) => Promise<Post[] | null>;
+}) => Promise<IMostPopularPostsAnalytics | null>;
 
 export default function makeGetMostPopularPostsAnalystics({
   postDb,
@@ -30,7 +31,7 @@ export default function makeGetMostPopularPostsAnalystics({
     range?: string[];
     unit?: string;
     limit?: number;
-  }): Promise<Post[] | null> {
+  }): Promise<IMostPopularPostsAnalytics | null> {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "getMostPopularPostsAnalystics",
       range,
