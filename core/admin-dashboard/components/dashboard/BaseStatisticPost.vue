@@ -27,7 +27,7 @@
 
         <div v-if="has_most_popular_posts" class="d-flex flex-column">
           <div
-            v-for="post in most_popular_posts_analys_data"
+            v-for="post in most_popular_posts"
             :key="post._id"
             class="d-flex mt-4"
           >
@@ -133,7 +133,11 @@ export default {
     },
 
     has_most_popular_posts() {
-      return this.most_popular_posts_analys_data.length;
+      return !!this.most_popular_posts_analys_data?.data?.length;
+    },
+
+    most_popular_posts() {
+      return this.most_popular_posts_analys_data?.data || [];
     },
   },
 

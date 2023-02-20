@@ -164,14 +164,23 @@ export default {
     },
 
     post_chart() {
+      const category_ratio = _.get(
+        this.most_popular_posts_analys_data,
+        "category_ratio",
+        0
+      );
+
+      const category_titles = _.keys(category_ratio);
+      const category_ratio_data = _.values(category_ratio);
+
       return {
-        series: [44, 55, 13, 43, 22],
+        series: category_ratio_data,
         options: {
           chart: {
             width: 380,
             type: "pie",
           },
-          labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
+          labels: category_titles,
           dataLabels: {
             formatter: function (val, opts) {
               return;

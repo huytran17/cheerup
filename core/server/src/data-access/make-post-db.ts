@@ -77,10 +77,7 @@ export default function makePostDb({
 
       const data = _.map(existing, (post) => new Post(post));
       const categories = _.flattenDeep(data.map((post) => post.categories));
-      const category_ratio = _.countBy(
-        categories.map((category) => category._id),
-        "title"
-      );
+      const category_ratio = _.countBy(categories, "title");
 
       return {
         data,

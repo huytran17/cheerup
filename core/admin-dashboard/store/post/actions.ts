@@ -49,7 +49,7 @@ const actions: ActionTree<PostState, RootState> = {
       url_query.set("limit", limit);
     }
 
-    const { data } = await this.$axios.$get(
+    const data = await this.$axios.$get(
       `/post/most-popular-posts-analystics?${url_query}`
     );
 
