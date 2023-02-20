@@ -54,33 +54,43 @@ export default function makePostDb({
         },
       };
 
-      const existing = await postDbModel
-        .find(query_conditions)
-        .select(
-          "_id categories author title views is_published created_at deleted_at"
-        )
-        .populate({
-          path: "categories",
-          select: "_id title badge_color",
-        })
-        .populate({
-          path: "author",
-          select: "_id full_name",
-        })
-        .limit(limit)
-        .sort({ views: -1 })
-        .lean({ virtual: true });
+      const [all_results, limited_results] = await Promise.all([
+        postDbModel
+          .find(query_conditions)
+          .select("_id title categories")
+          .populate({
+            path: "categories",
+            select: "_id title",
+          })
+          .lean({ virtual: true }),
+        postDbModel
+          .find(query_conditions)
+          .select(
+            "_id categories author title views is_published created_at deleted_at"
+          )
+          .populate({
+            path: "categories",
+            select: "_id title badge_color",
+          })
+          .populate({
+            path: "author",
+            select: "_id full_name",
+          })
+          .limit(limit)
+          .sort({ views: -1 })
+          .lean({ virtual: true }),
+      ]);
 
-      if (!existing) {
+      if (!limited_results) {
         return null;
       }
 
-      const data = _.map(existing, (post) => new Post(post));
+      const data = _.map(all_results, (post) => new Post(post));
       const categories = _.flattenDeep(data.map((post) => post.categories));
       const category_ratio = _.countBy(categories, "title");
 
       return {
-        data,
+        data: limited_results,
         category_ratio,
       };
     }

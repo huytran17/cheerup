@@ -142,7 +142,7 @@ export default {
   },
 
   methods: {
-    joinCategoryTitles(categories) {
+    joinCategoryTitles(categories = []) {
       return categories.map((category) => category.title).join(", ");
     },
 
