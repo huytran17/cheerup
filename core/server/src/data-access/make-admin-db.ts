@@ -85,16 +85,8 @@ export default function makeAdminDb({
               total_post_created: [
                 {
                   $match: {
-                    created_at: {
-                      $gte: start_of,
-                      $lte: end_of,
-                    },
+                    created_at: { $gte: start_of, $lte: end_of },
                     type: admin_type,
-                  },
-                },
-                {
-                  $project: {
-                    _id: 1,
                   },
                 },
                 {
@@ -199,7 +191,6 @@ export default function makeAdminDb({
             },
           },
         ]);
-        console.log("---------------", result[0]?.total_post_created[0]);
 
         const total_post_created_count =
           result[0]?.total_post_created[0]?.total_post_created_count || 0;
