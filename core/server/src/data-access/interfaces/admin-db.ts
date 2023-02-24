@@ -1,5 +1,5 @@
 import Admin from "../../database/entities/admin";
-import IAdmin from "../../database/interfaces/admin";
+import IAdmin, { AdminType } from "../../database/interfaces/admin";
 export default interface IAdminDb {
   findAll: () => Promise<Admin[] | null>;
   findAllPaginated: ({
@@ -19,9 +19,11 @@ export default interface IAdminDb {
   hardDelete: ({ _id }: { _id: string }) => Promise<Admin | null>;
   update: (updatePayload: Partial<IAdmin>) => Promise<Admin | null>;
   getAdminAnalystics: ({
+    admin_type,
     range,
     unit,
   }: {
+    admin_type?: AdminType;
     range?: string[];
     unit?: string;
   }) => Promise<IAdminAnalyticsData>;
@@ -40,6 +42,7 @@ export interface IPaginatedAdminResult {
 }
 
 export interface IAdminAnalyticsData {
+  total_post_created_counts: number[];
   total_created_counts: number[];
   total_deleted_counts: number[];
   total_owner_counts: number[];

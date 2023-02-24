@@ -20,9 +20,11 @@ export default function makeAdminDb({
 }): IAdminDb {
   return new (class MongooseAdminDb implements IAdminDb {
     async getAdminAnalystics({
+      admin_type = AdminType.Owner,
       range = [],
       unit = "day",
     }: {
+      admin_type?: AdminType;
       range?: string[];
       unit?: string;
     }): Promise<IAdminAnalyticsData> {
@@ -39,6 +41,7 @@ export default function makeAdminDb({
 
       const formatted_dates = [];
       const existing_dates = [];
+      const total_post_created_counts = [];
       const total_created_counts = [];
       const total_deleted_counts = [];
       const total_editor_counts = [];
@@ -52,23 +55,24 @@ export default function makeAdminDb({
         },
       });
 
-      while (from_date.isSameOrBefore(to_date, unit)) {
-        let formatted_date = from_date.format("YYYY-MM-DD");
+      const cloned_from_date = _.cloneDeep(from_date);
+      while (cloned_from_date.isSameOrBefore(to_date, unit)) {
+        let formatted_date = cloned_from_date.format("YYYY-MM-DD");
 
         switch (unit) {
           case AnalyssisUnit.MONTH:
-            formatted_date = from_date.format("YYYY-MM");
+            formatted_date = cloned_from_date.format("YYYY-MM");
             break;
           case AnalyssisUnit.YEAR:
-            formatted_date = from_date.format("YYYY");
+            formatted_date = cloned_from_date.format("YYYY");
             break;
           default:
             break;
         }
 
         formatted_dates.push(formatted_date);
-        existing_dates.push(JSON.parse(JSON.stringify(from_date)));
-        from_date.add(1, unit);
+        existing_dates.push(JSON.parse(JSON.stringify(cloned_from_date)));
+        cloned_from_date.add(1, unit);
       }
 
       const analysis_promises = existing_dates.map(async (date) => {
@@ -78,6 +82,60 @@ export default function makeAdminDb({
         const result = await adminDbModel.aggregate([
           {
             $facet: {
+              total_post_created: [
+                {
+                  $match: {
+                    created_at: {
+                      $gte: start_of,
+                      $lte: end_of,
+                    },
+                    type: admin_type,
+                  },
+                },
+                {
+                  $project: {
+                    _id: 1,
+                  },
+                },
+                {
+                  $lookup: {
+                    from: "posts",
+                    localField: "_id",
+                    foreignField: "author",
+                    as: "posts",
+                    pipeline: [{ $project: { _id: 1, created_at: 1 } }],
+                  },
+                },
+                {
+                  $project: {
+                    _id: 1,
+                    total_post_created_count: {
+                      $size: {
+                        $filter: {
+                          input: "$posts",
+                          as: "post",
+                          cond: {
+                            $and: [
+                              {
+                                $gte: [
+                                  "$$post.created_at",
+                                  new Date(from_date.startOf(unit)),
+                                ],
+                              },
+                              {
+                                $lte: [
+                                  "$$post.created_at",
+                                  new Date(to_date.endOf(unit)),
+                                ],
+                              },
+                            ],
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              ],
               total_created: [
                 {
                   $match: {
@@ -141,6 +199,11 @@ export default function makeAdminDb({
             },
           },
         ]);
+        console.log("---------------", result[0]?.total_post_created[0]);
+
+        const total_post_created_count =
+          result[0]?.total_post_created[0]?.total_post_created_count || 0;
+        total_post_created_counts.push(total_post_created_count);
 
         const total_created_count =
           result[0]?.total_created[0]?.total_created_count || 0;
@@ -166,6 +229,7 @@ export default function makeAdminDb({
       await Promise.all(analysis_promises);
 
       return {
+        total_post_created_counts,
         total_created_counts,
         total_deleted_counts,
         total_owner_counts,
