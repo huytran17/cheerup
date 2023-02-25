@@ -2,9 +2,11 @@ import _ from "lodash";
 import mongoose from "mongoose";
 import ICategoryDb, {
   IPaginatedCategoryResult,
+  ICategoryAnalyticsData,
 } from "./interfaces/category-db";
 import Category from "../database/entities/category";
 import ICategory from "../database/interfaces/category";
+import { AnalyssisUnit } from "../constants/analysis-unit";
 
 export default function makeCategoryDb({
   categoryDbModel,
@@ -17,6 +19,131 @@ export default function makeCategoryDb({
   moment: any;
 }): ICategoryDb {
   return new (class MongooseCategoryDb implements ICategoryDb {
+    async getCategoryAnalystics({
+      range = [],
+      unit = "day",
+    }: {
+      range?: string[];
+      unit?: string;
+    }): Promise<ICategoryAnalyticsData> {
+      const FROM_INDEX = 0;
+      const END_INDEX = 1;
+
+      const from_date = range[FROM_INDEX]
+        ? moment(range[FROM_INDEX])
+        : moment().subtract(1, AnalyssisUnit.YEAR);
+
+      const to_date = moment(range[END_INDEX])
+        ? moment(range[END_INDEX])
+        : moment();
+
+      const formatted_dates = [];
+      const existing_dates = [];
+      const category_titles = [];
+      const most_popular_categories = [];
+      const total_post_related_counts = [];
+
+      const total_count = await categoryDbModel.countDocuments({
+        created_at: {
+          $gte: moment(from_date, "yyyy-MM-DD").startOf(unit),
+          $lte: moment(to_date, "yyyy-MM-DD").endOf(unit),
+        },
+      });
+
+      const cloned_from_date = _.cloneDeep(from_date);
+      while (cloned_from_date.isSameOrBefore(to_date, unit)) {
+        let formatted_date = cloned_from_date.format("YYYY-MM-DD");
+
+        switch (unit) {
+          case AnalyssisUnit.MONTH:
+            formatted_date = cloned_from_date.format("YYYY-MM");
+            break;
+          case AnalyssisUnit.YEAR:
+            formatted_date = cloned_from_date.format("YYYY");
+            break;
+          default:
+            break;
+        }
+
+        formatted_dates.push(formatted_date);
+        existing_dates.push(JSON.parse(JSON.stringify(cloned_from_date)));
+        cloned_from_date.add(1, unit);
+      }
+
+      const analysis_promises = existing_dates.map(async (date, index) => {
+        const start_of = new Date(moment(date, "yyyy-MM-DD").startOf(unit));
+        const end_of = new Date(moment(date, "yyyy-MM-DD").endOf(unit));
+
+        const result = await categoryDbModel.aggregate([
+          {
+            $match: {
+              created_at: { $gte: start_of, $lte: end_of },
+            },
+          },
+          {
+            $lookup: {
+              from: "posts",
+              localField: "_id",
+              foreignField: "categories",
+              as: "posts",
+              pipeline: [
+                {
+                  $project: {
+                    total_post_related_count: {
+                      $size: {
+                        $filter: {
+                          input: "$posts",
+                          as: "post",
+                          cond: {
+                            $and: [
+                              {
+                                $gte: [
+                                  "$$post.created_at",
+                                  new Date(from_date.startOf(unit)),
+                                ],
+                              },
+                              {
+                                $lte: [
+                                  "$$post.created_at",
+                                  new Date(to_date.endOf(unit)),
+                                ],
+                              },
+                            ],
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              ],
+            },
+          },
+          {
+            $project: {
+              _id: 1,
+              total_post_related_count: 1,
+            },
+          },
+        ]);
+
+        result.push({ order: index });
+
+        return result;
+      });
+
+      const results = await Promise.all(analysis_promises);
+      const sorted_results = _.sortBy(results, ["order"]);
+
+      for (const result of sorted_results) {
+      }
+
+      return {
+        sorted_results,
+        formatted_dates,
+        total_count,
+      };
+    }
+
     async findAll(): Promise<Category[] | null> {
       let query_conditions = Object.assign({});
 

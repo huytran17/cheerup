@@ -31,6 +31,13 @@ export default interface ICategoryDb {
   delete: ({ _id }: { _id: string }) => Promise<Category | null>;
   hardDelete: ({ _id }: { _id: string }) => Promise<Category | null>;
   update: (updatePayload: Partial<ICategory>) => Promise<Category | null>;
+  getCategoryAnalystics: ({
+    range,
+    unit,
+  }: {
+    range?: string[];
+    unit?: string;
+  }) => Promise<ICategoryAnalyticsData>;
 }
 
 export interface IPaginatedCategoryResult {
@@ -43,4 +50,15 @@ export interface IPaginatedCategoryResult {
     total: number | null;
     total_pages: number | null;
   };
+}
+
+export interface ICategoryAnalyticsData {
+  // total_post_created_counts: number[];
+  // total_created_counts: number[];
+  // total_deleted_counts: number[];
+  // total_owner_counts: number[];
+  // total_collaborator_counts: number[];
+  sorted_results: any[];
+  total_count: number;
+  formatted_dates: string[];
 }

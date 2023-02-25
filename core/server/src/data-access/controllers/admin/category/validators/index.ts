@@ -5,6 +5,7 @@ import createCategoryRules from "./create-category";
 import restoreCategoryRules from "./restore-category";
 import hardDeleteCategoryRules from "./hard-delete-category";
 import uploadCategoryThumbnailRules from "./upload-category-thumbnail";
+import getCategoryAnalysticsRules from "./get-category-analystics";
 
 export default Object.freeze({
   getCategoryRules,
@@ -14,6 +15,7 @@ export default Object.freeze({
   restoreCategoryRules,
   hardDeleteCategoryRules,
   uploadCategoryThumbnailRules,
+  getCategoryAnalysticsRules,
 });
 
 export {
@@ -24,4 +26,5 @@ export {
   restoreCategoryRules,
   hardDeleteCategoryRules,
   uploadCategoryThumbnailRules,
+  getCategoryAnalysticsRules,
 };
