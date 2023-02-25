@@ -14,6 +14,7 @@ export default {
     ...mapGetters({
       category: "category/category",
       categories: "category/categories",
+      category_analys_data: "category/category_analys_data",
     }),
   },
   methods: {
@@ -25,11 +26,13 @@ export default {
       DELETE_CATEGORY: "category/DELETE_CATEGORY",
       HARD_DELETE_CATEGORY: "category/HARD_DELETE_CATEGORY",
       RESTORE_CATEGORY: "category/RESTORE_CATEGORY",
+      GET_CATEGORY_ANALYTICS: "category/GET_CATEGORY_ANALYTICS",
     }),
     ...mapMutations({
       SET_CATEGORY: "category/SET_CATEGORY",
       SET_CATEGORIES: "category/SET_CATEGORIES",
       UPDATE_CATEGORY_DATA: "category/UPDATE_CATEGORY_DATA",
+      SET_CATEGORY_ANALYS_DATA: "category/SET_CATEGORY_ANALYS_DATA",
     }),
 
     updateCategoryObject({ variable_path, data }) {
