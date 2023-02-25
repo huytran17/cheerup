@@ -6,6 +6,7 @@ import {
   getCategories,
   hardDeleteCategory,
   getCategoryByTitle,
+  getCategoryAnalystics,
 } from "../../../../use-cases/category";
 import { logger } from "../../../../config/logs/logger";
 
@@ -17,6 +18,11 @@ import makeGetCategoriesController from "./get-categories";
 import makeRestoreCategoryController from "./restore-category";
 import makeHardDeleteCategoryController from "./hard-delete-category";
 import makeUploadCategoryThumbnailController from "./upload-category-thumbnail";
+import makeGetCategoryAnalysticsController from "./get-category-analystics";
+
+const getCategoryAnalysticsController = makeGetCategoryAnalysticsController({
+  getCategoryAnalystics,
+});
 
 const uploadCategoryThumbnailController = makeUploadCategoryThumbnailController(
   {
@@ -75,6 +81,7 @@ export default Object.freeze({
   restoreCategoryController,
   hardDeleteCategoryController,
   uploadCategoryThumbnailController,
+  getCategoryAnalysticsController,
 });
 
 export {
@@ -86,4 +93,5 @@ export {
   restoreCategoryController,
   hardDeleteCategoryController,
   uploadCategoryThumbnailController,
+  getCategoryAnalysticsController,
 };

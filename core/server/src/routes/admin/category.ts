@@ -11,6 +11,7 @@ import {
   restoreCategoryRules,
   hardDeleteCategoryRules,
   uploadCategoryThumbnailRules,
+  getCategoryAnalysticsRules,
 } from "../../data-access/controllers/admin/category/validators";
 import {
   getCategoryController,
@@ -21,9 +22,16 @@ import {
   restoreCategoryController,
   hardDeleteCategoryController,
   uploadCategoryThumbnailController,
+  getCategoryAnalysticsController,
 } from "../../data-access/controllers/admin/category";
 
 const categoryRouter = express.Router();
+
+categoryRouter.get(
+  "/analystics",
+  makeValidator(getCategoryAnalysticsRules),
+  makeExpressCallback(getCategoryAnalysticsController)
+);
 
 categoryRouter.post(
   "/upload-thumbnail/:_id",

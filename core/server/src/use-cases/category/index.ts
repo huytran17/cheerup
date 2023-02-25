@@ -1,4 +1,5 @@
 import { logger } from "../../config/logs/logger";
+import { redis } from "../../config/redis";
 
 import { CategoryDb } from "../../data-access";
 
@@ -10,6 +11,13 @@ import makeCreateCategory from "./create-category";
 import makeGetCategoryTitles from "./get-category-titles";
 import makeHardDeleteCategory from "./hard-delete-category";
 import makeGetCategoryByTitle from "./get-category-by-title";
+import makeGetCategoryAnalystics from "./get-category-analystics";
+
+const getCategoryAnalystics = makeGetCategoryAnalystics({
+  categoryDb: CategoryDb,
+  logger,
+  redis,
+});
 
 const getCategoryByTitle = makeGetCategoryByTitle({
   categoryDb: CategoryDb,
@@ -56,6 +64,7 @@ const categoryServices = Object.freeze({
   hardDeleteCategory,
   getCategoryTitles,
   getCategoryByTitle,
+  getCategoryAnalystics,
 });
 
 export default categoryServices;
@@ -69,4 +78,5 @@ export {
   hardDeleteCategory,
   getCategoryTitles,
   getCategoryByTitle,
+  getCategoryAnalystics,
 };
