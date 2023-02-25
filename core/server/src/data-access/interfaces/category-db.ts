@@ -53,12 +53,7 @@ export interface IPaginatedCategoryResult {
 }
 
 export interface ICategoryAnalyticsData {
-  // total_post_created_counts: number[];
-  // total_created_counts: number[];
-  // total_deleted_counts: number[];
-  // total_owner_counts: number[];
-  // total_collaborator_counts: number[];
-  sorted_results: any[];
+  total_post_related_counts: number[];
   total_count: number;
   formatted_dates: string[];
 }

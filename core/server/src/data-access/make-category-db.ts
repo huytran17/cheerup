@@ -39,8 +39,6 @@ export default function makeCategoryDb({
 
       const formatted_dates = [];
       const existing_dates = [];
-      const category_titles = [];
-      const most_popular_categories = [];
       const total_post_related_counts = [];
 
       const total_count = await categoryDbModel.countDocuments({
@@ -86,42 +84,15 @@ export default function makeCategoryDb({
               localField: "_id",
               foreignField: "categories",
               as: "posts",
-              pipeline: [
-                {
-                  $project: {
-                    total_post_related_count: {
-                      $size: {
-                        $filter: {
-                          input: "$posts",
-                          as: "post",
-                          cond: {
-                            $and: [
-                              {
-                                $gte: [
-                                  "$$post.created_at",
-                                  new Date(from_date.startOf(unit)),
-                                ],
-                              },
-                              {
-                                $lte: [
-                                  "$$post.created_at",
-                                  new Date(to_date.endOf(unit)),
-                                ],
-                              },
-                            ],
-                          },
-                        },
-                      },
-                    },
-                  },
-                },
-              ],
+              pipeline: [{ $project: { _id: 1, created_at: 1 } }],
             },
           },
           {
             $project: {
               _id: 1,
-              total_post_related_count: 1,
+              total_post_related_count: {
+                $size: "$posts",
+              },
             },
           },
         ]);
@@ -135,10 +106,13 @@ export default function makeCategoryDb({
       const sorted_results = _.sortBy(results, ["order"]);
 
       for (const result of sorted_results) {
+        const total_post_related_count =
+          result[0]?.total_post_related_count || 0;
+        total_post_related_counts.push(total_post_related_count);
       }
 
       return {
-        sorted_results,
+        total_post_related_counts,
         formatted_dates,
         total_count,
       };
