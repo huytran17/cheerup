@@ -75,7 +75,7 @@ export default function makeAdminDb({
         cloned_from_date.add(1, unit);
       }
 
-      const analysis_promises = existing_dates.map(async (date) => {
+      const analysis_promises = existing_dates.map(async (date, index) => {
         const start_of = new Date(moment(date, "yyyy-MM-DD").startOf(unit));
         const end_of = new Date(moment(date, "yyyy-MM-DD").endOf(unit));
 
@@ -192,6 +192,15 @@ export default function makeAdminDb({
           },
         ]);
 
+        result.push({ order: index });
+
+        return result;
+      });
+
+      const results = await Promise.all(analysis_promises);
+      const sorted_results = _.sortBy(results, ["order"]);
+
+      for (const result of sorted_results) {
         const total_post_created_count =
           result[0]?.total_post_created[0]?.total_post_created_count || 0;
         total_post_created_counts.push(total_post_created_count);
@@ -215,9 +224,7 @@ export default function makeAdminDb({
         const total_editor_count =
           result[0]?.total_created[0]?.total_editor_count || 0;
         total_editor_counts.push(total_editor_count);
-      });
-
-      await Promise.all(analysis_promises);
+      }
 
       return {
         total_post_created_counts,

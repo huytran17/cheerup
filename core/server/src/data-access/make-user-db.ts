@@ -69,7 +69,7 @@ export default function makeUserDb({
         from_date.add(1, unit);
       }
 
-      const analysis_promises = existing_dates.map(async (date) => {
+      const analysis_promises = existing_dates.map(async (date, index) => {
         const start_of = new Date(moment(date, "yyyy-MM-DD").startOf(unit));
         const end_of = new Date(moment(date, "yyyy-MM-DD").endOf(unit));
 
@@ -113,6 +113,15 @@ export default function makeUserDb({
           },
         ]);
 
+        result.push({ order: index });
+
+        return result;
+      });
+
+      const results = await Promise.all(analysis_promises);
+      const sorted_results = _.sortBy(results, ["order"]);
+
+      for (const result of sorted_results) {
         const total_created_count =
           result[0]?.total_created[0]?.total_created_count || 0;
         total_created_counts.push(total_created_count);
@@ -124,9 +133,7 @@ export default function makeUserDb({
         const total_blocked_comment_count =
           result[0]?.total_blocked_comment[0]?.total_blocked_comment_count || 0;
         total_blocked_comment_counts.push(total_blocked_comment_count);
-      });
-
-      await Promise.all(analysis_promises);
+      }
 
       const FIRST_INDEX = 0;
       const LAST_INDEX = total_created_counts.length - 1 || 0;

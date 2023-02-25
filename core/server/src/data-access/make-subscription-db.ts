@@ -68,7 +68,7 @@ export default function makeSubscriptionDb({
         from_date.add(1, unit);
       }
 
-      const analysis_promises = existing_dates.map(async (date) => {
+      const analysis_promises = existing_dates.map(async (date, index) => {
         const start_of = new Date(moment(date, "yyyy-MM-DD").startOf(unit));
         const end_of = new Date(moment(date, "yyyy-MM-DD").endOf(unit));
 
@@ -101,6 +101,15 @@ export default function makeSubscriptionDb({
           },
         ]);
 
+        result.push({ order: index });
+
+        return result;
+      });
+
+      const results = await Promise.all(analysis_promises);
+      const sorted_results = _.sortBy(results, ["order"]);
+
+      for (const result of sorted_results) {
         const total_created_count =
           result[0]?.total_created[0]?.total_created_count || 0;
         total_created_counts.push(total_created_count);
@@ -108,9 +117,7 @@ export default function makeSubscriptionDb({
         const total_active_count =
           result[0]?.total_created[0]?.total_active_count || 0;
         total_active_counts.push(total_active_count);
-      });
-
-      await Promise.all(analysis_promises);
+      }
 
       return {
         total_created_counts,
