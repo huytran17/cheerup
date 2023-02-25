@@ -15,6 +15,7 @@ import {
   updateAdminPasswordRules,
   uploadAdminAvatarRules,
   updateAdminPersonalPasswordRules,
+  getAdminAnalysticsRules,
 } from "../../data-access/controllers/admin/admin/validators";
 import {
   getAdminController,
@@ -36,6 +37,7 @@ const adminRouter = express.Router();
 
 adminRouter.get(
   "/analystics",
+  makeValidator(getAdminAnalysticsRules),
   makeExpressCallback(getAdminAnalysticsController)
 );
 
