@@ -3,13 +3,16 @@ import IAdminDb, {
 } from "../../data-access/interfaces/admin-db";
 import Redis from "../../config/redis";
 import { Logger } from "winston";
+import { AdminType } from "../../database/interfaces/admin";
 
 export type IGetAdminAnalystics = ({
   range,
   unit,
+  author_type,
 }: {
   range?: string[];
   unit?: string;
+  author_type?: AdminType;
 }) => Promise<IAdminAnalyticsData>;
 
 export default function makeGetAdminAnalystics({
@@ -24,13 +27,16 @@ export default function makeGetAdminAnalystics({
   return async function getAdminAnalystics({
     unit,
     range,
+    author_type,
   }: {
     unit?: string;
     range?: string[];
+    author_type?: AdminType;
   }): Promise<IAdminAnalyticsData> {
     // const cache_key = redis.cacheKeyBuilder({
     //   prefix: "getAdminAnalystics",
     //   unit,
+    //   author_type,
     //   range,
     // });
 
@@ -40,7 +46,7 @@ export default function makeGetAdminAnalystics({
     //   return cached_data;
     // }
 
-    const data = await adminDb.getAdminAnalystics({ range, unit });
+    const data = await adminDb.getAdminAnalystics({ range, unit, author_type });
 
     // const one_day_in_seconds = 24 * 60 * 60;
     // redis.setData({

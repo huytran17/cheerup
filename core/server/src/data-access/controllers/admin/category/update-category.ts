@@ -34,11 +34,14 @@ export default function makeUpdateCategoryController({
         throw new Error(`Category by ${_id} does not exist`);
       }
 
-      const category = await getCategoryByTitle({
-        title,
-      });
+      const updated_title = exists.title !== title;
+      const exists_by_title =
+        updated_title &&
+        (await getCategoryByTitle({
+          title,
+        }));
 
-      if (!isEmpty(category)) {
+      if (!isEmpty(exists_by_title)) {
         throw new Error(`Category ${title} already exists`);
       }
 

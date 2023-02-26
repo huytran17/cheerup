@@ -1,5 +1,5 @@
 const getCategoryAnalysticsRules = {
-  author_type: "string",
+  limit: "string",
   unit: "string",
   range: "string",
 };

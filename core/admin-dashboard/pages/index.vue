@@ -30,6 +30,7 @@ export default {
       GET_POST_ANALYTICS: "post/GET_POST_ANALYTICS",
       GET_MOST_POPULAR_POSTS_ANALYTICS: "post/GET_MOST_POPULAR_POSTS_ANALYTICS",
       GET_SUBSCRIPTION_ANALYTICS: "subscription/GET_SUBSCRIPTION_ANALYTICS",
+      GET_CATEGORY_ANALYTICS: "category/GET_CATEGORY_ANALYTICS",
     }),
   },
 
@@ -41,6 +42,7 @@ export default {
         this.GET_POST_ANALYTICS({ ...this.analysis }),
         this.GET_SUBSCRIPTION_ANALYTICS({ ...this.analysis }),
         this.GET_MOST_POPULAR_POSTS_ANALYTICS({ ...this.analysis }),
+        this.GET_CATEGORY_ANALYTICS({ ...this.analysis }),
       ]);
     } catch (error) {
       console.error(error);
@@ -48,5 +50,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

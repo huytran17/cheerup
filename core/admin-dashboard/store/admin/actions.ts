@@ -3,12 +3,14 @@ import { MutationTypes } from "./mutation-types";
 import { ActionTree } from "vuex";
 import { AdminState } from ".";
 import { RootState } from "..";
+import { ADMIN_TYPES } from "@/constants";
 import _ from "lodash";
 
 const actions: ActionTree<AdminState, RootState> = {
   async [ActionTypes.GET_ADMIN_ANALYTICS]({ commit }, params = {}) {
     const range = _.get(params, "range", []);
     const unit = _.get(params, "unit", "month");
+    const author_type = _.get(params, "author_type", ADMIN_TYPES.OWNER);
 
     let url_query = new URLSearchParams();
 
@@ -19,6 +21,10 @@ const actions: ActionTree<AdminState, RootState> = {
 
     if (unit) {
       url_query.set("unit", unit);
+    }
+
+    if (author_type) {
+      url_query.set("author_type", author_type);
     }
 
     const { data } = await this.$axios.$get(`/admin/analystics?${url_query}`);

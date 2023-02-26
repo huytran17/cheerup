@@ -34,9 +34,11 @@ export default interface ICategoryDb {
   getCategoryAnalystics: ({
     range,
     unit,
+    limit,
   }: {
     range?: string[];
     unit?: string;
+    limit?: number;
   }) => Promise<ICategoryAnalyticsData>;
 }
 
@@ -53,7 +55,11 @@ export interface IPaginatedCategoryResult {
 }
 
 export interface ICategoryAnalyticsData {
-  total_post_related_counts: number[];
+  created_categories: Category[];
+  most_popular_categories: Category[];
   total_count: number;
   formatted_dates: string[];
+  created_category_titles: string[];
+  created_category_colors: string[];
+  related_post_counts: number[];
 }

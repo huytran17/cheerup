@@ -1,15 +1,7 @@
 <template>
   <BaseCardWrapper>
     <div class="d-flex flex-column card__statistic">
-      <div class="card__header">
-        <slot name="header"></slot>
-      </div>
-      <div class="card__description">
-        <slot name="description"></slot>
-      </div>
-      <div class="card__content">
-        <slot name="content"></slot>
-      </div>
+      <slot></slot>
     </div>
   </BaseCardWrapper>
 </template>

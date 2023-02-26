@@ -20,11 +20,11 @@ export default function makeAdminDb({
 }): IAdminDb {
   return new (class MongooseAdminDb implements IAdminDb {
     async getAdminAnalystics({
-      admin_type = AdminType.Owner,
+      author_type = AdminType.Owner,
       range = [],
       unit = "day",
     }: {
-      admin_type?: AdminType;
+      author_type?: AdminType;
       range?: string[];
       unit?: string;
     }): Promise<IAdminAnalyticsData> {
@@ -86,7 +86,7 @@ export default function makeAdminDb({
                 {
                   $match: {
                     created_at: { $gte: start_of, $lte: end_of },
-                    type: admin_type,
+                    type: author_type,
                   },
                 },
                 {

@@ -16,7 +16,11 @@ export default function makeGetCategoryAnalysticsController({
     };
 
     try {
-      const { range, unit }: { range?: string; unit?: string } = _.get(
+      const {
+        range,
+        unit,
+        limit,
+      }: { range?: string; unit?: string; limit?: number } = _.get(
         httpRequest,
         "context.validated"
       );
@@ -26,6 +30,7 @@ export default function makeGetCategoryAnalysticsController({
       const analystics_data = await getCategoryAnalystics({
         range: splitted_range,
         unit,
+        limit,
       });
 
       return {

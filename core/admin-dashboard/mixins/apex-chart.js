@@ -8,47 +8,69 @@ export default {
       admin_analys_data: "admin/admin_analys_data",
       post_analys_data: "post/post_analys_data",
       subscription_analys_data: "subscription/subscription_analys_data",
+      category_analys_data: "category/category_analys_data",
     }),
 
-    admin_chart_data() {
+    admin_chart() {
       return {
-        labels: _.get(this.admin_analys_data, "formatted_dates", []),
-        datasets: [
+        series: [
           {
-            label: "Created",
-            border: false,
-            backgroundColor: "rgba(0, 255, 46, 1)",
-            data: _.get(this.admin_analys_data, "total_created_counts", []),
-          },
-          {
-            label: "Deleted",
-            backgroundColor: "rgba(232, 60, 60, 1)",
-            data: _.get(this.admin_analys_data, "total_deleted_counts", []),
-          },
-          {
-            label: "Super Admin",
-            backgroundColor: "rgba(57, 137, 216,1)",
-            data: _.get(this.admin_analys_data, "total_super_admin_counts", []),
-          },
-          {
-            label: "Normal Admin",
-            backgroundColor: "rgba(0, 255, 246, 1)",
+            name: this.$t("Posts Created"),
             data: _.get(
               this.admin_analys_data,
-              "total_normal_admin_counts",
-              []
-            ),
-          },
-          {
-            label: "Verified Email",
-            backgroundColor: "rgba(250, 0, 255, 1)",
-            data: _.get(
-              this.admin_analys_data,
-              "total_verified_email_counts",
+              "total_post_created_counts",
               []
             ),
           },
         ],
+        options: {
+          chart: {
+            id: "author-analytics",
+            type: "area",
+            width: "100%",
+          },
+          dataLabels: {
+            enabled: false,
+          },
+          stroke: {
+            curve: "smooth",
+            width: 1,
+          },
+          xaxis: {
+            categories: _.get(this.admin_analys_data, "formatted_dates", []),
+          },
+        },
+      };
+    },
+
+    category_chart() {
+      return {
+        series: _.get(this.category_analys_data, "related_post_counts", []),
+        options: {
+          colors: _.get(
+            this.category_analys_data,
+            "created_category_colors",
+            []
+          ),
+          chart: {
+            width: 380,
+            type: "donut",
+          },
+          stroke: {
+            width: 0,
+          },
+          labels: _.get(
+            this.category_analys_data,
+            "created_category_titles",
+            []
+          ),
+          dataLabels: {
+            enabled: false,
+          },
+          legend: {
+            show: false,
+          },
+        },
       };
     },
 
@@ -182,9 +204,7 @@ export default {
           },
           labels: category_titles,
           dataLabels: {
-            formatter: function (val, opts) {
-              return;
-            },
+            enabled: false,
           },
           responsive: [
             {

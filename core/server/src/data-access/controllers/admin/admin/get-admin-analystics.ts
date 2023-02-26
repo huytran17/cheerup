@@ -2,6 +2,7 @@ import { Request } from "express";
 import { IGetAdminAnalystics } from "../../../../use-cases/admin/get-admin-analystics";
 import _ from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { AdminType } from "../../../../database/interfaces/admin";
 
 export default function makeGetAdminAnalysticsController({
   getAdminAnalystics,
@@ -16,7 +17,11 @@ export default function makeGetAdminAnalysticsController({
     };
 
     try {
-      const { range, unit }: { range?: string; unit?: string } = _.get(
+      const {
+        range,
+        unit,
+        author_type,
+      }: { range?: string; unit?: string; author_type?: AdminType } = _.get(
         httpRequest,
         "context.validated"
       );
@@ -26,6 +31,7 @@ export default function makeGetAdminAnalysticsController({
       const analystics_data = await getAdminAnalystics({
         range: splitted_range,
         unit,
+        author_type,
       });
 
       return {

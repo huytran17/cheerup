@@ -38,8 +38,18 @@
     </v-row>
 
     <v-row>
-      <v-col cols="12" md="4">
+      <v-col cols="12" sm="6" md="4">
         <BaseStatisticPost />
+      </v-col>
+      <v-col cols="12" sm="6" md="8">
+        <v-row>
+          <v-col cols="12">
+            <BaseStatisticAdmin />
+          </v-col>
+          <v-col cols="12">
+            <BaseStatisticCategory />
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-container>
@@ -55,6 +65,8 @@ import BaseOverallPostCard from "@/components/dashboard/BaseOverallPostCard";
 import BaseUserGrowthChart from "@/components/dashboard/BaseUserGrowthChart";
 import BaseUserOverviewChart from "@/components/dashboard/BaseUserOverviewChart";
 import BaseStatisticPost from "@/components/dashboard/BaseStatisticPost";
+import BaseStatisticAdmin from "@/components/dashboard/BaseStatisticAdmin";
+import BaseStatisticCategory from "@/components/dashboard/BaseStatisticCategory";
 
 export default {
   name: "BaseDashboardAnalysis",
@@ -68,6 +80,8 @@ export default {
     BaseUserGrowthChart,
     BaseUserOverviewChart,
     BaseStatisticPost,
+    BaseStatisticAdmin,
+    BaseStatisticCategory,
   },
 };
 </script>

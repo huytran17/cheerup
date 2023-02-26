@@ -22,9 +22,11 @@ export default function makeCategoryDb({
     async getCategoryAnalystics({
       range = [],
       unit = "day",
+      limit = 4,
     }: {
       range?: string[];
       unit?: string;
+      limit?: number;
     }): Promise<ICategoryAnalyticsData> {
       const FROM_INDEX = 0;
       const END_INDEX = 1;
@@ -39,7 +41,6 @@ export default function makeCategoryDb({
 
       const formatted_dates = [];
       const existing_dates = [];
-      const total_post_related_counts = [];
 
       const total_count = await categoryDbModel.countDocuments({
         created_at: {
@@ -90,29 +91,48 @@ export default function makeCategoryDb({
           {
             $project: {
               _id: 1,
+              title: 1,
+              badge_color: 1,
+              created_at: 1,
               total_post_related_count: {
                 $size: "$posts",
               },
             },
           },
+          {
+            $sort: { title: -1 },
+          },
         ]);
-
-        result.push({ order: index });
 
         return result;
       });
 
       const results = await Promise.all(analysis_promises);
-      const sorted_results = _.sortBy(results, ["order"]);
-
-      for (const result of sorted_results) {
-        const total_post_related_count =
-          result[0]?.total_post_related_count || 0;
-        total_post_related_counts.push(total_post_related_count);
-      }
+      const sorted_results = _.orderBy(
+        _.flattenDeep(results),
+        ["total_post_related_count"],
+        ["desc"]
+      );
+      const most_popular_categories = _.slice(sorted_results, 0, limit);
+      const created_category_titles = _.map(
+        sorted_results,
+        (category) => category.title
+      );
+      const created_category_colors = _.map(
+        sorted_results,
+        (category) => category.badge_color
+      );
+      const related_post_counts = _.map(
+        sorted_results,
+        (category) => category.total_post_related_count
+      );
 
       return {
-        total_post_related_counts,
+        created_categories: sorted_results,
+        created_category_titles,
+        created_category_colors,
+        related_post_counts,
+        most_popular_categories,
         formatted_dates,
         total_count,
       };

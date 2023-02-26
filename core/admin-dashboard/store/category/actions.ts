@@ -9,6 +9,7 @@ const actions: ActionTree<CategoryState, RootState> = {
   async [ActionTypes.GET_CATEGORY_ANALYTICS]({ commit }, params = {}) {
     const range = _.get(params, "range", []);
     const unit = _.get(params, "unit", "month");
+    const limit = _.get(params, "limit", 4);
 
     let url_query = new URLSearchParams();
 
@@ -19,6 +20,10 @@ const actions: ActionTree<CategoryState, RootState> = {
 
     if (unit) {
       url_query.set("unit", unit);
+    }
+
+    if (limit) {
+      url_query.set("limit", limit);
     }
 
     const { data } = await this.$axios.$get(
