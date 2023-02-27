@@ -6,5 +6,6 @@
   "+{count} per year": "+{count} per year",
   "{count} Total Post": "{count} Total Post | {count} Total Posts",
   "{count} view": "{count} view | {count} views",
+  "{count} post": "{count} post | {count} posts",
   "by {text}": "by {text}"
 }

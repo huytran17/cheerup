@@ -9,7 +9,7 @@ const actions: ActionTree<CategoryState, RootState> = {
   async [ActionTypes.GET_CATEGORY_ANALYTICS]({ commit }, params = {}) {
     const range = _.get(params, "range", []);
     const unit = _.get(params, "unit", "month");
-    const limit = _.get(params, "limit", 4);
+    const limit = _.get(params, "limit", 6);
 
     let url_query = new URLSearchParams();
 

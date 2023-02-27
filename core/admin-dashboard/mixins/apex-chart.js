@@ -53,7 +53,7 @@ export default {
             []
           ),
           chart: {
-            width: 380,
+            width: 220,
             type: "donut",
           },
           stroke: {
