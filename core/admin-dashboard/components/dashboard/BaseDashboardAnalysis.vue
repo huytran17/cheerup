@@ -31,6 +31,7 @@
             <BaseUserGrowthChart
               :options="user_growth_chart.options"
               :series="user_growth_chart.series"
+              class="d-flex justify-center"
             />
           </v-col>
         </v-row>
