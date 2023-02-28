@@ -79,11 +79,6 @@ export default {
             icon: "bx-message-square-detail",
           },
           {
-            name: "Feedback",
-            link: "/feedback",
-            icon: "bx-paper-plane",
-          },
-          {
             name: "Subscription",
             link: "/subscription",
             icon: "bx-mail-send",
