@@ -33,27 +33,27 @@ export default function makeGetAdminAnalystics({
     range?: string[];
     author_type?: AdminType;
   }): Promise<IAdminAnalyticsData> {
-    // const cache_key = redis.cacheKeyBuilder({
-    //   prefix: "getAdminAnalystics",
-    //   unit,
-    //   author_type,
-    //   range,
-    // });
+    const cache_key = redis.cacheKeyBuilder({
+      prefix: "getAdminAnalystics",
+      unit,
+      author_type,
+      range,
+    });
 
-    // const cached_data = await redis.getData({ key: cache_key });
-    // if (cached_data) {
-    //   logger.verbose("Redis: Data found in cache", { cache_key });
-    //   return cached_data;
-    // }
+    const cached_data = await redis.getData({ key: cache_key });
+    if (cached_data) {
+      logger.verbose("Redis: Data found in cache", { cache_key });
+      return cached_data;
+    }
 
     const data = await adminDb.getAdminAnalystics({ range, unit, author_type });
 
-    // const one_day_in_seconds = 24 * 60 * 60;
-    // redis.setData({
-    //   key: cache_key,
-    //   value: data,
-    //   duration_in_seconds: one_day_in_seconds,
-    // });
+    const one_day_in_seconds = 24 * 60 * 60;
+    redis.setData({
+      key: cache_key,
+      value: data,
+      duration_in_seconds: one_day_in_seconds,
+    });
 
     return data;
   };
