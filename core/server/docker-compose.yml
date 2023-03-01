@@ -1,4 +1,4 @@
-version: "2.0"
+version: "2.1"
 
 services:
   redis:
@@ -27,18 +27,66 @@ services:
       REDIS_1_PORT: 6379
     networks:
       - redis-network
-  mongo:
+  mongoset-1:
     image: mongo
+    container_name: mongoset-1,
     restart: unless-stopped
     volumes:
-      - ./mongo/data:/data/db
+      - ./mongo/dataset-1:/data/db
+      - ./rs-init.sh:/scripts/rs-init.sh
     ports:
-      - ${MONGO_PORT:-27017}:27017
+      - 27021:27017
+    links:
+      - mongoset-2
+      - mongoset-3
+    networks:
+      - mongodb-network
+    entrypoint:
+      ["/usr/bin/mongod", "--bind_ip_all", "--replSet", "mongo-replica-set"]
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo db:${MONGO_PORT}/speech-api --quiet
+      interval: 30s
+      timeout: 15s
+      retries: 5
+
+  mongoset-2:
+    image: mongo
+    container_name: mongoset-2
+    restart: unless-stopped
+    volumes:
+      - ./mongo/dataset-2:/data/db
+    ports: 27022:27017
     networks:
       - mongodb-network
+    entrypoint:
+      ["/usr/bin/mongod", "--bind_ip_all", "--replSet", "mongo-replica-set"]
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo db:${MONGO_PORT}/speech-api --quiet
+      interval: 30s
+      timeout: 15s
+      retries: 5
+
+  mongoset-3:
+    image: mongo
+    container_name: mongset-3
+    restart: unless-stopped
+    volumes:
+      - ./mongo/dataset-3:/data/db
+    ports:
+      - 27023:27017
+    networks:
+      - mongodb-network
+    entrypoint:
+      ["/usr/bin/mongod", "--bind_ip_all", "--replSet", "mongo-replica-set"]
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
     healthcheck:
       test: echo 'db.runCommand("ping").ok' | mongo db:${MONGO_PORT}/speech-api --quiet
       interval: 30s
