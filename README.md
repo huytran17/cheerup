@@ -21,7 +21,7 @@ Cache management => Redis
 
 Virtual platform => Docker
 
-Realtime Module => Socket.io
+Realtime module => Socket.io
 
 JWT issuer => jsonwebtoken npm
 
