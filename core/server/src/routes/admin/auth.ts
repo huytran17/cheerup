@@ -5,14 +5,22 @@ import makeExpressCallback from "../../config/express-callback";
 import {
   signOutRules,
   signInRules,
+  verifyAccessRules,
 } from "../../data-access/controllers/admin/auth/validators";
 import {
   signOutController,
   signInController,
   getMeController,
+  verifyAccessController,
 } from "../../data-access/controllers/admin/auth";
 
 const authRouter = express.Router();
+
+authRouter.post(
+  "/verify-access",
+  makeValidator(verifyAccessRules),
+  makeExpressCallback(verifyAccessController)
+);
 
 authRouter.get(
   "/me",

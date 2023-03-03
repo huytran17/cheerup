@@ -18,6 +18,7 @@ import BaseAppOverlay from "@/components/BaseAppOverlay";
 
 export default {
   name: "DefaultLayout",
+  middleware: ["authenticate"],
   components: {
     TheSideNav,
     BaseAppOverlay,
@@ -31,13 +32,6 @@ export default {
     ...mapActions({
       GET_ME: "auth/GET_ME",
     }),
-  },
-  async fetch() {
-    try {
-      await this.GET_ME();
-    } catch (error) {
-      console.error(error);
-    }
   },
 };
 </script>
