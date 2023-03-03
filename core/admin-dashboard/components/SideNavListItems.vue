@@ -79,11 +79,6 @@ export default {
             icon: "bx-message-square-detail",
           },
           {
-            name: this.$t("Feedback"),
-            link: "/feedback",
-            icon: "bx-paper-plane",
-          },
-          {
             name: this.$t("Subscription"),
             link: "/subscription",
             icon: "bx-mail-send",
