@@ -18,10 +18,7 @@
       <v-container>
         <v-col cols="12" md="8" class="mx-auto">
           <div class="d-flex flex-column">
-            <div
-              v-if="post.categories && post.categories.length"
-              class="d-flex justify-center"
-            >
+            <div v-if="has_categories" class="d-flex justify-center">
               <v-chip
                 v-for="(category, index) in post.categories"
                 :key="`category-${index}`"
@@ -75,7 +72,7 @@
             <span class="app-body" v-html="$t(post.content)"></span>
           </div>
 
-          <div class="text-caption grey--text text-uppercase">
+          <div v-if="has_tags" class="text-caption grey--text text-uppercase">
             <v-icon small color="black">mdi-tag</v-icon>
             <span class="app-body">
               <span v-html="$t('Tags: ')"></span>
@@ -120,6 +117,14 @@ export default {
 
     author_name() {
       return _.get(this.me, "full_name");
+    },
+
+    has_categories() {
+      return this.post?.categories && this.post?.categories?.length;
+    },
+
+    has_tags() {
+      return this.post?.tags?.lenght;
     },
   },
   methods: {

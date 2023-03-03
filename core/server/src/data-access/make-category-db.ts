@@ -139,7 +139,7 @@ export default function makeCategoryDb({
     }
 
     async findAll(): Promise<Category[] | null> {
-      let query_conditions = Object.assign({});
+      let query_conditions = {};
 
       const existing = await categoryDbModel
         .find(query_conditions)
@@ -151,6 +151,7 @@ export default function makeCategoryDb({
           created_at: "desc",
         })
         .lean({ virtuals: true });
+
       if (existing) {
         return _.map(existing, (category) => new Category(category));
       }
@@ -169,7 +170,7 @@ export default function makeCategoryDb({
     }): Promise<IPaginatedCategoryResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
-      const query_conditions = Object.assign({});
+      const query_conditions = {};
 
       if (query) {
         query_conditions["$or"] = [
