@@ -223,13 +223,35 @@ export default {
       };
     },
 
-    subscription_chart_data() {
+    subscription_chart() {
       return {
-        labels: _.get(this.subscription_analys_data, "formatted_dates", []),
-        datasets: [
+        options: {
+          chart: {
+            height: 80,
+            group: "sparks",
+            type: "line",
+            sparkline: {
+              enabled: true,
+            },
+          },
+          stroke: {
+            curve: "smooth",
+          },
+          fill: {
+            type: "gradient",
+            gradient: {
+              shadeIntensity: 1,
+              opacityFrom: 0.6,
+              opacityTo: 0.9,
+              gradientFromColors: ["#00ff1d", "#ffff00"],
+              gradientToColors: ["#32db04", "#ff4800"],
+              stops: [0, 90, 100],
+            },
+          },
+        },
+        series: [
           {
-            label: "Created",
-            backgroundColor: "rgba(0, 255, 46, 1)",
+            name: "Created",
             data: _.get(
               this.subscription_analys_data,
               "total_created_counts",
@@ -237,8 +259,7 @@ export default {
             ),
           },
           {
-            label: "Activating",
-            backgroundColor: "rgba(57, 137, 216,1)",
+            name: "Active",
             data: _.get(
               this.subscription_analys_data,
               "total_active_counts",

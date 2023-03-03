@@ -39,57 +39,57 @@ export default {
       default() {
         return [
           {
-            name: "Dashboard",
+            name: this.$t("Dashboard"),
             link: "/",
             icon: "bx-bar-chart",
           },
           {
-            name: "Profile",
+            name: this.$t("Profile"),
             link: "/profile",
             icon: "bx-user-pin",
           },
           {
-            name: "Admin",
+            name: this.$t("Admin"),
             link: "/admin",
             icon: "bx-crown",
           },
           {
-            name: "User",
+            name: this.$t("User"),
             link: "/user",
             icon: "bx-user-circle",
           },
           {
-            name: "Category",
+            name: this.$t("Category"),
             link: "/category",
             icon: "bx-category-alt",
           },
           {
-            name: "Post",
+            name: this.$t("Post"),
             link: "/post",
             icon: "bx-news",
           },
           {
-            name: "Gallery",
+            name: this.$t("Gallery"),
             link: "/gallery",
             icon: "bx-images",
           },
           {
-            name: "Comment",
+            name: this.$t("Comment"),
             link: "/comment",
             icon: "bx-message-square-detail",
           },
           {
-            name: "Subscription",
+            name: this.$t("Subscription"),
             link: "/subscription",
             icon: "bx-mail-send",
           },
           {
-            name: "System Config",
+            name: this.$t("System Config"),
             link: "/system-configuration",
             icon: "bx-cog",
           },
           {
-            name: "Terms Of Use",
+            name: this.$t("Terms Of Use"),
             link: "/terms-of-use",
             icon: "bx-question-mark",
           },

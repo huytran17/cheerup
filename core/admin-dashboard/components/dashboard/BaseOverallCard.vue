@@ -6,22 +6,6 @@
       <div class="blue lighten-4 w-fit-content pa-1 rounded-lg">
         <v-icon color="pink darken-1">{{ data.icon }}</v-icon>
       </div>
-
-      <v-menu offset-y class="soft-box-shadow" left>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn small icon v-bind="attrs" v-on="on">
-            <v-icon color="black">mdi-dots-vertical</v-icon>
-          </v-btn>
-        </template>
-
-        <v-list dense>
-          <v-list-item v-for="(option, index) in options" :key="index">
-            <div class="text-body-2 clickable">
-              <span class="app-body">{{ option.text }}</span>
-            </div>
-          </v-list-item>
-        </v-list>
-      </v-menu>
     </div>
     <div class="d-flex flex-column py-2">
       <div class="text-body-1 primary--text">

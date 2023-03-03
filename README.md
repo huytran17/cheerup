@@ -21,6 +21,8 @@ Cache management => Redis
 
 Virtual platform => Docker
 
+Realtime module => Socket.io
+
 JWT issuer => jsonwebtoken npm
 
 Authentication => passport.js
