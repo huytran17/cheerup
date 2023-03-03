@@ -20,7 +20,7 @@ import BaseCommentPanel from "@/components/comment/BaseCommentPanel";
 
 export default {
   name: "PostPanel",
-  middleware: ["authentication"],
+  middleware: ["authenticate"],
   async asyncData({ store, params }) {
     try {
       const post_id = params.id;

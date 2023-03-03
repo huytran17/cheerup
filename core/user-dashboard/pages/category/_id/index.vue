@@ -8,7 +8,7 @@ import BaseArticles from "@/components/article/BaseArticles";
 
 export default {
   name: "CategoryIndexPage",
-  middleware: ["authentication"],
+  middleware: ["authenticate"],
   async asyncData({ store, params }) {
     try {
       const category_id = params.id;

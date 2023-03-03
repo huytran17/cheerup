@@ -10,7 +10,7 @@ import { mapGetters } from "vuex";
 import AboutMe from "@/components/about/AboutMe.vue";
 export default {
   name: "AboutMeIndex",
-  middleware: ["authentication"],
+  middleware: ["authenticate"],
   components: {
     AboutMe,
   },

@@ -11,7 +11,7 @@ import postBookmarkMixins from "@/mixins/post-bookmark";
 
 export default {
   name: "FavouriteIndex",
-  middleware: ["authentication", "authenticated"],
+  middleware: ["authenticate", "authenticated"],
   async asyncData({ store }) {
     try {
       const has_user = store.getters["auth/has_user"];

@@ -8,7 +8,7 @@ import BaseArticles from "@/components/article/BaseArticles";
 
 export default {
   name: "CategoryIndexPage",
-  middleware: ["authentication"],
+  middleware: ["authenticate"],
   async asyncData({ store, query }) {
     try {
       const tags = query.tags;
