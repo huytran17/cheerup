@@ -266,16 +266,6 @@ export default {
       this.$toast.success("Updated avatar successfully");
     },
   },
-  async fetch() {
-    try {
-      this.loading = true;
-      await this.GET_ME();
-    } catch (error) {
-      console.error(error);
-    } finally {
-      this.loading = false;
-    }
-  },
 };
 </script>
 
