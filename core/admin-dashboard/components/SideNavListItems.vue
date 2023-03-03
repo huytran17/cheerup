@@ -44,11 +44,6 @@ export default {
             icon: "bx-bar-chart",
           },
           {
-            name: this.$t("Chat Room"),
-            link: "/chat",
-            icon: "bx-chat",
-          },
-          {
             name: this.$t("Profile"),
             link: "/profile",
             icon: "bx-user-pin",
