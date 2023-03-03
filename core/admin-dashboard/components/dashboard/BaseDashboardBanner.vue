@@ -10,7 +10,7 @@
           class="app-title"
           v-html="
             $t(`Welcome, {text}!`, {
-              admin_name: me.full_name,
+              text: me.full_name,
             })
           "
         ></span>
