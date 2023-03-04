@@ -11,7 +11,6 @@ export const getters: GetterTree<PostState, RootState> = {
   posts: (state) => state.posts,
   pagination: (state) => state.pagination,
   post_search_query: (state) => state.post_search_query,
-  loading: (state) => state.loading,
   categories_filters: (state) => state.categories_filters,
   tags_filters: (state) => state.tags_filters,
 };

@@ -8,7 +8,6 @@ export const getters: GetterTree<GalleryState, RootState> = {
   },
   gallery: (state) => state.gallery,
   galleries: (state) => state.galleries,
-  loading: (state) => state.loading,
   pagination: (state) => state.pagination,
 };
 

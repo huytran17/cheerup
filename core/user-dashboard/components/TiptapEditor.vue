@@ -7,7 +7,6 @@
       :placeholder="placeholder"
       :toolbar-attributes="toolbarAttrs"
       :disabled="disabled"
-      :loading="loading"
       :card-props="{ flat: true, outlined: true, tile: true }"
       @input="onInput"
     >
@@ -36,7 +35,7 @@ import {
 } from "tiptap-vuetify";
 
 export default {
-  name: "BaseCommentEditor",
+  name: "BaseEditor",
   components: { TiptapVuetify },
   props: {
     content: {
@@ -52,10 +51,6 @@ export default {
       default: "Write something …",
     },
     disabled: {
-      type: Boolean,
-      default: false,
-    },
-    loading: {
       type: Boolean,
       default: false,
     },

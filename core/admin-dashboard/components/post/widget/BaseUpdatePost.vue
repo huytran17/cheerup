@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!loading">
+  <div>
     <v-row>
       <v-col cols="12" sm="6">
         <v-icon color="black" @click="$router.go(-1)"
@@ -194,7 +194,6 @@ export default {
   },
   data() {
     return {
-      loading: false,
       form_valid: false,
       is_open_preview_dialog: false,
     };
@@ -228,8 +227,6 @@ export default {
 
   async fetch() {
     try {
-      this.loading = true;
-
       const post_id = this.$route.params.id;
       await Promise.all([
         this.GET_POST({ id: post_id }),
@@ -237,8 +234,6 @@ export default {
       ]);
     } catch (error) {
       console.error(error);
-    } finally {
-      this.loading = false;
     }
   },
 };

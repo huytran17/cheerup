@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!loading" class="app-container">
+  <div  class="app-container">
     <v-row>
       <v-col cols="12">
         <v-card-title>
@@ -88,7 +88,6 @@ export default {
   data() {
     return {
       search: "",
-      loading: false,
     };
   },
 
@@ -114,12 +113,9 @@ export default {
 
   async fetch() {
     try {
-      this.loading = true;
       await this.GET_SUBSCRIPTIONS();
     } catch (error) {
       console.error(error);
-    } finally {
-      this.loading = false;
     }
   },
 };

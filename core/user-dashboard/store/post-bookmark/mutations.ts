@@ -12,10 +12,6 @@ const mutations: MutationTree<PostBookmarkState> = {
     state.post_bookmarks_count = data;
   },
 
-  [MutationTypes.SET_LOADING](state, { data }: { data: boolean }) {
-    state.loading = data;
-  },
-
   [MutationTypes.SET_POST_BOOKMARKS](
     state,
     { data, new_state }: { data: any[]; new_state: boolean }

@@ -4,7 +4,6 @@ export const state = () => ({
   new_reply_comment: {} as any,
   editing_comment: {} as any,
   comments: [] as any[],
-  loading: false,
   pagination: {
     current_page: 1,
     per_page: 15,

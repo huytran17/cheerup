@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!loading">
+  <div>
     <v-row>
       <v-col cols="12" class="pb-0">
         <div class="text-h6 pb-3 text-center cyan--text">
@@ -101,7 +101,6 @@ export default {
   data() {
     return {
       is_open_create_gallery_dialog: false,
-      loading: false,
     };
   },
   computed: {
@@ -144,8 +143,6 @@ export default {
   },
   async fetch() {
     try {
-      this.loading = true;
-
       const gallery_id = this.$route.params.id;
 
       await Promise.all([
@@ -155,8 +152,6 @@ export default {
       ]);
     } catch (error) {
       console.error(error);
-    } finally {
-      this.loading = false;
     }
   },
 };

@@ -1,5 +1,5 @@
 <template>
-  <v-row v-if="!loading">
+  <v-row>
     <v-col cols="12" class="pl-0">
       <v-icon color="black" @click="$router.go(-1)"
         >mdi-keyboard-backspace</v-icon
@@ -46,7 +46,6 @@ export default {
   },
   data() {
     return {
-      loading: false,
       form_valid: false,
     };
   },
@@ -69,12 +68,9 @@ export default {
 
   async fetch() {
     try {
-      this.loading = true;
       await this.GET_LATEST_SYSTEM_CONFIGURATION();
     } catch (error) {
       console.error(error);
-    } finally {
-      this.loading = false;
     }
   },
 };

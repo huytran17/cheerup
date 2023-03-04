@@ -11,7 +11,6 @@ export const getters: GetterTree<CommentState, RootState> = {
   editing_comment: (state) => state.editing_comment,
   new_reply_comment: (state) => state.new_reply_comment,
   comments: (state) => state.comments,
-  loading: (state) => state.loading,
   pagination: (state) => state.pagination,
   comment_count_by_post: (state) => state.comment_count_by_post,
 };

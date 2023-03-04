@@ -8,7 +8,6 @@ export const state = () => ({
   posts: [] as any[],
   suggestion_posts: [] as any[],
   post_search_query: "",
-  loading: false,
   categories_filters: [] as any[],
   tags_filters: [] as any[],
 });

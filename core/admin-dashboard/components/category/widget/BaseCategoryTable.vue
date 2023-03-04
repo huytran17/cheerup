@@ -1,5 +1,5 @@
 <template>
-  <v-row v-if="!loading">
+  <v-row>
     <v-col cols="12">
       <v-card-title>
         <v-text-field
@@ -181,7 +181,6 @@ export default {
   data() {
     return {
       search: "",
-      loading: false,
       is_open_hard_delete_dialog: false,
       date: "",
     };
@@ -235,12 +234,9 @@ export default {
 
   async fetch() {
     try {
-      this.loading = true;
       await this.GET_CATEGORIES();
     } catch (error) {
       console.error(error);
-    } finally {
-      this.loading = false;
     }
   },
 };

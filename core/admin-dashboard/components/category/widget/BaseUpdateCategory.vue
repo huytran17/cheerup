@@ -1,5 +1,5 @@
 <template>
-  <v-row v-if="!loading">
+  <v-row>
     <v-col cols="12">
       <v-icon color="black" @click="$router.go(-1)"
         >mdi-keyboard-backspace</v-icon
@@ -114,7 +114,6 @@ export default {
   mixins: [categoryMixins, dropzoneMixins],
   data() {
     return {
-      loading: true,
       form_valid: false,
       color_picked: null,
     };
@@ -157,12 +156,9 @@ export default {
 
   async fetch() {
     try {
-      this.loading = true;
       await this.GET_CATEGORY({ id: this.$route.params.id });
     } catch (error) {
       console.error(error);
-    } finally {
-      this.loading = false;
     }
   },
 };

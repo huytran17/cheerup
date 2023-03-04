@@ -11,7 +11,6 @@ export default {
     ...mapGetters({
       gallery: "gallery/gallery",
       galleries: "gallery/galleries",
-      gallery_loading: "gallery/loading",
       gallery_pagination: "gallery/pagination",
     }),
   },
@@ -29,7 +28,6 @@ export default {
     ...mapMutations({
       SET_GALLERY: "gallery/SET_GALLERY",
       SET_GALLERIES: "gallery/SET_GALLERIES",
-      SET_GALLERY_LOADING: "gallery/SET_LOADING",
       SET_GALLERY_PAGINATION: "gallery/SET_GALLERY_PAGINATION",
       UPDATE_GALLERY_DATA: "gallery/UPDATE_GALLERY_DATA",
     }),

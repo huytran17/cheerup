@@ -1,5 +1,5 @@
 <template>
-  <v-row v-if="!loading">
+  <v-row>
     <v-col cols="12">
       <v-icon color="black" @click="$router.go(-1)"
         >mdi-keyboard-backspace</v-icon
@@ -171,7 +171,6 @@ export default {
       security_form_valid: false,
       show_password_confirmation: false,
       show_password: false,
-      loading: false,
     };
   },
   methods: {
@@ -232,12 +231,9 @@ export default {
   },
   async fetch() {
     try {
-      this.loading = true;
       await this.GET_USER({ id: this.$route.params.id });
     } catch (error) {
       console.error(error);
-    } finally {
-      this.loading = false;
     }
   },
 };

@@ -8,7 +8,6 @@ export default {
       post_bookmarks: "post-bookmark/post_bookmarks",
       post_bookmark_pagination: "post-bookmark/pagination",
       post_bookmarks_count: "post-bookmark/post_bookmarks_count",
-      post_bookmark_loading: "post-bookmark/loading",
     }),
   },
   methods: {
@@ -23,7 +22,6 @@ export default {
     ...mapMutations({
       SET_POST_BOOKMARK: "post-bookmark/SET_POST_BOOKMARK",
       SET_POST_BOOKMARKS: "post-bookmark/SET_POST_BOOKMARKS",
-      SET_POST_BOOKMARK_LOADING: "post-bookmark/SET_LOADING",
       UPDATE_POST_BOOKMARK_DATA: "post-bookmark/UPDATE_POST_BOOKMARK_DATA",
       SET_POST_BOOKMARK_PAGINATION:
         "post-bookmark/SET_POST_BOOKMARK_PAGINATION",

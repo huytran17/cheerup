@@ -4,7 +4,6 @@ import { mapActions, mapGetters, mapMutations } from "vuex";
 export default {
   computed: {
     ...mapGetters({
-      is_post_loading: "post/loading",
       post: "post/post",
       posts: "post/posts",
       suggestion_posts: "post/suggestion_posts",
@@ -23,7 +22,6 @@ export default {
     }),
 
     ...mapMutations({
-      SET_POST_LOADING: "post/SET_LOADING",
       SET_CATEGORIES_FILTERS: "post/SET_CATEGORIES_FILTERS",
       SET_TAGS_FILTERS: "post/SET_TAGS_FILTERS",
       SET_POST_SEARCH_QUERY: "post/SET_POST_SEARCH_QUERY",

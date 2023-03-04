@@ -1,5 +1,5 @@
 <template>
-  <v-row v-if="!loading">
+  <v-row>
     <v-col cols="12">
       <v-icon color="black" @click="$router.go(-1)"
         >mdi-keyboard-backspace</v-icon
@@ -202,7 +202,6 @@ export default {
       show_new_password_confirmation: false,
       show_new_password: false,
       show_current_password: false,
-      loading: false,
     };
   },
   methods: {
