@@ -1,6 +1,8 @@
 import express from "express";
 import makeValidator from "../../config/middlewares/validator-middleware";
 import makeExpressCallback from "../../config/express-callback";
+import makeAuthorization from "../../config/middlewares/authorization-middleware";
+import { AuthorizationRole } from "../../constants/authorization-role";
 import { upload } from "../../config/middlewares/file-upload-middleware";
 
 import {
@@ -30,6 +32,7 @@ const systemConfigurationRouter = express.Router();
 systemConfigurationRouter.post(
   "/upload-admin-meta-folder-icon/:_id",
   upload.single("file"),
+  makeAuthorization(AuthorizationRole.ONLY_OWNER),
   makeValidator(uploadAdminMetaFolderIconRules),
   makeExpressCallback(uploadAdminMetaFolderIconController)
 );
@@ -37,6 +40,7 @@ systemConfigurationRouter.post(
 systemConfigurationRouter.post(
   "/upload-client-meta-owner-avatar/:_id",
   upload.single("file"),
+  makeAuthorization(AuthorizationRole.ONLY_OWNER),
   makeValidator(uploadClientMetaOwnerAvatarRules),
   makeExpressCallback(uploadClientMetaOwnerAvatarController)
 );
@@ -44,6 +48,7 @@ systemConfigurationRouter.post(
 systemConfigurationRouter.post(
   "/upload-admin-meta-logo/:_id",
   upload.single("file"),
+  makeAuthorization(AuthorizationRole.ONLY_OWNER),
   makeValidator(uploadAdminMetaLogoRules),
   makeExpressCallback(uploadAdminMetaLogoController)
 );
@@ -51,6 +56,7 @@ systemConfigurationRouter.post(
 systemConfigurationRouter.post(
   "/upload-admin-meta-favicon/:_id",
   upload.single("file"),
+  makeAuthorization(AuthorizationRole.ONLY_OWNER),
   makeValidator(uploadAdminMetaFaviconRules),
   makeExpressCallback(uploadAdminMetaFaviconController)
 );
@@ -58,6 +64,7 @@ systemConfigurationRouter.post(
 systemConfigurationRouter.post(
   "/upload-client-meta-logo/:_id",
   upload.single("file"),
+  makeAuthorization(AuthorizationRole.ONLY_OWNER),
   makeValidator(uploadClientMetaLogoRules),
   makeExpressCallback(uploadClientMetaLogoController)
 );
@@ -65,6 +72,7 @@ systemConfigurationRouter.post(
 systemConfigurationRouter.post(
   "/upload-client-meta-favicon/:_id",
   upload.single("file"),
+  makeAuthorization(AuthorizationRole.ONLY_OWNER),
   makeValidator(uploadClientMetaFaviconRules),
   makeExpressCallback(uploadClientMetaFaviconController)
 );
@@ -82,6 +90,7 @@ systemConfigurationRouter.get(
 
 systemConfigurationRouter.put(
   "/:_id",
+  makeAuthorization(AuthorizationRole.ONLY_OWNER),
   makeValidator(updateSystemConfigurationRules),
   makeExpressCallback(updateSystemConfigurationController)
 );

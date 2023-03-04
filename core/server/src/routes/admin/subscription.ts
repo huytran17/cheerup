@@ -1,6 +1,8 @@
 import express from "express";
 import makeValidator from "../../config/middlewares/validator-middleware";
 import makeExpressCallback from "../../config/express-callback";
+import makeAuthorization from "../../config/middlewares/authorization-middleware";
+import { AuthorizationRole } from "../../constants/authorization-role";
 
 import {
   getSubscriptionRules,
@@ -22,10 +24,15 @@ subscriptionRouter.get(
 
 subscriptionRouter.get(
   "/:_id",
+  makeAuthorization(AuthorizationRole.OWNER_AND_COLLABORATOR),
   makeValidator(getSubscriptionRules),
   makeExpressCallback(getSubscriptionController)
 );
 
-subscriptionRouter.get("/", makeExpressCallback(getSubscriptionsController));
+subscriptionRouter.get(
+  "/",
+  makeAuthorization(AuthorizationRole.OWNER_AND_COLLABORATOR),
+  makeExpressCallback(getSubscriptionsController)
+);
 
 export default subscriptionRouter;
