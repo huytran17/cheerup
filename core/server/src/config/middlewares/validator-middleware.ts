@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import _ from "lodash";
 
 import Validator, { Rules } from "validatorjs";
+import { HttpStatusCode } from "../../constants/http-status-code";
 
 export default function makeValidator(rules: Rules) {
   return async function validatorMiddleware(
@@ -25,6 +26,6 @@ export default function makeValidator(rules: Rules) {
       "Content-Type": "application/json",
     });
     res.type("json");
-    return res.status(422).send(validation.errors);
+    return res.status(HttpStatusCode.BAD_REQUEST).send(validation.errors);
   };
 }
