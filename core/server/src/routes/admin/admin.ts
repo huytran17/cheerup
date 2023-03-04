@@ -116,7 +116,6 @@ adminRouter.post(
 
 adminRouter.put(
   "/",
-  makeAuthorization(AuthorizationRole.ONLY_OWNER),
   makeValidator(updateAdminRules),
   makeExpressCallback(updateAdminController)
 );
