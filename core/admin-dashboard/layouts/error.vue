@@ -39,8 +39,8 @@ export default {
   },
   data() {
     return {
-      pageNotFound: "404 Not Found",
-      otherError: "An error occurred",
+      pageNotFound: this.$t("404 Not Found"),
+      otherError: this.$t("An error occurred"),
       image: require("@/assets/images/app/student-girl.png"),
     };
   },
