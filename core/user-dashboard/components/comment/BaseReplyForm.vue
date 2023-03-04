@@ -33,7 +33,7 @@
             color="brick"
             tile
             class="white--text"
-            :disabled="comment_loading"
+            :disabled="is_loading"
             @click="replyComment"
           >
             <span class="app-body" v-html="$t('Send')"></span>
@@ -57,6 +57,7 @@ export default {
   data() {
     return {
       refresh_comment_reply_editor_key: 0,
+      is_loading: false,
     };
   },
   computed: {
@@ -76,8 +77,7 @@ export default {
           return;
         }
 
-        this.SET_COMMENT_LOADING({ data: true });
-
+        this.is_loading = true;
         const post_id = _.get(this.post, "_id");
 
         const final_reply_comment_data = Object.assign(
@@ -116,7 +116,7 @@ export default {
       } catch (error) {
         console.error(error);
       } finally {
-        this.SET_COMMENT_LOADING({ data: false });
+        this.is_loading = false;
         this.SET_IS_OPEN_REPLY_COMMENT({ data: false });
       }
     },

@@ -51,7 +51,7 @@
           <v-btn
             depressed
             tile
-            :disabled="!has_user || comment_loading"
+            :disabled="!has_user || is_loading"
             color="brick"
             class="white--text"
             @click="createComment"
@@ -131,6 +131,7 @@ export default {
   data() {
     return {
       refresh_comment_editor_key: 0,
+      is_loading: false,
     };
   },
   computed: {
@@ -204,13 +205,12 @@ export default {
 
     async createComment() {
       try {
-        this.SET_COMMENT_LOADING({ data: true });
-
         const new_comment_content = _.get(this.new_comment, "content", "");
         if (!new_comment_content) {
           return;
         }
 
+        this.is_loading = true;
         const post_id = _.get(this.post, "_id");
         const final_comment_data = Object.assign({}, this.new_comment, {
           post: post_id,
@@ -237,7 +237,7 @@ export default {
       } catch (error) {
         console.error(error);
       } finally {
-        this.SET_COMMENT_LOADING({ data: false });
+        this.is_loading = false;
       }
     },
 

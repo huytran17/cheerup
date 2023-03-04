@@ -33,7 +33,7 @@
             color="black"
             tile
             class="white--text"
-            :disabled="comment_loading"
+            :disabled="is_loading"
             @click="updateComment"
           >
             <span class="app-body" v-html="$t('Save')"></span>
@@ -57,6 +57,7 @@ export default {
   data() {
     return {
       refresh_edit_comment_editor_key: 0,
+      is_loading: false,
     };
   },
   computed: {
@@ -72,8 +73,7 @@ export default {
           return;
         }
 
-        this.SET_COMMENT_LOADING({ data: true });
-
+        this.is_loading = true;
         const final_comment_data = Object.assign({}, this.comment, {
           content: new_comment_content,
         });
@@ -89,12 +89,10 @@ export default {
         this.replaceCommentData({ data: this.comment });
 
         ++this.refresh_edit_comment_editor_key;
-
-        this.$emit("dont-need-to-scroll-to-top-of-post", true);
       } catch (error) {
         console.error(error);
       } finally {
-        this.SET_COMMENT_LOADING({ data: false });
+        this.is_loading = false;
         this.SET_IS_OPEN_EDIT_COMMENT({ data: false });
       }
     },
