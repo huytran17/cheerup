@@ -3,7 +3,6 @@ import { Context } from "@nuxt/types";
 export default async function ({ store, redirect }: Context) {
   try {
     const access_token = localStorage.getItem("admin_access_token");
-    console.log("-----------------------------", access_token);
 
     const { email } = await store.dispatch("auth/VERIFY_ACCESS", {
       access_token,

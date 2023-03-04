@@ -9,7 +9,7 @@ declare module "@nuxt/types" {
   }
 }
 
-const plugin: Plugin = ({ $axios, redirect, store }: Context, inject) => {
+const plugin: Plugin = ({ $axios, redirect, store, app }: Context, inject) => {
   $axios.onRequest((config) => {
     console.log(`Making request to ${config.url}`);
     config.headers.common["Authorization"] = `Bearer ${localStorage.getItem(
@@ -31,7 +31,11 @@ const plugin: Plugin = ({ $axios, redirect, store }: Context, inject) => {
   $axios.onError((error) => {
     const code = _.get(error, "response.status", HTTP_STATUS_CODE.NOT_FOUND);
     if (code === HTTP_STATUS_CODE.BAD_REQUEST) {
-      return redirect("/400");
+      return redirect(app.localePath("/400"));
+    }
+
+    if (code === HTTP_STATUS_CODE.FORBIDDEN) {
+      return redirect(app.localePath("/403"));
     }
 
     const expired = _.get(error, "response.status", HTTP_STATUS_CODE.NOT_FOUND);

@@ -161,7 +161,7 @@
         </span>
       </div>
       <TiptapEditor
-        :content="system_configuration.client_meta?.owner?.description"
+        :content="system_configuration.client_meta?.owner"
         attr="description"
         @on-input="
           updateSystemConfigurationObject({
