@@ -33,6 +33,7 @@ export default {
   plugins: [
     "~/plugins/vuetify",
     "~/directives/private",
+    "~/plugins/router",
     { src: "~/plugins/axios", ssr: false },
     { src: "~/plugins/vue-toastification", ssr: false },
     { src: "~/plugins/vue-infinite-loading", mode: "client" },
@@ -63,6 +64,7 @@ export default {
   ],
 
   i18n: {
+    strategy: "prefix",
     locales: ["en", "vi"],
     defaultLocale: "en",
     vueI18n: {
@@ -73,6 +75,7 @@ export default {
       },
       silentTranslationWarn: true,
     },
+    skipSettingLocaleOnNavigate: true,
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

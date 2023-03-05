@@ -6,6 +6,9 @@
           <v-col cols="12">
             <BaseAppBar />
           </v-col>
+          <v-col cols="12" class="pt-0">
+            <BaseLanguageSwitcher />
+          </v-col>
         </v-row>
         <v-row class="flex-column flex-md-row flex-column-reverse">
           <v-col cols="12" md="8">
@@ -51,6 +54,7 @@ import BaseProfileCard from "@/components/user/BaseProfileCard";
 import BaseCategoriesCard from "@/components/category/BaseCategoriesCard";
 import BaseSearchCard from "@/components/searching/BaseSearchCard";
 import RequireLoginSnackbar from "@/components/RequireLoginSnackbar";
+import BaseLanguageSwitcher from "@/components/BaseLanguageSwitcher";
 
 export default {
   name: "DefaultLayout",
@@ -63,6 +67,7 @@ export default {
     BaseCategoriesCard,
     BaseSearchCard,
     RequireLoginSnackbar,
+    BaseLanguageSwitcher,
   },
   computed: {
     ...mapGetters({

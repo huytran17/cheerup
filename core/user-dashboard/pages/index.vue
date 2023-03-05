@@ -22,6 +22,11 @@ export default {
       console.error(error);
     }
   },
+  transition: {
+    async beforeEnter() {
+      await this.$i18n.finalizePendingLocaleChange();
+    },
+  },
   components: {
     BaseArticles,
   },
