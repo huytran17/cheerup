@@ -1,6 +1,6 @@
 <template>
   <div v-if="has_bookmark_data" class="d-flex flex-column flex-sm-row">
-    <div class="d-flex">
+    <div v-if="post_thumbnail_url" class="d-flex pr-sm-3">
       <v-img
         :src="post_thumbnail_url"
         :lazy-src="post_thumbnail_url"
@@ -10,7 +10,7 @@
         :max-height="is_mobile ? '300px' : '143.77px'"
       ></v-img>
     </div>
-    <div class="d-flex flex-column px-0 px-sm-3 w-100">
+    <div class="d-flex flex-column px-0 w-100">
       <div
         v-if="has_categories"
         class="d-flex justify-space-between pt-4 pt-sm-0"
