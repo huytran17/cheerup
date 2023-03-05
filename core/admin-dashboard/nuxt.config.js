@@ -53,6 +53,7 @@ export default {
   modules: ["@nuxtjs/axios", "@nuxtjs/i18n"],
 
   i18n: {
+    strategy: "prefix",
     locales: ["en", "vi"],
     defaultLocale: "en",
     vueI18n: {
@@ -63,6 +64,7 @@ export default {
       },
       silentTranslationWarn: true,
     },
+    skipSettingLocaleOnNavigate: true,
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
