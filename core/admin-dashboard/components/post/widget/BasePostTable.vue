@@ -362,15 +362,11 @@ export default {
         const title = _.get(post, "title");
 
         await this.PUBLISH_POST({ id });
-        this.$toast.success(
-          this.$t(`Published comment for post ${title} successfully`)
-        );
+        this.$toast.success(this.$t(`Published post ${title} successfully`));
         await this.$fetch();
       } catch (error) {
         console.error(error);
-        this.$toast.error(
-          this.$t("Encountered error while publishing comment for post")
-        );
+        this.$toast.error(this.$t("Encountered error while publishing post"));
       }
     },
 
@@ -380,14 +376,12 @@ export default {
         const title = _.get(post, "title");
 
         await this.UNPUBLISH_POST({ id });
-        this.$toast.success(
-          this.$t(`Un-published comment for post ${title} successfully`)
-        );
+        this.$toast.success(this.$t(`Un-published post ${title} successfully`));
         await this.$fetch();
       } catch (error) {
         console.error(error);
         this.$toast.error(
-          this.$t("Encountered error while un-publishing comment for post")
+          this.$t("Encountered error while un-publishing post")
         );
       }
     },

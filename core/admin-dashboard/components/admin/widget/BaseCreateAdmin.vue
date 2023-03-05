@@ -81,7 +81,7 @@
         <v-row>
           <v-col cols="12">
             <v-switch
-              :label="$t('Enable Auto Censorship Post')"
+              :label="$t('Enable auto censorship post')"
               @change="
                 updateAdminObject({
                   variable_path: 'is_auto_censorship_post',

@@ -58,7 +58,7 @@
           <v-col cols="12">
             <v-switch
               :input-value="me.is_auto_censorship_post"
-              :label="$t('Enable Auto Censorship Post')"
+              :label="$t('Enable auto censorship post')"
               @change="
                 updateMeObject({
                   variable_path: 'is_auto_censorship_post',
