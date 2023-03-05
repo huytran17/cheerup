@@ -223,12 +223,14 @@ export default {
 
         await this.DISABLE_AUTO_CENSORSHIP_POST({ id });
         this.$toast.success(
-          `Disable auto censorship for admin ${email} successfully`
+          this.$t(`Disable auto censorship for admin ${email} successfully`)
         );
         await this.$fetch();
       } catch (error) {
         console.error(error);
-        this.$toast.error(`Encountered error while disabling auto censorship`);
+        this.$toast.error(
+          this.$t(`Encountered error while disabling auto censorship`)
+        );
       }
     },
 
@@ -239,12 +241,14 @@ export default {
 
         await this.ENABLE_AUTO_CENSORSHIP_POST({ id });
         this.$toast.success(
-          `Enable auto censorship for admin ${email} successfully`
+          this.$t(`Enable auto censorship for admin ${email} successfully`)
         );
         await this.$fetch();
       } catch (error) {
         console.error(error);
-        this.$toast.error(`Encountered error while enabling auto censorship`);
+        this.$toast.error(
+          this.$t(`Encountered error while enabling auto censorship`)
+        );
       }
     },
 
@@ -254,11 +258,11 @@ export default {
         const title = _.get(admin, "title");
 
         await this.RESTORE_ADMIN({ id });
-        this.$toast.success(`Restored admin ${title} successfully`);
+        this.$toast.success(this.$t(`Restored admin ${title} successfully`));
         await this.$fetch();
       } catch (error) {
         console.error(error);
-        this.$toast.error(`Encountered error while restoring admin`);
+        this.$toast.error(this.$t(`Encountered error while restoring admin`));
       }
     },
 
@@ -268,11 +272,11 @@ export default {
         const title = _.get(admin, "title");
 
         await this.DELETE_ADMIN({ id });
-        this.$toast.success(`Deleted admin ${title} successfully`);
+        this.$toast.success(this.$t(`Deleted admin ${title} successfully`));
         await this.$fetch();
       } catch (error) {
         console.error(error);
-        this.$toast.error(`Encountered error while deleting admin`);
+        this.$toast.error(this.$t(`Encountered error while deleting admin`));
       }
     },
 
@@ -282,11 +286,15 @@ export default {
         const title = _.get(this.admin, "title");
 
         await this.HARD_DELETE_ADMIN({ id });
-        this.$toast.success(`Forever deleted admin ${title} successfully`);
+        this.$toast.success(
+          this.$t(`Forever deleted admin ${title} successfully`)
+        );
         await this.$fetch();
       } catch (error) {
         console.error(error);
-        this.$toast.error(`Encountered error while deleting admin`);
+        this.$toast.error(
+          this.$t(`Encountered error while hard deleting admin`)
+        );
       } finally {
         this.is_open_hard_delete_dialog = false;
       }

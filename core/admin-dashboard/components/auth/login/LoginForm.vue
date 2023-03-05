@@ -113,7 +113,7 @@ export default {
         this.$router.push(this.localePath("/"));
       } catch (error) {
         console.error(error);
-        this.$toast.error("Email address or password is incorrect");
+        this.$toast.error(this.$t("Email address or password is incorrect"));
       }
     },
   },

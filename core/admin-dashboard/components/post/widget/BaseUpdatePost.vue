@@ -204,10 +204,10 @@ export default {
         await this.UPDATE_POST({
           data: this.post,
         });
-        this.$toast.success("Updated post successfully");
+        this.$toast.success(this.$t("Updated post successfully"));
       } catch (error) {
         console.error(error);
-        this.$toast.error("Encountered error while updating post");
+        this.$toast.error(this.$t("Encountered error while updating post"));
       }
     },
 

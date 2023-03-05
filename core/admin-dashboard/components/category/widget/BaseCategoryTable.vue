@@ -193,11 +193,11 @@ export default {
         const title = _.get(category, "title");
 
         await this.DELETE_CATEGORY({ id });
-        this.$toast.success(`Deleted category ${title} successfully`);
+        this.$toast.success(this.$t(`Deleted category ${title} successfully`));
         await this.$fetch();
       } catch (error) {
         console.error(error);
-        this.$toast.error(`Encountered error while deleting category`);
+        this.$toast.error(this.$t("Encountered error while deleting category"));
       }
     },
 
@@ -207,11 +207,15 @@ export default {
         const title = _.get(this.category, "title");
 
         await this.HARD_DELETE_CATEGORY({ id });
-        this.$toast.success(`Forever deleted category ${title} successfully`);
+        this.$toast.success(
+          this.$t(`Forever deleted category ${title} successfully`)
+        );
         await this.$fetch();
       } catch (error) {
         console.error(error);
-        this.$toast.error(`Encountered error while deleting category`);
+        this.$toast.error(
+          this.$t("Encountered error while hard deleting category")
+        );
       } finally {
         this.is_open_hard_delete_dialog = false;
       }
@@ -223,11 +227,13 @@ export default {
         const title = _.get(category, "title");
 
         await this.RESTORE_CATEGORY({ id });
-        this.$toast.success(`Restored category ${title} successfully`);
+        this.$toast.success(this.$t(`Restored category ${title} successfully`));
         await this.$fetch();
       } catch (error) {
         console.error(error);
-        this.$toast.error(`Encountered error while restoring category`);
+        this.$toast.error(
+          this.$t("Encountered error while restoring category")
+        );
       }
     },
   },

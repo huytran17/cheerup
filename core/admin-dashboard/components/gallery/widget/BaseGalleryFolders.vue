@@ -76,7 +76,7 @@ export default {
 
         await this.HARD_DELETE_GALLERY({ id: gallery_id });
         this.is_open_delete_dialog = false;
-        this.$toast.success("Updated gallery successfully");
+        this.$toast.success(this.$t("Updated gallery successfully"));
 
         if (gallery_id) {
           return await this.GET_GALLERIES_BY_PARENT({ parent_id: gallery_id });

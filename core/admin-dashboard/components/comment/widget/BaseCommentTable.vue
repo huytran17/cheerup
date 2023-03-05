@@ -150,11 +150,13 @@ export default {
         const content = _.get(this.comment, "content");
 
         await this.HARD_DELETE_COMMENT({ id });
-        this.$toast.success(`Forever deleted comment ${content} successfully`);
+        this.$toast.success(
+          this.$t(`Forever deleted comment ${content} successfully`)
+        );
         await this.$fetch();
       } catch (error) {
         console.error(error);
-        this.$toast.error(`Encountered error while deleting comment`);
+        this.$toast.error(this.$t("Encountered error while deleting comment"));
       } finally {
         this.is_open_hard_delete_dialog = false;
       }

@@ -196,11 +196,11 @@ export default {
         const title = _.get(user, "title");
 
         await this.RESTORE_USER({ id });
-        this.$toast.success(`Restored user ${title} successfully`);
+        this.$toast.success(this.$t(`Restored user ${title} successfully`));
         await this.$fetch();
       } catch (error) {
         console.error(error);
-        this.$toast.error(`Encountered error while restoring user`);
+        this.$toast.error(this.$t("Encountered error while restoring user"));
       }
     },
 
@@ -210,11 +210,11 @@ export default {
         const title = _.get(user, "title");
 
         await this.DELETE_USER({ id });
-        this.$toast.success(`Deleted user ${title} successfully`);
+        this.$toast.success(this.$t(`Deleted user ${title} successfully`));
         await this.$fetch();
       } catch (error) {
         console.error(error);
-        this.$toast.error(`Encountered error while deleting user`);
+        this.$toast.error(this.$t("Encountered error while deleting user"));
       }
     },
 
@@ -223,11 +223,13 @@ export default {
         const id = _.get(this.user, "_id");
 
         await this.HARD_DELETE_USER({ id });
-        this.$toast.success(`Forever deleted user successfully`);
+        this.$toast.success(this.$t("Forever deleted user successfully"));
         await this.$fetch();
       } catch (error) {
         console.error(error);
-        this.$toast.error(`Encountered error while deleting user`);
+        this.$toast.error(
+          this.$t("Encountered error while hard deleting user")
+        );
       } finally {
         this.is_open_hard_delete_dialog = false;
       }
@@ -239,11 +241,15 @@ export default {
         const email = _.get(user, "email");
 
         await this.UNBLOCK_USER_COMMENT({ id });
-        this.$toast.success(`Un-block comment for user ${email} successfully`);
+        this.$toast.success(
+          this.$t(`Un-block comment for user ${email} successfully`)
+        );
         await this.$fetch();
       } catch (error) {
         console.error(error);
-        this.$toast.error(`Encountered error while un-blocking comment`);
+        this.$toast.error(
+          this.$t("Encountered error while un-blocking comment")
+        );
       }
     },
 
@@ -253,11 +259,11 @@ export default {
         const email = _.get(user, "email");
 
         await this.BLOCK_USER_COMMENT({ id });
-        this.$toast.success(`Block comment for user ${email} successfully`);
+        this.$toast.success(this.$t(`Block comment for user ${email} successfully`));
         await this.$fetch();
       } catch (error) {
         console.error(error);
-        this.$toast.error(`Encountered error while blocking comment`);
+        this.$toast.error(this.$t("Encountered error while blocking comment"));
       }
     },
   },

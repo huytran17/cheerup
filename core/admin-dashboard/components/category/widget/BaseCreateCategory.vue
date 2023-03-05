@@ -101,11 +101,11 @@ export default {
           data: this.category,
         });
         this.SET_CATEGORY({ data: created_category });
-        this.$toast.success("Created category successfully");
+        this.$toast.success(this.$t("Created category successfully"));
         this.$router.push(this.localePath(`/category/${created_category._id}`));
       } catch (error) {
         console.error(error);
-        this.$toast.error("Encountered error while creating category");
+        this.$toast.error(this.$t("Encountered error while creating category"));
       }
     },
   },

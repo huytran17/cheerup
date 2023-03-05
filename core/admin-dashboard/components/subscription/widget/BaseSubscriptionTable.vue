@@ -1,5 +1,5 @@
 <template>
-  <div  class="app-container">
+  <div class="app-container">
     <v-row>
       <v-col cols="12">
         <v-card-title>
@@ -99,12 +99,14 @@ export default {
 
         await this.HARD_DELETE_SUBSCRIPTION({ id });
         this.$toast.success(
-          `Forever deleted subscription ${content} successfully`
+          this.$t(`Forever deleted subscription ${content} successfully`)
         );
         await this.$fetch();
       } catch (error) {
         console.error(error);
-        this.$toast.error(`Encountered error while deleting subscription`);
+        this.$toast.error(
+          this.$t("Encountered error while deleting subscription")
+        );
       } finally {
         this.is_open_hard_delete_dialog = false;
       }

@@ -138,7 +138,7 @@ export default {
       const gallery_id = this.$route.params.id;
 
       await this.GET_GALLERY({ _id: gallery_id });
-      this.$toast.success("Uploaded successfully");
+      this.$toast.success(this.$t("Uploaded successfully"));
     },
   },
   async fetch() {

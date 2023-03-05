@@ -249,7 +249,7 @@ export default {
       });
 
       this.SET_SYSTEM_CONFIGURATION({ data: updated_thumbnail_data });
-      this.$toast.success("Updated system configuration successfully");
+      this.$toast.success(this.$t("Updated system configuration successfully"));
     },
   },
 };

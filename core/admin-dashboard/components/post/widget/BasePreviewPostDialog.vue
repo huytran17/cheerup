@@ -29,7 +29,12 @@
                 small
               >
                 <span v-if="category.title" v-html="$t(category.title)"></span>
-                <span v-else v-html="$t(`Category ${index + 1}`)"></span>
+                <span
+                  v-else
+                  v-html="
+                    $t('Category {count}', index + 1, { count: index + 1 })
+                  "
+                ></span>
               </v-chip>
             </div>
 

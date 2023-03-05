@@ -168,11 +168,11 @@ export default {
           data: this.post,
         });
         this.SET_POST({ data: created_post });
-        this.$toast.success("Created post successfully");
+        this.$toast.success(this.$t("Created post successfully"));
         this.$router.push(this.localePath(`/post/${created_post._id}`));
       } catch (error) {
         console.error(error);
-        this.$toast.error("Encountered error while updating post");
+        this.$toast.error(this.$t("Encountered error while updating post"));
       }
     },
   },
@@ -182,7 +182,7 @@ export default {
       this.SET_POST({ data: {} });
     } catch (error) {
       console.error(error);
-      this.$toast.error("Encountered error while updating post");
+      this.$toast.error(this.$t("Encountered error while updating post"));
     }
   },
 };

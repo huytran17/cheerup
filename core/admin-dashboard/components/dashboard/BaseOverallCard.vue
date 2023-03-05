@@ -43,11 +43,6 @@ export default {
       default: () => {},
     },
   },
-  data() {
-    return {
-      options: [{ text: "Refresh" }],
-    };
-  },
   computed: {
     ...mapGetters({
       analysis: "analysis",

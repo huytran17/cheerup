@@ -56,11 +56,13 @@ export default {
         await this.UPDATE_SYSTEM_CONFIGURATION({
           data: this.system_configuration,
         });
-        this.$toast.success("Updated system configuration successfully");
+        this.$toast.success(
+          this.$t("Updated system configuration successfully")
+        );
       } catch (error) {
         console.error(error);
         this.$toast.error(
-          "Encountered error while updating system configuration"
+          this.$t("Encountered error while updating system configuration")
         );
       }
     },

@@ -224,10 +224,12 @@ export default {
         });
 
         this.SET_ME({ data: updated_admin });
-        this.$toast.success("Updated successfully");
+        this.$toast.success(this.$t("Updated successfully"));
       } catch (error) {
         console.error(error);
-        this.$toast.error("Encountered error while updating your account");
+        this.$toast.error(
+          this.$t("Encountered error while updating your account")
+        );
       }
     },
 
@@ -245,10 +247,12 @@ export default {
         });
 
         this.SET_ME({ data: updated_admin });
-        this.$toast.success("Updated password successfully");
+        this.$toast.success(this.$t("Updated password successfully"));
       } catch (error) {
         console.error(error);
-        this.$toast.error("Encountered error while updating your account");
+        this.$toast.error(
+          this.$t("Encountered error while updating your account")
+        );
       }
     },
 
@@ -262,7 +266,7 @@ export default {
       });
 
       this.SET_ME({ data: updated_admin_data });
-      this.$toast.success("Updated avatar successfully");
+      this.$toast.success(this.$t("Updated avatar successfully"));
     },
   },
 };

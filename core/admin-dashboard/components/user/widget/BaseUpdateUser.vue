@@ -187,11 +187,11 @@ export default {
         });
 
         this.SET_USER({ data: updated_user });
-        this.$toast.success("Updated user successfully");
+        this.$toast.success(this.$t("Updated user successfully"));
         this.$router.push(this.localePath(`/user/${updated_user._id}`));
       } catch (error) {
         console.error(error);
-        this.$toast.error("Encountered error while updating user");
+        this.$toast.error(this.$t("Encountered error while updating user"));
       }
     },
 
@@ -208,11 +208,13 @@ export default {
         });
 
         this.SET_USER({ data: updated_user });
-        this.$toast.success("Updated user password successfully");
+        this.$toast.success(this.$t("Updated user password successfully"));
         this.$router.push(this.localePath(`/user/${updated_user._id}`));
       } catch (error) {
         console.error(error);
-        this.$toast.error("Encountered error while updating user password");
+        this.$toast.error(
+          this.$t("Encountered error while updating user password")
+        );
       }
     },
 
@@ -226,7 +228,7 @@ export default {
       });
 
       this.SET_USER({ data: updated_user_data });
-      this.$toast.success("Updated user avatar successfully");
+      this.$toast.success(this.$t("Updated user avatar successfully"));
     },
   },
   async fetch() {

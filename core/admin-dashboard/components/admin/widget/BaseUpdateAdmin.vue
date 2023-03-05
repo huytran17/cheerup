@@ -205,11 +205,11 @@ export default {
         });
 
         this.SET_ADMIN({ data: updated_admin });
-        this.$toast.success("Updated admin successfully");
+        this.$toast.success(this.$t("Updated admin successfully"));
         this.$router.push(this.localePath(`/admin/${updated_admin._id}`));
       } catch (error) {
         console.error(error);
-        this.$toast.error("Encountered error while updating admin");
+        this.$toast.error(this.$t("Encountered error while updating admin"));
       }
     },
 
@@ -226,11 +226,13 @@ export default {
         });
 
         this.SET_ADMIN({ data: updated_admin });
-        this.$toast.success("Updated admin password successfully");
+        this.$toast.success(this.$t("Updated admin password successfully"));
         this.$router.push(this.localePath(`/admin/${updated_admin._id}`));
       } catch (error) {
         console.error(error);
-        this.$toast.error("Encountered error while updating admin password");
+        this.$toast.error(
+          this.$t("Encountered error while updating admin password")
+        );
       }
     },
 
@@ -244,7 +246,7 @@ export default {
       });
 
       this.SET_ADMIN({ data: updated_admin_data });
-      this.$toast.success("Updated admin avatar successfully");
+      this.$toast.success(this.$t("Updated admin avatar successfully"));
     },
   },
   async fetch() {
