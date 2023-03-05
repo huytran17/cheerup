@@ -20,7 +20,7 @@
 
           <v-col cols="12" md="6">
             <v-text-field
-              :label="$t('Full Name')"
+              :label="$t('Fullname')"
               @input="
                 updateAdminObject({ variable_path: 'full_name', data: $event })
               "

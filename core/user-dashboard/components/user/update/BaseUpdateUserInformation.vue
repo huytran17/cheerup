@@ -10,7 +10,7 @@
         <v-text-field
           :value="me.full_name"
           :rules="fullnameRules"
-          :label="$t('Full Name')"
+          :label="$t('Fullname')"
           @input="
             updateMeObject({
               variable_path: 'full_name',

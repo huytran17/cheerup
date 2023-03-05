@@ -26,7 +26,7 @@
             small
             @click="$router.push(localePath(`/category/${category._id}`))"
           >
-            <span v-html="$t(category.title)"></span>
+            <span class="app-body" v-html="category.title"></span>
           </v-chip>
         </div>
         <div>

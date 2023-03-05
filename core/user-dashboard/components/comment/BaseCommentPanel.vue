@@ -12,12 +12,12 @@
         <span
           v-else-if="is_user_blocked_comment"
           class="app-body"
-          v-html="$t('You has been locked from commenting')"
+          v-html="$t('You have been blocked from commenting')"
         ></span>
         <span
           v-else-if="!has_user"
           class="app-body"
-          v-html="$t('You must be logged in to see the comments')"
+          v-html="$t('You must be logged in to view comments')"
         ></span>
       </div>
     </v-col>

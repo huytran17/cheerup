@@ -43,7 +43,7 @@
             <div class="py-2 card-item__wrapper">
               <span
                 class="app-body clickable card-item__title"
-                v-html="$t('View Profile')"
+                v-html="$t('View your profile')"
                 @click="$router.push(localePath('/profile'))"
               ></span>
             </div>
@@ -75,7 +75,7 @@
       </div>
       <div v-else>
         <div class="small--text">
-          <span class="app-body" v-html="$t('No data to display')"></span>
+          <span class="app-body" v-html="$t('No data to show')"></span>
         </div>
         <div class="d-flex justify-center pt-3">
           <v-btn

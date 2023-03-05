@@ -8,7 +8,7 @@
     <v-col cols="12">
       <v-switch
         :value="me.is_subscribed"
-        :label="$t('Get notified when there\'s a new post')"
+        :label="$t('Get notified when there is a new post')"
         color="primary"
         :false-value="false"
         :true-value="true"

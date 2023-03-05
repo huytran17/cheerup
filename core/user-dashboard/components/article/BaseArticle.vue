@@ -12,14 +12,14 @@
           small
           @click="$router.push(localePath(`/category/${category._id}`))"
         >
-          <span v-html="$t(category.title)"></span>
+          <span class="app-body" v-html="category.title"></span>
         </v-chip>
       </div>
 
       <div class="text-h6 text-sm-h4 text-uppercase text-center pb-4 pt-2">
         <span
           class="app-body post__title position-relative clickable"
-          v-html="$t(post_data.title)"
+          v-html="post_data.title"
           @click="$router.push(localePath(`/post/${post_data._id}`))"
         ></span>
       </div>
@@ -54,7 +54,7 @@
     >
       <span
         class="app-body text--ellipsis"
-        v-html="$t(post_data.description)"
+        v-html="post_data.description"
       ></span>
     </div>
 

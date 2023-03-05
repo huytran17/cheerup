@@ -2,14 +2,6 @@ import _ from "lodash";
 import { mapActions, mapMutations, mapGetters } from "vuex";
 
 export default {
-  data() {
-    return {
-      titleRules: [(v) => !!v || this.$t("Title is required.")],
-      categoriesRules: [
-        (v) => !!v.length > 0 || this.$t("Category is required."),
-      ],
-    };
-  },
   computed: {
     ...mapGetters({
       category: "category/category",

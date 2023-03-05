@@ -30,10 +30,9 @@
           >mdi-format-quote-open</v-icon
         >
         <div class="small--text text-left" v-line-clamp="5">
-          <span
-            class="app-body text--ellipsis me__description"
-            v-html="$t(owner_description)"
-          ></span>
+          <span class="app-body text--ellipsis me__description">{{
+            owner_description
+          }}</span>
         </div>
       </div>
 
