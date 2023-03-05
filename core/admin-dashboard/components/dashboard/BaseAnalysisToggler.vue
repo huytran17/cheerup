@@ -1,5 +1,8 @@
 <template>
   <div class="d-flex mx-3">
+    <div class="mr-2 d-flex flex-column justify-center">
+      <BaseLanguageSwitcher />
+    </div>
     <div
       class="text-body-1 d-flex flex-column justify-center pr-4 primary--text"
     >
@@ -55,9 +58,13 @@
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
+import BaseLanguageSwitcher from "@/components/BaseLanguageSwitcher";
 
 export default {
   name: "BaseAnalysisToggler",
+  components: {
+    BaseLanguageSwitcher,
+  },
   props: {
     buttons: {
       type: Array,

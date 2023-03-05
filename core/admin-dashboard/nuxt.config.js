@@ -32,6 +32,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     "~/plugins/vuetify",
+    "~/plugins/router",
     { src: "~/plugins/axios", ssr: false },
     { src: "~/plugins/vue-toastification", ssr: false },
     { src: "~/plugins/vue-sidebar-menu-akahon", ssr: false },
