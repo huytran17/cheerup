@@ -3,6 +3,7 @@ import { getUser } from "../../../../use-cases/user";
 import {
   createCommentLike,
   updateCommentLike,
+  hardDeleteCommentLike,
   getCommentLikeByUserAndComment,
 } from "../../../../use-cases/comment-like";
 import { getComment } from "../../../../use-cases/comment";
@@ -13,6 +14,7 @@ const createOrUpdateCommentLikeController =
   makeCreateOrUpdateCommentLikeController({
     createCommentLike,
     updateCommentLike,
+    hardDeleteCommentLike,
     getUser,
     getComment,
     getCommentLikeByUserAndComment,

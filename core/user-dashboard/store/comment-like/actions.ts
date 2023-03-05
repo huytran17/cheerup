@@ -1,5 +1,4 @@
 import { ActionTypes } from "./action-types";
-import { MutationTypes } from "./mutation-types";
 import { ActionTree } from "vuex";
 import { CommentState } from ".";
 import { RootState } from "..";
