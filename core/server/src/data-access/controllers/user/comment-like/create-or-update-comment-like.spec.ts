@@ -110,7 +110,7 @@ describe("createOrUpdateCommentLike", () => {
       context: {
         validated: {
           ...mock_comment_like_data,
-          comment: created_comment,
+          comment_id: created_comment._id,
         },
         user: created_user,
       },
