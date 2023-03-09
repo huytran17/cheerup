@@ -339,11 +339,12 @@ await applyReferralCodeInBackground({ referral_code });
 Refer to /server folder > README.md for more instructions
 
 1. cd server folder
-2. Get the `.env` file and `database.env` file
-3. type `yarn install` on server home directory if you have not done it before.
-4. type `yarn dev`
-5. Server will run on `http://localhost:3000`
-6. If you wish to stop the docker containers, `docker-compose down`
+2. Get the `.env` file
+3. Start the docker containers: `yarn dc:up`
+4. type `yarn install` on server home directory if you have not done it before.
+5. type `yarn dev`
+6. Server will run on `http://localhost:3000`
+7. If you wish to stop the docker containers, `yarn dc:down`
 
 ## How to run user-dashboard
 
@@ -385,16 +386,6 @@ Reference: https://www.geeksforgeeks.org/capped-collections-in-mongodb/
 - [What is screaming architecture](https://levelup.gitconnected.com/what-is-screaming-architecture-f7c327af9bb2)
 - [Clean architecture use-case structure](https://proandroiddev.com/why-you-need-use-cases-interactors-142e8a6fe576)
 - [Denormalize data](https://www.mongodb.com/blog/post/6-rules-of-thumb-for-mongodb-schema-design-part-3)
-
-## Payment references
-
-- [Best practices to integrate stripe](https://medium.com/swlh/best-practices-for-integrating-stripe-billing-with-your-saas-559747ae7062)
-- [Stripe payment workflow](https://codenebula.io/node.js/stripe/sca/2020/03/03/how-to-use-stripes-new-payment-intents-api-with-node-js-to-create-subscriptions-with-built-in-sca/)
-- [How to integrate with stripe](https://codenebula.io/stripe/node.js/2019/04/11/creating-monthly-recurring-subscriptions-in-stripe-using-node-js-part-2/)
-
-## Customer engagement read
-
-- [7 Signs of customers about to cancel subscription](https://www.gravysolutions.io/post/7-not-so-obvious-signs-your-customer-is-about-to-cancel-their-subscription-and-how-to-prevent-it)
 
 ## Database transaction references
 
