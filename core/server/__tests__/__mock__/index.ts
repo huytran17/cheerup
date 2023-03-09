@@ -9,6 +9,7 @@ import makeFakePostBookmark from "./make-fake-post-bookmark";
 import makeFakePost from "./make-fake-post";
 import makeFakeSubscription from "./make-fake-subscription";
 import makeFakeQueryParams from "./make-fake-query-params";
+import makeFakeCommentLike from "./make-fake-comment-like";
 
 const fakeUser = makeFakeUser({ faker });
 const fakeAdmin = makeFakeAdmin({ faker });
@@ -19,6 +20,7 @@ const fakePostBookmark = makeFakePostBookmark({ faker });
 const fakePost = makeFakePost({ faker });
 const fakeSubscription = makeFakeSubscription({ faker });
 const fakeQueryParams = makeFakeQueryParams({ faker });
+const fakeCommentLike = makeFakeCommentLike({ faker });
 
 export default Object.freeze({
   fakeUser,
@@ -30,6 +32,7 @@ export default Object.freeze({
   fakePost,
   fakeSubscription,
   fakeQueryParams,
+  fakeCommentLike,
 });
 
 export {
@@ -42,4 +45,5 @@ export {
   fakePost,
   fakeSubscription,
   fakeQueryParams,
+  fakeCommentLike,
 };

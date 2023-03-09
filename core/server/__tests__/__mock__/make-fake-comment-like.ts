@@ -9,7 +9,7 @@ export default function makeFakeCommentLike({
 }: {
   faker: any;
 }): FakeCommentLike {
-  return function fakeAdmin(): ICommentLike {
+  return function fakeCommentLike(): ICommentLike {
     return {
       _id: faker.database.mongodbObjectId(),
       comment: faker.database.mongodbObjectId(),
