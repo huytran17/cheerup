@@ -71,6 +71,8 @@ describe("createSubscription", () => {
       context: {
         validated: {
           is_active: true,
+        },
+        user: {
           email: created_user.email,
         },
       },

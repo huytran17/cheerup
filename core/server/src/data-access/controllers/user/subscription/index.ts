@@ -5,7 +5,7 @@ import {
 } from "../../../../use-cases/subscription";
 import { logger } from "../../../../config/logs/logger";
 
-import makeDeleteSubscriptionController from "./cancel-subscription";
+import makeCancelSubscriptionController from "./cancel-subscription";
 import makeCreateSubscriptionController from "./create-subscription";
 
 const createSubscriptionController = makeCreateSubscriptionController({
@@ -15,7 +15,7 @@ const createSubscriptionController = makeCreateSubscriptionController({
   logger,
 });
 
-const cancelSubscriptionController = makeDeleteSubscriptionController({
+const cancelSubscriptionController = makeCancelSubscriptionController({
   getSubscriptionByEmail,
   updateSubscription,
   logger,
