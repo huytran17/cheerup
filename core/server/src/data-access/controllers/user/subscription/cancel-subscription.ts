@@ -5,7 +5,7 @@ import { Request } from "express";
 import _ from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
-export default function makeDeleteSubscriptionController({
+export default function makeCancelSubscriptionController({
   getSubscriptionByEmail,
   updateSubscription,
   logger,
@@ -14,7 +14,7 @@ export default function makeDeleteSubscriptionController({
   updateSubscription: IUpdateSubscription;
   logger: Logger;
 }) {
-  return async function updateSubscriptionController(
+  return async function cancelSubscriptionController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
