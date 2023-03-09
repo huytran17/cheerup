@@ -121,7 +121,9 @@ describe("createOrUpdateCommentLike", () => {
     const expected: ExpectSingleResult<CommentLike> = {
       headers,
       statusCode: HttpStatusCode.OK,
-      body: null,
+      body: {
+        data: undefined,
+      },
     };
 
     expect(result).toEqual(expected);
