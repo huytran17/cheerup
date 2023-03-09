@@ -4,7 +4,7 @@ import { SystemConfigurationDb } from "../../data-access";
 
 import makeGetSystemConfiguration from "./get-system-configuraion";
 import makeUpdateSystemConfiguration from "./update-system-configuraion";
-import makeGetLatestSystemConfiguration from "./get-latest-system-configuraion";
+import makeGetLatestSystemConfiguration from "./get-latest-system-configuration";
 import makeCreateSystemConfiguration from "./create-system-configuration";
 import makeGetOneSystemConfiguration from "./get-one-system-configuration";
 

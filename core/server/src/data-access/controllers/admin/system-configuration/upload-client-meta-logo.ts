@@ -1,6 +1,6 @@
 import { Request } from "express";
 import * as _ from "lodash";
-import { IGetLatestSystemConfiguration } from "../../../../use-cases/system-configuration/get-latest-system-configuraion";
+import { IGetLatestSystemConfiguration } from "../../../../use-cases/system-configuration/get-latest-system-configuration";
 import { IUpdateSystemConfiguration } from "../../../../use-cases/system-configuration/update-system-configuraion";
 import Storage from "../../../../config/storage";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
