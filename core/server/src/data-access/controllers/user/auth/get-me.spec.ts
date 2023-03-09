@@ -24,7 +24,7 @@ describe("getMe", () => {
     await clearDatabase();
   });
 
-  it("should return a body that contains an user object", async () => {
+  it("it should return a body that contains an user object", async () => {
     const headers = {
       "Content-Type": "application/json",
     };

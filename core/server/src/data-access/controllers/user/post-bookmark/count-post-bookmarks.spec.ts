@@ -26,7 +26,7 @@ describe("countPostBookmarks", () => {
     await clearDatabase();
   });
 
-  it("should return a body that contains a number of post bookmarks", async () => {
+  it("it should return a body that contains a number of post bookmarks", async () => {
     const headers = {
       "Content-Type": "application/json",
     };

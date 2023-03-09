@@ -25,7 +25,7 @@ describe("verifyAccess", () => {
     await clearDatabase();
   });
 
-  it("should return a body that is an decoded JWT token", async () => {
+  it("it should return a body that is an decoded JWT token", async () => {
     const headers = {
       "Content-Type": "application/json",
     };

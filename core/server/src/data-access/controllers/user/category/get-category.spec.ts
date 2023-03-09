@@ -21,7 +21,7 @@ describe("getCategory", () => {
     await clearDatabase();
   });
 
-  it("should return a body that contains an a category entity", async () => {
+  it("it should return a body that contains an a category entity", async () => {
     const headers = {
       "Content-Type": "application/json",
     };

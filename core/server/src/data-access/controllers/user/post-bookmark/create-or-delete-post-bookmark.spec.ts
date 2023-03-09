@@ -26,7 +26,7 @@ describe("createOrDeletePostBookmark", () => {
     await clearDatabase();
   });
 
-  it("should return a body that contains a post bookmark entity", async () => {
+  it("it should return a body that contains a post bookmark entity", async () => {
     const headers = {
       "Content-Type": "application/json",
     };

@@ -22,7 +22,7 @@ describe("signUp", () => {
     await clearDatabase();
   });
 
-  it("should return a body that is an object of the user entity class", async () => {
+  it("it should return a body that is an object of the user entity class", async () => {
     const headers = {
       "Content-Type": "application/json",
     };
