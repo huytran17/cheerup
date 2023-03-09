@@ -41,7 +41,7 @@ describe("getCommentsByPostPaginated", () => {
     await clearDatabase();
   });
 
-  it("it should return a body that contains pagination data type of comments", async () => {
+  it("should return a body that contains pagination data type of comments", async () => {
     const headers = {
       "Content-Type": "application/json",
     };

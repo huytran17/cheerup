@@ -34,7 +34,7 @@ describe("updateComment", () => {
     await clearDatabase();
   });
 
-  it("it should return a body that contains a comment entity", async () => {
+  it("should return a body that contains a comment entity", async () => {
     const headers = {
       "Content-Type": "application/json",
     };

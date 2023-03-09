@@ -24,7 +24,7 @@ describe("countCommentsByPost", () => {
     await clearDatabase();
   });
 
-  it("it should return a body that contains a number of comments in the post", async () => {
+  it("should return a body that contains a number of comments in the post", async () => {
     const headers = {
       "Content-Type": "application/json",
     };

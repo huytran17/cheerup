@@ -23,7 +23,7 @@ describe("signIn", () => {
     await clearDatabase();
   });
 
-  it("it should return a body that contains an user entity and an JWT access token", async () => {
+  it("should return a body that contains an user entity and an JWT access token", async () => {
     const headers = {
       "Content-Type": "application/json",
     };

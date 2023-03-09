@@ -39,7 +39,7 @@ describe("getPostsPaginated", () => {
     await clearDatabase();
   });
 
-  it("it should return a body that contains a list of posts entities paginated", async () => {
+  it("should return a body that contains a list of posts entities paginated", async () => {
     const headers = {
       "Content-Type": "application/json",
     };

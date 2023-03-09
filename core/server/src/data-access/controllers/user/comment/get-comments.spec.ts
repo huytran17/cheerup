@@ -23,7 +23,7 @@ describe("getComments", () => {
     await clearDatabase();
   });
 
-  it("it should return a body that contains a list of comment entities", async () => {
+  it("should return a body that contains a list of comment entities", async () => {
     const headers = {
       "Content-Type": "application/json",
     };

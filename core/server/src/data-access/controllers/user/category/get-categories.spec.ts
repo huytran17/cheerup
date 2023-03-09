@@ -19,7 +19,7 @@ describe("getCategories", () => {
     await clearDatabase();
   });
 
-  it("it should return a body that contains an array of categories", async () => {
+  it("should return a body that contains an array of categories", async () => {
     const headers = {
       "Content-Type": "application/json",
     };

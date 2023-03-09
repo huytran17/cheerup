@@ -20,7 +20,7 @@ describe("signOut", () => {
     await clearDatabase();
   });
 
-  it("it should return a body that contains a flag for signed out state", async () => {
+  it("should return a body that contains a flag for signed out state", async () => {
     const headers = {
       "Content-Type": "application/json",
     };

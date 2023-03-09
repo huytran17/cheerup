@@ -28,7 +28,7 @@ describe("getPost", () => {
     await clearDatabase();
   });
 
-  it("it should return a body that contains a post entity", async () => {
+  it("should return a body that contains a post entity", async () => {
     const headers = {
       "Content-Type": "application/json",
     };
