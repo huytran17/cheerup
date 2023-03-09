@@ -50,6 +50,4 @@ jobs:
         run: yarn install --frozen-lockfile --silent
 
       - name: Unit testing
-        env:
-          CHANGELOG_CACHE_FILE_PATH: __tests__/__fixtures__/changelog-feed.json
         run: yarn test:ci
