@@ -2,7 +2,7 @@ export type ExpectSingleResult<T> = {
   headers: Record<string, unknown>;
   statusCode: number;
   body: {
-    data: T;
+    data: T | null;
   };
 };
 

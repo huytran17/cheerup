@@ -35,7 +35,7 @@ export default function makeCreateOrUpdateCommentLikeController({
       "Content-Type": "application/json",
     };
 
-    const return_function = (return_data?: ICommentLike | null) => {
+    const return_function = (return_data?: null) => {
       return {
         headers,
         statusCode: HttpStatusCode.OK,
