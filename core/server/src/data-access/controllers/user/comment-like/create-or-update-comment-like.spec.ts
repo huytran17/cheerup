@@ -4,7 +4,11 @@ import {
   clearDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
-import { fakeCommentLike, fakeUser } from "../../../../../__tests__/__mock__";
+import {
+  fakeCommentLike,
+  fakeUser,
+  fakeComment,
+} from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
 import makeUserDb from "../../../make-user-db";
 import makeCommentLikeDb from "../../../make-comment-like-db";
@@ -14,6 +18,7 @@ import { CommentLikeModel, UserModel, CommentModel } from "../../../models";
 import makeCreateCommentLike from "../../../../use-cases/comment-like/create-comment-like";
 import makeHardDeleteCommentLike from "../../../../use-cases/comment-like/hard-delete-comment-like";
 import makeUpdateCommentLike from "../../../../use-cases/comment-like/update-comment-like";
+import makeCreateComment from "../../../../use-cases/comment/create-comment";
 import makeGetCommentLikeByUserAndPost from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
 import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeGetUser from "../../../../use-cases/user/get-user";
@@ -56,6 +61,10 @@ describe("createOrUpdateCommentLike", () => {
       commentLikeDb,
       logger,
     });
+    const createComment = makeCreateComment({
+      commentDb,
+      logger,
+    });
     const getUser = makeGetUser({
       userDb,
       logger,
@@ -76,9 +85,13 @@ describe("createOrUpdateCommentLike", () => {
 
     const mock_comment_like_data = fakeCommentLike();
     const mock_user_data = fakeUser();
+    const mock_comment_data = fakeComment();
 
     const created_user = await createUser({
       userDetails: mock_user_data,
+    });
+    const created_comment = await createComment({
+      commentDetails: mock_comment_data,
     });
 
     const countCommentLikesController = makeCreateOrUpdateCommentLikeController(
@@ -95,7 +108,10 @@ describe("createOrUpdateCommentLike", () => {
 
     const request = {
       context: {
-        validated: mock_comment_like_data,
+        validated: {
+          ...mock_comment_like_data,
+          comment: created_comment,
+        },
         user: created_user,
       },
     };
