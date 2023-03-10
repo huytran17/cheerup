@@ -1,0 +1,6 @@
+{
+  "ignore": ["*.spec.js", "README", "src/**/*.spec.ts"],
+  "watch": ["./**/*"],
+  "ext": "ts,json,html",
+  "exec": "ts-node --log-error -- ./src/app.ts"
+}
