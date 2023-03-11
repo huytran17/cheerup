@@ -21,7 +21,10 @@ export default function initializeJWT(
   passport.use(
     "user-jwt",
     new JwtStrategy(opts, async function (jwt_payload, done) {
-      const exist = await UserDb.findByEmail({ email: jwt_payload.email });
+      const exist = await UserDb.findByEmail({
+        email: jwt_payload.email,
+        deleted_at: { $in: [null, undefined] },
+      });
 
       if (!exist) {
         return done(null, null);
@@ -34,7 +37,10 @@ export default function initializeJWT(
   passport.use(
     "admin-jwt",
     new JwtStrategy(opts, async function (jwt_payload, done) {
-      const exist = await AdminDb.findByEmail({ email: jwt_payload.email });
+      const exist = await AdminDb.findByEmail({
+        email: jwt_payload.email,
+        deleted_at: { $in: [null, undefined] },
+      });
 
       if (!exist) {
         return done(null, null);
