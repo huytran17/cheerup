@@ -39,17 +39,6 @@ describe("createAdmin", () => {
 
     const mock_admin_data = fakeAdmin();
 
-    const password_data = {
-      password: "qwer1234",
-      password_confirmation: "qwer1234",
-    };
-
-    const hashed_password = await hashPassword({ ...password_data });
-
-    const created_admin = await createAdmin({
-      adminDetails: { ...mock_admin_data, hash_password: hashed_password },
-    });
-
     const createAdminController = makeCreateAdminController({
       createAdmin,
       getAdminByEmail,
@@ -57,9 +46,14 @@ describe("createAdmin", () => {
       logger,
     });
 
+    const password_data = {
+      password: "qwer1234",
+      password_confirmation: "qwer1234",
+    };
+
     const request = {
       context: {
-        validated: { ...created_admin, ...password_data, _id: null },
+        validated: { ...mock_admin_data, ...password_data },
       },
     };
 
