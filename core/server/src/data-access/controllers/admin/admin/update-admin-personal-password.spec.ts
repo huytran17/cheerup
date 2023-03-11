@@ -11,7 +11,7 @@ import { AdminModel } from "../../../models";
 import makeGetAdmin from "../../../../use-cases/admin/get-admin";
 import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
 import makeUpdateAdmin from "../../../../use-cases/admin/update-admin";
-import makeRestoreAdminController from "./restore-admin";
+import makeUpdateAdminPersonalAdminController from "./update-admin-personal-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import Admin from "../../../../database/entities/admin";
 import { hashPassword, verifyPassword } from "../../../../config/password";
@@ -48,13 +48,14 @@ describe("updateAdminPassword", () => {
       adminDetails: mock_admin_data,
     });
 
-    const hardDeleteAdminController = makeRestoreAdminController({
-      getAdmin,
-      updateAdmin,
-      hashPassword,
-      verifyPassword,
-      logger,
-    });
+    const updateAdminPersonalAdminController =
+      makeUpdateAdminPersonalAdminController({
+        getAdmin,
+        updateAdmin,
+        hashPassword,
+        verifyPassword,
+        logger,
+      });
 
     const request = {
       context: {
@@ -62,7 +63,7 @@ describe("updateAdminPassword", () => {
       },
     };
 
-    const result = await hardDeleteAdminController(request as any);
+    const result = await updateAdminPersonalAdminController(request as any);
 
     const expected: ExpectSingleResult<Admin> = {
       headers,
