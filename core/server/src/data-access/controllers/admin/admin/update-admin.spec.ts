@@ -14,6 +14,7 @@ import makeUpdateAdmin from "../../../../use-cases/admin/update-admin";
 import makeUpdateAdminController from "./update-admin";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import Admin from "../../../../database/entities/admin";
+import { hashPassword } from "../../../../config/password";
 
 describe("updateAdmin", () => {
   beforeAll(async () => {
@@ -43,8 +44,13 @@ describe("updateAdmin", () => {
 
     const mock_admin_data = fakeAdmin();
 
+    const hashed_password = await hashPassword({
+      password: "qwer1234",
+      password_confirmation: "qwer1234",
+    });
+
     const created_admin = await createAdmin({
-      adminDetails: mock_admin_data,
+      adminDetails: { ...mock_admin_data, hash_password: hashed_password },
     });
 
     const updateAdminController = makeUpdateAdminController({
@@ -55,7 +61,12 @@ describe("updateAdmin", () => {
 
     const request = {
       context: {
-        validated: created_admin,
+        validated: {
+          _id: created_admin._id,
+          password: "qwer1234",
+          new_password: "new_password",
+          new_password_confirmation: "new_password",
+        },
       },
     };
 
