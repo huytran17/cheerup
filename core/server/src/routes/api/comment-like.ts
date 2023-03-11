@@ -1,5 +1,5 @@
 import express from "express";
-import makeValidator from "../../config/middlewares/validator-middleware";
+import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
 
 import { createOrUpdateCommentLikeRules } from "../../data-access/controllers/user/comment-like/validators";

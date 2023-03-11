@@ -1,5 +1,5 @@
-import authenticateAdminJWT from "../../config/middlewares/authenticateAdminJWT";
-import makeValidator from "../../config/middlewares/validator-middleware";
+import authenticateAdminJWT from "../../config/middlewares/authenticate-admin-jwt";
+import makeValidator from "../../config/middlewares/validator";
 import express from "express";
 import makeExpressCallback from "../../config/express-callback";
 import {

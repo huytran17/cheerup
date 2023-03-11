@@ -1,5 +1,5 @@
 import express from "express";
-import authenticateUserJWT from "../../config/middlewares/authenticateUserJWT";
+import authenticateUserJWT from "../../config/middlewares/authenticate-user-jwt";
 
 const apiRouter = express.Router();
 

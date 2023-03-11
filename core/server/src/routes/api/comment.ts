@@ -1,7 +1,7 @@
 import express from "express";
-import makeValidator from "../../config/middlewares/validator-middleware";
+import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
-import authenticateUserJWT from "../../config/middlewares/authenticateUserJWT";
+import authenticateUserJWT from "../../config/middlewares/authenticate-user-jwt";
 
 import {
   getCommentRules,

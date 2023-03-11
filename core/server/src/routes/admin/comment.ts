@@ -1,7 +1,7 @@
 import express from "express";
-import makeValidator from "../../config/middlewares/validator-middleware";
+import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
-import makeAuthorization from "../../config/middlewares/authorization-middleware";
+import makeAuthorization from "../../config/middlewares/authorization";
 import { AuthorizationRole } from "../../constants/authorization-role";
 
 import { hardDeleteCommentRules } from "../../data-access/controllers/admin/comment/validators";

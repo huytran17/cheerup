@@ -14,7 +14,7 @@ import {
 import { initializeMailer } from "./config/emailManager/mailer";
 import Storage from "./config/storage";
 import Redis from "./config/redis";
-import { upload } from "./config/middlewares/file-upload-middleware";
+import { upload } from "./config/middlewares/file-upload";
 
 import cors from "cors";
 import bodyParser from "body-parser";

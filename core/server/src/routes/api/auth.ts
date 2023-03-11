@@ -1,7 +1,7 @@
-import authenticateUserJWT from "../../config/middlewares/authenticateUserJWT";
-import authenticateUserFacebook from "../../config/middlewares/authenticateUserFacebook";
-import authenticateUserGoogle from "../../config/middlewares/authenticateUserGoogle";
-import makeValidator from "../../config/middlewares/validator-middleware";
+import authenticateUserJWT from "../../config/middlewares/authenticate-user-jwt";
+import authenticateUserFacebook from "../../config/middlewares/authenticate-user-facebook";
+import authenticateUserGoogle from "../../config/middlewares/authenticate-user-google";
+import makeValidator from "../../config/middlewares/validator";
 import express from "express";
 import makeExpressCallback from "../../config/express-callback";
 import {

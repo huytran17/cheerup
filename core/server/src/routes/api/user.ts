@@ -1,7 +1,7 @@
 import express from "express";
-import makeValidator from "../../config/middlewares/validator-middleware";
+import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
-import { upload } from "../../config/middlewares/file-upload-middleware";
+import { upload } from "../../config/middlewares/file-upload";
 
 import {
   getUserRules,
