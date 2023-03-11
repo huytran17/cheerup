@@ -13,7 +13,7 @@ import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
 import makeDeleteAdmin from "../../../../use-cases/admin/delete-admin";
 import makeDeleteAdminController from "./delete-admin";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import User from "../../../../database/entities/user";
+import Admin from "../../../../database/entities/admin";
 
 describe("deleteAdmin", () => {
   beforeAll(async () => {
@@ -24,7 +24,7 @@ describe("deleteAdmin", () => {
     await clearDatabase();
   });
 
-  it("should return a body that contains an user entity", async () => {
+  it("should return a body that contains an admin entity", async () => {
     const headers = {
       "Content-Type": "application/json",
     };
@@ -61,7 +61,7 @@ describe("deleteAdmin", () => {
 
     const result = await deleteAdminController(request as any);
 
-    const expected: ExpectSingleResult<User> = {
+    const expected: ExpectSingleResult<Admin> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,
