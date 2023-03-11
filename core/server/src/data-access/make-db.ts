@@ -36,9 +36,7 @@ export function makeLogsDatabaseURL(): string {
 
 export function makeDatabaseOptions() {
   const options = {
-    useNewUrlParser: true,
     connectTimeoutMS: 10000,
-    useUnifiedTopology: true,
   };
 
   return options;
