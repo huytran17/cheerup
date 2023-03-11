@@ -44,8 +44,13 @@ describe("updateAdminPassword", () => {
 
     const mock_admin_data = fakeAdmin();
 
+    const hashed_password = await hashPassword({
+      password: "qwer1234",
+      password_confirmation: "qwer1234",
+    });
+
     const created_admin = await createAdmin({
-      adminDetails: mock_admin_data,
+      adminDetails: { ...mock_admin_data, hash_password: hashed_password },
     });
 
     const updateAdminPersonalAdminController =
@@ -59,7 +64,11 @@ describe("updateAdminPassword", () => {
 
     const request = {
       context: {
-        validated: created_admin,
+        validated: {
+          _id: created_admin._id,
+          password: "new_password",
+          password_confirmation: "new_password",
+        },
       },
     };
 
