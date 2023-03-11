@@ -66,8 +66,9 @@ describe("updateAdminPassword", () => {
       context: {
         validated: {
           _id: created_admin._id,
-          password: "new_password",
-          password_confirmation: "new_password",
+          password: "qwer1234",
+          new_password: "new_password",
+          new_password_confirmation: "new_password",
         },
       },
     };
