@@ -4,8 +4,8 @@ import { logger } from "./jest-logger";
 export type RedisClientType = ReturnType<typeof createClient>;
 
 export default class Redis {
-  private static redis_instance: Redis;
-  private redis_client: undefined | RedisClientType;
+  public static redis_instance: Redis;
+  redis_client: undefined | RedisClientType;
 
   constructor() {
     if (Redis.redis_instance) {
@@ -15,11 +15,14 @@ export default class Redis {
     try {
       const client = createClient();
 
+      client.on("error", (error) => console.error(error));
+
+      client
+        .connect()
+        .then(() => console.log("Successfully connected to Redis server"));
+
       this.redis_client = client;
       Redis.redis_instance = this;
-
-      // NOTE: disabled connection to Redis for unit testing purposes only
-      console.log("Successfully connected to Redis server");
     } catch (error) {
       console.error(error);
     }
@@ -31,7 +34,7 @@ export default class Redis {
     duration_in_seconds,
   }: {
     key: string;
-    value: string;
+    value: any;
     duration_in_seconds?: number;
   }): void {
     if (!this.redis_client) {
@@ -55,7 +58,7 @@ export default class Redis {
     return;
   }
 
-  async getData({ key }: { key: string }): Promise<void> {
+  async getData({ key }: { key: string }): Promise<any> {
     if (!this.redis_client) {
       logger.warn("Redis Client: Not available");
       return;
@@ -108,6 +111,22 @@ export default class Redis {
 
     new Redis();
     return Redis.redis_instance;
+  }
+
+  cacheKeyBuilder(params = {}): string {
+    if (!this.redis_client) {
+      return null;
+    }
+
+    const key_array = [];
+    for (const key in params) {
+      const value = params[key];
+      if (!value) {
+        continue;
+      }
+      key_array.push(`${key}=${params[key]}`);
+    }
+    return key_array.join("&");
   }
 }
 
