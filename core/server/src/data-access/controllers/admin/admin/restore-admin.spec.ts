@@ -47,7 +47,7 @@ describe("restoreAdmin", () => {
       adminDetails: mock_admin_data,
     });
 
-    const hardDeleteAdminController = makeRestoreAdminController({
+    const restoreAdminController = makeRestoreAdminController({
       getAdmin,
       updateAdmin,
       logger,
@@ -59,7 +59,7 @@ describe("restoreAdmin", () => {
       },
     };
 
-    const result = await hardDeleteAdminController(request as any);
+    const result = await restoreAdminController(request as any);
 
     const expected: ExpectSingleResult<Admin> = {
       headers,
