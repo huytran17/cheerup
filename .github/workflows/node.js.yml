@@ -42,7 +42,7 @@ jobs:
           cache: yarn
           cache-dependency-path: "./core/server/yarn.lock"
 
-      - name: Setup redis
+      - name: Setup Redis
         uses: supercharge/redis-github-action@1.2.0
         with:
           redis-version: 6
