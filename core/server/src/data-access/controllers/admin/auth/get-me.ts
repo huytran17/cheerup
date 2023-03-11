@@ -2,6 +2,7 @@ import { Request } from "express";
 import { IGetAdmin } from "../../../../use-cases/admin/get-admin";
 import _ from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetMeController({
   getAdmin,
@@ -19,7 +20,7 @@ export default function makeGetMeController({
       const { _id } = _.get(httpRequest, "context.user");
 
       const exists = await getAdmin({ _id });
-      if (!exists) {
+      if (isEmpty(exists)) {
         throw new Error(`Admin ${_id} does not exist`);
       }
 
