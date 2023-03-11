@@ -59,9 +59,7 @@ describe("updateUser", () => {
     const request = {
       context: {
         validated: created_user,
-        user: {
-          _id: created_user._id,
-        },
+        user: created_user,
       },
     };
 

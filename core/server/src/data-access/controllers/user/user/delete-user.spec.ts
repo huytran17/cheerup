@@ -55,9 +55,7 @@ describe("deleteUser", () => {
 
     const request = {
       context: {
-        validated: {
-          _id: created_user._id,
-        },
+        validated: created_user,
       },
     };
 

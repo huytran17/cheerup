@@ -68,9 +68,7 @@ describe("updatePassword", () => {
           new_password: "new_password",
           password_confirmation: "new_password",
         },
-        user: {
-          _id: created_user._id,
-        },
+        user: created_user,
       },
     };
 
