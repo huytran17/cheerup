@@ -56,7 +56,7 @@ describe("signIn", () => {
 
     const request = {
       context: {
-        user: created_admin,
+        validated: created_admin,
       },
     };
 
