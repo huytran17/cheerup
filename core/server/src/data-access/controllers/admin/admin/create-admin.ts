@@ -5,6 +5,7 @@ import { ICreateAdmin } from "../../../../use-cases/admin/create-admin";
 import { IGetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email";
 import { IHashPassword } from "../../../../config/password/hash-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeCreateAdminController({
   createAdmin,
@@ -29,7 +30,7 @@ export default function makeCreateAdminController({
       const { email, password, password_confirmation } = admin;
 
       const exists = await getAdminByEmail({ email });
-      if (exists) {
+      if (isEmpty(exists)) {
         throw new Error(`Admin by ${email} already exists`);
       }
 
