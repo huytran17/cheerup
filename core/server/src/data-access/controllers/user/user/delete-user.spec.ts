@@ -11,7 +11,7 @@ import { UserModel } from "../../../models";
 import makeGetUser from "../../../../use-cases/user/get-user";
 import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeDeleteUser from "../../../../use-cases/user/delete-user";
-import makeGetUserController from "./get-user";
+import makeDeleteUserController from "./delete-user";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import User from "../../../../database/entities/user";
 
@@ -47,7 +47,7 @@ describe("deleteUser", () => {
       userDetails: mock_user_data,
     });
 
-    const getUserController = makeGetUserController({
+    const deleteUserController = makeDeleteUserController({
       getUser,
       deleteUser,
       logger,
@@ -59,7 +59,7 @@ describe("deleteUser", () => {
       },
     };
 
-    const result = await getUserController(request as any);
+    const result = await deleteUserController(request as any);
 
     const expected: ExpectSingleResult<User> = {
       headers,
