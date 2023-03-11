@@ -3,7 +3,7 @@ import { get } from "lodash";
 import IAdmin from "../../database/interfaces/admin";
 import { HttpStatusCode } from "../../constants/http-status-code";
 
-export default function makeAuthorization(roles: string[]) {
+export default function makeAuthorizationMiddleware(roles: string[]) {
   return function authorizationMiddleware(
     req: Request,
     res: Response,

@@ -4,7 +4,7 @@ import _ from "lodash";
 import Validator, { Rules } from "validatorjs";
 import { HttpStatusCode } from "../../constants/http-status-code";
 
-export default function makeValidator(rules: Rules) {
+export default function makeValidatorMiddleware(rules: Rules) {
   return async function validatorMiddleware(
     req: Request,
     res: Response,
