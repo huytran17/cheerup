@@ -49,3 +49,13 @@ export type ExpectSingedInResult<T> = {
     data: T | null | undefined;
   };
 };
+
+export type ExpectSingedOutResult = {
+  headers: Record<string, unknown>;
+  statusCode: number;
+  body: {
+    data: {
+      signed_out: boolean;
+    };
+  };
+};
