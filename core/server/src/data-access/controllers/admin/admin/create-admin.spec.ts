@@ -59,7 +59,7 @@ describe("createAdmin", () => {
 
     const request = {
       context: {
-        validated: { ...created_admin, ...password_data },
+        validated: { ...created_admin, ...password_data, _id: null },
       },
     };
 
