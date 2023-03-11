@@ -4,6 +4,7 @@ import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeDeleteUserController({
   getUser,
@@ -23,16 +24,14 @@ export default function makeDeleteUserController({
 
     try {
       const { _id } = _.get(httpRequest, "context.validated");
-
       const { _id: curent_user_id } = _.get(httpRequest, "context.user");
 
       const current_exists = await getUser({
         _id: curent_user_id,
         is_include_deleted: false,
       });
-      const current_user_not_exists =
-        _.isEmpty(current_exists) || _.isNil(current_exists);
-      if (current_user_not_exists) {
+
+      if (isEmpty(current_exists)) {
         throw new Error(`Current user by id ${_id} does not exists`);
       }
 
