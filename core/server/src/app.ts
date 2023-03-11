@@ -44,8 +44,16 @@ app.listen(3000, () => console.log("Server is listening on port 3000"));
 
 initializeMailer();
 
-makeDb().then(async () => {
-  await Promise.all([createDefaultAdmin(), createDefaultSystemConfiguration()]);
-  new Storage();
-  new Redis();
-});
+makeDb()
+  .then(async () => {
+    await Promise.all([
+      createDefaultAdmin(),
+      createDefaultSystemConfiguration(),
+    ]);
+    new Storage();
+    new Redis();
+  })
+  .catch((err) => {
+    console.error(err);
+    process.exit(7);
+  });
