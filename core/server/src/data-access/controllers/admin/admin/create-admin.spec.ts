@@ -61,7 +61,7 @@ describe("createAdmin", () => {
 
     const expected: ExpectSingleResult<Admin> = {
       headers,
-      statusCode: HttpStatusCode.OK,
+      statusCode: HttpStatusCode.CREATED,
       body: result?.body,
     };
 
