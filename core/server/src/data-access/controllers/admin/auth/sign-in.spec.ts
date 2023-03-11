@@ -25,7 +25,7 @@ describe("signIn", () => {
     await clearDatabase();
   });
 
-  it("should return a body that contains an admin entity", async () => {
+  it("should return a body that contains an admin entity and an access token", async () => {
     const headers = {
       "Content-Type": "application/json",
     };
