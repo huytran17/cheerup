@@ -6,6 +6,7 @@ import _ from "lodash";
 import { IHashPassword } from "../../../../config/password/hash-password";
 import { IVerifyPassword } from "../../../../config/password/verify-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeUpdateAdminPersonalPasswordController({
   getAdmin,
@@ -32,8 +33,9 @@ export default function makeUpdateAdminPersonalPasswordController({
         httpRequest,
         "context.validated"
       );
+      
       const exists = await getAdmin({ _id });
-      if (!exists) {
+      if (isEmpty(exists)) {
         throw new Error(`Admin by ${_id} does not exist`);
       }
 

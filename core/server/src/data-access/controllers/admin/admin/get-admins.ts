@@ -2,6 +2,7 @@ import { Request } from "express";
 import { IGetAdmins } from "../../../../use-cases/admin/get-admins";
 import _ from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetAdminsController({
   getAdmins,
@@ -17,8 +18,9 @@ export default function makeGetAdminsController({
 
     try {
       const admin_id = _.get(httpRequest, "context.validated");
+
       const exists = await getAdmins();
-      if (!exists) {
+      if (isEmpty(exists)) {
         throw new Error(`Admin ${admin_id} does not exist`);
       }
 

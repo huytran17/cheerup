@@ -4,6 +4,7 @@ import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeDeleteAdminController({
   getAdmin,
@@ -23,8 +24,9 @@ export default function makeDeleteAdminController({
 
     try {
       const { _id } = _.get(httpRequest, "context.validated");
+
       const exists = await getAdmin({ _id });
-      if (!exists) {
+      if (isEmpty(exists)) {
         throw new Error(`Admin by ${_id} does not exist`);
       }
 

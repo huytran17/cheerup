@@ -30,7 +30,7 @@ export default function makeCreateAdminController({
       const { email, password, password_confirmation } = admin;
 
       const exists = await getAdminByEmail({ email });
-      if (isEmpty(exists)) {
+      if (!isEmpty(exists)) {
         throw new Error(`Admin by ${email} already exists`);
       }
 
