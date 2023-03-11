@@ -55,7 +55,7 @@ describe("getUserByEmail", () => {
     const request = {
       context: {
         validated: {
-          user_id: created_user._id,
+          email: created_user.email,
         },
         user: {
           _id: created_user._id,
