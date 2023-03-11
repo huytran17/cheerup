@@ -51,7 +51,7 @@ describe("getMe", () => {
 
     const request = {
       context: {
-        validated: created_admin,
+        user: created_admin,
       },
     };
 

@@ -10,7 +10,7 @@ export default function makeGetMeController({
   getAdmin: IGetAdmin;
 }) {
   return async function getMeController(
-    httpRequest: Request & { context: { validated: { user_id: string } } }
+    httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
       "Content-Type": "application/json",
