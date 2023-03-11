@@ -57,9 +57,6 @@ describe("getUserByEmail", () => {
         validated: {
           email: created_user.email,
         },
-        user: {
-          _id: created_user._id,
-        },
       },
     };
 

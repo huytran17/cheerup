@@ -58,9 +58,6 @@ describe("deleteUser", () => {
         validated: {
           _id: created_user._id,
         },
-        user: {
-          _id: created_user._id,
-        },
       },
     };
 
