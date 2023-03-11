@@ -45,8 +45,10 @@ export type ExpectSingedInResult<T> = {
   headers: Record<string, unknown>;
   statusCode: number;
   body: {
-    access_token: string;
-    data: T | null | undefined;
+    data: {
+      access_token: string;
+      user: T | null | undefined;
+    };
   };
 };
 
