@@ -6,6 +6,7 @@ import { Request } from "express";
 import _ from "lodash";
 import Moment from "moment";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeCreateOrDeletePostBookmarkController({
   createPostBookmark,
@@ -36,12 +37,9 @@ export default function makeCreateOrDeletePostBookmarkController({
         post_id,
       });
 
-      const post_bookmark_not_exists =
-        _.isEmpty(post_bookmark_exists) || _.isNil(post_bookmark_exists);
-
       let post_bookmark_data = Object.assign({});
 
-      if (post_bookmark_not_exists) {
+      if (isEmpty(post_bookmark_exists)) {
         const post_bookmark_details = Object.assign(
           {},
           {

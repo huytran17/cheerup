@@ -4,6 +4,7 @@ import { IGetPost } from "../../../../use-cases/post/get-post";
 import _ from "lodash";
 import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeCountCommentsByPostController({
   countCommentsByPost,
@@ -34,8 +35,7 @@ export default function makeCountCommentsByPostController({
         is_include_deleted: false,
       });
 
-      const post_not_exists = _.isEmpty(post_exists) || _.isNil(post_exists);
-      if (post_not_exists) {
+      if (isEmpty(post_exists)) {
         throw new Error(`Post by ${post_id} does not exist`);
       }
 

@@ -4,6 +4,7 @@ import { IGetUser } from "../../../../use-cases/user/get-user";
 import _ from "lodash";
 import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeCountPostBookmarkController({
   countPostBookmarks,
@@ -29,8 +30,7 @@ export default function makeCountPostBookmarkController({
         is_include_deleted: false,
       });
 
-      const user_not_exists = _.isEmpty(user_exists) || _.isNil(user_exists);
-      if (user_not_exists) {
+      if (isEmpty(user_exists)) {
         throw new Error(`User by id ${user_id} does not exists`);
       }
 

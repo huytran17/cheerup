@@ -4,6 +4,7 @@ import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeCancelSubscriptionController({
   getSubscriptionByEmail,
@@ -26,8 +27,7 @@ export default function makeCancelSubscriptionController({
 
       const exists = await getSubscriptionByEmail({ email });
 
-      const not_exists = !exists || _.isNil(exists);
-      if (not_exists) {
+      if (isEmpty(exists)) {
         throw new Error(`Subscription by ${email} does not exist`);
       }
 

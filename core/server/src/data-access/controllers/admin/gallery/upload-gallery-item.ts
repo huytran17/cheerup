@@ -4,6 +4,7 @@ import { IUpdateGallery } from "../../../../use-cases/gallery/update-gallery";
 import { IGetGallery } from "../../../../use-cases/gallery/get-gallery";
 import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeUploadGalleryItemController({
   getGallery,
@@ -25,16 +26,13 @@ export default function makeUploadGalleryItemController({
       const { _id } = _.get(httpRequest, "context.validated");
       const file = _.get(httpRequest, "context.file");
 
-      const file_not_exists = _.isEmpty(file) || _.isNil(file);
-      if (file_not_exists) {
+      if (isEmpty(file)) {
         throw new Error(`File does not exist`);
       }
 
       const gallery_exists = await getGallery({ _id });
-      const gallery_not_exists =
-        _.isEmpty(gallery_exists) || _.isNil(gallery_exists);
 
-      if (gallery_not_exists) {
+      if (isEmpty(gallery_exists)) {
         throw new Error(`Gallery by id ${_id} does not exist`);
       }
 

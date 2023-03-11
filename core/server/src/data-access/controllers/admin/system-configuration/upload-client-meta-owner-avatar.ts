@@ -4,6 +4,7 @@ import { IGetLatestSystemConfiguration } from "../../../../use-cases/system-conf
 import { IUpdateSystemConfiguration } from "../../../../use-cases/system-configuration/update-system-configuraion";
 import Storage from "../../../../config/storage";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeUploadClientMetaOwnerAvatarController({
   getLatestSystemConfiguration,
@@ -21,16 +22,14 @@ export default function makeUploadClientMetaOwnerAvatarController({
 
     try {
       const exists = await getLatestSystemConfiguration();
-      const system_configuration_not_exists =
-        _.isEmpty(exists) || _.isNil(exists);
 
-      if (system_configuration_not_exists) {
+      if (isEmpty(exists)) {
         throw new Error(`System configuration by ${exists._id} does not exist`);
       }
 
       const file = _.get(httpRequest, "context.file");
-      const file_not_exists = _.isEmpty(file) || _.isNil(file);
-      if (file_not_exists) {
+
+      if (isEmpty(file)) {
         throw new Error(`File does not exist`);
       }
 

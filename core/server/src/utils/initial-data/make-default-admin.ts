@@ -5,6 +5,7 @@ import { IHashPassword } from "../../config/password/hash-password";
 import { ICreateAdmin } from "../../use-cases/admin/create-admin";
 import { IGetOneAdmin } from "../../use-cases/admin/get-one-admin";
 import _ from "lodash";
+import { isEmpty } from "../../utils/is-empty";
 
 export type IDefaultAdmin = () => Promise<IAdmin | null>;
 
@@ -34,16 +35,14 @@ export default function makeCreateDefaultAdmin({
 
     const admin = await getOneAdmin();
 
-    const admin_not_exists = _.isEmpty(admin) || _.isNil(admin);
-
-    if (admin_not_exists) {
-      const created_admin = await createAdmin({
-        adminDetails,
-      });
-
-      logger.verbose(`Created default admin: ${created_admin.email}`);
+    if (!isEmpty(admin)) {
+      return;
     }
 
-    return null;
+    const created_admin = await createAdmin({
+      adminDetails,
+    });
+
+    logger.verbose(`Created default admin: ${created_admin.email}`);
   };
 }

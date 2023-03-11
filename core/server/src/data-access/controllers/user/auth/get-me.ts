@@ -4,6 +4,7 @@ import { IGetSubscriptionByEmail } from "../../../../use-cases/subscription/get-
 import { IUpdateUser } from "../../../../use-cases/user/update-user";
 import _ from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetMeController({
   getUser,
@@ -27,9 +28,8 @@ export default function makeGetMeController({
 
       const exists = await getUser({ _id, is_include_deleted: false });
 
-      const not_exists = _.isEmpty(exists) || _.isNil(exists);
-      if (not_exists) {
-        throw new Error(`User ${_id} does not exist`);
+      if (isEmpty(exists)) {
+        throw new Error(`File does not exist`);
       }
 
       await updateUser({

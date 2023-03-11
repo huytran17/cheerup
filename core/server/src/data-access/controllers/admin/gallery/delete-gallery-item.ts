@@ -5,6 +5,7 @@ import _ from "lodash";
 import { Logger } from "winston";
 import Storage from "../../../../config/storage";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeDeleteGalleryItemController({
   getGallery,
@@ -30,10 +31,8 @@ export default function makeDeleteGalleryItemController({
       } = _.get(httpRequest, "context.validated");
 
       const gallery_exists = await getGallery({ _id: gallery_id });
-      const gallery_not_exists =
-        _.isEmpty(gallery_exists) || _.isNil(gallery_exists);
 
-      if (gallery_not_exists) {
+      if (isEmpty(gallery_exists)) {
         throw new Error(`Gallery by id ${gallery_id} does not exists`);
       }
 

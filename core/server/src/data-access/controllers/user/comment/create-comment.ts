@@ -44,8 +44,7 @@ export default function makeCreateCommentController({
         is_include_deleted: false,
       });
 
-      const post_not_exists = !post_exists || _.isNil(post_exists);
-      if (post_not_exists) {
+      if (isEmpty(post_exists)) {
         throw new Error(`Post by ${post_id} does not exist`);
       }
 
@@ -62,8 +61,8 @@ export default function makeCreateCommentController({
         _id: user_id,
         is_include_deleted: false,
       });
-      const user_not_exists = !user_exists || _.isNil(user_exists);
-      if (user_not_exists) {
+
+      if (isEmpty(user_exists)) {
         throw new Error(`User by ${user_id} does not exist`);
       }
 

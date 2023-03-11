@@ -6,6 +6,7 @@ import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeUpdateCommentController({
   getComment,
@@ -36,8 +37,8 @@ export default function makeUpdateCommentController({
         _id: comment_id,
         is_only_parent: false,
       });
-      const comment_not_exists = _.isEmpty(exists) || _.isNil(exists);
-      if (comment_not_exists) {
+
+      if (isEmpty(exists)) {
         throw new Error(`Comment by ${comment_id} does not exist`);
       }
 
@@ -56,8 +57,7 @@ export default function makeUpdateCommentController({
         is_include_deleted: false,
       });
 
-      const post_not_exists = _.isEmpty(post_exists) || _.isNil(post_exists);
-      if (post_not_exists) {
+      if (isEmpty(post_exists)) {
         throw new Error(`Post by ${post_id} does not exist`);
       }
 
@@ -74,8 +74,8 @@ export default function makeUpdateCommentController({
         _id: user_id,
         is_include_deleted: false,
       });
-      const user_not_exists = _.isEmpty(user_exists) || _.isNil(user_exists);
-      if (user_not_exists) {
+
+      if (isEmpty(user_exists)) {
         throw new Error(`User by ${user_id} does not exist`);
       }
 

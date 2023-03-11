@@ -4,6 +4,7 @@ import { IHardDeleteGallery } from "../../../../use-cases/gallery/hard-delete-ga
 import _ from "lodash";
 import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeHardDeleteGalleryController({
   getGallery,
@@ -25,8 +26,7 @@ export default function makeHardDeleteGalleryController({
       const { _id } = _.get(httpRequest, "context.validated");
       const exists = await getGallery({ _id });
 
-      const not_exists = _.isEmpty(exists) || _.isNil(exists);
-      if (not_exists) {
+      if (isEmpty(exists)) {
         throw new Error(`Gallery by id ${_id} does not exists`);
       }
 

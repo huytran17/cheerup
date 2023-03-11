@@ -4,6 +4,7 @@ import { IGetCategory } from "../../../../use-cases/category/get-category";
 import { IUpdateCategory } from "../../../../use-cases/category/update-category";
 import Storage from "../../../../config/storage";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeUploadCategoryThumbnailController({
   getCategory,
@@ -23,14 +24,14 @@ export default function makeUploadCategoryThumbnailController({
       const { _id }: { _id: string } = _.get(httpRequest, "context.validated");
 
       const exists = await getCategory({ _id });
-      const category_not_exists = _.isEmpty(exists) || _.isNil(exists);
-      if (category_not_exists) {
+
+      if (isEmpty(exists)) {
         throw new Error(`Categiry by ${_id} does not exist`);
       }
 
       const file = _.get(httpRequest, "context.file");
-      const file_not_exists = _.isEmpty(file) || _.isNil(file);
-      if (file_not_exists) {
+
+      if (isEmpty(file)) {
         throw new Error(`File does not exist`);
       }
 

@@ -7,6 +7,7 @@ import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeReplyCommentController({
   replyComment,
@@ -41,8 +42,7 @@ export default function makeReplyCommentController({
         is_include_deleted: false,
       });
 
-      const post_not_exists = _.isEmpty(post_exists) || _.isNil(post_exists);
-      if (post_not_exists) {
+      if (isEmpty(post_exists)) {
         throw new Error(`Post by ${post_id} does not exist`);
       }
 
@@ -64,8 +64,8 @@ export default function makeReplyCommentController({
         _id: user_id,
         is_include_deleted: false,
       });
-      const user_not_exists = _.isEmpty(user_exists) || _.isNil(user_exists);
-      if (user_not_exists) {
+
+      if (isEmpty(user_exists)) {
         throw new Error(`User by ${user_id} does not exist`);
       }
 
@@ -78,9 +78,7 @@ export default function makeReplyCommentController({
         throw new Error(`User by ${user_id} has been blocked from comments`);
       }
 
-      const parent_not_exists =
-        _.isEmpty(parent_comment) || _.isNil(parent_comment);
-      if (parent_not_exists) {
+      if (isEmpty(parent_comment)) {
         throw new Error(`Parent comment by ${parent_id} does not exist`);
       }
 

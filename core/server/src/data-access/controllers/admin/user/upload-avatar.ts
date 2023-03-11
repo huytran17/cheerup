@@ -4,6 +4,7 @@ import { IGetUser } from "../../../../use-cases/user/get-user";
 import { IUpdateUser } from "../../../../use-cases/user/update-user";
 import Storage from "../../../../config/storage";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeUploadUserAvatarController({
   getUser,
@@ -23,14 +24,14 @@ export default function makeUploadUserAvatarController({
       const { _id }: { _id: string } = _.get(httpRequest, "context.validated");
 
       const exists = await getUser({ _id });
-      const user_not_exists = _.isEmpty(exists) || _.isNil(exists);
-      if (user_not_exists) {
+
+      if (isEmpty(exists)) {
         throw new Error(`User by ${_id} does not exist`);
       }
 
       const file = _.get(httpRequest, "context.file");
-      const file_not_exists = _.isEmpty(file) || _.isNil(file);
-      if (file_not_exists) {
+
+      if (isEmpty(file)) {
         throw new Error(`File does not exist`);
       }
 

@@ -3,6 +3,7 @@ import { IGetSubscription } from "../../../../use-cases/subscription/get-subscri
 import _ from "lodash";
 import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetSubscriptionController({
   getSubscription,
@@ -22,8 +23,7 @@ export default function makeGetSubscriptionController({
       const { subscription_id } = _.get(httpRequest, "context.validated");
       const exists = await getSubscription({ _id: subscription_id });
 
-      const not_exists = _.isEmpty(exists) || _.isNil(exists);
-      if (not_exists) {
+      if (isEmpty(exists)) {
         throw new Error(`Subscription ${subscription_id} does not exists`);
       }
 

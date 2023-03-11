@@ -4,6 +4,7 @@ import { IGetPost } from "../../../../use-cases/post/get-post";
 import { IUpdatePost } from "../../../../use-cases/post/update-post";
 import Storage from "../../../../config/storage";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeUploadPostThumbnailController({
   getPost,
@@ -23,14 +24,14 @@ export default function makeUploadPostThumbnailController({
       const { _id }: { _id: string } = _.get(httpRequest, "context.validated");
 
       const exists = await getPost({ _id });
-      const post_not_exists = _.isEmpty(exists) || _.isNil(exists);
-      if (post_not_exists) {
+
+      if (isEmpty(exists)) {
         throw new Error(`Post by ${_id} does not exist`);
       }
 
       const file = _.get(httpRequest, "context.file");
-      const file_not_exists = _.isEmpty(file) || _.isNil(file);
-      if (file_not_exists) {
+
+      if (isEmpty(file)) {
         throw new Error(`File does not exist`);
       }
 

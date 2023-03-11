@@ -4,6 +4,7 @@ import { IGetGalleriesByParent } from "../../../../use-cases/gallery/get-galleri
 import _ from "lodash";
 import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetGalleriesByParentController({
   getGallery,
@@ -26,8 +27,7 @@ export default function makeGetGalleriesByParentController({
 
       const exists = await getGallery({ _id });
 
-      const not_exists = _.isEmpty(exists) || _.isNil(exists);
-      if (not_exists) {
+      if (isEmpty(exists)) {
         throw new Error(`Gallery by id ${_id} does not exists`);
       }
 
