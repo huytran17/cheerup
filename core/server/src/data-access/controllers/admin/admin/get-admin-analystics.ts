@@ -10,7 +10,7 @@ export default function makeGetAdminAnalysticsController({
   getAdminAnalystics: IGetAdminAnalystics;
 }) {
   return async function getAdminAnalysticsController(
-    httpRequest: Request & { context: { validated: { admin_id: string } } }
+    httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
       "Content-Type": "application/json",
