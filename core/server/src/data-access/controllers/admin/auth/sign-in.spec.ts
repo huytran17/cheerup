@@ -14,7 +14,7 @@ import makeSignInController from "./sign-in";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import Admin from "../../../../database/entities/admin";
 import { generateAccessToken } from "../../../../config/accessTokenManager";
-import { verifyPassword } from "../../../../config/password";
+import { hashPassword, verifyPassword } from "../../../../config/password";
 
 describe("signIn", () => {
   beforeAll(async () => {
@@ -43,8 +43,13 @@ describe("signIn", () => {
 
     const mock_admin_data = fakeAdmin();
 
+    const hashed_password = await hashPassword({
+      password: "qwer1234",
+      password_confirmation: "qwer1234",
+    });
+
     const created_admin = await createAdmin({
-      adminDetails: mock_admin_data,
+      adminDetails: { ...mock_admin_data, hashed_password },
     });
 
     const signInController = makeSignInController({
@@ -56,7 +61,10 @@ describe("signIn", () => {
 
     const request = {
       context: {
-        validated: created_admin,
+        validated: {
+          email: created_admin.email,
+          password: "qwer1234",
+        },
       },
     };
 
