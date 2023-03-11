@@ -57,7 +57,11 @@ describe("updateAdminPassword", () => {
 
     const request = {
       context: {
-        validated: created_admin,
+        validated: {
+          _id: created_admin._id,
+          password: "new_password",
+          password_confirmation: "new_password",
+        },
       },
     };
 
