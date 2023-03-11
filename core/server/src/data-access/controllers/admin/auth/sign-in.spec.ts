@@ -73,12 +73,7 @@ describe("signIn", () => {
     const expected: ExpectSingedInResult<Admin> = {
       headers,
       statusCode: HttpStatusCode.OK,
-      body: {
-        data: {
-          access_token: result?.body?.data?.access_token,
-          user: result?.body?.data?.user,
-        },
-      },
+      body: result?.body,
     };
 
     expect(result).toEqual(expected);
