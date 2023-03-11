@@ -49,7 +49,7 @@ describe("signIn", () => {
     });
 
     const created_admin = await createAdmin({
-      adminDetails: { ...mock_admin_data, hashed_password },
+      adminDetails: { ...mock_admin_data, hash_password: hashed_password },
     });
 
     const signInController = makeSignInController({
