@@ -3,6 +3,7 @@ import { IGetUser } from "../../../../use-cases/user/get-user";
 import _ from "lodash";
 import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetUserController({
   getUser,
@@ -27,9 +28,8 @@ export default function makeGetUserController({
         _id,
         is_include_deleted: false,
       });
-      const current_user_not_exists =
-        _.isEmpty(current_exists) || _.isNil(current_exists);
-      if (current_user_not_exists) {
+
+      if (isEmpty(current_exists)) {
         throw new Error(`Current user by id ${_id} does not exists`);
       }
 
