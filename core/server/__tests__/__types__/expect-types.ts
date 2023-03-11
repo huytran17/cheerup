@@ -45,3 +45,11 @@ export type ExpectPaginatedPartialResult<T> = {
     };
   };
 };
+
+export type ExpectResult<T> = {
+  headers: Record<string, unknown>;
+  statusCode: number;
+  body: {
+    data: T;
+  };
+};
