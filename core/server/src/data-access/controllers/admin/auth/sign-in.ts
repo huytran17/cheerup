@@ -5,6 +5,7 @@ import { IGenerateAccessToken } from "../../../../config/accessTokenManager/gene
 import { IVerifyPassword } from "../../../../config/password/verify-password";
 import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export type ILoginData = {
   email: string;
@@ -34,7 +35,7 @@ export default function makeSignInController({
       const { email, password } = payload;
 
       const exists = await getAdminByEmail({ email });
-      if (!exists) {
+      if (isEmpty(exists)) {
         throw new Error(`Admin by ${email} does not exist`);
       }
 
