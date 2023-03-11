@@ -1,3 +1,12 @@
+export interface IPagination {
+  current_page: number | null;
+  from: number | null;
+  to: number | null;
+  per_page: number | null;
+  total: number | null;
+  total_pages: number | null;
+}
+
 export type ExpectSingleResult<T> = {
   headers: Record<string, unknown>;
   statusCode: number;
@@ -19,14 +28,7 @@ export type ExpectPaginatedResult<T> = {
   statusCode: number;
   body: {
     data: T[] | null | undefined;
-    pagination: {
-      current_page: number | null;
-      from: number | null;
-      to: number | null;
-      per_page: number | null;
-      total: number | null;
-      total_pages: number | null;
-    };
+    pagination: IPagination;
   };
 };
 
@@ -35,21 +37,6 @@ export type ExpectPaginatedPartialResult<T> = {
   statusCode: number;
   body: {
     data: (T[] & Partial<T>) | null | undefined;
-    pagination: {
-      current_page: number | null;
-      from: number | null;
-      to: number | null;
-      per_page: number | null;
-      total: number | null;
-      total_pages: number | null;
-    };
-  };
-};
-
-export type ExpectResult<T> = {
-  headers: Record<string, unknown>;
-  statusCode: number;
-  body: {
-    data: T;
+    pagination: IPagination;
   };
 };
