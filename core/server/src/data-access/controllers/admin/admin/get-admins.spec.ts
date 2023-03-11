@@ -51,7 +51,7 @@ describe("getAdmins", () => {
 
     const request = {
       context: {
-        validated: created_admin,
+        validated: created_admin._id,
       },
     };
 
