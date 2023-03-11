@@ -10,7 +10,7 @@ import makeAdminDb from "../../../make-admin-db";
 import { AdminModel } from "../../../models";
 import makeGetAdmin from "../../../../use-cases/admin/get-admin";
 import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
-import makeAdminController from "./get-admin";
+import makeGetAdminController from "./get-admin";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import Admin from "../../../../database/entities/admin";
 
@@ -45,7 +45,7 @@ describe("getAdmin", () => {
       adminDetails: mock_admin_data,
     });
 
-    const getAdminController = makeAdminController({
+    const getAdminController = makeGetAdminController({
       getAdmin,
     });
 
