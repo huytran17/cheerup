@@ -11,7 +11,7 @@ import { CategoryModel } from "../../../models";
 import makeCreateCategory from "../../../../use-cases/category/create-category";
 import makeGetCategory from "../../../../use-cases/category/get-category";
 import makeHardDeleteCategory from "../../../../use-cases/category/hard-delete-category";
-import makeGetCategoryController from "./get-category";
+import makeHardDeleteCategoryController from "./hard-delete-category";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import Category from "../../../../database/entities/category";
 
@@ -40,7 +40,7 @@ describe("hardDeleteCategory", () => {
 
     const mock_category_data = fakeCategory();
 
-    const getCategoryController = makeGetCategoryController({
+    const hardDeleteCategoryController = makeHardDeleteCategoryController({
       getCategory,
       hardDeleteCategory,
       logger,
@@ -56,7 +56,7 @@ describe("hardDeleteCategory", () => {
       },
     };
 
-    const result = await getCategoryController(request as any);
+    const result = await hardDeleteCategoryController(request as any);
 
     const expected: ExpectSingleResult<Category> = {
       headers,
