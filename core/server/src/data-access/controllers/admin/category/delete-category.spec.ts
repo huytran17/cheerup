@@ -60,7 +60,7 @@ describe("deleteCategory", () => {
 
     const expected: ExpectSingleResult<Category> = {
       headers,
-      statusCode: HttpStatusCode.CREATED,
+      statusCode: HttpStatusCode.OK,
       body: result?.body,
     };
 

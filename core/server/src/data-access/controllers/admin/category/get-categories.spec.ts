@@ -55,7 +55,7 @@ describe("getCategories", () => {
 
     const expected: ExpectMultipleResults<Category> = {
       headers,
-      statusCode: HttpStatusCode.CREATED,
+      statusCode: HttpStatusCode.OK,
       body: result?.body,
     };
 
