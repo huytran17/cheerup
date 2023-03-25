@@ -52,7 +52,9 @@ describe("getAdminAnalystics", () => {
     });
 
     const request = {
-      context: {},
+      context: {
+        validated: {},
+      },
     };
 
     const result = await getAdminAnalysticsController(request as any);

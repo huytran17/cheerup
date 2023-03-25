@@ -54,7 +54,9 @@ describe("getCategoryAnalystics", () => {
     );
 
     const request = {
-      context: {},
+      context: {
+        validated: {},
+      },
     };
 
     const result = await getCategoryAnalysticsController(request as any);
