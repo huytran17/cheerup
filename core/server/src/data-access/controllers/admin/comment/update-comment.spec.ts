@@ -52,7 +52,7 @@ describe("updateComment", () => {
 
     const request = {
       context: {
-        validated: created_comment,
+        validated: { ...created_comment },
       },
     };
 
