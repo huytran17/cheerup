@@ -10,12 +10,12 @@ import makeGalleryDb from "../../../make-gallery-db";
 import { GalleryModel } from "../../../models";
 import makeCreateGallery from "../../../../use-cases/gallery/create-gallery";
 import makeGetGallery from "../../../../use-cases/gallery/get-gallery";
-import makeHardDeleteGallery from "../../../../use-cases/gallery/hard-delete-gallery";
-import makeHardDeleteGalleryController from "./hard-delete-gallery";
+import makeUpdateGallery from "../../../../use-cases/gallery/update-gallery";
+import makeUpdateGalleryController from "./update-gallery";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import Gallery from "../../../../database/entities/gallery";
 
-describe("hardDeleteGallery", () => {
+describe("updateGallery", () => {
   beforeAll(async () => {
     await connectDatabase();
   });
@@ -36,7 +36,7 @@ describe("hardDeleteGallery", () => {
 
     const createGallery = makeCreateGallery({ galleryDb, logger });
     const getGallery = makeGetGallery({ galleryDb, logger });
-    const hardDeleteGallery = makeHardDeleteGallery({ galleryDb, logger });
+    const updateGallery = makeUpdateGallery({ galleryDb, logger });
 
     const mock_gallery_data = fakeGallery();
 
@@ -44,9 +44,9 @@ describe("hardDeleteGallery", () => {
       galleryDetails: mock_gallery_data,
     });
 
-    const hardDeletGalleryController = makeHardDeleteGalleryController({
+    const updateGalleryController = makeUpdateGalleryController({
       getGallery,
-      hardDeleteGallery,
+      updateGallery,
       logger,
     });
 
@@ -56,7 +56,7 @@ describe("hardDeleteGallery", () => {
       },
     };
 
-    const result = await hardDeletGalleryController(request as any);
+    const result = await updateGalleryController(request as any);
 
     const expected: ExpectSingleResult<Gallery> = {
       headers,

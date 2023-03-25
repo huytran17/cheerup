@@ -64,7 +64,7 @@ describe("getGalleriesPaginated", () => {
 
     const expected: ExpectMultipleResults<Gallery> = {
       headers,
-      statusCode: HttpStatusCode.CREATED,
+      statusCode: HttpStatusCode.OK,
       body: result?.body,
     };
 

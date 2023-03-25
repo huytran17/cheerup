@@ -57,7 +57,7 @@ describe("getGallery", () => {
 
     const expected: ExpectSingleResult<Gallery> = {
       headers,
-      statusCode: HttpStatusCode.CREATED,
+      statusCode: HttpStatusCode.OK,
       body: result?.body,
     };
 
