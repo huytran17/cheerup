@@ -6,6 +6,7 @@ import {
 import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakeGallery } from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
+import Storage from "../../../../../__tests__/jest-storage";
 import makeGalleryDb from "../../../make-gallery-db";
 import { GalleryModel } from "../../../models";
 import makeUpdateGallery from "../../../../use-cases/gallery/update-gallery";
@@ -47,6 +48,7 @@ describe("deleteGalleryItem", () => {
     const deleteGalleryItemController = makeDeleteGalleryItemController({
       getGallery,
       updateGallery,
+      storage: Storage,
       logger,
     });
 

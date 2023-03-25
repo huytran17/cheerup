@@ -10,10 +10,12 @@ import { isEmpty } from "../../../../utils/is-empty";
 export default function makeDeleteGalleryItemController({
   getGallery,
   updateGallery,
+  storage,
   logger,
 }: {
   getGallery: IGetGallery;
   updateGallery: IUpdateGallery;
+  storage: typeof Storage;
   logger: Logger;
 }) {
   return async function deleteGalleryItemController(
@@ -52,7 +54,7 @@ export default function makeDeleteGalleryItemController({
           Key: current_key,
         };
 
-        Storage.deleteS3Object(s3_params);
+        storage.deleteS3Object(s3_params);
       }
 
       const updated_gallery_items = _.filter(
