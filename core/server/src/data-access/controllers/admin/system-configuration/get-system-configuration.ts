@@ -19,10 +19,10 @@ export default function makeGetSystemConfigurationController({
     };
 
     try {
-      const { post_id } = _.get(httpRequest, "context.validated");
-      const exists = await getSystemConfiguration({ _id: post_id });
+      const { _id } = _.get(httpRequest, "context.validated");
+      const exists = await getSystemConfiguration({ _id });
       if (!exists) {
-        throw new Error(`SystemConfiguration ${post_id} does not exists`);
+        throw new Error(`SystemConfiguration ${_id} does not exists`);
       }
 
       return {
