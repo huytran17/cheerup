@@ -49,7 +49,7 @@ describe("getComment", () => {
 
     const request = {
       context: {
-        validated: created_comment,
+        validated: { comment_id: created_comment._id },
       },
     };
 
