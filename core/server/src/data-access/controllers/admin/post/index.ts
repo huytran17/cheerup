@@ -30,7 +30,7 @@ import makePublishPostController from "./publish-post";
 import makeRestorePostController from "./restore-post";
 import makeUnHightlightPostController from "./un-highlight-post";
 import makeUnPublishPostController from "./un-publish-post";
-import makeUnblockPostCommentController from "./unblock-post-comment";
+import makeUnblockPostCommentController from "./un-block-post-comment";
 import makeUpdatePostController from "./update-post";
 import makeUploadPostThumbnailController from "./upload-post-thumbnail";
 import makeGetMostPopularPostsAnalysticsController from "./get-most-popular-posts-analystics";
