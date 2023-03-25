@@ -90,7 +90,7 @@ export default function makePostDb({
       const category_ratio = _.countBy(categories, "title");
 
       return {
-        data: limited_results,
+        posts: limited_results,
         category_ratio,
       };
     }

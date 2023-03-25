@@ -129,11 +129,11 @@ export default {
     },
 
     has_most_popular_posts() {
-      return !!this.most_popular_posts_analys_data?.data?.length;
+      return !!this.most_popular_posts_analys_data?.posts?.length;
     },
-
+    // FIXME: server have been changing the response type, need check to consistent
     most_popular_posts() {
-      return this.most_popular_posts_analys_data?.data || [];
+      return this.most_popular_posts_analys_data?.posts || [];
     },
   },
 

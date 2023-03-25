@@ -86,6 +86,6 @@ export interface IPostAnalytics {
 }
 
 export interface IMostPopularPostsAnalytics {
-  data: Post[];
+  posts: Post[];
   category_ratio: Record<string, unknown>;
 }

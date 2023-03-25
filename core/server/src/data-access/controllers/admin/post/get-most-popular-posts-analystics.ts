@@ -37,7 +37,7 @@ export default function makeGetMostPopularPostsAnalysticsController({
         headers,
         statusCode: HttpStatusCode.OK,
         body: {
-          ...analystics_data,
+          data: analystics_data,
         },
       };
     } catch (error) {
