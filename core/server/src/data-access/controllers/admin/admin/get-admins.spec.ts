@@ -23,7 +23,7 @@ describe("getAdmins", () => {
     await clearDatabase();
   });
 
-  it("should return a body that contains an array of admin entity", async () => {
+  it("should return a body that contains an array of admin entities", async () => {
     const headers = {
       "Content-Type": "application/json",
     };

@@ -26,7 +26,7 @@ describe("getGalleriesPaginated", () => {
     await clearDatabase();
   });
 
-  it("should return a body that contains an array of gallery entity", async () => {
+  it("should return a body that contains an array of gallery entities", async () => {
     const headers = {
       "Content-Type": "application/json",
     };
