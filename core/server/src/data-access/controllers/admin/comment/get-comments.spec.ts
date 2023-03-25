@@ -43,14 +43,12 @@ describe("getComments", () => {
       logger,
     });
 
-    const created_comment = await createComment({
+    await createComment({
       commentDetails: mock_comment_data,
     });
 
     const request = {
-      context: {
-        validated: created_comment,
-      },
+      context: {},
     };
 
     const result = await getCommentsController(request as any);
