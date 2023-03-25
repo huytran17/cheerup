@@ -60,7 +60,7 @@ describe("hardDeleteComment", () => {
 
     const expected: ExpectSingleResult<Comment> = {
       headers,
-      statusCode: HttpStatusCode.CREATED,
+      statusCode: HttpStatusCode.OK,
       body: result?.body,
     };
 

@@ -57,7 +57,7 @@ describe("getComments", () => {
 
     const expected: ExpectMultipleResults<Comment> = {
       headers,
-      statusCode: HttpStatusCode.CREATED,
+      statusCode: HttpStatusCode.OK,
       body: result?.body,
     };
 

@@ -10,11 +10,12 @@ import makeCommentDb from "../../../make-comment-db";
 import { CommentModel } from "../../../models";
 import makeCreateComment from "../../../../use-cases/comment/create-comment";
 import makeGetComment from "../../../../use-cases/comment/get-comment";
+import makeUpdateComment from "../../../../use-cases/comment/update-comment";
 import makeGetCommentController from "./get-comment";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import Comment from "../../../../database/entities/comment";
 
-describe("getComment", () => {
+describe("updateComment", () => {
   beforeAll(async () => {
     await connectDatabase();
   });
@@ -35,11 +36,13 @@ describe("getComment", () => {
 
     const createComment = makeCreateComment({ commentDb, logger });
     const getComment = makeGetComment({ commentDb, logger });
+    const updateComment = makeUpdateComment({ commentDb, logger });
 
     const mock_comment_data = fakeComment();
 
     const getCommentController = makeGetCommentController({
       getComment,
+      updateComment,
       logger,
     });
 
