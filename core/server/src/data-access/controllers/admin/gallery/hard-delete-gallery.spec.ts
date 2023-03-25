@@ -3,19 +3,19 @@ import {
   connectDatabase,
   clearDatabase,
 } from "../../../../../__tests__/jest-mongo";
-import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakeGallery } from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
 import makeGalleryDb from "../../../make-gallery-db";
 import { GalleryModel } from "../../../models";
 import makeCreateGallery from "../../../../use-cases/gallery/create-gallery";
 import makeGetGallery from "../../../../use-cases/gallery/get-gallery";
-import makeGetGalleriesByParent from "../../../../use-cases/gallery/get-galleries-by-parent";
-import makeGetGalleriesByParentController from "./get-galleries-by-parent";
+import makeHardDeleteGallery from "../../../../use-cases/gallery/hard-delete-gallery";
+import makeHardDeleteGalleryController from "./hard-delete-gallery";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import Gallery from "../../../../database/entities/gallery";
 
-describe("getGalleriesByParent", () => {
+describe("hardDeleteGallery", () => {
   beforeAll(async () => {
     await connectDatabase();
   });
@@ -24,7 +24,7 @@ describe("getGalleriesByParent", () => {
     await clearDatabase();
   });
 
-  it("should return a body that contains an array of gallery entity", async () => {
+  it("should return a body that contains an gallery entity", async () => {
     const headers = {
       "Content-Type": "application/json",
     };
@@ -36,42 +36,31 @@ describe("getGalleriesByParent", () => {
 
     const createGallery = makeCreateGallery({ galleryDb, logger });
     const getGallery = makeGetGallery({ galleryDb, logger });
-    const getGalleriesByParent = makeGetGalleriesByParent({
-      galleryDb,
-      logger,
-    });
+    const hardDeleteGallery = makeHardDeleteGallery({ galleryDb, logger });
 
     const mock_gallery_data = fakeGallery();
 
-    const getGalleriesByParentController = makeGetGalleriesByParentController({
-      getGallery,
-      getGalleriesByParent,
-      logger,
-    });
-
-    const parent_gallery = await createGallery({
+    const created_gallery = await createGallery({
       galleryDetails: mock_gallery_data,
     });
 
-    await createGallery({
-      galleryDetails: {
-        ...mock_gallery_data,
-        _id: null,
-        parent: parent_gallery,
-      },
+    const hardDeletGalleryController = makeHardDeleteGalleryController({
+      getGallery,
+      hardDeleteGallery,
+      logger,
     });
 
     const request = {
       context: {
-        validated: parent_gallery,
+        validated: created_gallery,
       },
     };
 
-    const result = await getGalleriesByParentController(request as any);
+    const result = await hardDeletGalleryController(request as any);
 
-    const expected: ExpectMultipleResults<Gallery> = {
+    const expected: ExpectSingleResult<Gallery> = {
       headers,
-      statusCode: HttpStatusCode.OK,
+      statusCode: HttpStatusCode.CREATED,
       body: result?.body,
     };
 
