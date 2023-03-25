@@ -63,9 +63,6 @@ describe("createPost", () => {
     const mock_post_data = fakePost();
     const mock_admin_data = fakeAdmin();
 
-    const created_post = await createPost({
-      postDetails: mock_post_data,
-    });
     const created_admin = await createAdmin({ adminDetails: mock_admin_data });
 
     const createPostController = makeCreatePostController({
@@ -81,7 +78,7 @@ describe("createPost", () => {
 
     const request = {
       context: {
-        validated: created_post,
+        validated: mock_post_data,
         user: created_admin,
       },
     };
