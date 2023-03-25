@@ -90,7 +90,7 @@ describe("createPost", () => {
 
     const expected: ExpectSingleResult<Post> = {
       headers,
-      statusCode: HttpStatusCode.OK,
+      statusCode: HttpStatusCode.CREATED,
       body: result?.body,
     };
 
