@@ -54,7 +54,11 @@ describe("getGalleriesByParent", () => {
     });
 
     await createGallery({
-      galleryDetails: { ...mock_gallery_data, parent: parent_gallery },
+      galleryDetails: {
+        ...mock_gallery_data,
+        _id: null,
+        parent: parent_gallery,
+      },
     });
 
     const request = {
