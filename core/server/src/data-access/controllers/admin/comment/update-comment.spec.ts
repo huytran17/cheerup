@@ -11,7 +11,7 @@ import { CommentModel } from "../../../models";
 import makeCreateComment from "../../../../use-cases/comment/create-comment";
 import makeGetComment from "../../../../use-cases/comment/get-comment";
 import makeUpdateComment from "../../../../use-cases/comment/update-comment";
-import makeGetCommentController from "./get-comment";
+import makeUpdateCommentController from "./update-comment";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import Comment from "../../../../database/entities/comment";
 
@@ -40,7 +40,7 @@ describe("updateComment", () => {
 
     const mock_comment_data = fakeComment();
 
-    const getCommentController = makeGetCommentController({
+    const updateCommentController = makeUpdateCommentController({
       getComment,
       updateComment,
       logger,
@@ -52,11 +52,11 @@ describe("updateComment", () => {
 
     const request = {
       context: {
-        validated: { ...created_comment },
+        validated: created_comment,
       },
     };
 
-    const result = await getCommentController(request as any);
+    const result = await updateCommentController(request as any);
 
     const expected: ExpectSingleResult<Comment> = {
       headers,
