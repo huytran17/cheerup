@@ -10,6 +10,7 @@ import makeGalleryDb from "../../../make-gallery-db";
 import { GalleryModel } from "../../../models";
 import makeUpdateGallery from "../../../../use-cases/gallery/update-gallery";
 import makeGetGallery from "../../../../use-cases/gallery/get-gallery";
+import makeCreateGallery from "../../../../use-cases/gallery/create-gallery";
 import makeDeleteGalleryItemController from "./delete-gallery-item";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import Gallery from "../../../../database/entities/gallery";
@@ -34,9 +35,14 @@ describe("deleteGalleryItem", () => {
     });
 
     const updateGallery = makeUpdateGallery({ galleryDb, logger });
+    const createGallery = makeCreateGallery({ galleryDb, logger });
     const getGallery = makeGetGallery({ galleryDb, logger });
 
     const mock_gallery_data = fakeGallery();
+
+    const created_gallery = await createGallery({
+      galleryDetails: mock_gallery_data,
+    });
 
     const deleteGalleryItemController = makeDeleteGalleryItemController({
       getGallery,
@@ -46,7 +52,7 @@ describe("deleteGalleryItem", () => {
 
     const request = {
       context: {
-        validated: mock_gallery_data,
+        validated: created_gallery,
       },
     };
 
