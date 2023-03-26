@@ -60,14 +60,12 @@ export default class Redis {
 
   async getData({ key }: { key: string }): Promise<any> {
     if (!this.redis_client) {
-      logger.warn("Redis Client: Not available");
-      return;
+      return logger.warn("Redis Client: Not available");
     }
 
     const invald_data = !key;
     if (invald_data) {
-      logger.warn("Redis Client: Invalid dataset");
-      return;
+      return logger.warn("Redis Client: Invalid dataset");
     }
 
     try {
@@ -100,8 +98,6 @@ export default class Redis {
     } catch (error) {
       console.error(error);
     }
-
-    return;
   }
 
   static getRedisInstance() {
@@ -109,8 +105,7 @@ export default class Redis {
       return Redis.redis_instance;
     }
 
-    new Redis();
-    return Redis.redis_instance;
+    return new Redis() && Redis.redis_instance;
   }
 
   cacheKeyBuilder(params = {}): string {
@@ -127,6 +122,15 @@ export default class Redis {
       key_array.push(`${key}=${params[key]}`);
     }
     return key_array.join("&");
+  }
+
+  disconnectRedis(): Promise<void> {
+    if (!this.redis_client) {
+      logger.warn("Redis Client: Not available");
+      return;
+    }
+
+    return this.redis_client.disconnect();
   }
 }
 
