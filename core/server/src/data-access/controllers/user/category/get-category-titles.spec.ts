@@ -3,11 +3,13 @@ import {
   connectDatabase,
   clearDatabase,
 } from "../../../../../__tests__/jest-mongo";
+import { fakeCategory } from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
 import { redis } from "../../../../../__tests__/jest-redis";
 import makeCategoryDb from "../../../make-category-db";
 import { CategoryModel } from "../../../models";
 import makeGetCategoryTitles from "../../../../use-cases/category/get-category-titles";
+import makeCreateCategory from "../../../../use-cases/category/create-category";
 import makeGetCategoryTitlesController from "./get-category-titles";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
@@ -31,6 +33,13 @@ describe("getCategoryTitles", () => {
     });
 
     const getCategoryTitles = makeGetCategoryTitles({ categoryDb, logger });
+    const createCategory = makeCreateCategory({ categoryDb, logger });
+
+    const mock_category_data = fakeCategory();
+
+    await createCategory({
+      categoryDetails: mock_category_data,
+    });
 
     const getCategoryTitlesController = makeGetCategoryTitlesController({
       getCategoryTitles,
