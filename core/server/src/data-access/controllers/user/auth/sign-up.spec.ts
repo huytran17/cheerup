@@ -20,7 +20,7 @@ describe("signUp", () => {
   });
 
   afterAll(async () => {
-    await Promise.all([clearDatabase(), redis.disconnectRedis()]);
+    await Promise.all([clearDatabase(), redis.disconnect()]);
   });
 
   it("it should return a body that is an object of the user entity class", async () => {

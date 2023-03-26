@@ -23,7 +23,7 @@ describe("createCategory", () => {
   });
 
   afterAll(async () => {
-    await Promise.all([clearDatabase(), redis.disconnectRedis()]);
+    await Promise.all([clearDatabase(), redis.disconnect()]);
   });
 
   it("should return a body that contains an category entity", async () => {

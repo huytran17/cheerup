@@ -24,7 +24,7 @@ describe("createOrDeletePostBookmark", () => {
   });
 
   afterAll(async () => {
-    await Promise.all([clearDatabase(), redis.disconnectRedis()]);
+    await Promise.all([clearDatabase(), redis.disconnect()]);
   });
 
   it("it should return a body that contains a post bookmark entity", async () => {

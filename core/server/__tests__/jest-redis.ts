@@ -124,7 +124,7 @@ export default class Redis {
     return key_array.join("&");
   }
 
-  disconnectRedis(): Promise<void> {
+  disconnect(): Promise<void> {
     if (!this.redis_client) {
       logger.warn("Redis Client: Not available");
       return;
