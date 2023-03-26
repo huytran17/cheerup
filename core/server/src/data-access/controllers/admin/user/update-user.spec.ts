@@ -3,7 +3,6 @@ import {
   connectDatabase,
   clearDatabase,
 } from "../../../../../__tests__/jest-mongo";
-import { hashPassword } from "../../../../config/password";
 import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakeUser } from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
@@ -12,11 +11,11 @@ import { UserModel } from "../../../models";
 import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeUpdateUser from "../../../../use-cases/user/update-user";
 import makeGetUser from "../../../../use-cases/user/get-user";
-import makeUpdateUserPasswordController from "./update-user-password";
+import makeUpdateUserController from "./update-user";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import User from "../../../../database/entities/user";
 
-describe("updateUserPassword", () => {
+describe("updateUser", () => {
   beforeAll(async () => {
     await connectDatabase();
   });
@@ -45,24 +44,19 @@ describe("updateUserPassword", () => {
       userDetails: mock_user_data,
     });
 
-    const updateUserPasswordController = makeUpdateUserPasswordController({
+    const updateUserController = makeUpdateUserController({
       getUser,
       updateUser,
-      hashPassword,
       logger,
     });
 
     const request = {
       context: {
-        validated: {
-          ...created_user,
-          password: "qwer1234",
-          password_confirmation: "qwer1234",
-        },
+        validated: created_user,
       },
     };
 
-    const result = await updateUserPasswordController(request as any);
+    const result = await updateUserController(request as any);
 
     const expected: ExpectSingleResult<User> = {
       headers,
