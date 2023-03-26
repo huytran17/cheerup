@@ -4,6 +4,7 @@ import {
   clearDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { logger } from "../../../../../__tests__/jest-logger";
+import { redis } from "../../../../../__tests__/jest-redis";
 import makeCategoryDb from "../../../make-category-db";
 import { CategoryModel } from "../../../models";
 import makeGetCategories from "../../../../use-cases/category/get-categories";
@@ -16,7 +17,7 @@ describe("getCategories", () => {
   });
 
   afterAll(async () => {
-    await clearDatabase();
+    await Promise.all([clearDatabase(), redis.disconnectRedis()]);
   });
 
   it("it should return a body that contains an array of categories", async () => {

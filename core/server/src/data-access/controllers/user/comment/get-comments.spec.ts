@@ -6,6 +6,7 @@ import {
 import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
 import { fakeComment } from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
+import { redis } from "../../../../../__tests__/jest-redis";
 import makeCommentDb from "../../../make-comment-db";
 import Comment from "../../../../database/entities/comment";
 import { CommentModel } from "../../../models";
@@ -20,7 +21,7 @@ describe("getComments", () => {
   });
 
   afterAll(async () => {
-    await clearDatabase();
+    await Promise.all([clearDatabase(), redis.disconnectRedis()]);
   });
 
   it("it should return a body that contains a list of comment entities", async () => {

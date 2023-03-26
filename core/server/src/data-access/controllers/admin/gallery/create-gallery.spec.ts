@@ -6,6 +6,7 @@ import {
 import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakeGallery, fakeUser } from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
+import { redis } from "../../../../../__tests__/jest-redis";
 import makeGalleryDb from "../../../make-gallery-db";
 import makeUserDb from "../../../make-user-db";
 import { GalleryModel, UserModel } from "../../../models";
@@ -21,7 +22,7 @@ describe("createGallery", () => {
   });
 
   afterAll(async () => {
-    await clearDatabase();
+    await Promise.all([clearDatabase(), redis.disconnectRedis()]);
   });
 
   it("should return a body that contains an gallery entity", async () => {

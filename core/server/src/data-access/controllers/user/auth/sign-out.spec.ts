@@ -3,6 +3,7 @@ import {
   connectDatabase,
   clearDatabase,
 } from "../../../../../__tests__/jest-mongo";
+import { redis } from "../../../../../__tests__/jest-redis";
 import { fakeUser } from "../../../../../__tests__/__mock__";
 import makeUserDb from "../../../make-user-db";
 import { UserModel } from "../../../models";
@@ -17,7 +18,7 @@ describe("signOut", () => {
   });
 
   afterAll(async () => {
-    await clearDatabase();
+    await Promise.all([clearDatabase(), redis.disconnectRedis()]);
   });
 
   it("it should return a body that contains a flag for signed out state", async () => {

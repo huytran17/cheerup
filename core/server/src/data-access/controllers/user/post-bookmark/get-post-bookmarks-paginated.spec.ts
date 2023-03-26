@@ -10,6 +10,7 @@ import {
 } from "../../../../../__tests__/__mock__";
 import { readingTimeAnalyzer } from "../../../../../__tests__/reading-time";
 import { logger } from "../../../../../__tests__/jest-logger";
+import { redis } from "../../../../../__tests__/jest-redis";
 import makeCommentDb from "../../../make-comment-db";
 import makePostBookmarkDb from "../../../make-post-bookmark-db";
 import PostBookmark from "../../../../database/entities/post-bookmark";
@@ -26,7 +27,7 @@ describe("getPostBookmarksPaginated", () => {
   });
 
   afterAll(async () => {
-    await clearDatabase();
+    await Promise.all([clearDatabase(), redis.disconnectRedis()]);
   });
 
   it("it should return a body that contains a post bookmark entity", async () => {

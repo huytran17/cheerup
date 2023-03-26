@@ -6,6 +6,7 @@ import {
 import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
 import { fakePost, fakeCategory } from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
+import { redis } from "../../../../../__tests__/jest-redis";
 import makePostDb from "../../../make-post-db";
 import makeCategoryDb from "../../../make-category-db";
 import Post from "../../../../database/entities/post";
@@ -22,7 +23,7 @@ describe("getSuggestionPosts", () => {
   });
 
   afterAll(async () => {
-    await clearDatabase();
+    await Promise.all([clearDatabase(), redis.disconnectRedis()]);
   });
 
   it("it should return a body that contains a list of posts entities", async () => {

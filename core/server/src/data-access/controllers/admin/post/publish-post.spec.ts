@@ -11,6 +11,7 @@ import {
 import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakePost } from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
+import { redis } from "../../../../../__tests__/jest-redis";
 import makePostDb from "../../../make-post-db";
 import makeSubscriptionDb from "../../../make-subscription-db";
 import { PostModel, SubscriptionModel } from "../../../models";
@@ -28,7 +29,7 @@ describe("publishPost", () => {
   });
 
   afterAll(async () => {
-    await clearDatabase();
+    await Promise.all([clearDatabase(), redis.disconnectRedis()]);
   });
 
   it("should return a body that contains an post entity", async () => {

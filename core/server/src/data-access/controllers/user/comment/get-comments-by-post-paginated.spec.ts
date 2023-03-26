@@ -12,6 +12,7 @@ import {
 import { ExpectPaginatedResult } from "../../../../../__tests__/__types__/expect-types";
 import Comment from "../../../../database/entities/comment";
 import { logger } from "../../../../../__tests__/jest-logger";
+import { redis } from "../../../../../__tests__/jest-redis";
 import makeCommentDb from "../../../make-comment-db";
 import makePostDb from "../../../make-post-db";
 import makeUserDb from "../../../make-user-db";
@@ -38,7 +39,7 @@ describe("getCommentsByPostPaginated", () => {
   });
 
   afterAll(async () => {
-    await clearDatabase();
+    await Promise.all([clearDatabase(), redis.disconnectRedis()]);
   });
 
   it("it should return a body that contains pagination data type of comments", async () => {

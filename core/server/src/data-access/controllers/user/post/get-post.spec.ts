@@ -6,6 +6,7 @@ import {
 import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakePost, fakeUser } from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
+import { redis } from "../../../../../__tests__/jest-redis";
 import { readingTimeAnalyzer } from "../../../../../__tests__/reading-time";
 import makePostDb from "../../../make-post-db";
 import makeUserDb from "../../../make-user-db";
@@ -25,7 +26,7 @@ describe("getPost", () => {
   });
 
   afterAll(async () => {
-    await clearDatabase();
+    await Promise.all([clearDatabase(), redis.disconnectRedis()]);
   });
 
   it("should return a body that contains a post entity", async () => {

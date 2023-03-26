@@ -13,6 +13,7 @@ import makeSignInController from "./sign-in";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { verifyAccessToken } from "../../../../config/accessTokenManager";
 import { logger } from "../../../../../__tests__/jest-logger";
+import { redis } from "../../../../../__tests__/jest-redis";
 import { verifyPassword } from "../../../../config/password";
 import { generateAccessToken } from "../../../../config/accessTokenManager";
 
@@ -22,7 +23,7 @@ describe("verifyAccess", () => {
   });
 
   afterAll(async () => {
-    await clearDatabase();
+    await Promise.all([clearDatabase(), redis.disconnectRedis()]);
   });
 
   it("it should return a body that is an decoded JWT token", async () => {

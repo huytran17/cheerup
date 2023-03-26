@@ -5,6 +5,7 @@ import {
 } from "../../../../../__tests__/jest-mongo";
 import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
 import { logger } from "../../../../../__tests__/jest-logger";
+import { redis } from "../../../../../__tests__/jest-redis";
 import makeUserDb from "../../../make-user-db";
 import { UserModel } from "../../../models";
 import makeGetUsers from "../../../../use-cases/user/get-users";
@@ -18,7 +19,7 @@ describe("getUsers", () => {
   });
 
   afterAll(async () => {
-    await clearDatabase();
+    await Promise.all([clearDatabase(), redis.disconnectRedis()]);
   });
 
   it("should return a body that contains an user entity", async () => {
