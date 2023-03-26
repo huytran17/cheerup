@@ -73,7 +73,7 @@ describe("createUser", () => {
 
     const expected: ExpectSingleResult<User> = {
       headers,
-      statusCode: HttpStatusCode.OK,
+      statusCode: HttpStatusCode.CREATED,
       body: result?.body,
     };
 
