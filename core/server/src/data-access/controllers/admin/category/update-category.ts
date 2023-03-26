@@ -30,7 +30,7 @@ export default function makeUpdateCategoryController({
       const { _id, title } = categoryDetails;
 
       const exists = await getCategory({ _id });
-      if (!exists) {
+      if (isEmpty(exists)) {
         throw new Error(`Category by ${_id} does not exist`);
       }
 

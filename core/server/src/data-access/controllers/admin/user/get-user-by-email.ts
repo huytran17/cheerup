@@ -2,6 +2,7 @@ import { Request } from "express";
 import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import _ from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetUserByEmailController({
   getUserByEmail,
@@ -17,8 +18,9 @@ export default function makeGetUserByEmailController({
 
     try {
       const { email } = _.get(httpRequest, "context.validated");
+
       const exists = await getUserByEmail({ email });
-      if (!exists) {
+      if (isEmpty(exists)) {
         throw new Error(`User ${email} does not exists`);
       }
 

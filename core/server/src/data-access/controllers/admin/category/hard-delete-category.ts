@@ -4,6 +4,7 @@ import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeHardDeleteCategoryController({
   getCategory,
@@ -24,8 +25,9 @@ export default function makeHardDeleteCategoryController({
     try {
       const categoryDetails = _.get(httpRequest, "context.validated");
       const { _id } = categoryDetails;
+
       const exists = await getCategory({ _id });
-      if (!exists) {
+      if (isEmpty(exists)) {
         throw new Error(`Category by ${_id} does not exist`);
       }
 

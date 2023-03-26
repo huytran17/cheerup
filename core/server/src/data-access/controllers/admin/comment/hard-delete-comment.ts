@@ -4,6 +4,7 @@ import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeDeleteComment({
   getComment,
@@ -26,7 +27,7 @@ export default function makeDeleteComment({
       const { _id } = commentDetails;
 
       const exists = await getComment({ _id });
-      if (!exists) {
+      if (isEmpty(exists)) {
         throw new Error(`Comment by ${_id} does not exist`);
       }
 

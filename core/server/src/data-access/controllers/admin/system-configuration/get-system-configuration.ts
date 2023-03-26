@@ -3,6 +3,7 @@ import { IGetSystemConfiguration } from "../../../../use-cases/system-configurat
 import _ from "lodash";
 import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetSystemConfigurationController({
   getSystemConfiguration,
@@ -20,8 +21,9 @@ export default function makeGetSystemConfigurationController({
 
     try {
       const { _id } = _.get(httpRequest, "context.validated");
+
       const exists = await getSystemConfiguration({ _id });
-      if (!exists) {
+      if (isEmpty(exists)) {
         throw new Error(`SystemConfiguration ${_id} does not exists`);
       }
 

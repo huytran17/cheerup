@@ -2,6 +2,7 @@ import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { Request } from "express";
 import _ from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeSignOutController({
   getUserByEmail,
@@ -17,8 +18,9 @@ export default function makeSignOutController({
 
     try {
       const { email } = _.get(httpRequest, "context.user");
+
       const exists = await getUserByEmail({ email, is_include_deleted: false });
-      if (!exists) {
+      if (isEmpty(exists)) {
         throw new Error(`User by ${email} does not exist`);
       }
 

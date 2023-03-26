@@ -2,6 +2,7 @@ import { Request } from "express";
 import { IGetUser } from "../../../../use-cases/user/get-user";
 import _ from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetUserController({
   getUser,
@@ -17,8 +18,9 @@ export default function makeGetUserController({
 
     try {
       const { _id } = _.get(httpRequest, "context.validated");
+
       const exists = await getUser({ _id });
-      if (!exists) {
+      if (isEmpty(exists)) {
         throw new Error(`User ${_id} does not exist`);
       }
 

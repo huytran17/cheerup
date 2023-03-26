@@ -4,6 +4,7 @@ import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeUpdateGalleryController({
   getGallery,
@@ -24,8 +25,9 @@ export default function makeUpdateGalleryController({
     try {
       const galleryDetails = _.get(httpRequest, "context.validated");
       const { _id } = galleryDetails;
+
       const exists = await getGallery({ _id });
-      if (!exists) {
+      if (isEmpty(exists)) {
         throw new Error(`Gallery by ${_id} does not exist`);
       }
 

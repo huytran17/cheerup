@@ -9,6 +9,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { IGetPost } from "../../../../use-cases/post/get-post";
 import { IUpdatePost } from "../../../../use-cases/post/update-post";
 import { IGetActivatingSubscriptions } from "../../../../use-cases/subscription/get-activating-subscriptions";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makePublishPostController({
   getPost,
@@ -36,8 +37,9 @@ export default function makePublishPostController({
 
     try {
       const { _id } = _.get(httpRequest, "context.validated");
+
       const exists = await getPost({ _id });
-      if (!exists) {
+      if (isEmpty(exists)) {
         throw new Error(`Post by ${_id} does not exist`);
       }
 

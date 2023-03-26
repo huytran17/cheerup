@@ -3,6 +3,7 @@ import { IGetPost } from "../../../../use-cases/post/get-post";
 import _ from "lodash";
 import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetPostController({
   getPost,
@@ -20,8 +21,9 @@ export default function makeGetPostController({
 
     try {
       const { _id } = _.get(httpRequest, "context.validated");
+
       const exists = await getPost({ _id });
-      if (!exists) {
+      if (isEmpty(exists)) {
         throw new Error(`Post ${_id} does not exists`);
       }
 

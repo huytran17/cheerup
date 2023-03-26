@@ -2,6 +2,7 @@ import { IGetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email
 import { Request } from "express";
 import _ from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeSignOutController({
   getAdminByEmail,
@@ -17,8 +18,9 @@ export default function makeSignOutController({
 
     try {
       const { email } = _.get(httpRequest, "context.user");
+
       const exists = await getAdminByEmail({ email });
-      if (!exists) {
+      if (isEmpty(exists)) {
         throw new Error(`Admin by ${email} does not exist`);
       }
 

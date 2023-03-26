@@ -5,6 +5,7 @@ import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeHightlightPostController({
   getPost,
@@ -26,8 +27,9 @@ export default function makeHightlightPostController({
 
     try {
       const { _id } = _.get(httpRequest, "context.validated");
+
       const exists = await getPost({ _id });
-      if (!exists) {
+      if (isEmpty(exists)) {
         throw new Error(`Post by ${_id} does not exist`);
       }
 

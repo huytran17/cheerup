@@ -3,6 +3,7 @@ import { IGetCategory } from "../../../../use-cases/category/get-category";
 import _ from "lodash";
 import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetCategoryController({
   getCategory,
@@ -20,8 +21,9 @@ export default function makeGetCategoryController({
 
     try {
       const { _id } = _.get(httpRequest, "context.validated");
+
       const exists = await getCategory({ _id });
-      if (!exists) {
+      if (isEmpty(exists)) {
         throw new Error(`Category ${_id} does not exists`);
       }
 

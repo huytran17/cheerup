@@ -4,6 +4,7 @@ import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeRestoreUserController({
   getUser,
@@ -24,7 +25,7 @@ export default function makeRestoreUserController({
     try {
       const { _id } = _.get(httpRequest, "context.validated");
       const exists = await getUser({ _id });
-      if (!exists) {
+      if (isEmpty(exists)) {
         throw new Error(`User by id ${_id} does not exist`);
       }
 

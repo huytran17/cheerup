@@ -4,6 +4,7 @@ import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeUpdateSystemConfigurationController({
   getSystemConfiguration,
@@ -27,8 +28,9 @@ export default function makeUpdateSystemConfigurationController({
         "context.validated"
       );
       const { _id } = systemConfigurationDetails;
+
       const exists = await getSystemConfiguration({ _id });
-      if (!exists) {
+      if (isEmpty(exists)) {
         throw new Error(`SystemConfiguration by ${_id} does not exist`);
       }
 

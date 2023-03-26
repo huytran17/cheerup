@@ -5,6 +5,7 @@ import { Request } from "express";
 import _ from "lodash";
 import { IHashPassword } from "../../../../config/password/hash-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeUpdateUserPasswordController({
   getUser,
@@ -29,8 +30,9 @@ export default function makeUpdateUserPasswordController({
         httpRequest,
         "context.validated"
       );
+
       const exists = await getUser({ _id });
-      if (!exists) {
+      if (isEmpty(exists)) {
         throw new Error(`User by ${_id} does not exist`);
       }
 

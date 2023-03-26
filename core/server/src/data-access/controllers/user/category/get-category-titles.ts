@@ -3,6 +3,7 @@ import { IGetCategoryTitles } from "../../../../use-cases/category/get-category-
 import _ from "lodash";
 import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetCategoryTitlesController({
   getCategoryTitles,
@@ -20,7 +21,7 @@ export default function makeGetCategoryTitlesController({
 
     try {
       const exists = await getCategoryTitles();
-      if (!exists) {
+      if (isEmpty(exists)) {
         throw new Error(`No category titles found`);
       }
 

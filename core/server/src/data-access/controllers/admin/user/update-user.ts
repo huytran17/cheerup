@@ -4,6 +4,7 @@ import { Logger } from "winston";
 import { Request } from "express";
 import _ from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeUpdateUserController({
   getUser,
@@ -27,7 +28,7 @@ export default function makeUpdateUserController({
       const { _id, is_blocked_comment } = userDetails;
 
       const exists = await getUser({ _id });
-      if (!exists) {
+      if (isEmpty(exists)) {
         throw new Error(`User by ${_id} does not exist`);
       }
 

@@ -3,6 +3,7 @@ import { IGetLatestSystemConfiguration } from "../../../../use-cases/system-conf
 import _ from "lodash";
 import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetLatestSystemConfigurationController({
   getLatestSystemConfiguration,
@@ -20,7 +21,7 @@ export default function makeGetLatestSystemConfigurationController({
 
     try {
       const exists = await getLatestSystemConfiguration();
-      if (!exists) {
+      if (isEmpty(exists)) {
         throw new Error(`SystemConfiguration does not exists`);
       }
 
