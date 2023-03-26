@@ -1,8 +1,8 @@
 <template>
   <div>
-    <BasePostPanel :post_data="post" id="post" />
+    <BasePostPanel />
     <div v-if="has_suggestion_posts" class="pt-12">
-      <BaseSuggestionPosts :posts_data="suggestion_posts" />
+      <BaseSuggestionPosts />
     </div>
     <div class="pt-12">
       <BaseCommentPanel />

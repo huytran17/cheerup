@@ -17,9 +17,7 @@
           <v-col cols="12" md="4">
             <v-row>
               <v-col cols="12">
-                <BaseAboutCard
-                  :system_configuration_data="system_configuration"
-                />
+                <BaseAboutCard />
               </v-col>
               <v-col cols="12" class="mt-3">
                 <BaseSocialiteList />
@@ -28,7 +26,7 @@
                 <BaseProfileCard />
               </v-col>
               <v-col cols="12" class="mt-3">
-                <BaseCategoriesCard :category_titles="category_titles" />
+                <BaseCategoriesCard />
               </v-col>
               <v-col cols="12" class="mt-3">
                 <BaseSearchCard />
@@ -71,7 +69,6 @@ export default {
   },
   computed: {
     ...mapGetters({
-      system_configuration: "system-configuration/system_configuration",
       category_titles: "category/category_titles",
     }),
   },

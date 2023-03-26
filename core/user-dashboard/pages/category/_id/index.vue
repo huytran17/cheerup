@@ -1,5 +1,5 @@
 <template>
-  <BaseArticles :posts_data="posts" />
+  <BaseArticles />
 </template>
 
 <script>
@@ -28,7 +28,6 @@ export default {
   },
   computed: {
     ...mapGetters({
-      posts: "post/posts",
       me: "auth/me",
     }),
   },

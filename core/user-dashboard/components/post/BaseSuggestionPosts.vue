@@ -58,16 +58,16 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import systemMixins from "@/mixins/system";
 
 export default {
   name: "BaseSuggestionPosts",
   mixins: [systemMixins],
-  props: {
-    posts_data: {
-      type: Array,
-      default: () => [],
-    },
+  computed: {
+    ...mapGetters({
+      suggestion_posts: "post/suggestion_posts",
+    }),
   },
 };
 </script>

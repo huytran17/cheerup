@@ -36,7 +36,7 @@
 <script>
 import galleryMixins from "@/mixins/gallery";
 export default {
-  name: "BaseModalCreateGallery",
+  name: "BaseModalUpdateGallery",
   mixins: [galleryMixins],
   props: {
     is_open: {

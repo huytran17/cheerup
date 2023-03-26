@@ -61,7 +61,7 @@
         </div>
       </v-col>
     </v-row>
-    <BaseGalleryFolders :data="galleries" />
+    <BaseGalleryFolders />
 
     <v-row class="mt-4">
       <v-col cols="12" class="d-flex flex-column">

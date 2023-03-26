@@ -3,7 +3,7 @@
     <div class="d-flex flex-column">
       <div v-if="has_categories" class="d-flex justify-center">
         <v-chip
-          v-for="(category, index) in post_data.categories"
+          v-for="(category, index) in post.categories"
           :key="index"
           class="ma-1 clickable"
           :color="category.badge_color"
@@ -17,19 +17,14 @@
       </div>
 
       <div class="text-h6 text-sm-h4 text-uppercase text-center py-4">
-        <span
-          class="app-body position-relative"
-          v-html="post_data.title"
-        ></span>
+        <span class="app-body position-relative" v-html="post.title"></span>
       </div>
 
       <div
         class="text-uppercase grey--text text-center"
         :class="is_mobile ? 'text--small' : 'text__description'"
       >
-        <span class="app-body">{{
-          formatDate(post_data.created_at, "LL")
-        }}</span>
+        <span class="app-body">{{ formatDate(post.created_at, "LL") }}</span>
         <span>/</span>
         <span class="app-body">{{ author_name }}</span>
         <span>/</span>
@@ -39,37 +34,34 @@
 
     <div class="d-flex justify-center pt-6 pb-3">
       <v-img
-        :src="post_data.thumbnail_url"
-        :lazy-src="post_data.thumbnail_url"
-        :alt="post_data.title"
+        :src="post.thumbnail_url"
+        :lazy-src="post.thumbnail_url"
+        :alt="post.title"
         cover
         max-height="400"
       ></v-img>
     </div>
 
     <div class="text__content matte__black--text">
-      <span class="app-body" v-html="post_data.description"></span>
+      <span class="app-body" v-html="post.description"></span>
     </div>
 
     <div class="text__content matte__black--text">
-      <span class="app-body" v-html="post_data.content"></span>
+      <span class="app-body" v-html="post.content"></span>
     </div>
 
     <div class="text-caption grey--text text-uppercase">
       <v-icon small color="black">mdi-tag</v-icon>
       <span class="app-body">
         <span v-html="$t('Tags: ')"></span>
-        <span>{{ post_data.tags.join(", ") }}</span>
+        <span>{{ post.tags.join(", ") }}</span>
       </span>
     </div>
 
-    <div
-      v-if="post_data.source"
-      class="text-body-2 text-sm-body-1 grey--text mt-2"
-    >
+    <div v-if="post.source" class="text-body-2 text-sm-body-1 grey--text mt-2">
       <span class="app-body">
         <span v-html="$t('Source: ')"></span>
-        <span class="font-italic">{{ post_data.source }}</span>
+        <span class="font-italic">{{ post.source }}</span>
       </span>
     </div>
 
@@ -113,12 +105,6 @@ import { SOCIAL_MEDIA_TYPES } from "@/constants";
 export default {
   name: "BasePostPanel",
   mixins: [systemMixins],
-  props: {
-    post_data: {
-      type: Object,
-      required: true,
-    },
-  },
   data() {
     return {
       SOCIAL_MEDIA_TYPES: SOCIAL_MEDIA_TYPES,
@@ -128,18 +114,19 @@ export default {
   computed: {
     ...mapGetters({
       has_user: "auth/has_user",
+      post: "post/post",
     }),
 
     reading_time() {
-      return _.get(this.post_data, "reading_time.text");
+      return _.get(this.post, "reading_time.text");
     },
 
     author_name() {
-      return _.get(this.post_data, "author.full_name");
+      return _.get(this.post, "author.full_name");
     },
 
     has_categories() {
-      return !_.isEmpty(this.post_data.categories);
+      return !_.isEmpty(this.post.categories);
     },
   },
   methods: {
@@ -156,7 +143,7 @@ export default {
         }
 
         const post_bookmark_data = {
-          post: _.get(this.post_data, "_id"),
+          post: _.get(this.post, "_id"),
         };
 
         await this.CREATE_OR_DELETE_POST_BOOKMARK({ data: post_bookmark_data });
@@ -171,7 +158,7 @@ export default {
 
     sharePost({ type }) {
       const current_url_origin = window.location.origin;
-      const post_url = `${current_url_origin}/post/${this.post_data._id}`;
+      const post_url = `${current_url_origin}/post/${this.post._id}`;
 
       let share_url = "";
       switch (type) {
@@ -182,14 +169,14 @@ export default {
           break;
         case SOCIAL_MEDIA_TYPES.TWITTER:
           share_url = `https://twitter.com/intent/tweet?text=${
-            this.post_data.title
+            this.post.title
           }?url=${encodeURIComponent(post_url)}`;
           break;
         case SOCIAL_MEDIA_TYPES.PINTEREST:
           share_url = `http://pinterest.com/pin/create/button?url=${encodeURIComponent(
             post_url
-          )}&description=${this.post_data.description}&media=${
-            this.post_data.thumbnail_url
+          )}&description=${this.post.description}&media=${
+            this.post.thumbnail_url
           }`;
           break;
       }
@@ -201,7 +188,7 @@ export default {
   },
 
   created() {
-    this.is_bookmarked = _.get(this.post_data, "is_bookmarked", false);
+    this.is_bookmarked = _.get(this.post, "is_bookmarked", false);
   },
 };
 </script>

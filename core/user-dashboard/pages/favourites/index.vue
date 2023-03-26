@@ -1,5 +1,5 @@
 <template>
-  <BaseFavouriteCards v-if="has_user" :post_bookmarks_data="post_bookmarks" />
+  <BaseFavouriteCards v-if="has_user" />
   <BaseNoData v-else message="No data to show, please sign in" />
 </template>
 

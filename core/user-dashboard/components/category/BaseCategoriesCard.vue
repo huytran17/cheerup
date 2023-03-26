@@ -28,13 +28,14 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "BaseCategoriesCard",
-  props: {
-    category_titles: {
-      type: Array,
-      default: () => [],
-    },
+  computed: {
+    ...mapGetters({
+      category_titles: "category/category_titles",
+    }),
   },
 };
 </script>

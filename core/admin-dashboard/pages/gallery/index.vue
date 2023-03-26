@@ -29,7 +29,7 @@
       <div class="text-body-1 text-sm-h6">
         <span class="app-body" v-html="$t('Folders')"></span>
       </div>
-      <BaseGalleryFolders :data="galleries" />
+      <BaseGalleryFolders />
     </div>
 
     <BaseModalCreateGallery

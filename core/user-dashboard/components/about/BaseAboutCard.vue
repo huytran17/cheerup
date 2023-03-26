@@ -50,18 +50,17 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import Avatar from "vue-avatar";
 
 export default {
   name: "BaseAboutCard",
-  props: {
-    system_configuration_data: {
-      type: Object,
-      required: true,
-    },
-  },
   components: { Avatar },
   computed: {
+    ...mapGetters({
+      system_configuration: "system-configuration/system_configuration",
+    }),
+
     should_show_avatar() {
       return this.owner_avatar_url || this.owner_name;
     },

@@ -1,7 +1,7 @@
 <template>
-  <div v-if="data.length" class="grid-container grid-container--fill">
+  <div v-if="galleries.length" class="grid-container grid-container--fill">
     <div
-      v-for="gallery in data"
+      v-for="gallery in galleries"
       :key="gallery._id"
       class="folder__item position-relative mx-auto mt-4"
     >
@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import galleryMixins from "@/mixins/gallery";
 import BaseFolderItem from "@/components/gallery/widget/BaseFolderItem";
 import BaseHardDeleteDialog from "@/components/BaseHardDeleteDialog";
@@ -56,18 +57,17 @@ export default {
     BaseHardDeleteDialog,
     BaseModalUpdateGallery,
   },
-  props: {
-    data: {
-      type: Array,
-      default: () => [],
-    },
-  },
   data() {
     return {
       is_open_delete_dialog: false,
       is_open_update_dialog: false,
       selected_item: {},
     };
+  },
+  computed: {
+    ...mapGetters({
+      galleries: "gallery/galleries",
+    }),
   },
   methods: {
     async deleteFolder() {

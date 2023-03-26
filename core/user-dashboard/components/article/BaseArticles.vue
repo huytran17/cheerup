@@ -2,7 +2,7 @@
   <v-row v-if="has_posts">
     <v-col
       cols="12"
-      v-for="(post, index) in posts_data"
+      v-for="(post, index) in posts"
       :key="index"
       class="card__article"
       :class="index === 0 ? '' : 'mt-5'"
@@ -55,16 +55,10 @@ export default {
   name: "BaseArticles",
   mixins: [postMixins],
   components: { BaseArticle },
-  props: {
-    posts_data: {
-      type: Array,
-      default: () => [],
-    },
-  },
-
   computed: {
     ...mapGetters({
       me: "auth/me",
+      posts: "post/posts",
     }),
 
     user_id() {
@@ -72,7 +66,7 @@ export default {
     },
 
     has_posts() {
-      return !_.isEmpty(this.posts_data);
+      return !_.isEmpty(this.posts);
     },
   },
 };
