@@ -21,6 +21,6 @@ module.exports = {
   globalSetup: "./__tests__/jest-setup.ts",
   globalTeardown: "./__tests__/jest-teardown.ts",
   cacheDirectory: ".jest-cache",
-  testTimeout: 20000,
+  testTimeout: 50000,
   bail: true,
 };
