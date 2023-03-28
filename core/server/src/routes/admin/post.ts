@@ -15,8 +15,6 @@ import {
   hardDeletePostRules,
   publishPostRules,
   unPublishPostRules,
-  highlightPostRules,
-  unHighlightPostRules,
   getPostAnalysticsRules,
   getMostPopularPostsAnalysticsRules,
 } from "../../data-access/controllers/admin/post/validators";
@@ -35,8 +33,6 @@ import {
   unPublishPostController,
   getPostAnalysticsController,
   getMostPopularPostsAnalysticsController,
-  hightlightPostController,
-  unHightlightPostController,
 } from "../../data-access/controllers/admin/post";
 
 const postRouter = express.Router();
@@ -51,18 +47,6 @@ postRouter.get(
   "/most-popular-posts-analystics",
   makeValidator(getMostPopularPostsAnalysticsRules),
   makeExpressCallback(getMostPopularPostsAnalysticsController)
-);
-
-postRouter.put(
-  "/un-highlight/:_id",
-  makeValidator(unHighlightPostRules),
-  makeExpressCallback(unHightlightPostController)
-);
-
-postRouter.put(
-  "/highlight/:_id",
-  makeValidator(highlightPostRules),
-  makeExpressCallback(hightlightPostController)
 );
 
 postRouter.put(

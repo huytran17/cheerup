@@ -9,8 +9,6 @@ import uploadPostThumbnailRules from "./upload-post-thumbnail";
 import hardDeletePostRules from "./hard-delete-post";
 import publishPostRules from "./publish-post";
 import unPublishPostRules from "./un-publish-post";
-import highlightPostRules from "./highlight-post";
-import unHighlightPostRules from "./un-highlight-post";
 import getMostPopularPostsAnalysticsRules from "./get-most-popular-posts-analystics";
 import getPostAnalysticsRules from "./get-post-analystics";
 
@@ -26,8 +24,6 @@ export default Object.freeze({
   hardDeletePostRules,
   publishPostRules,
   unPublishPostRules,
-  highlightPostRules,
-  unHighlightPostRules,
   getMostPopularPostsAnalysticsRules,
   getPostAnalysticsRules,
 });
@@ -44,8 +40,6 @@ export {
   hardDeletePostRules,
   publishPostRules,
   unPublishPostRules,
-  highlightPostRules,
-  unHighlightPostRules,
   getMostPopularPostsAnalysticsRules,
   getPostAnalysticsRules,
 };

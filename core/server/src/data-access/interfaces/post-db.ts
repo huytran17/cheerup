@@ -2,7 +2,6 @@ import Post from "../../database/entities/post";
 import IPost from "../../database/interfaces/post";
 export default interface IPostDb {
   findAll: () => Promise<Post[] | null>;
-  findHighlight: () => Promise<Post | null>;
   findAllPaginated: (
     {
       categories,

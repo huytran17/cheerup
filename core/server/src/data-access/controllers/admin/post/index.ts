@@ -8,7 +8,6 @@ import { getAdmin } from "../../../../use-cases/admin";
 import {
   createPost,
   deletePost,
-  getHighlightPost,
   getPost,
   getPostAnalystics,
   getPosts,
@@ -25,10 +24,8 @@ import makeGetPostController from "./get-post";
 import makeGetPostAnalysticsController from "./get-post-analystics";
 import makeGetPostsController from "./get-posts";
 import makeHardDeletePostController from "./hard-delete-post";
-import makeHightlightPostController from "./highlight-post";
 import makePublishPostController from "./publish-post";
 import makeRestorePostController from "./restore-post";
-import makeUnHightlightPostController from "./un-highlight-post";
 import makeUnPublishPostController from "./un-publish-post";
 import makeUnblockPostCommentController from "./un-block-post-comment";
 import makeUpdatePostController from "./update-post";
@@ -39,19 +36,6 @@ const getMostPopularPostsAnalysticsController =
   makeGetMostPopularPostsAnalysticsController({
     getMostPopularPostsAnalystics,
   });
-
-const unHightlightPostController = makeUnHightlightPostController({
-  getPost,
-  updatePost,
-  logger,
-});
-
-const hightlightPostController = makeHightlightPostController({
-  getPost,
-  getHighlightPost,
-  updatePost,
-  logger,
-});
 
 const getPostAnalysticsController = makeGetPostAnalysticsController({
   getPostAnalystics,
@@ -149,8 +133,6 @@ export default Object.freeze({
   publishPostController,
   unPublishPostController,
   getPostAnalysticsController,
-  hightlightPostController,
-  unHightlightPostController,
   getMostPopularPostsAnalysticsController,
 });
 
@@ -168,7 +150,5 @@ export {
   publishPostController,
   unPublishPostController,
   getPostAnalysticsController,
-  hightlightPostController,
-  unHightlightPostController,
   getMostPopularPostsAnalysticsController,
 };

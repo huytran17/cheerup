@@ -10,7 +10,6 @@ import makeCreatePost from "./create-post";
 import makeGetPosts from "./get-posts";
 import makeHardDeletePost from "./hard-delete-post";
 import makeGetPostAnalystics from "./get-post-analystics";
-import makeGetHighlightPost from "./get-highlight-post";
 import makeGetSuggestionPosts from "./get-suggestion-posts";
 import makeGetPostsPaginated from "./get-posts-paginated";
 import makeGetMostPopularPostsAnalystics from "./get-most-popular-posts-analystics";
@@ -27,11 +26,6 @@ const getPostsPaginated = makeGetPostsPaginated({
 });
 
 const getSuggestionPosts = makeGetSuggestionPosts({
-  postDb: PostDb,
-  logger,
-});
-
-const getHighlightPost = makeGetHighlightPost({
   postDb: PostDb,
   logger,
 });
@@ -77,7 +71,6 @@ const postServices = Object.freeze({
   createPost,
   hardDeletePost,
   getPostAnalystics,
-  getHighlightPost,
   getSuggestionPosts,
   getPostsPaginated,
   getMostPopularPostsAnalystics,
@@ -93,7 +86,6 @@ export {
   createPost,
   hardDeletePost,
   getPostAnalystics,
-  getHighlightPost,
   getSuggestionPosts,
   getPostsPaginated,
   getMostPopularPostsAnalystics,
