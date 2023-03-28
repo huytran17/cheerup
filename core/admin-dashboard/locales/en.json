@@ -27,7 +27,6 @@
   "Delete": "Delete",
   "Delete Forever": "Delete Forever",
   "Disable auto censorship post": "Disable auto censorship post",
-  "Enable auto censorship post": "Enable auto censorship post",
   "Disable auto censorship for admin ${email} successfully": "Disable auto censorship for admin ${email} successfully",
   "Encountered error while disabling auto censorship": "Encountered error while disabling auto censorship",
   "Enable auto censorship for admin ${email} successfully": "Enable auto censorship for admin ${email} successfully",
