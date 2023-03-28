@@ -7,7 +7,6 @@ async function makeDb() {
 
   const is_not_connected = mongoose.connection.readyState == 0;
   if (is_not_connected) {
-    console.log("Setting up database...");
     await mongoose.connect(DATABASE_URL, DATABASE_OPTIONS);
     console.log("Successfully connected to DB");
   }

@@ -13,37 +13,36 @@ export function initializeMailer(): Transporter {
     process.env.NODE_ENV === "development" ||
     process.env.NODE_ENV === "production";
 
-  if (valid_environment) {
-    const transport = nodemailer.createTransport({
-      host: "smtp.mailtrap.io",
-      port: 2525,
-      auth: {
-        user: process.env.MAIL_TRAP_USER,
-        pass: process.env.MAIL_TRAP_PASS,
-      },
-    });
-
-    transport.verify(function (error: any, success: any) {
-      if (error) {
-        console.error(error);
-      } else {
-        console.log("SMTP Server is ready to take your email");
-      }
-    });
-
-    mailer = transport;
-  } else {
-    console.log(`Invalid environment: ${process.env.NODE_ENV}.`);
-    console.log(`Mock mailer is setup.`);
+  if (!valid_environment) {
+    console.log(`Mailer got invalid environment: ${process.env.NODE_ENV}.`);
     mailer = {
       sendMail: (): void => {
         console.log("Mailer is not set up yet.");
         return null;
       },
     };
+
+    return mailer;
   }
 
-  return mailer;
+  const transport = nodemailer.createTransport({
+    host: "smtp.mailtrap.io",
+    port: 2525,
+    auth: {
+      user: process.env.MAIL_TRAP_USER,
+      pass: process.env.MAIL_TRAP_PASS,
+    },
+  });
+
+  transport.verify(function (error: any, success: any) {
+    if (error) {
+      console.error(error);
+    } else {
+      console.log("SMTP Server is ready to take your email");
+    }
+  });
+
+  return transport;
 }
 
 export type Mailer = {

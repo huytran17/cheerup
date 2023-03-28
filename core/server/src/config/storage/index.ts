@@ -11,10 +11,8 @@ export default class Storage {
 
   static makeS3() {
     AWS.config.update({
-      secretAccessKey:
-        process.env.S3_SECRET_ACCESS_KEY ||
-        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-      accessKeyId: process.env.S3_ACCESS_KEY_ID || "XXXXXXXXXXXXXXX",
+      secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+      accessKeyId: process.env.S3_ACCESS_KEY_ID,
       region: "ap-southeast-1",
       s3ForcePathStyle: true,
       sslEnabled: false,

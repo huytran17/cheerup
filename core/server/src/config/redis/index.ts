@@ -17,9 +17,8 @@ export default class Redis {
 
       client.on("error", (error) => console.error(error));
 
-      client
-        .connect()
-        .then(() => console.log("Successfully connected to Redis server"));
+      (async () => await client.connect())
+      console.log("Successfully connected to Redis server");
 
       this.redis_client = client;
       Redis.redis_instance = this;
