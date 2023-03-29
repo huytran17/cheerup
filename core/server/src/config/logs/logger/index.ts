@@ -5,6 +5,11 @@ import {
 } from "../../../data-access/make-db";
 require("winston-mongodb");
 
+let mongooseLogger = null,
+  mongooseErrorLogger = null,
+  mongooseErrorFileLogger = null,
+  mongooseFileLogger = null;
+
 export const logger = winston.createLogger({
   transports: [
     new winston.transports.Console(),
@@ -37,7 +42,6 @@ export function formatLog() {
   );
 }
 
-let mongooseLogger = null;
 export function makeMongooseVerboseLogger() {
   if (mongooseLogger) {
     return mongooseLogger;
@@ -65,8 +69,6 @@ export function makeMongooseVerboseLogger() {
 
   return mongooseLogger;
 }
-
-let mongooseErrorLogger = null;
 
 export function makeMongooseErrorLogger() {
   if (mongooseErrorLogger) {
@@ -96,7 +98,6 @@ export function makeMongooseErrorLogger() {
   return mongooseErrorLogger;
 }
 
-let mongooseErrorFileLogger = null;
 export function makeMongooseErrorFileLogger() {
   if (mongooseErrorFileLogger) {
     return mongooseErrorFileLogger;
@@ -112,7 +113,6 @@ export function makeMongooseErrorFileLogger() {
   return mongooseErrorFileLogger;
 }
 
-let mongooseFileLogger = null;
 export function makeMongooseVerboseFileLogger() {
   if (mongooseFileLogger) {
     return mongooseFileLogger;
