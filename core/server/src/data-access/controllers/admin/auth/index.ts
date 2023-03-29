@@ -23,7 +23,6 @@ const signInController = makeSignInController({
   getAdminByEmail,
   generateAccessToken,
   verifyPassword,
-  logger,
 });
 
 const signOutController = makeSignOutController({

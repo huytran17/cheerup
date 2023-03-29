@@ -1,21 +1,19 @@
 import { ICreateSubscription } from "../../../../use-cases/subscription/create-subscription";
 import { IUpdateSubscription } from "../../../../use-cases/subscription/update-subscription";
-import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { IGetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeCreateSubscriptionController({
   createSubscription,
   getSubscriptionByEmail,
   updateSubscription,
-  logger,
 }: {
   createSubscription: ICreateSubscription;
   getSubscriptionByEmail: IGetSubscriptionByEmail;
   updateSubscription: IUpdateSubscription;
-  logger: Logger;
 }) {
   return async function createSubscriptionController(
     httpRequest: Request & { context: { validated: {} } }
@@ -25,14 +23,14 @@ export default function makeCreateSubscriptionController({
     };
 
     try {
-      const { email } = _.get(httpRequest, "context.user");
-      const { is_active } = _.get(httpRequest, "context.validated");
+      const { email } = get(httpRequest, "context.user");
+      const { is_active } = get(httpRequest, "context.validated");
 
       const exists = await getSubscriptionByEmail({ email });
 
       let subscription_data = Object.assign({});
-      const already_exists = !_.isEmpty(exists) && !_.isNil(exists);
-      if (already_exists) {
+
+      if (!isEmpty(exists)) {
         const update_subscription_details = Object.assign({}, exists, {
           is_active,
         });

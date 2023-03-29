@@ -1,15 +1,12 @@
 import { ICreateComment } from "../../../../use-cases/comment/create-comment";
-import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeCreateCommentController({
   createComment,
-  logger,
 }: {
   createComment: ICreateComment;
-  logger: Logger;
 }) {
   return async function createCommentController(
     httpRequest: Request & { context: { validated: {} } }
@@ -19,9 +16,10 @@ export default function makeCreateCommentController({
     };
 
     try {
-      const commentDetails = _.get(httpRequest, "context.validated");
+      const commentDetails = get(httpRequest, "context.validated");
 
       const created_comment = await createComment({ commentDetails });
+
       return {
         headers,
         statusCode: HttpStatusCode.CREATED,

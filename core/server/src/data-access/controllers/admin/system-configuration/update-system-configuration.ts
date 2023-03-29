@@ -2,7 +2,7 @@ import { IGetSystemConfiguration } from "../../../../use-cases/system-configurat
 import { IUpdateSystemConfiguration } from "../../../../use-cases/system-configuration/update-system-configuraion";
 import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -23,10 +23,7 @@ export default function makeUpdateSystemConfigurationController({
     };
 
     try {
-      const systemConfigurationDetails = _.get(
-        httpRequest,
-        "context.validated"
-      );
+      const systemConfigurationDetails = get(httpRequest, "context.validated");
       const { _id } = systemConfigurationDetails;
 
       const exists = await getSystemConfiguration({ _id });
@@ -43,6 +40,8 @@ export default function makeUpdateSystemConfigurationController({
       const updated_post = await updateSystemConfiguration({
         systemConfigurationDetails: final_system_configuration_details,
       });
+
+      logger.verbose(`Updated system config ${exists._id}`);
 
       return {
         headers,

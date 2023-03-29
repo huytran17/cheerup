@@ -88,7 +88,6 @@ const uploadPostThumbnailController = makeUploadPostThumbnailController({
 
 const getPostsController = makeGetPostsController({
   getPosts,
-  logger,
 });
 
 const createPostController = makeCreatePostController({
@@ -104,7 +103,6 @@ const createPostController = makeCreatePostController({
 
 const getPostController = makeGetPostController({
   getPost,
-  logger,
 });
 
 const deletePostController = makeDeletePostController({

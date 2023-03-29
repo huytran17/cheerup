@@ -80,7 +80,6 @@ const getUserByEmailController = makeGetUserByEmailController({
 
 const getUsersController = makeGetUsersController({
   getUsers,
-  logger,
 });
 
 const getUserController = makeGetUserController({

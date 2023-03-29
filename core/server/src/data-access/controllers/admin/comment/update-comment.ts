@@ -1,19 +1,16 @@
 import { IGetComment } from "../../../../use-cases/comment/get-comment";
 import { IUpdateComment } from "../../../../use-cases/comment/update-comment";
-import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeUpdateCommentController({
   getComment,
   updateComment,
-  logger,
 }: {
   getComment: IGetComment;
   updateComment: IUpdateComment;
-  logger: Logger;
 }) {
   return async function updateCommentController(
     httpRequest: Request & { context: { validated: {} } }
@@ -23,7 +20,7 @@ export default function makeUpdateCommentController({
     };
 
     try {
-      const commentDetails = _.get(httpRequest, "context.validated");
+      const commentDetails = get(httpRequest, "context.validated");
       const { _id } = commentDetails;
 
       const exists = await getComment({ _id });
@@ -32,6 +29,7 @@ export default function makeUpdateCommentController({
       }
 
       const updated_comment = await updateComment({ commentDetails });
+
       return {
         headers,
         statusCode: HttpStatusCode.OK,

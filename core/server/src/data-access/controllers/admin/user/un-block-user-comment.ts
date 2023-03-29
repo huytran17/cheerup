@@ -2,7 +2,7 @@ import { IGetUser } from "../../../../use-cases/user/get-user";
 import { IUpdateUser } from "../../../../use-cases/user/update-user";
 import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -23,7 +23,7 @@ export default function makeUnBlockUserCommentController({
     };
 
     try {
-      const { _id } = _.get(httpRequest, "context.validated");
+      const { _id } = get(httpRequest, "context.validated");
 
       const exists = await getUser({ _id });
       if (isEmpty(exists)) {
@@ -37,6 +37,8 @@ export default function makeUnBlockUserCommentController({
       const updated_user = await updateUser({
         userDetails: final_user_details,
       });
+
+      logger.verbose(`Un-blocked comment for user ${exists.email}`);
 
       return {
         headers,

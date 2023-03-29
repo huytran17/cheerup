@@ -5,7 +5,6 @@ import {
   createComment,
   getComments,
 } from "../../../../use-cases/comment";
-import { logger } from "../../../../config/logs/logger";
 
 import makeGetCommentsController from "./get-comments";
 import makeGetCommentController from "./get-comment";
@@ -15,29 +14,24 @@ import makeCreateCommentController from "./create-comment";
 
 const getCommentsController = makeGetCommentsController({
   getComments,
-  logger,
 });
 
 const createCommentController = makeCreateCommentController({
   createComment,
-  logger,
 });
 
 const getCommentController = makeGetCommentController({
   getComment,
-  logger,
 });
 
 const hardDeleteCommentController = makeHardDeleteCommentController({
   getComment,
   hardDeleteComment,
-  logger,
 });
 
 const updateCommentController = makeUpdateCommentController({
   getComment,
   updateComment,
-  logger,
 });
 
 export default Object.freeze({

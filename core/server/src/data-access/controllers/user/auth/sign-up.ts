@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { Logger } from "winston";
-import _ from "lodash";
+import { get, omit } from "lodash";
 import { ICreateUser } from "../../../../use-cases/user/create-user";
 import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { IHashPassword } from "../../../../config/password/hash-password";
@@ -32,8 +32,8 @@ export default function makeSignUpController({
     };
 
     try {
-      const client_ip = _.get(httpRequest, "context.ip");
-      const user: IUserRawData = _.get(httpRequest, "context.validated");
+      const client_ip = get(httpRequest, "context.ip");
+      const user: IUserRawData = get(httpRequest, "context.validated");
       const { email, password, password_confirmation } = user;
 
       const exists = await getUserByEmail({ email });
@@ -48,7 +48,7 @@ export default function makeSignUpController({
 
       const user_details = Object.assign(
         {},
-        _.omit(user, ["_id", "password", "password_confirmation"]),
+        omit(user, ["_id", "password", "password_confirmation"]),
         {
           email,
           hash_password: hashed_password,
@@ -60,7 +60,7 @@ export default function makeSignUpController({
         userDetails: user_details,
       });
 
-      logger.verbose(`User signed up: ${created_user.email}`);
+      logger.verbose(`Created user: ${created_user.email}`);
 
       return {
         headers,

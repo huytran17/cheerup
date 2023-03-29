@@ -52,12 +52,10 @@ const uploadClientMetaLogoController = makeUploadClientMetaLogoController({
 const getLatestSystemConfigurationController =
   makeGetLatestSystemConfigurationController({
     getLatestSystemConfiguration,
-    logger,
   });
 
 const getSystemConfigurationController = makeGetSystemConfigurationController({
   getSystemConfiguration,
-  logger,
 });
 
 const updateSystemConfigurationController =

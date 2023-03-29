@@ -2,7 +2,7 @@ import { IGetCategory } from "../../../../use-cases/category/get-category";
 import { IUpdateCategory } from "../../../../use-cases/category/update-category";
 import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -23,7 +23,7 @@ export default function makeRestoreCategoryController({
     };
 
     try {
-      const { _id } = _.get(httpRequest, "context.validated");
+      const { _id } = get(httpRequest, "context.validated");
 
       const exists = await getCategory({ _id });
       if (isEmpty(exists)) {
@@ -38,7 +38,7 @@ export default function makeRestoreCategoryController({
         categoryDetails: updated_category_data,
       });
 
-      logger.verbose(`Restored category ${_id} successfully`);
+      logger.verbose(`Restored category ${exists.title} successfully`);
 
       return {
         headers,

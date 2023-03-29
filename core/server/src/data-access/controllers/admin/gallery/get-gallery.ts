@@ -1,16 +1,13 @@
 import { Request } from "express";
 import { IGetGallery } from "../../../../use-cases/gallery/get-gallery";
-import _ from "lodash";
-import { Logger } from "winston";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetGalleryController({
   getGallery,
-  logger,
 }: {
   getGallery: IGetGallery;
-  logger: Logger;
 }) {
   return async function getGalleryController(
     httpRequest: Request & { context: { validated: {} } }
@@ -20,7 +17,7 @@ export default function makeGetGalleryController({
     };
 
     try {
-      const { _id } = _.get(httpRequest, "context.validated");
+      const { _id } = get(httpRequest, "context.validated");
 
       const exists = await getGallery({ _id });
 

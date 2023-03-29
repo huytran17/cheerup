@@ -15,7 +15,6 @@ import {
 } from "../../../../use-cases/comment-like";
 import { getPost } from "../../../../use-cases/post";
 import { getUser } from "../../../../use-cases/user";
-import { logger } from "../../../../config/logs/logger";
 
 import makeGetCommentController from "./get-comment";
 import makeHardDeleteCommentController from "./hard-delete-comment";
@@ -32,13 +31,11 @@ const getCommentsByParentController = makeGetCommentsByParentController({
   getComment,
   countCommentLikeByCommentAndType,
   getCommentLikeByUserAndComment,
-  logger,
 });
 
 const countCommentsByPostController = makeCountCommentsByPostController({
   countCommentsByPost,
   getPost,
-  logger,
 });
 
 const replyCommentController = makeReplyCommentController({
@@ -47,7 +44,6 @@ const replyCommentController = makeReplyCommentController({
   updateComment,
   getPost,
   getUser,
-  logger,
 });
 
 const getCommentsByPostPaginatedController =
@@ -56,12 +52,10 @@ const getCommentsByPostPaginatedController =
     getPost,
     countCommentLikeByCommentAndType,
     getCommentLikeByUserAndComment,
-    logger,
   });
 
 const getCommentsController = makeGetCommentsController({
   getComments,
-  logger,
 });
 
 const createCommentController = makeCreateCommentController({
@@ -70,14 +64,12 @@ const createCommentController = makeCreateCommentController({
   getUser,
   countCommentLikeByCommentAndType,
   getCommentLikeByUserAndComment,
-  logger,
 });
 
 const getCommentController = makeGetCommentController({
   getComment,
   countCommentLikeByCommentAndType,
   getCommentLikeByUserAndComment,
-  logger,
 });
 
 const hardDeleteCommentController = makeHardDeleteCommentController({
@@ -85,7 +77,6 @@ const hardDeleteCommentController = makeHardDeleteCommentController({
   hardDeleteComment,
   getPost,
   getUser,
-  logger,
 });
 
 const updateCommentController = makeUpdateCommentController({
@@ -93,7 +84,6 @@ const updateCommentController = makeUpdateCommentController({
   updateComment,
   getPost,
   getUser,
-  logger,
 });
 
 export default Object.freeze({

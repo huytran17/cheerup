@@ -1,7 +1,6 @@
 import { Request } from "express";
 import { IGetCommentsByParent } from "../../../../use-cases/comment/get-comments-by-parent";
-import _ from "lodash";
-import { Logger } from "winston";
+import { get, map } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { IGetComment } from "../../../../use-cases/comment/get-comment";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -15,13 +14,11 @@ export default function makeGetCommentsByParentController({
   getComment,
   countCommentLikeByCommentAndType,
   getCommentLikeByUserAndComment,
-  logger,
 }: {
   getCommentsByParent: IGetCommentsByParent;
   getComment: IGetComment;
   countCommentLikeByCommentAndType: ICountCommentLikeByCommentAndType;
   getCommentLikeByUserAndComment: IGetCommentLikeByUserAndComment;
-  logger: Logger;
 }) {
   return async function getCommentsByParentController(
     httpRequest: Request & { context: { validated: {} } }
@@ -31,8 +28,8 @@ export default function makeGetCommentsByParentController({
     };
 
     try {
-      const { _id } = _.get(httpRequest, "context.validated");
-      const { _id: user_id } = _.get(httpRequest, "context.user");
+      const { _id } = get(httpRequest, "context.validated");
+      const { _id: user_id } = get(httpRequest, "context.user");
 
       const comment_exists = await getComment({ _id });
       if (isEmpty(comment_exists)) {
@@ -74,7 +71,7 @@ export default function makeGetCommentsByParentController({
         };
       };
 
-      const map_meta_data_promises = _.map(
+      const map_meta_data_promises = map(
         comments,
         async (comment: IComment) => {
           return await map_meta_data(comment);

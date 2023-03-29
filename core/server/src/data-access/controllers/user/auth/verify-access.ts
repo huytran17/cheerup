@@ -1,6 +1,6 @@
 import { IVerifyAccessToken } from "../../../../config/accessTokenManager/verify-access-token";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeVerifyAccessController({
@@ -16,7 +16,7 @@ export default function makeVerifyAccessController({
     };
 
     try {
-      const { access_token } = _.get(httpRequest, "context.validated");
+      const { access_token } = get(httpRequest, "context.validated");
       const decoded_access_token = verifyAccessToken(access_token);
 
       return {

@@ -1,9 +1,8 @@
-import _ from "lodash";
+import { get } from "lodash";
 import { Request } from "express";
 import { IGetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email";
 import { IGenerateAccessToken } from "../../../../config/accessTokenManager/generate-access-token";
 import { IVerifyPassword } from "../../../../config/password/verify-password";
-import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -16,12 +15,10 @@ export default function makeSignInController({
   getAdminByEmail,
   generateAccessToken,
   verifyPassword,
-  logger,
 }: {
   getAdminByEmail: IGetAdminByEmail;
   generateAccessToken: IGenerateAccessToken;
   verifyPassword: IVerifyPassword;
-  logger: Logger;
 }) {
   return async function signInController(
     httpRequest: Request & { context: { validated: {} } }
@@ -31,7 +28,7 @@ export default function makeSignInController({
     };
 
     try {
-      const payload: ILoginData = _.get(httpRequest, "context.validated");
+      const payload: ILoginData = get(httpRequest, "context.validated");
       const { email, password } = payload;
 
       const exists = await getAdminByEmail({ email });

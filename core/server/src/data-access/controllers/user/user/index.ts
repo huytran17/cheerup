@@ -23,7 +23,6 @@ const uploadUserAvatarController = makeUploadUserAvatarController({
 
 const getUserController = makeGetUserController({
   getUser,
-  logger,
 });
 
 const deleteUserController = makeDeleteUserController({

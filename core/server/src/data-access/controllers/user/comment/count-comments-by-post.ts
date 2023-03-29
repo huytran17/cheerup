@@ -1,19 +1,16 @@
 import { Request } from "express";
 import { ICountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
 import { IGetPost } from "../../../../use-cases/post/get-post";
-import _ from "lodash";
-import { Logger } from "winston";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeCountCommentsByPostController({
   countCommentsByPost,
   getPost,
-  logger,
 }: {
   countCommentsByPost: ICountCommentsByPost;
   getPost: IGetPost;
-  logger: Logger;
 }) {
   return async function countCommentsByPostController(
     httpRequest: Request & { context: { validated: {} } }
@@ -27,7 +24,7 @@ export default function makeCountCommentsByPostController({
         post_id,
       }: {
         post_id: string;
-      } = _.get(httpRequest, "context.validated");
+      } = get(httpRequest, "context.validated");
 
       const post_exists = await getPost({
         _id: post_id,

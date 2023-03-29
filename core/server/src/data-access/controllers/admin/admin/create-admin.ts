@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { Logger } from "winston";
-import _ from "lodash";
+import { get } from "lodash";
 import { ICreateAdmin } from "../../../../use-cases/admin/create-admin";
 import { IGetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email";
 import { IHashPassword } from "../../../../config/password/hash-password";
@@ -26,7 +26,7 @@ export default function makeCreateAdminController({
     };
 
     try {
-      const admin = _.get(httpRequest, "context.validated");
+      const admin = get(httpRequest, "context.validated");
       const { email, password, password_confirmation } = admin;
 
       const exists = await getAdminByEmail({ email });

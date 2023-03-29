@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { convert } from "html-to-text";
-import _ from "lodash";
+import { get, map, filter, join } from "lodash";
 import { Logger } from "winston";
 import { IGetEmailContent } from "../../../../config/emailManager/get-email-content";
 import { IRenderEmailContent } from "../../../../config/emailManager/render-email-content";
@@ -38,9 +38,9 @@ export default function makeCreatePostController({
     };
 
     try {
-      const { _id: admin_id } = _.get(httpRequest, "context.user");
+      const { _id: admin_id } = get(httpRequest, "context.user");
 
-      const postDetails = _.get(httpRequest, "context.validated");
+      const postDetails = get(httpRequest, "context.validated");
 
       const admin = await getAdmin({ _id: admin_id });
       if (!admin) {
@@ -61,21 +61,23 @@ export default function makeCreatePostController({
       const { is_published, title, description, categories, author, tags } =
         created_post;
 
+      logger.verbose(`Created post ${created_post.title}`);
+
       if (is_published) {
         const subscriptions = await getActivatingSubscriptions();
 
-        const send_notification_promises = _.map(
+        const send_notification_promises = map(
           subscriptions,
           async (subscription) => {
-            const user_email = _.get(subscription, "email", "");
+            const user_email = get(subscription, "email", "");
 
             const email_content = await getEmailContent({
               to: user_email,
               type: "new-post-notification",
             });
 
-            const categories_titles = _.map(categories, (category) =>
-              _.get(category, "title", "")
+            const categories_titles = map(categories, (category) =>
+              get(category, "title", "")
             );
 
             const rendered_email_content = await renderEmailContent({
@@ -84,9 +86,9 @@ export default function makeCreatePostController({
                 email: user_email,
                 title,
                 description: convert(description, { wordwrap: 10 }),
-                categories: _.join(categories_titles, ", "),
-                author: _.get(author, "full_name", ""),
-                tags: _.join(tags, ", "),
+                categories: join(categories_titles, ", "),
+                author: get(author, "full_name", ""),
+                tags: join(tags, ", "),
               },
             });
 
@@ -98,7 +100,7 @@ export default function makeCreatePostController({
           `Sending notifications email for new post to subscribers...`
         );
         await Promise.all(
-          _.filter(send_notification_promises, (promise) => promise)
+          filter(send_notification_promises, (promise) => promise)
         );
         logger.verbose(
           `Sent notifications email for new post to subscribers!!!`

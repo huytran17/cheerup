@@ -1,16 +1,13 @@
 import { Request } from "express";
 import { IGetSystemConfiguration } from "../../../../use-cases/system-configuration/get-system-configuraion";
-import _ from "lodash";
-import { Logger } from "winston";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetSystemConfigurationController({
   getSystemConfiguration,
-  logger,
 }: {
   getSystemConfiguration: IGetSystemConfiguration;
-  logger: Logger;
 }) {
   return async function getSystemConfigurationController(
     httpRequest: Request & { context: { validated: {} } }
@@ -20,7 +17,7 @@ export default function makeGetSystemConfigurationController({
     };
 
     try {
-      const { _id } = _.get(httpRequest, "context.validated");
+      const { _id } = get(httpRequest, "context.validated");
 
       const exists = await getSystemConfiguration({ _id });
       if (isEmpty(exists)) {

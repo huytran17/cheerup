@@ -2,7 +2,7 @@ import { IGetCategory } from "../../../../use-cases/category/get-category";
 import { IHardDeleteCategory } from "../../../../use-cases/category/hard-delete-category";
 import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -23,7 +23,7 @@ export default function makeHardDeleteCategoryController({
     };
 
     try {
-      const categoryDetails = _.get(httpRequest, "context.validated");
+      const categoryDetails = get(httpRequest, "context.validated");
       const { _id } = categoryDetails;
 
       const exists = await getCategory({ _id });
@@ -32,6 +32,9 @@ export default function makeHardDeleteCategoryController({
       }
 
       const deleted_category = await hardDeleteCategory({ _id });
+
+      logger.verbose(`Hard deleted category ${exists.title}`);
+
       return {
         headers,
         statusCode: HttpStatusCode.OK,

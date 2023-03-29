@@ -2,7 +2,7 @@ import { IGetAdmin } from "../../../../use-cases/admin/get-admin";
 import { IUpdateAdmin } from "../../../../use-cases/admin/update-admin";
 import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { IHashPassword } from "../../../../config/password/hash-password";
 import { IVerifyPassword } from "../../../../config/password/verify-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -29,11 +29,11 @@ export default function makeUpdateAdminPersonalPasswordController({
     };
 
     try {
-      const { _id, password, new_password, new_password_confirmation } = _.get(
+      const { _id, password, new_password, new_password_confirmation } = get(
         httpRequest,
         "context.validated"
       );
-      
+
       const exists = await getAdmin({ _id });
       if (isEmpty(exists)) {
         throw new Error(`Admin by ${_id} does not exist`);
@@ -61,7 +61,7 @@ export default function makeUpdateAdminPersonalPasswordController({
         adminDetails: admin_details,
       });
 
-      logger.verbose(`Updated password for admin ${_id}`);
+      logger.verbose(`Updated password for admin ${exists.email}`);
 
       return {
         headers,

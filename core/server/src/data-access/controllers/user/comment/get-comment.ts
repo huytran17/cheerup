@@ -1,7 +1,6 @@
 import { Request } from "express";
 import { IGetComment } from "../../../../use-cases/comment/get-comment";
-import _ from "lodash";
-import { Logger } from "winston";
+import { get, map } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 import { CommentLikeType } from "../../../../database/interfaces/comment-like";
@@ -13,12 +12,10 @@ export default function makeGetCommentController({
   getComment,
   countCommentLikeByCommentAndType,
   getCommentLikeByUserAndComment,
-  logger,
 }: {
   getComment: IGetComment;
   countCommentLikeByCommentAndType: ICountCommentLikeByCommentAndType;
   getCommentLikeByUserAndComment: IGetCommentLikeByUserAndComment;
-  logger: Logger;
 }) {
   return async function getCommentController(
     httpRequest: Request & { context: { validated: {} } }
@@ -28,11 +25,11 @@ export default function makeGetCommentController({
     };
 
     try {
-      const { _id: comment_id, is_show_children } = _.get(
+      const { _id: comment_id, is_show_children } = get(
         httpRequest,
         "context.validated"
       );
-      const { _id: user_id } = _.get(httpRequest, "context.user");
+      const { _id: user_id } = get(httpRequest, "context.user");
 
       const exists = await getComment({
         _id: comment_id,
@@ -77,8 +74,8 @@ export default function makeGetCommentController({
         };
       };
 
-      const children_comment = _.get(exists, "children", []);
-      const map_children_meta_data_promises = _.map(
+      const children_comment = get(exists, "children", []);
+      const map_children_meta_data_promises = map(
         children_comment,
         async (child: IComment) => await map_meta_data(child)
       );

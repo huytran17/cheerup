@@ -2,7 +2,7 @@ import { IGetPost } from "../../../../use-cases/post/get-post";
 import { IHardDeletePost } from "../../../../use-cases/post/hard-delete-post";
 import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -23,7 +23,7 @@ export default function makeHardDeletePostController({
     };
 
     try {
-      const postDetails = _.get(httpRequest, "context.validated");
+      const postDetails = get(httpRequest, "context.validated");
       const { _id } = postDetails;
 
       const exists = await getPost({ _id });
@@ -32,6 +32,9 @@ export default function makeHardDeletePostController({
       }
 
       const deleted_post = await hardDeletePost({ _id });
+
+      logger.verbose(`Hard deleted post ${exists.title}`);
+
       return {
         headers,
         statusCode: HttpStatusCode.OK,

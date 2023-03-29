@@ -2,9 +2,8 @@ import { IGetComment } from "../../../../use-cases/comment/get-comment";
 import { IUpdateComment } from "../../../../use-cases/comment/update-comment";
 import { IGetPost } from "../../../../use-cases/post/get-post";
 import { IGetUser } from "../../../../use-cases/user/get-user";
-import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -13,13 +12,11 @@ export default function makeUpdateCommentController({
   updateComment,
   getPost,
   getUser,
-  logger,
 }: {
   getComment: IGetComment;
   updateComment: IUpdateComment;
   getPost: IGetPost;
   getUser: IGetUser;
-  logger: Logger;
 }) {
   return async function updateCommentController(
     httpRequest: Request & { context: { validated: {} } }
@@ -29,9 +26,9 @@ export default function makeUpdateCommentController({
     };
 
     try {
-      const commentDetails = _.get(httpRequest, "context.validated");
+      const commentDetails = get(httpRequest, "context.validated");
       const { _id: comment_id } = commentDetails;
-      const { _id: user_id } = _.get(httpRequest, "context.user");
+      const { _id: user_id } = get(httpRequest, "context.user");
 
       const exists = await getComment({
         _id: comment_id,
@@ -42,7 +39,7 @@ export default function makeUpdateCommentController({
         throw new Error(`Comment by ${comment_id} does not exist`);
       }
 
-      const comment_user_id = _.get(exists, "user._id");
+      const comment_user_id = get(exists, "user._id");
       const user_not_own_comment =
         comment_user_id.toString() !== user_id.toString();
 
@@ -50,7 +47,7 @@ export default function makeUpdateCommentController({
         throw new Error(`You have not own this comment`);
       }
 
-      const post_id = _.get(exists, "post._id");
+      const post_id = get(exists, "post._id");
       const post_exists = await getPost({
         _id: post_id,
         is_only_published: true,
@@ -61,7 +58,7 @@ export default function makeUpdateCommentController({
         throw new Error(`Post by ${post_id} does not exist`);
       }
 
-      const is_post_blocked_comment = _.get(
+      const is_post_blocked_comment = get(
         post_exists,
         "is_blocked_comment",
         false
@@ -79,7 +76,7 @@ export default function makeUpdateCommentController({
         throw new Error(`User by ${user_id} does not exist`);
       }
 
-      const is_user_blocked_comment = _.get(
+      const is_user_blocked_comment = get(
         user_exists,
         "is_blocked_comment",
         false

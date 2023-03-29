@@ -7,7 +7,6 @@ import {
 } from "../../../../use-cases/post-bookmark";
 import { countCommentsByPost } from "../../../../use-cases/comment";
 import { getUser } from "../../../../use-cases/user";
-import { logger } from "../../../../config/logs/logger";
 import { readingTimeAnalyzer } from "../../../../config/reading-time";
 import moment from "moment";
 
@@ -18,7 +17,6 @@ import makeCountPostBookmarkController from "./count-post-bookmarks";
 const countPostBookmarkController = makeCountPostBookmarkController({
   countPostBookmarks,
   getUser,
-  logger,
 });
 
 const createOrDeletePostBookmarkController =
@@ -26,7 +24,6 @@ const createOrDeletePostBookmarkController =
     createPostBookmark,
     hardDeletePostBookmark,
     getPostBookmarkByUserAndPost,
-    logger,
     moment,
   });
 
@@ -35,7 +32,6 @@ const getPostBookmarksPaginatedController =
     getPostBookmarksPaginated,
     countCommentsByPost,
     readingTimeAnalyzer,
-    logger,
   });
 
 export default Object.freeze({

@@ -2,7 +2,7 @@ import { IGetUser } from "../../../../use-cases/user/get-user";
 import { IDeleteUser } from "../../../../use-cases/user/delete-user";
 import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -23,7 +23,7 @@ export default function makeDeleteUserController({
     };
 
     try {
-      const userDetails = _.get(httpRequest, "context.validated");
+      const userDetails = get(httpRequest, "context.validated");
       const { _id } = userDetails;
 
       const exists = await getUser({ _id });
@@ -32,6 +32,8 @@ export default function makeDeleteUserController({
       }
 
       const deleted_user = await deleteUser({ _id });
+
+      logger.verbose(`Deleted user: ${exists.email}`);
 
       return {
         headers,

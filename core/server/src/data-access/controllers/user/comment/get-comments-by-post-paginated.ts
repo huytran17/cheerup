@@ -2,8 +2,7 @@ import { Request } from "express";
 import { IGetCommentsByPostPaginated } from "../../../../use-cases/comment/get-comments-by-post-paginated";
 import { ICountCommentLikeByCommentAndType } from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
 import { IGetPost } from "../../../../use-cases/post/get-post";
-import _ from "lodash";
-import { Logger } from "winston";
+import { get, map } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { CommentLikeType } from "../../../../database/interfaces/comment-like";
 import IComment from "../../../../database/interfaces/comment";
@@ -15,13 +14,11 @@ export default function makeGetCommentsByPostPaginatedController({
   getPost,
   countCommentLikeByCommentAndType,
   getCommentLikeByUserAndComment,
-  logger,
 }: {
   getCommentsByPostPaginated: IGetCommentsByPostPaginated;
   getPost: IGetPost;
   countCommentLikeByCommentAndType: ICountCommentLikeByCommentAndType;
   getCommentLikeByUserAndComment: IGetCommentLikeByUserAndComment;
-  logger: Logger;
 }) {
   return async function getCommentsByPostPaginatedController(
     httpRequest: Request & { context: { validated: {} } }
@@ -41,9 +38,9 @@ export default function makeGetCommentsByPostPaginatedController({
         page: string;
         entries_per_page: string;
         post_id: string;
-      } = _.get(httpRequest, "context.validated");
+      } = get(httpRequest, "context.validated");
 
-      const { _id: user_id } = _.get(httpRequest, "context.user");
+      const { _id: user_id } = get(httpRequest, "context.user");
 
       const post_exists = await getPost({
         _id: post_id,
@@ -97,8 +94,8 @@ export default function makeGetCommentsByPostPaginatedController({
         };
       };
 
-      const comments_data = _.get(paginated_data, "data", []);
-      const map_meta_data_promises = _.map(
+      const comments_data = get(paginated_data, "data", []);
+      const map_meta_data_promises = map(
         comments_data,
         async (comment: IComment) => await map_meta_data(comment)
       );

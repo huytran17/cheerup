@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { IGetAdminAnalystics } from "../../../../use-cases/admin/get-admin-analystics";
-import _ from "lodash";
+import { get, sortBy, split } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { AdminType } from "../../../../database/interfaces/admin";
 
@@ -21,12 +21,12 @@ export default function makeGetAdminAnalysticsController({
         range,
         unit,
         author_type,
-      }: { range?: string; unit?: string; author_type?: AdminType } = _.get(
+      }: { range?: string; unit?: string; author_type?: AdminType } = get(
         httpRequest,
         "context.validated"
       );
 
-      const splitted_range = _.sortBy(_.split(range, ","));
+      const splitted_range = sortBy(split(range, ","));
 
       const analystics_data = await getAdminAnalystics({
         range: splitted_range,

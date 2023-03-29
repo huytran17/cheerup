@@ -2,7 +2,7 @@ import { IGetCategory } from "../../../../use-cases/category/get-category";
 import { IDeleteCategory } from "../../../../use-cases/category/delete-category";
 import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -23,7 +23,7 @@ export default function makeDeleteCategoryController({
     };
 
     try {
-      const { _id } = _.get(httpRequest, "context.validated");
+      const { _id } = get(httpRequest, "context.validated");
 
       const exists = await getCategory({ _id });
       if (isEmpty(exists)) {
@@ -33,6 +33,8 @@ export default function makeDeleteCategoryController({
       const deleted_category = await deleteCategory({
         _id,
       });
+
+      logger.verbose(`Deleted category ${exists.title}`);
 
       return {
         headers,

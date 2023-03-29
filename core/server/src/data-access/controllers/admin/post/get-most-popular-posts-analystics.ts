@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { IGetMostPopularPostsAnalystics } from "../../../../use-cases/post/get-most-popular-posts-analystics";
-import _ from "lodash";
+import { get, sortBy, split } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetMostPopularPostsAnalysticsController({
@@ -20,12 +20,12 @@ export default function makeGetMostPopularPostsAnalysticsController({
         range,
         unit,
         limit,
-      }: { range?: string; unit?: string; limit?: number } = _.get(
+      }: { range?: string; unit?: string; limit?: number } = get(
         httpRequest,
         "context.validated"
       );
 
-      const splitted_range = _.sortBy(_.split(range, ","));
+      const splitted_range = sortBy(split(range, ","));
 
       const analystics_data = await getMostPopularPostsAnalystics({
         range: splitted_range,

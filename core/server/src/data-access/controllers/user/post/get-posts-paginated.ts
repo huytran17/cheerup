@@ -3,23 +3,21 @@ import { IGetPostsPaginated } from "../../../../use-cases/post/get-posts-paginat
 import { IReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import { ICountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
 import { IGetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
-import _ from "lodash";
-import { Logger } from "winston";
+import { get, map, replace, split } from "lodash";
 import Post from "../../../../database/entities/post";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetPostsPaginatedController({
   getPostsPaginated,
   countCommentsByPost,
   getPostBookmarkByUserAndPost,
   readingTimeAnalyzer,
-  logger,
 }: {
   getPostsPaginated: IGetPostsPaginated;
   countCommentsByPost: ICountCommentsByPost;
   getPostBookmarkByUserAndPost: IGetPostBookmarkByUserAndPost;
   readingTimeAnalyzer: IReadingTimeAnalyzer;
-  logger: Logger;
 }) {
   return async function getPostsPaginatedController(
     httpRequest: Request & { context: { validated: {} } }
@@ -45,12 +43,12 @@ export default function makeGetPostsPaginatedController({
         is_only_published?: boolean;
         user_id: string;
         tags?: string;
-      } = _.get(httpRequest, "context.validated");
+      } = get(httpRequest, "context.validated");
 
-      const categories_array = _.isEmpty(categories)
+      const categories_array = isEmpty(categories)
         ? []
-        : _.split(categories, ",");
-      const tags_array = _.isEmpty(tags) ? [] : _.split(tags, ",");
+        : split(categories, ",");
+      const tags_array = isEmpty(tags) ? [] : split(tags, ",");
 
       const paginated_data = await getPostsPaginated(
         { categories: categories_array, is_only_published, tags: tags_array },
@@ -61,8 +59,8 @@ export default function makeGetPostsPaginatedController({
         }
       );
 
-      const post_data = _.get(paginated_data, "data", []);
-      const map_count_comments_promises = _.map(
+      const post_data = get(paginated_data, "data", []);
+      const map_count_comments_promises = map(
         post_data,
         async (post: Partial<Post>) => {
           const [comments_count, post_bookmarked] = await Promise.all([
@@ -73,17 +71,16 @@ export default function makeGetPostsPaginatedController({
             }),
           ]);
 
-          const analyzing_text =
-            `${post.title} ${post.description} ${post.content}`.replace(
-              /<[^>]*>?/gm,
-              ""
-            );
+          const analyzing_text = replace(
+            `${post.title} ${post.description} ${post.content}`,
+            /<[^>]*>?/gm,
+            ""
+          );
           const reading_time = readingTimeAnalyzer({ text: analyzing_text });
 
           return Object.assign({}, post, {
             comments_count,
-            is_bookmarked:
-              !_.isEmpty(post_bookmarked) && !_.isNil(post_bookmarked),
+            is_bookmarked: !isEmpty(post_bookmarked),
             reading_time,
           });
         }
