@@ -1,4 +1,6 @@
-import passport_fb, { StrategyOptionWithRequest } from "passport-facebook";
+import passport_facebook, {
+  StrategyOptionWithRequest,
+} from "passport-facebook";
 import { PassportStatic } from "passport";
 import { UserDb } from "../../../data-access";
 import { hashPassword } from "../../password";
@@ -12,7 +14,7 @@ export default function initializeFacebook(
     callbackURL: string;
   }
 ): PassportStatic {
-  const FacebookStrategy = passport_fb.Strategy;
+  const FacebookStrategy = passport_facebook.Strategy;
 
   const opts: StrategyOptionWithRequest = {
     ...options,
