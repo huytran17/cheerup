@@ -35,8 +35,11 @@ export default function initializeFacebook(
     ) {
       const exist = await UserDb.findByEmail({
         email: profile.emails[0].value,
-        deleted_at: { $in: [null, undefined] },
       });
+
+      if (exist.deleted_at) {
+        return done(null, null);
+      }
 
       if (exist) {
         return done(null, exist);
