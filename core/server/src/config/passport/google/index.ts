@@ -52,7 +52,7 @@ export default function initializeGoogle(
       });
 
       const userDetails = {
-        email: profile.emails[0].value,
+        email: profile.emails[0]?.value,
         full_name: profile.displayName,
         hash_password: hashed_password,
       };

@@ -34,7 +34,7 @@ export default function initializeFacebook(
       done
     ) {
       const exist = await UserDb.findByEmail({
-        email: profile.emails[0].value,
+        email: profile.emails[0]?.value,
       });
 
       if (exist.deleted_at) {
