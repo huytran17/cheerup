@@ -2,8 +2,7 @@ import { Request } from "express";
 import { IGetPostBookmarksPaginated } from "../../../../use-cases/post-bookmark/get-post-bookmarks-paginated";
 import { ICountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
 import { IReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
-import _ from "lodash";
-import { Logger } from "winston";
+import { get, map, replace } from "lodash";
 import PostBookmark from "../../../../database/entities/post-bookmark";
 import IPostBookmark from "../../../../database/interfaces/post-bookmark";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -13,12 +12,10 @@ export default function makeGetPostBookmarksPaginatedController({
   getPostBookmarksPaginated,
   countCommentsByPost,
   readingTimeAnalyzer,
-  logger,
 }: {
   getPostBookmarksPaginated: IGetPostBookmarksPaginated;
   countCommentsByPost: ICountCommentsByPost;
   readingTimeAnalyzer: IReadingTimeAnalyzer;
-  logger: Logger;
 }) {
   return async function getPostBookmarksPaginatedController(
     httpRequest: Request & { context: { validated: {} } }
@@ -36,7 +33,7 @@ export default function makeGetPostBookmarksPaginatedController({
         query: string;
         page: string;
         entries_per_page: string;
-      } = _.get(httpRequest, "context.validated");
+      } = get(httpRequest, "context.validated");
 
       const paginated_data = await getPostBookmarksPaginated({
         query,
@@ -44,21 +41,23 @@ export default function makeGetPostBookmarksPaginatedController({
         entries_per_page: Number(entries_per_page),
       });
 
-      const post_bookmarks = _.get(paginated_data, "data", []);
-      const map_count_comments_promises = _.map(
+      const post_bookmarks = get(paginated_data, "data", []);
+      const map_count_comments_promises = map(
         post_bookmarks,
         async (post_bookmark: PostBookmark) => {
           const comments_count = await countCommentsByPost({
-            post_id: _.get(post_bookmark, "post._id"),
+            post_id: get(post_bookmark, "post._id"),
           });
 
           const analyzing_text = `
-          ${_.get(post_bookmark, "post.title", "")} 
-          ${_.get(post_bookmark, "post.description", "")} 
-          ${_.get(post_bookmark, "post.content", "")}
-          `.replace(/<[^>]*>?/gm, "");
+          ${get(post_bookmark, "post.title", "")} 
+          ${get(post_bookmark, "post.description", "")} 
+          ${get(post_bookmark, "post.content", "")}
+          `;
 
-          const reading_time = readingTimeAnalyzer({ text: analyzing_text });
+          const formatted_text = replace(analyzing_text, /<[^>]*>?/gm, "");
+
+          const reading_time = readingTimeAnalyzer({ text: formatted_text });
 
           return {
             ...post_bookmark,

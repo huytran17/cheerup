@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { IGetSubscriptionAnalystics } from "../../../../use-cases/subscription/get-subscription-analystics";
-import _ from "lodash";
+import { get, sortBy, split } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetSubscriptionAnalysticsController({
@@ -18,12 +18,12 @@ export default function makeGetSubscriptionAnalysticsController({
     };
 
     try {
-      const { range, unit }: { range?: string; unit?: string } = _.get(
+      const { range, unit }: { range?: string; unit?: string } = get(
         httpRequest,
         "context.validated"
       );
 
-      const splitted_range = _.sortBy(_.split(range, ","));
+      const splitted_range = sortBy(split(range, ","));
 
       const analystics_data = await getSubscriptionAnalystics({
         range: splitted_range,

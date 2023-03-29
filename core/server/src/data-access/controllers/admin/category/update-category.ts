@@ -3,7 +3,7 @@ import { IUpdateCategory } from "../../../../use-cases/category/update-category"
 import { IGetCategoryByTitle } from "../../../../use-cases/category/get-category-by-title";
 import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -26,7 +26,7 @@ export default function makeUpdateCategoryController({
     };
 
     try {
-      const categoryDetails = _.get(httpRequest, "context.validated");
+      const categoryDetails = get(httpRequest, "context.validated");
       const { _id, title } = categoryDetails;
 
       const exists = await getCategory({ _id });
@@ -46,6 +46,9 @@ export default function makeUpdateCategoryController({
       }
 
       const updated_category = await updateCategory({ categoryDetails });
+
+      logger.verbose(`Updated category ${exists.title}`);
+
       return {
         headers,
         statusCode: HttpStatusCode.OK,

@@ -1,15 +1,12 @@
 import { Request } from "express";
 import { IGetSuggestionPosts } from "../../../../use-cases/post/get-suggestion-posts";
-import _ from "lodash";
-import { Logger } from "winston";
+import { get, split } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetSuggestionPostsController({
   getSuggestionPosts,
-  logger,
 }: {
   getSuggestionPosts: IGetSuggestionPosts;
-  logger: Logger;
 }) {
   return async function getSuggestionPostsController(
     httpRequest: Request & { context: { validated: {} } }
@@ -23,10 +20,10 @@ export default function makeGetSuggestionPostsController({
         amount,
         categories = [],
         exclude_ids = [],
-      } = _.get(httpRequest, "context.validated");
+      } = get(httpRequest, "context.validated");
 
-      const categories_array = _.split(categories, ",");
-      const exclude_ids_array = _.split(exclude_ids, ",");
+      const categories_array = split(categories, ",");
+      const exclude_ids_array = split(exclude_ids, ",");
 
       const exists = await getSuggestionPosts({
         amount: Number(amount),

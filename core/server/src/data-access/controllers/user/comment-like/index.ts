@@ -1,4 +1,3 @@
-import { logger } from "../../../../config/logs/logger";
 import { getUser } from "../../../../use-cases/user";
 import {
   createCommentLike,
@@ -18,7 +17,6 @@ const createOrUpdateCommentLikeController =
     getUser,
     getComment,
     getCommentLikeByUserAndComment,
-    logger,
   });
 
 export default Object.freeze({

@@ -1,5 +1,5 @@
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { IGetPost } from "../../../../use-cases/post/get-post";
 import { IUpdatePost } from "../../../../use-cases/post/update-post";
 import Storage from "../../../../config/storage";
@@ -21,7 +21,7 @@ export default function makeUploadPostThumbnailController({
     };
 
     try {
-      const { _id }: { _id: string } = _.get(httpRequest, "context.validated");
+      const { _id }: { _id: string } = get(httpRequest, "context.validated");
 
       const exists = await getPost({ _id });
 
@@ -29,14 +29,14 @@ export default function makeUploadPostThumbnailController({
         throw new Error(`Post by ${_id} does not exist`);
       }
 
-      const file = _.get(httpRequest, "context.file");
+      const file = get(httpRequest, "context.file");
 
       if (isEmpty(file)) {
         throw new Error(`File does not exist`);
       }
 
-      const current_bucket = _.get(exists, "thumbnail.bucket", "");
-      const current_key = _.get(exists, "thumbnail.key", "");
+      const current_bucket = get(exists, "thumbnail.bucket", "");
+      const current_key = get(exists, "thumbnail.key", "");
 
       const validCredentials = current_bucket && current_key;
       if (!validCredentials) {

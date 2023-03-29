@@ -1,19 +1,16 @@
 import { Request } from "express";
 import { ICountPostBookmarks } from "../../../../use-cases/post-bookmark/count-post-bookmarks";
 import { IGetUser } from "../../../../use-cases/user/get-user";
-import _ from "lodash";
-import { Logger } from "winston";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeCountPostBookmarkController({
   countPostBookmarks,
   getUser,
-  logger,
 }: {
   countPostBookmarks: ICountPostBookmarks;
   getUser: IGetUser;
-  logger: Logger;
 }) {
   return async function countPostBookmarkController(
     httpRequest: Request & { context: { validated: {} } }
@@ -23,7 +20,7 @@ export default function makeCountPostBookmarkController({
     };
 
     try {
-      const { _id: user_id } = _.get(httpRequest, "context.user");
+      const { _id: user_id } = get(httpRequest, "context.user");
 
       const user_exists = await getUser({
         _id: user_id,

@@ -1,16 +1,13 @@
 import { Request } from "express";
 import { IGetCategory } from "../../../../use-cases/category/get-category";
-import _ from "lodash";
-import { Logger } from "winston";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetCategoryController({
   getCategory,
-  logger,
 }: {
   getCategory: IGetCategory;
-  logger: Logger;
 }) {
   return async function getCategoryController(
     httpRequest: Request & { context: { validated: {} } }
@@ -20,7 +17,7 @@ export default function makeGetCategoryController({
     };
 
     try {
-      const { category_id } = _.get(httpRequest, "context.validated");
+      const { category_id } = get(httpRequest, "context.validated");
 
       const exists = await getCategory({
         _id: category_id,

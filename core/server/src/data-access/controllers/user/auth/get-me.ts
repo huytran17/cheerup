@@ -2,7 +2,7 @@ import { Request } from "express";
 import { IGetUser } from "../../../../use-cases/user/get-user";
 import { IGetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
 import { IUpdateUser } from "../../../../use-cases/user/update-user";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -23,8 +23,8 @@ export default function makeGetMeController({
     };
 
     try {
-      const client_ip = _.get(httpRequest, "context.ip");
-      const { _id, email } = _.get(httpRequest, "context.user");
+      const client_ip = get(httpRequest, "context.ip");
+      const { _id, email } = get(httpRequest, "context.user");
 
       const exists = await getUser({ _id, is_include_deleted: false });
 
@@ -39,7 +39,7 @@ export default function makeGetMeController({
       });
 
       const subscription = await getSubscriptionByEmail({ email });
-      const is_subscribed = _.get(subscription, "is_active", false);
+      const is_subscribed = get(subscription, "is_active", false);
 
       const final_user_data = Object.assign({}, exists, {
         is_subscribed,

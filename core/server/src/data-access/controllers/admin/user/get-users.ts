@@ -1,15 +1,11 @@
 import { Request } from "express";
 import { IGetUsers } from "../../../../use-cases/user/get-users";
-import _ from "lodash";
-import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetUsersController({
   getUsers,
-  logger,
 }: {
   getUsers: IGetUsers;
-  logger: Logger;
 }) {
   return async function getUsersController(
     httpRequest: Request & { context: { validated: {} } }

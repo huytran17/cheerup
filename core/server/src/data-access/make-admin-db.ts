@@ -386,7 +386,7 @@ export default function makeAdminDb({
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<Admin | null> {
-      const existing = await adminDbModel.deleteOne({ _id: _id });
+      const existing = await adminDbModel.deleteOne({ _id });
       const updated = await adminDbModel
         .findOne({ _id })
         .lean({ virtuals: true });

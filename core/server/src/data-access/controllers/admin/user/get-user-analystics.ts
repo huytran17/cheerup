@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { IGetUserAnalystics } from "../../../../use-cases/user/get-user-analystics";
-import _ from "lodash";
+import { get, sortBy, split } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetUserAnalysticsController({
@@ -16,12 +16,12 @@ export default function makeGetUserAnalysticsController({
     };
 
     try {
-      const { range, unit }: { range?: string; unit?: string } = _.get(
+      const { range, unit }: { range?: string; unit?: string } = get(
         httpRequest,
         "context.validated"
       );
 
-      const splitted_range = _.sortBy(_.split(range, ","));
+      const splitted_range = sortBy(split(range, ","));
 
       const analystics_data = await getUserAnalystics({
         range: splitted_range,

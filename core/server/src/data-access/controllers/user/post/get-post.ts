@@ -2,8 +2,7 @@ import { Request } from "express";
 import { IGetPost } from "../../../../use-cases/post/get-post";
 import { IReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import { IGetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
-import _ from "lodash";
-import { Logger } from "winston";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -11,12 +10,10 @@ export default function makeGetPostController({
   getPost,
   readingTimeAnalyzer,
   getPostBookmarkByUserAndPost,
-  logger,
 }: {
   getPost: IGetPost;
   readingTimeAnalyzer: IReadingTimeAnalyzer;
   getPostBookmarkByUserAndPost: IGetPostBookmarkByUserAndPost;
-  logger: Logger;
 }) {
   return async function getPostController(
     httpRequest: Request & { context: { validated: {} } }
@@ -26,7 +23,7 @@ export default function makeGetPostController({
     };
 
     try {
-      const { _id: post_id, user_id } = _.get(httpRequest, "context.validated");
+      const { _id: post_id, user_id } = get(httpRequest, "context.validated");
       const exists = await getPost({
         _id: post_id,
         is_only_published: true,
@@ -45,8 +42,7 @@ export default function makeGetPostController({
         });
 
         Object.assign(exists, {
-          is_bookmarked:
-            !_.isEmpty(post_bookmarked) && !_.isNil(post_bookmarked),
+          is_bookmarked: !isEmpty(post_bookmarked),
         });
       }
 

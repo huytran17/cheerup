@@ -27,7 +27,6 @@ const updateGalleryController = makeUpdateGalleryController({
 const getGalleriesByParentController = makeGetGalleriesByParentController({
   getGallery,
   getGalleriesByParent,
-  logger,
 });
 
 const createGalleryController = makeCreateGalleryController({
@@ -49,12 +48,10 @@ const uploadGalleryItemController = makeUploadGalleryItemController({
 
 const getGalleriesPaginatedController = makeGetGalleriesPaginatedController({
   getGalleriesPaginated,
-  logger,
 });
 
 const getGalleryController = makeGetGalleryController({
   getGallery,
-  logger,
 });
 
 const deleteGalleryItemController = makeDeleteGalleryItemController({

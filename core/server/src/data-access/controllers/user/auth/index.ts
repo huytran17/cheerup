@@ -32,7 +32,6 @@ const signInController = makeSignInController({
   getUserByEmail,
   generateAccessToken,
   verifyPassword,
-  logger,
 });
 
 const signOutController = makeSignOutController({

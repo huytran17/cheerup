@@ -2,7 +2,7 @@ import { IGetAdmin } from "../../../../use-cases/admin/get-admin";
 import { IDeleteAdmin } from "../../../../use-cases/admin/delete-admin";
 import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -23,7 +23,7 @@ export default function makeDeleteAdminController({
     };
 
     try {
-      const { _id } = _.get(httpRequest, "context.validated");
+      const { _id } = get(httpRequest, "context.validated");
 
       const exists = await getAdmin({ _id });
       if (isEmpty(exists)) {
@@ -31,6 +31,9 @@ export default function makeDeleteAdminController({
       }
 
       const deleted_admin = await deleteAdmin({ _id });
+
+      logger.verbose(`Deleted admin: ${exists.email}`);
+
       return {
         headers,
         statusCode: HttpStatusCode.OK,

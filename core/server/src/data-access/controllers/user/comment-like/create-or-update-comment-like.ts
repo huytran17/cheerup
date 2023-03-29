@@ -1,6 +1,5 @@
 import { Request } from "express";
-import _ from "lodash";
-import { Logger } from "winston";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { IGetUser } from "../../../../use-cases/user/get-user";
 import { ICreateCommentLike } from "../../../../use-cases/comment-like/create-comment-like";
@@ -9,7 +8,6 @@ import { IHardDeleteCommentLike } from "../../../../use-cases/comment-like/hard-
 import { IGetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
 import { IGetComment } from "../../../../use-cases/comment/get-comment";
 import { isEmpty } from "../../../../utils/is-empty";
-import ICommentLike from "../../../../database/interfaces/comment-like";
 
 export default function makeCreateOrUpdateCommentLikeController({
   createCommentLike,
@@ -18,7 +16,6 @@ export default function makeCreateOrUpdateCommentLikeController({
   getUser,
   getComment,
   getCommentLikeByUserAndComment,
-  logger,
 }: {
   createCommentLike: ICreateCommentLike;
   updateCommentLike: IUpdateCommentLike;
@@ -26,7 +23,6 @@ export default function makeCreateOrUpdateCommentLikeController({
   getUser: IGetUser;
   getComment: IGetComment;
   getCommentLikeByUserAndComment: IGetCommentLikeByUserAndComment;
-  logger: Logger;
 }) {
   return async function createOrUpdateCommentLikeController(
     httpRequest: Request & { context: { validated: {} } }
@@ -46,14 +42,14 @@ export default function makeCreateOrUpdateCommentLikeController({
     };
 
     try {
-      const { _id: user_id } = _.get(httpRequest, "context.user");
+      const { _id: user_id } = get(httpRequest, "context.user");
 
       const user_exists = await getUser({ _id: user_id });
       if (isEmpty(user_exists)) {
         throw new Error(`User by ${user_id} does not exist`);
       }
 
-      const commentLikeDetails = _.get(httpRequest, "context.validated");
+      const commentLikeDetails = get(httpRequest, "context.validated");
       const { comment_id } = commentLikeDetails;
 
       const comment_exists = await getComment({

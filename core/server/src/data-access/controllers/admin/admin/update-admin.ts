@@ -2,7 +2,7 @@ import { IGetAdmin } from "../../../../use-cases/admin/get-admin";
 import { IUpdateAdmin } from "../../../../use-cases/admin/update-admin";
 import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -23,7 +23,7 @@ export default function makeUpdateAdminController({
     };
 
     try {
-      const adminDetails = _.get(httpRequest, "context.validated");
+      const adminDetails = get(httpRequest, "context.validated");
       const { _id } = adminDetails;
 
       const exists = await getAdmin({ _id });
@@ -35,6 +35,9 @@ export default function makeUpdateAdminController({
       const updated_admin = await updateAdmin({
         adminDetails: final_admin_details,
       });
+
+      logger.verbose(`Updated admin ${exists.email}`);
+
       return {
         headers,
         statusCode: HttpStatusCode.OK,

@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -17,7 +17,7 @@ export default function makeGetUserByEmailController({
     };
 
     try {
-      const { email } = _.get(httpRequest, "context.validated");
+      const { email } = get(httpRequest, "context.validated");
 
       const exists = await getUserByEmail({ email });
       if (isEmpty(exists)) {

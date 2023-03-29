@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { IGetAdmin } from "../../../../use-cases/admin/get-admin";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -17,7 +17,7 @@ export default function makeGetAdminController({
     };
 
     try {
-      const { _id } = _.get(httpRequest, "context.validated");
+      const { _id } = get(httpRequest, "context.validated");
 
       const exists = await getAdmin({ _id });
       if (isEmpty(exists)) {

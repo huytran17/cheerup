@@ -2,7 +2,7 @@ import { IGetPost } from "../../../../use-cases/post/get-post";
 import { IDeletePost } from "../../../../use-cases/post/delete-post";
 import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -23,7 +23,7 @@ export default function makeDeletePostController({
     };
 
     try {
-      const { _id } = _.get(httpRequest, "context.validated");
+      const { _id } = get(httpRequest, "context.validated");
 
       const exists = await getPost({ _id });
       if (isEmpty(exists)) {
@@ -33,6 +33,8 @@ export default function makeDeletePostController({
       const deleted_post = await deletePost({
         _id,
       });
+
+      logger.verbose(`Deleted post ${deleted_post.title}`);
 
       return {
         headers,

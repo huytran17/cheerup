@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { get, concat } from "lodash";
 import { Request } from "express";
 import { IUpdateGallery } from "../../../../use-cases/gallery/update-gallery";
 import { IGetGallery } from "../../../../use-cases/gallery/get-gallery";
@@ -23,8 +23,8 @@ export default function makeUploadGalleryItemController({
     };
 
     try {
-      const { _id } = _.get(httpRequest, "context.validated");
-      const file = _.get(httpRequest, "context.file");
+      const { _id } = get(httpRequest, "context.validated");
+      const file = get(httpRequest, "context.file");
 
       if (isEmpty(file)) {
         throw new Error(`File does not exist`);
@@ -36,14 +36,16 @@ export default function makeUploadGalleryItemController({
         throw new Error(`Gallery by id ${_id} does not exist`);
       }
 
-      const current_gallery_items = _.get(gallery_exists, "items", []);
+      const current_gallery_items = get(gallery_exists, "items", []);
       const final_gallery_data = Object.assign({}, gallery_exists, {
-        items: _.concat(current_gallery_items, [file]),
+        items: concat(current_gallery_items, [file]),
       });
 
       const updated_data = await updateGallery({
         galleryDetails: final_gallery_data,
       });
+
+      logger.verbose(`Updated gallery ${gallery_exists.name} successfully`);
 
       return {
         headers,

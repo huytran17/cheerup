@@ -1,9 +1,8 @@
 import { IGetPost } from "../../../../use-cases/post/get-post";
 import { IGetUser } from "../../../../use-cases/user/get-user";
 import { ICreateComment } from "../../../../use-cases/comment/create-comment";
-import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IComment from "../../../../database/interfaces/comment";
 import { ICountCommentLikeByCommentAndType } from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
@@ -17,14 +16,12 @@ export default function makeCreateCommentController({
   getUser,
   countCommentLikeByCommentAndType,
   getCommentLikeByUserAndComment,
-  logger,
 }: {
   createComment: ICreateComment;
   getPost: IGetPost;
   getUser: IGetUser;
   countCommentLikeByCommentAndType: ICountCommentLikeByCommentAndType;
   getCommentLikeByUserAndComment: IGetCommentLikeByUserAndComment;
-  logger: Logger;
 }) {
   return async function createCommentController(
     httpRequest: Request & { context: { validated: {} } }
@@ -34,8 +31,8 @@ export default function makeCreateCommentController({
     };
 
     try {
-      const { _id: user_id } = _.get(httpRequest, "context.user");
-      const commentDetails = _.get(httpRequest, "context.validated");
+      const { _id: user_id } = get(httpRequest, "context.user");
+      const commentDetails = get(httpRequest, "context.validated");
 
       const { post: post_id } = commentDetails;
       const post_exists = await getPost({
@@ -48,7 +45,7 @@ export default function makeCreateCommentController({
         throw new Error(`Post by ${post_id} does not exist`);
       }
 
-      const is_post_blocked_comment = _.get(
+      const is_post_blocked_comment = get(
         post_exists,
         "is_blocked_comment",
         false
@@ -66,7 +63,7 @@ export default function makeCreateCommentController({
         throw new Error(`User by ${user_id} does not exist`);
       }
 
-      const is_user_blocked_comment = _.get(
+      const is_user_blocked_comment = get(
         user_exists,
         "is_blocked_comment",
         false

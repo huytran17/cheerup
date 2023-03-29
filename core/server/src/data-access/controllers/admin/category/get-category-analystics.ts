@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { IGetCategoryAnalystics } from "../../../../use-cases/category/get-category-analystics";
-import _ from "lodash";
+import { get, sortBy, split } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetCategoryAnalysticsController({
@@ -20,12 +20,12 @@ export default function makeGetCategoryAnalysticsController({
         range,
         unit,
         limit,
-      }: { range?: string; unit?: string; limit?: number } = _.get(
+      }: { range?: string; unit?: string; limit?: number } = get(
         httpRequest,
         "context.validated"
       );
 
-      const splitted_range = _.sortBy(_.split(range, ","));
+      const splitted_range = sortBy(split(range, ","));
 
       const analystics_data = await getCategoryAnalystics({
         range: splitted_range,

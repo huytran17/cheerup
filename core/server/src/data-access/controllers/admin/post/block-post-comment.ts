@@ -2,7 +2,7 @@ import { IGetPost } from "../../../../use-cases/post/get-post";
 import { IUpdatePost } from "../../../../use-cases/post/update-post";
 import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -23,7 +23,7 @@ export default function makeBlockPostCommentController({
     };
 
     try {
-      const { _id } = _.get(httpRequest, "context.validated");
+      const { _id } = get(httpRequest, "context.validated");
 
       const exists = await getPost({ _id });
       if (isEmpty(exists)) {
@@ -37,6 +37,9 @@ export default function makeBlockPostCommentController({
       const updated_post = await updatePost({
         postDetails: final_post_details,
       });
+
+      logger.verbose(`Blocked comment for post ${exists.title}`);
+
       return {
         headers,
         statusCode: HttpStatusCode.OK,

@@ -1,16 +1,13 @@
 import { Request } from "express";
 import { IGetUser } from "../../../../use-cases/user/get-user";
-import _ from "lodash";
-import { Logger } from "winston";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetUserController({
   getUser,
-  logger,
 }: {
   getUser: IGetUser;
-  logger: Logger;
 }) {
   return async function getUserController(
     httpRequest: Request & { context: { validated: {} } }
@@ -20,7 +17,7 @@ export default function makeGetUserController({
     };
 
     try {
-      const { user_id } = _.get(httpRequest, "context.validated");
+      const { user_id } = get(httpRequest, "context.validated");
 
       const exists = await getUser({ _id: user_id, is_include_deleted: false });
 

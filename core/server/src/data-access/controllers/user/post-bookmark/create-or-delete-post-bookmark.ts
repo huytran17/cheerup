@@ -1,9 +1,8 @@
 import { ICreatePostBookmark } from "../../../../use-cases/post-bookmark/create-post-bookmark";
 import { IHardDeletePostBookmark } from "../../../../use-cases/post-bookmark/hard-delete-post-bookmark";
 import { IGetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
-import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import Moment from "moment";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -12,13 +11,11 @@ export default function makeCreateOrDeletePostBookmarkController({
   createPostBookmark,
   hardDeletePostBookmark,
   getPostBookmarkByUserAndPost,
-  logger,
   moment,
 }: {
   createPostBookmark: ICreatePostBookmark;
   hardDeletePostBookmark: IHardDeletePostBookmark;
   getPostBookmarkByUserAndPost: IGetPostBookmarkByUserAndPost;
-  logger: Logger;
   moment: typeof Moment;
 }) {
   return async function createOrDeletePostBookmarkController(
@@ -29,8 +26,8 @@ export default function makeCreateOrDeletePostBookmarkController({
     };
 
     try {
-      const { post: post_id } = _.get(httpRequest, "context.validated");
-      const { _id: user_id } = _.get(httpRequest, "context.user");
+      const { post: post_id } = get(httpRequest, "context.validated");
+      const { _id: user_id } = get(httpRequest, "context.user");
 
       const post_bookmark_exists = await getPostBookmarkByUserAndPost({
         user_id,

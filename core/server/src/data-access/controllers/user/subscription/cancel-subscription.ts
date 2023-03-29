@@ -1,19 +1,16 @@
 import { IGetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
 import { IUpdateSubscription } from "../../../../use-cases/subscription/update-subscription";
-import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeCancelSubscriptionController({
   getSubscriptionByEmail,
   updateSubscription,
-  logger,
 }: {
   getSubscriptionByEmail: IGetSubscriptionByEmail;
   updateSubscription: IUpdateSubscription;
-  logger: Logger;
 }) {
   return async function cancelSubscriptionController(
     httpRequest: Request & { context: { validated: {} } }
@@ -23,7 +20,7 @@ export default function makeCancelSubscriptionController({
     };
 
     try {
-      const { email } = _.get(httpRequest, "context.user");
+      const { email } = get(httpRequest, "context.user");
 
       const exists = await getSubscriptionByEmail({ email });
 

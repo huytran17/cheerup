@@ -1,6 +1,6 @@
 import { IGetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -17,7 +17,7 @@ export default function makeSignOutController({
     };
 
     try {
-      const { email } = _.get(httpRequest, "context.user");
+      const { email } = get(httpRequest, "context.user");
 
       const exists = await getAdminByEmail({ email });
       if (isEmpty(exists)) {

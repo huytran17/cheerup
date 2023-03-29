@@ -2,7 +2,7 @@ import { ICreateCategory } from "../../../../use-cases/category/create-category"
 import { IGetCategoryByTitle } from "../../../../use-cases/category/get-category-by-title";
 import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -23,7 +23,7 @@ export default function makeCreateCategoryController({
     };
 
     try {
-      const categoryDetails = _.get(httpRequest, "context.validated");
+      const categoryDetails = get(httpRequest, "context.validated");
       const { title } = categoryDetails;
 
       const category = await getCategoryByTitle({
@@ -34,7 +34,7 @@ export default function makeCreateCategoryController({
         throw new Error(`Category ${title} already exists`);
       }
 
-      const { _id: user_id } = _.get(httpRequest, "context.user");
+      const { _id: user_id } = get(httpRequest, "context.user");
 
       const final_category_data = Object.assign({}, categoryDetails, {
         created_by: user_id,
@@ -43,6 +43,9 @@ export default function makeCreateCategoryController({
       const created_category = await createCategory({
         categoryDetails: final_category_data,
       });
+
+      logger.verbose(`Created category ${created_category.title}`);
+
       return {
         headers,
         statusCode: HttpStatusCode.CREATED,

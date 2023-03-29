@@ -1,15 +1,12 @@
 import { Request } from "express";
 import { IGetGalleriesPaginated } from "../../../../use-cases/gallery/get-galleries-paginated";
-import _ from "lodash";
-import { Logger } from "winston";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetGalleriesPaginatedController({
   getGalleriesPaginated,
-  logger,
 }: {
   getGalleriesPaginated: IGetGalleriesPaginated;
-  logger: Logger;
 }) {
   return async function getGalleriesPaginatedController(
     httpRequest: Request & { context: { validated: {} } }
@@ -29,7 +26,7 @@ export default function makeGetGalleriesPaginatedController({
         page: number;
         entries_per_page: number;
         is_parent?: boolean;
-      } = _.get(httpRequest, "context.validated");
+      } = get(httpRequest, "context.validated");
 
       const galleries = await getGalleriesPaginated(
         {

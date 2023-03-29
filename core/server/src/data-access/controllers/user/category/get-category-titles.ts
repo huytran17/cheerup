@@ -1,16 +1,12 @@
 import { Request } from "express";
 import { IGetCategoryTitles } from "../../../../use-cases/category/get-category-titles";
-import _ from "lodash";
-import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetCategoryTitlesController({
   getCategoryTitles,
-  logger,
 }: {
   getCategoryTitles: IGetCategoryTitles;
-  logger: Logger;
 }) {
   return async function getCategoryTitlesController(
     httpRequest: Request & { context: { validated: {} } }
@@ -21,6 +17,7 @@ export default function makeGetCategoryTitlesController({
 
     try {
       const exists = await getCategoryTitles();
+
       if (isEmpty(exists)) {
         throw new Error(`No category titles found`);
       }

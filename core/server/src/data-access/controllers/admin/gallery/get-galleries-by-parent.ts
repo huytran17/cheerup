@@ -1,19 +1,16 @@
 import { Request } from "express";
 import { IGetGallery } from "../../../../use-cases/gallery/get-gallery";
 import { IGetGalleriesByParent } from "../../../../use-cases/gallery/get-galleries-by-parent";
-import _ from "lodash";
-import { Logger } from "winston";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetGalleriesByParentController({
   getGallery,
   getGalleriesByParent,
-  logger,
 }: {
   getGallery: IGetGallery;
   getGalleriesByParent: IGetGalleriesByParent;
-  logger: Logger;
 }) {
   return async function getGalleriesByParentController(
     httpRequest: Request & { context: { validated: {} } }
@@ -23,7 +20,7 @@ export default function makeGetGalleriesByParentController({
     };
 
     try {
-      const { _id } = _.get(httpRequest, "context.validated");
+      const { _id } = get(httpRequest, "context.validated");
 
       const exists = await getGallery({ _id });
 

@@ -2,7 +2,7 @@ import { IGetUser } from "../../../../use-cases/user/get-user";
 import { IUpdateUser } from "../../../../use-cases/user/update-user";
 import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { IHashPassword } from "../../../../config/password/hash-password";
 import { IVerifyPassword } from "../../../../config/password/verify-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -29,18 +29,18 @@ export default function makeUpdatePasswordController({
     };
 
     try {
-      const { password, new_password, password_confirmation } = _.get(
+      const { password, new_password, password_confirmation } = get(
         httpRequest,
         "context.validated"
       );
-      const { _id } = _.get(httpRequest, "context.user");
+      const { _id } = get(httpRequest, "context.user");
 
       const exists = await getUser({ _id, is_include_deleted: false });
       if (isEmpty(exists)) {
         throw new Error(`User by ${_id} does not exist`);
       }
 
-      const current_password = _.get(exists, "hash_password");
+      const current_password = get(exists, "hash_password");
       const is_valid_password = await verifyPassword({
         password,
         hash_password: current_password,
@@ -63,7 +63,7 @@ export default function makeUpdatePasswordController({
         userDetails: user_details,
       });
 
-      logger.verbose(`Updated password for user ${_id}`);
+      logger.verbose(`Updated password for user ${exists.email}`);
 
       return {
         headers,

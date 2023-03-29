@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { IGetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -17,7 +17,7 @@ export default function makeGetAdminByEmailController({
     };
 
     try {
-      const { email } = _.get(httpRequest, "context.validated");
+      const { email } = get(httpRequest, "context.validated");
 
       const exists = await getAdminByEmail({ email });
       if (isEmpty(exists)) {

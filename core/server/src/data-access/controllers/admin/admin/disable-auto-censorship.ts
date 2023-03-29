@@ -2,7 +2,7 @@ import { IGetAdmin } from "../../../../use-cases/admin/get-admin";
 import { IUpdateAdmin } from "../../../../use-cases/admin/update-admin";
 import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -23,7 +23,7 @@ export default function makeDisableAutoCensorshipController({
     };
 
     try {
-      const { _id } = _.get(httpRequest, "context.validated");
+      const { _id } = get(httpRequest, "context.validated");
 
       const exists = await getAdmin({ _id });
       if (isEmpty(exists)) {
@@ -37,6 +37,11 @@ export default function makeDisableAutoCensorshipController({
       const updated_admin = await updateAdmin({
         adminDetails: final_admin_details,
       });
+
+      logger.verbose(
+        `Disabled auto censorship for admin: ${updated_admin.email}`
+      );
+
       return {
         headers,
         statusCode: HttpStatusCode.OK,

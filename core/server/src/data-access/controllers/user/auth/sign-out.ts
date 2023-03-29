@@ -1,6 +1,6 @@
 import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -17,7 +17,7 @@ export default function makeSignOutController({
     };
 
     try {
-      const { email } = _.get(httpRequest, "context.user");
+      const { email } = get(httpRequest, "context.user");
 
       const exists = await getUserByEmail({ email, is_include_deleted: false });
       if (isEmpty(exists)) {

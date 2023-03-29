@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { IUpdateGallery } from "../../../../use-cases/gallery/update-gallery";
 import { IGetGallery } from "../../../../use-cases/gallery/get-gallery";
-import _ from "lodash";
+import { get, filter } from "lodash";
 import { Logger } from "winston";
 import Storage from "../../../../config/storage";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -30,7 +30,7 @@ export default function makeDeleteGalleryItemController({
         _id: gallery_id,
         bucket,
         key,
-      } = _.get(httpRequest, "context.validated");
+      } = get(httpRequest, "context.validated");
 
       const gallery_exists = await getGallery({ _id: gallery_id });
 
@@ -38,14 +38,14 @@ export default function makeDeleteGalleryItemController({
         throw new Error(`Gallery by id ${gallery_id} does not exists`);
       }
 
-      const current_gallery_items = _.get(gallery_exists, "items", []);
+      const current_gallery_items = get(gallery_exists, "items", []);
 
       const item_to_delete = current_gallery_items.find(
         (item) => item.bucket === bucket && item.key === key
       );
 
-      const current_bucket = _.get(item_to_delete, "bucket", "");
-      const current_key = _.get(item_to_delete, "key", "");
+      const current_bucket = get(item_to_delete, "bucket", "");
+      const current_key = get(item_to_delete, "key", "");
 
       const validCredentials = current_bucket && current_key;
       if (!validCredentials) {
@@ -57,7 +57,7 @@ export default function makeDeleteGalleryItemController({
         storage.deleteS3Object(s3_params);
       }
 
-      const updated_gallery_items = _.filter(
+      const updated_gallery_items = filter(
         current_gallery_items,
         (item) => item.key !== key
       );
@@ -69,6 +69,8 @@ export default function makeDeleteGalleryItemController({
       const updated_data = await updateGallery({
         galleryDetails: final_gallery_details,
       });
+
+      logger.verbose(`Deleted gallery item ${gallery_exists.name}`);
 
       return {
         headers,

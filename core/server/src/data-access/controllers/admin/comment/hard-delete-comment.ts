@@ -1,19 +1,16 @@
 import { IGetComment } from "../../../../use-cases/comment/get-comment";
 import { IHardDeleteComment } from "../../../../use-cases/comment/hard-delete-comment";
-import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeDeleteComment({
   getComment,
   hardDeleteComment,
-  logger,
 }: {
   getComment: IGetComment;
   hardDeleteComment: IHardDeleteComment;
-  logger: Logger;
 }) {
   return async function deleteCommentController(
     httpRequest: Request & { context: { validated: {} } }
@@ -23,7 +20,7 @@ export default function makeDeleteComment({
     };
 
     try {
-      const commentDetails = _.get(httpRequest, "context.validated");
+      const commentDetails = get(httpRequest, "context.validated");
       const { _id } = commentDetails;
 
       const exists = await getComment({ _id });
@@ -32,8 +29,6 @@ export default function makeDeleteComment({
       }
 
       const deleted_comment = await hardDeleteComment({ _id });
-
-      logger.verbose(`Deleted comment by ${_id} and its children successfully`);
 
       return {
         headers,

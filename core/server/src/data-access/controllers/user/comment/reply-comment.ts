@@ -3,9 +3,8 @@ import { IUpdateComment } from "../../../../use-cases/comment/update-comment";
 import { IGetComment } from "../../../../use-cases/comment/get-comment";
 import { IGetPost } from "../../../../use-cases/post/get-post";
 import { IGetUser } from "../../../../use-cases/user/get-user";
-import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get, union, concat } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -15,14 +14,12 @@ export default function makeReplyCommentController({
   updateComment,
   getPost,
   getUser,
-  logger,
 }: {
   replyComment: IReplyComment;
   getComment: IGetComment;
   updateComment: IUpdateComment;
   getPost: IGetPost;
   getUser: IGetUser;
-  logger: Logger;
 }) {
   return async function replyCommentController(
     httpRequest: Request & { context: { validated: {} } }
@@ -32,8 +29,8 @@ export default function makeReplyCommentController({
     };
 
     try {
-      const { _id: user_id } = _.get(httpRequest, "context.user");
-      const commentDetails = _.get(httpRequest, "context.validated");
+      const { _id: user_id } = get(httpRequest, "context.user");
+      const commentDetails = get(httpRequest, "context.validated");
 
       const { post: post_id, parent: parent_id } = commentDetails;
       const post_exists = await getPost({
@@ -51,7 +48,7 @@ export default function makeReplyCommentController({
         is_only_parent: true,
       });
 
-      const is_post_blocked_comment = _.get(
+      const is_post_blocked_comment = get(
         post_exists,
         "is_blocked_comment",
         false
@@ -69,7 +66,7 @@ export default function makeReplyCommentController({
         throw new Error(`User by ${user_id} does not exist`);
       }
 
-      const is_user_blocked_comment = _.get(
+      const is_user_blocked_comment = get(
         user_exists,
         "is_blocked_comment",
         false
@@ -90,12 +87,10 @@ export default function makeReplyCommentController({
         commentDetails: final_comment_data,
       });
 
-      const parent_comment_children = _.get(parent_comment, "children", []);
+      const parent_comment_children = get(parent_comment, "children", []);
       const final_parent_comment_data = Object.assign({}, parent_comment, {
-        children: _.union(
-          _.concat(parent_comment_children, [
-            _.get(created_reply_comment, "_id"),
-          ])
+        children: union(
+          concat(parent_comment_children, [get(created_reply_comment, "_id")])
         ),
       });
 

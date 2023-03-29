@@ -2,7 +2,7 @@ import { IGetUser } from "../../../../use-cases/user/get-user";
 import { IUpdateUser } from "../../../../use-cases/user/update-user";
 import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -23,7 +23,7 @@ export default function makeUpdateUserController({
     };
 
     try {
-      const userDetails = _.get(httpRequest, "context.validated");
+      const userDetails = get(httpRequest, "context.validated");
 
       const { _id, is_blocked_comment } = userDetails;
 
@@ -40,6 +40,8 @@ export default function makeUpdateUserController({
       const updated_user = await updateUser({
         userDetails: final_user_details,
       });
+
+      logger.verbose(`Updated user ${exists.email} successfully`);
 
       return {
         headers,

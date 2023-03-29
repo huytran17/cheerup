@@ -6,7 +6,6 @@ import {
 } from "../../../../use-cases/post";
 import { countCommentsByPost } from "../../../../use-cases/comment";
 import { getPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark";
-import { logger } from "../../../../config/logs/logger";
 import { readingTimeAnalyzer } from "../../../../config/reading-time";
 
 import makeGetPostController from "./get-post";
@@ -19,25 +18,21 @@ const getPostsPaginatedController = makeGetPostsPaginatedController({
   countCommentsByPost,
   getPostBookmarkByUserAndPost,
   readingTimeAnalyzer,
-  logger,
 });
 
 const getPostsController = makeGetPostsController({
   getPosts,
   countCommentsByPost,
-  logger,
 });
 
 const getPostController = makeGetPostController({
   getPost,
   readingTimeAnalyzer,
   getPostBookmarkByUserAndPost,
-  logger,
 });
 
 const getSuggestionPostsController = makeGetSuggestionPostsController({
   getSuggestionPosts,
-  logger,
 });
 
 export default Object.freeze({

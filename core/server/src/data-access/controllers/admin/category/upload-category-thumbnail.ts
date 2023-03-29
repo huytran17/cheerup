@@ -1,5 +1,5 @@
 import { Request } from "express";
-import * as _ from "lodash";
+import { get } from "lodash";
 import { IGetCategory } from "../../../../use-cases/category/get-category";
 import { IUpdateCategory } from "../../../../use-cases/category/update-category";
 import Storage from "../../../../config/storage";
@@ -21,7 +21,7 @@ export default function makeUploadCategoryThumbnailController({
     };
 
     try {
-      const { _id }: { _id: string } = _.get(httpRequest, "context.validated");
+      const { _id }: { _id: string } = get(httpRequest, "context.validated");
 
       const exists = await getCategory({ _id });
 
@@ -29,14 +29,14 @@ export default function makeUploadCategoryThumbnailController({
         throw new Error(`Categiry by ${_id} does not exist`);
       }
 
-      const file = _.get(httpRequest, "context.file");
+      const file = get(httpRequest, "context.file");
 
       if (isEmpty(file)) {
         throw new Error(`File does not exist`);
       }
 
-      const current_bucket = _.get(exists, "thumbnail.bucket", "");
-      const current_key = _.get(exists, "thumbnail.key", "");
+      const current_bucket = get(exists, "thumbnail.bucket", "");
+      const current_key = get(exists, "thumbnail.key", "");
 
       const validCredentials = current_bucket && current_key;
       if (!validCredentials) {

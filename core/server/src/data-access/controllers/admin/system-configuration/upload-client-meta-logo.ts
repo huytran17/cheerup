@@ -1,5 +1,5 @@
 import { Request } from "express";
-import * as _ from "lodash";
+import { get } from "lodash";
 import { IGetLatestSystemConfiguration } from "../../../../use-cases/system-configuration/get-latest-system-configuration";
 import { IUpdateSystemConfiguration } from "../../../../use-cases/system-configuration/update-system-configuraion";
 import Storage from "../../../../config/storage";
@@ -27,14 +27,14 @@ export default function makeUploadClientMetaLogoController({
         throw new Error(`System configuration by ${exists._id} does not exist`);
       }
 
-      const file = _.get(httpRequest, "context.file");
+      const file = get(httpRequest, "context.file");
 
       if (isEmpty(file)) {
         throw new Error(`File does not exist`);
       }
 
-      const current_bucket = _.get(exists, "client_meta.logo.bucket", "");
-      const current_key = _.get(exists, "client_meta.logo.key", "");
+      const current_bucket = get(exists, "client_meta.logo.bucket", "");
+      const current_key = get(exists, "client_meta.logo.key", "");
 
       const validCredentials = current_bucket && current_key;
       if (!validCredentials) {

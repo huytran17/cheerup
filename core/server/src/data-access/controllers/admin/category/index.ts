@@ -45,7 +45,6 @@ const restoreCategoryController = makeRestoreCategoryController({
 
 const getCategoriesController = makeGetCategoriesController({
   getCategories,
-  logger,
 });
 
 const createCategoryController = makeCreateCategoryController({
@@ -56,7 +55,6 @@ const createCategoryController = makeCreateCategoryController({
 
 const getCategoryController = makeGetCategoryController({
   getCategory,
-  logger,
 });
 
 const deleteCategoryController = makeDeleteCategoryController({

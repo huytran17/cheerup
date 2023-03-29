@@ -2,7 +2,7 @@ import { IGetAdmin } from "../../../../use-cases/admin/get-admin";
 import { IUpdateAdmin } from "../../../../use-cases/admin/update-admin";
 import { Logger } from "winston";
 import { Request } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 import { IHashPassword } from "../../../../config/password/hash-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -26,7 +26,7 @@ export default function makeUpdateAdminPasswordController({
     };
 
     try {
-      const { _id, password, password_confirmation } = _.get(
+      const { _id, password, password_confirmation } = get(
         httpRequest,
         "context.validated"
       );
@@ -49,7 +49,7 @@ export default function makeUpdateAdminPasswordController({
         adminDetails: admin_details,
       });
 
-      logger.verbose(`Updated password for admin ${_id}`);
+      logger.verbose(`Updated password for admin ${exists.email}`);
 
       return {
         headers,
