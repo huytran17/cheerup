@@ -1,10 +1,10 @@
+import randomString from "randomstring";
 import passport_facebook, {
   StrategyOptionWithRequest,
 } from "passport-facebook";
 import { PassportStatic } from "passport";
 import { UserDb } from "../../../data-access";
 import { hashPassword } from "../../password";
-import randomString from "randomstring";
 
 export default function initializeFacebook(
   passport: PassportStatic,

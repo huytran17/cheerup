@@ -3,8 +3,6 @@ import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
 
-import makeVerboseLogger from "./config/logs/logger/verbose";
-import makeErrorLogger from "./config/logs/logger/error";
 import { expressRateLimit } from "./config/express-rate-limit";
 import makeDb from "./data-access/make-db";
 import {
@@ -36,12 +34,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(appRouter);
-app.use(makeVerboseLogger());
-app.use(makeErrorLogger());
 app.use(upload.single("file"));
 
-app.listen(process.env.APP_PORT, () =>
-  console.log(`Server is listening on port ${process.env.APP_PORT}`)
+app.listen(process.env.SERVER_PORT, () =>
+  console.log(`Server is listening on port ${process.env.SERVER_PORT}`)
 );
 
 initializeMailer();

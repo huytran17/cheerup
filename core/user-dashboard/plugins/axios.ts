@@ -42,6 +42,7 @@ const plugin: Plugin = ({ $axios, redirect, store }: Context, inject) => {
     }
     throw error_string;
   });
+  
   inject("axios", $axios);
 };
 

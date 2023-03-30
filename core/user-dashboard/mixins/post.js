@@ -58,7 +58,7 @@ export default {
         });
       } catch (error) {
         console.error(error);
-        this.$notification.error(`Encountered error getting posts: ${error}`);
+        this.$toast.error(`Encountered error getting posts: ${error}`);
       }
     },
   },

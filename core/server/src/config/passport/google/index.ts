@@ -1,3 +1,4 @@
+import randomString from "randomstring";
 import { Request } from "express";
 import passport_google_oauth2, {
   StrategyOptionsWithRequest,
@@ -6,7 +7,6 @@ import passport_google_oauth2, {
 import { PassportStatic } from "passport";
 import { UserDb } from "../../../data-access";
 import { hashPassword } from "../../password";
-import randomString from "randomstring";
 
 export default function initializeGoogle(
   passport: PassportStatic,

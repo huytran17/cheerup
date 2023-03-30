@@ -194,7 +194,7 @@ export default {
 
         await this.DELETE_CATEGORY({ id });
         this.$toast.success(this.$t(`Deleted category ${title} successfully`));
-        await this.$fetch();
+        this.$fetch();
       } catch (error) {
         console.error(error);
         this.$toast.error(this.$t("Encountered error while deleting category"));
