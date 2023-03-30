@@ -15,11 +15,9 @@
               getMorePostBookmarks({
                 page: post_bookmark_pagination.current_page + 1,
               }).then((posts) => {
-                if (!posts || (posts && posts.length === 0)) {
-                  $state.complete();
-                } else {
-                  $state.loaded();
-                }
+                !posts || (posts && posts.length === 0)
+                  ? $state.complete()
+                  : $state.loaded();
               });
             }
           "

@@ -23,9 +23,7 @@ import requestIp from "request-ip";
 
 const app = express();
 
-if (process.env.NODE_ENV === "production") {
-  app.use(expressRateLimit());
-}
+process.env.NODE_ENV === "production" && app.use(expressRateLimit());
 
 app.use(requestIp.mw());
 app.use(cors());

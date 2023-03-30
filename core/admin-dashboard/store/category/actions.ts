@@ -14,17 +14,12 @@ const actions: ActionTree<CategoryState, RootState> = {
     let url_query = new URLSearchParams();
 
     const has_range = range && range.length;
-    if (has_range) {
-      url_query.set("range", _.join(range));
-    }
 
-    if (unit) {
-      url_query.set("unit", unit);
-    }
+    has_range && url_query.set("range", _.join(range));
 
-    if (limit) {
-      url_query.set("limit", limit);
-    }
+    unit && url_query.set("unit", unit);
+
+    limit && url_query.set("limit", limit);
 
     const { data } = await this.$axios.$get(
       `/category/analystics?${url_query}`

@@ -181,9 +181,7 @@ export default {
           break;
       }
 
-      if (share_url) {
-        window.open(share_url, "_blank");
-      }
+      share_url && window.open(share_url, "_blank");
     },
   },
 

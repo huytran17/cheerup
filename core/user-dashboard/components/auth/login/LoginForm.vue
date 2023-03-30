@@ -161,13 +161,12 @@ export default {
         await this.SIGN_IN({ data: this.me });
 
         const has_login_redirect_url = this.login_redirect_url;
-        if (has_login_redirect_url) {
-          this.$router.push(this.localePath(this.login_redirect_url));
-          this.SET_LOGIN_REDIRECT_URL({ data: "" });
-          return;
+        if (!has_login_redirect_url) {
+          return this.$router.push(this.localePath("/"));
         }
 
-        this.$router.push(this.localePath("/"));
+        this.$router.push(this.localePath(this.login_redirect_url));
+        this.SET_LOGIN_REDIRECT_URL({ data: "" });
       } catch (error) {
         console.error(error);
         this.$toast.error("Email address or password is incorrect");

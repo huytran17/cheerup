@@ -23,11 +23,9 @@
               categories: categories_filters,
               tags: tags_filters,
             }).then((posts) => {
-              if (!posts || (posts && posts.length === 0)) {
-                $state.complete();
-              } else {
-                $state.loaded();
-              }
+              !posts || (posts && posts.length === 0)
+                ? $state.complete()
+                : $state.loaded();
             });
           }
         "

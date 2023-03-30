@@ -4,9 +4,7 @@ export default class Storage {
   public static s3: AWS.S3;
 
   constructor() {
-    if (!Storage.s3) {
-      Storage.s3 = Storage.makeS3();
-    }
+    !Storage.s3 && (Storage.s3 = Storage.makeS3());
   }
 
   static makeS3() {
@@ -18,6 +16,7 @@ export default class Storage {
       sslEnabled: false,
       signatureVersion: "v4",
     });
+
     const s3 = new AWS.S3();
     console.log("Successfully connected to S3");
 
@@ -45,10 +44,9 @@ export default class Storage {
   }
 
   static deleteS3Object(params: { Bucket: string; Key: string }): void {
-    Storage.s3.deleteObject(params, function (error, data) {
-      if (error) {
-        console.log(error, error.stack);
-      }
-    });
+    Storage.s3.deleteObject(
+      params,
+      (error, data) => error && console.log(error, error.stack)
+    );
   }
 }

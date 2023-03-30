@@ -34,13 +34,11 @@ export function initializeMailer(): Transporter {
     },
   });
 
-  transport.verify(function (error: any, success: any) {
-    if (error) {
-      console.error(error);
-    } else {
-      console.log("SMTP Server is ready to take your email");
-    }
-  });
+  transport.verify((error: any, success: any) =>
+    error
+      ? console.error(error)
+      : console.log("SMTP Server is ready to take your email")
+  );
 
   return transport;
 }

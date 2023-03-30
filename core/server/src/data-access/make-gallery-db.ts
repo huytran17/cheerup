@@ -35,9 +35,7 @@ export default function makeGalleryDb({
 
       const query_conditions = {};
 
-      if (is_parent) {
-        query_conditions["parent"] = { $in: [null, undefined] };
-      }
+      is_parent && (query_conditions["parent"] = { $in: [null, undefined] });
 
       if (query) {
         query_conditions["$or"] = [
@@ -95,9 +93,7 @@ export default function makeGalleryDb({
         deleted_at: { $in: [null, undefined] },
       };
 
-      if (_id) {
-        query_conditions["_id"] = _id;
-      }
+      _id && (query_conditions["_id"] = _id);
 
       const existing = await galleryDbModel
         .findOne(query_conditions)
@@ -122,9 +118,7 @@ export default function makeGalleryDb({
 
       const query_conditions = {};
 
-      if (post_id) {
-        query_conditions["post"] = post_id;
-      }
+      post_id && (query_conditions["post"] = post_id);
 
       const existing = await galleryDbModel
         .findOne(query_conditions)
@@ -143,9 +137,7 @@ export default function makeGalleryDb({
     }): Promise<Gallery[] | null> {
       const query_conditions = {};
 
-      if (post_id) {
-        query_conditions["post"] = post_id;
-      }
+      post_id && (query_conditions["post"] = post_id);
 
       const existing = await galleryDbModel
         .find(query_conditions)
@@ -165,9 +157,7 @@ export default function makeGalleryDb({
     }): Promise<Gallery[] | null> {
       const query_conditions = {};
 
-      if (parent_id) {
-        query_conditions["parent"] = parent_id;
-      }
+      parent_id && (query_conditions["parent"] = parent_id);
 
       const existing = await galleryDbModel
         .find(query_conditions)
@@ -211,6 +201,7 @@ export default function makeGalleryDb({
       const updated = await galleryDbModel
         .findOne({ _id })
         .lean({ virtuals: true });
+
       if (updated) {
         return new Gallery(updated);
       }

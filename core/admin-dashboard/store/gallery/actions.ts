@@ -16,21 +16,13 @@ const actions: ActionTree<GalleryState, RootState> = {
 
     let url_query = new URLSearchParams();
 
-    if (query) {
-      url_query.set("query", query);
-    }
+    query && url_query.set("query", query);
 
-    if (page) {
-      url_query.set("page", page);
-    }
+    page && url_query.set("page", page);
 
-    if (is_parent) {
-      url_query.set("is_parent", is_parent);
-    }
+    is_parent && url_query.set("is_parent", is_parent);
 
-    if (entries_per_page) {
-      url_query.set("entries_per_page", entries_per_page);
-    }
+    entries_per_page && url_query.set("entries_per_page", entries_per_page);
 
     const { data, pagination } = await this.$axios.$get(
       `/gallery?${url_query}`

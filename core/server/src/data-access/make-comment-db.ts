@@ -55,9 +55,7 @@ export default function makeCommentDb({
         parent: { $in: [null, undefined] },
       };
 
-      if (post_id) {
-        query_conditions["post"] = post_id;
-      }
+      post_id && (query_conditions["post"] = post_id);
 
       const existing = await commentDbModel
         .find(query_conditions)
@@ -216,9 +214,8 @@ export default function makeCommentDb({
         _id,
       };
 
-      if (is_only_parent) {
-        query_conditions["parent"] = { $in: [null, undefined] };
-      }
+      is_only_parent &&
+        (query_conditions["parent"] = { $in: [null, undefined] });
 
       const existing = is_show_children
         ? await this.findOneByIdWithChildren(query_conditions)
@@ -330,6 +327,7 @@ export default function makeCommentDb({
       if (updated) {
         return new Comment(updated);
       }
+
       return null;
     }
 
@@ -340,9 +338,11 @@ export default function makeCommentDb({
       const updated = await commentDbModel
         .findOne({ _id })
         .lean({ virtuals: true });
+
       if (updated) {
         return new Comment(updated);
       }
+
       return null;
     }
 

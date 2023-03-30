@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import _ from "lodash";
 import Storage from "../storage";
 
-// FIXME: fix all the any
 type IController = (httpRequest: any) => any;
 
 export default function makeExpressCallback(controller: IController) {
@@ -26,9 +25,7 @@ export default function makeExpressCallback(controller: IController) {
     };
     controller(httpRequest)
       .then((httpResponse: any) => {
-        if (httpResponse.headers) {
-          res.set(httpResponse.headers);
-        }
+        httpResponse.headers && res.set(httpResponse.headers);
         res.type("json");
         res.status(httpResponse.statusCode).send(httpResponse.body);
       })
@@ -38,19 +35,15 @@ export default function makeExpressCallback(controller: IController) {
         const Bucket: string = _.get(httpRequest, "context.file.bucket");
         const Key: string = _.get(httpRequest, "context.file.key");
         if (httpRequest.context.file) {
-          // A file upload was executed but an error occurred. An S3 revert is required.
           const s3 = Storage.getS3();
           const params = {
             Bucket,
             Key,
           };
-          s3.deleteObject(params, function (error, data) {
-            if (error) {
-              console.log(error, error.stack);
-            } else {
-              console.log(data);
-            }
-          });
+
+          s3.deleteObject(params, (error, data) =>
+            error ? console.log(error, error.stack) : console.log(data)
+          );
         }
 
         next(errorObject);

@@ -17,8 +17,7 @@ const mutations: MutationTree<PostBookmarkState> = {
     { data, new_state }: { data: any[]; new_state: boolean }
   ) {
     if (new_state) {
-      state.post_bookmarks = data;
-      return;
+      return (state.post_bookmarks = data);
     }
 
     state.post_bookmarks = _.uniqBy(

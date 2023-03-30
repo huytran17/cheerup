@@ -320,9 +320,7 @@ export default function makeAdminDb({
         deleted_at: { $in: [null, undefined] },
       };
 
-      if (_id) {
-        query_conditions["_id"] = _id;
-      }
+      _id && (query_conditions["_id"] = _id);
 
       const existing = await adminDbModel
         .findOne(query_conditions)
@@ -368,6 +366,7 @@ export default function makeAdminDb({
       if (updated) {
         return new Admin(updated);
       }
+
       return null;
     }
 
@@ -379,6 +378,7 @@ export default function makeAdminDb({
       const updated = await adminDbModel
         .findOne({ _id })
         .lean({ virtuals: true });
+
       if (updated) {
         return new Admin(updated);
       }
@@ -390,6 +390,7 @@ export default function makeAdminDb({
       const updated = await adminDbModel
         .findOne({ _id })
         .lean({ virtuals: true });
+
       if (updated) {
         return new Admin(updated);
       }

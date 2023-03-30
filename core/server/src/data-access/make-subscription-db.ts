@@ -234,9 +234,7 @@ export default function makeSubscriptionDb({
         deleted_at: { $in: [null, undefined] },
       };
 
-      if (_id) {
-        query_conditions["_id"] = _id;
-      }
+      _id && (query_conditions["_id"] = _id);
 
       const existing = await subscriptionDbModel
         .findOne(query_conditions)
@@ -257,9 +255,7 @@ export default function makeSubscriptionDb({
         deleted_at: { $in: [null, undefined] },
       };
 
-      if (email) {
-        query_conditions["email"] = email;
-      }
+      email && (query_conditions["email"] = email);
 
       const existing = await subscriptionDbModel
         .findOne(query_conditions)
@@ -296,6 +292,7 @@ export default function makeSubscriptionDb({
       if (updated) {
         return new Subscription(updated);
       }
+
       return null;
     }
 
@@ -307,9 +304,11 @@ export default function makeSubscriptionDb({
       const updated = await subscriptionDbModel
         .findOne({ _id })
         .lean({ virtuals: true });
+
       if (updated) {
         return new Subscription(updated);
       }
+
       return null;
     }
 
@@ -318,9 +317,11 @@ export default function makeSubscriptionDb({
       const updated = await subscriptionDbModel
         .findOne({ _id })
         .lean({ virtuals: true });
+
       if (updated) {
         return new Subscription(updated);
       }
+
       return null;
     }
 

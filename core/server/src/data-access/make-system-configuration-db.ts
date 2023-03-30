@@ -42,6 +42,7 @@ export default function makeSystemConfigurationDb({
       if (updated) {
         return new SystemConfiguration(updated);
       }
+
       return null;
     }
 
@@ -63,6 +64,7 @@ export default function makeSystemConfigurationDb({
       if (existing) {
         return new SystemConfiguration(existing);
       }
+
       return null;
     }
 

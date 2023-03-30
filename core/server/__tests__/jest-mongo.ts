@@ -5,18 +5,15 @@ import { MongoMemoryServer } from "mongodb-memory-server-core";
 let mongod = (global as any).__MONGOD__;
 
 const initializeMongod = async () => {
-  if (!mongod) {
-    mongod = await MongoMemoryServer.create();
-  }
+  !mongod && (mongod = await MongoMemoryServer.create());
 
   (global as any).__MONGOD__ = mongod;
 };
 
 async function connectDatabase(): Promise<void> {
   const mongoIsNotRunning = mongod.state !== MongoMemoryServerCoreState.RUNNING;
-  if (mongoIsNotRunning) {
-    await mongod.start();
-  }
+
+  mongoIsNotRunning && (await mongod.start());
 
   await mongod.ensureInstance();
 

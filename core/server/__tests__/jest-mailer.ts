@@ -23,23 +23,18 @@ export function initializeMailer(): Transporter {
       },
     });
 
-    transport.verify(function (error: any, success: any) {
-      if (error) {
-        console.error(error);
-      } else {
-        console.log("SMTP Server is ready to take your email");
-      }
-    });
+    transport.verify((error: any, success: any) =>
+      error
+        ? console.error(error)
+        : console.log("SMTP Server is ready to take your email")
+    );
 
     mailer = transport;
   } else {
     console.log(`Invalid environment: ${process.env.NODE_ENV}.`);
     console.log(`Mock mailer is setup.`);
     mailer = {
-      sendMail: (): void => {
-        console.log("Mailer is not set up yet.");
-        return null;
-      },
+      sendMail: (): void => console.log("Mailer is not set up yet."),
     };
   }
 

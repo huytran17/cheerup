@@ -15,17 +15,12 @@ const actions: ActionTree<AdminState, RootState> = {
     let url_query = new URLSearchParams();
 
     const has_range = range && range.length;
-    if (has_range) {
-      url_query.set("range", _.join(range));
-    }
 
-    if (unit) {
-      url_query.set("unit", unit);
-    }
+    has_range && url_query.set("range", _.join(range));
 
-    if (author_type) {
-      url_query.set("author_type", author_type);
-    }
+    unit && url_query.set("unit", unit);
+
+    author_type && url_query.set("author_type", author_type);
 
     const { data } = await this.$axios.$get(`/admin/analystics?${url_query}`);
     commit(MutationTypes.SET_ADMIN_ANALYS_DATA, { data });

@@ -37,8 +37,7 @@ const mutations: MutationTree<CommentState> = {
     { data, new_state }: { data: any[]; new_state: boolean }
   ) {
     if (new_state) {
-      state.comments = data;
-      return;
+      return (state.comments = data);
     }
 
     state.comments = _.uniqBy(_.concat(state.comments, data), "_id");

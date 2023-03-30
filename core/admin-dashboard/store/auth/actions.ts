@@ -23,9 +23,7 @@ const actions: ActionTree<AuthState, RootState> = {
     );
     const { user, access_token } = authenticated_user;
 
-    if (access_token) {
-      localStorage.setItem("admin_access_token", access_token);
-    }
+    access_token && localStorage.setItem("admin_access_token", access_token);
 
     commit(MutationTypes.SET_ME, { data: user });
     return user;

@@ -13,13 +13,10 @@ const actions: ActionTree<PostState, RootState> = {
     let url_query = new URLSearchParams();
 
     const has_range = range && range.length;
-    if (has_range) {
-      url_query.set("range", _.join(range));
-    }
 
-    if (unit) {
-      url_query.set("unit", unit);
-    }
+    has_range && url_query.set("range", _.join(range));
+
+    unit && url_query.set("unit", unit);
 
     const { data } = await this.$axios.$get(`/post/analystics?${url_query}`);
     commit(MutationTypes.SET_POST_ANALYS_DATA, { data });
@@ -37,17 +34,12 @@ const actions: ActionTree<PostState, RootState> = {
     let url_query = new URLSearchParams();
 
     const has_range = range && range.length;
-    if (has_range) {
-      url_query.set("range", _.join(range));
-    }
 
-    if (unit) {
-      url_query.set("unit", unit);
-    }
+    has_range && url_query.set("range", _.join(range));
 
-    if (limit) {
-      url_query.set("limit", limit);
-    }
+    unit && url_query.set("unit", unit);
+
+    limit && url_query.set("limit", limit);
 
     const data = await this.$axios.$get(
       `/post/most-popular-posts-analystics?${url_query}`

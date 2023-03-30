@@ -156,9 +156,7 @@ export default {
                   formatter: function (val) {
                     let prefix = is_increased ? "+" : "-";
 
-                    if (!total_growth_percentage) {
-                      prefix = "+";
-                    }
+                    !total_growth_percentage && (prefix = "+");
 
                     return `${prefix}${val}%`;
                   },

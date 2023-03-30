@@ -17,7 +17,7 @@ export default class Redis {
 
       client.on("error", (error) => console.error(error));
 
-      (async () => await client.connect())
+      async () => await client.connect();
       console.log("Successfully connected to Redis server");
 
       this.redis_client = client;
@@ -35,16 +35,14 @@ export default class Redis {
     key: string;
     value: any;
     duration_in_seconds?: number;
-  }): void {
+  }): typeof logger {
     if (!this.redis_client) {
-      logger.warn("Redis Client: Not available");
-      return;
+      return logger.warn("Redis Client: Not available");
     }
 
     const invald_data = !key || !value;
     if (invald_data) {
-      logger.warn("Redis Client: Invalid data to set");
-      return;
+      return logger.warn("Redis Client: Invalid data to set");
     }
 
     this.redis_client
@@ -53,25 +51,23 @@ export default class Redis {
       })
       .then(() => logger.verbose(`Redis Client: Cached data for key: ${key}`))
       .catch((error) => logger.error(error));
-
-    return;
   }
 
   async getData({ key }: { key: string }): Promise<any> {
     if (!this.redis_client) {
-      logger.warn("Redis Client: Not available");
-      return;
+      return logger.warn("Redis Client: Not available");
     }
 
     const invald_data = !key;
     if (invald_data) {
-      logger.warn("Redis Client: Invalid dataset");
-      return;
+      return logger.warn("Redis Client: Invalid dataset");
     }
 
     try {
       const cached_data = await this.redis_client.get(key);
-      if (!!cached_data && typeof cached_data === "string") {
+
+      const has_data = !!cached_data && typeof cached_data === "string";
+      if (has_data) {
         return JSON.parse(cached_data);
       }
     } catch (error) {

@@ -10,9 +10,7 @@ export default {
   async asyncData({ store, route }) {
     try {
       const access_token = localStorage.getItem("access_token");
-      if (!_.isNil(access_token)) {
-        await store.dispatch("auth/GET_ME");
-      }
+      !_.isNil(access_token) && (await store.dispatch("auth/GET_ME"));
 
       await store.dispatch("post/GET_POSTS_PAGINATED", {
         user_id: _.get(store.getters["auth/me"], "_id"),

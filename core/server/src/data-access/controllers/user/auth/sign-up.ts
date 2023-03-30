@@ -6,6 +6,7 @@ import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { IHashPassword } from "../../../../config/password/hash-password";
 import User from "../../../../database/entities/user";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export type IUserRawData = Omit<User, "hash_password"> & {
   email: string;
@@ -37,7 +38,7 @@ export default function makeSignUpController({
       const { email, password, password_confirmation } = user;
 
       const exists = await getUserByEmail({ email });
-      if (exists) {
+      if (!isEmpty(exists)) {
         throw new Error(`User by ${email} already exists`);
       }
 

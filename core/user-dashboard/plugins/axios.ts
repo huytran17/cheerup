@@ -37,12 +37,13 @@ const plugin: Plugin = ({ $axios, redirect, store }: Context, inject) => {
     const final_error = _.get(error, "response.data.error", default_error);
     console.log("final_error", final_error);
     let error_string = final_error;
-    if (typeof final_error === "object") {
-      error_string = JSON.stringify(final_error);
-    }
+
+    typeof final_error === "object" &&
+      (error_string = JSON.stringify(final_error));
+
     throw error_string;
   });
-  
+
   inject("axios", $axios);
 };
 

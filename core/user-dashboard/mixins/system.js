@@ -34,9 +34,7 @@ export default {
   },
   filters: {
     capitalize: function (value) {
-      if (!value) return "";
-      value = value.toString();
-
+      value = (value && value.toString()) || "";
       return value.replace(/\w+/g, _.capitalize);
     },
   },

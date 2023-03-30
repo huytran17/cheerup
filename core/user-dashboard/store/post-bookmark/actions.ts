@@ -38,13 +38,9 @@ const actions: ActionTree<PostBookmarkState, RootState> = {
 
     const url_query = new URLSearchParams();
 
-    if (page) {
-      url_query.set("page", page);
-    }
+    page && url_query.set("page", page);
 
-    if (entries_per_page) {
-      url_query.set("entries_per_page", entries_per_page);
-    }
+    entries_per_page && url_query.set("entries_per_page", entries_per_page);
 
     const { data: post_bookmarks, pagination } = await this.$axios.$get(
       `/post-bookmark/all-paginated?${url_query}`

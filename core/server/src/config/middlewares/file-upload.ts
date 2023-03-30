@@ -5,7 +5,6 @@ import Storage from "../storage";
 
 export default function makeS3FileUploadMiddleware() {
   const s3 = Storage.getS3();
-  // TODO: add in file limit and file name sanitisation
   const upload = multer({
     storage: multerS3({
       s3,

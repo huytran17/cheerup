@@ -29,8 +29,7 @@ const mutations: MutationTree<GalleryState> = {
     { data, new_state }: { data: any[]; new_state: boolean }
   ) {
     if (new_state) {
-      state.galleries = data;
-      return;
+      return (state.galleries = data);
     }
 
     state.galleries = _.uniqBy(_.concat(state.galleries, data), "_id");

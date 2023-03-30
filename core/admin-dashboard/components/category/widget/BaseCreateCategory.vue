@@ -88,9 +88,7 @@ export default {
   methods: {
     getBadgeColor(event) {
       let hex_color = event;
-      if (_.isObject(event)) {
-        hex_color = _.get(event, "hex");
-      }
+      _.isObject(event) && (hex_color = _.get(event, "hex"));
 
       return hex_color;
     },

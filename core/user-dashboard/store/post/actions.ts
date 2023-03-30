@@ -12,9 +12,7 @@ const actions: ActionTree<PostState, RootState> = {
   ) {
     const url_query = new URLSearchParams();
 
-    if (user_id) {
-      url_query.set("user_id", user_id);
-    }
+    user_id && url_query.set("user_id", user_id);
 
     const { data: post } = await this.$axios.$get(`/post/${id}?${url_query}`);
 
@@ -31,21 +29,15 @@ const actions: ActionTree<PostState, RootState> = {
 
     const url_query = new URLSearchParams();
 
-    if (amount) {
-      url_query.set("amount", amount);
-    }
+    amount && url_query.set("amount", amount);
 
-    if (is_only_published) {
-      url_query.set("is_only_published", is_only_published);
-    }
+    is_only_published && url_query.set("is_only_published", is_only_published);
 
-    if (!_.isEmpty(categories)) {
+    !_.isEmpty(categories) &&
       url_query.set("categories", _.join(categories, ","));
-    }
 
-    if (!_.isEmpty(exclude_ids)) {
+    !_.isEmpty(exclude_ids) &&
       url_query.set("exclude_ids", _.join(exclude_ids, ","));
-    }
 
     const { data: posts } = await this.$axios.$get(
       `/post/suggestion-posts?${url_query}`
@@ -76,33 +68,19 @@ const actions: ActionTree<PostState, RootState> = {
 
     const url_query = new URLSearchParams();
 
-    if (query) {
-      url_query.set("query", query);
-    }
+    query && url_query.set("query", query);
 
-    if (user_id) {
-      url_query.set("user_id", user_id);
-    }
+    user_id && url_query.set("user_id", user_id);
 
-    if (page) {
-      url_query.set("page", page);
-    }
+    page && url_query.set("page", page);
 
-    if (is_only_published) {
-      url_query.set("is_only_published", is_only_published);
-    }
+    is_only_published && url_query.set("is_only_published", is_only_published);
 
-    if (entries_per_page) {
-      url_query.set("entries_per_page", entries_per_page);
-    }
+    entries_per_page && url_query.set("entries_per_page", entries_per_page);
 
-    if (!_.isEmpty(categories)) {
-      url_query.set("categories", categories.join(","));
-    }
+    !_.isEmpty(categories) && url_query.set("categories", categories.join(","));
 
-    if (!_.isEmpty(tags)) {
-      url_query.set("tags", tags.join(","));
-    }
+    !_.isEmpty(tags) && url_query.set("tags", tags.join(","));
 
     const { data: posts, pagination } = await this.$axios.$get(
       `/post/all-paginated?${url_query}`

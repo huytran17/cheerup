@@ -107,10 +107,7 @@ export default {
       const cloned_comments = _.cloneDeep(this.comments);
 
       const updated_comments = _.map(cloned_comments, (comment, index) => {
-        if (comment._id === _id) {
-          comment[path] = data;
-        }
-
+        comment._id === _id && (comment[path] = data);
         return comment;
       });
 

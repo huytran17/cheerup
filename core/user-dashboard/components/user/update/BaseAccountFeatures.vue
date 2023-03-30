@@ -32,10 +32,9 @@ export default {
         const is_subscribing = !!data;
 
         if (is_subscribing) {
-          await this.CREATE_SUBSCRIPTION({
+          return await this.CREATE_SUBSCRIPTION({
             data: { is_active: true },
           });
-          return;
         }
 
         return await this.CANCEL_SUBSCRIPTION();

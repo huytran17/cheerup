@@ -42,8 +42,7 @@ export default {
         const no_fetching = !more_to_fetch && page > 1;
 
         if (no_fetching) {
-          console.warn("No more posts to fetch. Doing nothing.");
-          return;
+          return console.warn("No more posts to fetch. Doing nothing.");
         }
 
         return await this.GET_POST_BOOKMARKS_PAGINATED({

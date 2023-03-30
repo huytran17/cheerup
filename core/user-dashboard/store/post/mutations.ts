@@ -41,8 +41,7 @@ const mutations: MutationTree<PostState> = {
     { data, new_state }: { data: any[]; new_state: boolean }
   ) {
     if (new_state) {
-      state.posts = data;
-      return;
+     return (state.posts = data);
     }
 
     state.posts = _.uniqBy(_.concat(state.posts, data), "_id");

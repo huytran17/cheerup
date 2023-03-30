@@ -290,19 +290,13 @@ export default function makePostDb({
         deleted_at: { $in: [null, undefined] },
       };
 
-      if (is_only_published) {
-        query_conditions["is_published"] = true;
-      }
+      is_only_published && (query_conditions["is_published"] = true);
 
       const has_categories = !_.isEmpty(categories);
-      if (has_categories) {
-        query_conditions["categories"] = { $in: categories };
-      }
+      has_categories && (query_conditions["categories"] = { $in: categories });
 
       const has_tags = !_.isEmpty(tags);
-      if (has_tags) {
-        query_conditions["tags"] = { $in: tags };
-      }
+      has_tags && (query_conditions["tags"] = { $in: tags });
 
       if (query) {
         query_conditions["$or"] = [
@@ -369,17 +363,11 @@ export default function makePostDb({
         deleted_at: { $in: [null, undefined] },
       };
 
-      if (is_include_deleted) {
-        delete query_conditions.deleted_at;
-      }
+      is_include_deleted && delete query_conditions.deleted_at;
 
-      if (_id) {
-        query_conditions["_id"] = _id;
-      }
+      _id && (query_conditions["_id"] = _id);
 
-      if (is_only_published) {
-        query_conditions["is_published"] = true;
-      }
+      is_only_published && (query_conditions["is_published"] = true);
 
       const existing = await postDbModel
         .findOne(query_conditions)
@@ -390,6 +378,7 @@ export default function makePostDb({
       if (existing) {
         return new Post(existing);
       }
+
       return null;
     }
 
@@ -407,13 +396,11 @@ export default function makePostDb({
         is_published: true,
       };
 
-      if (!_.isEmpty(categories)) {
-        query_conditions["categories"] = { $in: categories };
-      }
+      !_.isEmpty(categories) &&
+        (query_conditions["categories"] = { $in: categories });
 
-      if (!_.isEmpty(exclude_ids)) {
-        query_conditions["_id"] = { $nin: exclude_ids };
-      }
+      !_.isEmpty(exclude_ids) &&
+        (query_conditions["_id"] = { $nin: exclude_ids });
 
       const existing = await postDbModel
         .find(query_conditions)
@@ -469,6 +456,7 @@ export default function makePostDb({
       if (updated) {
         return new Post(updated);
       }
+
       return null;
     }
 
@@ -480,6 +468,7 @@ export default function makePostDb({
       const updated = await postDbModel
         .findOne({ _id })
         .lean({ virtuals: true });
+
       if (updated) {
         return new Post(updated);
       }
@@ -491,9 +480,11 @@ export default function makePostDb({
       const updated = await postDbModel
         .findOne({ _id })
         .lean({ virtuals: true });
+
       if (updated) {
         return new Post(updated);
       }
+
       return null;
     }
 

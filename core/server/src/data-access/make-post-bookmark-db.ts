@@ -123,9 +123,7 @@ export default function makePostBookmarkDb({
         deleted_at: { $in: [null, undefined] },
       };
 
-      if (_id) {
-        query_conditions["_id"] = _id;
-      }
+      _id && (query_conditions["_id"] = _id);
 
       const existing = await postBookmarkDbModel
         .findOne(query_conditions)
@@ -149,9 +147,7 @@ export default function makePostBookmarkDb({
         user: user_id,
       };
 
-      if (post_id) {
-        query_conditions["post"] = post_id;
-      }
+      post_id && (query_conditions["post"] = post_id);
 
       const existing = await postBookmarkDbModel
         .findOne(query_conditions)
@@ -182,9 +178,7 @@ export default function makePostBookmarkDb({
     }): Promise<number> {
       const query_conditions = {};
 
-      if (user_id) {
-        query_conditions["user"] = user_id;
-      }
+      user_id && (query_conditions["user"] = user_id);
 
       const count = await postBookmarkDbModel.countDocuments(query_conditions);
 
@@ -215,9 +209,11 @@ export default function makePostBookmarkDb({
       const updated = await postBookmarkDbModel
         .findOne({ _id })
         .lean({ virtuals: true });
+
       if (updated) {
         return new PostBookmark(updated);
       }
+
       return null;
     }
 
@@ -226,9 +222,11 @@ export default function makePostBookmarkDb({
       const updated = await postBookmarkDbModel
         .findOne({ _id })
         .lean({ virtuals: true });
+
       if (updated) {
         return new PostBookmark(updated);
       }
+
       return null;
     }
 

@@ -240,13 +240,9 @@ export default function makeCategoryDb({
         deleted_at: { $in: [null, undefined] },
       };
 
-      if (is_include_deleted) {
-        delete query_conditions.deleted_at;
-      }
+      is_include_deleted && delete query_conditions.deleted_at;
 
-      if (_id) {
-        query_conditions["_id"] = _id;
-      }
+      _id && (query_conditions["_id"] = _id);
 
       const existing = await categoryDbModel
         .findOne(query_conditions)
@@ -274,13 +270,9 @@ export default function makeCategoryDb({
         deleted_at: { $in: [null, undefined] },
       };
 
-      if (is_include_deleted) {
-        delete query_conditions.deleted_at;
-      }
+      is_include_deleted && delete query_conditions.deleted_at;
 
-      if (title) {
-        query_conditions["title"] = title;
-      }
+      title && (query_conditions["title"] = title);
 
       const existing = await categoryDbModel
         .findOne(query_conditions)
@@ -340,6 +332,7 @@ export default function makeCategoryDb({
       if (updated) {
         return new Category(updated);
       }
+
       return null;
     }
 
@@ -351,6 +344,7 @@ export default function makeCategoryDb({
       const updated = await categoryDbModel
         .findOne({ _id })
         .lean({ virtuals: true });
+
       if (updated) {
         return new Category(updated);
       }
@@ -362,9 +356,11 @@ export default function makeCategoryDb({
       const updated = await categoryDbModel
         .findOne({ _id })
         .lean({ virtuals: true });
+
       if (updated) {
         return new Category(updated);
       }
+
       return null;
     }
 

@@ -22,9 +22,7 @@ const actions: ActionTree<CommentState, RootState> = {
 
     const url_query = new URLSearchParams();
 
-    if (post_id) {
-      url_query.set("post_id", post_id);
-    }
+    post_id && url_query.set("post_id", post_id);
 
     const { data } = await this.$axios.$get(
       `/comment/count-by-post?${url_query}`
@@ -55,9 +53,8 @@ const actions: ActionTree<CommentState, RootState> = {
   ) {
     const url_query = new URLSearchParams();
 
-    if (is_show_children) {
+    is_show_children &&
       url_query.set("is_show_children", is_show_children.toString());
-    }
 
     const { data: comment } = await this.$axios.$get(
       `/comment/${id}?${url_query}`
@@ -108,21 +105,13 @@ const actions: ActionTree<CommentState, RootState> = {
 
     const url_query = new URLSearchParams();
 
-    if (query) {
-      url_query.set("query", query);
-    }
+    query && url_query.set("query", query);
 
-    if (page) {
-      url_query.set("page", page);
-    }
+    page && url_query.set("page", page);
 
-    if (entries_per_page) {
-      url_query.set("entries_per_page", entries_per_page);
-    }
+    entries_per_page && url_query.set("entries_per_page", entries_per_page);
 
-    if (post_id) {
-      url_query.set("post_id", post_id);
-    }
+    post_id && url_query.set("post_id", post_id);
 
     const { data: comments, pagination } = await this.$axios.$get(
       `/comment/by-post-paginated?${url_query}`

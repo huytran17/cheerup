@@ -151,9 +151,7 @@ export default function makeUserDb({
         ? growth_percentage
         : 100 - growth_percentage;
 
-      if (is_steady_status) {
-        total_percentage = 0;
-      }
+      is_steady_status && (total_percentage = 0);
 
       const final_growth_percentage = parseFloat(total_percentage.toFixed(2));
 
@@ -254,9 +252,7 @@ export default function makeUserDb({
         _id,
       };
 
-      if (is_include_deleted) {
-        delete query_conditions.deleted_at;
-      }
+      is_include_deleted && delete query_conditions.deleted_at;
 
       const existing = await userDbModel
         .findOne(query_conditions)
@@ -295,9 +291,7 @@ export default function makeUserDb({
         deleted_at: { $in: [undefined, null] },
       };
 
-      if (is_include_deleted) {
-        delete query_conditions.deleted_at;
-      }
+      is_include_deleted && delete query_conditions.deleted_at;
 
       const existing = await userDbModel.findOne(query_conditions);
 
@@ -329,9 +323,11 @@ export default function makeUserDb({
       const updated = await userDbModel
         .findOne({ _id })
         .lean({ virtuals: true });
+
       if (updated) {
         return new User(updated);
       }
+
       return null;
     }
 
@@ -340,9 +336,11 @@ export default function makeUserDb({
       const updated = await userDbModel
         .findOne({ _id })
         .lean({ virtuals: true });
+
       if (updated) {
         return new User(updated);
       }
+
       return null;
     }
 
@@ -371,9 +369,11 @@ export default function makeUserDb({
       const updated = await userDbModel
         .findOne({ _id })
         .lean({ virtuals: true });
+
       if (updated) {
         return new User(updated);
       }
+
       return null;
     }
   })();

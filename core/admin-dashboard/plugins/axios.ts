@@ -43,8 +43,7 @@ const plugin: Plugin = ({ $axios, redirect, store, app }: Context, inject) => {
     const expired = _.get(error, "response.status", HTTP_STATUS_CODE.NOT_FOUND);
     if (expired === HTTP_STATUS_CODE.UNAUTHORIZED) {
       const origin = `${window.location.origin}/login?message=${error.response?.data}`;
-      window.location.replace(origin);
-      return;
+      return window.location.replace(origin);
     }
 
     console.error(error);
@@ -55,9 +54,10 @@ const plugin: Plugin = ({ $axios, redirect, store, app }: Context, inject) => {
     const final_error = _.get(error, "response.data.error", default_error);
     console.log("final_error", final_error);
     let error_string = final_error;
-    if (typeof final_error === "object") {
-      error_string = JSON.stringify(final_error);
-    }
+
+    typeof final_error === "object" &&
+      (error_string = JSON.stringify(final_error));
+
     throw error_string;
   });
 
