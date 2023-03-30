@@ -40,7 +40,9 @@ app.use(makeVerboseLogger());
 app.use(makeErrorLogger());
 app.use(upload.single("file"));
 
-app.listen(3000, () => console.log("Server is listening on port 3000"));
+app.listen(process.env.APP_PORT, () =>
+  console.log(`Server is listening on port ${process.env.APP_PORT}`)
+);
 
 initializeMailer();
 

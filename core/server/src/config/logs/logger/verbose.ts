@@ -1,8 +1,6 @@
 import winston from "winston";
 import expressWinston from "express-winston";
 import {
-  makeMongooseErrorLogger,
-  makeMongooseErrorFileLogger,
   makeMongooseVerboseLogger,
   makeMongooseVerboseFileLogger,
   formatLog,
