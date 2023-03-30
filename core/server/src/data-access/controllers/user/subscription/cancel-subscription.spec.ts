@@ -41,11 +41,9 @@ describe("cancelSubscription", () => {
     });
     const updateSubscription = makeUpdateSubscription({
       subscriptionDb,
-      logger,
     });
     const createSubscription = makeCreateSubscription({
       subscriptionDb,
-      logger,
     });
 
     const mock_subscription_data = fakeSubscription();
@@ -57,7 +55,6 @@ describe("cancelSubscription", () => {
     const cancelSubscriptionController = makeCancelSubscriptionController({
       getSubscriptionByEmail,
       updateSubscription,
-      logger,
     });
 
     const request = {

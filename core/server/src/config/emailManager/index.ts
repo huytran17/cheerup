@@ -8,14 +8,14 @@ import {
   defaultTemplateData,
 } from "./templates";
 import { htmlToText } from "../../utils/html-to-text";
-import makeGetEmailContent from "./get-email-content";
+import makeGetEmailContent, { IGetEmailContent } from "./get-email-content";
 import makeRenderEmailContent from "./render-email-content";
 
 const email_from = process.env.EMAIL_FROM || "huytran@gmail.com";
 const email_sender_name = process.env.EMAIL_SENDER_NAME || "Huy Tran Blog";
 
 const sendEmail = makeSendEmail({ mailer, logger });
-const getEmailContent = makeGetEmailContent({
+const getEmailContent: IGetEmailContent = makeGetEmailContent({
   emailTextTemplate,
   subjectTemplate,
   htmlToText,

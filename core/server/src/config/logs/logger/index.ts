@@ -20,7 +20,6 @@ export const logger = winston.createLogger({
   exceptionHandlers: [makeMongooseErrorLogger(), makeMongooseErrorFileLogger()],
   level: "verbose",
   format: formatLog(),
-  colorize: true,
 });
 
 export function formatLog() {

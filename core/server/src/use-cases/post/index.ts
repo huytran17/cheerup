@@ -38,7 +38,6 @@ const getPostAnalystics = makeGetPostAnalystics({
 
 const hardDeletePost = makeHardDeletePost({
   postDb: PostDb,
-  logger,
 });
 
 const getPost = makeGetPost({

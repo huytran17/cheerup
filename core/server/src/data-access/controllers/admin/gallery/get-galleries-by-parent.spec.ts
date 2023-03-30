@@ -35,7 +35,7 @@ describe("getGalleriesByParent", () => {
       moment,
     });
 
-    const createGallery = makeCreateGallery({ galleryDb, logger });
+    const createGallery = makeCreateGallery({ galleryDb });
     const getGallery = makeGetGallery({ galleryDb, logger });
     const getGalleriesByParent = makeGetGalleriesByParent({
       galleryDb,
@@ -47,7 +47,6 @@ describe("getGalleriesByParent", () => {
     const getGalleriesByParentController = makeGetGalleriesByParentController({
       getGallery,
       getGalleriesByParent,
-      logger,
     });
 
     const parent_gallery = await createGallery({
@@ -56,8 +55,7 @@ describe("getGalleriesByParent", () => {
 
     await createGallery({
       galleryDetails: {
-        ...mock_gallery_data,
-        _id: null,
+        ...fakeGallery(),
         parent: parent_gallery,
       },
     });

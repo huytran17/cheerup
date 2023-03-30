@@ -33,13 +33,12 @@ describe("createComment", () => {
       moment,
     });
 
-    const createComment = makeCreateComment({ commentDb, logger });
+    const createComment = makeCreateComment({ commentDb });
 
     const mock_comment_data = fakeComment();
 
     const createCommentController = makeCreateCommentController({
       createComment,
-      logger,
     });
 
     const request = {

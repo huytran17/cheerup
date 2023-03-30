@@ -47,12 +47,11 @@ describe("getPost", () => {
       moment,
     });
 
-    const createPost = makeCreatePost({ postDb, logger });
-    const createUser = makeCreateUser({ userDb, logger });
+    const createPost = makeCreatePost({ postDb });
+    const createUser = makeCreateUser({ userDb });
     const getPost = makeGetPost({ postDb, logger });
     const getPostBookmarkByUserAndPost = makeGetPostBookmarkByUserAndPost({
       postBookmarkDb,
-      logger,
     });
 
     const mock_post_data = fakePost();
@@ -70,7 +69,6 @@ describe("getPost", () => {
       getPost,
       readingTimeAnalyzer,
       getPostBookmarkByUserAndPost,
-      logger,
     });
 
     const request = {

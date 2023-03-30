@@ -35,8 +35,8 @@ describe("deleteCategory", () => {
       moment,
     });
 
-    const createCategory = makeCreateCategory({ categoryDb, logger });
-    const deleteCategory = makeDeleteCategory({ categoryDb, logger });
+    const createCategory = makeCreateCategory({ categoryDb });
+    const deleteCategory = makeDeleteCategory({ categoryDb });
     const getCategory = makeGetCategory({ categoryDb, logger });
 
     const mock_category_data = fakeCategory();

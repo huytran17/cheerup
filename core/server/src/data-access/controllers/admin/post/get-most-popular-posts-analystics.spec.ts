@@ -34,7 +34,7 @@ describe("getMostPopularPostsAnalystics", () => {
       moment,
     });
 
-    const createPost = makeCreatePost({ postDb, logger });
+    const createPost = makeCreatePost({ postDb });
     const getMostPopularPostsAnalystics = makeGetMostPopularPostsAnalystics({
       postDb,
       logger,

@@ -35,9 +35,9 @@ describe("restoreUser", () => {
       moment,
     });
 
-    const createUser = makeCreateUser({ userDb, logger });
+    const createUser = makeCreateUser({ userDb });
     const getUser = makeGetUser({ userDb, logger });
-    const restoreUser = makeRestoreUser({ userDb, logger });
+    const restoreUser = makeRestoreUser({ userDb });
 
     const mock_user_data = fakeUser();
 

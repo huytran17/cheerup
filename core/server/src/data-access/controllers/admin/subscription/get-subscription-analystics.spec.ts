@@ -36,7 +36,6 @@ describe("getSubscriptionAnalystics", () => {
 
     const createSubscription = makeCreateSubscription({
       subscriptionDb,
-      logger,
     });
     const getSubscriptionAnalystics = makeGetSubscriptionAnalystics({
       subscriptionDb,

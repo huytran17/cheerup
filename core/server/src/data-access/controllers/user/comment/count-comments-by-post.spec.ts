@@ -40,7 +40,7 @@ describe("countCommentsByPost", () => {
     });
 
     const getPost = makeGetPost({ postDb, logger });
-    const createPost = makeCreatePost({ postDb, logger });
+    const createPost = makeCreatePost({ postDb });
     const countCommentsByPost = makeCountCommentsByPost({ commentDb, logger });
 
     const mock_post_data = fakePost();
@@ -52,7 +52,6 @@ describe("countCommentsByPost", () => {
     const countCommentsByPostController = makeCountCommentsByPostController({
       countCommentsByPost,
       getPost,
-      logger,
     });
 
     const request = {

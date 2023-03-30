@@ -40,8 +40,8 @@ describe("getSuggestionPosts", () => {
       moment,
     });
 
-    const createPost = makeCreatePost({ postDb, logger });
-    const createCategory = makeCreateCategory({ categoryDb, logger });
+    const createPost = makeCreatePost({ postDb });
+    const createCategory = makeCreateCategory({ categoryDb });
     const getSuggestionPosts = makeGetSuggestionPosts({ postDb, logger });
 
     const mock_post_data = fakePost();
@@ -57,7 +57,6 @@ describe("getSuggestionPosts", () => {
 
     const getSuggestionPostsController = makeGetSuggestionPostsController({
       getSuggestionPosts,
-      logger,
     });
 
     const request = {

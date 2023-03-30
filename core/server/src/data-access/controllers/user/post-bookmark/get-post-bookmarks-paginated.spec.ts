@@ -46,7 +46,6 @@ describe("getPostBookmarksPaginated", () => {
 
     const createPostBookmark = makeCreatePostBookmark({
       postBookmarkDb,
-      logger,
     });
     const getPostBookmarksPaginated = makeGetPostBookmarksPaginated({
       postBookmarkDb,
@@ -69,7 +68,6 @@ describe("getPostBookmarksPaginated", () => {
         getPostBookmarksPaginated,
         countCommentsByPost,
         readingTimeAnalyzer,
-        logger,
       });
 
     const request = {

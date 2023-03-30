@@ -34,7 +34,7 @@ describe("getUser", () => {
       moment,
     });
 
-    const createUser = makeCreateUser({ userDb, logger });
+    const createUser = makeCreateUser({ userDb });
     const getUser = makeGetUser({
       userDb,
       logger,
@@ -48,7 +48,6 @@ describe("getUser", () => {
 
     const getUserController = makeGetUserController({
       getUser,
-      logger,
     });
 
     const request = {

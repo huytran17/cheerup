@@ -34,10 +34,9 @@ describe("getAdminByEmail", () => {
       moment,
     });
 
-    const createAdmin = makeCreateAdmin({ adminDb, logger });
+    const createAdmin = makeCreateAdmin({ adminDb });
     const getAdminByEmail = makeGetAdminByEmail({
       adminDb,
-      logger,
     });
 
     const mock_admin_data = fakeAdmin();

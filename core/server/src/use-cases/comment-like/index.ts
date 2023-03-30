@@ -10,17 +10,14 @@ import makeGetCommentLikeByUserAndComment from "./get-comment-like-by-user-and-c
 
 const getCommentLikeByUserAndComment = makeGetCommentLikeByUserAndComment({
   commentLikeDb: CommentLikeDb,
-  logger,
 });
 
 const countCommentLikeByCommentAndType = makeCountCommentLikeByCommentAndType({
   commentLikeDb: CommentLikeDb,
-  logger,
 });
 
 const hardDeleteCommentLike = makeHardDeleteCommentLike({
   commentLikeDb: CommentLikeDb,
-  logger,
 });
 
 const updateCommentLike = makeUpdateCommentLike({

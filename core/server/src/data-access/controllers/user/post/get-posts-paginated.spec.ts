@@ -62,13 +62,12 @@ describe("getPostsPaginated", () => {
       moment,
     });
 
-    const createPost = makeCreatePost({ postDb, logger });
+    const createPost = makeCreatePost({ postDb });
     const getPostsPaginated = makeGetPostsPaginated({ postDb, logger });
     const countCommentsByPost = makeCountCommentsByPost({ commentDb, logger });
-    const createUser = makeCreateUser({ userDb, logger });
+    const createUser = makeCreateUser({ userDb });
     const getPostBookmarkByUserAndPost = makeGetPostBookmarkByUserAndPost({
       postBookmarkDb,
-      logger,
     });
 
     const mock_post_data = fakePost();
@@ -88,7 +87,6 @@ describe("getPostsPaginated", () => {
       countCommentsByPost,
       getPostBookmarkByUserAndPost,
       readingTimeAnalyzer,
-      logger,
     });
 
     const request = {

@@ -36,7 +36,6 @@ describe("getUsers", () => {
 
     const getUsersController = makeGetUsersController({
       getUsers,
-      logger,
     });
 
     const request = {

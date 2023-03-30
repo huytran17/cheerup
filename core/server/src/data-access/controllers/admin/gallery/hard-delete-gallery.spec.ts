@@ -35,9 +35,9 @@ describe("hardDeleteGallery", () => {
       moment,
     });
 
-    const createGallery = makeCreateGallery({ galleryDb, logger });
+    const createGallery = makeCreateGallery({ galleryDb });
     const getGallery = makeGetGallery({ galleryDb, logger });
-    const hardDeleteGallery = makeHardDeleteGallery({ galleryDb, logger });
+    const hardDeleteGallery = makeHardDeleteGallery({ galleryDb });
 
     const mock_gallery_data = fakeGallery();
 

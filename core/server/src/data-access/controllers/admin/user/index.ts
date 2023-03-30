@@ -75,7 +75,6 @@ const createUserController = makeCreateUserController({
 
 const getUserByEmailController = makeGetUserByEmailController({
   getUserByEmail,
-  logger,
 });
 
 const getUsersController = makeGetUsersController({
@@ -84,7 +83,6 @@ const getUsersController = makeGetUsersController({
 
 const getUserController = makeGetUserController({
   getUser,
-  logger,
 });
 
 const deleteUserController = makeDeleteUserController({

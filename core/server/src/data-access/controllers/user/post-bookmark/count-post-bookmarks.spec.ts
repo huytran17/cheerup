@@ -43,13 +43,11 @@ describe("countPostBookmarks", () => {
 
     const createPostBookmark = makeCreatePostBookmark({
       postBookmarkDb,
-      logger,
     });
     const getUser = makeGetUser({ userDb, logger });
-    const createUser = makeCreateUser({ userDb, logger });
+    const createUser = makeCreateUser({ userDb });
     const countPostBookmarks = makeCountPostBookmarks({
       postBookmarkDb,
-      logger,
     });
 
     const mock_post_bookmark_data = fakePostBookmark();
@@ -69,7 +67,6 @@ describe("countPostBookmarks", () => {
     const countPostBookmarksController = makeCountPostBookmarksController({
       countPostBookmarks,
       getUser,
-      logger,
     });
 
     const request = {

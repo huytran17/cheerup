@@ -23,7 +23,7 @@ export default function initializeJWT(
     new JwtStrategy(opts, async function (jwt_payload, done) {
       const exist = await UserDb.findByEmail({
         email: jwt_payload.email,
-        deleted_at: { $in: [null, undefined] },
+        is_include_deleted: false,
       });
 
       if (!exist) {
@@ -39,7 +39,6 @@ export default function initializeJWT(
     new JwtStrategy(opts, async function (jwt_payload, done) {
       const exist = await AdminDb.findByEmail({
         email: jwt_payload.email,
-        deleted_at: { $in: [null, undefined] },
       });
 
       if (!exist) {

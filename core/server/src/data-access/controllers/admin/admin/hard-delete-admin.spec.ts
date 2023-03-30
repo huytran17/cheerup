@@ -35,8 +35,8 @@ describe("hardDeleteAdmin", () => {
       moment,
     });
 
-    const createAdmin = makeCreateAdmin({ adminDb, logger });
-    const hardDeleteAdmin = makeHardDeleteAdmin({ adminDb, logger });
+    const createAdmin = makeCreateAdmin({ adminDb });
+    const hardDeleteAdmin = makeHardDeleteAdmin({ adminDb });
     const getAdmin = makeGetAdmin({
       adminDb,
       logger,

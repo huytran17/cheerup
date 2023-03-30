@@ -36,7 +36,6 @@ describe("getLatestSystemConfiguration", () => {
 
     const createSystemConfiguration = makeCreateSystemConfiguration({
       systemConfigurationDb,
-      logger,
     });
     const getLatestSystemConfiguration = makeGetLatestSystemConfiguration({
       systemConfigurationDb,
@@ -52,7 +51,6 @@ describe("getLatestSystemConfiguration", () => {
     const getLatestSystemConfigurationController =
       makeGetLatestSystemConfigurationController({
         getLatestSystemConfiguration,
-        logger,
       });
 
     const request = {

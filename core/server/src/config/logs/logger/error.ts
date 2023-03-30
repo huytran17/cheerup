@@ -5,7 +5,6 @@ import _ from "lodash";
 
 export default function makeErrorLogger() {
   return expressWinston.errorLogger({
-    exitOnError: false,
     transports: [
       makeMongooseErrorLogger(),
       new winston.transports.Console({ level: "error" }),
@@ -15,7 +14,6 @@ export default function makeErrorLogger() {
       winston.format.json()
     ),
     meta: true,
-    showStack: true,
     msg: "Error {{ req.clientIp }} {{req.method}} {{req.url}} {{res.statusCode}}",
   });
 }

@@ -46,9 +46,9 @@ describe("publishPost", () => {
       moment,
     });
 
-    const createPost = makeCreatePost({ postDb, logger });
+    const createPost = makeCreatePost({ postDb });
     const getPost = makeGetPost({ postDb, logger });
-    const updatePost = makeUpdatePost({ postDb, logger });
+    const updatePost = makeUpdatePost({ postDb });
     const getActivatingSubscriptions = makeGetActivatingSubscriptions({
       subscriptionDb,
       logger,

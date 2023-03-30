@@ -34,12 +34,12 @@ describe("getUserAnalystics", () => {
       moment,
     });
 
-    const createUser = makeCreateUser({ userDb, logger });
+    const createUser = makeCreateUser({ userDb });
     const getUserAnalystics = makeGetUserAnalystics({ userDb, logger, redis });
 
     const mock_user_data = fakeUser();
 
-    const created_user = await createUser({
+    await createUser({
       userDetails: mock_user_data,
     });
 

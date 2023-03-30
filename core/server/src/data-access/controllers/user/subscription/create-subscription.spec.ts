@@ -41,18 +41,16 @@ describe("createSubscription", () => {
       moment,
     });
 
-    const createUser = makeCreateUser({ userDb, logger });
+    const createUser = makeCreateUser({ userDb });
     const getSubscriptionByEmail = makeGetSubscriptionByEmail({
       subscriptionDb,
       logger,
     });
     const updateSubscription = makeUpdateSubscription({
       subscriptionDb,
-      logger,
     });
     const createSubscription = makeCreateSubscription({
       subscriptionDb,
-      logger,
     });
 
     const mock_user_data = fakeUser();
@@ -65,7 +63,6 @@ describe("createSubscription", () => {
       createSubscription,
       getSubscriptionByEmail,
       updateSubscription,
-      logger,
     });
 
     const request = {

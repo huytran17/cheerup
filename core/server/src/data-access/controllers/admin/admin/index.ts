@@ -87,7 +87,6 @@ const enableAutoCensorshipController = makeEnableAutoCensorshipController({
 
 const getAdminController = makeGetAdminController({
   getAdmin,
-  logger,
 });
 
 const deleteAdminController = makeDeleteAdminController({

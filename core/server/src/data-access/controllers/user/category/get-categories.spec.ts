@@ -34,7 +34,6 @@ describe("getCategories", () => {
 
     const getCategoriesController = makeGetCategoriesController({
       getCategories,
-      logger,
     });
 
     const request = {

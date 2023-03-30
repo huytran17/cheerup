@@ -43,7 +43,6 @@ describe("createOrUpdateCommentLike", () => {
 
     const commentLikeDb = makeCommentLikeDb({
       commentLikeDbModel: CommentLikeModel,
-      moment,
     });
     const userDb = makeUserDb({
       userDbModel: UserModel,
@@ -56,15 +55,12 @@ describe("createOrUpdateCommentLike", () => {
 
     const createCommentLike = makeCreateCommentLike({
       commentLikeDb,
-      logger,
     });
     const updateCommentLike = makeUpdateCommentLike({
       commentLikeDb,
-      logger,
     });
     const createComment = makeCreateComment({
       commentDb,
-      logger,
     });
     const getUser = makeGetUser({
       userDb,
@@ -76,13 +72,11 @@ describe("createOrUpdateCommentLike", () => {
     });
     const getCommentLikeByUserAndComment = makeGetCommentLikeByUserAndPost({
       commentLikeDb,
-      logger,
     });
     const hardDeleteCommentLike = makeHardDeleteCommentLike({
       commentLikeDb,
-      logger,
     });
-    const createUser = makeCreateUser({ userDb, logger });
+    const createUser = makeCreateUser({ userDb });
 
     const mock_comment_like_data = fakeCommentLike();
     const mock_user_data = fakeUser();
@@ -103,7 +97,6 @@ describe("createOrUpdateCommentLike", () => {
         getUser,
         getComment,
         getCommentLikeByUserAndComment,
-        logger,
       }
     );
 

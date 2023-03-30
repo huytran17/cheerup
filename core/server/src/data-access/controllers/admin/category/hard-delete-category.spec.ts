@@ -35,9 +35,9 @@ describe("hardDeleteCategory", () => {
       moment,
     });
 
-    const createCategory = makeCreateCategory({ categoryDb, logger });
+    const createCategory = makeCreateCategory({ categoryDb });
     const getCategory = makeGetCategory({ categoryDb, logger });
-    const hardDeleteCategory = makeHardDeleteCategory({ categoryDb, logger });
+    const hardDeleteCategory = makeHardDeleteCategory({ categoryDb });
 
     const mock_category_data = fakeCategory();
 

@@ -34,7 +34,7 @@ describe("getGallery", () => {
       moment,
     });
 
-    const createGallery = makeCreateGallery({ galleryDb, logger });
+    const createGallery = makeCreateGallery({ galleryDb });
     const getGallery = makeGetGallery({ galleryDb, logger });
 
     const mock_gallery_data = fakeGallery();
@@ -45,7 +45,6 @@ describe("getGallery", () => {
 
     const getGalleryController = makeGetGalleryController({
       getGallery,
-      logger,
     });
 
     const request = {

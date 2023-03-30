@@ -35,8 +35,8 @@ describe("deleteUser", () => {
       moment,
     });
 
-    const createUser = makeCreateUser({ userDb, logger });
-    const deleteUser = makeDeleteUser({ userDb, logger });
+    const createUser = makeCreateUser({ userDb });
+    const deleteUser = makeDeleteUser({ userDb });
     const getUser = makeGetUser({
       userDb,
       logger,

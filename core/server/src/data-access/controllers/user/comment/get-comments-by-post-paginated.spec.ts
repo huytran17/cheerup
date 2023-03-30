@@ -57,23 +57,21 @@ describe("getCommentsByPostPaginated", () => {
     });
     const commentLikeDb = makeCommentLikeDb({
       commentLikeDbModel: CommentLikeModel,
-      moment,
     });
     const userDb = makeUserDb({
       userDbModel: UserModel,
       moment,
     });
 
-    const createUser = makeCreateUser({ userDb, logger });
+    const createUser = makeCreateUser({ userDb });
     const getPost = makeGetPost({ postDb, logger });
-    const createPost = makeCreatePost({ postDb, logger });
+    const createPost = makeCreatePost({ postDb });
     const countCommentLikeByCommentAndType =
-      makeCountCommentLikeByCommentAndType({ commentLikeDb, logger });
+      makeCountCommentLikeByCommentAndType({ commentLikeDb });
     const getCommentLikeByUserAndComment = makeGetCommentLikeByUserAndComment({
       commentLikeDb,
-      logger,
     });
-    const createComment = makeCreateComment({ commentDb, logger });
+    const createComment = makeCreateComment({ commentDb });
     const getCommentsByPostPaginated = makeGetCommentsByPostPaginated({
       commentDb,
       logger,
@@ -103,7 +101,6 @@ describe("getCommentsByPostPaginated", () => {
         getPost,
         countCommentLikeByCommentAndType,
         getCommentLikeByUserAndComment,
-        logger,
       });
 
     const query_params = fakeQueryParams();

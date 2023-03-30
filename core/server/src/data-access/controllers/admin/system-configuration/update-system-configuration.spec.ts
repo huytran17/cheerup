@@ -12,7 +12,7 @@ import { SystemConfigurationModel } from "../../../models";
 import makeCreateSystemConfiguration from "../../../../use-cases/system-configuration/create-system-configuration";
 import makeUpdateSystemConfiguration from "../../../../use-cases/system-configuration/update-system-configuraion";
 import makeGetSystemConfiguration from "../../../../use-cases/system-configuration/get-system-configuraion";
-import makeUpdateSystemConfigurationController from "./get-system-configuration";
+import makeUpdateSystemConfigurationController from "./update-system-configuration";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import SystemConfiguration from "../../../../database/entities/system-configuration";
 
@@ -37,7 +37,6 @@ describe("updateSystemConfiguration", () => {
 
     const createSystemConfiguration = makeCreateSystemConfiguration({
       systemConfigurationDb,
-      logger,
     });
     const getSystemConfiguration = makeGetSystemConfiguration({
       systemConfigurationDb,
@@ -45,7 +44,6 @@ describe("updateSystemConfiguration", () => {
     });
     const updateSystemConfiguration = makeUpdateSystemConfiguration({
       systemConfigurationDb,
-      logger,
     });
 
     const mock_system_configuration_data = fakeSystemConfiguration();

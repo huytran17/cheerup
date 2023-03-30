@@ -34,14 +34,13 @@ describe("getComment", () => {
       moment,
     });
 
-    const createComment = makeCreateComment({ commentDb, logger });
+    const createComment = makeCreateComment({ commentDb });
     const getComment = makeGetComment({ commentDb, logger });
 
     const mock_comment_data = fakeComment();
 
     const getCommentController = makeGetCommentController({
       getComment,
-      logger,
     });
 
     const created_comment = await createComment({

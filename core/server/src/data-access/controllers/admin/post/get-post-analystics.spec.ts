@@ -34,7 +34,7 @@ describe("getPostAnalystics", () => {
       moment,
     });
 
-    const createPost = makeCreatePost({ postDb, logger });
+    const createPost = makeCreatePost({ postDb });
     const getPostAnalystics = makeGetPostAnalystics({ postDb, logger, redis });
 
     const mock_post_data = fakePost();

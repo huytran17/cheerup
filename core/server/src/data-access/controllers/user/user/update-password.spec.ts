@@ -36,8 +36,8 @@ describe("updatePassword", () => {
       moment,
     });
 
-    const createUser = makeCreateUser({ userDb, logger });
-    const updateUser = makeUpdateUser({ userDb, logger });
+    const createUser = makeCreateUser({ userDb });
+    const updateUser = makeUpdateUser({ userDb });
     const getUser = makeGetUser({
       userDb,
       logger,

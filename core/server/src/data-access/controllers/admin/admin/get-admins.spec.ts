@@ -34,7 +34,7 @@ describe("getAdmins", () => {
       moment,
     });
 
-    const createAdmin = makeCreateAdmin({ adminDb, logger });
+    const createAdmin = makeCreateAdmin({ adminDb });
     const getAdmins = makeGetAdmins({
       adminDb,
       logger,

@@ -39,8 +39,8 @@ describe("createGallery", () => {
       moment,
     });
 
-    const createGallery = makeCreateGallery({ galleryDb, logger });
-    const createUser = makeCreateUser({ userDb, logger });
+    const createGallery = makeCreateGallery({ galleryDb });
+    const createUser = makeCreateUser({ userDb });
 
     const mock_gallery_data = fakeGallery();
     const mock_user_data = fakeUser();

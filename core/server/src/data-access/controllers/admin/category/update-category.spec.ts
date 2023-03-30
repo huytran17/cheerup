@@ -36,9 +36,9 @@ describe("updateCategory", () => {
       moment,
     });
 
-    const createCategory = makeCreateCategory({ categoryDb, logger });
+    const createCategory = makeCreateCategory({ categoryDb });
     const getCategory = makeGetCategory({ categoryDb, logger });
-    const updateCategory = makeUpdateCategory({ categoryDb, logger });
+    const updateCategory = makeUpdateCategory({ categoryDb });
     const getCategoryByTitle = makeGetCategoryByTitle({ categoryDb, logger });
 
     const mock_category_data = fakeCategory();

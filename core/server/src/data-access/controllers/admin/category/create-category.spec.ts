@@ -41,8 +41,8 @@ describe("createCategory", () => {
       moment,
     });
 
-    const createAdmin = makeCreateAdmin({ adminDb, logger });
-    const createCategory = makeCreateCategory({ categoryDb, logger });
+    const createAdmin = makeCreateAdmin({ adminDb });
+    const createCategory = makeCreateCategory({ categoryDb });
     const getCategoryByTitle = makeGetCategoryByTitle({ categoryDb, logger });
 
     const mock_category_data = fakeCategory();

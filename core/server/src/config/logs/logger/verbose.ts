@@ -13,17 +13,11 @@ export default function makeVerboseLogger() {
   return expressWinston.logger({
     transports: [
       new winston.transports.Console({
-        levels: winston.config.syslog.levels,
         format: winston.format.simple(),
         level: "verbose",
       }),
       makeMongooseVerboseLogger(),
       makeMongooseVerboseFileLogger(),
-    ],
-    exitOnError: false,
-    exceptionHandlers: [
-      makeMongooseErrorLogger(),
-      makeMongooseErrorFileLogger(),
     ],
     format: formatLog(),
     meta: false, // optional: control whether you want to log the meta data about the request (default to true)

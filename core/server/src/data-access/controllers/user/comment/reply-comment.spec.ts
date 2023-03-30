@@ -55,13 +55,13 @@ describe("replyComment", () => {
     });
 
     const getPost = makeGetPost({ postDb, logger });
-    const createPost = makeCreatePost({ postDb, logger });
-    const createComment = makeCreateComment({ commentDb, logger });
-    const updateComment = makeUpdateComment({ commentDb, logger });
-    const replyComment = makeReplyComment({ commentDb, logger });
+    const createPost = makeCreatePost({ postDb });
+    const createComment = makeCreateComment({ commentDb });
+    const updateComment = makeUpdateComment({ commentDb });
+    const replyComment = makeReplyComment({ commentDb });
     const getComment = makeGetComment({ commentDb, logger });
     const getUser = makeGetUser({ userDb, logger });
-    const createUser = makeCreateUser({ userDb, logger });
+    const createUser = makeCreateUser({ userDb });
 
     const mock_comment_data = fakeComment();
     const mock_post_data = fakePost();
@@ -90,7 +90,6 @@ describe("replyComment", () => {
       updateComment,
       getPost,
       getUser,
-      logger,
     });
 
     delete final_mock_comment_data._id;

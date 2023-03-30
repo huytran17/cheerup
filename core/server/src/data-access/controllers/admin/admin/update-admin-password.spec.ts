@@ -36,8 +36,8 @@ describe("updateAdminPassword", () => {
       moment,
     });
 
-    const createAdmin = makeCreateAdmin({ adminDb, logger });
-    const updateAdmin = makeUpdateAdmin({ adminDb, logger });
+    const createAdmin = makeCreateAdmin({ adminDb });
+    const updateAdmin = makeUpdateAdmin({ adminDb });
     const getAdmin = makeGetAdmin({
       adminDb,
       logger,

@@ -43,16 +43,13 @@ describe("createOrDeletePostBookmark", () => {
 
     const createPostBookmark = makeCreatePostBookmark({
       postBookmarkDb,
-      logger,
     });
     const hardDeletePostBookmark = makeHardDeletePostBookmark({
       postBookmarkDb,
-      logger,
     });
-    const createUser = makeCreateUser({ userDb, logger });
+    const createUser = makeCreateUser({ userDb });
     const getPostBookmarkByUserAndPost = makeGetPostBookmarkByUserAndPost({
       postBookmarkDb,
-      logger,
     });
 
     const mock_post_bookmark_data = fakePostBookmark();
@@ -66,7 +63,6 @@ describe("createOrDeletePostBookmark", () => {
       createPostBookmark,
       hardDeletePostBookmark,
       getPostBookmarkByUserAndPost,
-      logger,
       moment,
     });
 

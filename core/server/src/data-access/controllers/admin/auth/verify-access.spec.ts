@@ -37,7 +37,7 @@ describe("getMe", () => {
       moment,
     });
 
-    const createAdmin = makeCreateAdmin({ adminDb, logger });
+    const createAdmin = makeCreateAdmin({ adminDb });
 
     const mock_admin_data = fakeAdmin();
 

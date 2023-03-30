@@ -40,7 +40,7 @@ describe("getPosts", () => {
       moment,
     });
 
-    const createPost = makeCreatePost({ postDb, logger });
+    const createPost = makeCreatePost({ postDb });
     const getPosts = makeGetPosts({ postDb, logger });
     const countCommentsByPost = makeCountCommentsByPost({ commentDb, logger });
 
@@ -53,7 +53,6 @@ describe("getPosts", () => {
     const getPostsController = makeGetPostsController({
       getPosts,
       countCommentsByPost,
-      logger,
     });
 
     const request = {

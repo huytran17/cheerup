@@ -54,12 +54,12 @@ describe("hardDeleteComment", () => {
     });
 
     const getPost = makeGetPost({ postDb, logger });
-    const createPost = makeCreatePost({ postDb, logger });
-    const createComment = makeCreateComment({ commentDb, logger });
-    const hardDeleteComment = makeHardDeleteComment({ commentDb, logger });
+    const createPost = makeCreatePost({ postDb });
+    const createComment = makeCreateComment({ commentDb });
+    const hardDeleteComment = makeHardDeleteComment({ commentDb });
     const getComment = makeGetComment({ commentDb, logger });
     const getUser = makeGetUser({ userDb, logger });
-    const createUser = makeCreateUser({ userDb, logger });
+    const createUser = makeCreateUser({ userDb });
 
     const mock_comment_data = fakeComment();
     const mock_user_data = fakeUser();
@@ -85,7 +85,6 @@ describe("hardDeleteComment", () => {
       hardDeleteComment,
       getPost,
       getUser,
-      logger,
     });
 
     const request = {

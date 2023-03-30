@@ -38,7 +38,7 @@ describe("getMe", () => {
 
     const createUser = makeCreateUser({ userDb });
     const getUser = makeGetUser({ userDb, logger });
-    const updateUser = makeUpdateUser({ userDb, logger });
+    const updateUser = makeUpdateUser({ userDb });
     const getSubscriptionByEmail = makeGetSubscriptionByEmail({
       subscriptionDb,
       logger,

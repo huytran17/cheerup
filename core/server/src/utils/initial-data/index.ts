@@ -20,7 +20,6 @@ const createDefaultAdmin = makeCreateDefaultAdmin({
   hashPassword,
   createAdmin,
   logger,
-  DEFAULT_ADMIN_PASSWORD: process.env.DEFAULT_ADMIN_PASSWORD,
 });
 
 export default Object.freeze({

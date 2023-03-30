@@ -60,19 +60,17 @@ describe("createComment", () => {
     });
     const commentLikeDb = makeCommentLikeDb({
       commentLikeDbModel: CommentLikeModel,
-      moment,
     });
 
     const getPost = makeGetPost({ postDb, logger });
-    const createPost = makeCreatePost({ postDb, logger });
-    const createComment = makeCreateComment({ commentDb, logger });
-    const createUser = makeCreateUser({ userDb, logger });
+    const createPost = makeCreatePost({ postDb });
+    const createComment = makeCreateComment({ commentDb });
+    const createUser = makeCreateUser({ userDb });
     const getUser = makeGetUser({ userDb, logger });
     const countCommentLikeByCommentAndType =
-      makeCountCommentLikeByCommentAndType({ commentLikeDb, logger });
+      makeCountCommentLikeByCommentAndType({ commentLikeDb });
     const getCommentLikeByUserAndComment = makeGetCommentLikeByUserAndComment({
       commentLikeDb,
-      logger,
     });
 
     const mock_post_data = fakePost();
@@ -92,7 +90,6 @@ describe("createComment", () => {
       getUser,
       countCommentLikeByCommentAndType,
       getCommentLikeByUserAndComment,
-      logger,
     });
 
     const request = {

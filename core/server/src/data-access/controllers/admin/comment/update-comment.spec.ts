@@ -35,16 +35,15 @@ describe("updateComment", () => {
       moment,
     });
 
-    const createComment = makeCreateComment({ commentDb, logger });
+    const createComment = makeCreateComment({ commentDb });
     const getComment = makeGetComment({ commentDb, logger });
-    const updateComment = makeUpdateComment({ commentDb, logger });
+    const updateComment = makeUpdateComment({ commentDb });
 
     const mock_comment_data = fakeComment();
 
     const updateCommentController = makeUpdateCommentController({
       getComment,
       updateComment,
-      logger,
     });
 
     const created_comment = await createComment({

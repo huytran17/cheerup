@@ -34,14 +34,13 @@ describe("getCategories", () => {
       moment,
     });
 
-    const createCategory = makeCreateCategory({ categoryDb, logger });
+    const createCategory = makeCreateCategory({ categoryDb });
     const getCategories = makeGetCategories({ categoryDb, logger });
 
     const mock_category_data = fakeCategory();
 
     const getCategoriesController = makeGetCategoriesController({
       getCategories,
-      logger,
     });
 
     await createCategory({

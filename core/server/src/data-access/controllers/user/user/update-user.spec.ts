@@ -35,14 +35,13 @@ describe("updateUser", () => {
       moment,
     });
 
-    const createUser = makeCreateUser({ userDb, logger });
+    const createUser = makeCreateUser({ userDb });
     const getUser = makeGetUser({
       userDb,
       logger,
     });
     const updateUser = makeUpdateUser({
       userDb,
-      logger,
     });
 
     const mock_user_data = fakeUser();

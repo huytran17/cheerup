@@ -35,9 +35,9 @@ describe("updateGallery", () => {
       moment,
     });
 
-    const createGallery = makeCreateGallery({ galleryDb, logger });
+    const createGallery = makeCreateGallery({ galleryDb });
     const getGallery = makeGetGallery({ galleryDb, logger });
-    const updateGallery = makeUpdateGallery({ galleryDb, logger });
+    const updateGallery = makeUpdateGallery({ galleryDb });
 
     const mock_gallery_data = fakeGallery();
 

@@ -34,7 +34,7 @@ describe("getComments", () => {
       moment,
     });
 
-    const createComment = makeCreateComment({ commentDb, logger });
+    const createComment = makeCreateComment({ commentDb });
     const getComments = makeGetComments({ commentDb, logger });
 
     const mock_comment_data = fakeComment();
@@ -45,7 +45,6 @@ describe("getComments", () => {
 
     const getCommentsController = makeGetCommentsController({
       getComments,
-      logger,
     });
 
     const request = {

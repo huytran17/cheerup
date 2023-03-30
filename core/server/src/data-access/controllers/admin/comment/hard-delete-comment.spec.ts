@@ -35,16 +35,15 @@ describe("hardDeleteComment", () => {
       moment,
     });
 
-    const createComment = makeCreateComment({ commentDb, logger });
+    const createComment = makeCreateComment({ commentDb });
     const getComment = makeGetComment({ commentDb, logger });
-    const hardDeleteComment = makeHardDeleteComment({ commentDb, logger });
+    const hardDeleteComment = makeHardDeleteComment({ commentDb });
 
     const mock_comment_data = fakeComment();
 
     const hardDeleteCommentController = makeHardDeleteCommentController({
       getComment,
       hardDeleteComment,
-      logger,
     });
 
     const created_comment = await createComment({

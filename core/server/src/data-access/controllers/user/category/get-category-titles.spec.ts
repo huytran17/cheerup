@@ -33,7 +33,7 @@ describe("getCategoryTitles", () => {
     });
 
     const getCategoryTitles = makeGetCategoryTitles({ categoryDb, logger });
-    const createCategory = makeCreateCategory({ categoryDb, logger });
+    const createCategory = makeCreateCategory({ categoryDb });
 
     const mock_category_data = fakeCategory();
 
@@ -43,7 +43,6 @@ describe("getCategoryTitles", () => {
 
     const getCategoryTitlesController = makeGetCategoryTitlesController({
       getCategoryTitles,
-      logger,
     });
 
     const request = {

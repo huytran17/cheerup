@@ -34,7 +34,7 @@ describe("getCategoryAnalystics", () => {
       moment,
     });
 
-    const createCategory = makeCreateCategory({ categoryDb, logger });
+    const createCategory = makeCreateCategory({ categoryDb });
     const getCategoryAnalystics = makeGetCategoryAnalystics({
       categoryDb,
       logger,

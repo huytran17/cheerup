@@ -14,7 +14,6 @@ import makeReplyComment from "./reply-comment";
 
 const replyComment = makeReplyComment({
   commentDb: CommentDb,
-  logger,
 });
 
 const getCommentsByPostPaginated = makeGetCommentsByPostPaginated({
@@ -34,7 +33,6 @@ const getCommentsByParent = makeGetCommentsByParent({
 
 const createComment = makeCreateComment({
   commentDb: CommentDb,
-  logger,
 });
 
 const getComment = makeGetComment({

@@ -43,7 +43,6 @@ describe("verifyAccess", () => {
       getUserByEmail,
       generateAccessToken,
       verifyPassword,
-      logger,
     });
 
     const sign_in_request = {

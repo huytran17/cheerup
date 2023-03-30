@@ -36,7 +36,6 @@ describe("getSubscriptions", () => {
 
     const createSubscription = makeCreateSubscription({
       subscriptionDb,
-      logger,
     });
     const getSubscriptions = makeGetSubscriptions({ subscriptionDb, logger });
 
@@ -48,7 +47,6 @@ describe("getSubscriptions", () => {
 
     const getSubscriptionsController = makeGetSubscriptionsController({
       getSubscriptions,
-      logger,
     });
 
     const request = {

@@ -34,8 +34,8 @@ describe("getUserByEmail", () => {
       moment,
     });
 
-    const createUser = makeCreateUser({ userDb, logger });
-    const getUserByEmail = makeGetUserByEmail({ userDb, logger });
+    const createUser = makeCreateUser({ userDb });
+    const getUserByEmail = makeGetUserByEmail({ userDb });
 
     const mock_user_data = fakeUser();
 

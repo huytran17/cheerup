@@ -34,7 +34,7 @@ describe("getPosts", () => {
       moment,
     });
 
-    const createPost = makeCreatePost({ postDb, logger });
+    const createPost = makeCreatePost({ postDb });
     const getPosts = makeGetPosts({ postDb, logger });
 
     const mock_post_data = fakePost();
@@ -45,7 +45,6 @@ describe("getPosts", () => {
 
     const getPostsController = makeGetPostsController({
       getPosts,
-      logger,
     });
 
     const request = {

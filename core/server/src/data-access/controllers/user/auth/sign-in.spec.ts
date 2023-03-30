@@ -41,7 +41,6 @@ describe("signIn", () => {
       getUserByEmail,
       generateAccessToken,
       verifyPassword,
-      logger,
     });
 
     const request = {

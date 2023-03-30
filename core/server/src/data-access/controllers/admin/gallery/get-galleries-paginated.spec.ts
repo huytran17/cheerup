@@ -37,7 +37,7 @@ describe("getGalleriesPaginated", () => {
       moment,
     });
 
-    const createGallery = makeCreateGallery({ galleryDb, logger });
+    const createGallery = makeCreateGallery({ galleryDb });
     const getGalleriesPaginated = makeGetGalleriesPaginated({
       galleryDb,
       logger,
@@ -51,7 +51,6 @@ describe("getGalleriesPaginated", () => {
     const getGalleriesPaginatedController = makeGetGalleriesPaginatedController(
       {
         getGalleriesPaginated,
-        logger,
       }
     );
 

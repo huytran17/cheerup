@@ -52,9 +52,9 @@ describe("createPost", () => {
       moment,
     });
 
-    const createAdmin = makeCreateAdmin({ adminDb, logger });
-    const createPost = makeCreatePost({ postDb, logger });
-    const updatePost = makeUpdatePost({ postDb, logger });
+    const createAdmin = makeCreateAdmin({ adminDb });
+    const createPost = makeCreatePost({ postDb });
+    const updatePost = makeUpdatePost({ postDb });
     const getAdmin = makeGetAdmin({ adminDb, logger });
     const getActivatingSubscriptions = makeGetActivatingSubscriptions({
       subscriptionDb,
