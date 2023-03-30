@@ -11,14 +11,6 @@ export default interface IComment {
   parent: Comment;
   is_parent: boolean;
   has_children: boolean;
-  reports?: {
-    created_by: User;
-    created_at: Date;
-    reasons: {
-      main_reason: string;
-      other_reason: string;
-    };
-  }[];
   created_at: Date;
   updated_at: Date;
 }

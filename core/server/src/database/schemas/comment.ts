@@ -13,18 +13,6 @@ const commentSchema = new Schema({
   post: { type: Schema.Types.ObjectId, ref: "Post" },
   parent: { type: Schema.Types.ObjectId, ref: "Comment" },
   children: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
-  reports: [
-    {
-      created_by: { type: Schema.Types.ObjectId, ref: "User" },
-      created_at: { type: Date, default: Date.now },
-      reasons: [
-        {
-          main_reason: { type: String, trim: true },
-          other_reason: { type: String, trim: true },
-        },
-      ],
-    },
-  ],
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now },
 });

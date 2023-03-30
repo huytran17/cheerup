@@ -6,14 +6,6 @@ export default class Comment implements IComment {
   public readonly _id: string;
   public readonly content: string;
   public readonly user: User;
-  public readonly reports?: {
-    created_by: User;
-    created_at: Date;
-    reasons: {
-      main_reason: string;
-      other_reason: string;
-    };
-  }[];
   public readonly post: Post;
   public readonly parent: Comment;
   public readonly is_parent: boolean;
