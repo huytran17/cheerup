@@ -10,7 +10,8 @@
     "dev": "nodemon src/app.ts",
     "dc:up": "docker-compose up -d",
     "dc:down": "docker-compose down",
-    "build": "rimraf dist && tsc",
+    "copy-files": "copyfiles src/**/*.html dist/",
+    "build": "rimraf dist && tsc && yarn copy-files",
     "ts.check": "tsc --project tsconfig.json",
     "add-build": "git add dist"
   },
@@ -77,6 +78,7 @@
     "@types/passport-jwt": "^3.0.6",
     "@types/request-ip": "^0.0.37",
     "@types/validatorjs": "^3.15.0",
+    "copyfiles": "^2.4.1",
     "jest": "^29.3.1",
     "pre-commit": "^1.2.2",
     "rimraf": "^4.1.2",
