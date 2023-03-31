@@ -25,5 +25,5 @@
     "./__tests__/*",
     "src/**/*.spec.ts"
   ],
-  "include": ["src", "src/**/*.html"]
+  "include": ["src"]
 }
