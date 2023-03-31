@@ -16,21 +16,16 @@ async function makeDb() {
 
 export function makeDatabaseURL(): string {
   const {
-    MONGO_INITDB_ROOT_USERNAME = "admin",
-    MONGO_INITDB_ROOT_PASSWORD = "Passw0rd",
-    MONGO_INITDB_HOSTNAME = "localhost",
-    MONGO_INITDB_PORT = 27017,
-    MONGO_INITDB_DATABASE = "blog",
+    MONGO_INITDB_ROOT_USERNAME,
+    MONGO_INITDB_ROOT_PASSWORD,
+    MONGO_INITDB_HOSTNAME,
+    MONGO_INITDB_PORT,
+    MONGO_INITDB_DATABASE,
   } = process.env;
+
   const DATABASE_URL = `mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@${MONGO_INITDB_HOSTNAME}:${MONGO_INITDB_PORT}/${MONGO_INITDB_DATABASE}?authSource=admin`;
 
   return DATABASE_URL;
-}
-
-export function makeLogsDatabaseURL(): string {
-  const DATABASE_URL = process.env.MONGO_INITDB_LOGS_DATABASE_URL;
-
-  return DATABASE_URL || makeDatabaseURL();
 }
 
 export function makeDatabaseOptions() {

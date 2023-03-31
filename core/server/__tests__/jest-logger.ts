@@ -1,5 +1,4 @@
 import winston from "winston";
-require("winston-mongodb");
 
 export const logger = winston.createLogger({
   transports: [
