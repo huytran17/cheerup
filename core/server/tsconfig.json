@@ -19,11 +19,7 @@
     "./node_modules/@types/node/index.d.ts",
     "dist",
     "./dist",
-    "./dist/*",
-    "__tests__",
-    "./__tests__",
-    "./__tests__/*",
-    "src/**/*.spec.ts"
+    "./dist/*"
   ],
   "include": ["src"]
 }

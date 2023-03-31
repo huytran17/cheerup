@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import postMixins from "@/mixins/post";
 import commentMixins from "@/mixins/comment";
 import BasePostPanel from "@/components/post/BasePostPanel";
@@ -54,11 +54,37 @@ export default {
   computed: {
     ...mapGetters({
       me: "auth/me",
+      post: "post/post",
     }),
 
     has_suggestion_posts() {
       return this.suggestion_posts.length;
     },
+  },
+  methods: {
+    ...mapActions({
+      UPDATE_POST: "post/UPDATE_POST",
+    }),
+  },
+
+  async mounted() {
+    try {
+      const payload = {
+        ...this.post,
+        views: this.post?.views + 1 || 0,
+      };
+
+      const duration_in_milliseconds = Math.round(
+        ((this.post?.reading_time?.time || 0) * 30) / 100
+      );
+
+      setTimeout(
+        async () => await this.UPDATE_POST({ data: payload }),
+        duration_in_milliseconds
+      );
+    } catch (error) {
+      console.error(error);
+    }
   },
 };
 </script>

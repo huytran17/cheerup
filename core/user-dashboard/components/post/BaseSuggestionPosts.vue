@@ -20,7 +20,7 @@
     >
       <div
         class="d-flex flex-column post__card rounded pb-2"
-        v-for="post in posts_data"
+        v-for="post in suggestion_posts"
         :key="post._id"
       >
         <div class="d-flex justify-center">
