@@ -187,7 +187,7 @@ export default {
       const category_ratio = _.get(
         this.most_popular_posts_analys_data,
         "category_ratio",
-        0
+        {}
       );
 
       const category_titles = _.keys(category_ratio);
