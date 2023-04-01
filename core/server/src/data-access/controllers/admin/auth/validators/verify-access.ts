@@ -1,4 +1,4 @@
 const verifyAccessRules = {
-  access_token: "required|string",
+  access_token: "string",
 };
 export default verifyAccessRules;
