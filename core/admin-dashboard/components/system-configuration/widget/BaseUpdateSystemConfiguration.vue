@@ -6,19 +6,14 @@
       >
     </v-col>
     <v-col cols="12">
-      <v-form v-model="form_valid">
+      <v-form>
         <BaseUpdateAdminData />
         <BaseUpdateClientData />
         <BaseUpdateSystemConfigurationData />
 
         <v-row>
           <v-col cols="12" class="d-flex justify-end pr-0">
-            <v-btn
-              depressed
-              color="primary"
-              :disabled="!form_valid"
-              @click="updateSystemConfiguration"
-            >
+            <v-btn depressed color="primary" @click="updateSystemConfiguration">
               <span v-html="$t('Update')"></span>
             </v-btn>
           </v-col>
@@ -43,11 +38,6 @@ export default {
     BaseUpdateAdminData,
     BaseUpdateClientData,
     BaseUpdateSystemConfigurationData,
-  },
-  data() {
-    return {
-      form_valid: false,
-    };
   },
 
   methods: {

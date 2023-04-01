@@ -8,7 +8,6 @@
     <v-col cols="12" md="6">
       <v-text-field
         :value="system_configuration.admin_meta?.title"
-        :rules="titleRules"
         :label="$t('Title')"
         @input="
           updateSystemConfigurationObject({
@@ -21,7 +20,6 @@
     <v-col cols="12" md="6">
       <v-text-field
         :value="system_configuration.admin_meta?.description"
-        :rules="descriptionRules"
         :label="$t('Description')"
         @input="
           updateSystemConfigurationObject({
@@ -34,7 +32,6 @@
     <v-col cols="12" md="6">
       <v-text-field
         :value="system_configuration.admin_meta?.author"
-        :rules="authorRules"
         :label="$t('Author')"
         @input="
           updateSystemConfigurationObject({

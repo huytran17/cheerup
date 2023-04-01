@@ -7,7 +7,6 @@ const Schema = mongoose.Schema;
 const systemConfigurationSchema = new Schema(
   {
     is_blocked_comment: { type: Boolean, default: false },
-    is_maintaining: { type: Boolean, default: false },
     client_meta: {
       title: { type: String, default: "" },
       description: { type: String, default: "" },

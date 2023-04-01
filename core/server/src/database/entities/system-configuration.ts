@@ -3,7 +3,6 @@ import ISystemConfiguration from "../interfaces/system-configuration";
 export default class SystemConfiguration implements ISystemConfiguration {
   public readonly _id: string;
   public readonly is_blocked_comment: boolean;
-  public readonly is_maintaining: boolean;
   public readonly admin_logo_url?: string;
   public readonly admin_favicon_url?: string;
   public readonly admin_folder_icon_url?: string;
@@ -35,7 +34,6 @@ export default class SystemConfiguration implements ISystemConfiguration {
   constructor({
     _id,
     is_blocked_comment,
-    is_maintaining,
     client_meta,
     admin_meta,
     admin_logo_url,
@@ -47,7 +45,6 @@ export default class SystemConfiguration implements ISystemConfiguration {
   }: ISystemConfiguration) {
     this._id = _id;
     this.is_blocked_comment = is_blocked_comment;
-    this.is_maintaining = is_maintaining;
     this.client_meta = client_meta;
     this.admin_meta = admin_meta;
     this.admin_logo_url = admin_logo_url;

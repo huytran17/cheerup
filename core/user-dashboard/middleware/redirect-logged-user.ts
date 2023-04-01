@@ -1,6 +1,6 @@
 import { Context } from "@nuxt/types";
 
-export default async function ({ store, redirect }: Context) {
+export default async function ({ store, redirect, app }: Context) {
   try {
     const access_token = localStorage.getItem("access_token");
 
@@ -9,7 +9,7 @@ export default async function ({ store, redirect }: Context) {
     });
 
     if (email) {
-      return redirect("/");
+      return redirect(app.localePath("/"));
     }
   } catch (error) {
     console.error(error);

@@ -112,7 +112,7 @@ export default {
   },
   async fetch() {
     try {
-      await this.COUNT_POST_BOOKMARKS();
+      this.has_user && (await this.COUNT_POST_BOOKMARKS());
     } catch (error) {
       console.error(error);
     }

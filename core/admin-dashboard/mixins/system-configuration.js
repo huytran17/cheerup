@@ -2,17 +2,6 @@ import _ from "lodash";
 import { mapActions, mapMutations, mapGetters } from "vuex";
 
 export default {
-  data() {
-    return {
-      titleRules: [(v) => !!v || this.$t("Title is required.")],
-      ownerNameRules: [(v) => !!v || this.$t("Owner name is required.")],
-      ownerDescriptionRules: [
-        (v) => !!v || this.$t("Owner description is required."),
-      ],
-      authorRules: [(v) => !!v || this.$t("Author is required.")],
-      descriptionRules: [(v) => !!v || this.$t("Description is required.")],
-    };
-  },
   computed: {
     ...mapGetters({
       system_configuration: "system-configuration/system_configuration",

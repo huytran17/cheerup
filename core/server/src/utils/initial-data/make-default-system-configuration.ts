@@ -20,7 +20,6 @@ export default function makeCreateDefaultSystemConfiguration({
   return async function createDefaultSystemConfiguration(): Promise<ISystemConfiguration | null> {
     const systemConfigurationDetails = {
       is_blocked_comment: false,
-      is_maintaining: false,
     };
 
     const system_configuration = await getOneSystemConfiguration();
