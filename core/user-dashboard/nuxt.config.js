@@ -3,10 +3,8 @@ import vi from "./locales/vi.json";
 import en from "./locales/en.json";
 
 export default {
-  // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
-  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: "%s",
     title: "user-dashboard",
@@ -26,10 +24,8 @@ export default {
     port: 8082,
   },
 
-  // Global CSS: https://go.nuxtjs.dev/config-css
   css: ["~/assets/style", "~/assets/variables"],
 
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     "~/plugins/vuetify",
     "~/directives/private",
@@ -44,24 +40,11 @@ export default {
     { src: "~/plugins/vue-slick-carousel", mode: "client" },
   ],
 
-  // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [
-    // https://go.nuxtjs.dev/typescript
-    "@nuxt/typescript-build",
-    // https://go.nuxtjs.dev/vuetify
-    "@nuxtjs/vuetify",
-    "@nuxtjs/moment",
-  ],
+  buildModules: ["@nuxt/typescript-build", "@nuxtjs/vuetify", "@nuxtjs/moment"],
 
-  // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-    // https://go.nuxtjs.dev/axios
-    "@nuxtjs/axios",
-    "@nuxtjs/i18n",
-  ],
+  modules: ["@nuxtjs/axios", "@nuxtjs/i18n"],
 
   i18n: {
     strategy: "prefix",
@@ -78,13 +61,10 @@ export default {
     skipSettingLocaleOnNavigate: true,
   },
 
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: `${process.env.SERVER_URL}/api`,
   },
 
-  // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     theme: {
       dark: false,
@@ -109,9 +89,6 @@ export default {
       },
     },
   },
-
-  // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
 
   env: {
     SERVER_URL: process.env.SERVER_URL || "http://localhost:3000",

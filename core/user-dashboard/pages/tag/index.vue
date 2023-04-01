@@ -12,7 +12,7 @@ export default {
   async asyncData({ store, query }) {
     try {
       const tags = query.tags;
-      store.commit("post/SET_TAGS_FILTERS", { data: [tags] }); // use for infinite loading
+      store.commit("post/SET_TAGS_FILTERS", { data: [tags] });
 
       await store.dispatch("post/GET_POSTS_PAGINATED", {
         tags: [tags],

@@ -10,15 +10,13 @@ import "vuetify/dist/vuetify.min.css";
 
 const vuetify = new Vuetify({
   icons: {
-    iconfont: "mdi", // default - only for display purposes
+    iconfont: "mdi",
   },
 });
 
 Vue.use(Vuetify);
 Vue.use(TiptapVuetifyPlugin, {
-  // the next line is important! You need to provide the Vuetify Object to this place.
-  vuetify, // same as "vuetify: vuetify"
-  // optional, default to 'md' (default vuetify icons before v2.0.0)
+  vuetify,
   iconsGroup: "mdiSvg",
 });
 

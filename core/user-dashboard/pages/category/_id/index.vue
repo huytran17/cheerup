@@ -13,7 +13,7 @@ export default {
     try {
       const category_id = params.id;
 
-      store.commit("post/SET_CATEGORIES_FILTERS", { data: [category_id] }); // use for infinite loading
+      store.commit("post/SET_CATEGORIES_FILTERS", { data: [category_id] });
 
       await store.dispatch("post/GET_POSTS_PAGINATED", {
         categories: [category_id],

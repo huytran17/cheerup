@@ -26,13 +26,13 @@ const app = express();
 process.env.NODE_ENV === "production" && app.use(expressRateLimit());
 
 app.use(requestIp.mw());
+app.use(upload.single("file"));
 app.use(cors());
 app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(appRouter);
-app.use(upload.single("file"));
 
 app.listen(process.env.SERVER_PORT, () =>
   console.log(`Server is listening on port ${process.env.SERVER_PORT}`)

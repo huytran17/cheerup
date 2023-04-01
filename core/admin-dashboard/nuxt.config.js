@@ -3,10 +3,8 @@ import vi from "./locales/vi.json";
 import en from "./locales/en.json";
 
 export default {
-  // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
-  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: "%s - admin-dashboard",
     title: "admin-dashboard",
@@ -22,14 +20,12 @@ export default {
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
   },
 
-  // Global CSS: https://go.nuxtjs.dev/config-css
   css: ["~/assets/style", "~/assets/variables"],
 
   server: {
     port: 8080,
   },
 
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     "~/plugins/vuetify",
     "~/plugins/router",
@@ -44,13 +40,10 @@ export default {
     { src: "~/plugins/apex-chart", mode: "client" },
   ],
 
-  // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: ["@nuxt/typescript-build", "@nuxtjs/vuetify", "@nuxtjs/moment"],
 
-  // Modules: https://go.nuxtjs.dev/config-modules
   modules: ["@nuxtjs/axios", "@nuxtjs/i18n"],
 
   i18n: {
@@ -68,12 +61,10 @@ export default {
     skipSettingLocaleOnNavigate: true,
   },
 
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     baseURL: `${process.env.SERVER_URL}/admin`,
   },
 
-  // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: [],
     theme: {
@@ -100,9 +91,6 @@ export default {
       },
     },
   },
-
-  // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
 
   env: {
     SERVER_URL: process.env.SERVER_URL || "http://localhost:3000",

@@ -55,7 +55,6 @@ export type Mailer = {
 };
 
 export default Object.freeze({
-  // NOTE: disabled email sending for unit testing purposes only
   sendMail: async (payload: IEmailData) => {
     return payload;
   },
