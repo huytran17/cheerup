@@ -81,14 +81,21 @@
               ></v-autocomplete>
             </v-col>
             <v-col cols="12" sm="6">
-              <v-text-field
-                class="source-input"
-                :label="$t('Source')"
-                clearable
-                @input="
-                  updatePostObject({ variable_path: 'source', data: $event })
+              <div class="text-body-2 mb-2">
+                <span class="app-body">
+                  <span v-html="$t('Source')"></span>
+                </span>
+              </div>
+              <TiptapEditor
+                :content="post"
+                attr="source"
+                @on-input="
+                  updatePostObject({
+                    variable_path: 'source',
+                    data: $event,
+                  })
                 "
-              ></v-text-field>
+              />
             </v-col>
           </v-row>
           <v-row>

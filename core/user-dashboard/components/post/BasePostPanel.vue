@@ -67,10 +67,10 @@
       </span>
     </div>
 
-    <div v-if="post.source" class="text-body-2 text-sm-body-1 grey--text mt-2">
+    <div v-if="post.source" class="text-body-2 text-sm-body-1 mt-2">
       <span class="app-body">
         <span v-html="$t('Source: ')"></span>
-        <span class="font-italic">{{ post.source }}</span>
+        <span class="post__source" v-html="post.source"></span>
       </span>
     </div>
 
@@ -181,23 +181,17 @@ export default {
       const post_url = `${current_url_origin}/post/${this.post._id}`;
 
       let share_url = "";
+      const encodedURI = encodeURIComponent(post_url);
+
       switch (type) {
         case SOCIAL_MEDIA_TYPES.FACEBOOK:
-          share_url = `https://www.facebook.com/share.php?u=${encodeURIComponent(
-            post_url
-          )}`;
+          share_url = `https://www.facebook.com/share.php?u=${encodedURI}`;
           break;
         case SOCIAL_MEDIA_TYPES.TWITTER:
-          share_url = `https://twitter.com/intent/tweet?text=${
-            this.post.title
-          }?url=${encodeURIComponent(post_url)}`;
+          share_url = `https://twitter.com/intent/tweet?text=${this.post?.title}?url=${encodedURI}`;
           break;
         case SOCIAL_MEDIA_TYPES.PINTEREST:
-          share_url = `http://pinterest.com/pin/create/button?url=${encodeURIComponent(
-            post_url
-          )}&description=${this.post.description}&media=${
-            this.post.thumbnail_url
-          }`;
+          share_url = `http://pinterest.com/pin/create/button?url=${encodedURI}&description=${this.post?.description}&media=${this.post?.thumbnail_url}`;
           break;
       }
 
@@ -214,5 +208,9 @@ export default {
 <style scoped>
 :deep(.v-chip--label) {
   border-radius: 0 !important;
+}
+:deep(.post__source *) {
+  display: inline !important;
+  text-decoration: none !important;
 }
 </style>
