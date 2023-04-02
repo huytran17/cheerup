@@ -53,6 +53,11 @@ export default {
     BaseSuggestionPosts,
     BaseCommentPanel,
   },
+  data() {
+    return {
+      timeout: undefined,
+    };
+  },
   computed: {
     ...mapGetters({
       me: "auth/me",
@@ -80,13 +85,17 @@ export default {
         ((this.post?.reading_time?.time || 0) * 30) / 100
       );
 
-      setTimeout(
+      this.timeout = setTimeout(
         async () => await this.UPDATE_POST({ data: payload }),
         duration_in_milliseconds
       );
     } catch (error) {
       console.error(error);
     }
+  },
+
+  destroyed() {
+    clearTimeout(this.timeout);
   },
 };
 </script>
