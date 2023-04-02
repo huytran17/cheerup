@@ -180,23 +180,16 @@ export default {
       const post_url = `${current_url_origin}/post/${this.post_data._id}`;
 
       let share_url = "";
+      const encodedURI = encodeURIComponent(post_url);
       switch (type) {
         case SOCIAL_MEDIA_TYPES.FACEBOOK:
-          share_url = `https://www.facebook.com/share.php?u=${encodeURIComponent(
-            post_url
-          )}`;
+          share_url = `https://www.facebook.com/share.php?u=${encodedURI}`;
           break;
         case SOCIAL_MEDIA_TYPES.TWITTER:
-          share_url = `https://twitter.com/intent/tweet?text=${
-            this.post_data.title
-          }?url=${encodeURIComponent(post_url)}`;
+          share_url = `https://twitter.com/intent/tweet?text=${this.post_data.title}?url=${encodedURI}`;
           break;
         case SOCIAL_MEDIA_TYPES.PINTEREST:
-          share_url = `http://pinterest.com/pin/create/button?url=${encodeURIComponent(
-            post_url
-          )}&description=${this.post_data.description}&media=${
-            this.post_data.thumbnail_url
-          }`;
+          share_url = `http://pinterest.com/pin/create/button?url=${encodedURI}&description=${this.post_data.description}&media=${this.post_data.thumbnail_url}`;
           break;
       }
 

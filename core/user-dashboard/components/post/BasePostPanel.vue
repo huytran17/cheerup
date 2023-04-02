@@ -50,11 +50,20 @@
       <span class="app-body" v-html="post.content"></span>
     </div>
 
-    <div class="text-caption grey--text text-uppercase">
+    <div v-if="has_tags" class="text--small">
       <v-icon small color="black">mdi-tag</v-icon>
       <span class="app-body">
-        <span v-html="$t('Tags: ')"></span>
-        <span>{{ post.tags.join(", ") }}</span>
+        <span class="text-uppercase" v-html="$t('Tags: ')"></span>
+        <span v-for="(tag, index) in post.tags" :key="`tag-${index}`"
+          ><v-chip
+            class="px-1 clickable white--text mr-1"
+            color="brick"
+            x-small
+            @click="searchByTag({ tag })"
+          >
+            {{ tag }}
+          </v-chip></span
+        >
       </span>
     </div>
 
@@ -128,6 +137,10 @@ export default {
     has_categories() {
       return !_.isEmpty(this.post.categories);
     },
+
+    has_tags() {
+      return !_.isEmpty(this.post.tags);
+    },
   },
   methods: {
     ...mapActions({
@@ -135,6 +148,13 @@ export default {
         "post-bookmark/CREATE_OR_DELETE_POST_BOOKMARK",
       COUNT_POST_BOOKMARKS: "post-bookmark/COUNT_POST_BOOKMARKS",
     }),
+
+    searchByTag({ tag }) {
+      this.$router.push({
+        path: this.localePath("/tag"),
+        query: { tag },
+      });
+    },
 
     async addOrDeletePostToBookmark() {
       try {

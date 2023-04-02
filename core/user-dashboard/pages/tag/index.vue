@@ -10,11 +10,11 @@ export default {
   name: "CategoryIndexPage",
   async asyncData({ store, query }) {
     try {
-      const tags = query.tags;
-      store.commit("post/SET_TAGS_FILTERS", { data: [tags] });
+      const tag = query.tag;
+      store.commit("post/SET_TAG_FILTERS", { data: [tag] });
 
       await store.dispatch("post/GET_POSTS_PAGINATED", {
-        tags: [tags],
+        tags: [tag],
         user_id: _.get(store.getters["auth/me"], "_id"),
       });
     } catch (error) {
