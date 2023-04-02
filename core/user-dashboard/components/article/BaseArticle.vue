@@ -182,7 +182,7 @@ export default {
       let share_url = "";
       switch (type) {
         case SOCIAL_MEDIA_TYPES.FACEBOOK:
-          share_url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+          share_url = `https://www.facebook.com/share.php?u=${encodeURIComponent(
             post_url
           )}`;
           break;
