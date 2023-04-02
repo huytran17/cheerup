@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import TheSideNav from "@/components/TheSideNav";
 import BaseAppOverlay from "@/components/BaseAppOverlay";
 
@@ -26,11 +26,6 @@ export default {
   computed: {
     ...mapGetters({
       app_loading: "app_loading",
-    }),
-  },
-  methods: {
-    ...mapActions({
-      GET_ME: "auth/GET_ME",
     }),
   },
 };

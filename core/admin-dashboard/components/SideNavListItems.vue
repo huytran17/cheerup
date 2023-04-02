@@ -126,14 +126,13 @@ export default {
 
   methods: {
     ...mapActions({
-      GET_ME: "auth/GET_ME",
       SIGN_OUT: "auth/SIGN_OUT",
     }),
 
     async signOut() {
       try {
         await this.SIGN_OUT();
-        await this.GET_ME();
+        this.$router.push(this.localePath("/login"));
       } catch (error) {
         console.error(error);
       }
