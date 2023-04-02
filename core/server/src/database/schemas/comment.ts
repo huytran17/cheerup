@@ -8,9 +8,9 @@ import IComment from "../interfaces/comment";
 const Schema = mongoose.Schema;
 
 const commentSchema = new Schema({
-  content: { type: String, trim: true },
+  content: { type: String, trim: true, required: true },
   user: { type: Schema.Types.ObjectId, ref: "User" },
-  post: { type: Schema.Types.ObjectId, ref: "Post" },
+  post: { type: Schema.Types.ObjectId, ref: "Post", required: true },
   parent: { type: Schema.Types.ObjectId, ref: "Comment" },
   children: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   created_at: { type: Date, default: Date.now },
