@@ -9,9 +9,6 @@ export default {
   name: "IndexPage",
   async asyncData({ store, route }) {
     try {
-      const access_token = localStorage.getItem("access_token");
-      !_.isNil(access_token) && (await store.dispatch("auth/GET_ME"));
-
       await store.dispatch("post/GET_POSTS_PAGINATED", {
         user_id: _.get(store.getters["auth/me"], "_id"),
         query: route.query.search,

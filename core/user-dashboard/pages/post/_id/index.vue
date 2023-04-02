@@ -23,9 +23,11 @@ export default {
   async asyncData({ store, params }) {
     try {
       const post_id = params.id;
+      const user_id = _.get(store.getters["auth/me"], "_id");
+
       const post = await store.dispatch("post/GET_POST", {
         id: post_id,
-        user_id: _.get(store.getters["auth/me"], "_id"),
+        user_id,
       });
 
       const post_categories = _.get(post, "categories", []) || [];
@@ -36,9 +38,10 @@ export default {
           categories: category_ids,
           exclude_ids: [post_id],
         }),
-        store.dispatch("comment/GET_COMMENTS_BY_POST_PAGINATED", {
-          post_id,
-        }),
+        user_id &&
+          store.dispatch("comment/GET_COMMENTS_BY_POST_PAGINATED", {
+            post_id,
+          }),
       ]);
     } catch (error) {
       console.error(error);

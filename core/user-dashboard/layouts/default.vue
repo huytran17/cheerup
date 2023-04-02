@@ -56,6 +56,7 @@ import BaseLanguageSwitcher from "@/components/BaseLanguageSwitcher";
 
 export default {
   name: "DefaultLayout",
+  middleware: ["verify-access"],
   mixins: [systemMixins, authMixins],
   components: {
     BaseAppBar,
