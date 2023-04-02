@@ -1,7 +1,6 @@
 import password_jwt from "passport-jwt";
 import { PassportStatic } from "passport";
-import { UserDb, AdminDb } from "../../../data-access";
-import _ from "lodash";
+import { UserModel, AdminModel } from "../../../data-access/models";
 
 export default function initializeJWT(
   passport: PassportStatic,
@@ -14,38 +13,40 @@ export default function initializeJWT(
     secretOrKey,
     jwtFromRequest: ExtractJwt.fromExtractors([
       ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ExtractJwt.fromUrlQueryParameter("t"),
     ]),
   };
 
   passport.use(
     "user-jwt",
     new JwtStrategy(opts, async function (jwt_payload, done) {
-      const exist = await UserDb.findByEmail({
+      const exists = await UserModel.findOne({
         email: jwt_payload.email,
-        is_include_deleted: false,
+        hash_password: jwt_payload.hash_password,
+        deleted_at: { $in: [null, undefined] },
       });
 
-      if (!exist) {
+      if (!exists) {
         return done(null, null);
       }
 
-      return done(null, exist);
+      return done(null, exists);
     })
   );
 
   passport.use(
     "admin-jwt",
     new JwtStrategy(opts, async function (jwt_payload, done) {
-      const exist = await AdminDb.findByEmail({
+      const exists = await AdminModel.findOne({
         email: jwt_payload.email,
+        hash_password: jwt_payload.hash_password,
+        deleted_at: { $in: [null, undefined] },
       });
 
-      if (!exist) {
+      if (!exists) {
         return done(null, null);
       }
 
-      return done(null, exist);
+      return done(null, exists);
     })
   );
 

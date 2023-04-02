@@ -37,7 +37,8 @@ export default function initializeFacebook(
         email: profile.emails[0]?.value,
       });
 
-      if (exist.deleted_at) {
+      const deleted_user = exist && exist.deleted_at;
+      if (deleted_user) {
         return done(null, null);
       }
 

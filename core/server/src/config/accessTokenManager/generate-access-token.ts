@@ -1,7 +1,7 @@
 import { IJwtGenerate } from "./accessToken";
 
 export type IGenerateAccessToken = (
-  payload: { email: string },
+  payload: { email: string; hash_password: string },
   options?: { expiresIn: string | number }
 ) => Promise<string>;
 
