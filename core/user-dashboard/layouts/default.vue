@@ -2,7 +2,7 @@
   <v-app>
     <v-main>
       <v-container>
-        <v-row class="pb-5 pb-md-15">
+        <v-row class="pb-5 pb-md-12">
           <v-col cols="12">
             <BaseAppBar />
           </v-col>
