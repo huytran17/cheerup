@@ -1,4 +1,4 @@
-import IComment, { CommentType } from "../interfaces/comment";
+import IComment from "../interfaces/comment";
 import User from "./user";
 import Post from "./post";
 
@@ -6,8 +6,6 @@ export default class Comment implements IComment {
   public readonly _id: string;
   public readonly content: string;
   public readonly user: User;
-  public readonly guest: Record<string, unknown>;
-  public readonly type: CommentType;
   public readonly post: Post;
   public readonly parent: Comment;
   public readonly is_parent: boolean;
@@ -27,8 +25,6 @@ export default class Comment implements IComment {
     has_children,
     created_at,
     updated_at,
-    guest,
-    type,
   }: IComment) {
     this._id = _id;
     this.content = content;
@@ -40,7 +36,5 @@ export default class Comment implements IComment {
     this.is_parent = is_parent;
     this.created_at = created_at;
     this.updated_at = updated_at;
-    this.guest = guest;
-    this.type = type;
   }
 }
