@@ -28,7 +28,7 @@
           </v-tooltip>
         </div>
         <div
-          :class="me.full_name ? 'pt-4' : ''"
+          :class="{ 'pt-4': me.full_name }"
           class="d-flex justify-center small--text text-left"
         >
           <span

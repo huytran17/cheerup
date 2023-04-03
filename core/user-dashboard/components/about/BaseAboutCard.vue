@@ -45,15 +45,6 @@
           ></span>
         </div>
       </div>
-      <div class="text-body-3 text-sm-body-2 text-uppercase text-left">
-        <div class="py-2 card-item__wrapper">
-          <span
-            class="app-body clickable card-item__title"
-            v-html="$t('Support')"
-            @click="$router.push(localePath('/support'))"
-          ></span>
-        </div>
-      </div>
     </div>
   </div>
 </template>
