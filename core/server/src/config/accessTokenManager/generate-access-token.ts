@@ -13,7 +13,7 @@ export default function makeGenerateAccessToken({
   secret: string;
 }): IGenerateAccessToken {
   return async function generateAccessToken(
-    payload: { email: string },
+    payload: { email: string; hash_password: string },
     options?: { expiresIn: string | number }
   ) {
     const token = generate(payload, secret, options);
