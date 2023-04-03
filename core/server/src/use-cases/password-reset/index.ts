@@ -1,26 +1,37 @@
 import { PasswordResetDb } from "../../data-access";
-import makeGetPasswordResetByEmailAndCode from "./get-password-reset-by-email-and-code";
-import makeCreateGallery from "./create-password-reset";
-import makeHardDeleteGallery from "./hard-delete-password-reset";
+import makeGetByEmailAndCode from "./get-by-email-and-code";
+import makeCreatePasswordReset from "./create-password-reset";
+import makeHardDeletePasswordReset from "./hard-delete-password-reset";
+import makeGetPasswordReset from "./get-password-reset";
 
-const hardDeleteGallery = makeHardDeleteGallery({
+const getPasswordReset = makeGetPasswordReset({
   passwordResetDb: PasswordResetDb,
 });
 
-const getPasswordResetByEmailAndCode = makeGetPasswordResetByEmailAndCode({
+const hardDeletePasswordReset = makeHardDeletePasswordReset({
   passwordResetDb: PasswordResetDb,
 });
 
-const createGallery = makeCreateGallery({
+const getByEmailAndCode = makeGetByEmailAndCode({
+  passwordResetDb: PasswordResetDb,
+});
+
+const createPasswordReset = makeCreatePasswordReset({
   passwordResetDb: PasswordResetDb,
 });
 
 const passwordResetServices = Object.freeze({
-  getPasswordResetByEmailAndCode,
-  createGallery,
-  hardDeleteGallery,
+  getByEmailAndCode,
+  createPasswordReset,
+  hardDeletePasswordReset,
+  getPasswordReset,
 });
 
 export default passwordResetServices;
 
-export { getPasswordResetByEmailAndCode, createGallery, hardDeleteGallery };
+export {
+  getByEmailAndCode,
+  createPasswordReset,
+  hardDeletePasswordReset,
+  getPasswordReset,
+};

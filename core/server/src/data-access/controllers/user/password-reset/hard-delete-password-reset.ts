@@ -1,15 +1,18 @@
 import { Request } from "express";
-import { IGetGallery } from "../../../../use-cases/gallery/get-gallery";
+import { IGetPasswordReset } from "../../../../use-cases/password-reset/get-password-reset";
+import { IHardDeletePasswordReset } from "../../../../use-cases/password-reset/hard-delete-password-reset";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
-export default function makeGetGalleryController({
-  getGallery,
+export default function makeHardDeletePasswordResetController({
+  getPasswordReset,
+  hardDeletePasswordReset,
 }: {
-  getGallery: IGetGallery;
+  getPasswordReset: IGetPasswordReset;
+  hardDeletePasswordReset: IHardDeletePasswordReset;
 }) {
-  return async function getGalleryController(
+  return async function hardDeletePasswordResetController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
@@ -18,18 +21,19 @@ export default function makeGetGalleryController({
 
     try {
       const { _id } = get(httpRequest, "context.validated");
-
-      const exists = await getGallery({ _id });
+      const exists = await getPasswordReset({ _id });
 
       if (isEmpty(exists)) {
-        throw new Error(`Gallery by id ${_id} does not exists`);
+        throw new Error(`PasswordReset by id ${_id} does not exists`);
       }
+
+      const deleted = await hardDeletePasswordReset({ _id });
 
       return {
         headers,
         statusCode: HttpStatusCode.OK,
         body: {
-          data: exists,
+          data: deleted,
         },
       };
     } catch (error) {

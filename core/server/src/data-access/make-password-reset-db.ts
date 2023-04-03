@@ -66,5 +66,27 @@ export default function makePasswordResetDb({
       }
       return null;
     }
+
+    async findById({ _id }: { _id: string }): Promise<PasswordReset | null> {
+      const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
+      const is_mongo_id = mongo_id_regex.test(_id);
+      if (!is_mongo_id || !_id) {
+        return null;
+      }
+
+      const query_conditions = {
+        _id,
+      };
+
+      const existing = await passwordResetDbModel
+        .findOne(query_conditions)
+        .lean({ virtuals: true });
+
+      if (existing) {
+        return new PasswordReset(existing);
+      }
+
+      return null;
+    }
   })();
 }

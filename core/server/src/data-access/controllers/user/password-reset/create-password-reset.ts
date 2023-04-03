@@ -1,15 +1,14 @@
+import { ICreatePasswordReset } from "../../../../use-cases/password-reset/create-password-reset";
 import { Request } from "express";
-import { IGetGallery } from "../../../../use-cases/gallery/get-gallery";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { isEmpty } from "../../../../utils/is-empty";
 
-export default function makeGetGalleryController({
-  getGallery,
+export default function makeCreatePasswordResetController({
+  createPasswordReset,
 }: {
-  getGallery: IGetGallery;
+  createPasswordReset: ICreatePasswordReset;
 }) {
-  return async function getGalleryController(
+  return async function createPasswordResetController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
@@ -17,19 +16,17 @@ export default function makeGetGalleryController({
     };
 
     try {
-      const { _id } = get(httpRequest, "context.validated");
+      const passwordResetDetails = get(httpRequest, "context.validated");
 
-      const exists = await getGallery({ _id });
-
-      if (isEmpty(exists)) {
-        throw new Error(`Gallery by id ${_id} does not exists`);
-      }
+      const created_password_reset = await createPasswordReset({
+        passwordResetDetails,
+      });
 
       return {
         headers,
-        statusCode: HttpStatusCode.OK,
+        statusCode: HttpStatusCode.CREATED,
         body: {
-          data: exists,
+          data: created_password_reset,
         },
       };
     } catch (error) {

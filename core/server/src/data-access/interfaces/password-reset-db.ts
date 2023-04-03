@@ -11,4 +11,5 @@ export default interface IPasswordResetDb {
   }) => Promise<PasswordReset | null>;
   insert: (payload: Partial<IPasswordReset>) => Promise<PasswordReset | null>;
   hardDelete: ({ _id }: { _id: string }) => Promise<PasswordReset | null>;
+  findById: ({ _id }: { _id: string }) => Promise<PasswordReset | null>;
 }

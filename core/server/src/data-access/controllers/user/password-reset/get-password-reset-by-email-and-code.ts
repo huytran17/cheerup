@@ -1,15 +1,15 @@
 import { Request } from "express";
-import { IGetGallery } from "../../../../use-cases/gallery/get-gallery";
+import { IGetByEmailAndCode } from "../../../../use-cases/password-reset/get-by-email-and-code";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
-export default function makeGetGalleryController({
-  getGallery,
+export default function makeGetPasswordResetController({
+  getByEmailAndCode,
 }: {
-  getGallery: IGetGallery;
+  getByEmailAndCode: IGetByEmailAndCode;
 }) {
-  return async function getGalleryController(
+  return async function getByEmailAndCodeController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
@@ -17,12 +17,17 @@ export default function makeGetGalleryController({
     };
 
     try {
-      const { _id } = get(httpRequest, "context.validated");
+      const { email, security_code } = get(httpRequest, "context.validated");
 
-      const exists = await getGallery({ _id });
+      const exists = await getByEmailAndCode({
+        email,
+        security_code,
+      });
 
       if (isEmpty(exists)) {
-        throw new Error(`Gallery by id ${_id} does not exists`);
+        throw new Error(
+          `Password reset by email ${email} & code ${security_code} does not exists`
+        );
       }
 
       return {

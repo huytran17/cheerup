@@ -2,7 +2,7 @@ import ISystemConfiguration from "../../src/database/interfaces/system-configura
 
 export type FakeSystemConfiguration = () => ISystemConfiguration;
 
-export default function makeSystemConfiguration({
+export default function makeFakeSystemConfiguration({
   faker,
 }: {
   faker: any;

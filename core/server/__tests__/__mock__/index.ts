@@ -10,7 +10,8 @@ import makeFakePost from "./make-fake-post";
 import makeFakeSubscription from "./make-fake-subscription";
 import makeFakeQueryParams from "./make-fake-query-params";
 import makeFakeCommentLike from "./make-fake-comment-like";
-import makeSystemConfiguration from "./make-fake-system-configuration";
+import makeFakeSystemConfiguration from "./make-fake-system-configuration";
+import makeFakePasswordReset from "./make-fake-password-reset";
 
 const fakeUser = makeFakeUser({ faker });
 const fakeAdmin = makeFakeAdmin({ faker });
@@ -22,7 +23,8 @@ const fakePost = makeFakePost({ faker });
 const fakeSubscription = makeFakeSubscription({ faker });
 const fakeQueryParams = makeFakeQueryParams({ faker });
 const fakeCommentLike = makeFakeCommentLike({ faker });
-const fakeSystemConfiguration = makeSystemConfiguration({ faker });
+const fakeSystemConfiguration = makeFakeSystemConfiguration({ faker });
+const fakePasswordReset = makeFakePasswordReset({ faker });
 
 export default Object.freeze({
   fakeUser,
@@ -36,6 +38,7 @@ export default Object.freeze({
   fakeQueryParams,
   fakeCommentLike,
   fakeSystemConfiguration,
+  fakePasswordReset,
 });
 
 export {
@@ -50,4 +53,5 @@ export {
   fakeQueryParams,
   fakeCommentLike,
   fakeSystemConfiguration,
+  fakePasswordReset,
 };
