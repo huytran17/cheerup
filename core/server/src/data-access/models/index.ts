@@ -9,6 +9,7 @@ import systemConfigurationSchema from "../../database/schemas/system-configurati
 import postBookmarkSchema from "../../database/schemas/post-bookmark";
 import gallerySchema from "../../database/schemas/gallery";
 import commentLikeSchema from "../../database/schemas/comment-like";
+import passwordResetSchema from "../../database/schemas/password-reset";
 
 import ISystemConfiguration from "../../database/interfaces/system-configuration";
 import ISubscription from "../../database/interfaces/subscription";
@@ -20,6 +21,7 @@ import IComment from "../../database/interfaces/comment";
 import IPostBookmark from "../../database/interfaces/post-bookmark";
 import IGallery from "../../database/interfaces/gallery";
 import ICommentLike from "../../database/interfaces/comment-like";
+import IPasswordReset from "../../database/interfaces/password-reset";
 
 type IPostBookmarkModel = IPostBookmark & mongoose.Document;
 type ISystemConfigurationModel = ISystemConfiguration & mongoose.Document;
@@ -31,7 +33,12 @@ type ICategoryModel = ICategory & mongoose.Document;
 type ICommentModel = IComment & mongoose.Document;
 type IGalleryModel = IGallery & mongoose.Document;
 type ICommentLikeModel = ICommentLike & mongoose.Document;
+type IPasswordResetModel = IPasswordReset & mongoose.Document;
 
+const PasswordResetModel = mongoose.model<IPasswordResetModel>(
+  "PasswordReset",
+  passwordResetSchema
+);
 const CommentLikeModel = mongoose.model<ICommentLikeModel>(
   "CommentLike",
   commentLikeSchema
@@ -69,6 +76,7 @@ export default Object.freeze({
   PostBookmarkModel,
   GalleryModel,
   CommentLikeModel,
+  PasswordResetModel,
 });
 
 export {
@@ -82,4 +90,5 @@ export {
   PostBookmarkModel,
   GalleryModel,
   CommentLikeModel,
+  PasswordResetModel,
 };

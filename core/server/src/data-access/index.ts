@@ -10,6 +10,7 @@ import makeSystemConfigurationDb from "./make-system-configuration-db";
 import makePostBookmarkDb from "./make-post-bookmark-db";
 import makeGalleryDb from "./make-gallery-db";
 import makeCommentLikeDb from "./make-comment-like-db";
+import makePasswordResetDb from "./make-password-reset-db";
 
 import {
   UserModel,
@@ -22,7 +23,13 @@ import {
   PostBookmarkModel,
   GalleryModel,
   CommentLikeModel,
+  PasswordResetModel,
 } from "./models";
+
+const PasswordResetDb = makePasswordResetDb({
+  passwordResetDbModel: PasswordResetModel,
+  moment,
+});
 
 const CommentLikeDb = makeCommentLikeDb({
   commentLikeDbModel: CommentLikeModel,
@@ -72,6 +79,7 @@ export default Object.freeze({
   PostBookmarkDb,
   GalleryDb,
   CommentLikeDb,
+  PasswordResetDb,
 });
 
 export {
@@ -85,4 +93,5 @@ export {
   PostBookmarkDb,
   GalleryDb,
   CommentLikeDb,
+  PasswordResetDb,
 };
