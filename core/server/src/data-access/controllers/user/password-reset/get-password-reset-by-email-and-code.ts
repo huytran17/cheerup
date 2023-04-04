@@ -4,12 +4,12 @@ import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
-export default function makeGetPasswordResetController({
+export default function makeGetPasswordResetByEmailAndCodeController({
   getByEmailAndCode,
 }: {
   getByEmailAndCode: IGetByEmailAndCode;
 }) {
-  return async function getByEmailAndCodeController(
+  return async function getPasswordResetByEmailAndCodeController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {

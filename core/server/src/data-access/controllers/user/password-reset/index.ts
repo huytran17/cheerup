@@ -20,19 +20,19 @@ const hardDeletePasswordResetController = makeHardDeletePasswordResetController(
   }
 );
 
-const getPasswordResetByEmailAndCode =
+const getPasswordResetByEmailAndCodeController =
   makeGetPasswordResetByEmailAndCodeController({
     getByEmailAndCode,
   });
 
 export default Object.freeze({
-  getPasswordResetByEmailAndCode,
+  getPasswordResetByEmailAndCodeController,
   hardDeletePasswordResetController,
   createPasswordResetController,
 });
 
 export {
-  getPasswordResetByEmailAndCode,
+  getPasswordResetByEmailAndCodeController,
   hardDeletePasswordResetController,
   createPasswordResetController,
 };
