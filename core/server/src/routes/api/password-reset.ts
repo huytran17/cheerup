@@ -13,24 +13,24 @@ import {
   createPasswordResetController,
 } from "../../data-access/controllers/user/password-reset";
 
-const postRouter = express.Router();
+const passwordResetRouter = express.Router();
 
-postRouter.post(
+passwordResetRouter.post(
   "/",
   makeValidator(createPasswordResetRules),
   makeExpressCallback(createPasswordResetController)
 );
 
-postRouter.delete(
-  "/:id",
+passwordResetRouter.delete(
+  "/hard-delete/:id",
   makeValidator(hardDeletePasswordResetRules),
   makeExpressCallback(hardDeletePasswordResetController)
 );
 
-postRouter.get(
+passwordResetRouter.get(
   "/by-email-and-code",
   makeValidator(getPasswordResetByEmailAndCodeRules),
   makeExpressCallback(getPasswordResetByEmailAndCodeController)
 );
 
-export default postRouter;
+export default passwordResetRouter;

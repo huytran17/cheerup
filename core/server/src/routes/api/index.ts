@@ -12,6 +12,7 @@ import systemConfigurationRouter from "./system-configuration";
 import subscriptionRouter from "./subscription";
 import postBookmarkRouter from "./post-bookmark";
 import commentLikeRouter from "./comment-like";
+import passwordResetRouter from "./password-reset";
 
 apiRouter.use("/user", authenticateUserJWT(), userRouter);
 apiRouter.use("/post-bookmark", authenticateUserJWT(), postBookmarkRouter);
@@ -23,5 +24,6 @@ apiRouter.use("/comment", commentRouter);
 apiRouter.use("/post", postRouter);
 apiRouter.use("/auth", authRouter);
 apiRouter.use("/system-configuration", systemConfigurationRouter);
+apiRouter.use("/password-reset", passwordResetRouter);
 
 export default apiRouter;
