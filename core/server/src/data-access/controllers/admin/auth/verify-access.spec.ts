@@ -5,7 +5,6 @@ import {
 } from "../../../../../__tests__/jest-mongo";
 import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakeAdmin } from "../../../../../__tests__/__mock__";
-import { logger } from "../../../../../__tests__/jest-logger";
 import { redis } from "../../../../../__tests__/jest-redis";
 import makeAdminDb from "../../../make-admin-db";
 import { AdminModel } from "../../../models";
@@ -17,6 +16,7 @@ import {
   verifyAccessToken,
   generateAccessToken,
 } from "../../../../config/accessTokenManager";
+import { hashPassword } from "../../../../config/password";
 
 describe("getMe", () => {
   beforeAll(async () => {
@@ -49,8 +49,14 @@ describe("getMe", () => {
       verifyAccessToken,
     });
 
+    const hash_password = await hashPassword({
+      password: "qwer1234",
+      password_confirmation: "qwer1234",
+    });
+
     const access_token = await generateAccessToken({
       email: created_admin.email,
+      hash_password,
     });
 
     const request = {
