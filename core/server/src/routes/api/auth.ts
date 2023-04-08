@@ -5,7 +5,6 @@ import makeValidator from "../../config/middlewares/validator";
 import express from "express";
 import makeExpressCallback from "../../config/express-callback";
 import {
-  signOutRules,
   signInRules,
   signUpRules,
   verifyAccessRules,
@@ -45,7 +44,6 @@ authRouter.post(
 authRouter.post(
   "/sign-out",
   authenticateUserJWT(),
-  makeValidator(signOutRules),
   makeExpressCallback(signOutController)
 );
 
