@@ -1,7 +1,7 @@
 import { IJwtGenerate } from "./accessToken";
 
 export type IGenerateAccessToken = (
-  payload: { email: string; hash_password: string },
+  payload: { email?: string; hash_password?: string; _id?: string },
   options?: { expiresIn: string | number }
 ) => Promise<string>;
 
@@ -13,7 +13,7 @@ export default function makeGenerateAccessToken({
   secret: string;
 }): IGenerateAccessToken {
   return async function generateAccessToken(
-    payload: { email: string; hash_password: string },
+    payload: { email?: string; hash_password?: string; _id?: string },
     options?: { expiresIn: string | number }
   ) {
     const token = generate(payload, secret, options);

@@ -1,29 +1,24 @@
 import PasswordReset from "../../database/entities/password-reset";
 import IPasswordResetDb from "../../data-access/interfaces/password-reset-db";
 
-export type IGetByEmailAndCode = ({
+export type IGetPasswordResetByEmail = ({
   email,
-  security_code,
 }: {
   email: string;
-  security_code: string;
 }) => Promise<PasswordReset | null>;
 
-export default function makeGetByEmailAndCode({
+export default function makeGetPasswordResetByEmail({
   passwordResetDb,
 }: {
   passwordResetDb: IPasswordResetDb;
-}): IGetByEmailAndCode {
-  return async function getByEmailAndCode({
+}): IGetPasswordResetByEmail {
+  return async function getPasswordResetByEmail({
     email,
-    security_code,
   }: {
     email: string;
-    security_code: string;
   }): Promise<PasswordReset | null> {
-    const password_reset = await passwordResetDb.findByEmailAndCode({
+    const password_reset = await passwordResetDb.findByEmail({
       email,
-      security_code,
     });
 
     return password_reset;

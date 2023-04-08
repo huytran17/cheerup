@@ -5,12 +5,14 @@ import makeExpressCallback from "../../config/express-callback";
 import {
   hardDeletePasswordResetRules,
   createPasswordResetRules,
-  getPasswordResetByEmailAndCodeRules,
+  getPasswordResetByCodeRules,
+  resetPasswordRules,
 } from "../../data-access/controllers/user/password-reset/validators";
 import {
-  getPasswordResetByEmailAndCodeController,
+  getPasswordResetByCodeController,
   hardDeletePasswordResetController,
   createPasswordResetController,
+  resetPasswordController,
 } from "../../data-access/controllers/user/password-reset";
 
 const passwordResetRouter = express.Router();
@@ -27,10 +29,16 @@ passwordResetRouter.delete(
   makeExpressCallback(hardDeletePasswordResetController)
 );
 
-passwordResetRouter.get(
-  "/by-email-and-code",
-  makeValidator(getPasswordResetByEmailAndCodeRules),
-  makeExpressCallback(getPasswordResetByEmailAndCodeController)
+passwordResetRouter.post(
+  "/by-code",
+  makeValidator(getPasswordResetByCodeRules),
+  makeExpressCallback(getPasswordResetByCodeController)
+);
+
+passwordResetRouter.put(
+  "/reset-password",
+  makeValidator(resetPasswordRules),
+  makeExpressCallback(resetPasswordController)
 );
 
 export default passwordResetRouter;

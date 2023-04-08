@@ -78,5 +78,15 @@
   "The page you are looking for might be removed or temporary unavailable.": "The page you are looking for might be removed or temporary unavailable.",
   "Support": "Support",
   "Verification code must be min 6 characters.": "Verification code must be min 6 characters.",
-  "Verification code is required.": "Verification code is required."
+  "Verification code is required.": "Verification code is required.",
+  "Enter your email": "Enter your email",
+  "Enter verification code": "Enter verification code",
+  "The security code is invalid or has been expired": "The security code is invalid or has been expired",
+  "The security code was sent to your email": "The security code was sent to your email",
+  "Encountered error while sending the security code": "Encountered error while sending the security code",
+  "Create your new password": "Create your new password",
+  "Enter new password": "Enter new password",
+  "Confirm your password": "Confirm your password",
+  "Updated your password": "Updated your password",
+  "Encountered error while updating your password": "Encountered error while updating your password"
 }

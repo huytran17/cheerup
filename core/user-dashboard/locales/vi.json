@@ -78,5 +78,15 @@
   "The page you are looking for might be removed or temporary unavailable.": "Trang được yêu cầu hiện không khả dụng.",
   "Support": "Hỗ trợ",
   "Verification code is required.": "Không được bỏ trống mã xác thực.",
-  "Verification code must be min 6 characters.": "Mã xác thực phải có ít nhất 6 ký tự."
+  "Verification code must be min 6 characters.": "Mã xác thực phải có ít nhất 6 ký tự.",
+  "Enter your email": "Nhập email của bạn",
+  "Enter verification code": "Nhập mã xác thực",
+  "The security code is invalid or has been expired": "Mã xác thực không đúng hoặc đã hết hạn",
+  "The security code was sent to your email": "Mã xác thực đã được gửi đến email của bạn",
+  "Encountered error while sending the security code": "Lỗi không xác định khi gửi mã xác thực",
+  "Create your new password": "Tạo mật khẩu mới",
+  "Enter new password": "Nhập mật khẩu mới",
+  "Confirm your password": "Xác nhận mật khẩu mới",
+  "Updated your password": "Cập nhật mật khẩu thành công",
+  "Encountered error while updating your password": "Lỗi không xác định khi cập nhật mật khẩu"
 }

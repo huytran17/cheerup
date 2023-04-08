@@ -15,16 +15,32 @@ export default function makePasswordResetDb({
   moment: any;
 }): IPasswordResetDb {
   return new (class MongooseGalleryDb implements IPasswordResetDb {
-    async findByEmailAndCode({
-      email,
+    async findByCode({
       security_code,
     }: {
-      email: string;
       security_code: string;
     }): Promise<PasswordReset | null> {
       const query_conditions = {
-        email,
         security_code,
+      };
+
+      const existing = await passwordResetDbModel
+        .findOne(query_conditions)
+        .lean({ virtuals: true });
+
+      if (existing) {
+        return new PasswordReset(existing);
+      }
+      return null;
+    }
+
+    async findByEmail({
+      email,
+    }: {
+      email: string;
+    }): Promise<PasswordReset | null> {
+      const query_conditions = {
+        email,
       };
 
       const existing = await passwordResetDbModel

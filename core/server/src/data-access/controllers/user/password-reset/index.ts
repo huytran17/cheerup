@@ -1,22 +1,44 @@
+import moment from "moment";
+
 import {
-  getPasswordReset,
-  createPasswordReset,
-  hardDeletePasswordReset,
-  getByEmailAndCode,
-} from "../../../../use-cases/password-reset";
+  generateAccessToken,
+  verifyAccessToken,
+} from "../../../../config/accessTokenManager";
+import { hashPassword } from "../../../../config/password";
 import {
   getEmailContent,
   renderEmailContent,
   sendEmail,
 } from "../../../../config/emailManager";
 import { logger } from "../../../../config/logs/logger";
-import moment from "moment";
-import makeHardDeletePasswordResetController from "./hard-delete-password-reset";
-import makeGetPasswordResetByEmailAndCodeController from "./get-password-reset-by-email-and-code";
+import {
+  createPasswordReset,
+  getPasswordReset,
+  getPasswordResetByCode,
+  getPasswordResetByEmail,
+  hardDeletePasswordReset,
+} from "../../../../use-cases/password-reset";
+import { getUserByEmail, updateUser } from "../../../../use-cases/user";
 import makeCreatePasswordResetController from "./create-password-reset";
+import makeGetPasswordResetByCodeController from "./get-password-reset-by-code";
+import makeHardDeletePasswordResetController from "./hard-delete-password-reset";
+import makeResetPasswordController from "./reset-password";
+
+const resetPasswordController = makeResetPasswordController({
+  getPasswordReset,
+  hardDeletePasswordReset,
+  getUserByEmail,
+  updateUser,
+  verifyAccessToken,
+  hashPassword,
+});
 
 const createPasswordResetController = makeCreatePasswordResetController({
+  getUserByEmail,
   createPasswordReset,
+  getPasswordResetByCode,
+  getPasswordResetByEmail,
+  hardDeletePasswordReset,
   getEmailContent,
   renderEmailContent,
   sendEmail,
@@ -31,19 +53,22 @@ const hardDeletePasswordResetController = makeHardDeletePasswordResetController(
   }
 );
 
-const getPasswordResetByEmailAndCodeController =
-  makeGetPasswordResetByEmailAndCodeController({
-    getByEmailAndCode,
-  });
+const getPasswordResetByCodeController = makeGetPasswordResetByCodeController({
+  getPasswordResetByCode,
+  generateAccessToken,
+  moment,
+});
 
 export default Object.freeze({
-  getPasswordResetByEmailAndCodeController,
+  getPasswordResetByCodeController,
   hardDeletePasswordResetController,
   createPasswordResetController,
+  resetPasswordController,
 });
 
 export {
-  getPasswordResetByEmailAndCodeController,
+  getPasswordResetByCodeController,
   hardDeletePasswordResetController,
   createPasswordResetController,
+  resetPasswordController,
 };

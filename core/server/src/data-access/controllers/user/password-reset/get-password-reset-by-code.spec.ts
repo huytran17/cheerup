@@ -1,20 +1,22 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
+
 import { fakePasswordReset } from "../../../../../__tests__/__mock__";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makePasswordResetDb from "../../../make-password-reset-db";
-import { PasswordResetModel } from "../../../models";
-import makeCreatePasswordReset from "../../../../use-cases/password-reset/create-password-reset";
-import makeGetPasswordResetByEmailAndCode from "../../../../use-cases/password-reset/get-by-email-and-code";
-import makeGetPasswordResetController from "./get-password-reset-by-email-and-code";
+import { generateAccessToken } from "../../../../config/accessTokenManager";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import PasswordReset from "../../../../database/entities/password-reset";
+import makeCreatePasswordReset from "../../../../use-cases/password-reset/create-password-reset";
+import makeGetPasswordResetByCode from "../../../../use-cases/password-reset/get-password-reset-by-code";
+import makePasswordResetDb from "../../../make-password-reset-db";
+import { PasswordResetModel } from "../../../models";
+import makeGetPasswordResetByCodeController from "./get-password-reset-by-code";
 
-describe("getByEmailAndCode", () => {
+describe("getPasswordResetByCode", () => {
   beforeAll(async () => {
     await connectDatabase();
   });
@@ -34,27 +36,30 @@ describe("getByEmailAndCode", () => {
     });
 
     const createPasswordReset = makeCreatePasswordReset({ passwordResetDb });
-    const getByEmailAndCode = makeGetPasswordResetByEmailAndCode({
+    const getPasswordResetByCode = makeGetPasswordResetByCode({
       passwordResetDb,
     });
 
     const mock_password_reset_data = fakePasswordReset();
 
-    const created_gallery = await createPasswordReset({
+    const created_password_reset = await createPasswordReset({
       passwordResetDetails: mock_password_reset_data,
     });
 
-    const getPasswordResetController = makeGetPasswordResetController({
-      getByEmailAndCode,
-    });
+    const getPasswordResetByCodeController =
+      makeGetPasswordResetByCodeController({
+        getPasswordResetByCode,
+        generateAccessToken,
+        moment,
+      });
 
     const request = {
       context: {
-        validated: created_gallery,
+        validated: created_password_reset,
       },
     };
 
-    const result = await getPasswordResetController(request as any);
+    const result = await getPasswordResetByCodeController(request as any);
 
     const expected: ExpectSingleResult<PasswordReset> = {
       headers,

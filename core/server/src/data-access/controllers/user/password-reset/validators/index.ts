@@ -1,15 +1,18 @@
 import hardDeletePasswordResetRules from "./hard-delete-password-reset";
 import createPasswordResetRules from "./create-password-reset";
-import getPasswordResetByEmailAndCodeRules from "./get-password-reset-by-email-and-code";
+import getPasswordResetByCodeRules from "./get-password-reset-by-code";
+import resetPasswordRules from "./reset-password";
 
 export default Object.freeze({
   hardDeletePasswordResetRules,
   createPasswordResetRules,
-  getPasswordResetByEmailAndCodeRules,
+  getPasswordResetByCodeRules,
+  resetPasswordRules,
 });
 
 export {
   hardDeletePasswordResetRules,
   createPasswordResetRules,
-  getPasswordResetByEmailAndCodeRules,
+  getPasswordResetByCodeRules,
+  resetPasswordRules,
 };

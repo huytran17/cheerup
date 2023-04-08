@@ -6,17 +6,13 @@ import { RootState } from "..";
 import _ from "lodash";
 
 const actions: ActionTree<PasswordResetState, RootState> = {
-  async [ActionTypes.GET_PASSWORD_RESET_BY_EMAIL_AND_CODE](
+  async [ActionTypes.GET_PASSWORD_RESET_BY_CODE](
     { commit },
-    { email, security_code }: { email: string; security_code: string }
+    { security_code }: { security_code: string }
   ) {
-    const url_query = new URLSearchParams();
-
-    email && url_query.set("email", email);
-
-    security_code && url_query.set("security_code", security_code);
-
-    const { data } = await this.$axios.$get(`/password-reset?${url_query}`);
+    const { data } = await this.$axios.$post("/password-reset/by-code", {
+      security_code,
+    });
 
     commit(MutationTypes.SET_PASSWORD_RESET, { data });
 
@@ -29,6 +25,15 @@ const actions: ActionTree<PasswordResetState, RootState> = {
   ) {
     const { data: password_reset } = await this.$axios.$post(
       `/password-reset`,
+      data
+    );
+
+    return password_reset;
+  },
+
+  async [ActionTypes.RESET_PASSWORD]({ commit }, { data }: { data: any }) {
+    const { data: password_reset } = await this.$axios.$put(
+      `/password-reset/reset-password`,
       data
     );
 

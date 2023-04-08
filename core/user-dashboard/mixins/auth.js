@@ -8,12 +8,6 @@ export default {
         (v) => !!v || this.$t("E-mail is required."),
         (v) => /.+@.+\..+/.test(v) || this.$t("E-mail must be valid."),
       ],
-      verifycationCodeRules: [
-        (v) => !!v || this.$t("Verification code is required."),
-        (v) =>
-          (v && v.length > 6) ||
-          this.$t("Verification code must be min 6 characters."),
-      ],
       passwordRules: [
         (v) => !!v || this.$t("Password is required."),
         (v) =>

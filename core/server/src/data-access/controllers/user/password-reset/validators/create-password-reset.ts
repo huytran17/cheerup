@@ -1,5 +1,5 @@
 const createPasswordResetRules = {
-  name: "required|string",
+  email: "required|email",
 };
 
 export default createPasswordResetRules;
