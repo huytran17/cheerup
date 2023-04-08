@@ -33,7 +33,7 @@ describe("resetPassword", () => {
     await Promise.all([clearDatabase(), redis.disconnect()]);
   });
 
-  it("should return a body that contains an gallery entity", async () => {
+  it("should return a body that contains an user entity", async () => {
     const headers = {
       "Content-Type": "application/json",
     };
