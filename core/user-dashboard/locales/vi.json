@@ -16,7 +16,7 @@
   "Email": "Email",
   "Password": "Mật khẩu",
   "Sign In": "Đăng nhập",
-  "Forgot Password": "Quên mật khẩu",
+  "Forgot Password?": "Quên mật khẩu?",
   "Welcome to login": "Welcome to login",
   "Don't have an account?": "Không có tài khoản?",
   "Sign Up": "Đăng ký",
@@ -76,5 +76,7 @@
   "404": "404",
   "Not found!": "Not found!",
   "The page you are looking for might be removed or temporary unavailable.": "Trang được yêu cầu hiện không khả dụng.",
-  "Support": "Hỗ trợ"
+  "Support": "Hỗ trợ",
+  "Verification code is required.": "Không được bỏ trống mã xác thực.",
+  "Verification code must be min 6 characters.": "Mã xác thực phải có ít nhất 6 ký tự."
 }

@@ -3,9 +3,15 @@ import {
   connectDatabase,
   clearDatabase,
 } from "../../../../../__tests__/jest-mongo";
+import {
+  getEmailContent,
+  renderEmailContent,
+  sendEmail,
+} from "../../../../config/emailManager";
 import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakePasswordReset, fakeUser } from "../../../../../__tests__/__mock__";
 import { redis } from "../../../../../__tests__/jest-redis";
+import { logger } from "../../../../../__tests__/jest-logger";
 import makePasswordResetDb from "../../../make-password-reset-db";
 import makeUserDb from "../../../make-user-db";
 import { PasswordResetModel, UserModel } from "../../../models";
@@ -50,6 +56,11 @@ describe("createPasswordReset", () => {
 
     const createPasswordResetController = makeCreatePasswordResetController({
       createPasswordReset,
+      getEmailContent,
+      renderEmailContent,
+      sendEmail,
+      moment,
+      logger,
     });
 
     const request = {

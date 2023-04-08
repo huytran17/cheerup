@@ -3,7 +3,7 @@ import IPasswordResetDb from "../../data-access/interfaces/password-reset-db";
 import IPasswordReset from "../../database/interfaces/password-reset";
 
 export interface ICreatePasswordResetData {
-  passwordResetDetails: Omit<IPasswordReset, "_id">;
+  passwordResetDetails: Omit<IPasswordReset, "_id" | "created_at">;
 }
 
 export type ICreatePasswordReset = ({

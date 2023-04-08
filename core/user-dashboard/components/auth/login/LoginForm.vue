@@ -90,11 +90,11 @@
         <v-row>
           <v-col cols="12">
             <div class="text-body-2 text-right">
-              <a
-                :href="localePath('/forget-password')"
-                class="text-decoration-none black--text"
-                v-html="$t('Forgot Password')"
-              ></a>
+              <span
+                @click="$router.push(localePath('/forget-password'))"
+                class="text-decoration-none brick--text clickable"
+                v-html="$t('Forgot Password?')"
+              ></span>
             </div>
           </v-col>
         </v-row>

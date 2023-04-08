@@ -2,8 +2,8 @@ import fs from "fs";
 import defaultTemplateData from "./email-template-data";
 
 const emailTextTemplate = {
-  "get-email-verification-code": fs.readFileSync(
-    `${__dirname}/get-email-verification-code.html`,
+  "forget-password-verification-code": fs.readFileSync(
+    `${__dirname}/forget-password-verification-code.html`,
     "utf8"
   ),
   "new-post-notification": fs.readFileSync(
@@ -12,7 +12,7 @@ const emailTextTemplate = {
   ),
 };
 const subjectTemplate = {
-  "get-email-verification-code": `Verify your email!`,
+  "forget-password-verification-code": `Forget password`,
   "new-post-notification": `New Post From {{product_name}}!`,
 };
 
