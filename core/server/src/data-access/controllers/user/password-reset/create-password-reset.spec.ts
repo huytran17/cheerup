@@ -83,9 +83,7 @@ describe("createPasswordReset", () => {
 
     const request = {
       context: {
-        validated: {
-          email: created_user.email,
-        },
+        validated: created_user,
       },
     };
 
