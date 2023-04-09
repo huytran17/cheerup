@@ -89,7 +89,7 @@ describe("createPasswordReset", () => {
 
     const result = await createPasswordResetController(request as any);
 
-    const expected: ExpectSingleResult<Omit<PasswordReset, "security_code">> = {
+    const expected: ExpectSingleResult<PasswordReset> = {
       headers,
       statusCode: HttpStatusCode.CREATED,
       body: result?.body,
