@@ -57,6 +57,7 @@ describe("verifyAccess", () => {
 
     const verifyAccessController = makeVerifyAccessController({
       verifyAccessToken,
+      getUserByEmail,
     });
 
     const verify_access_request = {

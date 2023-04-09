@@ -1,12 +1,17 @@
-import { IVerifyAccessToken } from "../../../../config/accessTokenManager/verify-access-token";
 import { Request } from "express";
+import { JwtPayload } from "jsonwebtoken";
+import { IVerifyAccessToken } from "../../../../config/accessTokenManager/verify-access-token";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeVerifyAccessController({
   verifyAccessToken,
+  getUserByEmail,
 }: {
   verifyAccessToken: IVerifyAccessToken;
+  getUserByEmail: IGetUserByEmail;
 }) {
   return async function verifyAccessController(
     httpRequest: Request & { context: { validated: {} } }
@@ -17,7 +22,28 @@ export default function makeVerifyAccessController({
 
     try {
       const { access_token } = get(httpRequest, "context.validated");
-      const decoded_access_token = verifyAccessToken(access_token);
+
+      if (!access_token) {
+        throw new Error(`Invalid access token`);
+      }
+
+      const decoded_access_token = <JwtPayload>verifyAccessToken(access_token);
+
+      const user_exists = await getUserByEmail({
+        email: decoded_access_token.email,
+        is_include_deleted: false,
+      });
+
+      if (isEmpty(user_exists)) {
+        throw new Error(`User by email ${user_exists.email} does not exist`);
+      }
+
+      const invalid_password =
+        user_exists.hash_password !== decoded_access_token.hash_password;
+
+      if (invalid_password) {
+        throw new Error(`Invalid access token`);
+      }
 
       return {
         headers,

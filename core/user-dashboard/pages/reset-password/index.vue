@@ -7,6 +7,7 @@ import BaseResetPasswordForm from "@/components/auth/reset-password/BaseResetPas
 
 export default {
   name: "ResetPassword",
+  middleware: ["redirect-logged-user"],
   components: { BaseResetPasswordForm },
 };
 </script>

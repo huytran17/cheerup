@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { get } from "lodash";
+import { get, omit } from "lodash";
 import Moment from "moment";
 import randomString from "randomstring";
 import { Logger } from "winston";
@@ -101,7 +101,7 @@ export default function makeCreatePasswordResetController({
         headers,
         statusCode: HttpStatusCode.CREATED,
         body: {
-          data: created_password_reset,
+          data: omit(created_password_reset, "security_code"),
         },
       };
     } catch (error) {

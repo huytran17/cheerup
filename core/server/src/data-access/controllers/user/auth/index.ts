@@ -20,6 +20,7 @@ import { logger } from "../../../../config/logs/logger";
 
 const verifyAccessController = makeVerifyAccessController({
   verifyAccessToken,
+  getUserByEmail,
 });
 
 const getMeController = makeGetMeController({

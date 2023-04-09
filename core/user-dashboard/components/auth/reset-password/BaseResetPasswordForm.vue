@@ -12,9 +12,12 @@
       <v-col cols="12" class="pb-0">
         <v-text-field
           :label="$t('Enter new password')"
+          :type="show_password ? 'text' : 'password'"
+          :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
           filled
           :rules="passwordRules"
           :value="password_reset.password"
+          @click:append="show_password = !show_password"
           @input="
             updatePasswordResetObject({
               variable_path: 'password',
@@ -26,9 +29,14 @@
       <v-col cols="12">
         <v-text-field
           :label="$t('Confirm your password')"
+          :type="show_password_confirmation ? 'text' : 'password'"
+          :append-icon="show_password_confirmation ? 'mdi-eye' : 'mdi-eye-off'"
           filled
           :rules="passwordConfirmationRules"
           :value="password_reset.password_confirmation"
+          @click:append="
+            show_password_confirmation = !show_password_confirmation
+          "
           @input="
             updatePasswordResetObject({
               variable_path: 'password_confirmation',
@@ -63,6 +71,8 @@ export default {
     return {
       valid_form: false,
       loading: false,
+      show_password: false,
+      show_password_confirmation: false,
     };
   },
   methods: {
@@ -80,7 +90,6 @@ export default {
         };
 
         await this.RESET_PASSWORD({ data: payload });
-        localStorage.removeItem("verification_token");
 
         this.$toast.success(this.$t("Updated your password"));
         this.$router.push(this.localePath("/login"));
@@ -91,6 +100,7 @@ export default {
         );
       } finally {
         this.loading = false;
+        localStorage.removeItem("verification_token");
       }
     },
   },

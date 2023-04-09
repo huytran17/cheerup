@@ -1,6 +1,6 @@
 import moment from "moment";
 
-import { fakePasswordReset, fakeUser } from "../../../../../__tests__/__mock__";
+import { fakeUser } from "../../../../../__tests__/__mock__";
 import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { logger } from "../../../../../__tests__/jest-logger";
 import {
@@ -64,7 +64,6 @@ describe("createPasswordReset", () => {
     const createUser = makeCreateUser({ userDb });
     const getUserByEmail = makeGetUserByEmail({ userDb });
 
-    const mock_password_reset_data = fakePasswordReset();
     const mock_user_data = fakeUser();
 
     const created_user = await createUser({ userDetails: mock_user_data });
@@ -84,14 +83,15 @@ describe("createPasswordReset", () => {
 
     const request = {
       context: {
-        validated: mock_password_reset_data,
-        user: created_user,
+        validated: {
+          email: created_user.email,
+        },
       },
     };
 
     const result = await createPasswordResetController(request as any);
 
-    const expected: ExpectSingleResult<PasswordReset> = {
+    const expected: ExpectSingleResult<Omit<PasswordReset, "security_code">> = {
       headers,
       statusCode: HttpStatusCode.CREATED,
       body: result?.body,
