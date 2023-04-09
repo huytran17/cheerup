@@ -109,7 +109,7 @@ export default function makeCreatePasswordResetController({
         headers,
         statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
         body: {
-          data: error,
+          data: error.message,
         },
       };
     }
