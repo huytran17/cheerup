@@ -101,7 +101,7 @@ export default function makeCreatePasswordResetController({
         headers,
         statusCode: HttpStatusCode.CREATED,
         body: {
-          data: created_password_reset,
+          data: omit(created_password_reset, "security_code"),
         },
       };
     } catch (error) {
