@@ -7,14 +7,17 @@ export default {
 
   head: {
     titleTemplate: "%s",
-    title: "user-dashboard",
+    title: "Cherrup",
     htmlAttrs: {
       lang: "en",
     },
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { hid: "description", name: "description", content: "" },
+      { hid: "description", name: "description", content: "Description" },
+      {
+        hid: "",
+      },
       { name: "format-detection", content: "telephone=no" },
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
@@ -48,8 +51,25 @@ export default {
 
   i18n: {
     strategy: "prefix",
-    locales: ["en", "vi"],
+    locales: [
+      {
+        code: "en",
+        iso: "en-US",
+        file: "en.json",
+      },
+      {
+        code: "vi",
+        iso: "vi",
+        file: "vi.json",
+      },
+    ],
     defaultLocale: "en",
+    langDir: "./locales",
+    lazy: true,
+    detectBrowserLanguage: {
+      useCookie: true,
+      fallbackLocale: "en",
+    },
     vueI18n: {
       fallbackLocale: "en",
       messages: {

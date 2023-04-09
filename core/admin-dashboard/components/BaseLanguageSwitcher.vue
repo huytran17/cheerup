@@ -61,25 +61,29 @@ export default {
   },
   data() {
     return {
-      locale_data:
-        JSON.parse(localStorage.getItem("locale")) || this.languages[0],
+      locale_data: this.findLocale(this.$i18n.getLocaleCookie()),
     };
   },
 
   watch: {
     "$i18n.locale": {
       handler(locale) {
-        this.locale_data =
-          this.languages.find((lang) => lang.code === locale) ||
-          this.languages[0];
+        this.locale_data = this.findLocale(locale);
       },
     },
   },
   methods: {
     async changeLocale(lang) {
-      await this.switchLocalePath(lang.code);
-      await this.$i18n.setLocale(lang.code);
-      localStorage.setItem("locale", JSON.stringify(lang));
+      await Promise.all([
+        this.switchLocalePath(lang.code),
+        this.$i18n.setLocale(lang.code),
+      ]);
+    },
+
+    findLocale(code) {
+      return (
+        this.languages.find((lang) => lang.code === code) || this.languages[0]
+      );
     },
   },
 };
