@@ -13,7 +13,7 @@ export default function makeFakePasswordReset({
       email: faker.internet.email(),
       security_code: faker.random.word(),
       created_at: faker.date.recent(),
-      expire_at: faker.date.recent(),
+      expire_at: faker.date.future(1),
     };
   };
 }
