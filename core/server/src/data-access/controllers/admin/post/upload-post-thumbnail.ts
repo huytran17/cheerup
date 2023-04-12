@@ -2,9 +2,9 @@ import { Request } from "express";
 import { get } from "lodash";
 import { IGetPost } from "../../../../use-cases/post/get-post";
 import { IUpdatePost } from "../../../../use-cases/post/update-post";
-import Storage from "../../../../config/storage";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
+import deleteS3Object from "../../../../utils/delete-s3-object";
 
 export default function makeUploadPostThumbnailController({
   getPost,
@@ -35,18 +35,10 @@ export default function makeUploadPostThumbnailController({
         throw new Error(`File does not exist`);
       }
 
-      const current_bucket = get(exists, "thumbnail.bucket");
-      const current_key = get(exists, "thumbnail.key");
+      const bucket = get(exists, "thumbnail.bucket");
+      const key = get(exists, "thumbnail.key");
 
-      const validCredentials = current_bucket && current_key;
-      if (validCredentials) {
-        const s3_params = {
-          Bucket: current_bucket,
-          Key: current_key,
-        };
-
-        Storage.deleteS3Object(s3_params);
-      }
+      deleteS3Object({ bucket, key });
 
       const post_details = Object.assign({}, exists, {
         thumbnail: file,

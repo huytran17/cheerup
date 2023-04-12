@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import _ from "lodash";
-import Storage from "../storage";
+import deleteS3Object from "../../utils/delete-s3-object";
 
 type IController = (httpRequest: any) => any;
 
@@ -34,17 +34,9 @@ export default function makeExpressCallback(controller: IController) {
 
         const Bucket: string = _.get(httpRequest, "context.file.bucket");
         const Key: string = _.get(httpRequest, "context.file.key");
-        if (httpRequest.context.file) {
-          const s3 = Storage.getS3();
-          const params = {
-            Bucket,
-            Key,
-          };
 
-          s3.deleteObject(params, (error, data) =>
-            error ? console.log(error, error.stack) : console.log(data)
-          );
-        }
+        httpRequest.context.file &&
+          deleteS3Object({ bucket: Bucket, key: Key });
 
         next(errorObject);
       });

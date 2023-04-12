@@ -7,7 +7,6 @@ import {
   getGalleriesByParent,
 } from "../../../../use-cases/gallery";
 import { logger } from "../../../../config/logs/logger";
-import Storage from "../../../../config/storage";
 
 import makeDeleteGalleryItemController from "./delete-gallery-item";
 import makeHardDeleteGalleryController from "./hard-delete-gallery";
@@ -57,7 +56,6 @@ const getGalleryController = makeGetGalleryController({
 const deleteGalleryItemController = makeDeleteGalleryItemController({
   getGallery,
   updateGallery,
-  storage: Storage,
   logger,
 });
 

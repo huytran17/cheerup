@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import mongoose_lean_virtuals from "mongoose-lean-virtuals";
 import { GalleryModel } from "../../data-access/models";
-import Storage from "../../config/storage";
-import _ from "lodash";
+import { map, get } from "lodash";
+import deleteS3Object from "../../utils/delete-s3-object";
 
 const Schema = mongoose.Schema;
 
@@ -25,21 +25,17 @@ gallerySchema.index({ created_at: -1 });
 gallerySchema.plugin(mongoose_lean_virtuals);
 
 gallerySchema.pre("deleteOne", { document: true }, async function (next) {
-  const items = _.get(this, "items", []);
+  const items = get(this, "items", []);
 
   for (const item of items) {
-    const s3_params = {
-      Bucket: item.bucket,
-      Key: item.key,
-    };
-
-    Storage.deleteS3Object(s3_params);
+    deleteS3Object({ bucket: item.bucket, key: item.key });
   }
 
-  const galleries = await GalleryModel.find({ parent: _.get(this, "_id") });
-  const delete_gallery_promises = _.map(galleries, async (doc) => {
-    await doc.deleteOne();
-  });
+  const galleries = await GalleryModel.find({ parent: get(this, "_id") });
+  const delete_gallery_promises = map(
+    galleries,
+    async (doc) => await doc.deleteOne()
+  );
 
   await Promise.all(delete_gallery_promises);
 

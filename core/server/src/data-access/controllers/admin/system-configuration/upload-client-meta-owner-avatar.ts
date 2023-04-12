@@ -2,9 +2,9 @@ import { Request } from "express";
 import { get } from "lodash";
 import { IGetLatestSystemConfiguration } from "../../../../use-cases/system-configuration/get-latest-system-configuration";
 import { IUpdateSystemConfiguration } from "../../../../use-cases/system-configuration/update-system-configuraion";
-import Storage from "../../../../config/storage";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
+import deleteS3Object from "../../../../utils/delete-s3-object";
 
 export default function makeUploadClientMetaOwnerAvatarController({
   getLatestSystemConfiguration,
@@ -33,18 +33,10 @@ export default function makeUploadClientMetaOwnerAvatarController({
         throw new Error(`File does not exist`);
       }
 
-      const current_bucket = get(exists, "client_meta.owner.avatar.bucket");
-      const current_key = get(exists, "client_meta.owner.avatar.key");
+      const bucket = get(exists, "client_meta.owner.avatar.bucket");
+      const key = get(exists, "client_meta.owner.avatar.key");
 
-      const validCredentials = current_bucket && current_key;
-      if (validCredentials) {
-        const s3_params = {
-          Bucket: current_bucket,
-          Key: current_key,
-        };
-
-        Storage.deleteS3Object(s3_params);
-      }
+      deleteS3Object({ bucket, key });
 
       const system_configuration_details = Object.assign({}, exists, {
         client_meta: {

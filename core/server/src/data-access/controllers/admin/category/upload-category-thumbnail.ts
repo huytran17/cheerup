@@ -2,9 +2,9 @@ import { Request } from "express";
 import { get } from "lodash";
 import { IGetCategory } from "../../../../use-cases/category/get-category";
 import { IUpdateCategory } from "../../../../use-cases/category/update-category";
-import Storage from "../../../../config/storage";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
+import deleteS3Object from "../../../../utils/delete-s3-object";
 
 export default function makeUploadCategoryThumbnailController({
   getCategory,
@@ -35,18 +35,10 @@ export default function makeUploadCategoryThumbnailController({
         throw new Error(`File does not exist`);
       }
 
-      const current_bucket = get(exists, "thumbnail.bucket");
-      const current_key = get(exists, "thumbnail.key");
+      const bucket = get(exists, "thumbnail.bucket");
+      const key = get(exists, "thumbnail.key");
 
-      const validCredentials = current_bucket && current_key;
-      if (validCredentials) {
-        const s3_params = {
-          Bucket: current_bucket,
-          Key: current_key,
-        };
-
-        Storage.deleteS3Object(s3_params);
-      }
+      deleteS3Object({ bucket, key });
 
       const category_details = Object.assign({}, exists, {
         thumbnail: file,

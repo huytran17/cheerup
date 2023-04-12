@@ -2,9 +2,9 @@ import { Request } from "express";
 import { get } from "lodash";
 import { IGetUser } from "../../../../use-cases/user/get-user";
 import { IUpdateUser } from "../../../../use-cases/user/update-user";
-import Storage from "../../../../config/storage";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
+import deleteS3Object from "../../../../utils/delete-s3-object";
 
 export default function makeUploadUserAvatarController({
   getUser,
@@ -35,18 +35,10 @@ export default function makeUploadUserAvatarController({
         throw new Error(`File does not exist`);
       }
 
-      const current_bucket = get(exists, "avatar.bucket");
-      const current_key = get(exists, "avatar.key");
+      const bucket = get(exists, "avatar.bucket");
+      const key = get(exists, "avatar.key");
 
-      const validCredentials = current_bucket && current_key;
-      if (validCredentials) {
-        const s3_params = {
-          Bucket: current_bucket,
-          Key: current_key,
-        };
-
-        Storage.deleteS3Object(s3_params);
-      }
+      deleteS3Object({ bucket, key });
 
       const user_details = Object.assign({}, exists, {
         avatar: file,

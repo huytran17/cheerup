@@ -6,16 +6,15 @@ import { Logger } from "winston";
 import Storage from "../../../../config/storage";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
+import deleteS3Object from "../../../../utils/delete-s3-object";
 
 export default function makeDeleteGalleryItemController({
   getGallery,
   updateGallery,
-  storage,
   logger,
 }: {
   getGallery: IGetGallery;
   updateGallery: IUpdateGallery;
-  storage: typeof Storage;
   logger: Logger;
 }) {
   return async function deleteGalleryItemController(
@@ -47,15 +46,7 @@ export default function makeDeleteGalleryItemController({
       const current_bucket = get(item_to_delete, "bucket");
       const current_key = get(item_to_delete, "key");
 
-      const validCredentials = current_bucket && current_key;
-      if (validCredentials) {
-        const s3_params = {
-          Bucket: current_bucket,
-          Key: current_key,
-        };
-
-        storage.deleteS3Object(s3_params);
-      }
+      deleteS3Object({ bucket: current_bucket, key: current_key });
 
       const updated_gallery_items = filter(
         current_gallery_items,
