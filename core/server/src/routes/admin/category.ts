@@ -3,7 +3,6 @@ import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
 import makeAuthorization from "../../config/middlewares/authorization";
 import { AuthorizationRole } from "../../constants/authorization-role";
-import { upload } from "../../config/middlewares/file-upload";
 
 import {
   getCategoryRules,
@@ -37,7 +36,6 @@ categoryRouter.get(
 
 categoryRouter.post(
   "/upload-thumbnail/:_id",
-  upload.single("file"),
   makeAuthorization(AuthorizationRole.OWNER_AND_COLLABORATOR),
   makeValidator(uploadCategoryThumbnailRules),
   makeExpressCallback(uploadCategoryThumbnailController)

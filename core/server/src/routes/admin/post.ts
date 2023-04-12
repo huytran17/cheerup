@@ -1,7 +1,6 @@
 import express from "express";
 import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
-import { upload } from "../../config/middlewares/file-upload";
 
 import {
   getPostRules,
@@ -87,7 +86,6 @@ postRouter.put(
 
 postRouter.post(
   "/upload-thumbnail/:_id",
-  upload.single("file"),
   makeValidator(uploadPostThumbnailRules),
   makeExpressCallback(uploadPostThumbnailController)
 );

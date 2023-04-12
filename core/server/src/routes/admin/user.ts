@@ -3,7 +3,6 @@ import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
 import makeAuthorization from "../../config/middlewares/authorization";
 import { AuthorizationRole } from "../../constants/authorization-role";
-import { upload } from "../../config/middlewares/file-upload";
 
 import {
   getUserRules,
@@ -59,7 +58,6 @@ userRouter.put(
 
 userRouter.post(
   "/upload-avatar/:_id",
-  upload.single("file"),
   makeAuthorization(AuthorizationRole.OWNER_AND_COLLABORATOR),
   makeValidator(uploadUserAvatarRules),
   makeExpressCallback(uploadUserAvatarController)

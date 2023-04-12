@@ -1,7 +1,6 @@
 import express from "express";
 import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
-import { upload } from "../../config/middlewares/file-upload";
 
 import {
   getUserRules,
@@ -28,7 +27,6 @@ userRouter.put(
 
 userRouter.post(
   "/upload-avatar/:_id",
-  upload.single("file"),
   makeValidator(uploadUserAvatarRules),
   makeExpressCallback(uploadUserAvatarController)
 );

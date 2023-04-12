@@ -3,7 +3,6 @@ import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
 import makeAuthorization from "../../config/middlewares/authorization";
 import { AuthorizationRole } from "../../constants/authorization-role";
-import { upload } from "../../config/middlewares/file-upload";
 
 import {
   getAdminRules,
@@ -45,7 +44,6 @@ adminRouter.get(
 
 adminRouter.post(
   "/upload-avatar/:_id",
-  upload.single("file"),
   makeAuthorization(AuthorizationRole.ONLY_OWNER),
   makeValidator(uploadAdminAvatarRules),
   makeExpressCallback(uploadAdminAvatarController)

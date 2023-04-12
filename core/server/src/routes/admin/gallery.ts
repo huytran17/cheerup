@@ -1,7 +1,6 @@
 import express from "express";
 import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
-import { upload } from "../../config/middlewares/file-upload";
 
 import {
   getGalleriesPaginatedRules,
@@ -64,7 +63,6 @@ galleryRouter.put(
 
 galleryRouter.post(
   "/upload-gallery-item/:_id",
-  upload.single("file"),
   makeValidator(uploadGalleryItemRules),
   makeExpressCallback(uploadGalleryItemController)
 );
