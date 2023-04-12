@@ -33,11 +33,11 @@ export default function makeUploadClientMetaOwnerAvatarController({
         throw new Error(`File does not exist`);
       }
 
-      const current_bucket = get(exists, "client_meta.owner.avatar.bucket", "");
-      const current_key = get(exists, "client_meta.owner.avatar.key", "");
+      const current_bucket = get(exists, "client_meta.owner.avatar.bucket");
+      const current_key = get(exists, "client_meta.owner.avatar.key");
 
       const validCredentials = current_bucket && current_key;
-      if (!validCredentials) {
+      if (validCredentials) {
         const s3_params = {
           Bucket: current_bucket,
           Key: current_key,

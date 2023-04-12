@@ -33,11 +33,11 @@ export default function makeUploadAdminMetaFaviconController({
         throw new Error(`File does not exist`);
       }
 
-      const current_bucket = get(exists, "admin_meta.favicon.bucket", "");
-      const current_key = get(exists, "admin_meta.favicon.key", "");
+      const current_bucket = get(exists, "admin_meta.favicon.bucket");
+      const current_key = get(exists, "admin_meta.favicon.key");
 
       const validCredentials = current_bucket && current_key;
-      if (!validCredentials) {
+      if (validCredentials) {
         const s3_params = {
           Bucket: current_bucket,
           Key: current_key,

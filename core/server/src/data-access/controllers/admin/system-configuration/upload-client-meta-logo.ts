@@ -33,11 +33,11 @@ export default function makeUploadClientMetaLogoController({
         throw new Error(`File does not exist`);
       }
 
-      const current_bucket = get(exists, "client_meta.logo.bucket", "");
-      const current_key = get(exists, "client_meta.logo.key", "");
+      const current_bucket = get(exists, "client_meta.logo.bucket");
+      const current_key = get(exists, "client_meta.logo.key");
 
       const validCredentials = current_bucket && current_key;
-      if (!validCredentials) {
+      if (validCredentials) {
         const s3_params = {
           Bucket: current_bucket,
           Key: current_key,
