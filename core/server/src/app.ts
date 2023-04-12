@@ -13,6 +13,7 @@ import { initializeMailer } from "./config/emailManager/mailer";
 import Storage from "./config/storage";
 import Redis from "./config/redis";
 import { upload } from "./config/middlewares/file-upload";
+import accessControlMiddleware from "./config/middlewares/access-control";
 
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -27,7 +28,7 @@ process.env.NODE_ENV === "production" && app.use(expressRateLimit());
 
 app.use(requestIp.mw());
 app.use(upload.single("file"));
-app.use(cors());
+app.use(cors(), accessControlMiddleware);
 app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
