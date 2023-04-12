@@ -13,7 +13,11 @@ export default class Redis {
     }
 
     try {
-      const client = createClient();
+      const client = createClient({
+        socket: {
+          connectTimeout: 0,
+        },
+      });
 
       client.on("error", (error) => console.error(error));
 
