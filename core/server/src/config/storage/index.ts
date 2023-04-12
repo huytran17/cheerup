@@ -27,6 +27,7 @@ export default class Storage {
     if (Storage.s3) {
       return Storage.s3;
     }
+
     new Storage();
     return Storage.s3;
   }
@@ -40,6 +41,7 @@ export default class Storage {
       Bucket: process.env.BUCKET_NAME,
       Key: key,
     });
+
     return signed_url;
   }
 
