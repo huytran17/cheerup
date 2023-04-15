@@ -11,6 +11,7 @@ const categorySchema = new Schema(
     description: { type: String, trim: true },
     created_by: { type: Schema.Types.ObjectId, ref: "Admin" },
     thumbnail: { type: Object },
+    seo: { type: Object },
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now },
     deleted_at: { type: Date, default: null },

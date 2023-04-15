@@ -126,7 +126,7 @@
               <v-dropzone
                 ref="thumbnail_dropzone"
                 id="thumbnail"
-                :options="uploadPostThumbnailOptions({ id: post._id })"
+                :options="uploadPostThumbnailOptions({ id: $route.params.id })"
                 :destroyDropzone="true"
                 @vdropzone-success="
                   (file, response) =>
@@ -159,6 +159,61 @@
                   })
                 "
               ></v-switch>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="12">
+              <v-expansion-panels flat>
+                <v-expansion-panel>
+                  <v-expansion-panel-header>
+                    <div class="text-body-2">
+                      <span class="app-body" v-html="$t('SEO')"></span>
+                    </div>
+                  </v-expansion-panel-header>
+                  <v-expansion-panel-content>
+                    <v-row>
+                      <v-col cols="12" md="6">
+                        <v-text-field
+                          :value="post.seo && post.seo.title"
+                          :label="$t('Title')"
+                          @input="
+                            updatePostObject({
+                              variable_path: 'seo.title',
+                              data: $event,
+                            })
+                          "
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="12" md="6">
+                        <v-text-field
+                          :value="post.seo && post.seo.description"
+                          :label="$t('Description')"
+                          @input="
+                            updatePostObject({
+                              variable_path: 'seo.description',
+                              data: $event,
+                            })
+                          "
+                        ></v-text-field>
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col cols="12" md="6">
+                        <v-text-field
+                          :value="post.seo && post.seo.keywords"
+                          :label="$t('Keywords')"
+                          @input="
+                            updatePostObject({
+                              variable_path: 'seo.keywords',
+                              data: $event,
+                            })
+                          "
+                        ></v-text-field>
+                      </v-col>
+                    </v-row>
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
+              </v-expansion-panels>
             </v-col>
           </v-row>
           <v-row>
@@ -244,3 +299,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+:deep(.v-expansion-panels) {
+  z-index: 0 !important;
+}
+</style>

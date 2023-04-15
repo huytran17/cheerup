@@ -45,7 +45,17 @@ export default function makeUpdateCategoryController({
         throw new Error(`Category ${title} already exists`);
       }
 
-      const updated_category = await updateCategory({ categoryDetails });
+      const final_category_details = {
+        ...categoryDetails,
+        seo: {
+          ...categoryDetails?.seo,
+          thumbnail: exists?.thumbnail_url,
+        },
+      };
+
+      const updated_category = await updateCategory({
+        categoryDetails: final_category_details,
+      });
 
       logger.verbose(`Updated category ${exists.title}`);
 

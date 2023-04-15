@@ -12,6 +12,7 @@ const postSchema = new Schema(
     is_published: { type: Boolean, default: false },
     is_notified_to_user: { type: Boolean, default: false },
     thumbnail: { type: Object },
+    seo: { type: Object },
     content: { type: String, trim: true },
     source: { type: String, trim: true },
     tags: [{ type: String, trim: true, default: [] }],

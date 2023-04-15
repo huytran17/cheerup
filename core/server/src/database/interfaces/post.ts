@@ -16,6 +16,7 @@ export default interface IPost {
   author: Admin;
   categories: Category[];
   views: number;
+  seo?: Record<string, unknown>;
   created_at: Date;
   updated_at: Date;
   deleted_at: Date;

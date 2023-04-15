@@ -8,6 +8,7 @@ export default class Category implements ICategory {
   public readonly title: string;
   public readonly badge_color?: string;
   public readonly thumbnail_url?: string;
+  public readonly seo?: Record<string, unknown>;
   public readonly created_by: Admin;
   public readonly created_at: Date;
   public readonly updated_at: Date;
@@ -24,6 +25,7 @@ export default class Category implements ICategory {
     created_by,
     thumbnail_url,
     badge_color,
+    seo,
   }: ICategory) {
     this._id = _id;
     this.title = title;
@@ -35,5 +37,6 @@ export default class Category implements ICategory {
     this.created_by = created_by;
     this.thumbnail_url = thumbnail_url;
     this.badge_color = badge_color;
+    this.seo = seo;
   }
 }

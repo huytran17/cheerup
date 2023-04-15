@@ -7,6 +7,7 @@ export default interface ICategory {
   thumbnail_url?: string;
   badge_color?: string;
   thumbnail?: Record<string, unknown>;
+  seo?: Record<string, unknown>;
   created_by: Admin;
   created_at: Date;
   updated_at: Date;

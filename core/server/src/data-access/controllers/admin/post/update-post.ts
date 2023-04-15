@@ -31,7 +31,17 @@ export default function makeUpdatePostController({
         throw new Error(`Post by ${_id} does not exist`);
       }
 
-      const updated_post = await updatePost({ postDetails });
+      const final_post_details = {
+        ...postDetails,
+        seo: {
+          ...postDetails?.seo,
+          thumbnail: exists?.thumbnail_url,
+        },
+      };
+
+      const updated_post = await updatePost({
+        postDetails: final_post_details,
+      });
 
       logger.verbose(`Updated post ${exists.title} successfully`);
 
