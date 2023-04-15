@@ -12,6 +12,12 @@ import makeGetCategoryTitles from "./get-category-titles";
 import makeHardDeleteCategory from "./hard-delete-category";
 import makeGetCategoryByTitle from "./get-category-by-title";
 import makeGetCategoryAnalystics from "./get-category-analystics";
+import makeGetCategoriesForSEO from "./get-categories-for-seo";
+
+const getCategoriesForSEO = makeGetCategoriesForSEO({
+  categoryDb: CategoryDb,
+  logger,
+});
 
 const getCategoryAnalystics = makeGetCategoryAnalystics({
   categoryDb: CategoryDb,
@@ -65,6 +71,7 @@ const categoryServices = Object.freeze({
   getCategoryTitles,
   getCategoryByTitle,
   getCategoryAnalystics,
+  getCategoriesForSEO,
 });
 
 export default categoryServices;
@@ -79,4 +86,5 @@ export {
   getCategoryTitles,
   getCategoryByTitle,
   getCategoryAnalystics,
+  getCategoriesForSEO,
 };

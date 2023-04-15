@@ -1,6 +1,7 @@
 import Category from "../../database/entities/category";
 import ICategory from "../../database/interfaces/category";
 export default interface ICategoryDb {
+  findAllForSEO: () => Promise<Category[] | null>;
   findAll: () => Promise<Category[] | null>;
   findAllPaginated: ({
     query,

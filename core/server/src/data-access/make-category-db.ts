@@ -159,6 +159,26 @@ export default function makeCategoryDb({
       return null;
     }
 
+    async findAllForSEO(): Promise<Category[] | null> {
+      let query_conditions = {
+        deleted_at: { $in: [null, undefined] },
+      };
+
+      const existing = await categoryDbModel
+        .find(query_conditions)
+        .select("_id seo")
+        .sort({
+          created_at: "desc",
+        })
+        .lean({ virtuals: true });
+
+      if (existing) {
+        return _.map(existing, (category) => new Category(category));
+      }
+
+      return null;
+    }
+
     async findAllPaginated({
       query = "",
       page = 1,

@@ -246,12 +246,33 @@ export default function makePostDb({
     }
 
     async findAll(): Promise<Post[] | null> {
-      let query_conditions = Object.assign({});
+      let query_conditions = {};
 
       const existing = await postDbModel
         .find(query_conditions)
         .populate("author", "-_v")
         .populate("categories", "-_v")
+        .sort({
+          created_at: "desc",
+        })
+        .lean({ virtuals: true });
+
+      if (existing) {
+        return _.map(existing, (post) => new Post(post));
+      }
+
+      return null;
+    }
+
+    async findAllForSEO(): Promise<Post[] | null> {
+      let query_conditions = {
+        deleted_at: { $in: [null, undefined] },
+        is_published: true,
+      };
+
+      const existing = await postDbModel
+        .find(query_conditions)
+        .select("_id seo")
         .sort({
           created_at: "desc",
         })

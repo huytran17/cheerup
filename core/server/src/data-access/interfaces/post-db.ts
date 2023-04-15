@@ -1,6 +1,7 @@
 import Post from "../../database/entities/post";
 import IPost from "../../database/interfaces/post";
 export default interface IPostDb {
+  findAllForSEO: () => Promise<Post[] | null>;
   findAll: () => Promise<Post[] | null>;
   findAllPaginated: (
     {

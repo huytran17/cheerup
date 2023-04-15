@@ -13,12 +13,14 @@ import subscriptionRouter from "./subscription";
 import postBookmarkRouter from "./post-bookmark";
 import commentLikeRouter from "./comment-like";
 import passwordResetRouter from "./password-reset";
+import seoRouter from "./seo";
 
 apiRouter.use("/user", authenticateUserJWT(), userRouter);
 apiRouter.use("/post-bookmark", authenticateUserJWT(), postBookmarkRouter);
 apiRouter.use("/subscription", authenticateUserJWT(), subscriptionRouter);
 apiRouter.use("/comment-like", authenticateUserJWT(), commentLikeRouter);
 
+apiRouter.use("/seo", seoRouter);
 apiRouter.use("/category", categoryRouter);
 apiRouter.use("/comment", commentRouter);
 apiRouter.use("/post", postRouter);
