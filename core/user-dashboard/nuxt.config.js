@@ -1,26 +1,51 @@
 import colors from "vuetify/es5/util/colors";
+
+import { seo_home_schema } from "./seo";
+
 import vi from "./locales/vi.json";
 import en from "./locales/en.json";
 
 export default {
   ssr: false,
 
-  head: {
-    titleTemplate: "%s",
-    title: "Cherrup",
-    htmlAttrs: {
-      lang: "en",
+  target: "static",
+
+  head: seo_home_schema,
+
+  generate: {
+    cache: {
+      ignore: [
+        ".nuxt",
+        "static",
+        "dist",
+        "node_modules",
+        ".**/*",
+        ".*",
+        "README.md",
+      ],
     },
-    meta: [
-      { charset: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { hid: "description", name: "description", content: "Description" },
-      {
-        hid: "",
+    subFolders: false,
+    interval: 50,
+    crawler: true,
+    routes() {
+      const default_routes = new Promise((res) => {
+        res([
+          {
+            route: "/category",
+            payload: {},
+          },
+        ]);
+      });
+      return default_routes;
+    },
+  },
+
+  hooks: {
+    "vue-renderer": {
+      spa: {
+        prepareContext({ head, payload }) {},
       },
-      { name: "format-detection", content: "telephone=no" },
-    ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    },
   },
 
   server: {
@@ -50,6 +75,7 @@ export default {
   modules: ["@nuxtjs/axios", "@nuxtjs/i18n"],
 
   i18n: {
+    baseUrl: process.env.APP_URL,
     strategy: "prefix",
     locales: [
       {
@@ -112,6 +138,7 @@ export default {
 
   env: {
     SERVER_URL: process.env.SERVER_URL || "http://localhost:3000",
+    APP_URL: process.env.SERVER_URL || "http://localhost:8082",
     OWNER_EMAIL: process.env.OWNER_EMAIL,
   },
 };
