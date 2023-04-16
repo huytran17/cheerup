@@ -33,11 +33,17 @@ const COMMENT_LIKE_TYPE = {
   DISLIKE: "dislike",
 };
 
+const SEO_TYPE = {
+  POST: "post",
+  CATEGORY: "category",
+};
+
 export default Object.freeze({
   SOCIAL_MEDIA_TYPES,
   SOCIALITE_URL,
   HTTP_STATUS_CODE,
   COMMENT_LIKE_TYPE,
+  SEO_TYPE,
 });
 
 export {
@@ -45,4 +51,5 @@ export {
   SOCIALITE_URL,
   HTTP_STATUS_CODE,
   COMMENT_LIKE_TYPE,
+  SEO_TYPE,
 };

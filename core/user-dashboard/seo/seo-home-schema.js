@@ -89,14 +89,14 @@ const seo_home_schema = {
       content: "Cheerup",
     },
     {
-      hid: "og:url",
-      property: "og:url",
-      content: "http://localhost:8082",
-    },
-    {
       hid: "og:image",
       property: "og:image",
       content: "http://localhost:8082/logo.png",
+    },
+    {
+      hid: "og:image:alt",
+      property: "og:image:alt",
+      content: "cheerup_logo",
     },
     {
       hid: "twitter:title",
@@ -122,7 +122,7 @@ const seo_home_schema = {
     {
       hid: "twitter:image:alt",
       name: "twitter:image:alt",
-      content: "cheerup",
+      content: "cheerup_logo",
     },
   ],
   link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],

@@ -1,5 +1,8 @@
 import colors from "vuetify/es5/util/colors";
+import axios from "axios";
+import { get, findIndex, map, flattenDeep, compact } from "lodash";
 
+import { SEO_TYPE } from "./constants";
 import { seo_home_schema } from "./seo";
 
 import vi from "./locales/vi.json";
@@ -27,23 +30,133 @@ export default {
     subFolders: false,
     interval: 50,
     crawler: true,
-    routes() {
-      const default_routes = new Promise((res) => {
-        res([
-          {
-            route: "/category",
-            payload: {},
-          },
+    async routes() {
+      try {
+        const seo_post_payload = await axios.get(
+          `${process.env.SERVER_URL}/api/seo/posts`
+        );
+
+        const seo_post_data = get(seo_post_payload, "data.data", []);
+        const seo_post_promises = map(seo_post_data, (post) => ({
+          route: `/post/${post._id}`,
+          payload:
+            {
+              ...post.seo,
+              url: `${process.env.APP_URL}/post/${post._id}`,
+              type: SEO_TYPE.POST,
+            } || {},
+        }));
+
+        const seo_category_payload = await axios.get(
+          `${process.env.SERVER_URL}/api/seo/categories`
+        );
+
+        const seo_category_data = get(seo_category_payload, "data.data", []);
+        const seo_category_promises = map(seo_category_data, (category) => ({
+          route: `/category/${category._id}`,
+          payload:
+            {
+              ...category.seo,
+              url: `${process.env.APP_URL}/category/${category._id}`,
+            } || {},
+        }));
+
+        const seo_routes = await Promise.all([
+          seo_post_promises,
+          seo_category_promises,
         ]);
-      });
-      return default_routes;
+
+        return flattenDeep(compact(seo_routes));
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 
   hooks: {
     "vue-renderer": {
       spa: {
-        prepareContext({ head, payload }) {},
+        prepareContext({ head, payload }) {
+          if (!payload) {
+            return;
+          }
+
+          const seo_title = get(payload, "title", "");
+          const seo_description = get(payload, "description", "");
+          const seo_url = get(payload, "url", "");
+          const seo_image_url = get(payload, "thumbnail", "");
+          const seo_type = get(payload, "type", "");
+          const seo_keywords = get(payload, "keywords", "");
+
+          head.title = seo_title;
+
+          const seo_og_title_index = findIndex(head.meta, ["hid", "og:title"]);
+          head.meta[seo_og_title_index].content = seo_title;
+
+          const seo_og_description_index = findIndex(head.meta, [
+            "hid",
+            "og:description",
+          ]);
+          head.meta[seo_og_description_index].content = seo_description;
+
+          const seo_og_keywords_index = findIndex(head.meta, [
+            "hid",
+            "keywords",
+          ]);
+          head.meta[seo_og_keywords_index].content = seo_keywords;
+
+          const seo_og_url_index = findIndex(head.meta, ["hid", "og:url"]);
+          head.meta[seo_og_url_index].content = seo_url;
+
+          const seo_og_image_index = findIndex(head.meta, ["hid", "og:image"]);
+          head.meta[seo_og_image_index].content = seo_image_url;
+
+          const seo_og_image_alt_index = findIndex(head.meta, [
+            "hid",
+            "og:image:alt",
+          ]);
+          head.meta[seo_og_image_alt_index].content = seo_title;
+
+          const seo_twitter_title_index = findIndex(head.meta, [
+            "hid",
+            "twitter:title",
+          ]);
+          head.meta[seo_twitter_title_index].content = seo_title;
+
+          const seo_twitter_description_index = findIndex(head.meta, [
+            "hid",
+            "twitter:description",
+          ]);
+          head.meta[seo_twitter_description_index].content = seo_description;
+
+          const seo_twitter_image_index = findIndex(head.meta, [
+            "hid",
+            "twitter:image",
+          ]);
+          head.meta[seo_twitter_image_index].content = seo_image_url;
+
+          const seo_twitter_image_alt_index = findIndex(head.meta, [
+            "hid",
+            "twitter:image:alt",
+          ]);
+          head.meta[seo_twitter_image_alt_index].content = seo_title;
+
+          if (seo_type === SEO_TYPE.POST) {
+            const seo_og_type_index = findIndex(head.meta, ["hid", "og:type"]);
+            head.meta[seo_og_type_index].content = seo_type;
+
+            head.link.push({
+              rel: "canonical",
+              href: `${process.env.APP_URL}/post`,
+            });
+          }
+
+          seo_type === SEO_TYPE.CATEGORY &&
+            head.link.push({
+              rel: "canonical",
+              href: `${process.env.APP_URL}/category`,
+            });
+        },
       },
     },
   },
@@ -109,6 +222,14 @@ export default {
 
   axios: {
     baseURL: `${process.env.SERVER_URL}/api`,
+    https: false,
+    progress: true,
+    retry: { retries: 3 },
+    credentials: false,
+    common: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
   },
 
   vuetify: {

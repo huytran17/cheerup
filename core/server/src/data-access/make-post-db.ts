@@ -272,7 +272,7 @@ export default function makePostDb({
 
       const existing = await postDbModel
         .find(query_conditions)
-        .select("_id seo")
+        .select("_id seo thumbnail_url")
         .sort({
           created_at: "desc",
         })

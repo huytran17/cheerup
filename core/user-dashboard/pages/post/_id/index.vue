@@ -12,6 +12,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import { get } from "lodash";
 import postMixins from "@/mixins/post";
 import commentMixins from "@/mixins/comment";
 import BasePostPanel from "@/components/post/BasePostPanel";
@@ -20,6 +21,85 @@ import BaseCommentPanel from "@/components/comment/BaseCommentPanel";
 
 export default {
   name: "PostPanel",
+  head() {
+    const seo_title = get(this.post, "seo.title");
+    const seo_description = get(this.post, "seo.description");
+    const seo_keywords = get(this.post, "seo.keywords");
+    const seo_author = get(this.post, "seo.author");
+    const seo_thumbnail = get(this.post, "seo.thumbnail");
+
+    return {
+      title: seo_title,
+      meta: [
+        {
+          hid: "author",
+          name: "author",
+          content: seo_author,
+        },
+        {
+          hid: "description",
+          name: "description",
+          content: seo_description,
+        },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content: seo_keywords,
+        },
+        {
+          hid: "og:title",
+          property: "og:title",
+          content: seo_title,
+        },
+        {
+          hid: "og:type",
+          property: "og:type",
+          content: "article",
+        },
+        {
+          hid: "og:url",
+          property: "og:url",
+          content: `${process.env.APP_URL}/post/${this.$route.params.id}`,
+        },
+        {
+          hid: "og:description",
+          property: "og:description",
+          content: seo_description,
+        },
+        {
+          hid: "og:image",
+          property: "og:image",
+          content: seo_thumbnail,
+        },
+        {
+          hid: "og:image:alt",
+          property: "og:image:alt",
+          content: seo_title,
+        },
+        {
+          hid: "twitter:title",
+          name: "twitter:title",
+          content: seo_title,
+        },
+        {
+          hid: "twitter:description",
+          name: "twitter:description",
+          content: seo_description,
+        },
+        {
+          hid: "twitter:image",
+          name: "twitter:image",
+          content: seo_thumbnail,
+        },
+        {
+          hid: "twitter:image:alt",
+          name: "twitter:image:alt",
+          content: seo_title,
+        },
+      ],
+      link: [{ rel: "canonical", href: `${process.env.APP_URL}/post` }],
+    };
+  },
   async asyncData({ store, params }) {
     try {
       const post_id = params.id;
@@ -61,7 +141,6 @@ export default {
   computed: {
     ...mapGetters({
       me: "auth/me",
-      post: "post/post",
     }),
 
     has_suggestion_posts() {

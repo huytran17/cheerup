@@ -8,9 +8,9 @@ import {
 
 const seoRouter = express.Router();
 
-seoRouter.post("/posts", makeExpressCallback(getPostsForSEOController));
+seoRouter.get("/posts", makeExpressCallback(getPostsForSEOController));
 
-seoRouter.post(
+seoRouter.get(
   "/categories",
   makeExpressCallback(getCategoriesForSEOController)
 );

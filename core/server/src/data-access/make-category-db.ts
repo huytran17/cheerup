@@ -166,7 +166,7 @@ export default function makeCategoryDb({
 
       const existing = await categoryDbModel
         .find(query_conditions)
-        .select("_id seo")
+        .select("_id seo thumbnail_url")
         .sort({
           created_at: "desc",
         })
