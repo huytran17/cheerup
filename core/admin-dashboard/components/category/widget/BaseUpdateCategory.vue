@@ -140,6 +140,18 @@
                         "
                       ></v-text-field>
                     </v-col>
+                    <v-col cols="12" md="6">
+                      <v-text-field
+                        :value="category.seo && category.seo.author"
+                        :label="$t('Author')"
+                        @input="
+                          updateCategoryObject({
+                            variable_path: 'seo.author',
+                            data: $event,
+                          })
+                        "
+                      ></v-text-field>
+                    </v-col>
                   </v-row>
                 </v-expansion-panel-content>
               </v-expansion-panel>
