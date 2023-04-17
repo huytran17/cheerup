@@ -295,9 +295,7 @@ export default function makePostDb({
         categories?: string[];
         is_only_published?: boolean;
         tags?: string[];
-        sorts?: {
-          [key: string]: SortOrder;
-        };
+        sorts?: string;
       },
       {
         query = "",
@@ -330,7 +328,9 @@ export default function makePostDb({
         ];
       }
 
-      const sort_params = (!_.isEmpty(sorts) && { ...sorts }) || {
+      const sort_params: {
+        [key: string]: SortOrder;
+      } = (!_.isEmpty(sorts) && { ...JSON.parse(sorts) }) || {
         created_at: "desc",
       };
 

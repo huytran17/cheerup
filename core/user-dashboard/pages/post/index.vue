@@ -7,20 +7,17 @@ import { mapGetters, mapActions } from "vuex";
 import BaseArticles from "@/components/article/BaseArticles";
 export default {
   name: "IndexPage",
-  async asyncData({ store, route }) {
+  async asyncData({ store }) {
     try {
       await store.dispatch("post/GET_POSTS_PAGINATED", {
         user_id: _.get(store.getters["auth/me"], "_id"),
-        query: route.query.search,
+        sorts: {
+          views: -1,
+        },
       });
     } catch (error) {
       console.error(error);
     }
-  },
-  transition: {
-    async beforeEnter() {
-      await this.$i18n.finalizePendingLocaleChange();
-    },
   },
   components: {
     BaseArticles,
@@ -30,16 +27,6 @@ export default {
     ...mapGetters({
       me: "auth/me",
     }),
-  },
-
-  watch: {
-    "$route.query": {
-      async handler(query) {
-        await this.GET_POSTS_PAGINATED({
-          query: query.search,
-        });
-      },
-    },
   },
 
   methods: {

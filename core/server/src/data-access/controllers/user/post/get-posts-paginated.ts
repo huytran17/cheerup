@@ -1,5 +1,4 @@
 import { Request } from "express";
-import { SortOrder } from "mongoose";
 import { IGetPostsPaginated } from "../../../../use-cases/post/get-posts-paginated";
 import { IReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import { ICountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
@@ -45,9 +44,7 @@ export default function makeGetPostsPaginatedController({
         is_only_published?: boolean;
         user_id: string;
         tags?: string;
-        sorts?: {
-          [key: string]: SortOrder;
-        };
+        sorts?: string;
       } = get(httpRequest, "context.validated");
 
       const categories_array = isEmpty(categories)

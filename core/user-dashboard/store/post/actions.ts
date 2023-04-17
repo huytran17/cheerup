@@ -71,7 +71,7 @@ const actions: ActionTree<PostState, RootState> = {
 
     query && url_query.set("query", query);
 
-    sorts && url_query.set("sorts", sorts);
+    sorts && url_query.set("sorts", JSON.stringify(sorts));
 
     user_id && url_query.set("user_id", user_id);
 

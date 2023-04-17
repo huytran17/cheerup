@@ -1,6 +1,5 @@
 import Post from "../../database/entities/post";
 import IPost from "../../database/interfaces/post";
-import { SortOrder } from "mongoose";
 export default interface IPostDb {
   findAllForSEO: () => Promise<Post[] | null>;
   findAll: () => Promise<Post[] | null>;
@@ -14,9 +13,7 @@ export default interface IPostDb {
       categories?: string[];
       is_only_published?: boolean;
       tags?: string[];
-      sorts?: {
-        [key: string]: SortOrder;
-      };
+      sorts?: string;
     },
     {
       query,

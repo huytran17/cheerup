@@ -2,7 +2,6 @@ import { Logger } from "winston";
 import IPostDb, {
   IPaginatedPostResult,
 } from "../../data-access/interfaces/post-db";
-import { SortOrder } from "mongoose";
 
 export type IGetPostsPaginated = (
   {
@@ -14,9 +13,7 @@ export type IGetPostsPaginated = (
     categories?: string[];
     is_only_published?: boolean;
     tags?: string[];
-    sorts?: {
-      [key: string]: SortOrder;
-    };
+    sorts?: string;
   },
   {
     query,
@@ -46,9 +43,7 @@ export default function makeGetPostsPaginated({
       categories?: string[];
       is_only_published?: boolean;
       tags?: string[];
-      sorts?: {
-        [key: string]: SortOrder;
-      };
+      sorts?: string;
     },
     {
       query,
