@@ -64,11 +64,14 @@ const actions: ActionTree<PostState, RootState> = {
     const is_only_published = _.get(params, "is_only_published", true);
     const categories = _.get(params, "categories", []);
     const tags = _.get(params, "tags", []);
+    const sorts = _.get(params, "sorts");
     const user_id = _.get(params, "user_id");
 
     const url_query = new URLSearchParams();
 
     query && url_query.set("query", query);
+
+    sorts && url_query.set("sorts", sorts);
 
     user_id && url_query.set("user_id", user_id);
 

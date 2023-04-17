@@ -1,15 +1,23 @@
 import { Logger } from "winston";
-import Post from "../../database/entities/post";
 import IPostDb, {
   IPaginatedPostResult,
 } from "../../data-access/interfaces/post-db";
+import { SortOrder } from "mongoose";
 
 export type IGetPostsPaginated = (
   {
     categories,
     is_only_published,
     tags,
-  }: { categories?: string[]; is_only_published?: boolean; tags?: string[] },
+    sorts,
+  }: {
+    categories?: string[];
+    is_only_published?: boolean;
+    tags?: string[];
+    sorts?: {
+      [key: string]: SortOrder;
+    };
+  },
   {
     query,
     page,
@@ -33,10 +41,14 @@ export default function makeGetPostsPaginated({
       categories = [],
       is_only_published,
       tags,
+      sorts,
     }: {
       categories?: string[];
       is_only_published?: boolean;
       tags?: string[];
+      sorts?: {
+        [key: string]: SortOrder;
+      };
     },
     {
       query,
@@ -49,7 +61,7 @@ export default function makeGetPostsPaginated({
     }
   ): Promise<IPaginatedPostResult | null> {
     const posts = await postDb.findAllPaginated(
-      { categories, is_only_published, tags },
+      { categories, is_only_published, tags, sorts },
       {
         query,
         page,

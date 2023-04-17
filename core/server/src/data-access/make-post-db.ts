@@ -1,5 +1,5 @@
 import _ from "lodash";
-import mongoose from "mongoose";
+import mongoose, { SortOrder } from "mongoose";
 import IPostDb, {
   IPaginatedPostResult,
   IPostAnalytics,
@@ -290,10 +290,14 @@ export default function makePostDb({
         categories,
         is_only_published = false,
         tags,
+        sorts,
       }: {
-        categories: string[];
+        categories?: string[];
         is_only_published?: boolean;
-        tags: string[];
+        tags?: string[];
+        sorts?: {
+          [key: string]: SortOrder;
+        };
       },
       {
         query = "",
@@ -326,15 +330,17 @@ export default function makePostDb({
         ];
       }
 
+      const sort_params = (!_.isEmpty(sorts) && { ...sorts }) || {
+        created_at: "desc",
+      };
+
       const existing = await postDbModel
         .find(query_conditions)
         .populate("author", "-_v")
         .populate("categories", "-_v")
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)
-        .sort({
-          created_at: "desc",
-        })
+        .sort(sort_params)
         .lean({ virtuals: true });
 
       const total_count = await postDbModel.countDocuments(query_conditions);
@@ -404,7 +410,7 @@ export default function makePostDb({
     }
 
     async findSuggestionPosts({
-      amount,
+      amount = 5,
       categories,
       exclude_ids,
     }: {
