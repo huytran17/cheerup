@@ -13,6 +13,11 @@ import makeHardDeleteCategory from "./hard-delete-category";
 import makeGetCategoryByTitle from "./get-category-by-title";
 import makeGetCategoryAnalystics from "./get-category-analystics";
 import makeGetCategoriesForSEO from "./get-categories-for-seo";
+import makeGetCategoriesPaginated from "./get-categories-paginated";
+
+const getCategoriesPaginated = makeGetCategoriesPaginated({
+  categoryDb: CategoryDb,
+});
 
 const getCategoriesForSEO = makeGetCategoriesForSEO({
   categoryDb: CategoryDb,
@@ -72,6 +77,7 @@ const categoryServices = Object.freeze({
   getCategoryByTitle,
   getCategoryAnalystics,
   getCategoriesForSEO,
+  getCategoriesPaginated,
 });
 
 export default categoryServices;
@@ -87,4 +93,5 @@ export {
   getCategoryByTitle,
   getCategoryAnalystics,
   getCategoriesForSEO,
+  getCategoriesPaginated,
 };

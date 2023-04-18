@@ -14,6 +14,11 @@ import makeGetSuggestionPosts from "./get-suggestion-posts";
 import makeGetPostsPaginated from "./get-posts-paginated";
 import makeGetMostPopularPostsAnalystics from "./get-most-popular-posts-analystics";
 import makeGetPostsForSEO from "./get-posts-for-seo";
+import makeCountPostByCategory from "./count-post-by-category";
+
+const countPostByCategory = makeCountPostByCategory({
+  postDb: PostDb,
+});
 
 const getPostsForSEO = makeGetPostsForSEO({
   postDb: PostDb,
@@ -80,6 +85,7 @@ const postServices = Object.freeze({
   getPostsPaginated,
   getMostPopularPostsAnalystics,
   getPostsForSEO,
+  countPostByCategory,
 });
 
 export default postServices;
@@ -96,4 +102,5 @@ export {
   getPostsPaginated,
   getMostPopularPostsAnalystics,
   getPostsForSEO,
+  countPostByCategory,
 };

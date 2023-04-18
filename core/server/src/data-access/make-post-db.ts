@@ -409,6 +409,27 @@ export default function makePostDb({
       return null;
     }
 
+    async countByCategory({
+      category_id,
+    }: {
+      category_id: string;
+    }): Promise<number> {
+      const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
+      const is_mongo_id = mongo_id_regex.test(category_id);
+      if (!is_mongo_id || !category_id) {
+        return null;
+      }
+
+      const query_conditions = {
+        deleted_at: { $in: [null, undefined] },
+        categories: category_id,
+      };
+
+      const count = await postDbModel.countDocuments(query_conditions);
+
+      return count;
+    }
+
     async findSuggestionPosts({
       amount = 5,
       categories,

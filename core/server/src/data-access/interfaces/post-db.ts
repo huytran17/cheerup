@@ -26,6 +26,11 @@ export default interface IPostDb {
     }
   ) => Promise<IPaginatedPostResult | null>;
   findOne: () => Promise<Post | null>;
+  countByCategory: ({
+    category_id,
+  }: {
+    category_id: string;
+  }) => Promise<number>;
   findSuggestionPosts: ({
     amount,
     categories,
