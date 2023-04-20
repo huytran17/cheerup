@@ -17,15 +17,15 @@ export default function makeGetCategoryController({
     };
 
     try {
-      const { category_id } = get(httpRequest, "context.validated");
+      const { _id } = get(httpRequest, "context.validated");
 
       const exists = await getCategory({
-        _id: category_id,
+        _id,
         is_include_deleted: false,
       });
 
       if (isEmpty(exists)) {
-        throw new Error(`Category ${category_id} does not exists`);
+        throw new Error(`Category ${_id} does not exists`);
       }
 
       return {

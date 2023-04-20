@@ -39,7 +39,7 @@ export default {
         {
           id: this.generateRandomString({ length: 10 }),
           title: "Categories",
-          route: "/access",
+          route: "/category",
         },
         {
           id: this.generateRandomString({ length: 10 }),

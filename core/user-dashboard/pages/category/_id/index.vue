@@ -4,6 +4,7 @@
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
+import { get } from "lodash";
 import BaseArticles from "@/components/article/BaseArticles";
 
 export default {
@@ -98,7 +99,7 @@ export default {
           categories: [category_id],
           user_id: _.get(store.getters["auth/me"], "_id"),
         }),
-        store.dispatch("post/GET_CATEGORY", {
+        store.dispatch("category/GET_CATEGORY", {
           id: category_id,
         }),
       ]);

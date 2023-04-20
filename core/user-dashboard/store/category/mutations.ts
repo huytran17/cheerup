@@ -8,6 +8,22 @@ const mutations: MutationTree<CategoryState> = {
     state.category = data;
   },
 
+  [MutationTypes.SET_CATEGORIES_PAGINATION](
+    state,
+    {
+      data,
+    }: {
+      data: {
+        current_page: number;
+        per_page: number;
+        total: number;
+        total_pages: number;
+      };
+    }
+  ) {
+    state.pagination = data;
+  },
+
   [MutationTypes.SET_CATEGORIES](state, { data }: { data: any[] }) {
     state.categories = data;
   },

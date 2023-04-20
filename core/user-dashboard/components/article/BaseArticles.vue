@@ -56,7 +56,6 @@ export default {
   computed: {
     ...mapGetters({
       me: "auth/me",
-      posts: "post/posts",
     }),
 
     user_id() {
