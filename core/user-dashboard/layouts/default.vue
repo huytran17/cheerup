@@ -29,6 +29,9 @@
                 <BaseCategoriesCard />
               </v-col>
               <v-col cols="12" class="mt-3">
+                <BaseQuickAccessCard />
+              </v-col>
+              <v-col cols="12" class="mt-3">
                 <BaseSearchCard />
               </v-col>
             </v-row>
@@ -51,6 +54,7 @@ import BaseSocialiteList from "@/components/socialite/BaseSocialiteList";
 import BaseProfileCard from "@/components/user/BaseProfileCard";
 import BaseCategoriesCard from "@/components/category/BaseCategoriesCard";
 import BaseSearchCard from "@/components/searching/BaseSearchCard";
+import BaseQuickAccessCard from "@/components/quick-access/BaseQuickAccessCard";
 import RequireLoginSnackbar from "@/components/RequireLoginSnackbar";
 import BaseLanguageSwitcher from "@/components/BaseLanguageSwitcher";
 
@@ -65,6 +69,7 @@ export default {
     BaseProfileCard,
     BaseCategoriesCard,
     BaseSearchCard,
+    BaseQuickAccessCard,
     RequireLoginSnackbar,
     BaseLanguageSwitcher,
   },

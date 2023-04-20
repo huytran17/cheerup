@@ -25,11 +25,30 @@ export default {
       SET_IS_OPEN_LOGIN_REQUIRING_SNACKBAR:
         "SET_IS_OPEN_LOGIN_REQUIRING_SNACKBAR",
     }),
+
     formatDate(date, format) {
       if (format) {
         return this.$moment(date).format(format);
       }
+
       return this.$moment(date).fromNow();
+    },
+
+    generateRandomString({ length }) {
+      let result = "";
+      const characters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      const characters_length = characters.length;
+      let counter = 0;
+
+      while (counter < length) {
+        result += characters.charAt(
+          Math.floor(Math.random() * characters_length)
+        );
+
+        counter += 1;
+      }
+      return result;
     },
   },
   filters: {
