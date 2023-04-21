@@ -1,26 +1,13 @@
 import { join } from "lodash";
 
-const seo_home_schema = {
+const seo_category_schema = {
   titleTemplate: "%s - Cheerup",
-  title: "The best topics about life",
+  title: "Most popular categories",
   meta: [
-    { charset: "utf-8" },
-    {
-      name: "viewport",
-      content:
-        "width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0",
-    },
-    { name: "format-detection", content: "telephone=no" },
-    {
-      hid: "author",
-      name: "author",
-      content: "Huy Tran",
-    },
     {
       hid: "description",
       name: "description",
-      content:
-        "Share thoughts on topics about love, work, life style, perspective and outlook on life",
+      content: "Explore your interests with categories on interesting topics",
     },
     {
       hid: "keywords",
@@ -55,14 +42,9 @@ const seo_home_schema = {
       ),
     },
     {
-      hid: "robots",
-      name: "robots",
-      content: "all",
-    },
-    {
       hid: "og:title",
       property: "og:title",
-      content: "The best topics about life",
+      content: "Most popular categories",
     },
     {
       hid: "og:type",
@@ -72,23 +54,12 @@ const seo_home_schema = {
     {
       hid: "og:url",
       property: "og:url",
-      content: process.env.APP_URL,
+      content: `${process.env.APP_URL}/category`,
     },
     {
       hid: "og:description",
       property: "og:description",
-      content:
-        "Share thoughts on topics about love, work, life style, perspective and outlook on life",
-    },
-    {
-      hid: "og:locale",
-      property: "og:locale",
-      content: "en_US",
-    },
-    {
-      hid: "og:site_name",
-      property: "og:site_name",
-      content: "Cheerup",
+      content: "Explore your interests with categories on interesting topics",
     },
     {
       hid: "og:image",
@@ -103,13 +74,12 @@ const seo_home_schema = {
     {
       hid: "twitter:title",
       name: "twitter:title",
-      content: "The best topics about life",
+      content: "Most popular categories",
     },
     {
       hid: "twitter:description",
       name: "twitter:description",
-      content:
-        "Share thoughts on topics about love, work, life style, perspective and outlook on life",
+      content: "Explore your interests with categories on interesting topics",
     },
     {
       hid: "twitter:card",
@@ -127,7 +97,6 @@ const seo_home_schema = {
       content: "cheerup_logo",
     },
   ],
-  link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
 };
 
-export { seo_home_schema };
+export { seo_category_schema };

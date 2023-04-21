@@ -1,9 +1,9 @@
 import colors from "vuetify/es5/util/colors";
 import axios from "axios";
-import { get, findIndex, map, flattenDeep, compact } from "lodash";
+import { get, findIndex, map, flattenDeep, concat } from "lodash";
 
 import { SEO_TYPE } from "./constants";
-import { seo_home_schema } from "./seo";
+import { seo_home_schema, seo_category_schema, seo_post_schema } from "./seo";
 
 import vi from "./locales/vi.json";
 import en from "./locales/en.json";
@@ -58,15 +58,37 @@ export default {
             {
               ...category.seo,
               url: `${process.env.APP_URL}/category/${category._id}`,
+              type: SEO_TYPE.CATEGORY,
             } || {},
         }));
+
+        const seo_pages_promises = new Promise((res) =>
+          res([
+            {
+              route: "/category",
+              payload: {
+                ...seo_category_schema,
+                url: `${process.env.APP_URL}/category`,
+              },
+            },
+            {
+              route: "/post",
+              payload: {
+                ...seo_post_schema,
+                url: `${process.env.APP_URL}/post`,
+                gh: "ok",
+              },
+            },
+          ])
+        );
 
         const seo_routes = await Promise.all([
           seo_post_promises,
           seo_category_promises,
+          seo_pages_promises,
         ]);
 
-        return flattenDeep(compact(seo_routes));
+        return flattenDeep(concat(seo_routes));
       } catch (error) {
         console.error(error);
       }
@@ -81,6 +103,10 @@ export default {
             return;
           }
 
+          if (payload.gh === "ok") {
+            console.log("--------------------", payload);
+          }
+
           const seo_title = get(payload, "title", "");
           const seo_description = get(payload, "description", "");
           const seo_url = get(payload, "url", "");
@@ -90,56 +116,74 @@ export default {
 
           head.title = seo_title;
 
-          const seo_og_title_index = findIndex(head.meta, ["hid", "og:title"]);
-          head.meta[seo_og_title_index].content = seo_title;
+          if (seo_title) {
+            const seo_og_title_index = findIndex(head.meta, [
+              "hid",
+              "og:title",
+            ]);
+            head.meta[seo_og_title_index].content = seo_title;
 
-          const seo_og_description_index = findIndex(head.meta, [
-            "hid",
-            "og:description",
-          ]);
-          head.meta[seo_og_description_index].content = seo_description;
+            const seo_twitter_title_index = findIndex(head.meta, [
+              "hid",
+              "twitter:title",
+            ]);
+            head.meta[seo_twitter_title_index].content = seo_title;
 
-          const seo_og_keywords_index = findIndex(head.meta, [
-            "hid",
-            "keywords",
-          ]);
-          head.meta[seo_og_keywords_index].content = seo_keywords;
+            const seo_twitter_image_alt_index = findIndex(head.meta, [
+              "hid",
+              "twitter:image:alt",
+            ]);
+            head.meta[seo_twitter_image_alt_index].content = seo_title;
 
-          const seo_og_url_index = findIndex(head.meta, ["hid", "og:url"]);
-          head.meta[seo_og_url_index].content = seo_url;
+            const seo_og_image_alt_index = findIndex(head.meta, [
+              "hid",
+              "og:image:alt",
+            ]);
+            head.meta[seo_og_image_alt_index].content = seo_title;
+          }
 
-          const seo_og_image_index = findIndex(head.meta, ["hid", "og:image"]);
-          head.meta[seo_og_image_index].content = seo_image_url;
+          if (seo_description) {
+            const seo_og_description_index = findIndex(head.meta, [
+              "hid",
+              "og:description",
+            ]);
+            head.meta[seo_og_description_index].content = seo_description;
 
-          const seo_og_image_alt_index = findIndex(head.meta, [
-            "hid",
-            "og:image:alt",
-          ]);
-          head.meta[seo_og_image_alt_index].content = seo_title;
+            const seo_twitter_description_index = findIndex(head.meta, [
+              "hid",
+              "twitter:description",
+            ]);
+            head.meta[seo_twitter_description_index].content = seo_description;
+          }
 
-          const seo_twitter_title_index = findIndex(head.meta, [
-            "hid",
-            "twitter:title",
-          ]);
-          head.meta[seo_twitter_title_index].content = seo_title;
+          if (seo_url) {
+            const seo_og_url_index = findIndex(head.meta, ["hid", "og:url"]);
+            head.meta[seo_og_url_index].content = seo_url;
+          }
 
-          const seo_twitter_description_index = findIndex(head.meta, [
-            "hid",
-            "twitter:description",
-          ]);
-          head.meta[seo_twitter_description_index].content = seo_description;
+          if (seo_keywords) {
+            const seo_og_keywords_index = findIndex(head.meta, [
+              "hid",
+              "keywords",
+            ]);
+            head.meta[seo_og_keywords_index].content = seo_keywords;
+          }
 
-          const seo_twitter_image_index = findIndex(head.meta, [
-            "hid",
-            "twitter:image",
-          ]);
-          head.meta[seo_twitter_image_index].content = seo_image_url;
+          if (seo_image_url) {
+            const seo_og_image_index = findIndex(head.meta, [
+              "hid",
+              "og:image",
+            ]);
+            head.meta[seo_og_image_index].content = seo_image_url;
+          }
 
-          const seo_twitter_image_alt_index = findIndex(head.meta, [
-            "hid",
-            "twitter:image:alt",
-          ]);
-          head.meta[seo_twitter_image_alt_index].content = seo_title;
+          if (seo_image_url) {
+            const seo_twitter_image_index = findIndex(head.meta, [
+              "hid",
+              "twitter:image",
+            ]);
+            head.meta[seo_twitter_image_index].content = seo_image_url;
+          }
 
           if (seo_type === SEO_TYPE.POST) {
             const seo_og_type_index = findIndex(head.meta, ["hid", "og:type"]);
