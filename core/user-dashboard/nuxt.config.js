@@ -76,7 +76,6 @@ export default {
               payload: {
                 ...seo_post_schema,
                 url: `${process.env.APP_URL}/post`,
-                gh: "ok",
               },
             },
           ])
@@ -101,10 +100,6 @@ export default {
         prepareContext({ head, payload }) {
           if (!payload) {
             return;
-          }
-
-          if (payload.gh === "ok") {
-            console.log("--------------------", payload);
           }
 
           const seo_title = get(payload, "title", "");
