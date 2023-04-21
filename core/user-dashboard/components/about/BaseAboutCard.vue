@@ -7,7 +7,7 @@
       ></span>
     </div>
     <div class="sidebar__card py-6 px-6">
-      <div v-if="should_show_avatar" class="d-flex justify-center pb-6">
+      <div v-if="should_show_avatar" class="d-flex justify-center">
         <v-img
           v-if="owner_avatar_url"
           :src="owner_avatar_url"
@@ -25,14 +25,24 @@
           :size="60"
         ></avatar>
       </div>
-      <div v-if="owner_description" class="position-relative">
+
+      <div v-if="owner_name" class="position-relative py-4">
+        <div class="small--text text-center">
+          <span class="app-body text--ellipsis me__description">{{
+            owner_name
+          }}</span>
+        </div>
+      </div>
+
+      <div v-if="owner_description" class="position-relative pb-2">
         <v-icon color="brick" class="quote__description position-absolute" large
           >mdi-format-quote-open</v-icon
         >
         <div class="small--text text-left" v-line-clamp="5">
-          <span class="app-body text--ellipsis me__description">{{
-            owner_description
-          }}</span>
+          <span
+            class="app-body text--ellipsis me__description"
+            v-html="owner_description"
+          ></span>
         </div>
       </div>
 
@@ -66,18 +76,15 @@ export default {
     },
 
     owner_avatar_url() {
-      return _.get(this.system_configuration_data, "client_owner_avatar_url");
+      return _.get(this.system_configuration, "owner_avatar_url");
     },
 
     owner_name() {
-      return _.get(this.system_configuration_data, "client_meta.owner.name");
+      return _.get(this.system_configuration, "owner.name");
     },
 
     owner_description() {
-      return _.get(
-        this.system_configuration_data,
-        "client_meta.owner.description"
-      );
+      return _.get(this.system_configuration, "owner.description");
     },
   },
 };

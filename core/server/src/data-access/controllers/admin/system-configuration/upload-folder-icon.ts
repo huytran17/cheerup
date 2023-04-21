@@ -6,14 +6,14 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 import deleteS3Object from "../../../../utils/delete-s3-object";
 
-export default function makeUploadAdminMetaFaviconController({
+export default function makeUploadFolderIconController({
   getLatestSystemConfiguration,
   updateSystemConfiguration,
 }: {
   getLatestSystemConfiguration: IGetLatestSystemConfiguration;
   updateSystemConfiguration: IUpdateSystemConfiguration;
 }) {
-  return async function uploadAdminMetaFaviconController(
+  return async function uploadFolderIconController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
@@ -33,17 +33,15 @@ export default function makeUploadAdminMetaFaviconController({
         throw new Error(`File does not exist`);
       }
 
-      const bucket = get(exists, "admin_meta.favicon.bucket");
-      const key = get(exists, "admin_meta.favicon.key");
+      const bucket = get(exists, "folder_icon.bucket");
+      const key = get(exists, "folder_icon.key");
 
       deleteS3Object({ bucket, key });
 
-      const system_configuration_details = Object.assign({}, exists, {
-        admin_meta: {
-          ...exists.admin_meta,
-          favicon: file,
-        },
-      });
+      const system_configuration_details = {
+        ...exists,
+        folder_icon: file,
+      };
 
       const updated_system_configuration = await updateSystemConfiguration({
         systemConfigurationDetails: system_configuration_details,

@@ -59,10 +59,7 @@ export default {
 
   computed: {
     owner_description() {
-      return _.get(
-        this.system_configuration_data,
-        "client_meta.owner.description"
-      );
+      return _.get(this.system_configuration_data, "owner.description");
     },
   },
 };

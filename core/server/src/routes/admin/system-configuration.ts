@@ -7,67 +7,40 @@ import { AuthorizationRole } from "../../constants/authorization-role";
 import {
   getSystemConfigurationRules,
   updateSystemConfigurationRules,
-  uploadAdminMetaLogoRules,
-  uploadAdminMetaFaviconRules,
-  uploadClientMetaLogoRules,
-  uploadClientMetaFaviconRules,
-  uploadClientMetaOwnerAvatarRules,
-  uploadAdminMetaFolderIconRules,
+  uploadOwnerAvatarRules,
+  uploadFolderIconRules,
+  uploadThumbnailRules,
 } from "../../data-access/controllers/admin/system-configuration/validators";
 import {
   getSystemConfigurationController,
   updateSystemConfigurationController,
   getLatestSystemConfigurationController,
-  uploadAdminMetaLogoController,
-  uploadAdminMetaFaviconController,
-  uploadClientMetaLogoController,
-  uploadClientMetaFaviconController,
-  uploadClientMetaOwnerAvatarController,
-  uploadAdminMetaFolderIconController,
+  uploadClientAvatarController,
+  uploadFolderIconController,
+  uploadThumbnaiilController,
 } from "../../data-access/controllers/admin/system-configuration";
 
 const systemConfigurationRouter = express.Router();
 
 systemConfigurationRouter.post(
-  "/upload-admin-meta-folder-icon/:_id",
+  "/upload-folder-icon/:_id",
   makeAuthorization(AuthorizationRole.ONLY_OWNER),
-  makeValidator(uploadAdminMetaFolderIconRules),
-  makeExpressCallback(uploadAdminMetaFolderIconController)
+  makeValidator(uploadFolderIconRules),
+  makeExpressCallback(uploadFolderIconController)
 );
 
 systemConfigurationRouter.post(
-  "/upload-client-meta-owner-avatar/:_id",
+  "/upload-owner-avatar/:_id",
   makeAuthorization(AuthorizationRole.ONLY_OWNER),
-  makeValidator(uploadClientMetaOwnerAvatarRules),
-  makeExpressCallback(uploadClientMetaOwnerAvatarController)
+  makeValidator(uploadOwnerAvatarRules),
+  makeExpressCallback(uploadClientAvatarController)
 );
 
 systemConfigurationRouter.post(
-  "/upload-admin-meta-logo/:_id",
+  "/upload-thumbnail/:_id",
   makeAuthorization(AuthorizationRole.ONLY_OWNER),
-  makeValidator(uploadAdminMetaLogoRules),
-  makeExpressCallback(uploadAdminMetaLogoController)
-);
-
-systemConfigurationRouter.post(
-  "/upload-admin-meta-favicon/:_id",
-  makeAuthorization(AuthorizationRole.ONLY_OWNER),
-  makeValidator(uploadAdminMetaFaviconRules),
-  makeExpressCallback(uploadAdminMetaFaviconController)
-);
-
-systemConfigurationRouter.post(
-  "/upload-client-meta-logo/:_id",
-  makeAuthorization(AuthorizationRole.ONLY_OWNER),
-  makeValidator(uploadClientMetaLogoRules),
-  makeExpressCallback(uploadClientMetaLogoController)
-);
-
-systemConfigurationRouter.post(
-  "/upload-client-meta-favicon/:_id",
-  makeAuthorization(AuthorizationRole.ONLY_OWNER),
-  makeValidator(uploadClientMetaFaviconRules),
-  makeExpressCallback(uploadClientMetaFaviconController)
+  makeValidator(uploadThumbnailRules),
+  makeExpressCallback(uploadThumbnaiilController)
 );
 
 systemConfigurationRouter.get(

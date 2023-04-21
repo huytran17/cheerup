@@ -5,145 +5,14 @@
         <span class="app-title" v-html="$t('Client Meta')"></span>
       </div>
     </v-col>
-    <v-col cols="12" md="6">
-      <v-text-field
-        :value="system_configuration.client_meta?.title"
-        :label="$t('Title')"
-        @input="
-          updateSystemConfigurationObject({
-            variable_path: 'client_meta.title',
-            data: $event,
-          })
-        "
-      ></v-text-field>
-    </v-col>
-    <v-col cols="12" md="6">
-      <v-text-field
-        :value="system_configuration.client_meta?.description"
-        :label="$t('Description')"
-        @input="
-          updateSystemConfigurationObject({
-            variable_path: 'client_meta.description',
-            data: $event,
-          })
-        "
-      ></v-text-field>
-    </v-col>
-    <v-col cols="12" md="6">
-      <v-text-field
-        :value="system_configuration.client_meta?.author"
-        :label="$t('Author')"
-        @input="
-          updateSystemConfigurationObject({
-            variable_path: 'client_meta.author',
-            data: $event,
-          })
-        "
-      ></v-text-field>
-    </v-col>
-    <v-col cols="12" md="6">
-      <v-combobox
-        :value="system_configuration.client_meta?.keywords"
-        :label="$t('Keywords')"
-        multiple
-        chips
-        dense
-        class="mt-2"
-        @change="
-          updateSystemConfigurationObject({
-            variable_path: 'client_meta.keywords',
-            data: $event,
-          })
-        "
-      ></v-combobox>
-    </v-col>
-
-    <v-col cols="12">
-      <v-row>
-        <v-col cols="12" class="pb-0">
-          <div class="text-body-2">
-            <span class="app-body">
-              <span v-html="$t('Logo')"></span>
-            </span>
-          </div>
-        </v-col>
-        <v-col cols="12" md="6">
-          <v-dropzone
-            ref="client_logo_dropzone"
-            id="client_logo"
-            :options="uploadClientLogoOptions({ id: system_configuration._id })"
-            :destroyDropzone="true"
-            @vdropzone-success="
-              (file, response) =>
-                onUploadSuccsess({
-                  ref: 'client_logo_dropzone',
-                  file,
-                  response,
-                  update_paths: ['client_meta.logo', 'client_logo_url'],
-                })
-            "
-          ></v-dropzone>
-        </v-col>
-
-        <v-col cols="12" md="6">
-          <v-img
-            :src="system_configuration.client_logo_url"
-            :alt="system_configuration.client_meta?.title"
-            contain
-            max-width="200px"
-            class="mx-auto"
-          ></v-img>
-        </v-col>
-      </v-row>
-    </v-col>
-
-    <v-col cols="12">
-      <v-row>
-        <v-col cols="12" class="pb-0">
-          <div class="text-body-2">
-            <span class="app-body">
-              <span v-html="$t('Favicon')"></span>
-            </span>
-          </div>
-        </v-col>
-        <v-col cols="12" md="6">
-          <v-dropzone
-            ref="client_favicon_dropzone"
-            id="client_favicon"
-            :options="
-              uploadClientFaviconOptions({ id: system_configuration._id })
-            "
-            :destroyDropzone="true"
-            @vdropzone-success="
-              (file, response) =>
-                onUploadSuccsess({
-                  ref: 'client_favicon_dropzone',
-                  file,
-                  response,
-                  update_paths: ['client_meta.favicon', 'client_favicon_url'],
-                })
-            "
-          ></v-dropzone>
-        </v-col>
-        <v-col cols="12" md="6">
-          <v-img
-            :src="system_configuration.client_favicon_url"
-            :alt="system_configuration.client_meta?.title"
-            contain
-            max-width="200px"
-            class="mx-auto"
-          ></v-img>
-        </v-col>
-      </v-row>
-    </v-col>
 
     <v-col cols="12" md="6">
       <v-text-field
-        :value="system_configuration.client_meta?.owner?.name"
+        :value="system_configuration.owner?.name"
         :label="$t('Owner Name')"
         @input="
           updateSystemConfigurationObject({
-            variable_path: 'client_meta.owner.name',
+            variable_path: 'owner.name',
             data: $event,
           })
         "
@@ -157,11 +26,11 @@
         </span>
       </div>
       <TiptapEditor
-        :content="system_configuration.client_meta?.owner"
+        :content="system_configuration.owner"
         attr="description"
         @on-input="
           updateSystemConfigurationObject({
-            variable_path: 'client_meta.owner.description',
+            variable_path: 'owner.description',
             data: $event,
           })
         "
@@ -179,30 +48,100 @@
         </v-col>
         <v-col cols="12" md="6">
           <v-dropzone
-            ref="client_owner_avatar_dropzone"
-            id="client_owner_avatar"
+            ref="owner_avatar_dropzone"
+            id="owner_avatar"
             :options="
-              uploadClientOwnerAvatarOptions({ id: system_configuration._id })
+              uploadOwnerAvatarOptions({ id: system_configuration._id })
             "
             :destroyDropzone="true"
             @vdropzone-success="
               (file, response) =>
                 onUploadSuccsess({
-                  ref: 'client_owner_avatar_dropzone',
+                  ref: 'owner_avatar_dropzone',
                   file,
                   response,
-                  update_paths: [
-                    'client_meta.owner.avatar',
-                    'client_owner_avatar_url',
-                  ],
+                  update_paths: ['owner.avatar', 'owner_avatar_url'],
                 })
             "
           ></v-dropzone>
         </v-col>
         <v-col cols="12" md="6">
           <v-img
-            :src="system_configuration.client_owner_avatar_url"
-            :alt="system_configuration.client_meta_owner_name"
+            :src="system_configuration.owner_avatar_url"
+            contain
+            max-width="200px"
+            class="mx-auto"
+          ></v-img>
+        </v-col>
+      </v-row>
+    </v-col>
+
+    <v-col cols="12">
+      <v-row>
+        <v-col cols="12" class="pb-0">
+          <div class="text-body-2">
+            <span class="app-body">
+              <span v-html="$t('Thumbnail')"></span>
+            </span>
+          </div>
+        </v-col>
+        <v-col cols="12" md="6">
+          <v-dropzone
+            ref="thumbnail_dropzone"
+            id="thumbnail"
+            :options="uploadThumbnailOptions({ id: system_configuration._id })"
+            :destroyDropzone="true"
+            @vdropzone-success="
+              (file, response) =>
+                onUploadSuccsess({
+                  ref: 'thumbnail_dropzone',
+                  file,
+                  response,
+                  update_paths: ['thumbnail', 'thumbnail_url'],
+                })
+            "
+          ></v-dropzone>
+        </v-col>
+        <v-col cols="12" md="6">
+          <v-img
+            :src="system_configuration.thumbnail_url"
+            contain
+            max-width="200px"
+            class="mx-auto"
+          ></v-img>
+        </v-col>
+      </v-row>
+    </v-col>
+
+    <v-col cols="12">
+      <v-row>
+        <v-col cols="12" class="pb-0">
+          <div class="text-body-2">
+            <span class="app-body">
+              <span v-html="$t('Folder icon')"></span>
+            </span>
+          </div>
+        </v-col>
+        <v-col cols="12" md="6">
+          <v-dropzone
+            ref="folder_icon_dropzone"
+            id="folder_icon"
+            :options="uploadFolderIconOptions({ id: system_configuration._id })"
+            :destroyDropzone="true"
+            @vdropzone-success="
+              (file, response) =>
+                onUploadSuccsess({
+                  ref: 'folder_icon_dropzone',
+                  file,
+                  response,
+                  update_paths: ['folder_icon', 'folder_icon_url'],
+                })
+            "
+          ></v-dropzone>
+        </v-col>
+        <v-col cols="12" md="6">
+          <v-img
+            :src="system_configuration.folder_icon_url"
             contain
             max-width="200px"
             class="mx-auto"

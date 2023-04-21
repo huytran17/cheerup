@@ -8,43 +8,21 @@ import { logger } from "../../../../config/logs/logger";
 import makeGetSystemConfigurationController from "./get-system-configuration";
 import makeUpdateSystemConfigurationController from "./update-system-configuration";
 import makeGetLatestSystemConfigurationController from "./get-latest-system-configuration";
-import makeUploadAdminMetaFaviconController from "./upload-admin-meta-favicon";
-import makeUploadAdminMetaLogoController from "./upload-admin-meta-logo";
-import makeUploadClientMetaFaviconController from "./upload-client-meta-favicon";
-import makeUploadClientMetaLogoController from "./upload-client-meta-logo";
-import makeUploadClientMetaOwnerAvatarController from "./upload-client-meta-owner-avatar";
-import makeUploadAdminMetaFolderIconController from "./upload-admin-meta-folder-icon";
+import makeUploadOwnerAvatarController from "./upload-owner-avatar";
+import makeUploadFolderIconController from "./upload-folder-icon";
+import makeUploadThumbnaiilController from "./upload-thumbnail";
 
-const uploadAdminMetaFolderIconController =
-  makeUploadAdminMetaFolderIconController({
-    getLatestSystemConfiguration,
-    updateSystemConfiguration,
-  });
-
-const uploadClientMetaOwnerAvatarController =
-  makeUploadClientMetaOwnerAvatarController({
-    getLatestSystemConfiguration,
-    updateSystemConfiguration,
-  });
-
-const uploadAdminMetaFaviconController = makeUploadAdminMetaFaviconController({
+const uploadThumbnaiilController = makeUploadThumbnaiilController({
   getLatestSystemConfiguration,
   updateSystemConfiguration,
 });
 
-const uploadAdminMetaLogoController = makeUploadAdminMetaLogoController({
+const uploadFolderIconController = makeUploadFolderIconController({
   getLatestSystemConfiguration,
   updateSystemConfiguration,
 });
 
-const uploadClientMetaFaviconController = makeUploadClientMetaFaviconController(
-  {
-    getLatestSystemConfiguration,
-    updateSystemConfiguration,
-  }
-);
-
-const uploadClientMetaLogoController = makeUploadClientMetaLogoController({
+const uploadClientAvatarController = makeUploadOwnerAvatarController({
   getLatestSystemConfiguration,
   updateSystemConfiguration,
 });
@@ -69,22 +47,16 @@ export default Object.freeze({
   getSystemConfigurationController,
   updateSystemConfigurationController,
   getLatestSystemConfigurationController,
-  uploadAdminMetaFaviconController,
-  uploadAdminMetaLogoController,
-  uploadClientMetaFaviconController,
-  uploadClientMetaLogoController,
-  uploadClientMetaOwnerAvatarController,
-  uploadAdminMetaFolderIconController,
+  uploadClientAvatarController,
+  uploadFolderIconController,
+  uploadThumbnaiilController,
 });
 
 export {
   getSystemConfigurationController,
   updateSystemConfigurationController,
   getLatestSystemConfigurationController,
-  uploadAdminMetaFaviconController,
-  uploadAdminMetaLogoController,
-  uploadClientMetaFaviconController,
-  uploadClientMetaLogoController,
-  uploadClientMetaOwnerAvatarController,
-  uploadAdminMetaFolderIconController,
+  uploadClientAvatarController,
+  uploadFolderIconController,
+  uploadThumbnaiilController,
 };

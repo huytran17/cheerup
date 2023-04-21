@@ -28,33 +28,23 @@ export default {
       return this.getDropzoneOptions({ upload_url });
     },
 
-    uploadAdminLogoOptions({ id }) {
-      const upload_url = `${process.env.SERVER_URL}/admin/system-configuration/upload-admin-meta-logo/${id}`;
-      return this.getDropzoneOptions({ upload_url });
-    },
-
-    uploadAdminFaviconOptions({ id }) {
-      const upload_url = `${process.env.SERVER_URL}/admin/system-configuration/upload-admin-meta-favicon/${id}`;
-      return this.getDropzoneOptions({ upload_url });
-    },
-
     uploadAdminFolderIconOptions({ id }) {
-      const upload_url = `${process.env.SERVER_URL}/admin/system-configuration/upload-admin-meta-folder-icon/${id}`;
+      const upload_url = `${process.env.SERVER_URL}/admin/system-configuration/upload-folder-icon/${id}`;
       return this.getDropzoneOptions({ upload_url });
     },
 
-    uploadClientLogoOptions({ id }) {
-      const upload_url = `${process.env.SERVER_URL}/admin/system-configuration/upload-client-meta-logo/${id}`;
+    uploadThumbnailOptions({ id }) {
+      const upload_url = `${process.env.SERVER_URL}/admin/system-configuration/upload-thumbnail/${id}`;
       return this.getDropzoneOptions({ upload_url });
     },
 
-    uploadClientFaviconOptions({ id }) {
-      const upload_url = `${process.env.SERVER_URL}/admin/system-configuration/upload-client-meta-favicon/${id}`;
+    uploadOwnerAvatarOptions({ id }) {
+      const upload_url = `${process.env.SERVER_URL}/admin/system-configuration/upload-owner-avatar/${id}`;
       return this.getDropzoneOptions({ upload_url });
     },
 
-    uploadClientOwnerAvatarOptions({ id }) {
-      const upload_url = `${process.env.SERVER_URL}/admin/system-configuration/upload-client-meta-owner-avatar/${id}`;
+    uploadFolderIconOptions({ id }) {
+      const upload_url = `${process.env.SERVER_URL}/admin/system-configuration/upload-folder-icon/${id}`;
       return this.getDropzoneOptions({ upload_url });
     },
 

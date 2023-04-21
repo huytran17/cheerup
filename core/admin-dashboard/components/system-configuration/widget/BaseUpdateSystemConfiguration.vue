@@ -7,7 +7,6 @@
     </v-col>
     <v-col cols="12">
       <v-form>
-        <BaseUpdateAdminData />
         <BaseUpdateClientData />
         <BaseUpdateSystemConfigurationData />
 
@@ -26,7 +25,6 @@
 <script>
 import systemConfigurationMixins from "@/mixins/system-configuration";
 import BaseCircularLoader from "@/components/loaders/BaseCircularLoader";
-import BaseUpdateAdminData from "@/components/system-configuration/widget/BaseUpdateAdminData";
 import BaseUpdateClientData from "@/components/system-configuration/widget/BaseUpdateClientData";
 import BaseUpdateSystemConfigurationData from "@/components/system-configuration/widget/BaseUpdateSystemConfigurationData";
 
@@ -35,7 +33,6 @@ export default {
   mixins: [systemConfigurationMixins],
   components: {
     BaseCircularLoader,
-    BaseUpdateAdminData,
     BaseUpdateClientData,
     BaseUpdateSystemConfigurationData,
   },

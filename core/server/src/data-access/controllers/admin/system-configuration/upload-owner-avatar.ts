@@ -6,14 +6,14 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 import deleteS3Object from "../../../../utils/delete-s3-object";
 
-export default function makeUploadClientMetaLogoController({
+export default function makeUploadOwnerAvatarController({
   getLatestSystemConfiguration,
   updateSystemConfiguration,
 }: {
   getLatestSystemConfiguration: IGetLatestSystemConfiguration;
   updateSystemConfiguration: IUpdateSystemConfiguration;
 }) {
-  return async function uploadClientMetaLogoController(
+  return async function uploadClientAvatarController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
@@ -33,17 +33,18 @@ export default function makeUploadClientMetaLogoController({
         throw new Error(`File does not exist`);
       }
 
-      const bucket = get(exists, "client_meta.logo.bucket");
-      const key = get(exists, "client_meta.logo.key");
+      const bucket = get(exists, "owner.avatar.bucket");
+      const key = get(exists, "owner.avatar.key");
 
       deleteS3Object({ bucket, key });
 
-      const system_configuration_details = Object.assign({}, exists, {
-        client_meta: {
-          ...exists.client_meta,
-          logo: file,
+      const system_configuration_details = {
+        ...exists,
+        owner: {
+          ...exists?.owner,
+          avatar: file,
         },
-      });
+      };
 
       const updated_system_configuration = await updateSystemConfiguration({
         systemConfigurationDetails: system_configuration_details,

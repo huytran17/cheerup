@@ -2,7 +2,7 @@
   <v-sheet>
     <!-- Use the component in the right place of the template -->
     <tiptap-vuetify
-      :value="content[attr]"
+      :value="content && content[attr]"
       :extensions="extensions"
       :placeholder="placeholder"
       :toolbar-attributes="toolbarAttrs"
@@ -41,7 +41,7 @@ export default {
   props: {
     content: {
       type: Object,
-      required: true,
+      default: () => {},
     },
     attr: {
       type: String,

@@ -11,12 +11,9 @@ export default function makeFakeSystemConfiguration({
     return {
       _id: faker.database.mongodbObjectId(),
       is_blocked_comment: false,
-      client_favicon_url: faker.internet.url(),
-      client_logo_url: faker.internet.url(),
-      admin_favicon_url: faker.internet.url(),
-      admin_folder_icon_url: faker.internet.url(),
-      admin_logo_url: faker.internet.url(),
-      client_owner_avatar_url: faker.internet.url(),
+      owner_avatar_url: faker.internet.url(),
+      thumbnail_url: faker.internet.url(),
+      folder_icon_url: faker.internet.url(),
     };
   };
 }

@@ -7,7 +7,7 @@
     >
       <div class="folder__symbol rounded-lg">
         <v-img
-          :src="system_configuration.admin_folder_icon_url"
+          :src="system_configuration.folder_icon_url"
           contain
           :max-width="is_mobile ? '50' : '70'"
           :max-height="is_mobile ? '50' : '70'"
