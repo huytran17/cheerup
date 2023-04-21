@@ -26,7 +26,7 @@ export default {
     const seo_description = get(this.post, "seo.description");
     const seo_keywords = get(this.post, "seo.keywords");
     const seo_author = get(this.post, "seo.author");
-    const seo_thumbnail = get(this.post, "seo.thumbnail");
+    const seo_thumbnail = get(this.post, "thumbnail_url");
 
     return {
       title: seo_title,
