@@ -257,9 +257,15 @@ export default {
 
   components: true,
 
-  buildModules: ["@nuxt/typescript-build", "@nuxtjs/vuetify", "@nuxtjs/moment"],
+  buildModules: [
+    "@nuxt/typescript-build",
+    "@nuxtjs/vuetify",
+    "@nuxtjs/sitemap",
+    "@nuxtjs/moment",
+    "nuxt-purgecss",
+  ],
 
-  modules: ["@nuxtjs/axios", "@nuxtjs/i18n", "@nuxtjs/sitemap", "@nuxtjs/pwa"],
+  modules: ["@nuxtjs/axios", "@nuxtjs/i18n", "@nuxtjs/pwa"],
 
   i18n: {
     baseUrl: process.env.BASE_URL,
@@ -279,6 +285,7 @@ export default {
     defaultLocale: "en",
     langDir: "./locales",
     lazy: true,
+    seo: true,
     detectBrowserLanguage: {
       useCookie: true,
       fallbackLocale: "en",
@@ -302,6 +309,25 @@ export default {
       author: "Huy Tran",
       ogHost: process.env.BASE_URL,
     },
+  },
+
+  purgeCSS: {
+    mode: "webpack",
+    enabled: ({ isDev, isClient }) => !isDev && isClient,
+    paths: [
+      "components/**/*.vue",
+      "layouts/**/*.vue",
+      "pages/**/*.vue",
+      "plugins/**/*.js",
+    ],
+    styleExtensions: [".css"],
+    whitelist: ["body", "html", "nuxt-progress"],
+    extractors: [
+      {
+        extractor: (content) => content.match(/[A-z0-9-:\\/]+/g) || [],
+        extensions: ["html", "vue", "js"],
+      },
+    ],
   },
 
   axios: {
