@@ -263,6 +263,7 @@ export default {
     "@nuxtjs/sitemap",
     "@nuxtjs/moment",
     "nuxt-purgecss",
+    "nuxt-compress",
   ],
 
   modules: ["@nuxtjs/axios", "@nuxtjs/i18n", "@nuxtjs/pwa", "nuxt-speedkit"],
@@ -295,6 +296,16 @@ export default {
       dataUri: null,
       size: "100px",
       backgroundColor: "grey",
+    },
+  },
+
+  "nuxt-compress": {
+    gzip: {
+      cache: true,
+      threshold: 4096,
+    },
+    brotli: {
+      threshold: 4096,
     },
   },
 
@@ -338,6 +349,7 @@ export default {
       author: "Huy Tran",
       ogHost: process.env.BASE_URL,
     },
+    icon: false,
   },
 
   purgeCSS: {
