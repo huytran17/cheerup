@@ -22,7 +22,7 @@ export default {
   name: "BaseAppBar",
   data() {
     return {
-      logo_url: require("@/assets/images/app/logo.png"),
+      logo_url: `${process.env.BASE_URL}/logo.png`,
     };
   },
   methods: {

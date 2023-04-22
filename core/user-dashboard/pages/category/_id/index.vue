@@ -47,7 +47,7 @@ export default {
         {
           hid: "og:url",
           property: "og:url",
-          content: `${process.env.APP_URL}/category/${this.$route.params.id}`,
+          content: `${process.env.BASE_URL}/category/${this.$route.params.id}`,
         },
         {
           hid: "og:description",
@@ -85,7 +85,7 @@ export default {
           content: seo_title,
         },
       ],
-      link: [{ rel: "canonical", href: `${process.env.APP_URL}/category` }],
+      link: [{ rel: "canonical", href: `${process.env.BASE_URL}/category` }],
     };
   },
   async asyncData({ store, params }) {

@@ -49,7 +49,7 @@ export default {
           payload:
             {
               ...post.seo,
-              url: `${process.env.APP_URL}/post/${post._id}`,
+              url: `${process.env.BASE_URL}/post/${post._id}`,
               type: SEO_TYPE.POST,
             } || {},
         }));
@@ -64,7 +64,7 @@ export default {
           payload:
             {
               ...category.seo,
-              url: `${process.env.APP_URL}/category/${category._id}`,
+              url: `${process.env.BASE_URL}/category/${category._id}`,
               type: SEO_TYPE.CATEGORY,
             } || {},
         }));
@@ -75,14 +75,14 @@ export default {
               route: "/category",
               payload: {
                 ...seo_category_schema,
-                url: `${process.env.APP_URL}/category`,
+                url: `${process.env.BASE_URL}/category`,
               },
             },
             {
               route: "/post",
               payload: {
                 ...seo_post_schema,
-                url: `${process.env.APP_URL}/post`,
+                url: `${process.env.BASE_URL}/post`,
               },
             },
           ])
@@ -193,14 +193,14 @@ export default {
 
             head.link.push({
               rel: "canonical",
-              href: `${process.env.APP_URL}/post`,
+              href: `${process.env.BASE_URL}/post`,
             });
           }
 
           seo_type === SEO_TYPE.CATEGORY &&
             head.link.push({
               rel: "canonical",
-              href: `${process.env.APP_URL}/category`,
+              href: `${process.env.BASE_URL}/category`,
             });
         },
       },
@@ -259,10 +259,10 @@ export default {
 
   buildModules: ["@nuxt/typescript-build", "@nuxtjs/vuetify", "@nuxtjs/moment"],
 
-  modules: ["@nuxtjs/axios", "@nuxtjs/i18n", "@nuxtjs/sitemap"],
+  modules: ["@nuxtjs/axios", "@nuxtjs/i18n", "@nuxtjs/sitemap", "@nuxtjs/pwa"],
 
   i18n: {
-    baseUrl: process.env.APP_URL,
+    baseUrl: process.env.BASE_URL,
     strategy: "prefix",
     locales: [
       {
@@ -294,9 +294,18 @@ export default {
     skipSettingLocaleOnNavigate: true,
   },
 
+  pwa: {
+    meta: {
+      title: "The best topics about life",
+      description:
+        "Share thoughts on topics about love, work, life style, perspective and outlook on life",
+      author: "Huy Tran",
+      ogHost: process.env.BASE_URL,
+    },
+  },
+
   axios: {
-    baseURL: `${process.env.SERVER_URL}`,
-    prefix: "/api",
+    baseURL: `${process.env.SERVER_URL}/api`,
     https: false,
     progress: true,
     retry: { retries: 3 },
@@ -308,7 +317,7 @@ export default {
   },
 
   sitemap: {
-    hostname: process.env.APP_URL,
+    hostname: process.env.BASE_URL,
     gzip: true,
     exclude: ["/.env", "/.env.example", ...exclude_pages],
   },
@@ -338,15 +347,9 @@ export default {
     },
   },
 
-  publicRuntimeConfig: {
-    APP_URL: process.env.SERVER_URL || "http://localhost:8082",
-    SERVER_URL: process.env.SERVER_URL || "http://localhost:3000",
-    OWNER_EMAIL: process.env.OWNER_EMAIL,
-  },
-
   env: {
     SERVER_URL: process.env.SERVER_URL || "http://localhost:3000",
-    APP_URL: process.env.SERVER_URL || "http://localhost:8082",
+    BASE_URL: process.env.BASE_URL || "http://localhost:8082",
     OWNER_EMAIL: process.env.OWNER_EMAIL,
   },
 };

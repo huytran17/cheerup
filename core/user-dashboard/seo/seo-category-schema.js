@@ -54,7 +54,7 @@ const seo_category_schema = {
     {
       hid: "og:url",
       property: "og:url",
-      content: `${process.env.APP_URL}/category`,
+      content: `${process.env.BASE_URL}/category`,
     },
     {
       hid: "og:description",

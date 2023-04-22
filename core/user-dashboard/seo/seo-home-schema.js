@@ -72,7 +72,7 @@ const seo_home_schema = {
     {
       hid: "og:url",
       property: "og:url",
-      content: process.env.APP_URL,
+      content: process.env.BASE_URL,
     },
     {
       hid: "og:description",

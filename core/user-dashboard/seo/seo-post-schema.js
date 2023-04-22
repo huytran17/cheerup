@@ -54,7 +54,7 @@ const seo_post_schema = {
     {
       hid: "og:url",
       property: "og:url",
-      content: `${process.env.APP_URL}/post`,
+      content: `${process.env.BASE_URL}/post`,
     },
     {
       hid: "og:description",
