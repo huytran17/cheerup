@@ -11,5 +11,23 @@
 <script>
 export default {
   name: "PublicLayout",
+  head() {
+    const i18nHead = this.$nuxtI18nHead({ addSeoAttributes: true });
+
+    return {
+      htmlAttrs: {
+        ...i18nHead.htmlAttrs,
+      },
+      meta: [...i18nHead.meta],
+      link: [
+        ...i18nHead.link,
+        {
+          hid: "canonical",
+          rel: "canonical",
+          href: process.env.APP_URL,
+        },
+      ],
+    };
+  },
 };
 </script>

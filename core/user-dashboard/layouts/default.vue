@@ -62,6 +62,24 @@ export default {
   name: "DefaultLayout",
   middleware: ["verify-access"],
   mixins: [systemMixins, authMixins],
+  head() {
+    const i18nHead = this.$nuxtI18nHead({ addSeoAttributes: true });
+    console.log("---------------------", i18nHead);
+    return {
+      htmlAttrs: {
+        ...i18nHead.htmlAttrs,
+      },
+      meta: [...i18nHead.meta],
+      link: [
+        ...i18nHead.link,
+        {
+          hid: "canonical",
+          rel: "canonical",
+          href: process.env.APP_URL,
+        },
+      ],
+    };
+  },
   components: {
     BaseAppBar,
     BaseAboutCard,
