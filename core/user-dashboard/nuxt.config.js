@@ -36,6 +36,7 @@ export default {
     interval: 50,
     crawler: true,
     exclude: exclude_pages,
+    fallback: "404.html",
     async routes() {
       try {
         const seo_post_payload = await axios.get(
@@ -280,7 +281,6 @@ export default {
   sitemap: {
     hostname: process.env.APP_URL,
     gzip: true,
-    lastmod: new Date(),
     exclude: ["/.env", "/.env.example", ...exclude_pages],
   },
 

@@ -6,6 +6,20 @@ const exclude_pages = [
   "/forget-password",
   "/tag",
   "/favourites",
+  "/en/reset-password",
+  "/en/register",
+  "/en/profile",
+  "/en/login",
+  "/en/forget-password",
+  "/en/tag",
+  "/en/favourites",
+  "/vi/reset-password",
+  "/vi/register",
+  "/vi/profile",
+  "/vi/login",
+  "/vi/forget-password",
+  "/vi/tag",
+  "/vi/favourites",
 ];
 
 export { exclude_pages };
