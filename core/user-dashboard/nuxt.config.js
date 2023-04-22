@@ -257,6 +257,12 @@ export default {
 
   components: true,
 
+  loadingIndicator: {
+    name: "pulse",
+    color: "#FF2E55",
+    background: "white",
+  },
+
   buildModules: [
     "@nuxt/typescript-build",
     "@nuxtjs/vuetify",
