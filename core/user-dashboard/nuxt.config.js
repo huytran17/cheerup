@@ -265,7 +265,38 @@ export default {
     "nuxt-purgecss",
   ],
 
-  modules: ["@nuxtjs/axios", "@nuxtjs/i18n", "@nuxtjs/pwa"],
+  modules: ["@nuxtjs/axios", "@nuxtjs/i18n", "@nuxtjs/pwa", "nuxt-speedkit"],
+
+  speedkit: {
+    detection: {
+      performance: true,
+      browserSupport: true,
+    },
+    performanceMetrics: {
+      device: {
+        hardwareConcurrency: { min: 2, max: 48 },
+        deviceMemory: { min: 2 },
+      },
+      timing: {
+        fcp: 800,
+        dcl: 1200,
+      },
+    },
+
+    componentAutoImport: false,
+    componentPrefix: undefined,
+
+    lazyOffset: {
+      component: "0%",
+      asset: "0%",
+    },
+
+    loader: {
+      dataUri: null,
+      size: "100px",
+      backgroundColor: "grey",
+    },
+  },
 
   i18n: {
     baseUrl: process.env.BASE_URL,
@@ -278,7 +309,7 @@ export default {
       },
       {
         code: "vi",
-        iso: "vi",
+        iso: "vi-VN",
         file: "vi.json",
       },
     ],
@@ -289,13 +320,11 @@ export default {
     detectBrowserLanguage: {
       useCookie: true,
       fallbackLocale: "en",
+      onlyOnRoot: true,
     },
     vueI18n: {
       fallbackLocale: "en",
-      messages: {
-        en,
-        vi,
-      },
+      messages: { en, vi },
       silentTranslationWarn: true,
     },
     skipSettingLocaleOnNavigate: true,
