@@ -207,6 +207,34 @@ export default {
     },
   },
 
+  build: {
+    splitChunks: {
+      layouts: false,
+      pages: true,
+      commons: true,
+      maxSize: 300000,
+    },
+    transpile: [
+      "vue-avatar",
+      "vue-line-clamp",
+      "v-scroll-to-top",
+      "vue-slick-carousel",
+      /^vuetify/,
+    ],
+    babel: {
+      plugins: [["@babel/plugin-proposal-private-methods", { loose: true }]],
+    },
+    extend(config, { isClient }) {
+      config.performance = config.performance || {};
+      config.performance.maxEntrypointSize = 244 * 1024;
+
+      if (isClient) {
+        config.optimization.splitChunks.minSize = 10000;
+        config.optimization.splitChunks.maxSize = 300000;
+      }
+    },
+  },
+
   server: {
     port: 8082,
   },
@@ -267,7 +295,8 @@ export default {
   },
 
   axios: {
-    baseURL: `${process.env.SERVER_URL}/api`,
+    baseURL: `${process.env.SERVER_URL}`,
+    prefix: "/api",
     https: false,
     progress: true,
     retry: { retries: 3 },
@@ -307,6 +336,12 @@ export default {
         },
       },
     },
+  },
+
+  publicRuntimeConfig: {
+    APP_URL: process.env.SERVER_URL || "http://localhost:8082",
+    SERVER_URL: process.env.SERVER_URL || "http://localhost:3000",
+    OWNER_EMAIL: process.env.OWNER_EMAIL,
   },
 
   env: {

@@ -9,7 +9,6 @@
     "generate": "cross-env NODE_OPTIONS=--openssl-legacy-provider nuxt generate"
   },
   "dependencies": {
-    "@nuxtjs/sitemap": "^2.4.0",
     "core-js": "^3.19.3",
     "cross-env": "^7.0.3",
     "de-indent": "^1.0.2",
@@ -37,6 +36,7 @@
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/i18n": "^7.2.2",
     "@nuxtjs/moment": "^1.6.1",
+    "@nuxtjs/sitemap": "^2.4.0",
     "@nuxtjs/vuetify": "^1.12.3",
     "@types/lodash": "^4.14.182"
   }
