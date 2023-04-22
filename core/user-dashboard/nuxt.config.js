@@ -3,7 +3,12 @@ import axios from "axios";
 import { get, findIndex, map, flattenDeep, concat } from "lodash";
 
 import { SEO_TYPE } from "./constants";
-import { seo_home_schema, seo_category_schema, seo_post_schema } from "./seo";
+import {
+  seo_home_schema,
+  seo_category_schema,
+  seo_post_schema,
+  exclude_pages,
+} from "./seo";
 
 import vi from "./locales/vi.json";
 import en from "./locales/en.json";
@@ -30,6 +35,7 @@ export default {
     subFolders: false,
     interval: 50,
     crawler: true,
+    exclude: exclude_pages,
     async routes() {
       try {
         const seo_post_payload = await axios.get(
@@ -224,7 +230,7 @@ export default {
 
   buildModules: ["@nuxt/typescript-build", "@nuxtjs/vuetify", "@nuxtjs/moment"],
 
-  modules: ["@nuxtjs/axios", "@nuxtjs/i18n"],
+  modules: ["@nuxtjs/axios", "@nuxtjs/i18n", "@nuxtjs/sitemap"],
 
   i18n: {
     baseUrl: process.env.APP_URL,
@@ -269,6 +275,13 @@ export default {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
+  },
+
+  sitemap: {
+    hostname: process.env.APP_URL,
+    gzip: true,
+    lastmod: new Date(),
+    exclude: ["/.env", "/.env.example", ...exclude_pages],
   },
 
   vuetify: {
