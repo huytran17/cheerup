@@ -266,7 +266,18 @@ export default {
     "nuxt-compress",
   ],
 
-  modules: ["@nuxtjs/axios", "@nuxtjs/i18n", "@nuxtjs/pwa", "nuxt-speedkit"],
+  modules: [
+    "@nuxtjs/axios",
+    "@nuxtjs/i18n",
+    "@nuxtjs/pwa",
+    "nuxt-speedkit",
+    "@nuxtjs/robots",
+  ],
+
+  robots: {
+    UserAgent: "*",
+    Allow: "/",
+  },
 
   speedkit: {
     detection: {
