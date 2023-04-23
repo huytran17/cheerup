@@ -289,6 +289,7 @@ export default {
   ],
 
   modules: [
+    "nuxt-helmet",
     "@nuxtjs/axios",
     "@nuxtjs/i18n",
     "@nuxtjs/pwa",
