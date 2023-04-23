@@ -301,10 +301,6 @@ export default {
     Allow: "/",
   },
 
-  schemaOrg: {
-    host: process.env.APP_URL,
-  },
-
   speedkit: {
     detection: {
       performance: true,
