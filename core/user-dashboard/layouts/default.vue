@@ -64,7 +64,7 @@ export default {
   mixins: [systemMixins, authMixins],
   head() {
     const i18nHead = this.$nuxtI18nHead({ addSeoAttributes: true });
-    console.log("---------------------", i18nHead);
+
     return {
       htmlAttrs: {
         ...i18nHead.htmlAttrs,
@@ -75,7 +75,7 @@ export default {
         {
           hid: "canonical",
           rel: "canonical",
-          href: process.env.APP_URL,
+          href: process.env.BASE_URL,
         },
       ],
     };

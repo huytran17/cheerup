@@ -24,7 +24,7 @@ export default {
         {
           hid: "canonical",
           rel: "canonical",
-          href: process.env.APP_URL,
+          href: process.env.BASE_URL,
         },
       ],
     };

@@ -127,7 +127,10 @@ const seo_home_schema = {
       content: "cheerup_logo",
     },
   ],
-  link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+  link: [
+    { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+    { rel: "canonical", href: process.env.BASE_URL },
+  ],
   script: [
     {
       hid: "jsonld",
