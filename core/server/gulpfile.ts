@@ -42,5 +42,5 @@ const compileTS = () => {
     .pipe(gulp.dest("dist"));
 };
 
-const gulpTasks = gulp.series(transferFiles, compileTS);
-export default gulpTasks;
+const gulp_tasks = gulp.series(transferFiles, compileTS);
+export default gulp_tasks;
