@@ -282,20 +282,24 @@ export default {
   buildModules: [
     "@nuxt/typescript-build",
     "@nuxtjs/vuetify",
-    "@nuxtjs/sitemap",
     "@nuxtjs/moment",
-    "nuxt-purgecss",
     "nuxt-compress",
+    "@nuxtjs/pwa",
   ],
 
   modules: [
     "nuxt-helmet",
     "@nuxtjs/axios",
     "@nuxtjs/i18n",
-    "@nuxtjs/pwa",
     "nuxt-speedkit",
     "@nuxtjs/robots",
+    "@nuxtjs/sitemap",
+    "nuxt-purgecss",
   ],
+
+  imagemin: {
+    enableInDev: true,
+  },
 
   robots: {
     UserAgent: "*",
