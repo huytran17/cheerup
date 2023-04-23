@@ -9,8 +9,6 @@ const actions: ActionTree<PostState, RootState> = {
   async [ActionTypes.UPDATE_POST]({ commit }, { data }: { data: any }) {
     const { _id } = data;
     const { data: post } = await this.$axios.$put(`/post/${_id}`, data);
-
-    commit(MutationTypes.SET_POST, { data: post });
     return post;
   },
 
