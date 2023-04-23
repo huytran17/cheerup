@@ -39,12 +39,13 @@ export default {
     fallback: "404.html",
     async routes() {
       try {
-        const seo_post_payload = await axios.get(
-          `${process.env.SERVER_URL}/api/seo/posts`
-        );
+        const [seo_post_payload, seo_category_payload] = await Promise.all([
+          axios.get(`${process.env.SERVER_URL}/api/seo/posts`),
+          axios.get(`${process.env.SERVER_URL}/api/seo/categories`),
+        ]);
 
         const seo_post_data = get(seo_post_payload, "data.data", []);
-        const seo_post_promises = map(seo_post_data, (post) => ({
+        const seo_post_routes = map(seo_post_data, (post) => ({
           route: `/post/${post._id}`,
           payload:
             {
@@ -54,12 +55,8 @@ export default {
             } || {},
         }));
 
-        const seo_category_payload = await axios.get(
-          `${process.env.SERVER_URL}/api/seo/categories`
-        );
-
         const seo_category_data = get(seo_category_payload, "data.data", []);
-        const seo_category_promises = map(seo_category_data, (category) => ({
+        const seo_category_routes = map(seo_category_data, (category) => ({
           route: `/category/${category._id}`,
           payload:
             {
@@ -69,32 +66,26 @@ export default {
             } || {},
         }));
 
-        const seo_pages_promises = new Promise((res) =>
-          res([
-            {
-              route: "/category",
-              payload: {
-                ...seo_category_schema,
-                url: `${process.env.BASE_URL}/category`,
-              },
+        const seo_pages_routes = [
+          {
+            route: "/category",
+            payload: {
+              ...seo_category_schema,
+              url: `${process.env.BASE_URL}/category`,
             },
-            {
-              route: "/post",
-              payload: {
-                ...seo_post_schema,
-                url: `${process.env.BASE_URL}/post`,
-              },
+          },
+          {
+            route: "/post",
+            payload: {
+              ...seo_post_schema,
+              url: `${process.env.BASE_URL}/post`,
             },
-          ])
+          },
+        ];
+
+        return flattenDeep(
+          concat(seo_post_routes, seo_category_routes, seo_pages_routes)
         );
-
-        const seo_routes = await Promise.all([
-          seo_post_promises,
-          seo_category_promises,
-          seo_pages_promises,
-        ]);
-
-        return flattenDeep(concat(seo_routes));
       } catch (error) {
         console.error(error);
       }
@@ -209,11 +200,8 @@ export default {
             },
           };
 
-          const schema_json_index = findIndex(head.meta.script, [
-            "hid",
-            "jsonld",
-          ]);
-          head.scscript[schema_json_index].json = schema_json;
+          const schema_json_index = findIndex(head.script, ["hid", "jsonld"]);
+          head.script[schema_json_index].json = schema_json;
 
           if (seo_type === SEO_TYPE.POST) {
             const seo_og_type_index = findIndex(head.meta, ["hid", "og:type"]);
@@ -306,7 +294,6 @@ export default {
     "@nuxtjs/pwa",
     "nuxt-speedkit",
     "@nuxtjs/robots",
-    "nuxt-schema-org",
   ],
 
   robots: {
