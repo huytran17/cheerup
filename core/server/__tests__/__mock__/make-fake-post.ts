@@ -16,6 +16,7 @@ export default function makeFakePost({ faker }: { faker: any }): FakePost {
       content: faker.lorem.paragraphs(),
       tags: faker.helpers.arrayElements(),
       author: faker.database.mongodbObjectId(),
+      published_by: faker.database.mongodbObjectId(),
       categories: faker.helpers.arrayElements([
         faker.database.mongodbObjectId(),
         faker.database.mongodbObjectId(),
@@ -23,6 +24,7 @@ export default function makeFakePost({ faker }: { faker: any }): FakePost {
       views: faker.random.numeric(),
       created_at: faker.date.recent(),
       updated_at: faker.date.recent(),
+      published_at: faker.date.recent(),
       deleted_at: null,
     };
   };
