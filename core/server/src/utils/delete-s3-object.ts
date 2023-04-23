@@ -17,9 +17,5 @@ export default function deleteS3Object({
     Key: key,
   };
 
-  const s3 = Storage.getS3();
-
-  s3.deleteObject(params, (error, data) =>
-    error ? console.log(error, error.stack) : console.log(data)
-  );
+  Storage.deleteS3Object(params);
 }

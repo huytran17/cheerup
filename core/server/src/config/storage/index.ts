@@ -48,7 +48,7 @@ export default class Storage {
   static deleteS3Object(params: { Bucket: string; Key: string }): void {
     Storage.s3.deleteObject(
       params,
-      (error, data) => error && console.log(error, error.stack)
+      (error, data) => error && console.error(error)
     );
   }
 }

@@ -115,6 +115,10 @@ export default {
           const seo_image_url = get(payload, "thumbnail", "");
           const seo_type = get(payload, "type", "");
           const seo_keywords = get(payload, "keywords", "");
+          const seo_date_published = get(payload, "date_published", "");
+          const seo_date_modified = get(payload, "date_modified", "");
+          const seo_publisher = get(payload, "publisher", "");
+          const seo_author = get(payload, "author", "");
 
           head.title = seo_title;
 
@@ -186,6 +190,30 @@ export default {
             ]);
             head.meta[seo_twitter_image_index].content = seo_image_url;
           }
+
+          const schema_json = {
+            "@context": "https://schema.org",
+            "@type": "NewsArticle",
+            headline: seo_title,
+            image: [seo_image_url],
+            datePublished: seo_date_published,
+            dateModified: seo_date_modified,
+            author: [
+              {
+                "@type": "Person",
+                name: seo_author,
+              },
+            ],
+            publisher: {
+              name: seo_publisher,
+            },
+          };
+
+          const schema_json_index = findIndex(head.meta.script, [
+            "hid",
+            "jsonld",
+          ]);
+          head.scscript[schema_json_index].json = schema_json;
 
           if (seo_type === SEO_TYPE.POST) {
             const seo_og_type_index = findIndex(head.meta, ["hid", "og:type"]);
@@ -278,11 +306,16 @@ export default {
     "@nuxtjs/pwa",
     "nuxt-speedkit",
     "@nuxtjs/robots",
+    "nuxt-schema-org",
   ],
 
   robots: {
     UserAgent: "*",
     Allow: "/",
+  },
+
+  schemaOrg: {
+    host: process.env.APP_URL,
   },
 
   speedkit: {

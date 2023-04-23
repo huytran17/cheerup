@@ -1,4 +1,5 @@
 import { ICreateCategory } from "../../../../use-cases/category/create-category";
+import { IUpdateCategory } from "../../../../use-cases/category/update-category";
 import { IGetCategoryByTitle } from "../../../../use-cases/category/get-category-by-title";
 import { Logger } from "winston";
 import { Request } from "express";
@@ -8,10 +9,12 @@ import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeCreateCategoryController({
   createCategory,
+  updateCategory,
   getCategoryByTitle,
   logger,
 }: {
   createCategory: ICreateCategory;
+  updateCategory: IUpdateCategory;
   getCategoryByTitle: IGetCategoryByTitle;
   logger: Logger;
 }) {
@@ -44,13 +47,25 @@ export default function makeCreateCategoryController({
         categoryDetails: final_category_data,
       });
 
+      const updated_category = await updateCategory({
+        categoryDetails: {
+          ...created_category,
+          seo: {
+            date_modified: created_category?.updated_at,
+            date_published: created_category?.created_at,
+            publisher: created_category?.created_by,
+            author: created_category?.created_by,
+          },
+        },
+      });
+
       logger.verbose(`Created category ${created_category.title}`);
 
       return {
         headers,
         statusCode: HttpStatusCode.CREATED,
         body: {
-          data: created_category,
+          data: updated_category,
         },
       };
     } catch (error) {

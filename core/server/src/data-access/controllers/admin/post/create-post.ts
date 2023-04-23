@@ -50,8 +50,10 @@ export default function makeCreatePostController({
       const { is_auto_censorship_post } = admin;
 
       const final_post_details = Object.assign({}, postDetails, {
-        author: admin_id,
+        author: admin,
         is_published: is_auto_censorship_post,
+        published_by: (is_auto_censorship_post && admin) || null,
+        published_at: (is_auto_censorship_post && new Date()) || null,
       });
 
       let created_post = await createPost({
@@ -108,6 +110,12 @@ export default function makeCreatePostController({
 
         const final_post_details = Object.assign({}, created_post, {
           is_notified_to_user: true,
+          seo: {
+            date_modified: created_post?.updated_at,
+            author: admin?.full_name,
+            publisher: created_post?.published_by,
+            date_published: created_post?.published_at,
+          },
         });
 
         created_post = await updatePost({ postDetails: final_post_details });

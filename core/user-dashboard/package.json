@@ -43,6 +43,7 @@
     "@nuxtjs/pwa": "^3.3.5",
     "@nuxtjs/vuetify": "^1.12.3",
     "@types/lodash": "^4.14.182",
-    "nuxt-compress": "^5.0.0"
+    "nuxt-compress": "^5.0.0",
+    "nuxt-schema-org": "^2.1.2"
   }
 }

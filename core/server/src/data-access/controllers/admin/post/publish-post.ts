@@ -37,6 +37,7 @@ export default function makePublishPostController({
 
     try {
       const { _id } = get(httpRequest, "context.validated");
+      const { _id: user_id } = get(httpRequest, "context.user");
 
       const exists = await getPost({ _id });
       if (isEmpty(exists)) {
@@ -45,6 +46,8 @@ export default function makePublishPostController({
 
       const final_post_details = Object.assign({}, exists, {
         is_published: true,
+        published_by: user_id,
+        published_at: new Date(),
       });
 
       let updated_post = await updatePost({

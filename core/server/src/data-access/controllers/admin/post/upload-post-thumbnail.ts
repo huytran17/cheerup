@@ -42,6 +42,10 @@ export default function makeUploadPostThumbnailController({
 
       const post_details = Object.assign({}, exists, {
         thumbnail: file,
+        seo: {
+          ...exists.seo,
+          thumbnail: file.location,
+        },
       });
 
       const updated_post = await updatePost({

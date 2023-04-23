@@ -42,6 +42,10 @@ export default function makeUploadCategoryThumbnailController({
 
       const category_details = Object.assign({}, exists, {
         thumbnail: file,
+        seo: {
+          ...exists.seo,
+          thumbnail: file.location,
+        },
       });
 
       const updated_category = await updateCategory({

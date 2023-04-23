@@ -49,6 +49,7 @@ const getCategoriesController = makeGetCategoriesController({
 
 const createCategoryController = makeCreateCategoryController({
   createCategory,
+  updateCategory,
   getCategoryByTitle,
   logger,
 });

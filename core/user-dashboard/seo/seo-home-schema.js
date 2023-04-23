@@ -128,6 +128,15 @@ const seo_home_schema = {
     },
   ],
   link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+  script: [
+    {
+      hid: "jsonld",
+      type: "application/ld+json",
+      json: {
+        "@context": "http://schema.org",
+      },
+    },
+  ],
 };
 
 export { seo_home_schema };

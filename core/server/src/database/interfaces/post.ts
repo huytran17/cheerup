@@ -14,9 +14,11 @@ export default interface IPost {
   content: string;
   tags: string[];
   author: Admin;
+  published_by: Admin;
   categories: Category[];
   views: number;
   seo?: Record<string, unknown>;
+  published_at: Date;
   created_at: Date;
   updated_at: Date;
   deleted_at: Date;

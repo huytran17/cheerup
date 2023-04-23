@@ -11,6 +11,7 @@ import makeCategoryDb from "../../../make-category-db";
 import makeAdminDb from "../../../make-admin-db";
 import { AdminModel, CategoryModel } from "../../../models";
 import makeCreateCategory from "../../../../use-cases/category/create-category";
+import makeUpdateCategory from "../../../../use-cases/category/update-category";
 import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
 import makeGetCategoryByTitle from "../../../../use-cases/category/get-category-by-title";
 import makeCreateCategoryController from "./create-category";
@@ -43,6 +44,7 @@ describe("createCategory", () => {
 
     const createAdmin = makeCreateAdmin({ adminDb });
     const createCategory = makeCreateCategory({ categoryDb });
+    const updateCategory = makeUpdateCategory({ categoryDb });
     const getCategoryByTitle = makeGetCategoryByTitle({ categoryDb, logger });
 
     const mock_category_data = fakeCategory();
@@ -50,6 +52,7 @@ describe("createCategory", () => {
 
     const createCategoryController = makeCreateCategoryController({
       createCategory,
+      updateCategory,
       getCategoryByTitle,
       logger,
     });
