@@ -110,6 +110,11 @@ export default function makePublishPostController({
 
         const final_post_details = Object.assign({}, updated_post, {
           is_notified_to_user: true,
+          seo: {
+            ...updated_post?.seo,
+            publisher: updated_post?.published_by?.full_name,
+            date_published: updated_post?.published_at,
+          },
         });
 
         updated_post = await updatePost({ postDetails: final_post_details });

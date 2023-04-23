@@ -113,7 +113,7 @@ export default function makeCreatePostController({
           seo: {
             date_modified: created_post?.updated_at,
             author: admin?.full_name,
-            publisher: created_post?.published_by,
+            publisher: created_post?.published_by?.full_name,
             date_published: created_post?.published_at,
           },
         });
