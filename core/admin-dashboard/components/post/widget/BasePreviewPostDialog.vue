@@ -77,21 +77,26 @@
             <span class="app-body" v-html="$t(post.content)"></span>
           </div>
 
-          <div v-if="has_tags" class="text-caption grey--text text-uppercase">
+          <div v-if="has_tags" class="text--small">
             <v-icon small color="black">mdi-tag</v-icon>
             <span class="app-body">
-              <span v-html="$t('Tags: ')"></span>
-              <span>{{ post.tags.join(", ") }}</span>
+              <span class="text-uppercase" v-html="$t('Tags: ')"></span>
+              <span v-for="(tag, index) in post.tags" :key="`tag-${index}`"
+                ><v-chip
+                  class="px-1 clickable white--text mr-1"
+                  color="brick"
+                  x-small
+                >
+                  {{ tag }}
+                </v-chip></span
+              >
             </span>
           </div>
 
-          <div
-            v-if="post.source"
-            class="text-body-2 text-sm-body-1 grey--text mt-2"
-          >
+          <div v-if="post.source" class="text-body-2 text-sm-body-1 mt-2">
             <span class="app-body">
               <span v-html="$t('Source: ')"></span>
-              <span class="font-italic">{{ post.source }}</span>
+              <span class="post__source" v-html="post.source"></span>
             </span>
           </div>
         </v-col>
@@ -143,5 +148,9 @@ export default {
 <style scoped>
 :deep(.v-chip--label) {
   border-radius: 0 !important;
+}
+:deep(.post__source *) {
+  display: inline !important;
+  text-decoration: none !important;
 }
 </style>
