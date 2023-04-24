@@ -12,8 +12,11 @@ import adminAdminRouter from "./admin";
 import subscriptionRouter from "./subscription";
 import systemConfigurationRouter from "./system-configuration";
 import galleryRouter from "../admin/gallery";
+import seoRouter from "../admin/seo";
 
 adminRouter.use("/auth", authRouter);
+adminRouter.use("/seo", seoRouter);
+
 adminRouter.use("/user", authenticateAdminJWT(), userRouter);
 adminRouter.use("/gallery", authenticateAdminJWT(), galleryRouter);
 adminRouter.use("/category", authenticateAdminJWT(), categoryRouter);
