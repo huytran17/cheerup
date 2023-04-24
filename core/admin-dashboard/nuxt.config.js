@@ -1,3 +1,4 @@
+import axios from "axios";
 import { get, map, flattenDeep, concat } from "lodash";
 import colors from "vuetify/es5/util/colors";
 import { seo_home_schema } from "./seo";
