@@ -190,11 +190,12 @@
 <script>
 import { mapActions } from "vuex";
 import authMixins from "@/mixins/auth";
+import adminMixins from "@/mixins/admin";
 import dropzoneMixins from "@/mixins/dropzone";
 
 export default {
   name: "BaseUpdateAdmin",
-  mixins: [authMixins, dropzoneMixins],
+  mixins: [authMixins, dropzoneMixins, adminMixins],
   data() {
     return {
       form_valid: false,
