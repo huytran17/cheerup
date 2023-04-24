@@ -276,7 +276,7 @@ export default {
   loadingIndicator: {
     name: "pulse",
     color: "#FF2E55",
-    background: "white",
+    background: "ffffff",
   },
 
   buildModules: [
