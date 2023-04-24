@@ -18,6 +18,11 @@ export default {
   components: {
     LoginForm,
   },
+  head() {
+    return {
+      title: this.$t("Login"),
+    };
+  },
   data() {
     return {
       login_background_image: require("@/assets/images/auth/login-bg.jpg"),

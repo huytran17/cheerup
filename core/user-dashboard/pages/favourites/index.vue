@@ -5,6 +5,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { seo_post_schema } from "../../seo";
 import BaseFavouriteCards from "@/components/favourites/BaseFavouriteCards";
 import BaseNoData from "@/components/BaseNoData";
 import postBookmarkMixins from "@/mixins/post-bookmark";
@@ -12,6 +13,12 @@ import postBookmarkMixins from "@/mixins/post-bookmark";
 export default {
   name: "FavouriteIndex",
   middleware: ["authenticate"],
+  head() {
+    return {
+      ...seo_post_schema,
+      title: this.$t("Favourites"),
+    };
+  },
   async asyncData({ store }) {
     try {
       const has_user = store.getters["auth/has_user"];

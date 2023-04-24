@@ -8,6 +8,9 @@ import { seo_post_schema } from "../../seo";
 import BaseArticles from "@/components/article/BaseArticles";
 export default {
   name: "IndexPage",
+  head() {
+    return seo_post_schema;
+  },
   async asyncData({ store }) {
     try {
       await store.dispatch("post/GET_POSTS_PAGINATED", {
@@ -19,9 +22,6 @@ export default {
     } catch (error) {
       console.error(error);
     }
-  },
-  head() {
-    return seo_post_schema;
   },
   components: {
     BaseArticles,

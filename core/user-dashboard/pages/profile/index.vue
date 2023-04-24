@@ -14,6 +14,11 @@ export default {
     BaseUpdateProfile,
     BaseNoData,
   },
+  head() {
+    return {
+      title: this.$t("Profile"),
+    };
+  },
   computed: {
     ...mapGetters({
       has_user: "auth/has_user",

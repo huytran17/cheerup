@@ -9,5 +9,10 @@ export default {
   name: "ForgetPassword",
   middleware: ["redirect-logged-user"],
   components: { BaseForgetPasswordForm },
+  head() {
+    return {
+      title: this.$t("Forget password"),
+    };
+  },
 };
 </script>

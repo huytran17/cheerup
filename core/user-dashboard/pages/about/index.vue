@@ -13,6 +13,11 @@ export default {
   components: {
     AboutMe,
   },
+  head() {
+    return {
+      title: this.$t("About me"),
+    };
+  },
   data() {
     return {
       informations: [

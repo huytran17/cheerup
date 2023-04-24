@@ -9,5 +9,10 @@ export default {
   name: "ResetPassword",
   middleware: ["redirect-logged-user"],
   components: { BaseResetPasswordForm },
+  head() {
+    return {
+      title: this.$t("Reset password"),
+    };
+  },
 };
 </script>
