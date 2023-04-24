@@ -20,5 +20,10 @@ import BaseSubscriptionTable from "@/components/subscription/widget/BaseSubscrip
 export default {
   name: "SubscriptionIndex",
   components: { BaseSubscriptionTable },
+  head() {
+    return {
+      title: this.$t("Subscriptions"),
+    };
+  },
 };
 </script>

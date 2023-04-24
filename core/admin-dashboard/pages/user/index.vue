@@ -37,5 +37,10 @@ import BaseUserTable from "@/components/user/widget/BaseUserTable";
 export default {
   name: "UserIndex",
   components: { BaseUserTable },
+  head() {
+    return {
+      title: this.$t("Users"),
+    };
+  },
 };
 </script>

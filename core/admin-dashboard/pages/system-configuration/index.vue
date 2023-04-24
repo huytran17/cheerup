@@ -23,5 +23,10 @@ import BaseUpdateSystemConfiguration from "@/components/system-configuration/wid
 export default {
   name: "SystemConfigurationIndex",
   components: { BaseUpdateSystemConfiguration },
+  head() {
+    return {
+      title: this.$t("System configuration"),
+    };
+  },
 };
 </script>

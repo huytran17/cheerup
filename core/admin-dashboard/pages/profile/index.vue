@@ -22,5 +22,10 @@ export default {
   components: {
     BaseUpdateProfile,
   },
+  head() {
+    return {
+      title: this.$t("Profile"),
+    };
+  },
 };
 </script>

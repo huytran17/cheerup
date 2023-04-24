@@ -37,5 +37,10 @@ import BasePostTable from "@/components/post/widget/BasePostTable";
 export default {
   name: "PostIndex",
   components: { BasePostTable },
+  head() {
+    return {
+      title: this.$t("Posts"),
+    };
+  },
 };
 </script>

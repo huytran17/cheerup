@@ -22,5 +22,10 @@ export default {
   components: {
     BaseCreateUser,
   },
+  head() {
+    return {
+      title: this.$t("Create new user"),
+    };
+  },
 };
 </script>

@@ -37,5 +37,10 @@ import BaseCategoryTable from "@/components/category/widget/BaseCategoryTable";
 export default {
   name: "CategoryIndex",
   components: { BaseCategoryTable },
+  head() {
+    return {
+      title: this.$t("Categories"),
+    };
+  },
 };
 </script>

@@ -98,6 +98,11 @@ export default {
     BaseGalleryItems,
   },
   mixins: [galleryMixins, dropzoneMixins],
+  head() {
+    return {
+      title: this.$t("Update gallery"),
+    };
+  },
   data() {
     return {
       is_open_create_gallery_dialog: false,

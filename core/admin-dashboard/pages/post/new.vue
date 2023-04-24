@@ -22,5 +22,10 @@ export default {
   components: {
     BaseCreatePost,
   },
+  head() {
+    return {
+      title: this.$t("Create new post"),
+    };
+  },
 };
 </script>

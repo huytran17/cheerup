@@ -22,5 +22,10 @@ export default {
   components: {
     BaseUpdatePost,
   },
+  head() {
+    return {
+      title: this.$t("Update post"),
+    };
+  },
 };
 </script>

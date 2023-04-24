@@ -22,5 +22,10 @@ export default {
   components: {
     BaseUpdateAdmin,
   },
+  head() {
+    return {
+      title: this.$t("Update admin infomation"),
+    };
+  },
 };
 </script>

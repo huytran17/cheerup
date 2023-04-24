@@ -22,5 +22,10 @@ export default {
   components: {
     BaseCreateCategory,
   },
+  head() {
+    return {
+      title: this.$t("Create new category"),
+    };
+  },
 };
 </script>

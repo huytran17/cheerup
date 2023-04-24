@@ -21,6 +21,11 @@
 <script>
 export default {
   name: "403",
+  head() {
+    return {
+      title: this.$t("Unauthorized"),
+    };
+  },
   data() {
     return {
       image: require("@/assets/images/app/wonder-guy.png"),

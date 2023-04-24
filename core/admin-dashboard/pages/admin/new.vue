@@ -22,5 +22,10 @@ export default {
   components: {
     BaseCreateAdmin,
   },
+  head() {
+    return {
+      title: this.$t("Create new admin"),
+    };
+  },
 };
 </script>

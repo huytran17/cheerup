@@ -21,6 +21,11 @@
 <script>
 export default {
   name: "403",
+  head() {
+    return {
+      title: this.$t("Bad request"),
+    };
+  },
   data() {
     return {
       image: require("@/assets/images/app/thinking-man.png"),

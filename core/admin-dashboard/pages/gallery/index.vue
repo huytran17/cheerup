@@ -50,6 +50,11 @@ import galleryMixins from "@/mixins/gallery";
 export default {
   components: { BaseModalCreateGallery, BaseGalleryFolders },
   mixins: [galleryMixins],
+  head() {
+    return {
+      title: this.$t("Galleries"),
+    };
+  },
   data() {
     return {
       is_open_create_gallery_dialog: false,

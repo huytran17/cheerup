@@ -20,5 +20,10 @@ import BaseCommentTable from "@/components/comment/widget/BaseCommentTable";
 export default {
   name: "CommentIndex",
   components: { BaseCommentTable },
+  head() {
+    return {
+      title: this.$t("Comments"),
+    };
+  },
 };
 </script>

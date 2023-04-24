@@ -22,5 +22,10 @@ export default {
   components: {
     BaseUpdateCategory,
   },
+  head() {
+    return {
+      title: this.$t("Update category"),
+    };
+  },
 };
 </script>

@@ -37,5 +37,10 @@ import BaseAdminTable from "@/components/admin/widget/BaseAdminTable";
 export default {
   name: "AdminIndex",
   components: { BaseAdminTable },
+  head() {
+    return {
+      title: this.$t("Admins"),
+    };
+  },
 };
 </script>
