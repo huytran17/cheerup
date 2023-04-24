@@ -235,6 +235,9 @@ export default {
       "vue-line-clamp",
       "v-scroll-to-top",
       "vue-slick-carousel",
+      "vue-infinite-loading",
+      "vue2-dropzone",
+      "vue-toastification",
       /^vuetify/,
     ],
     babel: {
