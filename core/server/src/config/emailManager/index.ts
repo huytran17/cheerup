@@ -1,4 +1,3 @@
-import makeSendEmail from "./send-email";
 import mailer from "./mailer";
 import { logger } from "../logs/logger";
 
@@ -7,6 +6,7 @@ import {
   subjectTemplate,
   defaultTemplateData,
 } from "./templates";
+import makeSendEmail from "./send-email";
 import { htmlToText } from "../../utils/html-to-text";
 import makeGetEmailContent, { IGetEmailContent } from "./get-email-content";
 import makeRenderEmailContent from "./render-email-content";
