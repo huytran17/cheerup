@@ -1,16 +1,22 @@
 import handlebars from "handlebars";
 import { pdfTemplate, template_data } from "./template";
 
-export type IPdfContent = () => string;
+export type IPdfContent = ({
+  type,
+  data,
+}: {
+  type: string;
+  data: Record<string, unknown>;
+}) => string;
 
-export default function makePdfContent() {
+export default function makePdfContent(): IPdfContent {
   return function pdfContent({
     type,
     data,
   }: {
     type: string;
     data: Record<string, unknown>;
-  }) {
+  }): string {
     const exportTemplate = pdfTemplate[type];
 
     if (!exportTemplate) {

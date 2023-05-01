@@ -156,12 +156,15 @@ export default {
     async exportPdf() {
       try {
         const pdf_data = await this.EXPORT_POST_PDF({ _id: this.post._id });
+
         const url = window.URL.createObjectURL(
           new Blob([new Uint8Array(pdf_data.buffer.data).buffer])
         );
+
         const link = document.createElement("a");
         link.href = url;
-        link.setAttribute("download", "yourcoolpdf.pdf");
+        link.setAttribute("download", `${pdf_data.name}.pdf`);
+
         document.body.appendChild(link);
         link.click();
       } catch (error) {
