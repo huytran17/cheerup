@@ -103,6 +103,9 @@
       <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.PINTEREST })">
         <v-icon color="pinterest">mdi-pinterest</v-icon>
       </v-btn>
+      <v-btn icon @click="exportPdf">
+        <v-icon color="brick">mdi-download</v-icon>
+      </v-btn>
     </div>
   </div>
 </template>
@@ -147,7 +150,24 @@ export default {
       CREATE_OR_DELETE_POST_BOOKMARK:
         "post-bookmark/CREATE_OR_DELETE_POST_BOOKMARK",
       COUNT_POST_BOOKMARKS: "post-bookmark/COUNT_POST_BOOKMARKS",
+      EXPORT_POST_PDF: "post/EXPORT_POST_PDF",
     }),
+
+    async exportPdf() {
+      try {
+        const pdf_data = await this.EXPORT_POST_PDF({ _id: this.post._id });
+        const url = window.URL.createObjectURL(
+          new Blob([new Uint8Array(pdf_data.buffer.data).buffer])
+        );
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "yourcoolpdf.pdf");
+        document.body.appendChild(link);
+        link.click();
+      } catch (error) {
+        console.error(error);
+      }
+    },
 
     searchByTag({ tag }) {
       this.$router.push({

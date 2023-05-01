@@ -12,6 +12,11 @@ const actions: ActionTree<PostState, RootState> = {
     return post;
   },
 
+  async [ActionTypes.EXPORT_POST_PDF]({ commit }, { _id }: { _id: string }) {
+    const { data } = await this.$axios.$get(`/post/export-pdf/${_id}`);
+    return data;
+  },
+
   async [ActionTypes.GET_POST](
     { commit },
     { id, user_id }: { id: string; user_id: string }
