@@ -18,6 +18,12 @@ const plugin: Plugin = ({ $axios, redirect, store }: Context, inject) => {
     config.headers.common["token-type"] = "bearer";
   });
 
+  $axios.onResponse((response) => {
+    console.log(
+      `Got response with status code ${response.status} from ${response.config.url}`
+    );
+  });
+
   $axios.onError((error) => {
     const code = _.get(error, "response.status", HTTP_STATUS_CODE.NOT_FOUND);
     if (code === HTTP_STATUS_CODE.BAD_REQUEST) {

@@ -6,7 +6,7 @@ export type IHtmlToPdf = ({
 }: {
   content: string;
   options?: Record<string, unknown>;
-}) => Promise<any>;
+}) => Promise<Buffer>;
 
 export default function makeRenderPdf(): IHtmlToPdf {
   return async function renderPdf({
