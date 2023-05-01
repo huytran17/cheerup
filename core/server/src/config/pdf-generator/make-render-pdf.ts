@@ -5,17 +5,17 @@ export type IHtmlToPdf = ({
   options,
 }: {
   content: string;
-  options: Record<string, unknown>;
-}) => void;
+  options?: Record<string, unknown>;
+}) => Promise<any>;
 
-export default function makeHtmlToPdf(): IHtmlToPdf {
-  return function htmlToPdf({
+export default function makeRenderPdf(): IHtmlToPdf {
+  return async function renderPdf({
     content,
     options,
   }: {
     content: string;
-    options: Record<string, unknown>;
-  }) {
-    return htmlToPdfNode.generatePdf(content, options);
+    options?: Record<string, unknown>;
+  }): Promise<any> {
+    return await htmlToPdfNode.generatePdf({ content }, options);
   };
 }

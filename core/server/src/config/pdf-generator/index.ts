@@ -1,5 +1,8 @@
-import makeHtmlToPdf from "./make-render-pdf";
+import makeRenderPdf from "./make-render-pdf";
+import makePdfContent from "./make-pdf-content";
 
-const htmlToPdf = makeHtmlToPdf();
+const renderPdf = makeRenderPdf();
 
-export { htmlToPdf };
+const pdfContent = makePdfContent();
+
+export { renderPdf, pdfContent };

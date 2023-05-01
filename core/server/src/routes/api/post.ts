@@ -7,6 +7,7 @@ import {
   getSuggestionPostsRules,
   getPostsPaginatedRules,
   updatePostRules,
+  exportPostPdfRules,
 } from "../../data-access/controllers/user/post/validators";
 import {
   getPostsController,
@@ -14,6 +15,7 @@ import {
   getSuggestionPostsController,
   getPostsPaginatedController,
   updatePostController,
+  exportPostPdfController,
 } from "../../data-access/controllers/user/post";
 
 const postRouter = express.Router();
@@ -22,6 +24,12 @@ postRouter.put(
   "/:_id",
   makeValidator(updatePostRules),
   makeExpressCallback(updatePostController)
+);
+
+postRouter.get(
+  "/export-pdf/:_id",
+  makeValidator(exportPostPdfRules),
+  makeExpressCallback(exportPostPdfController)
 );
 
 postRouter.get(
