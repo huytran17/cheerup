@@ -1,3 +1,4 @@
+import moment from "moment";
 import {
   getPost,
   getPosts,
@@ -15,6 +16,13 @@ import makeGetPostsController from "./get-posts";
 import makeGetSuggestionPostsController from "./get-suggestion-posts";
 import makeGetPostsPaginatedController from "./get-posts-paginated";
 import makeUpdatePostController from "./update-post";
+import makeExportPostPdfController from "./export-post-pdf";
+
+const exportPostPdfController = makeExportPostPdfController({
+  getPost,
+  readingTimeAnalyzer,
+  moment,
+});
 
 const updatePostController = makeUpdatePostController({
   getPost,
@@ -50,6 +58,7 @@ export default Object.freeze({
   getSuggestionPostsController,
   getPostsPaginatedController,
   updatePostController,
+  exportPostPdfController,
 });
 
 export {
@@ -58,4 +67,5 @@ export {
   getSuggestionPostsController,
   getPostsPaginatedController,
   updatePostController,
+  exportPostPdfController,
 };
