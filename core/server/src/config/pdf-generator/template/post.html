@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ title }}</title>
     <style>
       * {
         margin: 0;
@@ -19,74 +18,63 @@
       .article__heading {
         text-align: center;
       }
-      .article__category {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-      }
-      .category__item {
-        width: 50px;
-        height: 24px;
-        font-size: 12px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        line-height: 24px;
-      }
       .article__title {
         padding: 16px 0;
+        text-transform: uppercase;
+        font-size: 34px;
+      }
+      .article__description {
+        padding-bottom: 12px;
+      }
+      .article__title_meta {
+        color: #9e9e9e;
+        padding-bottom: 24px;
+        text-transform: uppercase;
+      }
+      .article__thumbnail {
+        display: flex;
+        justify-content: center;
+        padding-top: 24px;
+        padding-bottom: 12px;
+      }
+      .article__footer {
+        padding-top: 24px;
       }
     </style>
   </head>
   <body>
     <div class="article__wrappper">
       <div class="article__heading">
-        <div class="article__category">
-          <!-- {{#each categories as | category}}
-          <div class="category__item">
-            <span>{{category.title}}</span>
-          </div>
-          {{#each}} -->
-          <div class="category__item" style="background-color: blue">
-            <span>Food</span>
-          </div>
-          <div class="category__item" style="background-color: blue">
-            <span>Music</span>
-          </div>
-        </div>
         <div class="article__title">
-          <h1>{{title}}</h1>
+          <span>{{title}}</sp>
         </div>
+
         <div class="article__title_meta">
           <span>{{created_at}}</span>
           <span>/</span>
-          <span>{{author}}</span>
+          <span>{{author.full_name}}</span>
           <span>/</span>
-          <span>{{reading_time}}</span>
+          <span>{{reading_time.text}}</span>
         </div>
       </div>
 
       <div class="article__body">
         <div class="article__description">
-          <span>{{description}}</span>
+          <span>{{{description}}}</span>
         </div>
         <div class="article__content">
-          <span>{{content}}</span>
+          <span>{{{content}}}</span>
         </div>
       </div>
 
       <div class="article__footer">
-        <div class="article_tags">
-          <div class="tag_item">
-            <span>{{tag}}</span>
-          </div>
-        </div>
         <div class="article_source">
-          <span>{{source}}</span>
+          <span>{{{source}}}</span>
+        </div>
+        <div class="article_path">
+          <a href="{{base_url}}/post/{{_id}}">{{app_name}}</a>
         </div>
       </div>
-
-      <div class="article__reference"></div>
     </div>
   </body>
 </html>

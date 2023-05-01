@@ -1,11 +1,13 @@
 import fs from "fs";
+import template_data from "./tempalte-data";
 
-const template = {
+const pdfTemplate = {
   post: fs.readFileSync(`${__dirname}/post.html`, "utf8"),
 };
 
 export default Object.freeze({
-  template,
+  pdfTemplate,
+  template_data,
 });
 
-export { template };
+export { pdfTemplate, template_data };
