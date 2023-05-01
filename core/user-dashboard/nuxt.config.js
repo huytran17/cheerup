@@ -282,6 +282,11 @@ export default {
     background: "ffffff",
   },
 
+  loading: {
+    color: "#FF2E55",
+    continuous: true,
+  },
+
   buildModules: [
     "@nuxt/typescript-build",
     "@nuxtjs/vuetify",
