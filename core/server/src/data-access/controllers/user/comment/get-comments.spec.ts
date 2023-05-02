@@ -20,9 +20,9 @@ describe("getComments", () => {
     await connectDatabase();
   });
 
-  afterAll(async () => {
-    await Promise.all([clearDatabase(), redis.disconnect()]);
-  });
+  afterAll(
+    async () => await Promise.all([clearDatabase(), redis.disconnect()])
+  );
 
   it("it should return a body that contains a list of comment entities", async () => {
     const headers = {

@@ -20,9 +20,9 @@ describe("getAdminByEmail", () => {
     await connectDatabase();
   });
 
-  afterAll(async () => {
-    await Promise.all([clearDatabase(), redis.disconnect()]);
-  });
+  afterAll(
+    async () => await Promise.all([clearDatabase(), redis.disconnect()])
+  );
 
   it("should return a body that contains an admin entity", async () => {
     const headers = {

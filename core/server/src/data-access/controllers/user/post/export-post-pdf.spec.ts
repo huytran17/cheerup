@@ -22,9 +22,7 @@ describe("exportPostPdf", () => {
     await connectDatabase();
   });
 
-  afterAll(async () => {
-    await Promise.all([clearDatabase(), redis.disconnect()]);
-  });
+  afterAll(async () => await Promise.all([clearDatabase(), redis.disconnect()]));
 
   it("should return a body that contains a PDF Buffer", async () => {
     const headers = {

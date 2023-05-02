@@ -21,9 +21,9 @@ describe("hardDeleteComment", () => {
     await connectDatabase();
   });
 
-  afterAll(async () => {
-    await Promise.all([clearDatabase(), redis.disconnect()]);
-  });
+  afterAll(
+    async () => await Promise.all([clearDatabase(), redis.disconnect()])
+  );
 
   it("should return a body that contains an comment entity", async () => {
     const headers = {

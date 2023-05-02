@@ -37,9 +37,9 @@ describe("createComment", () => {
     await connectDatabase();
   });
 
-  afterAll(async () => {
-    await Promise.all([clearDatabase(), redis.disconnect()]);
-  });
+  afterAll(
+    async () => await Promise.all([clearDatabase(), redis.disconnect()])
+  );
 
   it("it should return a body that contains a comment entity", async () => {
     const headers = {

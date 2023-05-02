@@ -18,9 +18,9 @@ describe("getCategoryBySlug", () => {
     await connectDatabase();
   });
 
-  afterAll(async () => {
-    await Promise.all([clearDatabase(), redis.disconnect()]);
-  });
+  afterAll(
+    async () => await Promise.all([clearDatabase(), redis.disconnect()])
+  );
 
   it("it should return a body that contains an a category entity", async () => {
     const headers = {

@@ -32,9 +32,9 @@ describe("createOrUpdateCommentLike", () => {
     await connectDatabase();
   });
 
-  afterAll(async () => {
-    await Promise.all([clearDatabase(), redis.disconnect()]);
-  });
+  afterAll(
+    async () => await Promise.all([clearDatabase(), redis.disconnect()])
+  );
 
   it("should return a body with no data", async () => {
     const headers = {
