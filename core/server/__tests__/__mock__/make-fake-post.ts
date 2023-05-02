@@ -7,6 +7,7 @@ export default function makeFakePost({ faker }: { faker: any }): FakePost {
     return {
       _id: faker.database.mongodbObjectId(),
       title: faker.name.jobTitle(),
+      slug: faker.name.jobTitle(),
       description: faker.lorem.paragraph(),
       source: faker.lorem.word(),
       thumbnail_url: faker.internet.url(),

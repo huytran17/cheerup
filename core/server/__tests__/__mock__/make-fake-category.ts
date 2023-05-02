@@ -11,6 +11,7 @@ export default function makeFakeCategory({
     return {
       _id: faker.database.mongodbObjectId(),
       title: faker.lorem.text(),
+      slug: faker.lorem.text(),
       description: faker.lorem.paragraph(),
       badge_color: faker.color.rgb({ prefix: "#", casing: "lower" }),
       created_by: faker.database.mongodbObjectId(),
