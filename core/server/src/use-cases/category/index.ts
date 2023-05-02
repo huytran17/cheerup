@@ -14,6 +14,11 @@ import makeGetCategoryByTitle from "./get-category-by-title";
 import makeGetCategoryAnalystics from "./get-category-analystics";
 import makeGetCategoriesForSEO from "./get-categories-for-seo";
 import makeGetCategoriesPaginated from "./get-categories-paginated";
+import makeGetCategoryBySlug from "./get-category-by-slug";
+
+const getCategoryBySlug = makeGetCategoryBySlug({
+  categoryDb: CategoryDb,
+});
 
 const getCategoriesPaginated = makeGetCategoriesPaginated({
   categoryDb: CategoryDb,
@@ -78,6 +83,7 @@ const categoryServices = Object.freeze({
   getCategoryAnalystics,
   getCategoriesForSEO,
   getCategoriesPaginated,
+  getCategoryBySlug,
 });
 
 export default categoryServices;
@@ -94,4 +100,5 @@ export {
   getCategoryAnalystics,
   getCategoriesForSEO,
   getCategoriesPaginated,
+  getCategoryBySlug,
 };

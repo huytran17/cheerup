@@ -305,6 +305,24 @@ export default function makeCategoryDb({
       return null;
     }
 
+    async findBySlug({ slug }: { slug: string }): Promise<Category | null> {
+      const query_conditions = {
+        deleted_at: { $in: [null, undefined] },
+      };
+
+      slug && (query_conditions["slug"] = slug);
+
+      const existing = await categoryDbModel
+        .findOne(query_conditions)
+        .lean({ virtuals: true });
+
+      if (existing) {
+        return new Category(existing);
+      }
+
+      return null;
+    }
+
     async findOne(): Promise<Category | null> {
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
