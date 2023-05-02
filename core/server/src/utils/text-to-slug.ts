@@ -1,4 +1,4 @@
-const textToSlug = ({ text }: { text: string }): string => {
+const textToSlug = ({ text = "" }: { text: string }): string => {
   let slug = text.toLowerCase();
 
   slug = slug.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, "a");

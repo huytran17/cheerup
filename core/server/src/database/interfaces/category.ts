@@ -3,6 +3,7 @@ import Admin from "../entities/admin";
 export default interface ICategory {
   _id: string;
   title: string;
+  slug: string;
   description: string;
   thumbnail_url?: string;
   badge_color?: string;

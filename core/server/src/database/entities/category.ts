@@ -3,6 +3,7 @@ import Admin from "./admin";
 
 export default class Category implements ICategory {
   public readonly _id: string;
+  public readonly slug: string;
   public readonly description: string;
   public readonly thumbnail?: Record<string, unknown>;
   public readonly title: string;
@@ -26,6 +27,7 @@ export default class Category implements ICategory {
     thumbnail_url,
     badge_color,
     seo,
+    slug,
   }: ICategory) {
     this._id = _id;
     this.title = title;
@@ -38,5 +40,6 @@ export default class Category implements ICategory {
     this.thumbnail_url = thumbnail_url;
     this.badge_color = badge_color;
     this.seo = seo;
+    this.slug = slug;
   }
 }

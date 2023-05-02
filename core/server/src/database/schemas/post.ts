@@ -61,9 +61,16 @@ postSchema.pre("findOneAndUpdate", async function (next) {
   next();
 });
 
-postSchema.pre("save", function (next) {
+postSchema.pre("save", async function (next) {
   const title = get(this, "title");
-  const slug = textToSlug({ text: title });
+  let slug = textToSlug({ text: title });
+
+  const slug_existed = await PostModel.findOne({
+    _id: { $ne: this._id },
+    slug,
+  });
+
+  !isEmpty(slug_existed) && (slug = `${slug}-${Date.now()}`);
 
   this.slug = slug;
 
