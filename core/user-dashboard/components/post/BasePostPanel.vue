@@ -201,7 +201,7 @@ export default {
 
     sharePost({ type }) {
       const current_url_origin = window.location.origin;
-      const post_url = `${current_url_origin}/post/${this.post._id}`;
+      const post_url = `${current_url_origin}/post/${this.post.slug}`;
 
       let share_url = "";
       const encodedURI = encodeURIComponent(post_url);

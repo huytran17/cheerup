@@ -59,7 +59,7 @@ export default {
         {
           hid: "og:url",
           property: "og:url",
-          content: `${process.env.BASE_URL}/post/${this.$route.params.id}`,
+          content: `${process.env.BASE_URL}/post/${this.$route.params.slug}`,
         },
         {
           hid: "og:description",
@@ -102,11 +102,11 @@ export default {
   },
   async asyncData({ store, params }) {
     try {
-      const post_id = params.id;
+      const slug = params.slug;
       const user_id = _.get(store.getters["auth/me"], "_id");
 
-      const post = await store.dispatch("post/GET_POST", {
-        id: post_id,
+      const post = await store.dispatch("post/GET_POST_BY_SLUG", {
+        slug,
         user_id,
       });
 
@@ -116,11 +116,12 @@ export default {
       await Promise.all([
         store.dispatch("post/GET_SUGGESTION_POSTS", {
           categories: category_ids,
-          exclude_ids: [post_id],
+          exclude_ids: [post._id],
         }),
+
         user_id &&
           store.dispatch("comment/GET_COMMENTS_BY_POST_PAGINATED", {
-            post_id,
+            post_id: post._id,
           }),
       ]);
     } catch (error) {

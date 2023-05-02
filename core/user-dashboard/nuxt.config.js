@@ -46,11 +46,11 @@ export default {
 
         const seo_post_data = get(seo_post_payload, "data.data", []);
         const seo_post_routes = map(seo_post_data, (post) => ({
-          route: `/post/${post._id}`,
+          route: `/post/${post.slug}`,
           payload:
             {
               ...post.seo,
-              url: `${process.env.BASE_URL}/post/${post._id}`,
+              url: `${process.env.BASE_URL}/post/${post.slug}`,
               type: SEO_TYPE.POST,
             } || {},
         }));

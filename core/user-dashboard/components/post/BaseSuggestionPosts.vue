@@ -33,7 +33,7 @@
             width="182px"
             height="135px"
             class="clickable"
-            @click="$router.push(localePath(`/post/${post._id}`))"
+            @click="$router.push(localePath(`/post/${post.slug}`))"
           />
         </div>
         <div
@@ -48,7 +48,7 @@
         <div class="text-body-1 text-center text--ellipsis px-2">
           <span
             class="app-body clickable"
-            @click="$router.push(localePath(`/post/${post._id}`))"
+            @click="$router.push(localePath(`/post/${post.slug}`))"
             >{{ post.title }}</span
           >
         </div>

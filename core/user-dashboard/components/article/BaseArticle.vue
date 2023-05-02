@@ -20,7 +20,7 @@
         <span
           class="app-body post__title position-relative clickable"
           v-html="post_data.title"
-          @click="$router.push(localePath(`/post/${post_data._id}`))"
+          @click="$router.push(localePath(`/post/${post_data.slug}`))"
         ></span>
       </div>
 

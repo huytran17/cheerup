@@ -53,7 +53,7 @@
         <span
           class="app-body post__title position-relative clickable"
           v-html="$t(post_title)"
-          @click="$router.push(localePath(`/post/${post_id}`))"
+          @click="$router.push(localePath(`/post/${post_slug}`))"
         ></span>
       </div>
       <div
@@ -146,6 +146,10 @@ export default {
 
     post_id() {
       return _.get(this.bookmark_data, "post._id");
+    },
+
+    post_slug() {
+      return _.get(this.bookmark_data, "post.slug");
     },
 
     post_categories() {

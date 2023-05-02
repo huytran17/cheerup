@@ -32,6 +32,23 @@ const actions: ActionTree<PostState, RootState> = {
     return post;
   },
 
+  async [ActionTypes.GET_POST_BY_SLUG](
+    { commit },
+    { slug, user_id }: { slug: string; user_id: string }
+  ) {
+    const url_query = new URLSearchParams();
+
+    user_id && url_query.set("user_id", user_id);
+
+    const { data: post } = await this.$axios.$get(
+      `/post/by-slug/${slug}?${url_query}`
+    );
+
+    commit(MutationTypes.SET_POST, { data: post });
+
+    return post;
+  },
+
   async [ActionTypes.GET_SUGGESTION_POSTS]({ commit }, params = {}) {
     const amount = _.get(params, "amount", 5);
     const categories = _.get(params, "categories", []);
