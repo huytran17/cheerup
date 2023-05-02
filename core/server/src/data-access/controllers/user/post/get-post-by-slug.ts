@@ -1,21 +1,21 @@
 import { Request } from "express";
-import { IGetPost } from "../../../../use-cases/post/get-post";
 import { IReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import { IGetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
+import { IGetPostBySlug } from "../../../../use-cases/post/get-post-by-slug";
 
-export default function makeGetPostController({
-  getPost,
+export default function makeGetPostBySlugController({
+  getPostBySlug,
   readingTimeAnalyzer,
   getPostBookmarkByUserAndPost,
 }: {
-  getPost: IGetPost;
+  getPostBySlug: IGetPostBySlug;
   readingTimeAnalyzer: IReadingTimeAnalyzer;
   getPostBookmarkByUserAndPost: IGetPostBookmarkByUserAndPost;
 }) {
-  return async function getPostController(
+  return async function getPostBySlugController(
     httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
@@ -23,21 +23,19 @@ export default function makeGetPostController({
     };
 
     try {
-      const { _id: post_id, user_id } = get(httpRequest, "context.validated");
-      const exists = await getPost({
-        _id: post_id,
-        is_only_published: true,
-        is_include_deleted: false,
+      const { slug, user_id } = get(httpRequest, "context.validated");
+      const exists = await getPostBySlug({
+        slug,
       });
 
       if (isEmpty(exists)) {
-        throw new Error(`Post by id ${post_id} does not exists`);
+        throw new Error(`Post by slug ${slug} does not exists`);
       }
 
       if (user_id) {
         const post_bookmarked = await getPostBookmarkByUserAndPost({
           user_id,
-          post_id,
+          post_id: exists._id,
         });
 
         Object.assign(exists, {

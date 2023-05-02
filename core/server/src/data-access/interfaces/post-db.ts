@@ -49,6 +49,7 @@ export default interface IPostDb {
     is_only_published?: boolean;
     is_include_deleted?: boolean;
   }) => Promise<Post | null>;
+  findBySlug: ({ slug }: { slug: string }) => Promise<Post | null>;
   insert: (payload: Partial<IPost>) => Promise<Post | null>;
   delete: ({ _id }: { _id: string }) => Promise<Post | null>;
   hardDelete: ({ _id }: { _id: string }) => Promise<Post | null>;

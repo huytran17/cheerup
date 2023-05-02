@@ -8,6 +8,7 @@ import {
   getPostsPaginatedRules,
   updatePostRules,
   exportPostPdfRules,
+  getPostBySlugRules,
 } from "../../data-access/controllers/user/post/validators";
 import {
   getPostsController,
@@ -16,9 +17,16 @@ import {
   getPostsPaginatedController,
   updatePostController,
   exportPostPdfController,
+  getPostBySlugController,
 } from "../../data-access/controllers/user/post";
 
 const postRouter = express.Router();
+
+postRouter.get(
+  "/by-slug/:slug",
+  makeValidator(getPostBySlugRules),
+  makeExpressCallback(getPostBySlugController)
+);
 
 postRouter.put(
   "/:_id",

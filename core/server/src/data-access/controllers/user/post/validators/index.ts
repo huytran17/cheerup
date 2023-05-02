@@ -3,6 +3,7 @@ import getPostsPaginatedRules from "./get-posts-paginated";
 import getSuggestionPostsRules from "./get-sugesstion-posts";
 import updatePostRules from "./update-post";
 import exportPostPdfRules from "./export-post-pdf";
+import getPostBySlugRules from "./get-post-by-slug";
 
 export default Object.freeze({
   getPostRules,
@@ -10,6 +11,7 @@ export default Object.freeze({
   getPostsPaginatedRules,
   updatePostRules,
   exportPostPdfRules,
+  getPostBySlugRules,
 });
 
 export {
@@ -18,4 +20,5 @@ export {
   getPostsPaginatedRules,
   updatePostRules,
   exportPostPdfRules,
+  getPostBySlugRules,
 };

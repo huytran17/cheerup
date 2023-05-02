@@ -409,6 +409,27 @@ export default function makePostDb({
       return null;
     }
 
+    async findBySlug({ slug }: { slug: string }): Promise<Post | null> {
+      const query_conditions = {
+        deleted_at: { $in: [null, undefined] },
+        is_published: true,
+      };
+
+      slug && (query_conditions["slug"] = slug);
+
+      const existing = await postDbModel
+        .findOne(query_conditions)
+        .populate("author", "-_v")
+        .populate("categories", "-_v")
+        .lean({ virtuals: true });
+
+      if (existing) {
+        return new Post(existing);
+      }
+
+      return null;
+    }
+
     async countByCategory({
       category_id,
     }: {

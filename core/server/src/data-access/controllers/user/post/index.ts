@@ -5,6 +5,7 @@ import {
   getSuggestionPosts,
   getPostsPaginated,
   updatePost,
+  getPostBySlug,
 } from "../../../../use-cases/post";
 import { countCommentsByPost } from "../../../../use-cases/comment";
 import { getPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark";
@@ -17,6 +18,13 @@ import makeGetSuggestionPostsController from "./get-suggestion-posts";
 import makeGetPostsPaginatedController from "./get-posts-paginated";
 import makeUpdatePostController from "./update-post";
 import makeExportPostPdfController from "./export-post-pdf";
+import makeGetPostBySlugController from "./get-post-by-slug";
+
+const getPostBySlugController = makeGetPostBySlugController({
+  getPostBySlug,
+  readingTimeAnalyzer,
+  getPostBookmarkByUserAndPost,
+});
 
 const exportPostPdfController = makeExportPostPdfController({
   getPost,
@@ -59,6 +67,7 @@ export default Object.freeze({
   getPostsPaginatedController,
   updatePostController,
   exportPostPdfController,
+  getPostBySlugController,
 });
 
 export {
@@ -68,4 +77,5 @@ export {
   getPostsPaginatedController,
   updatePostController,
   exportPostPdfController,
+  getPostBySlugController,
 };
