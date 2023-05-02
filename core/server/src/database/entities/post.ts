@@ -5,6 +5,7 @@ import Category from "./category";
 export default class Post implements IPost {
   public readonly _id: string;
   public readonly title: string;
+  public readonly slug: string;
   public readonly description: string;
   public readonly thumbnail_url?: string;
   public readonly is_blocked_comment: boolean;
@@ -45,6 +46,7 @@ export default class Post implements IPost {
     seo,
     published_at,
     published_by,
+    slug,
   }: IPost) {
     this._id = _id;
     this.title = title;
@@ -66,5 +68,6 @@ export default class Post implements IPost {
     this.seo = seo;
     this.published_at = published_at;
     this.published_by = published_by;
+    this.slug = slug;
   }
 }

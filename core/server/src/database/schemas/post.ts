@@ -1,12 +1,17 @@
 import mongoose from "mongoose";
-import _ from "lodash";
 import mongoose_lean_virtuals from "mongoose-lean-virtuals";
+import IPost from "../interfaces/post";
+import { get } from "lodash";
+import { PostModel } from "../../data-access/models";
+import { textToSlug } from "../../utils/text-to-slug";
+import { isEmpty } from "../../utils/is-empty";
 
 const Schema = mongoose.Schema;
 
 const postSchema = new Schema(
   {
     title: { type: String, trim: true },
+    slug: { type: String, trim: true },
     description: { type: String, trim: true },
     is_blocked_comment: { type: Boolean, default: false },
     is_published: { type: Boolean, default: false },
@@ -35,7 +40,34 @@ const postSchema = new Schema(
 postSchema.index({ created_at: -1, views: -1 });
 
 postSchema.virtual("thumbnail_url").get(function () {
-  return _.get(this, "thumbnail.location");
+  return get(this, "thumbnail.location");
+});
+
+postSchema.pre("findOneAndUpdate", async function (next) {
+  const update_details = <IPost>this.getUpdate();
+
+  const title = get(update_details, "title", "");
+  let slug = textToSlug({ text: title });
+
+  const slug_existed = await PostModel.findOne({
+    _id: { $ne: update_details._id },
+    slug,
+  });
+
+  !isEmpty(slug_existed) && (slug = `${slug}-${Date.now()}`);
+
+  update_details.slug = slug;
+
+  next();
+});
+
+postSchema.pre("save", function (next) {
+  const title = get(this, "title");
+  const slug = textToSlug({ text: title });
+
+  this.slug = slug;
+
+  next();
 });
 
 postSchema.plugin(mongoose_lean_virtuals);
