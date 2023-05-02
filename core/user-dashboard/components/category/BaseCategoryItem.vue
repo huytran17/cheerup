@@ -14,7 +14,7 @@
           <span
             class="app-body post__title position-relative clickable"
             v-html="data.title"
-            @click="$router.push(localePath(`/category/${data._id}`))"
+            @click="$router.push(localePath(`/category/${data.slug}`))"
           ></span>
         </v-badge>
       </div>

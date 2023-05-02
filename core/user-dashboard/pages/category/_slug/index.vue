@@ -47,7 +47,7 @@ export default {
         {
           hid: "og:url",
           property: "og:url",
-          content: `${process.env.BASE_URL}/category/${this.$route.params.id}`,
+          content: `${process.env.BASE_URL}/category/${this.$route.params.slug}`,
         },
         {
           hid: "og:description",
@@ -90,17 +90,18 @@ export default {
   },
   async asyncData({ store, params }) {
     try {
-      const category_id = params.id;
+      const slug = params.slug;
 
-      store.commit("post/SET_CATEGORIES_FILTERS", { data: [category_id] });
+      const category = await store.dispatch("category/GET_CATEGORY_BY_SLUG", {
+        slug,
+      });
+
+      store.commit("post/SET_CATEGORIES_FILTERS", { data: [category._id] });
 
       await Promise.all([
         store.dispatch("post/GET_POSTS_PAGINATED", {
-          categories: [category_id],
+          categories: [category._id],
           user_id: _.get(store.getters["auth/me"], "_id"),
-        }),
-        store.dispatch("category/GET_CATEGORY", {
-          id: category_id,
         }),
       ]);
     } catch (error) {

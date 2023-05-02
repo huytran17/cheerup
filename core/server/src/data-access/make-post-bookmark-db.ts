@@ -69,7 +69,7 @@ export default function makePostBookmarkDb({
             },
             {
               path: "categories",
-              select: "_id title badge_color",
+              select: "_id title badge_color slug",
             },
           ],
         })

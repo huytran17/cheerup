@@ -28,6 +28,19 @@ const actions: ActionTree<CategoryState, RootState> = {
     return category;
   },
 
+  async [ActionTypes.GET_CATEGORY_BY_SLUG](
+    { commit },
+    { slug }: { slug: string }
+  ) {
+    const { data: category } = await this.$axios.$get(
+      `/category/by-slug/${slug}`
+    );
+
+    commit(MutationTypes.SET_CATEGORY, { data: category });
+
+    return category;
+  },
+
   async [ActionTypes.GET_CATEGORY_TITLES]({ commit }) {
     const { data } = await this.$axios.$get(`/category/titles`);
 

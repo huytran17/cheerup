@@ -19,7 +19,7 @@
           <span
             class="app-body clickable card-item__title"
             v-html="$t(category.title)"
-            @click="$router.push(localePath(`/category/${category._id}`))"
+            @click="$router.push(localePath(`/category/${category.slug}`))"
           ></span>
         </div>
       </div>

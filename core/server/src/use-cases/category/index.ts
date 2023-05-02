@@ -42,7 +42,6 @@ const getCategoryByTitle = makeGetCategoryByTitle({
 
 const getCategoryTitles = makeGetCategoryTitles({
   categoryDb: CategoryDb,
-  logger,
 });
 
 const hardDeleteCategory = makeHardDeleteCategory({

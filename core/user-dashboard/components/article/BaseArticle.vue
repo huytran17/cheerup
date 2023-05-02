@@ -10,7 +10,7 @@
           label
           text-color="white"
           small
-          @click="$router.push(localePath(`/category/${category._id}`))"
+          @click="$router.push(localePath(`/category/${category.slug}`))"
         >
           <span class="app-body" v-html="category.title"></span>
         </v-chip>

@@ -343,16 +343,19 @@ export default function makeCategoryDb({
       return null;
     }
 
-    async findAllCategoryTitles(): Promise<{ _id: string; title: string }[]> {
+    async findAllCategoryTitles(): Promise<
+      { _id: string; title: string; slug: string }[]
+    > {
       const existing = await categoryDbModel
         .find()
-        .select("_id title")
+        .select("_id title slug")
         .lean({ virtuals: true });
 
       if (existing) {
         return _.map(existing, (category) => ({
           _id: category._id,
           title: category.title,
+          slug: category.slug,
         }));
       }
 
@@ -375,7 +378,7 @@ export default function makeCategoryDb({
     }
 
     async delete({ _id }: { _id: string }): Promise<Category | null> {
-      const existing = await categoryDbModel.findOneAndUpdate(
+      await categoryDbModel.findOneAndUpdate(
         { _id },
         { deleted_at: new Date() }
       );

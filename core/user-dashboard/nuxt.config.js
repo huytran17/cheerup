@@ -57,11 +57,11 @@ export default {
 
         const seo_category_data = get(seo_category_payload, "data.data", []);
         const seo_category_routes = map(seo_category_data, (category) => ({
-          route: `/category/${category._id}`,
+          route: `/category/${category.slug}`,
           payload:
             {
               ...category.seo,
-              url: `${process.env.BASE_URL}/category/${category._id}`,
+              url: `${process.env.BASE_URL}/category/${category.slug}`,
               type: SEO_TYPE.CATEGORY,
             } || {},
         }));

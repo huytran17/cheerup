@@ -13,7 +13,9 @@ export default interface ICategoryDb {
     entries_per_page?: number;
   }) => Promise<IPaginatedCategoryResult | null>;
   findOne: () => Promise<Category | null>;
-  findAllCategoryTitles: () => Promise<{ _id: string; title: string }[]>;
+  findAllCategoryTitles: () => Promise<
+    { _id: string; title: string; slug: string }[]
+  >;
   findById: ({
     _id,
     is_include_deleted,
