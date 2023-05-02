@@ -19,9 +19,7 @@ import makeCountPostBookmarksController from "./count-post-bookmarks";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 describe("countPostBookmarks", () => {
-  beforeAll(async () => {
-    await connectDatabase();
-  });
+  beforeAll(async () => await connectDatabase());
 
   afterAll(
     async () => await Promise.all([clearDatabase(), redis.disconnect()])

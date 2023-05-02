@@ -14,9 +14,7 @@ import makeGetCategoryTitlesController from "./get-category-titles";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 describe("getCategoryTitles", () => {
-  beforeAll(async () => {
-    await connectDatabase();
-  });
+  beforeAll(async () => await connectDatabase());
 
   afterAll(
     async () => await Promise.all([clearDatabase(), redis.disconnect()])

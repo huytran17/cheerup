@@ -21,9 +21,7 @@ import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeUserDb from "../../../make-user-db";
 
 describe("getComment", () => {
-  beforeAll(async () => {
-    await connectDatabase();
-  });
+  beforeAll(async () => await connectDatabase());
 
   afterAll(
     async () => await Promise.all([clearDatabase(), redis.disconnect()])

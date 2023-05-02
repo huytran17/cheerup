@@ -20,9 +20,7 @@ import makeGetOutstandingCategoriesPaginatedController from "./get-outstanding-c
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 describe("getOutstandingCategoriesPaginated", () => {
-  beforeAll(async () => {
-    await connectDatabase();
-  });
+  beforeAll(async () => await connectDatabase());
 
   afterAll(
     async () => await Promise.all([clearDatabase(), redis.disconnect()])

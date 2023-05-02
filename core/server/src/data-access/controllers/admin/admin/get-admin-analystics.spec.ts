@@ -16,9 +16,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { IAdminAnalyticsData } from "../../../../data-access/interfaces/admin-db";
 
 describe("getAdminAnalystics", () => {
-  beforeAll(async () => {
-    await connectDatabase();
-  });
+  beforeAll(async () => await connectDatabase());
 
   afterAll(
     async () => await Promise.all([clearDatabase(), redis.disconnect()])

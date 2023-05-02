@@ -17,9 +17,7 @@ import { verifyPassword } from "../../../../config/password";
 import { generateAccessToken } from "../../../../config/accessTokenManager";
 
 describe("verifyAccess", () => {
-  beforeAll(async () => {
-    await connectDatabase();
-  });
+  beforeAll(async () => await connectDatabase());
 
   afterAll(
     async () => await Promise.all([clearDatabase(), redis.disconnect()])

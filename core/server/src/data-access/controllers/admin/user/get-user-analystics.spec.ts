@@ -16,9 +16,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { IUserAnalyticsData } from "../../../interfaces/user-db";
 
 describe("getUserAnalystics", () => {
-  beforeAll(async () => {
-    await connectDatabase();
-  });
+  beforeAll(async () => await connectDatabase());
 
   afterAll(
     async () => await Promise.all([clearDatabase(), redis.disconnect()])

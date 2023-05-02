@@ -15,9 +15,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import Comment from "../../../../database/entities/comment";
 
 describe("createComment", () => {
-  beforeAll(async () => {
-    await connectDatabase();
-  });
+  beforeAll(async () => await connectDatabase());
 
   afterAll(
     async () => await Promise.all([clearDatabase(), redis.disconnect()])

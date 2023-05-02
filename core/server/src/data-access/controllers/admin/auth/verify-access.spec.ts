@@ -19,9 +19,7 @@ import {
 import { hashPassword } from "../../../../config/password";
 
 describe("getMe", () => {
-  beforeAll(async () => {
-    await connectDatabase();
-  });
+  beforeAll(async () => await connectDatabase());
 
   afterAll(
     async () => await Promise.all([clearDatabase(), redis.disconnect()])

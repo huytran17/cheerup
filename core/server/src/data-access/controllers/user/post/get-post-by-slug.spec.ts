@@ -21,9 +21,7 @@ import makeGetPostController from "./get-post";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 describe("getPostBySlug", () => {
-  beforeAll(async () => {
-    await connectDatabase();
-  });
+  beforeAll(async () => await connectDatabase());
 
   afterAll(
     async () => await Promise.all([clearDatabase(), redis.disconnect()])

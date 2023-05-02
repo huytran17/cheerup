@@ -28,9 +28,7 @@ import makeReplyCommentController from "./reply-comment";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 describe("replyComment", () => {
-  beforeAll(async () => {
-    await connectDatabase();
-  });
+  beforeAll(async () => await connectDatabase());
 
   afterAll(
     async () => await Promise.all([clearDatabase(), redis.disconnect()])

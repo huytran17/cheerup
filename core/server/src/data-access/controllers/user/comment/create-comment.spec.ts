@@ -33,9 +33,7 @@ import makeGetCommentLikeByUserAndComment from "../../../../use-cases/comment-li
 import makeCommentLikeDb from "../../../make-comment-like-db";
 
 describe("createComment", () => {
-  beforeAll(async () => {
-    await connectDatabase();
-  });
+  beforeAll(async () => await connectDatabase());
 
   afterAll(
     async () => await Promise.all([clearDatabase(), redis.disconnect()])

@@ -28,9 +28,7 @@ import makeCreateOrUpdateCommentLikeController from "./create-or-update-comment-
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 describe("createOrUpdateCommentLike", () => {
-  beforeAll(async () => {
-    await connectDatabase();
-  });
+  beforeAll(async () => await connectDatabase());
 
   afterAll(
     async () => await Promise.all([clearDatabase(), redis.disconnect()])

@@ -17,9 +17,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import Gallery from "../../../../database/entities/gallery";
 
 describe("hardDeleteGallery", () => {
-  beforeAll(async () => {
-    await connectDatabase();
-  });
+  beforeAll(async () => await connectDatabase());
 
   afterAll(
     async () => await Promise.all([clearDatabase(), redis.disconnect()])

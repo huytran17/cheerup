@@ -19,9 +19,7 @@ import makeCreateOrDeletePostBookmark from "./create-or-delete-post-bookmark";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 describe("createOrDeletePostBookmark", () => {
-  beforeAll(async () => {
-    await connectDatabase();
-  });
+  beforeAll(async () => await connectDatabase());
 
   afterAll(
     async () => await Promise.all([clearDatabase(), redis.disconnect()])

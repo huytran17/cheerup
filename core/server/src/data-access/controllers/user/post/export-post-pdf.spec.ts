@@ -18,11 +18,11 @@ import makeExportPostPdfController from "./export-post-pdf";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 describe("exportPostPdf", () => {
-  beforeAll(async () => {
-    await connectDatabase();
-  });
+  beforeAll(async () => await connectDatabase());
 
-  afterAll(async () => await Promise.all([clearDatabase(), redis.disconnect()]));
+  afterAll(
+    async () => await Promise.all([clearDatabase(), redis.disconnect()])
+  );
 
   it("should return a body that contains a PDF Buffer", async () => {
     const headers = {

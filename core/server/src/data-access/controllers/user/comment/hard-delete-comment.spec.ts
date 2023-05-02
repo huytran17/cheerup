@@ -27,9 +27,7 @@ import makeHardDeleteCommentController from "./hard-delete-comment";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 describe("hardDeleteComment", () => {
-  beforeAll(async () => {
-    await connectDatabase();
-  });
+  beforeAll(async () => await connectDatabase());
 
   afterAll(
     async () => await Promise.all([clearDatabase(), redis.disconnect()])

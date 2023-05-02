@@ -12,9 +12,7 @@ import makeGetCategoriesController from "./get-categories";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 describe("getCategories", () => {
-  beforeAll(async () => {
-    await connectDatabase();
-  });
+  beforeAll(async () => await connectDatabase());
 
   afterAll(
     async () => await Promise.all([clearDatabase(), redis.disconnect()])

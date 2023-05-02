@@ -14,9 +14,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import User from "../../../../database/entities/user";
 
 describe("getUsers", () => {
-  beforeAll(async () => {
-    await connectDatabase();
-  });
+  beforeAll(async () => await connectDatabase());
 
   afterAll(
     async () => await Promise.all([clearDatabase(), redis.disconnect()])

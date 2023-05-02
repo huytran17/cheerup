@@ -18,9 +18,7 @@ import User from "../../../../database/entities/user";
 import { hashPassword, verifyPassword } from "../../../../config/password";
 
 describe("updatePassword", () => {
-  beforeAll(async () => {
-    await connectDatabase();
-  });
+  beforeAll(async () => await connectDatabase());
 
   afterAll(
     async () => await Promise.all([clearDatabase(), redis.disconnect()])

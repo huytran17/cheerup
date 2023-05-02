@@ -17,9 +17,7 @@ import { PasswordResetModel } from "../../../models";
 import makeGetPasswordResetByCodeController from "./get-password-reset-by-code";
 
 describe("getPasswordResetByCode", () => {
-  beforeAll(async () => {
-    await connectDatabase();
-  });
+  beforeAll(async () => await connectDatabase());
 
   afterAll(
     async () => await Promise.all([clearDatabase(), redis.disconnect()])

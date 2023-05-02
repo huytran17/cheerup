@@ -17,9 +17,7 @@ import Admin from "../../../../database/entities/admin";
 import { hashPassword } from "../../../../config/password";
 
 describe("createAdmin", () => {
-  beforeAll(async () => {
-    await connectDatabase();
-  });
+  beforeAll(async () => await connectDatabase());
 
   afterAll(
     async () => await Promise.all([clearDatabase(), redis.disconnect()])
