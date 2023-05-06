@@ -7,7 +7,7 @@ import minifyInline from "gulp-minify-inline";
 const transferHTML = () => {
   return gulp
     .src("src/**/*.html", {
-      base: "./",
+      base: "./src",
       allowEmpty: true,
     })
     .pipe(htmlmin({ collapseWhitespace: true }))
@@ -18,7 +18,7 @@ const transferHTML = () => {
 const transferJSON = () => {
   return gulp
     .src("/src/**/*.json", {
-      base: "./",
+      base: "./src",
       allowEmpty: true,
     })
     .pipe(gulp.dest("dist"));
@@ -27,13 +27,10 @@ const transferJSON = () => {
 const transferFiles = gulp.parallel(transferHTML, transferJSON);
 
 const compileTS = () => {
-  const ts_project = gulpTS.createProject("tsconfig.json", {
-    rootDir: "./",
-    removeComments: true,
-  });
+  const ts_project = gulpTS.createProject("tsconfig.json");
 
-  return ts_project
-    .src()
+  return gulp
+    .src(["./src/**/*", "!./src/**/*.html"])
     .pipe(ts_project())
     .on("error", () =>
       console.error("Despite TsProject errors found, proceeding with gulp")
