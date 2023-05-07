@@ -12,6 +12,7 @@ const userSchema = new Schema(
     socialite: {
       provider: { type: String, trim: true },
       access_token: { type: String, trim: true },
+      refresh_token: { type: String, trim: true },
     },
     is_blocked_comment: { type: Boolean, default: false },
     blocked_comment_at: { type: Date },

@@ -13,6 +13,7 @@ export default interface IUser {
   socialite?: {
     provider?: string;
     access_token?: string;
+    refresh_token?: string;
   };
   created_by?: Admin;
   created_at: Date;

@@ -14,6 +14,7 @@ export default class User implements IUser {
   public readonly socialite?: {
     provider?: string;
     access_token?: string;
+    refresh_token?: string;
   };
   public readonly created_by?: Admin;
   public readonly created_at: Date;
