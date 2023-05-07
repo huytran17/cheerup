@@ -4,13 +4,17 @@ import Admin from "./admin";
 export default class User implements IUser {
   public readonly _id: string;
   public readonly ip?: string;
-  public readonly hash_password: string;
+  public readonly hash_password?: string;
   public readonly avatar_url?: string;
   public readonly avatar?: Record<string, unknown>;
   public readonly email: string;
   public readonly full_name?: string;
   public readonly blocked_comment_at?: Date;
   public readonly is_blocked_comment?: boolean;
+  public readonly socialite?: {
+    provider?: string;
+    access_token?: string;
+  };
   public readonly created_by?: Admin;
   public readonly created_at: Date;
   public readonly updated_at: Date;
@@ -30,6 +34,7 @@ export default class User implements IUser {
     deleted_at,
     created_by,
     blocked_comment_at,
+    socialite,
   }: IUser) {
     this._id = _id;
     this.ip = ip;
@@ -44,5 +49,6 @@ export default class User implements IUser {
     this.deleted_at = deleted_at;
     this.created_by = created_by;
     this.blocked_comment_at = blocked_comment_at;
+    this.socialite = socialite;
   }
 }
