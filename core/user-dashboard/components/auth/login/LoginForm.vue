@@ -16,7 +16,9 @@
             <div
               class="d-flex flex-column justify-center rounded-icon mr-2 pa-1 rounded-circle clickable"
             >
-              <v-icon class="mx-auto">mdi-google</v-icon>
+              <a :href="google_login_uri"
+                ><v-icon class="mx-auto">mdi-google</v-icon></a
+              >
             </div>
           </v-col>
         </v-row>
@@ -150,6 +152,10 @@ export default {
     ...mapGetters({
       login_redirect_url: "login_redirect_url",
     }),
+
+    google_login_uri() {
+      return `${process.env.SERVER_URL}/api/auth/google`;
+    },
   },
   methods: {
     ...mapMutations({

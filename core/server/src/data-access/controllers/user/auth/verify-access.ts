@@ -38,11 +38,15 @@ export default function makeVerifyAccessController({
         throw new Error(`User by email ${user_exists.email} does not exist`);
       }
 
-      const invalid_password =
-        user_exists.hash_password !== decoded_access_token.hash_password;
+      const is_socialite = get(user_exists, "socialite.provider");
 
-      if (invalid_password) {
-        throw new Error(`Invalid access token`);
+      if (!is_socialite) {
+        const invalid_password =
+          user_exists.hash_password !== decoded_access_token.hash_password;
+
+        if (invalid_password) {
+          throw new Error(`Invalid access token`);
+        }
       }
 
       return {

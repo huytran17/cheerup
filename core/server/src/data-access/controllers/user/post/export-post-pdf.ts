@@ -5,7 +5,10 @@ import { IReadingTimeAnalyzer } from "../../../../config/reading-time/reading-ti
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
-import { renderPdf, pdfContent } from "../../../../config/pdf-generator";
+import {
+  getPdfContent,
+  renderPdfContent,
+} from "../../../../config/pdf-generator";
 
 export default function makeExportPostPdfController({
   getPost,
@@ -48,9 +51,12 @@ export default function makeExportPostPdfController({
         created_at: moment(exists.created_at).format("LL"),
       };
 
-      const export_content = pdfContent({ type: "post", data: final_data });
+      const export_content = renderPdfContent({
+        type: "post",
+        data: final_data,
+      });
 
-      const generated_pdf = await renderPdf({
+      const generated_pdf = await getPdfContent({
         content: export_content,
         options: { format: "A4" },
       });

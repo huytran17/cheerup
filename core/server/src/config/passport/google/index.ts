@@ -1,4 +1,3 @@
-import randomString from "randomstring";
 import { Request } from "express";
 import passport_google_oauth2, {
   StrategyOptionsWithRequest,
@@ -6,7 +5,6 @@ import passport_google_oauth2, {
 } from "passport-google-oauth2";
 import { PassportStatic } from "passport";
 import { UserDb } from "../../../data-access";
-import { hashPassword } from "../../password";
 
 export default function initializeGoogle(
   passport: PassportStatic,
@@ -34,7 +32,7 @@ export default function initializeGoogle(
       done: VerifyCallback
     ) {
       const exist = await UserDb.findByEmail({
-        email: profile.emails[0].value,
+        email: profile.email,
       });
 
       const deleted_user = exist && exist.deleted_at;
@@ -46,16 +44,15 @@ export default function initializeGoogle(
         return done(null, exist);
       }
 
-      const random_password = randomString.generate();
-      const hashed_password = await hashPassword({
-        password: random_password,
-        password_confirmation: random_password,
-      });
-
       const userDetails = {
-        email: profile.emails[0]?.value,
+        email: profile.email,
         full_name: profile.displayName,
-        hash_password: hashed_password,
+        avatar_url: profile.picture,
+        socialite: {
+          provider: "google",
+          access_token: accessToken,
+          refresh_token: refreshToken,
+        },
       };
 
       const created_user = await UserDb.insert(userDetails);

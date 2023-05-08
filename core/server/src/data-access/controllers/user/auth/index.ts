@@ -3,6 +3,7 @@ import makeSignOutController from "./sign-out";
 import makeSignUpController from "./sign-up";
 import makeGetMeController from "./get-me";
 import makeVerifyAccessController from "./verify-access";
+import makeSignInWithGoogleController from "./sign-in-with-google";
 
 import { getSubscriptionByEmail } from "../../../../use-cases/subscription";
 import { hashPassword, verifyPassword } from "../../../../config/password";
@@ -17,6 +18,11 @@ import {
   verifyAccessToken,
 } from "../../../../config/accessTokenManager";
 import { logger } from "../../../../config/logs/logger";
+
+const signInWithGoogleController = makeSignInWithGoogleController({
+  getUserByEmail,
+  generateAccessToken,
+});
 
 const verifyAccessController = makeVerifyAccessController({
   verifyAccessToken,
@@ -52,6 +58,7 @@ export default Object.freeze({
   signUpController,
   getMeController,
   verifyAccessController,
+  signInWithGoogleController,
 });
 
 export {
@@ -60,4 +67,5 @@ export {
   signUpController,
   getMeController,
   verifyAccessController,
+  signInWithGoogleController,
 };

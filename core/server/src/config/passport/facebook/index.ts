@@ -1,4 +1,3 @@
-import randomString from "randomstring";
 import passport_facebook, {
   StrategyOptionWithRequest,
 } from "passport-facebook";
@@ -46,16 +45,9 @@ export default function initializeFacebook(
         return done(null, exist);
       }
 
-      const random_password = randomString.generate();
-      const hashed_password = await hashPassword({
-        password: random_password,
-        password_confirmation: random_password,
-      });
-
       const userDetails = {
         email: profile.emails[0].value,
         full_name: profile.displayName,
-        hash_password: hashed_password,
       };
 
       const created_user = await UserDb.insert(userDetails);

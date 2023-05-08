@@ -1,8 +1,8 @@
-import makeRenderPdf from "./make-render-pdf";
-import makePdfContent from "./make-pdf-content";
+import makeGetPdfContent from "./make-get-pdf-content";
+import makeRenderPdfContent from "./make-render-pdf-content";
 
-const renderPdf = makeRenderPdf();
+const getPdfContent = makeGetPdfContent();
 
-const pdfContent = makePdfContent();
+const renderPdfContent = makeRenderPdfContent();
 
-export { renderPdf, pdfContent };
+export { getPdfContent, renderPdfContent };

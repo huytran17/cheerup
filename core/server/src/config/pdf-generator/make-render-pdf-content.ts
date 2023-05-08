@@ -9,23 +9,23 @@ export type IPdfContent = ({
   data: Record<string, unknown>;
 }) => string;
 
-export default function makePdfContent(): IPdfContent {
-  return function pdfContent({
+export default function makeRenderPdfContent(): IPdfContent {
+  return function renderPdfContent({
     type,
     data,
   }: {
     type: string;
     data: Record<string, unknown>;
   }): string {
-    const exportTemplate = pdfTemplate[type];
+    const export_template = pdfTemplate[type];
 
-    if (!exportTemplate) {
+    if (!export_template) {
       throw new Error(`Invalid template type: ${type}`);
     }
 
     const final_template_data = Object.assign({}, data, template_data);
 
-    const template = handlebars.compile(exportTemplate);
+    const template = handlebars.compile(export_template);
     return template(final_template_data);
   };
 }

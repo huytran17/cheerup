@@ -8,8 +8,8 @@ export type IHtmlToPdf = ({
   options?: Record<string, unknown>;
 }) => Promise<Buffer>;
 
-export default function makeRenderPdf(): IHtmlToPdf {
-  return async function renderPdf({
+export default function makeGetPdfContent(): IHtmlToPdf {
+  return async function getPdfContent({
     content,
     options,
   }: {

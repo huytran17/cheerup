@@ -15,6 +15,7 @@ import {
   signUpController,
   getMeController,
   verifyAccessController,
+  signInWithGoogleController,
 } from "../../data-access/controllers/user/auth";
 
 const authRouter = express.Router();
@@ -62,9 +63,7 @@ authRouter.get("/google", authenticateUserGoogle());
 authRouter.get(
   "/google/callback",
   authenticateUserGoogle(),
-  function (req, res) {
-    res.redirect("/");
-  }
+  makeExpressCallback(signInWithGoogleController)
 );
 
 export default authRouter;
