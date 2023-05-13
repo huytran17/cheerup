@@ -4,6 +4,7 @@ import authenticateUserGoogle from "../../config/middlewares/authenticate-user-g
 import makeValidator from "../../config/middlewares/validator";
 import express from "express";
 import makeExpressCallback from "../../config/express-callback";
+import makeExpressViewCallback from "../../config/express-view-callback";
 import {
   signInRules,
   signUpRules,
@@ -63,7 +64,7 @@ authRouter.get("/google", authenticateUserGoogle());
 authRouter.get(
   "/google/callback",
   authenticateUserGoogle(),
-  makeExpressCallback(signInWithGoogleController)
+  makeExpressViewCallback(signInWithGoogleController)
 );
 
 export default authRouter;

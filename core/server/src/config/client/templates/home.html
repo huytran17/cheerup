@@ -13,9 +13,11 @@
   </body>
   <script>
     function setLoggedUser() {
-      window.alert("-----------------------------ok", access_token);
+      console.log("-----------------------------ok", window.location.href);
     }
 
-    setLoggedUser();
+    window.addEventListener("load", (event) => {
+      setLoggedUser();
+    });
   </script>
 </html>
