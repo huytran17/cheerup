@@ -119,6 +119,7 @@
                 updateUserObject({ variable_path: 'password', data: $event })
               "
               :rules="passwordRules"
+              :disabled="is_socialite_account"
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="6">
@@ -138,6 +139,7 @@
                 })
               "
               :rules="passwordConfirmationRules"
+              :disabled="is_socialite_account"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -172,6 +174,11 @@ export default {
       show_password_confirmation: false,
       show_password: false,
     };
+  },
+  computed: {
+    is_socialite_account() {
+      return !!_.get(this.user, "socialite.provider");
+    },
   },
   methods: {
     async updateUser() {

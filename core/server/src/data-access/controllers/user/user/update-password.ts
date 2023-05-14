@@ -40,6 +40,11 @@ export default function makeUpdatePasswordController({
         throw new Error(`User by ${_id} does not exist`);
       }
 
+      const is_socialite_account = get(exists, "socialite.provider");
+      if (is_socialite_account) {
+        throw new Error(`Can not update password for socialite account ${_id}`);
+      }
+
       const current_password = get(exists, "hash_password");
       const is_valid_password = await verifyPassword({
         password,

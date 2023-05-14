@@ -32,6 +32,11 @@ export default function makeUpdateUserController({
         throw new Error(`User by ${_id} does not exist`);
       }
 
+      const is_socialite_account = get(exists, "socialite.provider");
+      if (is_socialite_account) {
+        throw new Error(`Can not update password for socialite account ${_id}`);
+      }
+
       const final_user_details = Object.assign({}, exists, {
         ...userDetails,
         blocked_comment_at: is_blocked_comment ? new Date() : null,

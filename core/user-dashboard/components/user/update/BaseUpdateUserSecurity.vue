@@ -14,6 +14,7 @@
           @click:append="show_password = !show_password"
           @input="updateUserObject({ variable_path: 'password', data: $event })"
           :rules="passwordRules"
+          :disabled="is_socialite_account"
         ></v-text-field>
       </v-col>
       <v-col cols="12" md="6">
@@ -26,6 +27,7 @@
             updateUserObject({ variable_path: 'new_password', data: $event })
           "
           :rules="newPasswordRules"
+          :disabled="is_socialite_account"
         ></v-text-field>
       </v-col>
       <v-col cols="12" md="6">
@@ -43,6 +45,7 @@
             })
           "
           :rules="newPasswordConfirmationRules"
+          :disabled="is_socialite_account"
         ></v-text-field>
       </v-col>
       <v-col cols="12" class="d-flex justify-end pb-0">
@@ -76,6 +79,11 @@ export default {
       show_password: false,
       show_new_password: false,
     };
+  },
+  computed: {
+    is_socialite_account() {
+      return !!_.get(this.me, "socialite.provider");
+    },
   },
   methods: {
     async updateUserSecurity() {
