@@ -94,6 +94,7 @@
 </template>
 
 <script>
+import { get } from "lodash";
 import authMixins from "@/mixins/auth";
 import postBookmarkMixins from "@/mixins/post-bookmark";
 
@@ -107,7 +108,7 @@ export default {
   },
   computed: {
     user_avatar() {
-      return _.get(this.me, "avatar_url") || this.default_user_avatar;
+      return get(this.me, "avatar_url") || this.default_user_avatar;
     },
   },
   async fetch() {

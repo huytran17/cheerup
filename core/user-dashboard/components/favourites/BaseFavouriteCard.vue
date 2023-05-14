@@ -92,6 +92,7 @@
 </template>
 
 <script>
+import { get, isEmpty, isNil } from "lodash";
 import systemMixins from "@/mixins/system";
 import postBookmarkMixins from "@/mixins/post-bookmark";
 
@@ -113,51 +114,51 @@ export default {
 
   computed: {
     reading_time() {
-      return _.get(this.bookmark_data, "reading_time.text");
+      return get(this.bookmark_data, "reading_time.text");
     },
 
     has_bookmark_data() {
-      return !_.isEmpty(this.bookmark_data) && !_.isNil(this.bookmark_data);
+      return !isEmpty(this.bookmark_data) && !isNil(this.bookmark_data);
     },
 
     post_thumbnail_url() {
-      return _.get(this.bookmark_data, "post.thumbnail_url");
+      return get(this.bookmark_data, "post.thumbnail_url");
     },
 
     post_title() {
-      return _.get(this.bookmark_data, "post.title");
+      return get(this.bookmark_data, "post.title");
     },
 
     post_comments_count() {
-      return _.get(this.bookmark_data, "comments_count");
+      return get(this.bookmark_data, "comments_count");
     },
 
     post_description() {
-      return _.get(this.bookmark_data, "post.description");
+      return get(this.bookmark_data, "post.description");
     },
 
     post_created_at() {
-      return _.get(this.bookmark_data, "post.created_at");
+      return get(this.bookmark_data, "post.created_at");
     },
 
     post_author_name() {
-      return _.get(this.bookmark_data, "post.author.full_name");
+      return get(this.bookmark_data, "post.author.full_name");
     },
 
     post_id() {
-      return _.get(this.bookmark_data, "post._id");
+      return get(this.bookmark_data, "post._id");
     },
 
     post_slug() {
-      return _.get(this.bookmark_data, "post.slug");
+      return get(this.bookmark_data, "post.slug");
     },
 
     post_categories() {
-      return _.get(this.bookmark_data, "post.categories", []) || [];
+      return get(this.bookmark_data, "post.categories", []) || [];
     },
 
     has_categories() {
-      return !_.isEmpty(this.post_categories) && !_.isNil(this.post_categories);
+      return !isEmpty(this.post_categories) && !isNil(this.post_categories);
     },
   },
 

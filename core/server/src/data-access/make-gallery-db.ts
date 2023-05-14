@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { map } from "lodash";
 import mongoose from "mongoose";
 import IGalleryDb, { IPaginatedGalleryResult } from "./interfaces/gallery-db";
 import Gallery from "../database/entities/gallery";
@@ -57,7 +57,7 @@ export default function makeGalleryDb({
       const total_count = await galleryDbModel.countDocuments(query_conditions);
 
       if (existing) {
-        const data = _.map(existing, (post) => new Gallery(post));
+        const data = map(existing, (post) => new Gallery(post));
 
         const from = page - 1 > 0 ? page - 1 : null;
         const has_more_entries =
@@ -144,7 +144,7 @@ export default function makeGalleryDb({
         .lean({ virtuals: true });
 
       if (existing) {
-        return _.map(existing, (gallery) => new Gallery(gallery));
+        return map(existing, (gallery) => new Gallery(gallery));
       }
 
       return null;
@@ -164,7 +164,7 @@ export default function makeGalleryDb({
         .lean({ virtuals: true });
 
       if (existing) {
-        return _.map(existing, (gallery) => new Gallery(gallery));
+        return map(existing, (gallery) => new Gallery(gallery));
       }
 
       return null;

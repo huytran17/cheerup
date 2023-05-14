@@ -177,6 +177,8 @@
 </template>
 
 <script>
+import { omit, pick } from "lodash";
+
 import adminMixins from "@/mixins/admin";
 import dropzoneMixins from "@/mixins/dropzone";
 
@@ -194,7 +196,7 @@ export default {
   methods: {
     async updateAdmin() {
       try {
-        const final_admin_details = _.omit(this.admin, [
+        const final_admin_details = omit(this.admin, [
           "password",
           "password_confirmation",
           "hash_password",
@@ -215,7 +217,7 @@ export default {
 
     async updateAdminSecurity() {
       try {
-        const final_admin_details = _.pick(this.admin, [
+        const final_admin_details = pick(this.admin, [
           "_id",
           "password",
           "password_confirmation",

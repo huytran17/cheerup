@@ -1,7 +1,7 @@
 import { MutationTypes } from "./mutation-types";
 import { MutationTree } from "vuex";
 import { CategoryState } from ".";
-import _ from "lodash";
+import { update } from "lodash";
 
 const mutations: MutationTree<CategoryState> = {
   [MutationTypes.SET_CATEGORY](state, { data }: { data: any }) {
@@ -20,7 +20,7 @@ const mutations: MutationTree<CategoryState> = {
     state,
     { variable_path, data }: { variable_path: string; data: any }
   ) {
-    state.category = _.update(state.category, variable_path, (n) => {
+    state.category = update(state.category, variable_path, (n) => {
       return data;
     });
   },

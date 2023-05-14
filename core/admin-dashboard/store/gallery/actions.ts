@@ -3,16 +3,16 @@ import { MutationTypes } from "./mutation-types";
 import { ActionTree } from "vuex";
 import { GalleryState } from ".";
 import { RootState } from "..";
-import _ from "lodash";
+import { get } from "lodash";
 
 const actions: ActionTree<GalleryState, RootState> = {
   async [ActionTypes.GET_GALLERIES_PAGINATED]({ commit }, params = {}) {
-    const query = _.get(params, "query");
-    const page = _.get(params, "page", 1);
-    const entries_per_page = _.get(params, "page", 15);
-    const is_parent = _.get(params, "is_parent", true);
-    const new_state = _.get(params, "new_state", true);
-    const keep_in_store = _.get(params, "keep_in_store", true);
+    const query = get(params, "query");
+    const page = get(params, "page", 1);
+    const entries_per_page = get(params, "page", 15);
+    const is_parent = get(params, "is_parent", true);
+    const new_state = get(params, "new_state", true);
+    const keep_in_store = get(params, "keep_in_store", true);
 
     let url_query = new URLSearchParams();
 

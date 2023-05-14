@@ -1,7 +1,7 @@
 import { MutationTypes } from "./mutation-types";
 import { MutationTree } from "vuex";
 import { GalleryState } from ".";
-import _ from "lodash";
+import { uniqBy, update, concat } from "lodash";
 
 const mutations: MutationTree<GalleryState> = {
   [MutationTypes.SET_GALLERY](state, { data }: { data: any }) {
@@ -32,14 +32,14 @@ const mutations: MutationTree<GalleryState> = {
       return (state.galleries = data);
     }
 
-    state.galleries = _.uniqBy(_.concat(state.galleries, data), "_id");
+    state.galleries = uniqBy(concat(state.galleries, data), "_id");
   },
 
   [MutationTypes.UPDATE_GALLERY_DATA](
     state,
     { variable_path, data }: { variable_path: string; data: any }
   ) {
-    state.gallery = _.update(state.gallery, variable_path, (n) => {
+    state.gallery = update(state.gallery, variable_path, (n) => {
       return data;
     });
   },

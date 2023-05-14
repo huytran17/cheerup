@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { cloneDeep, orderBy, flattenDeep, slice, map } from "lodash";
 import mongoose from "mongoose";
 import ICategoryDb, {
   IPaginatedCategoryResult,
@@ -49,7 +49,7 @@ export default function makeCategoryDb({
         },
       });
 
-      const cloned_from_date = _.cloneDeep(from_date);
+      const cloned_from_date = cloneDeep(from_date);
       while (cloned_from_date.isSameOrBefore(to_date, unit)) {
         let formatted_date = cloned_from_date.format("YYYY-MM-DD");
 
@@ -108,21 +108,21 @@ export default function makeCategoryDb({
       });
 
       const results = await Promise.all(analysis_promises);
-      const sorted_results = _.orderBy(
-        _.flattenDeep(results),
+      const sorted_results = orderBy(
+        flattenDeep(results),
         ["total_post_related_count"],
         ["desc"]
       );
-      const most_popular_categories = _.slice(sorted_results, 0, limit);
-      const created_category_titles = _.map(
+      const most_popular_categories = slice(sorted_results, 0, limit);
+      const created_category_titles = map(
         sorted_results,
         (category) => category.title
       );
-      const created_category_colors = _.map(
+      const created_category_colors = map(
         sorted_results,
         (category) => category.badge_color
       );
-      const related_post_counts = _.map(
+      const related_post_counts = map(
         sorted_results,
         (category) => category.total_post_related_count
       );
@@ -153,7 +153,7 @@ export default function makeCategoryDb({
         .lean({ virtuals: true });
 
       if (existing) {
-        return _.map(existing, (category) => new Category(category));
+        return map(existing, (category) => new Category(category));
       }
 
       return null;
@@ -173,7 +173,7 @@ export default function makeCategoryDb({
         .lean({ virtuals: true });
 
       if (existing) {
-        return _.map(existing, (category) => new Category(category));
+        return map(existing, (category) => new Category(category));
       }
 
       return null;
@@ -218,7 +218,7 @@ export default function makeCategoryDb({
       );
 
       if (existing) {
-        const data = _.map(existing, (category) => new Category(category));
+        const data = map(existing, (category) => new Category(category));
 
         const from = page - 1 > 0 ? page - 1 : null;
         const has_more_entries =
@@ -352,7 +352,7 @@ export default function makeCategoryDb({
         .lean({ virtuals: true });
 
       if (existing) {
-        return _.map(existing, (category) => ({
+        return map(existing, (category) => ({
           _id: category._id,
           title: category.title,
           slug: category.slug,

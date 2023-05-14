@@ -106,6 +106,7 @@
 </template>
 
 <script>
+import { get } from "lodash";
 import systemMixins from "@/mixins/system";
 import postMixins from "@/mixins/post";
 import authMixins from "@/mixins/auth";
@@ -126,7 +127,7 @@ export default {
     },
 
     author_name() {
-      return _.get(this.me, "full_name");
+      return get(this.me, "full_name");
     },
 
     has_categories() {

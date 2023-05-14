@@ -188,6 +188,7 @@
 </template>
 
 <script>
+import { omit, pick } from "lodash";
 import { mapActions } from "vuex";
 import authMixins from "@/mixins/auth";
 import adminMixins from "@/mixins/admin";
@@ -212,7 +213,7 @@ export default {
 
     async updateAdmin() {
       try {
-        const final_admin_details = _.omit(this.me, [
+        const final_admin_details = omit(this.me, [
           "password",
           "password_confirmation",
           "hash_password",
@@ -236,7 +237,7 @@ export default {
 
     async updateAdminSecurity() {
       try {
-        const final_admin_details = _.pick(this.me, [
+        const final_admin_details = pick(this.me, [
           "_id",
           "password",
           "new_password",

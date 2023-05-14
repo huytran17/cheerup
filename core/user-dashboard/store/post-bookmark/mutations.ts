@@ -1,7 +1,7 @@
 import { MutationTypes } from "./mutation-types";
 import { MutationTree } from "vuex";
 import { PostBookmarkState } from ".";
-import _ from "lodash";
+import { uniqBy, concat, update } from "lodash";
 
 const mutations: MutationTree<PostBookmarkState> = {
   [MutationTypes.SET_POST_BOOKMARK](state, { data }: { data: any }) {
@@ -20,10 +20,7 @@ const mutations: MutationTree<PostBookmarkState> = {
       return (state.post_bookmarks = data);
     }
 
-    state.post_bookmarks = _.uniqBy(
-      _.concat(state.post_bookmarks, data),
-      "_id"
-    );
+    state.post_bookmarks = uniqBy(concat(state.post_bookmarks, data), "_id");
   },
 
   [MutationTypes.SET_POST_BOOKMARK_PAGINATION](
@@ -46,7 +43,7 @@ const mutations: MutationTree<PostBookmarkState> = {
     state,
     { variable_path, data }: { variable_path: string; data: any }
   ) {
-    state.post_bookmark = _.update(
+    state.post_bookmark = update(
       state.post_bookmark,
       variable_path,
       (n) => data

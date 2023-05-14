@@ -1,7 +1,7 @@
 import { MutationTypes } from "./mutation-types";
 import { MutationTree } from "vuex";
 import { UserState } from ".";
-import _ from "lodash";
+import { update } from "lodash";
 
 const mutations: MutationTree<UserState> = {
   [MutationTypes.SET_USER](state, { data }: { data: any }) {
@@ -12,7 +12,7 @@ const mutations: MutationTree<UserState> = {
     state,
     { variable_path, data }: { variable_path: string; data: any }
   ) {
-    state.user = _.update(state.user, variable_path, (n) => {
+    state.user = update(state.user, variable_path, (n) => {
       return data;
     });
   },

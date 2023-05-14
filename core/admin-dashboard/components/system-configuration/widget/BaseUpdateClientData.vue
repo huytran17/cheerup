@@ -153,6 +153,7 @@
 </template>
 
 <script>
+import { get, isEmpty, isNil, cloneDeep, update } from "lodash";
 import systemConfigurationMixins from "@/mixins/system-configuration";
 import dropzoneMixins from "@/mixins/dropzone";
 
@@ -162,8 +163,7 @@ export default {
   computed: {
     has_data() {
       return (
-        !_.isEmpty(this.system_configuration) &&
-        !_.isNil(this.system_configuration)
+        !isEmpty(this.system_configuration) && !isNil(this.system_configuration)
       );
     },
   },
@@ -173,13 +173,13 @@ export default {
 
       const { data: updated_system_configuration } = response;
 
-      let updated_thumbnail_data = _.cloneDeep(this.system_configuration);
+      let updated_thumbnail_data = cloneDeep(this.system_configuration);
 
       update_paths.forEach((update_path) => {
-        updated_thumbnail_data = _.update(
+        updated_thumbnail_data = update(
           updated_thumbnail_data,
           update_path,
-          (data) => _.get(updated_system_configuration, update_path)
+          (data) => get(updated_system_configuration, update_path)
         );
       });
 

@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { map, flattenDeep, countBy, sortBy, isEmpty } from "lodash";
 import mongoose, { SortOrder } from "mongoose";
 import IPostDb, {
   IPaginatedPostResult,
@@ -85,9 +85,9 @@ export default function makePostDb({
         return null;
       }
 
-      const data = _.map(all_results, (post) => new Post(post));
-      const categories = _.flattenDeep(data.map((post) => post.categories));
-      const category_ratio = _.countBy(categories, "title");
+      const data = map(all_results, (post) => new Post(post));
+      const categories = flattenDeep(data.map((post) => post.categories));
+      const category_ratio = countBy(categories, "title");
 
       return {
         posts: limited_results,
@@ -215,7 +215,7 @@ export default function makePostDb({
       });
 
       const results = await Promise.all(analysis_promises);
-      const sorted_results = _.sortBy(results, ["order"]);
+      const sorted_results = sortBy(results, ["order"]);
 
       for (const result of sorted_results) {
         const total_created_count =
@@ -258,7 +258,7 @@ export default function makePostDb({
         .lean({ virtuals: true });
 
       if (existing) {
-        return _.map(existing, (post) => new Post(post));
+        return map(existing, (post) => new Post(post));
       }
 
       return null;
@@ -279,7 +279,7 @@ export default function makePostDb({
         .lean({ virtuals: true });
 
       if (existing) {
-        return _.map(existing, (post) => new Post(post));
+        return map(existing, (post) => new Post(post));
       }
 
       return null;
@@ -315,10 +315,10 @@ export default function makePostDb({
 
       is_only_published && (query_conditions["is_published"] = true);
 
-      const has_categories = !_.isEmpty(categories);
+      const has_categories = !isEmpty(categories);
       has_categories && (query_conditions["categories"] = { $in: categories });
 
-      const has_tags = !_.isEmpty(tags);
+      const has_tags = !isEmpty(tags);
       has_tags && (query_conditions["tags"] = { $in: tags });
 
       if (query) {
@@ -330,7 +330,7 @@ export default function makePostDb({
 
       const sort_params: {
         [key: string]: SortOrder;
-      } = (!_.isEmpty(sorts) && { ...JSON.parse(sorts) }) || {
+      } = (!isEmpty(sorts) && { ...JSON.parse(sorts) }) || {
         created_at: "desc",
       };
 
@@ -346,7 +346,7 @@ export default function makePostDb({
       const total_count = await postDbModel.countDocuments(query_conditions);
 
       if (existing) {
-        const data = _.map(existing, (post) => new Post(post));
+        const data = map(existing, (post) => new Post(post));
 
         const from = page - 1 > 0 ? page - 1 : null;
         const has_more_entries =
@@ -465,10 +465,10 @@ export default function makePostDb({
         is_published: true,
       };
 
-      !_.isEmpty(categories) &&
+      !isEmpty(categories) &&
         (query_conditions["categories"] = { $in: categories });
 
-      !_.isEmpty(exclude_ids) &&
+      !isEmpty(exclude_ids) &&
         (query_conditions["_id"] = { $nin: exclude_ids });
 
       const existing = await postDbModel
@@ -482,7 +482,7 @@ export default function makePostDb({
         .lean({ virtuals: true });
 
       if (existing) {
-        return _.map(existing, (post) => new Post(post));
+        return map(existing, (post) => new Post(post));
       }
 
       return null;

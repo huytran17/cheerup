@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import _ from "lodash";
+import { get } from "lodash";
 import mongoose_lean_virtuals from "mongoose-lean-virtuals";
 
 const Schema = mongoose.Schema;
@@ -30,7 +30,7 @@ const adminSchema = new Schema(
 adminSchema.index({ created_at: -1 });
 
 adminSchema.virtual("avatar_url").get(function () {
-  return _.get(this, "avatar.location");
+  return get(this, "avatar.location");
 });
 
 adminSchema.plugin(mongoose_lean_virtuals);

@@ -137,6 +137,7 @@
 </template>
 
 <script>
+import { get } from "lodash";
 import userMixins from "@/mixins/user";
 import systemMixins from "@/mixins/system";
 
@@ -192,8 +193,8 @@ export default {
   methods: {
     async restoreDeletedUser(user) {
       try {
-        const id = _.get(user, "_id");
-        const title = _.get(user, "title");
+        const id = get(user, "_id");
+        const title = get(user, "title");
 
         await this.RESTORE_USER({ id });
         this.$toast.success(this.$t(`Restored user ${title} successfully`));
@@ -206,8 +207,8 @@ export default {
 
     async deleteUser(user) {
       try {
-        const id = _.get(user, "_id");
-        const title = _.get(user, "title");
+        const id = get(user, "_id");
+        const title = get(user, "title");
 
         await this.DELETE_USER({ id });
         this.$toast.success(this.$t(`Deleted user ${title} successfully`));
@@ -220,7 +221,7 @@ export default {
 
     async hardDeleteUser() {
       try {
-        const id = _.get(this.user, "_id");
+        const id = get(this.user, "_id");
 
         await this.HARD_DELETE_USER({ id });
         this.$toast.success(this.$t("Forever deleted user successfully"));
@@ -237,8 +238,8 @@ export default {
 
     async unblockComment(user) {
       try {
-        const id = _.get(user, "_id");
-        const email = _.get(user, "email");
+        const id = get(user, "_id");
+        const email = get(user, "email");
 
         await this.UNBLOCK_USER_COMMENT({ id });
         this.$toast.success(
@@ -255,8 +256,8 @@ export default {
 
     async blockComment(user) {
       try {
-        const id = _.get(user, "_id");
-        const email = _.get(user, "email");
+        const id = get(user, "_id");
+        const email = get(user, "email");
 
         await this.BLOCK_USER_COMMENT({ id });
         this.$toast.success(this.$t(`Block comment for user ${email} successfully`));

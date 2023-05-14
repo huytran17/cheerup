@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import { get } from "lodash";
 import subscriptionMixins from "@/mixins/subscription";
 import systemMixins from "@/mixins/system";
 
@@ -94,8 +95,8 @@ export default {
   methods: {
     async hardDeleteSubscription() {
       try {
-        const id = _.get(this.subscription, "_id");
-        const content = _.get(this.subscription, "content");
+        const id = get(this.subscription, "_id");
+        const content = get(this.subscription, "content");
 
         await this.HARD_DELETE_SUBSCRIPTION({ id });
         this.$toast.success(

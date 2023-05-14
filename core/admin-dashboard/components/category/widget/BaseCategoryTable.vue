@@ -128,6 +128,8 @@
 </template>
 
 <script>
+import { get } from "lodash";
+
 import categoryMixins from "@/mixins/category";
 import systemMixins from "@/mixins/system";
 
@@ -189,8 +191,8 @@ export default {
   methods: {
     async deleteCategory(category) {
       try {
-        const id = _.get(category, "_id");
-        const title = _.get(category, "title");
+        const id = get(category, "_id");
+        const title = get(category, "title");
 
         await this.DELETE_CATEGORY({ id });
         this.$toast.success(this.$t(`Deleted category ${title} successfully`));
@@ -203,8 +205,8 @@ export default {
 
     async hardDeleteCategory() {
       try {
-        const id = _.get(this.category, "_id");
-        const title = _.get(this.category, "title");
+        const id = get(this.category, "_id");
+        const title = get(this.category, "title");
 
         await this.HARD_DELETE_CATEGORY({ id });
         this.$toast.success(
@@ -223,8 +225,8 @@ export default {
 
     async restoreDeletedCategory(category) {
       try {
-        const id = _.get(category, "_id");
-        const title = _.get(category, "title");
+        const id = get(category, "_id");
+        const title = get(category, "title");
 
         await this.RESTORE_CATEGORY({ id });
         this.$toast.success(this.$t(`Restored category ${title} successfully`));

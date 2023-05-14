@@ -3,11 +3,11 @@ import { MutationTypes } from "./mutation-types";
 import { ActionTree } from "vuex";
 import { CommentState } from ".";
 import { RootState } from "..";
-import _ from "lodash";
+import { get } from "lodash";
 
 const actions: ActionTree<CommentState, RootState> = {
   async [ActionTypes.GET_COMMENTS]({ commit }, params = {}) {
-    const keep_in_store = _.get(params, "keep_in_store", true);
+    const keep_in_store = get(params, "keep_in_store", true);
 
     const { data: comments } = await this.$axios.$get("/comment");
 

@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { map } from "lodash";
 import mongoose from "mongoose";
 import ICommentDb, { IPaginatedCommentResult } from "./interfaces/comment-db";
 import Comment from "../database/entities/comment";
@@ -27,7 +27,7 @@ export default function makeCommentDb({
         .populate("post", "-_v")
         .lean({ virtuals: true });
       if (existing) {
-        return _.map(existing, (comment) => new Comment(comment));
+        return map(existing, (comment) => new Comment(comment));
       }
 
       return null;
@@ -126,7 +126,7 @@ export default function makeCommentDb({
         .lean({ virtuals: true });
 
       if (existing) {
-        return _.map(existing, (comment) => new Comment(comment));
+        return map(existing, (comment) => new Comment(comment));
       }
 
       return null;
@@ -170,7 +170,7 @@ export default function makeCommentDb({
       const total_count = await commentDbModel.countDocuments(query_conditions);
 
       if (existing) {
-        const data = _.map(existing, (comment) => new Comment(comment));
+        const data = map(existing, (comment) => new Comment(comment));
 
         const from = page - 1 > 0 ? page - 1 : null;
         const has_more_entries =

@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { map } from "lodash";
 import mongoose from "mongoose";
 import IPostBookmarkDb, {
   IPaginatedPostBookmarkResult,
@@ -25,7 +25,7 @@ export default function makePostBookmarkDb({
         .lean({ virtuals: true });
 
       if (existing) {
-        return _.map(
+        return map(
           existing,
           (post_bookmark) => new PostBookmark(post_bookmark)
         );
@@ -84,7 +84,7 @@ export default function makePostBookmarkDb({
       );
 
       if (existing) {
-        const data = _.map(
+        const data = map(
           existing,
           (post_bookmark) => new PostBookmark(post_bookmark)
         );

@@ -82,6 +82,8 @@
 </template>
 
 <script>
+import { get } from "lodash";
+
 import commentMixins from "@/mixins/comment";
 import systemMixins from "@/mixins/system";
 
@@ -146,8 +148,8 @@ export default {
     },
     async hardDeleteComment() {
       try {
-        const id = _.get(this.comment, "_id");
-        const content = _.get(this.comment, "content");
+        const id = get(this.comment, "_id");
+        const content = get(this.comment, "content");
 
         await this.HARD_DELETE_COMMENT({ id });
         this.$toast.success(

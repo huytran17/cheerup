@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import { get } from "lodash";
 import { mapGetters } from "vuex";
 import commentMixins from "@/mixins/comment";
 import systemMixins from "@/mixins/system";
@@ -68,7 +69,7 @@ export default {
   methods: {
     async replyComment() {
       try {
-        const new_reply_comment_content = _.get(
+        const new_reply_comment_content = get(
           this.new_reply_comment,
           "content",
           ""
@@ -78,14 +79,14 @@ export default {
         }
 
         this.is_loading = true;
-        const post_id = _.get(this.post, "_id");
+        const post_id = get(this.post, "_id");
 
         const final_reply_comment_data = Object.assign(
           {},
           this.new_reply_comment,
           {
             post: post_id,
-            parent: _.get(this.comment, "_id"),
+            parent: get(this.comment, "_id"),
           }
         );
 

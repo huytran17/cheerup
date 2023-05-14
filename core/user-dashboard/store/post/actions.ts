@@ -3,7 +3,7 @@ import { MutationTypes } from "./mutation-types";
 import { ActionTree } from "vuex";
 import { PostState } from ".";
 import { RootState } from "..";
-import _ from "lodash";
+import { get, isEmpty, join } from "lodash";
 
 const actions: ActionTree<PostState, RootState> = {
   async [ActionTypes.UPDATE_POST]({ commit }, { data }: { data: any }) {
@@ -50,10 +50,10 @@ const actions: ActionTree<PostState, RootState> = {
   },
 
   async [ActionTypes.GET_SUGGESTION_POSTS]({ commit }, params = {}) {
-    const amount = _.get(params, "amount", 5);
-    const categories = _.get(params, "categories", []);
-    const exclude_ids = _.get(params, "exclude_ids", []);
-    const is_only_published = _.get(params, "is_only_published", true);
+    const amount = get(params, "amount", 5);
+    const categories = get(params, "categories", []);
+    const exclude_ids = get(params, "exclude_ids", []);
+    const is_only_published = get(params, "is_only_published", true);
 
     const url_query = new URLSearchParams();
 
@@ -61,11 +61,10 @@ const actions: ActionTree<PostState, RootState> = {
 
     is_only_published && url_query.set("is_only_published", is_only_published);
 
-    !_.isEmpty(categories) &&
-      url_query.set("categories", _.join(categories, ","));
+    !isEmpty(categories) && url_query.set("categories", join(categories, ","));
 
-    !_.isEmpty(exclude_ids) &&
-      url_query.set("exclude_ids", _.join(exclude_ids, ","));
+    !isEmpty(exclude_ids) &&
+      url_query.set("exclude_ids", join(exclude_ids, ","));
 
     const { data: posts } = await this.$axios.$get(
       `/post/suggestion-posts?${url_query}`
@@ -77,15 +76,15 @@ const actions: ActionTree<PostState, RootState> = {
   },
 
   async [ActionTypes.GET_POSTS_PAGINATED]({ commit, state }, params = {}) {
-    const query = _.get(params, "query");
-    const page = _.get(params, "page", 1);
-    const entries_per_page = _.get(params, "entries_per_page", 15);
-    const new_state = _.get(params, "new_state", true);
-    const is_only_published = _.get(params, "is_only_published", true);
-    const categories = _.get(params, "categories", []);
-    const tags = _.get(params, "tags", []);
-    const sorts = _.get(params, "sorts");
-    const user_id = _.get(params, "user_id");
+    const query = get(params, "query");
+    const page = get(params, "page", 1);
+    const entries_per_page = get(params, "entries_per_page", 15);
+    const new_state = get(params, "new_state", true);
+    const is_only_published = get(params, "is_only_published", true);
+    const categories = get(params, "categories", []);
+    const tags = get(params, "tags", []);
+    const sorts = get(params, "sorts");
+    const user_id = get(params, "user_id");
 
     const url_query = new URLSearchParams();
 
@@ -101,9 +100,9 @@ const actions: ActionTree<PostState, RootState> = {
 
     entries_per_page && url_query.set("entries_per_page", entries_per_page);
 
-    !_.isEmpty(categories) && url_query.set("categories", categories.join(","));
+    !isEmpty(categories) && url_query.set("categories", categories.join(","));
 
-    !_.isEmpty(tags) && url_query.set("tags", tags.join(","));
+    !isEmpty(tags) && url_query.set("tags", tags.join(","));
 
     const { data: posts, pagination } = await this.$axios.$get(
       `/post/all-paginated?${url_query}`

@@ -20,6 +20,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import { get } from "lodash";
 export default {
   name: "SideNavListItems",
   props: {
@@ -110,17 +111,17 @@ export default {
 
     admin_avatar() {
       return (
-        _.get(this.me, "avatar_url") ||
+        get(this.me, "avatar_url") ||
         require("@/assets/images/app/admin-avatar.jpg")
       );
     },
 
     admin_name() {
-      return _.get(this.me, "full_name");
+      return get(this.me, "full_name");
     },
 
     admin_type() {
-      return _.get(this.me, "type");
+      return get(this.me, "type");
     },
   },
 

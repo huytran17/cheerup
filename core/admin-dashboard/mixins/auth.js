@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { isEmpty } from "lodash";
 import { mapActions, mapMutations, mapGetters } from "vuex";
 import { ADMIN_TYPES } from "@/constants";
 
@@ -51,7 +51,7 @@ export default {
     }),
 
     authenticated() {
-      return !_.isEmpty(this.me);
+      return !isEmpty(this.me);
     },
   },
   methods: {

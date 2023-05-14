@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import mongoose_lean_virtuals from "mongoose-lean-virtuals";
-import _ from "lodash";
+import { get, map, filter } from "lodash";
 import { isEmpty } from "../../utils/is-empty";
 import { CommentLikeModel, CommentModel } from "../../data-access/models";
 import IComment from "../interfaces/comment";
@@ -20,16 +20,16 @@ const commentSchema = new Schema({
 commentSchema.index({ created_at: -1 });
 
 commentSchema.virtual("is_parent").get(function () {
-  return isEmpty(_.get(this, "parent"));
+  return isEmpty(get(this, "parent"));
 });
 
 commentSchema.virtual("has_children").get(function () {
-  return !isEmpty(_.get(this, "children"));
+  return !isEmpty(get(this, "children"));
 });
 
 commentSchema.pre("deleteOne", { document: true }, async function (next) {
-  const children = _.get(this, "children", []);
-  const delete_children_promises = _.map(
+  const children = get(this, "children", []);
+  const delete_children_promises = map(
     children,
     async (comment: mongoose.ObjectId) => {
       const comment_document = await CommentModel.findOne({
@@ -41,10 +41,10 @@ commentSchema.pre("deleteOne", { document: true }, async function (next) {
   );
 
   const comment_likes = await CommentLikeModel.find({
-    comment: _.get(this, "_id"),
+    comment: get(this, "_id"),
   });
 
-  const delete_comment_like_promises = _.map(
+  const delete_comment_like_promises = map(
     comment_likes,
     async (comment_like) => comment_like && (await comment_like.deleteOne())
   );
@@ -55,8 +55,8 @@ commentSchema.pre("deleteOne", { document: true }, async function (next) {
       _id: this.parent.toString(),
     });
 
-    const parents_children: IComment[] = _.get(parent_comment, "children", []);
-    const new_parents_children: IComment[] = _.filter(
+    const parents_children: IComment[] = get(parent_comment, "children", []);
+    const new_parents_children: IComment[] = filter(
       parents_children,
       (comment_id) => comment_id.toString() !== this._id.toString()
     );

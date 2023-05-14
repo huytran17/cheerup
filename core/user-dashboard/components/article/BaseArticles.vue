@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import { get, isEmpty } from "lodash";
 import { mapGetters } from "vuex";
 import postMixins from "@/mixins/post";
 import BaseArticle from "@/components/article/BaseArticle";
@@ -59,11 +60,11 @@ export default {
     }),
 
     user_id() {
-      return _.get(this.me, "_id");
+      return get(this.me, "_id");
     },
 
     has_posts() {
-      return !_.isEmpty(this.posts);
+      return !isEmpty(this.posts);
     },
   },
 };

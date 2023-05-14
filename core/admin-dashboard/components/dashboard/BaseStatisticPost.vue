@@ -105,6 +105,7 @@
 </template>
 
 <script>
+import { get } from "lodash";
 import { mapGetters } from "vuex";
 import { kFormatter } from "@/utils";
 import chartMixins from "~/mixins/apex-chart";
@@ -125,7 +126,7 @@ export default {
     }),
 
     total_post() {
-      return _.get(this.post_analys_data, "total_count", 0);
+      return get(this.post_analys_data, "total_count", 0);
     },
 
     has_most_popular_posts() {

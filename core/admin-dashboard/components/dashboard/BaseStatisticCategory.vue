@@ -68,6 +68,7 @@
 </template>
 
 <script>
+import { get } from "lodash";
 import { mapGetters } from "vuex";
 import chartMixins from "~/mixins/apex-chart";
 import BaseStatisticCard from "@/components/dashboard/BaseStatisticCard";
@@ -85,7 +86,7 @@ export default {
     }),
 
     most_popular_categories() {
-      return _.get(this.category_analys_data, "most_popular_categories", []);
+      return get(this.category_analys_data, "most_popular_categories", []);
     },
   },
   methods: {

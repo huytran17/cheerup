@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { get, keys, values } from "lodash";
 import { mapGetters } from "vuex";
 
 export default {
@@ -16,11 +16,7 @@ export default {
         series: [
           {
             name: this.$t("Posts Created"),
-            data: _.get(
-              this.admin_analys_data,
-              "total_post_created_counts",
-              []
-            ),
+            data: get(this.admin_analys_data, "total_post_created_counts", []),
           },
         ],
         options: {
@@ -37,7 +33,7 @@ export default {
             width: 1,
           },
           xaxis: {
-            categories: _.get(this.admin_analys_data, "formatted_dates", []),
+            categories: get(this.admin_analys_data, "formatted_dates", []),
           },
         },
       };
@@ -45,13 +41,9 @@ export default {
 
     category_chart() {
       return {
-        series: _.get(this.category_analys_data, "related_post_counts", []),
+        series: get(this.category_analys_data, "related_post_counts", []),
         options: {
-          colors: _.get(
-            this.category_analys_data,
-            "created_category_colors",
-            []
-          ),
+          colors: get(this.category_analys_data, "created_category_colors", []),
           chart: {
             width: 220,
             type: "donut",
@@ -59,11 +51,7 @@ export default {
           stroke: {
             width: 0,
           },
-          labels: _.get(
-            this.category_analys_data,
-            "created_category_titles",
-            []
-          ),
+          labels: get(this.category_analys_data, "created_category_titles", []),
           dataLabels: {
             enabled: false,
           },
@@ -82,7 +70,7 @@ export default {
             type: "bar",
           },
           xaxis: {
-            categories: _.get(this.user_analys_data, "formatted_dates", []),
+            categories: get(this.user_analys_data, "formatted_dates", []),
           },
           colors: ["#16e063", "#fc3232", "#f5fc32"],
           title: {
@@ -103,15 +91,15 @@ export default {
         series: [
           {
             name: "Created",
-            data: _.get(this.user_analys_data, "total_created_counts", []),
+            data: get(this.user_analys_data, "total_created_counts", []),
           },
           {
             name: "Deleted",
-            data: _.get(this.user_analys_data, "total_deleted_counts", []),
+            data: get(this.user_analys_data, "total_deleted_counts", []),
           },
           {
             name: "Blocked Commenting",
-            data: _.get(
+            data: get(
               this.user_analys_data,
               "total_blocked_comment_counts",
               []
@@ -122,12 +110,12 @@ export default {
     },
 
     user_growth_chart() {
-      const is_increased = _.get(
+      const is_increased = get(
         this.user_analys_data,
         "growth.is_increased",
         false
       );
-      const total_growth_percentage = _.get(
+      const total_growth_percentage = get(
         this.user_analys_data,
         "growth.total_percentage",
         0
@@ -184,14 +172,14 @@ export default {
     },
 
     post_chart() {
-      const category_ratio = _.get(
+      const category_ratio = get(
         this.most_popular_posts_analys_data,
         "category_ratio",
         {}
       );
 
-      const category_titles = _.keys(category_ratio);
-      const category_ratio_data = _.values(category_ratio);
+      const category_titles = keys(category_ratio);
+      const category_ratio_data = values(category_ratio);
 
       return {
         series: category_ratio_data,
@@ -250,7 +238,7 @@ export default {
         series: [
           {
             name: "Created",
-            data: _.get(
+            data: get(
               this.subscription_analys_data,
               "total_created_counts",
               []
@@ -258,11 +246,7 @@ export default {
           },
           {
             name: "Active",
-            data: _.get(
-              this.subscription_analys_data,
-              "total_active_counts",
-              []
-            ),
+            data: get(this.subscription_analys_data, "total_active_counts", []),
           },
         ],
       };

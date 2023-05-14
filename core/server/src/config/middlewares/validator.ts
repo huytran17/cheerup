@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import _ from "lodash";
+import { get } from "lodash";
 
 import Validator, { Rules } from "validatorjs";
 import { HttpStatusCode } from "../../constants/http-status-code";
@@ -10,10 +10,10 @@ export default function makeValidatorMiddleware(rules: Rules) {
     res: Response,
     next: NextFunction
   ) {
-    const user = _.get(req, "user");
-    const body = _.get(req, "body");
-    const params = _.get(req, "params");
-    const query = _.get(req, "query");
+    const user = get(req, "user");
+    const body = get(req, "body");
+    const params = get(req, "params");
+    const query = get(req, "query");
 
     const request_body = Object.assign({}, user, body, params, query);
     const validation = new Validator(request_body, rules);

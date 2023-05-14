@@ -3,18 +3,18 @@ import { MutationTypes } from "./mutation-types";
 import { ActionTree } from "vuex";
 import { UserState } from ".";
 import { RootState } from "..";
-import _ from "lodash";
+import { get, join } from "lodash";
 
 const actions: ActionTree<UserState, RootState> = {
   async [ActionTypes.GET_USER_ANALYTICS]({ commit }, params = {}) {
-    const range = _.get(params, "range", []);
-    const unit = _.get(params, "unit", "month");
+    const range = get(params, "range", []);
+    const unit = get(params, "unit", "month");
 
     let url_query = new URLSearchParams();
 
     const has_range = range && range.length;
 
-    has_range && url_query.set("range", _.join(range));
+    has_range && url_query.set("range", join(range));
 
     unit && url_query.set("unit", unit);
 
@@ -32,7 +32,7 @@ const actions: ActionTree<UserState, RootState> = {
   },
 
   async [ActionTypes.GET_USERS]({ commit }, params = {}) {
-    const keep_in_store = _.get(params, "keep_in_store", true);
+    const keep_in_store = get(params, "keep_in_store", true);
 
     const { data: users } = await this.$axios.$get("/user");
 

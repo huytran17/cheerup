@@ -3,7 +3,7 @@ import { MutationTypes } from "./mutation-types";
 import { ActionTree } from "vuex";
 import { PostBookmarkState } from ".";
 import { RootState } from "..";
-import _ from "lodash";
+import { get } from "lodash";
 
 const actions: ActionTree<PostBookmarkState, RootState> = {
   async [ActionTypes.CREATE_OR_DELETE_POST_BOOKMARK](
@@ -31,10 +31,10 @@ const actions: ActionTree<PostBookmarkState, RootState> = {
   },
 
   async [ActionTypes.GET_POST_BOOKMARKS_PAGINATED]({ commit }, params = {}) {
-    const new_state = _.get(params, "new_state", true);
-    const keep_in_store = _.get(params, "keep_in_store", true);
-    const page = _.get(params, "page", 1);
-    const entries_per_page = _.get(params, "entries_per_page", 15);
+    const new_state = get(params, "new_state", true);
+    const keep_in_store = get(params, "keep_in_store", true);
+    const page = get(params, "page", 1);
+    const entries_per_page = get(params, "entries_per_page", 15);
 
     const url_query = new URLSearchParams();
 

@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import { get } from "lodash";
 import { mapGetters, mapActions } from "vuex";
 import BaseArticles from "@/components/article/BaseArticles";
 export default {
@@ -10,7 +11,7 @@ export default {
   async asyncData({ store, route }) {
     try {
       await store.dispatch("post/GET_POSTS_PAGINATED", {
-        user_id: _.get(store.getters["auth/me"], "_id"),
+        user_id: get(store.getters["auth/me"], "_id"),
         query: route.query.search,
       });
     } catch (error) {

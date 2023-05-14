@@ -131,6 +131,7 @@
 </template>
 
 <script>
+import { get } from "lodash";
 import { mapGetters } from "vuex";
 import systemMixins from "@/mixins/system";
 import commentMixins from "@/mixins/comment";
@@ -153,40 +154,40 @@ export default {
     }),
 
     is_liked() {
-      return _.get(this.comment_data, "is_liked", false);
+      return get(this.comment_data, "is_liked", false);
     },
 
     is_disliked() {
-      return _.get(this.comment_data, "is_disliked", false);
+      return get(this.comment_data, "is_disliked", false);
     },
 
     user_avatar() {
       return (
-        _.get(this.comment_data, "user.avatar_url") ||
+        get(this.comment_data, "user.avatar_url") ||
         require("@/assets/images/default/user-avatar.png")
       );
     },
 
     user_fullname() {
-      return _.get(this.comment_data, "user.full_name");
+      return get(this.comment_data, "user.full_name");
     },
 
     comment_likes() {
-      return _.get(this.comment_data, "likes_count");
+      return get(this.comment_data, "likes_count");
     },
 
     comment_dislikes() {
-      return _.get(this.comment_data, "dislikes_count");
+      return get(this.comment_data, "dislikes_count");
     },
 
     is_own_comment() {
-      return _.get(this.me, "_id") === _.get(this.comment_data, "user._id");
+      return get(this.me, "_id") === get(this.comment_data, "user._id");
     },
   },
   methods: {
     async likeComment() {
       try {
-        const comment_id = _.get(this.comment_data, "_id");
+        const comment_id = get(this.comment_data, "_id");
         await this.CREATE_OR_UPDATE_COMMENT_LIKE({
           data: {
             comment_id,
@@ -209,7 +210,7 @@ export default {
 
     async dislikeComment() {
       try {
-        const comment_id = _.get(this.comment_data, "_id");
+        const comment_id = get(this.comment_data, "_id");
         await this.CREATE_OR_UPDATE_COMMENT_LIKE({
           data: {
             comment_id,
@@ -232,8 +233,8 @@ export default {
 
     async deleteComment() {
       try {
-        const post_id = _.get(this.post, "_id");
-        const comment_id = _.get(this.comment_data, "_id");
+        const post_id = get(this.post, "_id");
+        const comment_id = get(this.comment_data, "_id");
 
         await this.HARD_DELETE_COMMENT({ id: comment_id });
         await this.COUNT_COMMENT_BY_POST({ post_id });

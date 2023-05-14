@@ -60,6 +60,7 @@
 </template>
 
 <script>
+import { get } from "lodash";
 import { mapGetters } from "vuex";
 import Avatar from "vue-avatar";
 
@@ -76,15 +77,15 @@ export default {
     },
 
     owner_avatar_url() {
-      return _.get(this.system_configuration, "owner_avatar_url");
+      return get(this.system_configuration, "owner_avatar_url");
     },
 
     owner_name() {
-      return _.get(this.system_configuration, "owner.name");
+      return get(this.system_configuration, "owner.name");
     },
 
     owner_description() {
-      return _.get(this.system_configuration, "owner.description");
+      return get(this.system_configuration, "owner.description");
     },
   },
 };

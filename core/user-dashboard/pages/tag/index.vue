@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import { get } from "lodash";
 import { mapGetters, mapMutations } from "vuex";
 import { seo_post_schema } from "../../seo";
 import BaseArticles from "@/components/article/BaseArticles";
@@ -22,7 +23,7 @@ export default {
 
       await store.dispatch("post/GET_POSTS_PAGINATED", {
         tags: [tag],
-        user_id: _.get(store.getters["auth/me"], "_id"),
+        user_id: get(store.getters["auth/me"], "_id"),
       });
     } catch (error) {
       console.error(error);

@@ -1,7 +1,7 @@
 import { MutationTypes } from "./mutation-types";
 import { MutationTree } from "vuex";
 import { PostState } from ".";
-import _ from "lodash";
+import { update } from "lodash";
 
 const mutations: MutationTree<PostState> = {
   [MutationTypes.SET_POST_ANALYS_DATA](state, { data }: { data: any }) {
@@ -27,7 +27,7 @@ const mutations: MutationTree<PostState> = {
     state,
     { variable_path, data }: { variable_path: string; data: any }
   ) {
-    state.post = _.update(state.post, variable_path, (n) => {
+    state.post = update(state.post, variable_path, (n) => {
       return data;
     });
   },

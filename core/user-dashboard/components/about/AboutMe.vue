@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import { get } from "lodash";
 export default {
   name: "AboutMe",
   props: {
@@ -59,7 +60,7 @@ export default {
 
   computed: {
     owner_description() {
-      return _.get(this.system_configuration_data, "owner.description");
+      return get(this.system_configuration_data, "owner.description");
     },
   },
 };

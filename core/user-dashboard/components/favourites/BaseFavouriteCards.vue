@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { isEmpty, isNil } from "lodash";
 import postBookmarkMixins from "@/mixins/post-bookmark";
 import BaseFavouriteCard from "@/components/favourites/BaseFavouriteCard";
 
@@ -48,7 +49,7 @@ export default {
   },
   computed: {
     has_bookmark_data() {
-      return !_.isEmpty(this.post_bookmarks) && !_.isNil(this.post_bookmarks);
+      return !isEmpty(this.post_bookmarks) && !isNil(this.post_bookmarks);
     },
   },
 };

@@ -111,6 +111,7 @@
 </template>
 
 <script>
+import { get, isEmpty } from "lodash";
 import { mapActions, mapGetters } from "vuex";
 import systemMixins from "@/mixins/system";
 import { SOCIAL_MEDIA_TYPES } from "@/constants";
@@ -130,19 +131,19 @@ export default {
     }),
 
     reading_time() {
-      return _.get(this.post, "reading_time.text");
+      return get(this.post, "reading_time.text");
     },
 
     author_name() {
-      return _.get(this.post, "author.full_name");
+      return get(this.post, "author.full_name");
     },
 
     has_categories() {
-      return !_.isEmpty(this.post.categories);
+      return !isEmpty(this.post.categories);
     },
 
     has_tags() {
-      return !_.isEmpty(this.post.tags);
+      return !isEmpty(this.post.tags);
     },
   },
   methods: {
@@ -186,7 +187,7 @@ export default {
         }
 
         const post_bookmark_data = {
-          post: _.get(this.post, "_id"),
+          post: get(this.post, "_id"),
         };
 
         await this.CREATE_OR_DELETE_POST_BOOKMARK({ data: post_bookmark_data });
@@ -223,7 +224,7 @@ export default {
   },
 
   created() {
-    this.is_bookmarked = _.get(this.post, "is_bookmarked", false);
+    this.is_bookmarked = get(this.post, "is_bookmarked", false);
   },
 };
 </script>

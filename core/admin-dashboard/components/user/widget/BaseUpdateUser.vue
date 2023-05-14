@@ -161,6 +161,7 @@
 </template>
 
 <script>
+import { get, omit, pick } from "lodash";
 import userMixins from "@/mixins/user";
 import dropzoneMixins from "@/mixins/dropzone";
 
@@ -177,13 +178,13 @@ export default {
   },
   computed: {
     is_socialite_account() {
-      return !!_.get(this.user, "socialite.provider");
+      return !!get(this.user, "socialite.provider");
     },
   },
   methods: {
     async updateUser() {
       try {
-        const final_user_details = _.omit(this.user, [
+        const final_user_details = omit(this.user, [
           "password",
           "password_confirmation",
           "hash_password",
@@ -204,7 +205,7 @@ export default {
 
     async updateUserSecurity() {
       try {
-        const final_user_details = _.pick(this.user, [
+        const final_user_details = pick(this.user, [
           "_id",
           "password",
           "password_confirmation",

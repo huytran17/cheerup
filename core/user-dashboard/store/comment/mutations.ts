@@ -1,7 +1,7 @@
 import { MutationTypes } from "./mutation-types";
 import { MutationTree } from "vuex";
 import { CommentState } from ".";
-import _ from "lodash";
+import { uniqBy, update, concat } from "lodash";
 
 const mutations: MutationTree<CommentState> = {
   [MutationTypes.SET_COMMENT_PAGINATION](
@@ -40,14 +40,14 @@ const mutations: MutationTree<CommentState> = {
       return (state.comments = data);
     }
 
-    state.comments = _.uniqBy(_.concat(state.comments, data), "_id");
+    state.comments = uniqBy(concat(state.comments, data), "_id");
   },
 
   [MutationTypes.UPDATE_COMMENT_DATA](
     state,
     { variable_path, data }: { variable_path: string; data: any }
   ) {
-    state.comment = _.update(state.comment, variable_path, (n) => {
+    state.comment = update(state.comment, variable_path, (n) => {
       return data;
     });
   },
@@ -56,7 +56,7 @@ const mutations: MutationTree<CommentState> = {
     state,
     { variable_path, data }: { variable_path: string; data: any }
   ) {
-    state.new_comment = _.update(state.new_comment, variable_path, (n) => {
+    state.new_comment = update(state.new_comment, variable_path, (n) => {
       return data;
     });
   },
@@ -65,7 +65,7 @@ const mutations: MutationTree<CommentState> = {
     state,
     { variable_path, data }: { variable_path: string; data: any }
   ) {
-    state.editing_comment = _.update(
+    state.editing_comment = update(
       state.editing_comment,
       variable_path,
       (n) => {
@@ -78,7 +78,7 @@ const mutations: MutationTree<CommentState> = {
     state,
     { variable_path, data }: { variable_path: string; data: any }
   ) {
-    state.new_reply_comment = _.update(
+    state.new_reply_comment = update(
       state.new_reply_comment,
       variable_path,
       (n) => {

@@ -155,6 +155,8 @@
 </template>
 
 <script>
+import { get } from "lodash";
+
 import adminMixins from "@/mixins/admin";
 import systemMixins from "@/mixins/system";
 
@@ -218,8 +220,8 @@ export default {
   methods: {
     async disableAutoCensorshipPost(admin) {
       try {
-        const id = _.get(admin, "_id");
-        const email = _.get(admin, "email");
+        const id = get(admin, "_id");
+        const email = get(admin, "email");
 
         await this.DISABLE_AUTO_CENSORSHIP_POST({ id });
         this.$toast.success(
@@ -236,8 +238,8 @@ export default {
 
     async enableAutoCensorshipPost(admin) {
       try {
-        const id = _.get(admin, "_id");
-        const email = _.get(admin, "email");
+        const id = get(admin, "_id");
+        const email = get(admin, "email");
 
         await this.ENABLE_AUTO_CENSORSHIP_POST({ id });
         this.$toast.success(
@@ -254,8 +256,8 @@ export default {
 
     async restoreDeletedAdmin(admin) {
       try {
-        const id = _.get(admin, "_id");
-        const title = _.get(admin, "title");
+        const id = get(admin, "_id");
+        const title = get(admin, "title");
 
         await this.RESTORE_ADMIN({ id });
         this.$toast.success(this.$t(`Restored admin ${title} successfully`));
@@ -268,8 +270,8 @@ export default {
 
     async deleteAdmin(admin) {
       try {
-        const id = _.get(admin, "_id");
-        const title = _.get(admin, "title");
+        const id = get(admin, "_id");
+        const title = get(admin, "title");
 
         await this.DELETE_ADMIN({ id });
         this.$toast.success(this.$t(`Deleted admin ${title} successfully`));
@@ -282,8 +284,8 @@ export default {
 
     async hardDeleteAdmin() {
       try {
-        const id = _.get(this.admin, "_id");
-        const title = _.get(this.admin, "title");
+        const id = get(this.admin, "_id");
+        const title = get(this.admin, "title");
 
         await this.HARD_DELETE_ADMIN({ id });
         this.$toast.success(

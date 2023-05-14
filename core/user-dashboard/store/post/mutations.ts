@@ -1,7 +1,7 @@
 import { MutationTypes } from "./mutation-types";
 import { MutationTree } from "vuex";
 import { PostState } from ".";
-import _ from "lodash";
+import { uniqBy, concat } from "lodash";
 
 const mutations: MutationTree<PostState> = {
   [MutationTypes.SET_POST_PAGINATION](
@@ -41,10 +41,10 @@ const mutations: MutationTree<PostState> = {
     { data, new_state }: { data: any[]; new_state: boolean }
   ) {
     if (new_state) {
-     return (state.posts = data);
+      return (state.posts = data);
     }
 
-    state.posts = _.uniqBy(_.concat(state.posts, data), "_id");
+    state.posts = uniqBy(concat(state.posts, data), "_id");
   },
 
   [MutationTypes.SET_SUGGESTION_POSTS](state, { data }: { data: any[] }) {

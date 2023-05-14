@@ -1,7 +1,7 @@
 import { MutationTypes } from "./mutation-types";
 import { MutationTree } from "vuex";
 import { SystemConfigurationState } from ".";
-import _ from "lodash";
+import { update } from "lodash";
 
 const mutations: MutationTree<SystemConfigurationState> = {
   [MutationTypes.SET_SYSTEM_CONFIGURATION](state, { data }: { data: any }) {
@@ -12,7 +12,7 @@ const mutations: MutationTree<SystemConfigurationState> = {
     state,
     { variable_path, data }: { variable_path: string; data: any }
   ) {
-    state.system_configuration = _.update(
+    state.system_configuration = update(
       state.system_configuration,
       variable_path,
       (n) => {

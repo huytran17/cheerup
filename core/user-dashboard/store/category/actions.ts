@@ -3,11 +3,11 @@ import { MutationTypes } from "./mutation-types";
 import { ActionTree } from "vuex";
 import { CategoryState } from ".";
 import { RootState } from "..";
-import _ from "lodash";
+import { get } from "lodash";
 
 const actions: ActionTree<CategoryState, RootState> = {
   async [ActionTypes.GET_CATEGORIES]({ commit }, params = {}) {
-    const keep_in_store = _.get(params, "keep_in_store", true);
+    const keep_in_store = get(params, "keep_in_store", true);
 
     const { data: categories } = await this.$axios.$get("/category");
 
@@ -53,10 +53,10 @@ const actions: ActionTree<CategoryState, RootState> = {
     { commit, state },
     params = {}
   ) {
-    const query = _.get(params, "query");
-    const page = _.get(params, "page", 1);
-    const entries_per_page = _.get(params, "entries_per_page", 15);
-    const new_state = _.get(params, "new_state", true);
+    const query = get(params, "query");
+    const page = get(params, "page", 1);
+    const entries_per_page = get(params, "entries_per_page", 15);
+    const new_state = get(params, "new_state", true);
 
     const url_query = new URLSearchParams();
 

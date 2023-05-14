@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import { get } from "lodash";
 import { mapGetters, mapMutations } from "vuex";
 import { get } from "lodash";
 import BaseArticles from "@/components/article/BaseArticles";
@@ -101,7 +102,7 @@ export default {
       await Promise.all([
         store.dispatch("post/GET_POSTS_PAGINATED", {
           categories: [category._id],
-          user_id: _.get(store.getters["auth/me"], "_id"),
+          user_id: get(store.getters["auth/me"], "_id"),
         }),
       ]);
     } catch (error) {

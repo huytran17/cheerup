@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { cloneDeep, map, filter } from "lodash";
 import { mapActions, mapMutations, mapGetters } from "vuex";
 
 export default {
@@ -71,7 +71,7 @@ export default {
 
     replaceCommentData({ data }) {
       let is_replaced_data = false;
-      const cloned_comments = _.cloneDeep(this.comments);
+      const cloned_comments = cloneDeep(this.comments);
 
       for (let index = 0; index < cloned_comments.length; index++) {
         if (is_replaced_data) {
@@ -104,9 +104,9 @@ export default {
     },
 
     replaceCommentDataAtPath({ _id, path = "children", data }) {
-      const cloned_comments = _.cloneDeep(this.comments);
+      const cloned_comments = cloneDeep(this.comments);
 
-      const updated_comments = _.map(cloned_comments, (comment, index) => {
+      const updated_comments = map(cloned_comments, (comment, index) => {
         comment._id === _id && (comment[path] = data);
         return comment;
       });
@@ -115,14 +115,14 @@ export default {
     },
 
     deleteCommentData({ _id }) {
-      const cloned_comments = _.cloneDeep(this.comments);
+      const cloned_comments = cloneDeep(this.comments);
 
-      const filtered_comments = _.filter(
+      const filtered_comments = filter(
         cloned_comments,
         (comment) => comment._id !== _id
       );
 
-      const updated_comments = _.map(filtered_comments, (comment, index) => {
+      const updated_comments = map(filtered_comments, (comment, index) => {
         const comment_children = comment.children?.filter((child) => {
           return child._id !== _id;
         });

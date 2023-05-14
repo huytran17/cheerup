@@ -65,6 +65,7 @@
 </template>
 
 <script>
+import { get } from "lodash";
 import authMixins from "@/mixins/auth";
 import userMixins from "@/mixins/user";
 import dropzoneMixins from "@/mixins/dropzone";
@@ -82,7 +83,7 @@ export default {
   },
   computed: {
     is_socialite_account() {
-      return !!_.get(this.me, "socialite.provider");
+      return !!get(this.me, "socialite.provider");
     },
   },
   methods: {

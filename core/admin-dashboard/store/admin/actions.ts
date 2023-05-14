@@ -4,19 +4,19 @@ import { ActionTree } from "vuex";
 import { AdminState } from ".";
 import { RootState } from "..";
 import { ADMIN_TYPES } from "@/constants";
-import _ from "lodash";
+import { get, join } from "lodash";
 
 const actions: ActionTree<AdminState, RootState> = {
   async [ActionTypes.GET_ADMIN_ANALYTICS]({ commit }, params = {}) {
-    const range = _.get(params, "range", []);
-    const unit = _.get(params, "unit", "month");
-    const author_type = _.get(params, "author_type", ADMIN_TYPES.OWNER);
+    const range = get(params, "range", []);
+    const unit = get(params, "unit", "month");
+    const author_type = get(params, "author_type", ADMIN_TYPES.OWNER);
 
     let url_query = new URLSearchParams();
 
     const has_range = range && range.length;
 
-    has_range && url_query.set("range", _.join(range));
+    has_range && url_query.set("range", join(range));
 
     unit && url_query.set("unit", unit);
 
@@ -28,7 +28,7 @@ const actions: ActionTree<AdminState, RootState> = {
   },
 
   async [ActionTypes.GET_ADMINS]({ commit }, params = {}) {
-    const keep_in_store = _.get(params, "keep_in_store", true);
+    const keep_in_store = get(params, "keep_in_store", true);
 
     const { data: admins } = await this.$axios.$get("/admin");
 

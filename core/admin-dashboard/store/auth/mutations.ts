@@ -1,7 +1,7 @@
 import { MutationTypes } from "./mutation-types";
 import { MutationTree } from "vuex";
 import { AuthState } from ".";
-import _ from "lodash";
+import { update } from "lodash";
 
 const mutations: MutationTree<AuthState> = {
   [MutationTypes.SET_ME](state, { data }: { data: any }) {
@@ -16,7 +16,7 @@ const mutations: MutationTree<AuthState> = {
     state,
     { variable_path, data }: { variable_path: string; data: any }
   ) {
-    state.me = _.update(state.me, variable_path, (n) => {
+    state.me = update(state.me, variable_path, (n) => {
       return data;
     });
   },

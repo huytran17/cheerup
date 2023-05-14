@@ -110,6 +110,7 @@
 </template>
 
 <script>
+import { get, isEmpty, cloneDeep } from "lodash";
 import { mapMutations } from "vuex";
 import commentMixins from "@/mixins/comment";
 import postMixins from "@/mixins/post";
@@ -152,7 +153,7 @@ export default {
     },
 
     is_post_blocked_comment() {
-      const is_post_blocked_comment = _.get(
+      const is_post_blocked_comment = get(
         this.post,
         "is_blocked_comment",
         false
@@ -162,17 +163,13 @@ export default {
     },
 
     is_user_blocked_comment() {
-      const is_user_blocked_comment = _.get(
-        this.me,
-        "is_blocked_comment",
-        false
-      );
+      const is_user_blocked_comment = get(this.me, "is_blocked_comment", false);
 
       return is_user_blocked_comment;
     },
 
     has_comments() {
-      return !_.isEmpty(this.comments);
+      return !isEmpty(this.comments);
     },
   },
   methods: {
@@ -205,13 +202,13 @@ export default {
 
     async createComment() {
       try {
-        const new_comment_content = _.get(this.new_comment, "content", "");
+        const new_comment_content = get(this.new_comment, "content", "");
         if (!new_comment_content) {
           return;
         }
 
         this.is_loading = true;
-        const post_id = _.get(this.post, "_id");
+        const post_id = get(this.post, "_id");
         const final_comment_data = Object.assign({}, this.new_comment, {
           post: post_id,
         });
@@ -229,7 +226,7 @@ export default {
 
         ++this.refresh_comment_editor_key;
 
-        const cloned_comments_data = _.cloneDeep(this.comments);
+        const cloned_comments_data = cloneDeep(this.comments);
         cloned_comments_data.unshift(new_comment_data);
         this.UPDATE_COMMENTS_DATA({
           data: cloned_comments_data,
@@ -248,7 +245,7 @@ export default {
 
     async getMoreComments() {
       try {
-        const post_id = _.get(this.post, "_id");
+        const post_id = get(this.post, "_id");
 
         await this.GET_COMMENTS_BY_POST_PAGINATED({
           page: this.comment_pagination.current_page + 1,
@@ -264,7 +261,7 @@ export default {
   async fetch() {
     try {
       await this.COUNT_COMMENT_BY_POST({
-        post_id: _.get(this.post, "_id"),
+        post_id: get(this.post, "_id"),
       });
     } catch (error) {
       console.error(error);

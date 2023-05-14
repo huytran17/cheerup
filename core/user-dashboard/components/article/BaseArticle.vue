@@ -117,6 +117,7 @@
 </template>
 
 <script>
+import { get, isEmpty } from "lodash";
 import { mapGetters } from "vuex";
 import systemMixins from "@/mixins/system";
 import postBookmarkMixins from "@/mixins/post-bookmark";
@@ -143,15 +144,15 @@ export default {
     }),
 
     author_name() {
-      return _.get(this.post_data, "author.full_name");
+      return get(this.post_data, "author.full_name");
     },
 
     reading_time() {
-      return _.get(this.post_data, "reading_time.text");
+      return get(this.post_data, "reading_time.text");
     },
 
     has_categories() {
-      return !_.isEmpty(this.post_data.categories);
+      return !isEmpty(this.post_data.categories);
     },
   },
   methods: {
@@ -162,7 +163,7 @@ export default {
         }
 
         const post_bookmark_data = {
-          post: _.get(this.post_data, "_id"),
+          post: get(this.post_data, "_id"),
         };
 
         await this.CREATE_OR_DELETE_POST_BOOKMARK({ data: post_bookmark_data });
@@ -199,7 +200,7 @@ export default {
   },
 
   created() {
-    this.is_bookmarked = _.get(this.post_data, "is_bookmarked", false);
+    this.is_bookmarked = get(this.post_data, "is_bookmarked", false);
   },
 };
 </script>

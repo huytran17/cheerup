@@ -190,6 +190,7 @@
 </template>
 
 <script>
+import { get } from "lodash";
 import { mapMutations } from "vuex";
 import postMixins from "@/mixins/post";
 import systemMixins from "@/mixins/system";
@@ -260,8 +261,8 @@ export default {
     }),
     async blockComment(post) {
       try {
-        const id = _.get(post, "_id");
-        const title = _.get(post, "title");
+        const id = get(post, "_id");
+        const title = get(post, "title");
 
         await this.BLOCK_POST_COMMENT({ id });
         this.$toast.success(
@@ -278,8 +279,8 @@ export default {
 
     async unblockComment(post) {
       try {
-        const id = _.get(post, "_id");
-        const title = _.get(post, "title");
+        const id = get(post, "_id");
+        const title = get(post, "title");
 
         await this.UNBLOCK_POST_COMMENT({ id });
         this.$toast.success(
@@ -296,8 +297,8 @@ export default {
 
     async publishPost(post) {
       try {
-        const id = _.get(post, "_id");
-        const title = _.get(post, "title");
+        const id = get(post, "_id");
+        const title = get(post, "title");
 
         await this.PUBLISH_POST({ id });
         this.$toast.success(this.$t(`Published post ${title} successfully`));
@@ -310,8 +311,8 @@ export default {
 
     async unpublishPost(post) {
       try {
-        const id = _.get(post, "_id");
-        const title = _.get(post, "title");
+        const id = get(post, "_id");
+        const title = get(post, "title");
 
         await this.UNPUBLISH_POST({ id });
         this.$toast.success(this.$t(`Un-published post ${title} successfully`));
@@ -326,8 +327,8 @@ export default {
 
     async deletePost(post) {
       try {
-        const id = _.get(post, "_id");
-        const title = _.get(post, "title");
+        const id = get(post, "_id");
+        const title = get(post, "title");
 
         await this.DELETE_POST({ id });
         this.$toast.success(this.$t(`Deleted post ${title} successfully`));
@@ -340,8 +341,8 @@ export default {
 
     async hardDeletePost() {
       try {
-        const id = _.get(this.post, "_id");
-        const title = _.get(this.post, "title");
+        const id = get(this.post, "_id");
+        const title = get(this.post, "title");
 
         await this.HARD_DELETE_POST({ id });
         this.$toast.success(
@@ -360,8 +361,8 @@ export default {
 
     async restoreDeletePost(post) {
       try {
-        const id = _.get(post, "_id");
-        const title = _.get(post, "title");
+        const id = get(post, "_id");
+        const title = get(post, "title");
 
         await this.RESTORE_POST({ id });
         this.$toast.success(this.$t(`Restored post ${title} successfully`));

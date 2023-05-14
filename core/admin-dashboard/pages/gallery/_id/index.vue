@@ -82,6 +82,7 @@
 </template>
 
 <script>
+import { get } from "lodash";
 import { mapActions } from "vuex";
 import BaseGalleryFolders from "@/components/gallery/widget/BaseGalleryFolders";
 import BaseGalleryItems from "@/components/gallery/widget/BaseGalleryItems";
@@ -110,7 +111,7 @@ export default {
   },
   computed: {
     gallery_items() {
-      return _.get(this.gallery, "items", []);
+      return get(this.gallery, "items", []);
     },
   },
   methods: {

@@ -1,7 +1,7 @@
 import { MutationTypes } from "./mutation-types";
 import { MutationTree } from "vuex";
 import { CommentState } from ".";
-import _ from "lodash";
+import { update } from "lodash";
 
 const mutations: MutationTree<CommentState> = {
   [MutationTypes.SET_COMMENT](state, { data }: { data: any }) {
@@ -16,7 +16,7 @@ const mutations: MutationTree<CommentState> = {
     state,
     { variable_path, data }: { variable_path: string; data: any }
   ) {
-    state.comment = _.update(state.comment, variable_path, (n) => {
+    state.comment = update(state.comment, variable_path, (n) => {
       return data;
     });
   },

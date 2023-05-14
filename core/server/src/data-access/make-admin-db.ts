@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { cloneDeep, sortBy, map } from "lodash";
 import mongoose from "mongoose";
 import IAdminDb, {
   IPaginatedAdminResult,
@@ -55,7 +55,7 @@ export default function makeAdminDb({
         },
       });
 
-      const cloned_from_date = _.cloneDeep(from_date);
+      const cloned_from_date = cloneDeep(from_date);
       while (cloned_from_date.isSameOrBefore(to_date, unit)) {
         let formatted_date = cloned_from_date.format("YYYY-MM-DD");
 
@@ -198,7 +198,7 @@ export default function makeAdminDb({
       });
 
       const results = await Promise.all(analysis_promises);
-      const sorted_results = _.sortBy(results, ["order"]);
+      const sorted_results = sortBy(results, ["order"]);
 
       for (const result of sorted_results) {
         const total_post_created_count =
@@ -245,7 +245,7 @@ export default function makeAdminDb({
         .find(query_conditions)
         .lean({ virtuals: true });
       if (existing) {
-        return _.map(existing, (admin) => new Admin(admin));
+        return map(existing, (admin) => new Admin(admin));
       }
 
       return null;
@@ -284,7 +284,7 @@ export default function makeAdminDb({
       const total_count = await adminDbModel.countDocuments(query_conditions);
 
       if (existing) {
-        const data = _.map(existing, (admin) => new Admin(admin));
+        const data = map(existing, (admin) => new Admin(admin));
 
         const from = page - 1 > 0 ? page - 1 : null;
         const has_more_entries =

@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { sortBy, map } from "lodash";
 import mongoose from "mongoose";
 import IUserDb, {
   IPaginatedUserResult,
@@ -119,7 +119,7 @@ export default function makeUserDb({
       });
 
       const results = await Promise.all(analysis_promises);
-      const sorted_results = _.sortBy(results, ["order"]);
+      const sorted_results = sortBy(results, ["order"]);
 
       for (const result of sorted_results) {
         const total_created_count =
@@ -176,7 +176,7 @@ export default function makeUserDb({
         .lean({ virtuals: true });
 
       if (existing) {
-        return _.map(existing, (user) => new User(user));
+        return map(existing, (user) => new User(user));
       }
 
       return null;
@@ -215,7 +215,7 @@ export default function makeUserDb({
       const total_count = await userDbModel.countDocuments(query_conditions);
 
       if (existing) {
-        const data = _.map(existing, (user) => new User(user));
+        const data = map(existing, (user) => new User(user));
 
         const from = page - 1 > 0 ? page - 1 : null;
         const has_more_entries =

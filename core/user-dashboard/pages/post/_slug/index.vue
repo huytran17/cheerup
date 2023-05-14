@@ -11,8 +11,8 @@
 </template>
 
 <script>
+import { get, map } from "lodash";
 import { mapGetters, mapActions } from "vuex";
-import { get } from "lodash";
 import postMixins from "@/mixins/post";
 import commentMixins from "@/mixins/comment";
 import BasePostPanel from "@/components/post/BasePostPanel";
@@ -103,15 +103,15 @@ export default {
   async asyncData({ store, params }) {
     try {
       const slug = params.slug;
-      const user_id = _.get(store.getters["auth/me"], "_id");
+      const user_id = get(store.getters["auth/me"], "_id");
 
       const post = await store.dispatch("post/GET_POST_BY_SLUG", {
         slug,
         user_id,
       });
 
-      const post_categories = _.get(post, "categories", []) || [];
-      const category_ids = _.map(post_categories, (category) => category._id);
+      const post_categories = get(post, "categories", []) || [];
+      const category_ids = map(post_categories, (category) => category._id);
 
       await Promise.all([
         store.dispatch("post/GET_SUGGESTION_POSTS", {

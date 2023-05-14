@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import { get } from "lodash";
 import { mapGetters } from "vuex";
 import commentMixins from "@/mixins/comment";
 import systemMixins from "@/mixins/system";
@@ -68,7 +69,7 @@ export default {
   methods: {
     async updateComment() {
       try {
-        const new_comment_content = _.get(this.editing_comment, "content", "");
+        const new_comment_content = get(this.editing_comment, "content", "");
         if (!new_comment_content) {
           return;
         }

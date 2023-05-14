@@ -175,6 +175,8 @@
 </template>
 
 <script>
+import { get, isObject } from "lodash";
+
 import categoryMixins from "@/mixins/category";
 import dropzoneMixins from "@/mixins/dropzone";
 
@@ -190,7 +192,7 @@ export default {
   methods: {
     getBadgeColor(event) {
       let hex_color = event;
-      _.isObject(event) && (hex_color = _.get(event, "hex"));
+      isObject(event) && (hex_color = get(event, "hex"));
 
       return hex_color;
     },
