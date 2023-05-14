@@ -4,20 +4,26 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ title }}</title>
+    <title>{{ authentication_title }}</title>
+    <style>
+      .hidden {
+        visibility: hidden;
+      }
+    </style>
   </head>
   <body>
     <div>
-      <a href="">Go to Home</a>
+      <a
+        href="http://localhost:8082/auth/redirect?token={{access_token}}"
+        id="redirect_link"
+        class="hidden"
+      ></a>
     </div>
   </body>
   <script>
-    function setLoggedUser() {
-      console.log("-----------------------------ok", window.location.href);
-    }
-
-    window.addEventListener("load", (event) => {
-      setLoggedUser();
-    });
+    window.addEventListener(
+      "load",
+      document.getElementById("redirect_link").click()
+    );
   </script>
 </html>

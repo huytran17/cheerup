@@ -1,5 +1,5 @@
 const template_data = {
-  title: `The best topics about life - ${process.env.APP_NAME}`,
+  authentication_title: `Authentication`,
 };
 
 export { template_data };

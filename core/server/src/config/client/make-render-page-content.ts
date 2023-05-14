@@ -25,7 +25,7 @@ export default function makeRenderPageContent(): IRenderPageContent {
 
     const final_template_data = {
       ...template_data,
-      data,
+      ...data,
     };
 
     const template = handlebars.compile(page_template);
