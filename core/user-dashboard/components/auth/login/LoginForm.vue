@@ -196,11 +196,11 @@ export default {
 .rounded-left-lg {
   border-radius: 8px 0 0 8px;
 }
-.rounded-icon:hover {
+.rounded-icon {
   background: #f35587;
 }
-.rounded-icon:hover > * {
-  color: #ffffff;
+.rounded-icon * {
+  color: #ffffff !important;
 }
 :deep(.v-btn--disabled) {
   background: #e0e0e0;
