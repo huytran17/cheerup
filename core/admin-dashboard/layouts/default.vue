@@ -18,7 +18,7 @@ import BaseAppOverlay from "@/components/BaseAppOverlay";
 
 export default {
   name: "DefaultLayout",
-  middleware: ["authenticate"],
+  middleware: ["authenticated"],
   components: {
     TheSideNav,
     BaseAppOverlay,

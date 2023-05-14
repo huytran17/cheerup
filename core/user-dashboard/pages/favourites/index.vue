@@ -12,7 +12,7 @@ import postBookmarkMixins from "@/mixins/post-bookmark";
 
 export default {
   name: "FavouriteIndex",
-  middleware: ["authenticate"],
+  layout: "authenticated",
   head() {
     return {
       ...seo_post_schema,
