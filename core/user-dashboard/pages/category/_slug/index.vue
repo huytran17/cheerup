@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import { get } from "lodash";
 import { mapGetters, mapMutations } from "vuex";
 import { get } from "lodash";
 import BaseArticles from "@/components/article/BaseArticles";
