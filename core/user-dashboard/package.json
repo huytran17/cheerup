@@ -9,6 +9,7 @@
     "generate": "cross-env NODE_OPTIONS=--openssl-legacy-provider nuxt generate"
   },
   "dependencies": {
+    "@nuxtjs/imagemin": "^1.0.1",
     "@nuxtjs/robots": "2.5.0",
     "@nuxtjs/sitemap": "^2.4.0",
     "core-js": "^3.19.3",

@@ -9,6 +9,7 @@
     "generate": "cross-env NODE_OPTIONS=--openssl-legacy-provider nuxt generate"
   },
   "dependencies": {
+    "@nuxtjs/imagemin": "^1.0.1",
     "apexcharts": "^3.37.0",
     "core-js": "^3.19.3",
     "cross-env": "^7.0.3",

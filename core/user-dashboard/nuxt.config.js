@@ -303,6 +303,7 @@ export default {
     "@nuxtjs/robots",
     "@nuxtjs/sitemap",
     "nuxt-purgecss",
+    "@nuxtjs/imagemin",
   ],
 
   imagemin: {

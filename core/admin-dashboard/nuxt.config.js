@@ -51,6 +51,7 @@ export default {
     "nuxt-purgecss",
     "nuxt-speedkit",
     "nuxt-helmet",
+    "@nuxtjs/imagemin",
   ],
 
   build: {
