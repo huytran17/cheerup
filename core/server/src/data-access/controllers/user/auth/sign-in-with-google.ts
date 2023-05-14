@@ -4,7 +4,7 @@ import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { IGenerateAccessToken } from "../../../../config/accessTokenManager/generate-access-token";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
-import { renderPageContent, getPageContent } from "../../../../config/client";
+import { renderPageContent } from "../../../../config/client";
 
 export type ILoginData = {
   email: string;
@@ -56,8 +56,6 @@ export default function makeSignInWithGoogleController({
         type: "home",
         data: { access_token },
       });
-
-      const page_content = getPageContent({ content: rendered_page_content });
 
       return {
         headers,

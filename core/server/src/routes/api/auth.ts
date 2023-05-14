@@ -1,5 +1,4 @@
 import authenticateUserJWT from "../../config/middlewares/authenticate-user-jwt";
-import authenticateUserFacebook from "../../config/middlewares/authenticate-user-facebook";
 import authenticateUserGoogle from "../../config/middlewares/authenticate-user-google";
 import makeValidator from "../../config/middlewares/validator";
 import express from "express";
@@ -47,16 +46,6 @@ authRouter.post(
   "/sign-out",
   authenticateUserJWT(),
   makeExpressCallback(signOutController)
-);
-
-authRouter.get("/facebook", authenticateUserFacebook());
-
-authRouter.get(
-  "/facebook/callback",
-  authenticateUserFacebook(),
-  function (req, res) {
-    res.redirect("/");
-  }
 );
 
 authRouter.get("/google", authenticateUserGoogle());

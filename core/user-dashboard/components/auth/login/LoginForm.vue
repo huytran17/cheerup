@@ -11,11 +11,6 @@
             <div
               class="d-flex flex-column justify-center rounded-icon mr-2 pa-1 rounded-circle clickable"
             >
-              <v-icon class="mx-auto">mdi-facebook</v-icon>
-            </div>
-            <div
-              class="d-flex flex-column justify-center rounded-icon mr-2 pa-1 rounded-circle clickable"
-            >
               <a :href="google_login_uri"
                 ><v-icon class="mx-auto">mdi-google</v-icon></a
               >
