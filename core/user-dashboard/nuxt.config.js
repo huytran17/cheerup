@@ -306,10 +306,6 @@ export default {
     "@nuxtjs/imagemin",
   ],
 
-  imagemin: {
-    enableInDev: true,
-  },
-
   robots: {
     UserAgent: "*",
     Allow: "/",
