@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex card flex-column">
+  <div class="d-flex card flex-column w-100">
     <div class="thumbnail">
       <v-img
         :src="data.thumbnail_url"
