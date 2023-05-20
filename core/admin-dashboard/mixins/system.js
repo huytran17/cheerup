@@ -1,4 +1,4 @@
-import { get, capitalize as  } from "lodash";
+import { get, capitalize as _capitalize } from "lodash";
 import { mapMutations, mapGetters } from "vuex";
 
 export default {
@@ -30,7 +30,7 @@ export default {
   filters: {
     capitalize: function (value) {
       value = (value && value.toString()) || "";
-      return value.replace(/\w+/g, );
+      return value.replace(/\w+/g, _capitalize);
     },
   },
 };
