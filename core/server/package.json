@@ -8,6 +8,7 @@
     "build": "rimraf dist && tsc && yarn copy-files",
     "copy-files": "copyfiles src/**/*.html dist/",
     "dev": "nodemon src/app.ts",
+    "d:serve": "cross-env NODE_ENV=production node ./app.js --max-old-space-size=4096",
     "dc:up": "docker-compose up -d",
     "dc:down": "docker-compose down",
     "gulp:build": "rimraf dist && gulp --max-old-space-size=8192",
