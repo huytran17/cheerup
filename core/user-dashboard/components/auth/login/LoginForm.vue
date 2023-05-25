@@ -1,11 +1,9 @@
 <template>
-  <v-form v-model="form_valid" class="w-75 mx-auto">
-    <v-row class="flex-column flex-md-row flex-column-reverse login-box-shadow">
-      <v-col
-        cols="12"
-        md="5"
-        class="py-8 px-8 login-form-background rounded-left-lg"
-      >
+  <v-form v-model="form_valid" class="mx-auto">
+    <v-row
+      class="flex-column flex-md-row flex-column-reverse login-box-shadow mx-1"
+    >
+      <v-col cols="12" class="py-8 px-8 login-form-background rounded-left-lg">
         <v-row>
           <v-col cols="12" class="d-flex justify-center">
             <div
@@ -71,7 +69,7 @@
               depressed
               rounded
               :disabled="!form_valid"
-              class="login-linear-background btn-linear-background w-100 py-6"
+              class="login-linear-background w-100 py-6"
               @click="signIn"
             >
               <span class="text-body-1">
@@ -89,43 +87,21 @@
             <div class="text-body-2 text-right">
               <span
                 @click="$router.push(localePath('/forget-password'))"
-                class="text-decoration-none brick--text clickable"
+                class="text-decoration-none black--text clickable"
                 v-html="$t('Forgot Password?')"
               ></span>
             </div>
           </v-col>
-        </v-row>
-      </v-col>
-      <v-col
-        cols="12"
-        md="7"
-        class="login-linear-background d-flex flex-column justify-center py-6 py-md-0 rounded-right-lg"
-      >
-        <div class="white--text text-center">
-          <div class="text-h5 text-sm-h4">
-            <span class="app-title" v-html="$t('Welcome to login')"></span>
-          </div>
-          <div class="text-body-2 my-2">
-            <span
-              class="app-body"
-              v-html="$t('Don\'t have an account?')"
-            ></span>
-          </div>
-          <div class="mt-5 d-flex justify-center">
-            <v-btn
-              depressed
-              outlined
-              rounded
-              color="white"
-              @click="$router.push(localePath('/register'))"
-            >
+          <v-col class="pt-0">
+            <div class="text-body-2 text-right">
               <span
-                class="app-body text-capitalize"
+                @click="$router.push(localePath('/register'))"
+                class="text-decoration-none black--text clickable"
                 v-html="$t('Sign Up')"
               ></span>
-            </v-btn>
-          </div>
-        </div>
+            </div>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-form>
@@ -181,20 +157,14 @@ export default {
 .login-linear-background {
   background: linear-gradient(135deg, #f75959 0%, #f35587 100%);
 }
-.btn-linear-background:hover {
-  background: #f35588;
-}
 .login-box-shadow {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 .login-form-background {
   background: rgba(255, 255, 255, 0.6);
 }
-.rounded-right-lg {
-  border-radius: 0 8px 8px 0;
-}
 .rounded-left-lg {
-  border-radius: 8px 0 0 8px;
+  border-radius: 8px;
 }
 .rounded-icon {
   background: #f35587;
@@ -206,11 +176,8 @@ export default {
   background: #e0e0e0;
 }
 @media only screen and (max-width: 959px) {
-  .rounded-right-lg {
-    border-radius: 8px 8px 0 0;
-  }
   .rounded-left-lg {
-    border-radius: 0 0 8px 8px;
+    border-radius: 8px;
   }
 }
 </style>

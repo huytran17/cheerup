@@ -1,17 +1,7 @@
 <template>
-  <v-form v-model="form_valid" class="w-50 mx-auto">
-    <v-row class="d-flex login-box-shadow justify-center">
+  <v-form v-model="form_valid" class="mx-auto">
+    <v-row class="d-flex login-box-shadow justify-center mx-1">
       <v-col cols="12" class="py-8 px-8 login-form-background rounded-lg">
-        <v-row class="text-center">
-          <v-col cols="12" class="d-flex justify-center">
-            <div class="text-h6">
-              <span
-                class="app-title info--text"
-                v-html="$t('Welcome To The Admin Panel!')"
-              ></span>
-            </div>
-          </v-col>
-        </v-row>
         <v-row class="pb-0">
           <v-col cols="12" class="pb-0">
             <div class="text-body-2 black--text">
@@ -66,7 +56,7 @@
               depressed
               rounded
               :disabled="!form_valid"
-              class="login-linear-background btn-linear-background w-100 py-6"
+              class="login-linear-background w-100 py-6"
               @click="signIn"
             >
               <span class="text-body-1">
@@ -76,18 +66,6 @@
                 ></span>
               </span>
             </v-btn>
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col cols="12">
-            <div class="text-body-2 text-right">
-              <a
-                :href="localePath('/forget-password')"
-                class="text-decoration-none black--text"
-                v-html="$t('Forgot Password?')"
-              ></a>
-            </div>
           </v-col>
         </v-row>
       </v-col>
@@ -123,9 +101,6 @@ export default {
 <style scoped>
 .login-linear-background {
   background: linear-gradient(135deg, #f75959 0%, #f35587 100%);
-}
-.btn-linear-background:hover {
-  background: #f35588;
 }
 .login-box-shadow {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
