@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-column">
     <div class="text-body-2 owner__description">
-      <span class="app-body">{{ owner_description }}</span>
+      <span class="app-body" v-html="owner_description"></span>
     </div>
     <v-timeline align-top dense>
       <v-timeline-item
