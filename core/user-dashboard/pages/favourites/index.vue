@@ -1,6 +1,6 @@
 <template>
   <BaseFavouriteCards v-if="has_user" />
-  <BaseNoData v-else message="No data to show, please sign in" />
+  <BaseNoData v-else message="No data available, please sign in" />
 </template>
 
 <script>

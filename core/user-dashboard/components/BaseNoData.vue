@@ -12,7 +12,7 @@ export default {
   props: {
     message: {
       type: String,
-      default: () => "No data to show",
+      default: () => "No data available",
     },
   },
 };

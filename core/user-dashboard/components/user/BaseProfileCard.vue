@@ -75,7 +75,7 @@
       </div>
       <div v-else>
         <div class="small--text">
-          <span class="app-body" v-html="$t('No data to show')"></span>
+          <span class="app-body" v-html="$t('No data available')"></span>
         </div>
         <div class="d-flex justify-center pt-3">
           <v-btn
