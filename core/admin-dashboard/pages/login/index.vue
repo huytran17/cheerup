@@ -14,7 +14,6 @@ import LoginForm from "@/components/auth/login/LoginForm";
 export default {
   name: "Login",
   layout: "public",
-  middleware: ["redirect-logged-user"],
   components: {
     LoginForm,
   },

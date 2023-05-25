@@ -1,6 +1,6 @@
 import { Context } from "@nuxt/types";
 
-export default async function ({ store, redirect }: Context) {
+export default async function ({ store, redirect, app }: Context) {
   try {
     const access_token = localStorage.getItem("admin_access_token");
 
@@ -12,7 +12,7 @@ export default async function ({ store, redirect }: Context) {
       return await store.dispatch("auth/GET_ME");
     }
 
-    redirect("/login");
+    redirect(app.localePath("/login"));
   } catch (error) {
     console.error(error);
   }
