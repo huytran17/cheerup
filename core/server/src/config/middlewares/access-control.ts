@@ -6,6 +6,12 @@ const corsOptionsDelegate = function (req: Request, callback: Function) {
     process.env.USER_DASHBOARD_URL,
   ];
 
+  const req_options = {
+    methods: ["GET,PUT,POST,DELETE"],
+    allowedHeaders: "Content-Type,Origin,X-Requested-With,Authorization",
+    credentials: true,
+  };
+
   let cors_options: Record<string, unknown>;
 
   if (white_list.includes(req.header("Origin"))) {
@@ -14,7 +20,10 @@ const corsOptionsDelegate = function (req: Request, callback: Function) {
     cors_options = { origin: false };
   }
 
-  callback(null, cors_options);
+  callback(null, {
+    ...req_options,
+    ...cors_options,
+  });
 };
 
 export { corsOptionsDelegate };
