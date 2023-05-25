@@ -7,21 +7,29 @@
       ></span>
     </div>
     <div class="sidebar__card py-6 px-6 category__list horizontal__scrollbar">
-      <div
-        class="text-body-3 text-sm-body-2 text-uppercase text-left"
-        v-for="(category, index) in category_titles"
-        :key="category._id"
-      >
+      <div v-if="category_titles.length">
         <div
-          class="py-2 card-item__wrapper"
-          :class="[index === 0 ? 'pt-0' : '']"
+          class="text-body-3 text-sm-body-2 text-uppercase text-left"
+          v-for="(category, index) in category_titles"
+          :key="category._id"
         >
-          <span
-            class="app-body clickable card-item__title"
-            v-html="$t(category.title)"
-            @click="$router.push(localePath(`/category/${category.slug}`))"
-          ></span>
+          <div
+            class="py-2 card-item__wrapper"
+            :class="[index === 0 ? 'pt-0' : '']"
+          >
+            <span
+              class="app-body clickable card-item__title"
+              v-html="$t(category.title)"
+              @click="$router.push(localePath(`/category/${category.slug}`))"
+            ></span>
+          </div>
         </div>
+      </div>
+      <div
+        v-else
+        class="text__description text-sm-body-2 text-uppercase text-center grey--text"
+      >
+        <span class="app-body" v-html="$t('No data available')"></span>
       </div>
     </div>
   </div>

@@ -37,7 +37,7 @@
       <div
         class="text__description text-sm-body-2 text-uppercase text-center grey--text"
       >
-        <span class="app-body" v-html="$t('No categories available')"></span>
+        <span class="app-body" v-html="$t('No data available')"></span>
       </div>
     </v-col>
   </v-row>

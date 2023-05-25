@@ -22,7 +22,7 @@
             }
           "
         >
-          <div slot="no-more">{{ $t("No more posts") }}</div>
+          <div slot="no-more">{{ $t("No more data") }}</div>
         </infinite-loading>
       </v-col>
     </v-row>

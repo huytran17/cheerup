@@ -30,7 +30,7 @@
           }
         "
       >
-        <div slot="no-more">{{ $t("No more posts") }}</div>
+        <div slot="no-more">{{ $t("No more data") }}</div>
       </infinite-loading>
     </v-col>
   </v-row>
@@ -39,7 +39,10 @@
       <div
         class="text__description text-sm-body-2 text-uppercase text-center grey--text"
       >
-        <span class="app-body" v-html="$t('No posts available')"></span>
+        <span
+          class="app-body"
+          v-html="$t('No data available available')"
+        ></span>
       </div>
     </v-col>
   </v-row>
