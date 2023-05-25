@@ -1,35 +1,20 @@
-import { Request, Response, NextFunction } from "express";
-import { get, includes } from "lodash";
+import { Request } from "express";
 
-export default function accessControlMiddleware(
-  req: Request,
-  res: Response,
-  next: NextFunction
-): void {
-  const origin = getAccessControlOrigin(req);
-
-  res.setHeader("Access-Control-Allow-Origin", origin);
-
-  res.setHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Content-Type,Origin,X-Requested-With,Authorization"
-  );
-
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-
-  next();
-}
-
-function getAccessControlOrigin(req: Request): string {
-  const allowedOrigins = [
-    process.env.USER_DASHBOARD_URL,
+const corsOptionsDelegate = function (req: Request, callback: Function) {
+  const white_list = [
     process.env.ADMIN_DASHBOARD_URL,
+    process.env.USER_DASHBOARD_URL,
   ];
 
-  const origin = get(req, "headers.origin");
-  const is_allowed = includes(allowedOrigins, origin);
+  let cors_options: Record<string, unknown>;
 
-  return is_allowed ? origin : "";
-}
+  if (white_list.includes(req.header("Origin"))) {
+    cors_options = { origin: true };
+  } else {
+    cors_options = { origin: false };
+  }
+
+  callback(null, cors_options);
+};
+
+export { corsOptionsDelegate };
