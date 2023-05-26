@@ -202,7 +202,10 @@ export default {
     },
 
     copyLinkToClipboard() {
-      navigator.clipboard.writeText(window.location.href);
+      const post_url = `${process.env.BASE_URL}/post/${this.post_data.slug}`;
+
+      navigator.clipboard.writeText(post_url);
+      this.$toast.success(this.$t("Coppied to clipboard!"));
     },
   },
 

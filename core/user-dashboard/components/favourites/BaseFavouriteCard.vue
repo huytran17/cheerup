@@ -1,6 +1,6 @@
 <template>
-  <div v-if="has_bookmark_data" class="d-flex flex-column flex-sm-row">
-    <div v-if="post_thumbnail_url" class="d-flex pr-sm-3">
+  <div v-if="has_bookmark_data" class="d-flex flex-column flex-sm-row gap-10">
+    <div v-if="post_thumbnail_url" class="d-flex">
       <v-img
         :src="post_thumbnail_url"
         :lazy-src="post_thumbnail_url"
@@ -11,10 +11,7 @@
       ></v-img>
     </div>
     <div class="d-flex flex-column px-0 w-100">
-      <div
-        v-if="has_categories"
-        class="d-flex justify-space-between pt-4 pt-sm-0"
-      >
+      <div v-if="has_categories" class="d-flex justify-space-between">
         <div>
           <v-chip
             v-for="(category, index) in post_categories"
@@ -28,24 +25,6 @@
           >
             <span class="app-body" v-html="category.title"></span>
           </v-chip>
-        </div>
-        <div>
-          <v-tooltip right>
-            <template v-slot:activator="{ on, attrs }">
-              <v-icon
-                color="brick"
-                class="clickable"
-                @click="deletePostToBookmark"
-                v-bind="attrs"
-                v-on="on"
-              >
-                {{ is_bookmarked ? "mdi-heart" : "mdi-heart-outline" }}</v-icon
-              >
-            </template>
-            <div class="text-body-2 d-flex flex-column justify-center">
-              <span class="app-body" v-html="$t('Add to favourite')"></span>
-            </div>
-          </v-tooltip>
         </div>
       </div>
 
@@ -106,12 +85,6 @@ export default {
     },
   },
 
-  data() {
-    return {
-      is_bookmarked: true,
-    };
-  },
-
   computed: {
     reading_time() {
       return get(this.bookmark_data, "reading_time.text");
@@ -159,27 +132,6 @@ export default {
 
     has_categories() {
       return !isEmpty(this.post_categories) && !isNil(this.post_categories);
-    },
-  },
-
-  methods: {
-    async deletePostToBookmark() {
-      try {
-        const post_bookmark_data = {
-          post: this.post_id,
-        };
-
-        await this.CREATE_OR_DELETE_POST_BOOKMARK({ data: post_bookmark_data });
-
-        this.is_bookmarked = !this.is_bookmarked;
-
-        await Promise.all([
-          this.GET_POST_BOOKMARKS_PAGINATED(),
-          this.COUNT_POST_BOOKMARKS(),
-        ]);
-      } catch (error) {
-        console.error(error);
-      }
     },
   },
 };

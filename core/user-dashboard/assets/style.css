@@ -203,7 +203,7 @@ select:-webkit-autofill:focus {
 }
 
 .cheerup-toast-container {
-  top: 5% !important;
+  top: 1% !important;
 }
 
 @media only screen and (max-width: 600px) {

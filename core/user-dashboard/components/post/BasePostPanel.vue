@@ -106,6 +106,9 @@
       <v-btn icon @click="exportPdf">
         <v-icon color="brick">mdi-download</v-icon>
       </v-btn>
+      <v-btn icon @click="copyLinkToClipboard" :small="is_mobile">
+        <v-icon color="facebook" :small="is_mobile">mdi-link-variant</v-icon>
+      </v-btn>
     </div>
   </div>
 </template>
@@ -220,6 +223,12 @@ export default {
       }
 
       share_url && window.open(share_url, "_blank");
+    },
+    copyLinkToClipboard() {
+      const post_url = `${process.env.BASE_URL}/post/${this.post.slug}`;
+
+      navigator.clipboard.writeText(post_url);
+      this.$toast.success(this.$t("Coppied to clipboard!"));
     },
   },
 
