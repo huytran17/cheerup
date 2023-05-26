@@ -308,7 +308,7 @@ export default {
 
   toast: {
     position: "top-center",
-    duration: 500000,
+    duration: 5000,
     className: "cheerup-toast",
     containerClass: "cheerup-toast-container",
   },
