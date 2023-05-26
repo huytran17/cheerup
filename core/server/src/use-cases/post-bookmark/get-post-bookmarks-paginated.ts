@@ -7,10 +7,12 @@ export type IGetPostBookmarksPaginated = ({
   query,
   page,
   entries_per_page,
+  user_id
 }: {
   query: string;
   page: number;
   entries_per_page: number;
+  user_id?: string
 }) => Promise<IPaginatedPostBookmarkResult | null>;
 
 export default function makeGetPostBookmarksPaginated({
@@ -24,15 +26,18 @@ export default function makeGetPostBookmarksPaginated({
     query,
     page,
     entries_per_page,
+    user_id
   }: {
     query: string;
     page: number;
     entries_per_page: number;
+    user_id?: string;
   }): Promise<IPaginatedPostBookmarkResult | null> {
     const post_bookmarks = await postBookmarkDb.findAllPaginated({
       query,
       page,
       entries_per_page,
+      user_id
     });
 
     return post_bookmarks;

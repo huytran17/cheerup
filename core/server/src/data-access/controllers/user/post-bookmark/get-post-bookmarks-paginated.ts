@@ -1,21 +1,25 @@
 import { Request } from "express";
 import { IGetPostBookmarksPaginated } from "../../../../use-cases/post-bookmark/get-post-bookmarks-paginated";
 import { ICountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
+import { IGetUser } from "../../../../use-cases/user/get-user";
 import { IReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import { get, map, replace } from "lodash";
 import PostBookmark from "../../../../database/entities/post-bookmark";
 import IPostBookmark from "../../../../database/interfaces/post-bookmark";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { IPaginatedPostBookmarkResult } from "../../../../data-access/interfaces/post-bookmark-db";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetPostBookmarksPaginatedController({
   getPostBookmarksPaginated,
   countCommentsByPost,
   readingTimeAnalyzer,
+  getUser
 }: {
   getPostBookmarksPaginated: IGetPostBookmarksPaginated;
   countCommentsByPost: ICountCommentsByPost;
   readingTimeAnalyzer: IReadingTimeAnalyzer;
+  getUser: IGetUser;
 }) {
   return async function getPostBookmarksPaginatedController(
     httpRequest: Request & { context: { validated: {} } }
@@ -35,10 +39,18 @@ export default function makeGetPostBookmarksPaginatedController({
         entries_per_page: string;
       } = get(httpRequest, "context.validated");
 
+      const { _id } = get(httpRequest, "context.user")
+      const user_exists = await getUser({ _id })
+
+      if (isEmpty(user_exists)) {
+        throw new Error(`User by ${_id} does not exist`);
+      }
+
       const paginated_data = await getPostBookmarksPaginated({
         query,
         page: Number(page),
         entries_per_page: Number(entries_per_page),
+        user_id: _id
       });
 
       const post_bookmarks = get(paginated_data, "data", []);

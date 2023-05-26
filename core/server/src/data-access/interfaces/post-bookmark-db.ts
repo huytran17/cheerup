@@ -6,10 +6,12 @@ export default interface IPostBookmarkDb {
     query,
     page,
     entries_per_page,
+    user_id
   }: {
     query: string;
     page: number;
     entries_per_page?: number;
+    user_id?: string;
   }) => Promise<IPaginatedPostBookmarkResult | null>;
   findOne: () => Promise<PostBookmark | null>;
   findById: ({ _id }: { _id: string }) => Promise<PostBookmark | null>;

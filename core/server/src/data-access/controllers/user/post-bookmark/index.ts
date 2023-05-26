@@ -32,6 +32,7 @@ const getPostBookmarksPaginatedController =
     getPostBookmarksPaginated,
     countCommentsByPost,
     readingTimeAnalyzer,
+    getUser
   });
 
 export default Object.freeze({

@@ -38,17 +38,21 @@ export default function makePostBookmarkDb({
       query = "",
       page = 1,
       entries_per_page = 15,
+      user_id
     }: {
       query: string;
       page: number;
       entries_per_page?: number;
+      user_id?: string;
     }): Promise<IPaginatedPostBookmarkResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
-      const query_conditions = Object.assign({
+      const query_conditions = {
         deleted_at: { $in: [null, undefined] },
         is_published: true,
-      });
+      };
+
+      user_id && (query_conditions["user"] = user_id);
 
       const existing = await postBookmarkDbModel
         .find(query_conditions)

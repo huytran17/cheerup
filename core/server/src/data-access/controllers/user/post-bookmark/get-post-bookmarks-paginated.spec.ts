@@ -12,12 +12,14 @@ import { readingTimeAnalyzer } from "../../../../../__tests__/reading-time";
 import { logger } from "../../../../../__tests__/jest-logger";
 import { redis } from "../../../../../__tests__/jest-redis";
 import makeCommentDb from "../../../make-comment-db";
+import makeUserDb from "../../../make-user-db";
 import makePostBookmarkDb from "../../../make-post-bookmark-db";
 import PostBookmark from "../../../../database/entities/post-bookmark";
-import { PostBookmarkModel, CommentModel } from "../../../models";
+import { PostBookmarkModel, CommentModel, UserModel } from "../../../models";
 import makeGetPostBookmarksPaginated from "../../../../use-cases/post-bookmark/get-post-bookmarks-paginated";
 import makeCountCommentsByPost from "../../../../use-cases/comment/count-comments-by-post";
 import makeCreatePostBookmark from "../../../../use-cases/post-bookmark/create-post-bookmark";
+import makeGetUser from "../../../../use-cases/user/get-user";
 import makeGetPostBookmarksPaginatedController from "./get-post-bookmarks-paginated";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
@@ -41,6 +43,10 @@ describe("getPostBookmarksPaginated", () => {
       commentDbModel: CommentModel,
       moment,
     });
+    const userDb = makeUserDb({
+      userDbModel: UserModel,
+      moment,
+    });
 
     const createPostBookmark = makeCreatePostBookmark({
       postBookmarkDb,
@@ -52,6 +58,10 @@ describe("getPostBookmarksPaginated", () => {
     const countCommentsByPost = makeCountCommentsByPost({
       commentDb,
       logger,
+    });
+    const getUser = makeGetUser({
+      userDb,
+      logger
     });
 
     const mock_post_bookmark_data = fakePostBookmark();
@@ -66,6 +76,7 @@ describe("getPostBookmarksPaginated", () => {
         getPostBookmarksPaginated,
         countCommentsByPost,
         readingTimeAnalyzer,
+        getUser
       });
 
     const request = {
