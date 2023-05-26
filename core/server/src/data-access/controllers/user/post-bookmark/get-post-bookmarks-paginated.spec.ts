@@ -6,6 +6,7 @@ import {
 import { ExpectPaginatedResult } from "../../../../../__tests__/__types__/expect-types";
 import {
   fakePostBookmark,
+  fakeUser,
   fakeQueryParams,
 } from "../../../../../__tests__/__mock__";
 import { readingTimeAnalyzer } from "../../../../../__tests__/reading-time";
@@ -20,6 +21,7 @@ import makeGetPostBookmarksPaginated from "../../../../use-cases/post-bookmark/g
 import makeCountCommentsByPost from "../../../../use-cases/comment/count-comments-by-post";
 import makeCreatePostBookmark from "../../../../use-cases/post-bookmark/create-post-bookmark";
 import makeGetUser from "../../../../use-cases/user/get-user";
+import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeGetPostBookmarksPaginatedController from "./get-post-bookmarks-paginated";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
@@ -63,13 +65,20 @@ describe("getPostBookmarksPaginated", () => {
       userDb,
       logger
     });
+    const createUser = makeCreateUser({
+      userDb,
+    });
 
     const mock_post_bookmark_data = fakePostBookmark();
+    const mock_user_data = fakeUser();
     const mock_query_params = fakeQueryParams();
 
-    await createPostBookmark({
-      postBookmarkDetails: mock_post_bookmark_data,
-    });
+    const [, created_user] = await Promise.all([
+      createPostBookmark({
+        postBookmarkDetails: mock_post_bookmark_data,
+      }),
+      createUser({ userDetails: mock_user_data })
+    ])
 
     const getPostBookmarksPaginatedController =
       makeGetPostBookmarksPaginatedController({
@@ -82,6 +91,7 @@ describe("getPostBookmarksPaginated", () => {
     const request = {
       context: {
         validated: mock_query_params,
+        user: created_user
       },
     };
 
