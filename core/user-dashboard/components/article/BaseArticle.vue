@@ -112,6 +112,9 @@
       >
         <v-icon color="pinterest" :small="is_mobile">mdi-pinterest</v-icon>
       </v-btn>
+      <v-btn icon @click="copyLinkToClipboard" :small="is_mobile">
+        <v-icon color="facebook" :small="is_mobile">mdi-link-variant</v-icon>
+      </v-btn>
     </div>
   </div>
 </template>
@@ -196,6 +199,10 @@ export default {
       }
 
       share_url && window.open(share_url, "_blank");
+    },
+
+    copyLinkToClipboard() {
+      navigator.clipboard.writeText(window.location.href);
     },
   },
 

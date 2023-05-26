@@ -265,7 +265,6 @@ export default {
     "~/directives/private",
     "~/plugins/router",
     { src: "~/plugins/axios", ssr: false },
-    { src: "~/plugins/vue-toastification", ssr: false },
     { src: "~/plugins/vue-infinite-loading", mode: "client" },
     { src: "~/plugins/vue-scroll-to-top", mode: "client" },
     { src: "~/plugins/vue2-dropzone", ssr: false },
@@ -304,7 +303,15 @@ export default {
     "@nuxtjs/sitemap",
     "nuxt-purgecss",
     "@nuxtjs/imagemin",
+    "@nuxtjs/toast",
   ],
+
+  toast: {
+    position: "top-center",
+    duration: 500000,
+    className: "cheerup-toast",
+    containerClass: "cheerup-toast-container",
+  },
 
   robots: {
     UserAgent: "*",
