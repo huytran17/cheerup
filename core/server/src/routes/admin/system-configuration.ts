@@ -50,6 +50,7 @@ systemConfigurationRouter.get(
 
 systemConfigurationRouter.get(
   "/:_id",
+  makeAuthorization(AuthorizationRole.ONLY_OWNER),
   makeValidator(getSystemConfigurationRules),
   makeExpressCallback(getSystemConfigurationController)
 );
