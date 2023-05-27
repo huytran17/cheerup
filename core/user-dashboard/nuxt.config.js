@@ -16,7 +16,7 @@ import en from "./locales/en.json";
 export default {
   ssr: false,
 
-  target: "static",
+  target: "server",
 
   head: seo_home_schema,
 
