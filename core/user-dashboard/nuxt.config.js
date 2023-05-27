@@ -16,6 +16,8 @@ import en from "./locales/en.json";
 export default {
   ssr: false,
 
+  target: "static",
+
   head: seo_home_schema,
 
   generate: {
