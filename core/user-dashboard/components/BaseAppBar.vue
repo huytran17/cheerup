@@ -5,6 +5,7 @@
       :lazy-src="logo_url"
       alt="logo"
       contain
+      max-width="320px"
       class="mx-auto clickable"
       @click="goToHomePage"
     ></v-img>
