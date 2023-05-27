@@ -1,15 +1,13 @@
 <template>
   <div class="d-flex flex-column justify-space-between w-100">
-    <div class="pb-4">
-      <v-img
-        :src="logo_url"
-        :lazy-src="logo_url"
-        alt="logo"
-        contain
-        class="mx-auto clickable"
-        @click="goToHomePage"
-      ></v-img>
-    </div>
+    <v-img
+      :src="logo_url"
+      :lazy-src="logo_url"
+      alt="logo"
+      contain
+      class="mx-auto clickable"
+      @click="goToHomePage"
+    ></v-img>
   </div>
 </template>
 
