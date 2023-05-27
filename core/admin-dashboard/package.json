@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider nuxt",
     "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider nuxt build",
-    "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider nuxt start",
+    "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider nohup nuxt start &",
     "generate": "cross-env NODE_OPTIONS=--openssl-legacy-provider nuxt generate"
   },
   "dependencies": {

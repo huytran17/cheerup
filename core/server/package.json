@@ -12,7 +12,7 @@
     "dc:up": "docker-compose up -d",
     "dc:down": "docker-compose down",
     "gulp:build": "rimraf dist && gulp --max-old-space-size=8192",
-    "serve": "cross-env NODE_ENV=production node ./dist/app.js --max-old-space-size=4096",
+    "serve": "cross-env NODE_ENV=production nohup node ./dist/app.js --max-old-space-size=4096 &",
     "serve-ts": "cross-env NODE_ENV=production ts-node --log-error -- ./src/app.ts",
     "test": "jest --passWithNoTests --detectOpenHandles",
     "test:ci": "node --max-old-space-size=8192 --expose-gc ./node_modules/.bin/jest --config jest.config.js --silent --cache --noStackTrace --forceExit --ci --logHeapUsage --detectOpenHandles --runInBand --bail",

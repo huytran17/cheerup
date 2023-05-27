@@ -14,9 +14,11 @@ export default class Redis {
 
     try {
       const client = createClient({
+        password: process.env.REDIS_PASSWORD,
         socket: {
-          connectTimeout: 0,
-        },
+          host: process.env.REDIS_HOST,
+          port: Number(process.env.REDIS_PORT)
+        }
       });
 
       client.on("error", (error) => console.error(error));
