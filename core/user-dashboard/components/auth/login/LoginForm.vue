@@ -3,7 +3,7 @@
     <v-row
       class="flex-column flex-md-row flex-column-reverse login-box-shadow mx-1"
     >
-      <v-col cols="12" class="py-8 px-8 login-form-background rounded-left-lg">
+      <v-col cols="12" class="py-8 px-8 login-form-background rounded-lg">
         <v-row>
           <v-col cols="12" class="d-flex justify-center">
             <div
@@ -27,6 +27,7 @@
               rounded
               hide-details
               filled
+              :rules="emailRules"
               @input="
                 updateMeObject({
                   variable_path: 'email',
@@ -53,6 +54,7 @@
               type="password"
               hide-details
               filled
+              :rules="passwordRules"
               @input="
                 updateMeObject({
                   variable_path: 'password',
@@ -163,9 +165,6 @@ export default {
 .login-form-background {
   background: rgba(255, 255, 255, 0.6);
 }
-.rounded-left-lg {
-  border-radius: 8px;
-}
 .rounded-icon {
   background: #f35587;
 }
@@ -174,10 +173,5 @@ export default {
 }
 :deep(.v-btn--disabled) {
   background: #e0e0e0;
-}
-@media only screen and (max-width: 959px) {
-  .rounded-left-lg {
-    border-radius: 8px;
-  }
 }
 </style>

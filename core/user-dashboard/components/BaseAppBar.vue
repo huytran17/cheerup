@@ -1,17 +1,15 @@
 <template>
-  <div class="pt-4">
-    <div class="d-flex flex-column justify-space-between w-100 pt-2">
-      <div class="pb-4">
-        <v-img
-          :src="logo_url"
-          :lazy-src="logo_url"
-          alt="logo"
-          max-width="319px"
-          contain
-          class="mx-auto clickable"
-          @click="goToHomePage"
-        ></v-img>
-      </div>
+  <div class="d-flex flex-column justify-space-between w-100">
+    <div class="pb-4">
+      <v-img
+        :src="logo_url"
+        :lazy-src="logo_url"
+        alt="logo"
+        max-width="319px"
+        contain
+        class="mx-auto clickable"
+        @click="goToHomePage"
+      ></v-img>
     </div>
   </div>
 </template>
@@ -22,7 +20,7 @@ export default {
   name: "BaseAppBar",
   data() {
     return {
-      logo_url: `${process.env.BASE_URL}/logo.png`,
+      logo_url: require("@/assets/images/app/logo.png"),
     };
   },
   methods: {
