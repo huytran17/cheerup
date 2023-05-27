@@ -134,6 +134,27 @@
             </v-btn>
           </v-col>
         </v-row>
+
+        <v-row>
+          <v-col cols="12">
+            <div class="text-body-2 text-right">
+              <span
+                @click="$router.push(localePath('/forget-password'))"
+                class="text-decoration-none black--text clickable"
+                v-html="$t('Forgot Password?')"
+              ></span>
+            </div>
+          </v-col>
+          <v-col class="pt-0">
+            <div class="text-body-2 text-right">
+              <span
+                @click="$router.push(localePath('/login'))"
+                class="text-decoration-none black--text clickable"
+                v-html="$t('Sign In')"
+              ></span>
+            </div>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-form>

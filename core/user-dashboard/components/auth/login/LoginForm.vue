@@ -27,6 +27,7 @@
               rounded
               hide-details
               filled
+              :rules="emailRules"
               @input="
                 updateMeObject({
                   variable_path: 'email',
@@ -53,6 +54,7 @@
               type="password"
               hide-details
               filled
+              :rules="passwordRules"
               @input="
                 updateMeObject({
                   variable_path: 'password',
