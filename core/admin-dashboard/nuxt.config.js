@@ -217,8 +217,7 @@ export default {
   },
 
   env: {
-    SERVER_URL: process.env.SERVER_URL || "http://localhost:3000",
-    USER_DASHBOARD_URL:
-      process.env.USER_DASHBOARD_URL || "http://localhost:8082",
+    SERVER_URL: process.env.SERVER_URL || "http://server.cheerup.blog",
+    USER_DASHBOARD_URL: process.env.USER_DASHBOARD_URL || "http://cheerup.blog",
   },
 };

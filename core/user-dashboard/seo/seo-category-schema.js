@@ -64,7 +64,7 @@ const seo_category_schema = {
     {
       hid: "og:image",
       property: "og:image",
-      content: "http://localhost:8082/logo.png",
+      content: "http://cheerup.blog/logo.png",
     },
     {
       hid: "og:image:alt",
@@ -89,7 +89,7 @@ const seo_category_schema = {
     {
       hid: "twitter:image",
       name: "twitter:image",
-      content: "http://localhost:8082/logo.png",
+      content: "http://cheerup.blog/logo.png",
     },
     {
       hid: "twitter:image:alt",

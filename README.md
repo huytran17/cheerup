@@ -9,7 +9,7 @@ In this code base, the genuis of the application has been contributed by the fol
 
 ## Website
 
-https://localhost:8082/
+https://cheerup.blog/
 
 ## Technology stack
 
@@ -343,7 +343,7 @@ Refer to /server folder > README.md for more instructions
 3. Start the docker containers: `yarn dc:up`
 4. type `yarn install` on server home directory if you have not done it before.
 5. type `yarn dev`
-6. Server will run on `http://localhost:3000`
+6. Server will run on `http://server.cheerup.blog`
 7. If you wish to stop the docker containers, `yarn dc:down`
 
 ## How to run user-dashboard
@@ -351,14 +351,14 @@ Refer to /server folder > README.md for more instructions
 1. cd user-dashboard folder
 2. type `yarn install` if you have not done it before.
 3. type `yarn dev`
-4. access it at `http://localhost:8082`
+4. access it at `http://cheerup.blog`
 
 ## How to run admin-dashboard
 
 1. cd admin-dashboard folder
 2. type `yarn install` if you have not done it before.
 3. type `yarn dev`
-4. access it at `http://localhost:8080`
+4. access it at `http://admin.cheerup.blog`
 
 ## Getting the server pod id
 

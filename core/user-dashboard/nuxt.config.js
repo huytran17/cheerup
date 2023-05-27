@@ -253,8 +253,8 @@ export default {
   },
 
   env: {
-    SERVER_URL: process.env.SERVER_URL || "http://localhost:3000",
-    BASE_URL: process.env.BASE_URL || "http://localhost:8082",
+    SERVER_URL: process.env.SERVER_URL || "http://server.cheerup.blog",
+    BASE_URL: process.env.BASE_URL || "http://cheerup.blog",
     OWNER_EMAIL: process.env.OWNER_EMAIL,
   },
 };
