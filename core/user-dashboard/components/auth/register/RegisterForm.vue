@@ -1,6 +1,8 @@
 <template>
   <v-form v-model="form_valid" class="mx-auto">
-    <v-row class="flex-column flex-md-row flex-column-reverse login-box-shadow">
+    <v-row
+      class="flex-column flex-md-row flex-column-reverse login-box-shadow mx-1"
+    >
       <v-col cols="12" class="py-8 px-8 login-form-background rounded-lg">
         <v-row>
           <v-col cols="12" class="d-flex justify-center">
