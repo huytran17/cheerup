@@ -1,6 +1,4 @@
-import axios from "axios";
 import colors from "vuetify/es5/util/colors";
-import { get, map, flattenDeep, concat } from "lodash";
 import { seo_home_schema } from "./seo";
 import vi from "./locales/vi.json";
 import en from "./locales/en.json";
@@ -84,69 +82,6 @@ export default {
       if (isClient) {
         config.optimization.splitChunks.minSize = 10000;
         config.optimization.splitChunks.maxSize = 300000;
-      }
-    },
-  },
-
-  generate: {
-    cache: {
-      ignore: [
-        ".nuxt",
-        "static",
-        "dist",
-        "node_modules",
-        ".**/*",
-        ".*",
-        "README.md",
-      ],
-    },
-    subFolders: false,
-    interval: 50,
-    crawler: true,
-    fallback: "404.html",
-    async routes() {
-      try {
-        const [post_payload, category_payload] = await Promise.all([
-          axios.get(`${process.env.SERVER_URL}/api/seo/posts`),
-          axios.get(`${process.env.SERVER_URL}/api/seo/categories`),
-        ]);
-
-        const post_data = get(post_payload, "data.data", []);
-        const post_routes = map(post_data, (post) => ({
-          route: `/post/${post._id}`,
-          payload:
-            {
-              url: `${process.env.BASE_URL}/post/${post._id}`,
-            } || {},
-        }));
-
-        const category_data = get(category_payload, "data.data", []);
-        const category_routes = map(category_data, (category) => ({
-          route: `/category/${category._id}`,
-          payload:
-            {
-              url: `${process.env.BASE_URL}/category/${category._id}`,
-            } || {},
-        }));
-
-        const pages_routes = [
-          {
-            route: "/category",
-            payload: {
-              url: `${process.env.BASE_URL}/category`,
-            },
-          },
-          {
-            route: "/post",
-            payload: {
-              url: `${process.env.BASE_URL}/post`,
-            },
-          },
-        ];
-
-        return flattenDeep(concat(post_routes, category_routes, pages_routes));
-      } catch (error) {
-        console.error(error);
       }
     },
   },
