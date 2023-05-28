@@ -129,6 +129,7 @@ select:-webkit-autofill:focus {
 
 .text--small {
   font-size: 14px !important;
+  line-height: 20px;
 }
 
 .text__content {
