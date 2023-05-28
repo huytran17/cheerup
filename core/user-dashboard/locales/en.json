@@ -97,5 +97,7 @@
   "Profile": "Profile",
   "Register": "Register",
   "Reset password": "Reset password",
-  "Redirecting...": "Redirecting..."
+  "Redirecting...": "Redirecting...",
+  "Enter your email and press the submit button to receive the verification code.": "Enter your email and press the submit button to receive the verification code.",
+  "Then enter the confirmation code in the form below to authenticate.": "Then enter the confirmation code in the form below to authenticate."
 }

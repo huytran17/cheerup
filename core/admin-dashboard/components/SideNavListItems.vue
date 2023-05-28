@@ -2,6 +2,7 @@
   <vue-sidebar-menu-akahon
     :isMenuOpen="menu_options.is_menu_open"
     :menuLogo="menu_options.menu_logo"
+    :menuTitle="menu_options.menu_title"
     :menuIcon="menu_options.menuIcon"
     :menuItems="menu_items"
     :isSearch="false"
@@ -29,7 +30,8 @@ export default {
       default() {
         return {
           is_menu_open: true,
-          menu_logo: require("@/assets/images/app/logo.jpg"),
+          menu_logo: `${process.env.BASE_URL}/favicon.ico`,
+          menu_title: process.env.APP_NAME,
           is_search: false,
           menu_icon: "bx-menu",
         };
@@ -101,7 +103,6 @@ export default {
   data() {
     return {
       is_menu_open: false,
-      menu_logo: require("@/assets/images/app/large-logo.jpg"),
     };
   },
   computed: {
@@ -165,6 +166,13 @@ export default {
 }
 :deep(.profile) {
   border-right: 1px solid var(--color-grey) !important;
+}
+:deep(.menu-logo) {
+  object-fit: contain !important;
+}
+:deep(.logo_name) {
+  font-size: 22px !important;
+  font-family: "Lato", sans-serif !important;
 }
 .sidebar {
   border-right: 1px solid var(--color-grey) !important;

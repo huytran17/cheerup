@@ -217,7 +217,10 @@ export default {
   },
 
   env: {
-    SERVER_URL: process.env.SERVER_URL || "http://server.cheerup.blog",
-    USER_DASHBOARD_URL: process.env.USER_DASHBOARD_URL || "http://cheerup.blog",
+    APP_NAME: process.env.APP_NAME || "Cheerup",
+    SERVER_URL: process.env.SERVER_URL || "http://localhost:3000",
+    USER_DASHBOARD_URL:
+      process.env.USER_DASHBOARD_URL || "http://localhost:8082",
+    BASE_URL: process.env.BASE_URL || "http://localhost:8080",
   },
 };

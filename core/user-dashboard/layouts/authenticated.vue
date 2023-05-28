@@ -39,7 +39,6 @@
         </v-row>
       </v-container>
       <v-scroll-to-top></v-scroll-to-top>
-      <RequireLoginSnackbar />
     </v-main>
   </v-app>
 </template>
@@ -55,7 +54,6 @@ import BaseProfileCard from "@/components/user/BaseProfileCard";
 import BaseCategoriesCard from "@/components/category/BaseCategoriesCard";
 import BaseSearchCard from "@/components/searching/BaseSearchCard";
 import BaseQuickAccessCard from "@/components/quick-access/BaseQuickAccessCard";
-import RequireLoginSnackbar from "@/components/RequireLoginSnackbar";
 import BaseLanguageSwitcher from "@/components/BaseLanguageSwitcher";
 
 export default {
@@ -88,7 +86,6 @@ export default {
     BaseCategoriesCard,
     BaseSearchCard,
     BaseQuickAccessCard,
-    RequireLoginSnackbar,
     BaseLanguageSwitcher,
   },
   computed: {

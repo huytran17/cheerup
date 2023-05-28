@@ -35,10 +35,7 @@
           @click="$router.push(localePath(`/post/${post_slug}`))"
         ></span>
       </div>
-      <div
-        class="text-uppercase grey--text"
-        :class="is_mobile ? 'text--small' : 'text-body-3'"
-      >
+      <div class="text-uppercase grey--text text-body-3 text-sm-body-2">
         <span class="app-body">{{ formatDate(post_created_at, "LL") }}</span>
         <span>/</span>
         <span class="app-body">{{ post_author_name }}</span>
@@ -58,7 +55,7 @@
         </div>
       </div>
       <div
-        class="post__description text__description matte__black--text"
+        class="post__description text__content matte__black--text"
         v-line-clamp="2"
       >
         <span

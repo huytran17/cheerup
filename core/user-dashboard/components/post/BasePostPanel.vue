@@ -16,14 +16,13 @@
         </v-chip>
       </div>
 
-      <div class="text-h6 text-sm-h4 text-uppercase text-center py-4">
+      <div
+        class="text-h6 text-sm-h4 text-uppercase text-center pt-4 pb-0 pb-sm-3"
+      >
         <span class="app-body position-relative" v-html="post.title"></span>
       </div>
 
-      <div
-        class="text-uppercase grey--text text-center"
-        :class="is_mobile ? 'text--small' : 'text__description'"
-      >
+      <div class="text-uppercase grey--text text-center text--small">
         <span class="app-body">{{ formatDate(post.created_at, "LL") }}</span>
         <span>/</span>
         <span class="app-body">{{ author_name }}</span>
@@ -32,7 +31,7 @@
       </div>
     </div>
 
-    <div class="d-flex justify-center pt-6 pb-3">
+    <div class="d-flex justify-center pt-4 pt-sm-6 pb-3">
       <v-img
         :src="post.thumbnail_url"
         :lazy-src="post.thumbnail_url"
@@ -67,7 +66,7 @@
       </span>
     </div>
 
-    <div v-if="post.source" class="text-body-2 text-sm-body-1 mt-2">
+    <div v-if="post.source" class="text-body-2 mt-2">
       <span class="app-body">
         <span v-html="$t('Source: ')"></span>
         <span class="post__source" v-html="post.source"></span>
@@ -78,14 +77,13 @@
       <v-tooltip right>
         <template v-slot:activator="{ on, attrs }">
           <v-btn
-            v-private
+            v-private="$t('You need to be logged in to perform this action')"
             icon
             @click="addOrDeletePostToBookmark"
             v-bind="attrs"
             v-on="on"
-            :small="is_mobile"
           >
-            <v-icon color="brick" class="clickable" :small="is_mobile">
+            <v-icon color="brick" class="clickable">
               {{ is_bookmarked ? "mdi-heart" : "mdi-heart-outline" }}</v-icon
             >
           </v-btn>
@@ -106,8 +104,8 @@
       <v-btn icon @click="exportPdf">
         <v-icon color="brick">mdi-download</v-icon>
       </v-btn>
-      <v-btn icon @click="copyLinkToClipboard" :small="is_mobile">
-        <v-icon color="facebook" :small="is_mobile">mdi-link-variant</v-icon>
+      <v-btn icon @click="copyLinkToClipboard">
+        <v-icon color="facebook">mdi-link-variant</v-icon>
       </v-btn>
     </div>
   </div>
@@ -223,11 +221,15 @@ export default {
 
       share_url && window.open(share_url, "_blank");
     },
-    copyLinkToClipboard() {
-      const post_url = `${process.env.BASE_URL}/post/${this.post.slug}`;
+    async copyLinkToClipboard() {
+      try {
+        const post_url = `${process.env.BASE_URL}/post/${this.post.slug}`;
 
-      navigator.clipboard.writeText(post_url);
-      this.$toast.success(this.$t("Coppied to clipboard!"));
+        await navigator.clipboard.writeText(post_url);
+        this.$toast.success(this.$t("Coppied to clipboard!"));
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 

@@ -6,6 +6,7 @@
       alt="logo"
       contain
       max-width="320px"
+      width="inherit"
       class="mx-auto clickable"
       @click="goToHomePage"
     ></v-img>

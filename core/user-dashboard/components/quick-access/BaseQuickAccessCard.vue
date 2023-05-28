@@ -8,7 +8,7 @@
     </div>
     <div class="sidebar__card py-6 px-6 access__list horizontal__scrollbar">
       <div
-        class="text-body-3 text-sm-body-2 text-uppercase text-left"
+        class="text-body-2 text-uppercase text-left"
         v-for="(access, index) in menu_access"
         :key="access.id"
       >

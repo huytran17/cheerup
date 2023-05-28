@@ -34,11 +34,7 @@
   </v-row>
   <v-row v-else>
     <v-col cols="12">
-      <div
-        class="text__description text-sm-body-2 text-uppercase text-center grey--text"
-      >
-        <span class="app-body" v-html="$t('No data available')"></span>
-      </div>
+      <BaseNoData message="No data available" />
     </v-col>
   </v-row>
 </template>
@@ -46,11 +42,12 @@
 <script>
 import categoryMixins from "@/mixins/category";
 import BaseCategoryItem from "@/components/category/BaseCategoryItem";
+import BaseNoData from "@/components/BaseNoData";
 
 export default {
   name: "BaseCategory",
   mixins: [categoryMixins],
-  components: { BaseCategoryItem },
+  components: { BaseCategoryItem, BaseNoData },
   async fetch() {
     try {
       await this.GET_OUTSTANDING_CATEGORIES_PAGINATED();
