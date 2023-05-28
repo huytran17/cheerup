@@ -36,11 +36,7 @@
   </v-row>
   <v-row v-else>
     <v-col cols="12">
-      <div
-        class="text__description text-sm-body-2 text-uppercase text-center grey--text"
-      >
-        <span class="app-body" v-html="$t('No data available')"></span>
-      </div>
+      <BaseNoData message="No data available" />
     </v-col>
   </v-row>
 </template>
@@ -50,10 +46,11 @@ import { get, isEmpty } from "lodash";
 import { mapGetters } from "vuex";
 import postMixins from "@/mixins/post";
 import BaseArticle from "@/components/article/BaseArticle";
+import BaseNoData from "@/components/BaseNoData";
 export default {
   name: "BaseArticles",
   mixins: [postMixins],
-  components: { BaseArticle },
+  components: { BaseArticle, BaseNoData },
   computed: {
     ...mapGetters({
       me: "auth/me",

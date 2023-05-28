@@ -9,7 +9,7 @@
             <div
               class="d-flex flex-column justify-center rounded-icon pa-1 rounded-circle clickable"
             >
-              <a :href="google_login_uri"
+              <a :href="google_login_uri" class="text-decoration-none"
                 ><v-icon class="mx-auto">mdi-google</v-icon></a
               >
             </div>

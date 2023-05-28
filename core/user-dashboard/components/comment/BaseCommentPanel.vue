@@ -2,7 +2,7 @@
   <v-row v-if="can_not_show_comment_panel">
     <v-col cols="12" class="pb-11">
       <div
-        class="text__description text-sm-body-2 text-uppercase text-center grey--text"
+        class="text__content text-sm-body-2 text-uppercase text-center grey--text"
       >
         <span
           v-if="is_post_blocked_comment"
@@ -80,7 +80,7 @@
             </div>
             <div
               v-else
-              class="text__description text-sm-body-2 text-uppercase brick--text pl-15 mt-4"
+              class="text__content text-sm-body-2 text-uppercase brick--text pl-15 mt-4"
             >
               <span
                 class="app-body clickable"
@@ -97,7 +97,7 @@
     <v-col cols="12" class="pa-0"> <BaseEditForm /> </v-col>
     <v-col v-if="has_more_comments" cols="12" class="pa-4">
       <div
-        class="text__description text-sm-body-2 text-uppercase text-center brick--text"
+        class="text__content text-sm-body-2 text-uppercase text-center brick--text"
       >
         <span
           class="app-body clickable"

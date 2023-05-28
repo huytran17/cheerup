@@ -27,25 +27,21 @@
       </v-col>
     </v-row>
   </div>
-  <div v-else>
-    <div
-      class="text__description text-sm-body-2 text-uppercase text-center grey--text"
-    >
-      <span class="app-body" v-html="$t('No data available')"></span>
-    </div>
-  </div>
+  <BaseNoData v-else message="No data available" />
 </template>
 
 <script>
 import { isEmpty, isNil } from "lodash";
 import postBookmarkMixins from "@/mixins/post-bookmark";
 import BaseFavouriteCard from "@/components/favourites/BaseFavouriteCard";
+import BaseNoData from "@/components/BaseNoData";
 
 export default {
   name: "BaseFavouriteCards",
   mixins: [postBookmarkMixins],
   components: {
     BaseFavouriteCard,
+    BaseNoData,
   },
   computed: {
     has_bookmark_data() {

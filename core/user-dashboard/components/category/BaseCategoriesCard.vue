@@ -9,7 +9,7 @@
     <div class="sidebar__card py-6 px-6 category__list horizontal__scrollbar">
       <div v-if="category_titles.length">
         <div
-          class="text-body-3 text-sm-body-2 text-uppercase text-left"
+          class="text-body-2 text-uppercase text-left"
           v-for="(category, index) in category_titles"
           :key="category._id"
         >
@@ -25,21 +25,18 @@
           </div>
         </div>
       </div>
-      <div
-        v-else
-        class="text__description text-sm-body-2 text-uppercase text-center grey--text"
-      >
-        <span class="app-body" v-html="$t('No data available')"></span>
-      </div>
+      <BaseNoData v-else message="No data available" />
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import BaseNoData from "@/components/BaseNoData";
 
 export default {
   name: "BaseCategoriesCard",
+  components: { BaseNoData },
   computed: {
     ...mapGetters({
       category_titles: "category/category_titles",
