@@ -3,7 +3,7 @@
     <div class="mr-2 d-flex flex-column justify-center mr-auto ml-3 mb-3">
       <BaseLanguageSwitcher />
     </div>
-    <div class="d-flex mx-3">
+    <div class="d-flex mx-3 flex-column flex-sm-row analysis-toggler-wrapper">
       <div
         class="text-body-1 d-flex flex-column justify-center pr-4 primary--text"
       >
@@ -154,3 +154,11 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+@media only screen and (max-width: 600px) {
+  .analysis-toggler-wrapper {
+    gap: 12px;
+  }
+}
+</style>
