@@ -74,9 +74,7 @@
         </div>
       </div>
       <div v-else>
-        <div class="small--text">
-          <span class="app-body" v-html="$t('No data available')"></span>
-        </div>
+        <BaseNoData message="No data available" />
         <div class="d-flex justify-center pt-3">
           <v-btn
             depressed
@@ -97,9 +95,11 @@
 import { get } from "lodash";
 import authMixins from "@/mixins/auth";
 import postBookmarkMixins from "@/mixins/post-bookmark";
+import BaseNoData from "@/components/BaseNoData";
 
 export default {
   name: "BaseProfileCard",
+  components: { BaseNoData },
   mixins: [authMixins, postBookmarkMixins],
   data() {
     return {

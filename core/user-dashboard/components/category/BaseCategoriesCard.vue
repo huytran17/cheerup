@@ -25,21 +25,18 @@
           </div>
         </div>
       </div>
-      <div
-        v-else
-        class="text__content text-sm-body-2 text-uppercase text-center grey--text"
-      >
-        <span class="app-body" v-html="$t('No data available')"></span>
-      </div>
+      <BaseNoData v-else message="No data available" />
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import BaseNoData from "@/components/BaseNoData";
 
 export default {
   name: "BaseCategoriesCard",
+  components: { BaseNoData },
   computed: {
     ...mapGetters({
       category_titles: "category/category_titles",
