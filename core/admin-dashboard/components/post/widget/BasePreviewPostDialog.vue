@@ -45,10 +45,7 @@
               ></span>
             </div>
 
-            <div
-              class="text-uppercase grey--text text-center"
-              :class="is_mobile ? 'text--small' : 'text__description'"
-            >
+            <div class="text-uppercase grey--text text-center text__content">
               <span class="app-body">{{
                 formatDate(post.created_at, "LL")
               }}</span>
@@ -93,7 +90,7 @@
             </span>
           </div>
 
-          <div v-if="post.source" class="text-body-2 text-sm-body-1 mt-2">
+          <div v-if="post.source" class="text-body-2 mt-2">
             <span class="app-body">
               <span v-html="$t('Source: ')"></span>
               <span class="post__source" v-html="post.source"></span>

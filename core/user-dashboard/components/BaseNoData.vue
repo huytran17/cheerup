@@ -1,6 +1,6 @@
 <template>
   <div
-    class="text-cente text__description text-sm-body-2 text-uppercase text-center grey--text"
+    class="text-cente text__content text-sm-body-2 text-uppercase text-center grey--text"
   >
     <span class="app-body" v-html="$t(message)"></span>
   </div>

@@ -18,7 +18,7 @@
           ></span>
         </v-badge>
       </div>
-      <div class="post__description text__description matte__black--text">
+      <div class="post__description text__content matte__black--text">
         <span class="app-body" v-html="data.description"></span>
       </div>
       <div class="text-left text-caption grey--text text-uppercase">

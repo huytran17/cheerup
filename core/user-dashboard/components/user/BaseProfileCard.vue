@@ -39,7 +39,7 @@
         </div>
 
         <div class="profile__list pt-3">
-          <div class="text-body-3 text-sm-body-2 text-uppercase text-left">
+          <div class="text-body-2 text-uppercase text-left">
             <div class="py-2 card-item__wrapper">
               <span
                 class="app-body clickable card-item__title"
@@ -49,7 +49,7 @@
             </div>
           </div>
 
-          <div class="text-body-3 text-sm-body-2 text-uppercase text-left">
+          <div class="text-body-2 text-uppercase text-left">
             <div class="py-2 card-item__wrapper">
               <span
                 class="app-body clickable card-item__title"
@@ -62,7 +62,7 @@
             </div>
           </div>
 
-          <div class="text-body-3 text-sm-body-2 text-uppercase text-left">
+          <div class="text-body-2 text-uppercase text-left">
             <div class="py-2 card-item__wrapper">
               <span
                 class="app-body clickable card-item__title"

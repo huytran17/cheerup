@@ -128,18 +128,7 @@ select:-webkit-autofill:focus {
 }
 
 .text--small {
-  font-size: 11px !important;
-}
-
-.text-body-3 {
-  font-size: 12px !important;
-  font-family: "Lato", sans-serif !important;
-}
-
-.text__description {
   font-size: 14px !important;
-  font-weight: 400;
-  font-family: "Lato", sans-serif !important;
 }
 
 .text__content {
@@ -204,6 +193,10 @@ select:-webkit-autofill:focus {
 
 .cheerup-toast-container {
   top: 1% !important;
+}
+
+.text-body-3 {
+  font-size: 12px;
 }
 
 @media only screen and (max-width: 600px) {

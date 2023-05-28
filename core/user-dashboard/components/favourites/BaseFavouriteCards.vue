@@ -29,7 +29,7 @@
   </div>
   <div v-else>
     <div
-      class="text__description text-sm-body-2 text-uppercase text-center grey--text"
+      class="text__content text-sm-body-2 text-uppercase text-center grey--text"
     >
       <span class="app-body" v-html="$t('No data available')"></span>
     </div>

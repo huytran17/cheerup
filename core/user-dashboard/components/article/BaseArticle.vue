@@ -16,7 +16,9 @@
         </v-chip>
       </div>
 
-      <div class="text-h6 text-sm-h4 text-uppercase text-center pb-4 pt-2">
+      <div
+        class="text-h6 text-sm-h4 text-uppercase text-center pb-0 pb-sm-3 pt-2"
+      >
         <span
           class="app-body post__title position-relative clickable"
           v-html="post_data.title"
@@ -24,10 +26,7 @@
         ></span>
       </div>
 
-      <div
-        class="text-uppercase grey--text text-center"
-        :class="is_mobile ? 'text--small' : 'text__description'"
-      >
+      <div class="text-uppercase grey--text text-center text--small">
         <span class="app-body">{{
           formatDate(post_data.created_at, "LL")
         }}</span>
@@ -38,7 +37,7 @@
       </div>
     </div>
 
-    <div class="d-flex justify-center pt-6 pb-3 pb-sm-4">
+    <div class="d-flex justify-center pt-4 pt-sm-6 pb-3">
       <v-img
         :src="post_data.thumbnail_url"
         :lazy-src="post_data.thumbnail_url"
@@ -49,7 +48,7 @@
     </div>
 
     <div
-      class="post__description text__description matte__black--text"
+      class="post__description text__content matte__black--text"
       v-line-clamp="2"
     >
       <span
@@ -80,9 +79,8 @@
             @click="addOrDeletePostToBookmark"
             v-bind="attrs"
             v-on="on"
-            :small="is_mobile"
           >
-            <v-icon color="brick" class="clickable" :small="is_mobile">
+            <v-icon color="brick" class="clickable">
               {{ is_bookmarked ? "mdi-heart" : "mdi-heart-outline" }}</v-icon
             >
           </v-btn>
@@ -91,29 +89,17 @@
           <span class="app-body" v-html="$t('Add to favourite')"></span>
         </div>
       </v-tooltip>
-      <v-btn
-        icon
-        @click="sharePost({ type: SOCIAL_MEDIA_TYPES.FACEBOOK })"
-        :small="is_mobile"
-      >
-        <v-icon color="facebook" :small="is_mobile">mdi-facebook</v-icon>
+      <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.FACEBOOK })">
+        <v-icon color="facebook">mdi-facebook</v-icon>
       </v-btn>
-      <v-btn
-        icon
-        @click="sharePost({ type: SOCIAL_MEDIA_TYPES.TWITTER })"
-        :small="is_mobile"
-      >
-        <v-icon color="twitter" :small="is_mobile">mdi-twitter</v-icon>
+      <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.TWITTER })">
+        <v-icon color="twitter">mdi-twitter</v-icon>
       </v-btn>
-      <v-btn
-        icon
-        @click="sharePost({ type: SOCIAL_MEDIA_TYPES.PINTEREST })"
-        :small="is_mobile"
-      >
-        <v-icon color="pinterest" :small="is_mobile">mdi-pinterest</v-icon>
+      <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.PINTEREST })">
+        <v-icon color="pinterest">mdi-pinterest</v-icon>
       </v-btn>
-      <v-btn icon @click="copyLinkToClipboard" :small="is_mobile">
-        <v-icon color="facebook" :small="is_mobile">mdi-link-variant</v-icon>
+      <v-btn icon @click="copyLinkToClipboard">
+        <v-icon color="facebook">mdi-link-variant</v-icon>
       </v-btn>
     </div>
   </div>
@@ -200,11 +186,15 @@ export default {
       share_url && window.open(share_url, "_blank");
     },
 
-    copyLinkToClipboard() {
-      const post_url = `${process.env.BASE_URL}/post/${this.post_data.slug}`;
+    async copyLinkToClipboard() {
+      try {
+        const post_url = `${process.env.BASE_URL}/post/${this.post_data.slug}`;
 
-      navigator.clipboard.writeText(post_url);
-      this.$toast.success(this.$t("Coppied to clipboard!"));
+        await navigator.clipboard.writeText(post_url);
+        this.$toast.success(this.$t("Coppied to clipboard!"));
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 
