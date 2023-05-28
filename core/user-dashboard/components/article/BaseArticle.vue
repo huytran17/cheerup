@@ -74,7 +74,7 @@
       <v-tooltip right>
         <template v-slot:activator="{ on, attrs }">
           <v-btn
-            v-private
+            v-private="$t('You need to be logged in to perform this action')"
             icon
             @click="addOrDeletePostToBookmark"
             v-bind="attrs"

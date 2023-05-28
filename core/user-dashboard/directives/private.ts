@@ -7,7 +7,7 @@ Vue.directive("private", {
 
       if (!has_user) {
         event.preventDefault();
-        vNode.context?.$toast.error("You need to be logged in to perform this action")
+        vNode.context?.$toast.error(binding.value)
       }
     });
   },
