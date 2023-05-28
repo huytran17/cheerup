@@ -97,5 +97,7 @@
   "Profile": "Hồ sơ",
   "Register": "Đăng ký",
   "Reset password": "Khôi phục mật khẩu",
-  "Redirecting...": "Đang chuyển hướng..."
+  "Redirecting...": "Đang chuyển hướng...",
+  "Enter your email and press the submit button to receive the verification code.": "Nhập email của bạn và nhấn nút bên dưới để nhận mã xác thực.",
+  "Then enter the confirmation code in the form below to authenticate.": "Nhập mã xác thực vào ô bên dưới và nhấn nút xác nhận."
 }

@@ -2,7 +2,7 @@
   <div class="mx-auto forget-password-form">
     <v-form>
       <v-row class="soft-box-shadow py-4 px-3 mx-1">
-        <v-col cols="12">
+        <v-col cols="12 pb-0">
           <div class="text-body-2 text-md-body-1">
             <span
               class="app-body"
@@ -39,7 +39,7 @@
           </v-btn>
         </v-col>
 
-        <v-col cols="12">
+        <v-col cols="12 pb-0">
           <div class="text-body-2 text-md-body-1">
             <span
               class="app-body"
