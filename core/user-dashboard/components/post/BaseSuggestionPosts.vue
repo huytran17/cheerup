@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="text-h6 text-uppercase pb-11 suggestion__header position-relative"
+      class="text-body-1 text-sm-h6 text-uppercase pb-11 suggestion__header position-relative"
     >
       <span class="app-body" v-html="$t('You may also like')"></span>
     </div>
