@@ -6,10 +6,10 @@ Vue.directive("roles", {
         const user = store?.getters["auth/me"];
 
         const roles = binding.value || [];
-        const user_type = user?.type;
+        const user_type = user?.type
 
-        const invalid_role = !roles.includes(user_type);
+        const invalid_role = !roles.includes(user_type)
 
-        invalid_role && (window.location.href = vnode.context?.localePath("/403"));
+        invalid_role && (window.location.href = `${process.env.BASE_URL}/403`)
     },
 });
