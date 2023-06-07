@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-roles="['owner']">
     <v-row>
       <v-col cols="12" class="pb-0">
         <div class="text-h6 pb-3 text-center cyan--text">
