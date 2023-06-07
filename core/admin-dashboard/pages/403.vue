@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: "403",
+  name: "Unauthorized",
   head() {
     return {
       title: this.$t("Unauthorized"),
