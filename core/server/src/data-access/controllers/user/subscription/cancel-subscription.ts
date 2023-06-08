@@ -1,7 +1,7 @@
 import { IGetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
 import { IUpdateSubscription } from "../../../../use-cases/subscription/update-subscription";
 import { Request } from "express";
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -28,7 +28,7 @@ export default function makeCancelSubscriptionController({
         throw new Error(`Subscription by ${email} does not exist`);
       }
 
-      const final_updated_data = Object.assign({}, exists, {
+      const final_updated_data = merge({}, exists, {
         is_active: false,
       });
 

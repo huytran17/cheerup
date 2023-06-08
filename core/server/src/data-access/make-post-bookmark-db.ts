@@ -1,4 +1,4 @@
-import { map } from "lodash";
+import { map, merge } from "lodash";
 import mongoose from "mongoose";
 import IPostBookmarkDb, {
   IPaginatedPostBookmarkResult,
@@ -18,7 +18,7 @@ export default function makePostBookmarkDb({
 }): IPostBookmarkDb {
   return new (class MongoosePostBookmarkDb implements IPostBookmarkDb {
     async findAll(): Promise<PostBookmark[] | null> {
-      let query_conditions = Object.assign({});
+      let query_conditions = merge({});
 
       const existing = await postBookmarkDbModel
         .find(query_conditions)

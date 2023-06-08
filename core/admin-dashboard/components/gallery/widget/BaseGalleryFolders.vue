@@ -45,10 +45,12 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { merge } from "lodash";
 import galleryMixins from "@/mixins/gallery";
 import BaseFolderItem from "@/components/gallery/widget/BaseFolderItem";
 import BaseHardDeleteDialog from "@/components/BaseHardDeleteDialog";
 import BaseModalUpdateGallery from "@/components/gallery/widget/BaseModalUpdateGallery";
+
 export default {
   name: "BaseGalleryFolders",
   mixins: [galleryMixins],
@@ -91,7 +93,7 @@ export default {
     async updateFolder() {
       try {
         await this.UPDATE_GALLERY({
-          data: Object.assign({}, this.selected_item, {
+          data: merge({}, this.selected_item, {
             name: this.$refs.modalUpdateGallery.folder_name,
           }),
         });

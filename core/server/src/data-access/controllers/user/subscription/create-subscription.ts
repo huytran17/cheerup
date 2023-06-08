@@ -1,7 +1,7 @@
 import { ICreateSubscription } from "../../../../use-cases/subscription/create-subscription";
 import { IUpdateSubscription } from "../../../../use-cases/subscription/update-subscription";
 import { Request } from "express";
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import { IGetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -28,10 +28,10 @@ export default function makeCreateSubscriptionController({
 
       const exists = await getSubscriptionByEmail({ email });
 
-      let subscription_data = Object.assign({});
+      let subscription_data = merge({});
 
       if (!isEmpty(exists)) {
-        const update_subscription_details = Object.assign({}, exists, {
+        const update_subscription_details = merge({}, exists, {
           is_active,
         });
 
@@ -39,7 +39,7 @@ export default function makeCreateSubscriptionController({
           subscriptionDetails: update_subscription_details,
         });
       } else {
-        const create_subscription_details = Object.assign({}, exists, {
+        const create_subscription_details = merge({}, exists, {
           is_active,
           email,
         });

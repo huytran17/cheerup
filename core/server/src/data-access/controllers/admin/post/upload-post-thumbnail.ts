@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import { IGetPost } from "../../../../use-cases/post/get-post";
 import { IUpdatePost } from "../../../../use-cases/post/update-post";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -40,7 +40,7 @@ export default function makeUploadPostThumbnailController({
 
       deleteS3Object({ bucket, key });
 
-      const post_details = Object.assign({}, exists, {
+      const post_details = merge({}, exists, {
         thumbnail: file,
         seo: {
           ...exists.seo,

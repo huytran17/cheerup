@@ -2,7 +2,7 @@ import { ICreatePostBookmark } from "../../../../use-cases/post-bookmark/create-
 import { IHardDeletePostBookmark } from "../../../../use-cases/post-bookmark/hard-delete-post-bookmark";
 import { IGetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
 import { Request } from "express";
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import Moment from "moment";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -34,10 +34,10 @@ export default function makeCreateOrDeletePostBookmarkController({
         post_id,
       });
 
-      let post_bookmark_data = Object.assign({});
+      let post_bookmark_data = merge({});
 
       if (isEmpty(post_bookmark_exists)) {
-        const post_bookmark_details = Object.assign(
+        const post_bookmark_details = merge(
           {},
           {
             user: user_id,

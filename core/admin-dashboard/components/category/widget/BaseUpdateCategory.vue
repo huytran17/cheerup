@@ -175,7 +175,7 @@
 </template>
 
 <script>
-import { get, isObject } from "lodash";
+import { get, isObject, merge } from "lodash";
 
 import categoryMixins from "@/mixins/category";
 import dropzoneMixins from "@/mixins/dropzone";
@@ -213,7 +213,7 @@ export default {
       this.$refs.thumbnail_dropzone.removeFile(file);
 
       const { data: updated_category } = response;
-      const updated_thumbnail_data = Object.assign({}, this.category, {
+      const updated_thumbnail_data = merge({}, this.category, {
         thumbnail: updated_category.thumbnail,
         thumbnail_url: updated_category.thumbnail_url,
       });

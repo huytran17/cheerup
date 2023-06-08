@@ -19,6 +19,7 @@ export default {
   plugins: [
     "~/plugins/vuetify",
     "~/plugins/router",
+    "~/directives",
     { src: "~/plugins/axios", ssr: false },
     { src: "~/plugins/vue-toastification", ssr: false },
     { src: "~/plugins/vue-sidebar-menu-akahon", ssr: false },

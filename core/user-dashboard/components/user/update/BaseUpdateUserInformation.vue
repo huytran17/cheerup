@@ -80,6 +80,7 @@
 </template>
 
 <script>
+import { merge } from "lodash";
 import authMixins from "@/mixins/auth";
 import userMixins from "@/mixins/user";
 import dropzoneMixins from "@/mixins/dropzone";
@@ -107,10 +108,10 @@ export default {
 
       const { data: updated_user } = response;
 
-      let updated_thumbnail_data = Object.assign({}, this.me);
+      let updated_thumbnail_data = merge({}, this.me);
 
       update_paths.forEach((update_path) => {
-        updated_thumbnail_data = Object.assign({}, this.me, {
+        updated_thumbnail_data = merge({}, this.me, {
           [update_path]: updated_user[update_path],
         });
       });

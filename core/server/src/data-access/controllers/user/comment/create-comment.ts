@@ -2,7 +2,7 @@ import { IGetPost } from "../../../../use-cases/post/get-post";
 import { IGetUser } from "../../../../use-cases/user/get-user";
 import { ICreateComment } from "../../../../use-cases/comment/create-comment";
 import { Request } from "express";
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IComment from "../../../../database/interfaces/comment";
 import { ICountCommentLikeByCommentAndType } from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
@@ -72,7 +72,7 @@ export default function makeCreateCommentController({
         throw new Error(`User by ${user_id} has been blocked from comments`);
       }
 
-      const final_comment_data = Object.assign({}, commentDetails, {
+      const final_comment_data = merge({}, commentDetails, {
         user: user_id,
       });
 

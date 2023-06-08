@@ -1,3 +1,4 @@
+import { merge } from "lodash";
 import { IEmailData } from "./get-email-content";
 import { Mailer } from "./mailer";
 
@@ -25,19 +26,19 @@ export default function makeRenderEmailContent({
     user_template_data,
     object_data,
   }: IRenderEmailContentData): Promise<IEmailData> {
-    let final_email_content = Object.assign({}, email_content);
+    let final_email_content = merge({}, email_content);
 
     const has_no_subject = !final_email_content.subject;
     has_no_subject &&
-      (final_email_content = Object.assign(final_email_content, {
+      (final_email_content = merge(final_email_content, {
         subject: "",
       }));
 
     const has_no_content = !final_email_content.html;
     has_no_content &&
-      (final_email_content = Object.assign(final_email_content, { html: "" }));
+      (final_email_content = merge(final_email_content, { html: "" }));
 
-    const email_data = Object.assign(
+    const email_data = merge(
       {},
       defaultTemplateData,
       user_template_data
@@ -55,7 +56,7 @@ export default function makeRenderEmailContent({
       object_data,
     });
 
-    const rendered_mail_content = Object.assign({}, final_email_content, {
+    const rendered_mail_content = merge({}, final_email_content, {
       subject: rendered_subject,
       html: rendered_html,
     });

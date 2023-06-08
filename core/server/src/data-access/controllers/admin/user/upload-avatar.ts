@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import { IGetUser } from "../../../../use-cases/user/get-user";
 import { IUpdateUser } from "../../../../use-cases/user/update-user";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -40,7 +40,7 @@ export default function makeUploadUserAvatarController({
 
       deleteS3Object({ bucket, key });
 
-      const user_details = Object.assign({}, exists, {
+      const user_details = merge({}, exists, {
         avatar: file,
       });
 

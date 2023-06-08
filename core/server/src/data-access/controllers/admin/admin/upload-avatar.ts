@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import { IGetAdmin } from "../../../../use-cases/admin/get-admin";
 import { IUpdateAdmin } from "../../../../use-cases/admin/update-admin";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -40,7 +40,7 @@ export default function makeUploadAdminAvatarController({
 
       deleteS3Object({ bucket, key });
 
-      const admin_details = Object.assign({}, exists, {
+      const admin_details = merge({}, exists, {
         avatar: file,
       });
 

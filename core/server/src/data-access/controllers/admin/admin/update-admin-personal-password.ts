@@ -2,7 +2,7 @@ import { IGetAdmin } from "../../../../use-cases/admin/get-admin";
 import { IUpdateAdmin } from "../../../../use-cases/admin/update-admin";
 import { Logger } from "winston";
 import { Request } from "express";
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import { IHashPassword } from "../../../../config/password/hash-password";
 import { IVerifyPassword } from "../../../../config/password/verify-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -53,7 +53,7 @@ export default function makeUpdateAdminPersonalPasswordController({
         password_confirmation: new_password_confirmation,
       });
 
-      const admin_details = Object.assign({}, exists, {
+      const admin_details = merge({}, exists, {
         hash_password: hashed_password,
       });
 

@@ -1,4 +1,4 @@
-import { sortBy, map } from "lodash";
+import { sortBy, map, merge } from "lodash";
 import mongoose from "mongoose";
 import Subscription from "../database/entities/subscription";
 import ISubscription from "../database/interfaces/subscription";
@@ -165,7 +165,7 @@ export default function makeSubscriptionDb({
     }): Promise<IPaginatedSubscriptionResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
-      const query_conditions = Object.assign({});
+      const query_conditions = merge({});
 
       if (query) {
         query_conditions["$or"] = [

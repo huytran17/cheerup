@@ -1,9 +1,8 @@
 import { Request } from "express";
 import { IUpdateGallery } from "../../../../use-cases/gallery/update-gallery";
 import { IGetGallery } from "../../../../use-cases/gallery/get-gallery";
-import { get, filter } from "lodash";
+import { get, filter, merge } from "lodash";
 import { Logger } from "winston";
-import Storage from "../../../../config/storage";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 import deleteS3Object from "../../../../utils/delete-s3-object";
@@ -53,7 +52,7 @@ export default function makeDeleteGalleryItemController({
         (item) => item.key !== key
       );
 
-      const final_gallery_details = Object.assign({}, gallery_exists, {
+      const final_gallery_details = merge({}, gallery_exists, {
         items: updated_gallery_items,
       });
 

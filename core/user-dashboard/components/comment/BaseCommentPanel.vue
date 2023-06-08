@@ -25,7 +25,7 @@
   <v-row v-else>
     <v-col cols="12" class="pb-0">
       <div
-        class="text-h6 text-uppercase pb-11 comment__header position-relative"
+        class="text-body-1 text-sm-h6 text-uppercase pb-11 comment__header position-relative"
       >
         <span
           class="app-body"
@@ -80,7 +80,7 @@
             </div>
             <div
               v-else
-              class="text__content text-sm-body-2 text-uppercase brick--text pl-15 mt-4"
+              class="text-body-3 text-sm-body-2 text-uppercase brick--text pl-15 mt-4"
             >
               <span
                 class="app-body clickable"
@@ -110,7 +110,7 @@
 </template>
 
 <script>
-import { get, isEmpty, cloneDeep } from "lodash";
+import { get, isEmpty, cloneDeep, merge } from "lodash";
 import { mapMutations } from "vuex";
 import commentMixins from "@/mixins/comment";
 import postMixins from "@/mixins/post";
@@ -209,7 +209,7 @@ export default {
 
         this.is_loading = true;
         const post_id = get(this.post, "_id");
-        const final_comment_data = Object.assign({}, this.new_comment, {
+        const final_comment_data = merge({}, this.new_comment, {
           post: post_id,
         });
 

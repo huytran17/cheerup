@@ -1,4 +1,5 @@
 import moment from "moment";
+import { merge } from "lodash";
 import {
   connectDatabase,
   clearDatabase,
@@ -92,7 +93,7 @@ describe("createComment", () => {
 
     const request = {
       context: {
-        validated: Object.assign({}, mock_comment_data, {
+        validated: merge({}, mock_comment_data, {
           post: created_post._id,
         }),
         user: created_user,

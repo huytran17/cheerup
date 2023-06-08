@@ -2,7 +2,7 @@ import { IGetAdmin } from "../../../../use-cases/admin/get-admin";
 import { IUpdateAdmin } from "../../../../use-cases/admin/update-admin";
 import { Logger } from "winston";
 import { Request } from "express";
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import { IHashPassword } from "../../../../config/password/hash-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -41,7 +41,7 @@ export default function makeUpdateAdminPasswordController({
         password_confirmation,
       });
 
-      const admin_details = Object.assign({}, exists, {
+      const admin_details = merge({}, exists, {
         hash_password: hashed_password,
       });
 
