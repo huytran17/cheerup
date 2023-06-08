@@ -2,7 +2,7 @@ import { IGetPost } from "../../../../use-cases/post/get-post";
 import { IUpdatePost } from "../../../../use-cases/post/update-post";
 import { Logger } from "winston";
 import { Request } from "express";
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -30,7 +30,7 @@ export default function makeBlockPostCommentController({
         throw new Error(`Post by ${_id} does not exist`);
       }
 
-      const final_post_details = Object.assign({}, exists, {
+      const final_post_details = merge({}, exists, {
         is_blocked_comment: true,
       });
 

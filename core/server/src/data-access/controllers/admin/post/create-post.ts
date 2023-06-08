@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { convert } from "html-to-text";
-import { get, map, filter, join } from "lodash";
+import { get, map, filter, join, merge } from "lodash";
 import { Logger } from "winston";
 import { IGetEmailContent } from "../../../../config/emailManager/get-email-content";
 import { IRenderEmailContent } from "../../../../config/emailManager/render-email-content";
@@ -49,7 +49,7 @@ export default function makeCreatePostController({
 
       const { is_auto_censorship_post } = admin;
 
-      const final_post_details = Object.assign({}, postDetails, {
+      const final_post_details = merge({}, postDetails, {
         author: admin,
         is_published: is_auto_censorship_post,
         published_by: (is_auto_censorship_post && admin) || null,
@@ -108,7 +108,7 @@ export default function makeCreatePostController({
           `Sent notifications email for new post to subscribers!!!`
         );
 
-        const final_post_details = Object.assign({}, created_post, {
+        const final_post_details = merge({}, created_post, {
           is_notified_to_user: true,
           seo: {
             date_modified: created_post?.updated_at,

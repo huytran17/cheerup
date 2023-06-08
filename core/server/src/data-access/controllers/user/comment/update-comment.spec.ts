@@ -1,4 +1,5 @@
 import moment from "moment";
+import { merge } from "lodash";
 import {
   connectDatabase,
   clearDatabase,
@@ -71,7 +72,7 @@ describe("updateComment", () => {
       userDetails: mock_user_data,
     });
 
-    const final_mock_comment_data = Object.assign(mock_comment_data, {
+    const final_mock_comment_data = merge(mock_comment_data, {
       post: created_post._id,
       user: created_user._id,
     });

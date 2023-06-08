@@ -251,10 +251,10 @@
 </template>
 
 <script>
+import { merge } from "lodash";
 import categoryMixins from "@/mixins/category";
 import postMixins from "@/mixins/post";
 import dropzoneMixins from "@/mixins/dropzone";
-
 import TiptapEditor from "@/components/TiptapEditor";
 import BasePreviewPostDialog from "@/components/post/widget/BasePreviewPostDialog";
 
@@ -288,7 +288,7 @@ export default {
       this.$refs.thumbnail_dropzone.removeFile(file);
 
       const { data: updated_post } = response;
-      const updated_thumbnail_data = Object.assign({}, this.post, {
+      const updated_thumbnail_data = merge({}, this.post, {
         thumbnail: updated_post.thumbnail,
         thumbnail_url: updated_post.thumbnail_url,
       });

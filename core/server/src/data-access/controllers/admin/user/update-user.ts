@@ -2,7 +2,7 @@ import { IGetUser } from "../../../../use-cases/user/get-user";
 import { IUpdateUser } from "../../../../use-cases/user/update-user";
 import { Logger } from "winston";
 import { Request } from "express";
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -37,7 +37,7 @@ export default function makeUpdateUserController({
         throw new Error(`Can not update password for socialite account ${_id}`);
       }
 
-      const final_user_details = Object.assign({}, exists, {
+      const final_user_details = merge({}, exists, {
         ...userDetails,
         blocked_comment_at: is_blocked_comment ? new Date() : null,
       });

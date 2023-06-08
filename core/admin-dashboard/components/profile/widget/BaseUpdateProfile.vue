@@ -262,7 +262,7 @@ export default {
       this.$refs.avatar_dropzone.removeFile(file);
 
       const { data: updated_admin } = response;
-      const updated_admin_data = Object.assign({}, this.me, {
+      const updated_admin_data = merge({}, this.me, {
         avatar: updated_admin.avatar,
         avatar_url: updated_admin.avatar_url,
       });

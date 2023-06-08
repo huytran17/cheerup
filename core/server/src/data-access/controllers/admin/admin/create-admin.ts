@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { Logger } from "winston";
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import { ICreateAdmin } from "../../../../use-cases/admin/create-admin";
 import { IGetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email";
 import { IHashPassword } from "../../../../config/password/hash-password";
@@ -39,7 +39,7 @@ export default function makeCreateAdminController({
         password_confirmation,
       });
 
-      const admin_details = Object.assign({}, admin, {
+      const admin_details = merge({}, admin, {
         hash_password: hashed_password,
       });
 

@@ -110,7 +110,7 @@
 </template>
 
 <script>
-import { get, isEmpty, cloneDeep } from "lodash";
+import { get, isEmpty, cloneDeep, merge } from "lodash";
 import { mapMutations } from "vuex";
 import commentMixins from "@/mixins/comment";
 import postMixins from "@/mixins/post";
@@ -209,7 +209,7 @@ export default {
 
         this.is_loading = true;
         const post_id = get(this.post, "_id");
-        const final_comment_data = Object.assign({}, this.new_comment, {
+        const final_comment_data = merge({}, this.new_comment, {
           post: post_id,
         });
 

@@ -2,7 +2,7 @@ import { IGetUser } from "../../../../use-cases/user/get-user";
 import { IUpdateUser } from "../../../../use-cases/user/update-user";
 import { Logger } from "winston";
 import { Request } from "express";
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import { IHashPassword } from "../../../../config/password/hash-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -41,7 +41,7 @@ export default function makeUpdateUserPasswordController({
         password_confirmation,
       });
 
-      const user_details = Object.assign({}, exists, {
+      const user_details = merge({}, exists, {
         hash_password: hashed_password,
       });
 

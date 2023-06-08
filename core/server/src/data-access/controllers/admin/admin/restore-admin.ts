@@ -2,7 +2,7 @@ import { IGetAdmin } from "../../../../use-cases/admin/get-admin";
 import { IUpdateAdmin } from "../../../../use-cases/admin/update-admin";
 import { Logger } from "winston";
 import { Request } from "express";
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -30,7 +30,7 @@ export default function makeRestoreAdminController({
         throw new Error(`Admin by id ${_id} does not exist`);
       }
 
-      const updated_admin_data = Object.assign({}, exists, {
+      const updated_admin_data = merge({}, exists, {
         deleted_at: null,
       });
 

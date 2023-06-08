@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import mongoose_lean_virtuals from "mongoose-lean-virtuals";
-import { get, map, filter } from "lodash";
+import { get, map, filter, merge } from "lodash";
 import { isEmpty } from "../../utils/is-empty";
 import { CommentLikeModel, CommentModel } from "../../data-access/models";
 import IComment from "../interfaces/comment";
@@ -61,7 +61,7 @@ commentSchema.pre("deleteOne", { document: true }, async function (next) {
       (comment_id) => comment_id.toString() !== this._id.toString()
     );
 
-    const updated_parent_comment: Partial<IComment> = Object.assign(
+    const updated_parent_comment: Partial<IComment> = merge(
       parent_comment,
       {
         children: new_parents_children,

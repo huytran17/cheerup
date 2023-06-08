@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import deleteS3Object from "../../utils/delete-s3-object";
 
 type IController = (httpRequest: any) => any;
@@ -8,7 +8,7 @@ export default function makeExpressCallback(controller: IController) {
   return (req: Request, res: Response, next: NextFunction) => {
     const httpRequest = {
       context: {
-        validated: Object.assign({}, req.body, req.params, req.query),
+        validated: merge({}, req.body, req.params, req.query),
         user: req.user,
         file: req.file,
         ip: req.clientIp,

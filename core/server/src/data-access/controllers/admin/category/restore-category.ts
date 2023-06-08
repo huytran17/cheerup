@@ -2,7 +2,7 @@ import { IGetCategory } from "../../../../use-cases/category/get-category";
 import { IUpdateCategory } from "../../../../use-cases/category/update-category";
 import { Logger } from "winston";
 import { Request } from "express";
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -30,7 +30,7 @@ export default function makeRestoreCategoryController({
         throw new Error(`Category by id ${_id} does not exist`);
       }
 
-      const updated_category_data = Object.assign({}, exists, {
+      const updated_category_data = merge({}, exists, {
         deleted_at: null,
       });
 

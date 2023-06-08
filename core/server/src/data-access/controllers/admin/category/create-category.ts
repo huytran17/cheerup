@@ -3,7 +3,7 @@ import { IUpdateCategory } from "../../../../use-cases/category/update-category"
 import { IGetCategoryByTitle } from "../../../../use-cases/category/get-category-by-title";
 import { Logger } from "winston";
 import { Request } from "express";
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -39,7 +39,7 @@ export default function makeCreateCategoryController({
 
       const { _id: user_id } = get(httpRequest, "context.user");
 
-      const final_category_data = Object.assign({}, categoryDetails, {
+      const final_category_data = merge({}, categoryDetails, {
         created_by: user_id,
       });
 
