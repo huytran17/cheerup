@@ -2,7 +2,7 @@ import { IGetPost } from "../../../../use-cases/post/get-post";
 import { IUpdatePost } from "../../../../use-cases/post/update-post";
 import { Logger } from "winston";
 import { Request } from "express";
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -30,7 +30,7 @@ export default function makeRestorePostController({
         throw new Error(`Post by id ${_id} does not exist`);
       }
 
-      const updated_post_data = Object.assign({}, exists, {
+      const updated_post_data = merge({}, exists, {
         deleted_at: null,
       });
 

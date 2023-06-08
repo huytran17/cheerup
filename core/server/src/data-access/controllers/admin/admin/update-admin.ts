@@ -2,7 +2,7 @@ import { IGetAdmin } from "../../../../use-cases/admin/get-admin";
 import { IUpdateAdmin } from "../../../../use-cases/admin/update-admin";
 import { Logger } from "winston";
 import { Request } from "express";
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -31,7 +31,7 @@ export default function makeUpdateAdminController({
         throw new Error(`Admin by ${_id} does not exist`);
       }
 
-      const final_admin_details = Object.assign({}, exists, adminDetails);
+      const final_admin_details = merge({}, exists, adminDetails);
       const updated_admin = await updateAdmin({
         adminDetails: final_admin_details,
       });

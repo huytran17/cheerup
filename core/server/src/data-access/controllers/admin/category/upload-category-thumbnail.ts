@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import { IGetCategory } from "../../../../use-cases/category/get-category";
 import { IUpdateCategory } from "../../../../use-cases/category/update-category";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -40,7 +40,7 @@ export default function makeUploadCategoryThumbnailController({
 
       deleteS3Object({ bucket, key });
 
-      const category_details = Object.assign({}, exists, {
+      const category_details = merge({}, exists, {
         thumbnail: file,
         seo: {
           ...exists.seo,

@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { Logger } from "winston";
-import { get, omit } from "lodash";
+import { get, omit, merge } from "lodash";
 import { ICreateUser } from "../../../../use-cases/user/create-user";
 import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { IHashPassword } from "../../../../config/password/hash-password";
@@ -47,7 +47,7 @@ export default function makeSignUpController({
         password_confirmation,
       });
 
-      const user_details = Object.assign(
+      const user_details = merge(
         {},
         omit(user, ["_id", "password", "password_confirmation"]),
         {

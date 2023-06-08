@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { convert } from "html-to-text";
-import { get, filter, join, map } from "lodash";
+import { get, filter, join, map, merge } from "lodash";
 import { Logger } from "winston";
 import { IGetEmailContent } from "../../../../config/emailManager/get-email-content";
 import { IRenderEmailContent } from "../../../../config/emailManager/render-email-content";
@@ -44,7 +44,7 @@ export default function makePublishPostController({
         throw new Error(`Post by ${_id} does not exist`);
       }
 
-      const final_post_details = Object.assign({}, exists, {
+      const final_post_details = merge({}, exists, {
         is_published: true,
         published_by: user_id,
         published_at: new Date(),
@@ -108,7 +108,7 @@ export default function makePublishPostController({
           `Sent notifications email for new post to subscribers!!!`
         );
 
-        const final_post_details = Object.assign({}, updated_post, {
+        const final_post_details = merge({}, updated_post, {
           is_notified_to_user: true,
           seo: {
             ...updated_post?.seo,

@@ -1,4 +1,4 @@
-import { sortBy, map } from "lodash";
+import { sortBy, map, merge } from "lodash";
 import mongoose from "mongoose";
 import IUserDb, {
   IPaginatedUserResult,
@@ -169,7 +169,7 @@ export default function makeUserDb({
     }
 
     async findAll(): Promise<User[] | null> {
-      let query_conditions = Object.assign({});
+      let query_conditions = merge({});
 
       const existing = await userDbModel
         .find(query_conditions)
@@ -193,7 +193,7 @@ export default function makeUserDb({
     }): Promise<IPaginatedUserResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
-      const query_conditions = Object.assign({});
+      const query_conditions = merge({});
 
       if (query) {
         query_conditions["$or"] = [

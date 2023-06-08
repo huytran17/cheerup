@@ -1,4 +1,5 @@
 import moment from "moment";
+import { merge } from "lodash";
 import {
   connectDatabase,
   clearDatabase,
@@ -88,7 +89,7 @@ describe("getCommentsByPostPaginated", () => {
     });
 
     await createComment({
-      commentDetails: Object.assign(mock_comment_data, {
+      commentDetails: merge(mock_comment_data, {
         post: created_post._id,
       }),
     });

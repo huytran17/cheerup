@@ -4,7 +4,7 @@ import { IGetComment } from "../../../../use-cases/comment/get-comment";
 import { IGetPost } from "../../../../use-cases/post/get-post";
 import { IGetUser } from "../../../../use-cases/user/get-user";
 import { Request } from "express";
-import { get, union, concat } from "lodash";
+import { get, union, concat, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -79,7 +79,7 @@ export default function makeReplyCommentController({
         throw new Error(`Parent comment by ${parent_id} does not exist`);
       }
 
-      const final_comment_data = Object.assign({}, commentDetails, {
+      const final_comment_data = merge({}, commentDetails, {
         user: user_id,
       });
 
@@ -88,7 +88,7 @@ export default function makeReplyCommentController({
       });
 
       const parent_comment_children = get(parent_comment, "children", []);
-      const final_parent_comment_data = Object.assign({}, parent_comment, {
+      const final_parent_comment_data = merge({}, parent_comment, {
         children: union(
           concat(parent_comment_children, [get(created_reply_comment, "_id")])
         ),

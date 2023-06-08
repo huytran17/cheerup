@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import { mapGetters } from "vuex";
 import commentMixins from "@/mixins/comment";
 import systemMixins from "@/mixins/system";
@@ -75,7 +75,7 @@ export default {
         }
 
         this.is_loading = true;
-        const final_comment_data = Object.assign({}, this.comment, {
+        const final_comment_data = merge({}, this.comment, {
           content: new_comment_content,
         });
 

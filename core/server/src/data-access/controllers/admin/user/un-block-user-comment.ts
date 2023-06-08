@@ -2,7 +2,7 @@ import { IGetUser } from "../../../../use-cases/user/get-user";
 import { IUpdateUser } from "../../../../use-cases/user/update-user";
 import { Logger } from "winston";
 import { Request } from "express";
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -30,7 +30,7 @@ export default function makeUnBlockUserCommentController({
         throw new Error(`User by ${_id} does not exist`);
       }
 
-      const final_user_details = Object.assign({}, exists, {
+      const final_user_details = merge({}, exists, {
         is_blocked_comment: false,
       });
 

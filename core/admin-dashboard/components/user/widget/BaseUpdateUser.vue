@@ -161,7 +161,7 @@
 </template>
 
 <script>
-import { get, omit, pick } from "lodash";
+import { get, omit, pick, merge } from "lodash";
 import userMixins from "@/mixins/user";
 import dropzoneMixins from "@/mixins/dropzone";
 
@@ -230,7 +230,7 @@ export default {
       this.$refs.avatar_dropzone.removeFile(file);
 
       const { data: updated_user } = response;
-      const updated_user_data = Object.assign({}, this.user, {
+      const updated_user_data = merge({}, this.user, {
         avatar: updated_user.avatar,
         avatar_url: updated_user.avatar_url,
       });

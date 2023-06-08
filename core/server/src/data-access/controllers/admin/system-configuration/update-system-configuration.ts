@@ -2,7 +2,7 @@ import { IGetSystemConfiguration } from "../../../../use-cases/system-configurat
 import { IUpdateSystemConfiguration } from "../../../../use-cases/system-configuration/update-system-configuraion";
 import { Logger } from "winston";
 import { Request } from "express";
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -31,7 +31,7 @@ export default function makeUpdateSystemConfigurationController({
         throw new Error(`SystemConfiguration by ${_id} does not exist`);
       }
 
-      const final_system_configuration_details = Object.assign(
+      const final_system_configuration_details = merge(
         {},
         exists,
         systemConfigurationDetails

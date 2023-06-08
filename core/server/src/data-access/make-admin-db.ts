@@ -1,4 +1,4 @@
-import { cloneDeep, sortBy, map } from "lodash";
+import { cloneDeep, sortBy, map, merge } from "lodash";
 import mongoose from "mongoose";
 import IAdminDb, {
   IPaginatedAdminResult,
@@ -239,7 +239,7 @@ export default function makeAdminDb({
     }
 
     async findAll(): Promise<Admin[] | null> {
-      let query_conditions = Object.assign({});
+      let query_conditions = merge({});
 
       const existing = await adminDbModel
         .find(query_conditions)
@@ -262,7 +262,7 @@ export default function makeAdminDb({
     }): Promise<IPaginatedAdminResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
-      const query_conditions = Object.assign({});
+      const query_conditions = merge({});
 
       if (query) {
         query_conditions["$or"] = [

@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { IGetComment } from "../../../../use-cases/comment/get-comment";
-import { get, map } from "lodash";
+import { get, map, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 import { CommentLikeType } from "../../../../database/interfaces/comment-like";
@@ -85,7 +85,7 @@ export default function makeGetCommentController({
       );
       const mapped_comment_meta_data = await map_meta_data(exists);
 
-      const final_comment_data: IComment = Object.assign(
+      const final_comment_data: IComment = merge(
         {},
         mapped_comment_meta_data,
         {

@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import authMixins from "@/mixins/auth";
 import userMixins from "@/mixins/user";
 import dropzoneMixins from "@/mixins/dropzone";
@@ -90,7 +90,7 @@ export default {
     async updateUserSecurity() {
       try {
         const { _id } = this.me;
-        const final_user_data = Object.assign({}, this.user, {
+        const final_user_data = merge({}, this.user, {
           _id,
         });
 

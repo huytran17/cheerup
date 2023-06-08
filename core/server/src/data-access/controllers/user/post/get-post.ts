@@ -2,7 +2,7 @@ import { Request } from "express";
 import { IGetPost } from "../../../../use-cases/post/get-post";
 import { IReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import { IGetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -40,7 +40,7 @@ export default function makeGetPostController({
           post_id,
         });
 
-        Object.assign(exists, {
+        merge(exists, {
           is_bookmarked: !isEmpty(post_bookmarked),
         });
       }
@@ -52,7 +52,7 @@ export default function makeGetPostController({
         );
       const reading_time = readingTimeAnalyzer({ text: analyzing_text });
 
-      const final_data = Object.assign({}, exists, { reading_time });
+      const final_data = merge({}, exists, { reading_time });
 
       return {
         headers,

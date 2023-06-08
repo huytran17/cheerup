@@ -1,4 +1,4 @@
-import { get, concat } from "lodash";
+import { get, concat, merge } from "lodash";
 import { Request } from "express";
 import { IUpdateGallery } from "../../../../use-cases/gallery/update-gallery";
 import { IGetGallery } from "../../../../use-cases/gallery/get-gallery";
@@ -37,7 +37,7 @@ export default function makeUploadGalleryItemController({
       }
 
       const current_gallery_items = get(gallery_exists, "items", []);
-      const final_gallery_data = Object.assign({}, gallery_exists, {
+      const final_gallery_data = merge({}, gallery_exists, {
         items: concat(current_gallery_items, [file]),
       });
 

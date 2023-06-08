@@ -1,7 +1,7 @@
 import { ICreateGallery } from "../../../../use-cases/gallery/create-gallery";
 import { Logger } from "winston";
 import { Request } from "express";
-import { get } from "lodash";
+import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeCreateGalleryController({
@@ -23,7 +23,7 @@ export default function makeCreateGalleryController({
 
       const { _id: user_id } = get(httpRequest, "context.user");
 
-      const final_gallery_data = Object.assign({}, galleryDetails, {
+      const final_gallery_data = merge({}, galleryDetails, {
         created_by: user_id,
       });
 

@@ -1,4 +1,5 @@
 import moment from "moment";
+import { merge } from "lodash";
 import {
   connectDatabase,
   clearDatabase,
@@ -72,7 +73,7 @@ describe("hardDeleteComment", () => {
     });
 
     const created_comment = await createComment({
-      commentDetails: Object.assign(mock_comment_data, {
+      commentDetails: merge(mock_comment_data, {
         user: created_user._id,
         post: created_post._id,
       }),
