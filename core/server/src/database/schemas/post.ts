@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import mongoose_lean_virtuals from "mongoose-lean-virtuals";
 import IPost from "../interfaces/post";
-import { get } from "lodash";
-import { PostModel } from "../../data-access/models";
+import { get, map } from "lodash";
+import { PostModel, CommentModel } from "../../data-access/models";
 import { textToSlug } from "../../utils/text-to-slug";
 import { isEmpty } from "../../utils/is-empty";
 
@@ -75,6 +75,15 @@ postSchema.pre("save", async function (next) {
   this.slug = slug;
 
   next();
+});
+
+postSchema.pre("deleteOne", { document: true }, async function (next) {
+  const post_id = get(this, "_id");
+  const comments = await CommentModel.find({ post: post_id }) || [];
+  const delete_comment_promises = map(comments, async (comment) => comment && (await comment.deleteOne()))
+  await Promise.all(delete_comment_promises)
+
+  next()
 });
 
 postSchema.plugin(mongoose_lean_virtuals);
