@@ -52,7 +52,7 @@
         <v-btn
           depressed
           tile
-          color="black"
+          color="brick"
           class="white--text"
           :disabled="!form_valid"
           @click="updateUserSecurity"
