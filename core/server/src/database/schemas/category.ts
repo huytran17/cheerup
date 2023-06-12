@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import mongoose_lean_virtuals from "mongoose-lean-virtuals";
 import ICategory from "../interfaces/category";
-import { CategoryModel } from "../../data-access/models";
-import { get } from "lodash";
+import { CategoryModel, PostModel } from "../../data-access/models";
+import { get, map } from "lodash";
 import { textToSlug } from "../../utils/text-to-slug";
 import { isEmpty } from "../../utils/is-empty";
 
@@ -65,6 +65,16 @@ categorySchema.pre("save", async function (next) {
 
   next();
 });
+
+categorySchema.pre('deleteOne', { document: true }, async function (next) {
+  const category_id = get(this, "_id")
+  const posts = await PostModel.find({ categories: category_id }) || []
+  const delete_post_promises = map(posts, async post => post && await post.deleteOne())
+
+  await Promise.all(delete_post_promises)
+
+  next()
+})
 
 categorySchema.plugin(mongoose_lean_virtuals);
 
