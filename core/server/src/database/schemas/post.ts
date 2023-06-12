@@ -82,6 +82,8 @@ postSchema.pre("deleteOne", { document: true }, async function (next) {
   const comments = await CommentModel.find({ post: post_id }) || [];
   const delete_comment_promises = map(comments, async (comment) => comment && (await comment.deleteOne()))
   await Promise.all(delete_comment_promises)
+
+  next()
 });
 
 postSchema.plugin(mongoose_lean_virtuals);
