@@ -545,7 +545,7 @@ export default function makePostDb({
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<Post | null> {
-      const existing = await postDbModel.deleteOne({ _id: _id });
+      await postDbModel.deleteOne({ _id });
       const updated = await postDbModel
         .findOne({ _id })
         .lean({ virtuals: true });
