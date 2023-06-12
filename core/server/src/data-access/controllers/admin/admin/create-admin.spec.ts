@@ -1,4 +1,5 @@
 import moment from "moment";
+import { merge } from "lodash";
 import {
   connectDatabase,
   clearDatabase,
@@ -52,7 +53,7 @@ describe("createAdmin", () => {
 
     const request = {
       context: {
-        validated: { ...mock_admin_data, ...password_data },
+        validated: merge(mock_admin_data, password_data),
       },
     };
 

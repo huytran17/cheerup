@@ -102,9 +102,7 @@ export default function makeGetPostsPaginatedController({
       return {
         headers,
         statusCode: HttpStatusCode.OK,
-        body: {
-          ...final_paginated_data,
-        },
+        body: final_paginated_data
       };
     } catch (error) {
       throw {
