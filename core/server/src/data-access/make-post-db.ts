@@ -530,7 +530,7 @@ export default function makePostDb({
     }
 
     async delete({ _id }: { _id: string }): Promise<Post | null> {
-      const existing = await postDbModel.findOneAndUpdate(
+      await postDbModel.findOneAndUpdate(
         { _id },
         { deleted_at: new Date() }
       );

@@ -316,7 +316,7 @@ export default function makeUserDb({
     }
 
     async delete({ _id }: { _id: string }): Promise<User | null> {
-      const existing = await userDbModel.findOneAndUpdate(
+      await userDbModel.findOneAndUpdate(
         { _id },
         { deleted_at: new Date() }
       );
@@ -332,7 +332,7 @@ export default function makeUserDb({
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<User | null> {
-      const existing = await userDbModel.deleteOne({ _id: _id });
+      await userDbModel.deleteOne({ _id });
       const updated = await userDbModel
         .findOne({ _id })
         .lean({ virtuals: true });
@@ -361,7 +361,7 @@ export default function makeUserDb({
     }
 
     async restore({ _id }: { _id: string }): Promise<User | null> {
-      const existing = await userDbModel.findOneAndUpdate(
+      await userDbModel.findOneAndUpdate(
         { _id },
         { deleted_at: null }
       );

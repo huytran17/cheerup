@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import { get } from "lodash";
+import { get, map } from "lodash";
+import { CommentModel } from "../../data-access/models";
 import mongoose_lean_virtuals from "mongoose-lean-virtuals";
 
 const Schema = mongoose.Schema;
@@ -33,6 +34,16 @@ userSchema.index({ created_at: -1 });
 userSchema.virtual("avatar_url").get(function () {
   return get(this, "avatar.location");
 });
+
+userSchema.pre('deleteOne', { document: true }, async function (next) {
+  const user_id = get(this, "_id")
+  const comments = await CommentModel.find({ user: user_id }) || []
+  const delete_comment_promises = map(comments, async comment => comment && await comment.deleteOne())
+
+  await Promise.all(delete_comment_promises)
+
+  next()
+})
 
 userSchema.plugin(mongoose_lean_virtuals);
 
