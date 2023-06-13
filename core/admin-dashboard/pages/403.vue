@@ -23,7 +23,7 @@ export default {
   name: "Unauthorized",
   head() {
     return {
-      title: this.$t("Unauthorized"),
+      title: this.$t("Forbidden"),
     };
   },
   data() {

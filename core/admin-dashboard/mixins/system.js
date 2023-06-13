@@ -1,4 +1,4 @@
-import { get, capitalize as _capitalize } from "lodash";
+import { capitalize as _capitalize } from "lodash";
 import { mapMutations, mapGetters } from "vuex";
 
 export default {

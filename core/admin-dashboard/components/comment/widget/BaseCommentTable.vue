@@ -47,7 +47,10 @@
             </div>
           </template>
 
-          <template v-slot:item.actions="{ item }">
+          <template
+            v-slot:item.actions="{ item }"
+            v-component-roles="[ADMIN_TYPES.OWNER, ADMIN_TYPES.COLLABORATOR]"
+          >
             <v-tooltip left>
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
@@ -83,6 +86,7 @@
 
 <script>
 import { get } from "lodash";
+import { ADMIN_TYPES } from "@/constants";
 
 import commentMixins from "@/mixins/comment";
 import systemMixins from "@/mixins/system";
@@ -138,6 +142,7 @@ export default {
     return {
       search: "",
       is_open_hard_delete_dialog: false,
+      ADMIN_TYPES,
     };
   },
 

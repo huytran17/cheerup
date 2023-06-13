@@ -54,7 +54,10 @@
             </div>
           </template>
 
-          <template v-slot:item.actions="{ item }">
+          <template
+            v-slot:item.actions="{ item }"
+            v-component-roles="[ADMIN_TYPES.OWNER]"
+          >
             <div v-if="item.deleted_at">
               <v-tooltip left>
                 <template v-slot:activator="{ on, attrs }">
@@ -156,6 +159,7 @@
 
 <script>
 import { get } from "lodash";
+import { ADMIN_TYPES } from "@/constants";
 
 import adminMixins from "@/mixins/admin";
 import systemMixins from "@/mixins/system";
@@ -214,6 +218,7 @@ export default {
     return {
       search: "",
       is_open_hard_delete_dialog: false,
+      ADMIN_TYPES,
     };
   },
 

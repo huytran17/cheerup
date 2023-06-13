@@ -37,7 +37,10 @@
           </template>
 
           <template v-slot:item.actions="{ item }">
-            <div v-if="item.deleted_at">
+            <div
+              v-if="item.deleted_at"
+              v-component-roles="[ADMIN_TYPES.OWNER, ADMIN_TYPES.COLLABORATOR]"
+            >
               <v-tooltip left>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
@@ -53,7 +56,7 @@
                 <span v-html="$t('Restore')"></span>
               </v-tooltip>
             </div>
-            <div v-else>
+            <div v-else v-component-roles="[ADMIN_TYPES.OWNER]">
               <v-tooltip left>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
@@ -88,7 +91,10 @@
                 <span v-html="$t('Delete Forever')"></span>
               </v-tooltip>
             </div>
-            <div v-if="item.is_blocked_comment">
+            <div
+              v-if="item.is_blocked_comment"
+              v-component-roles="[ADMIN_TYPES.OWNER, ADMIN_TYPES.COLLABORATOR]"
+            >
               <v-tooltip left>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
@@ -106,7 +112,10 @@
                 <span v-html="$t('Un-block comment')"></span>
               </v-tooltip>
             </div>
-            <div v-else>
+            <div
+              v-else
+              v-component-roles="[ADMIN_TYPES.OWNER, ADMIN_TYPES.COLLABORATOR]"
+            >
               <v-tooltip left>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
@@ -138,6 +147,7 @@
 
 <script>
 import { get } from "lodash";
+import { ADMIN_TYPES } from "@/constants";
 import userMixins from "@/mixins/user";
 import systemMixins from "@/mixins/system";
 
@@ -187,6 +197,7 @@ export default {
     return {
       search: "",
       is_open_hard_delete_dialog: false,
+      ADMIN_TYPES,
     };
   },
 
@@ -260,7 +271,9 @@ export default {
         const email = get(user, "email");
 
         await this.BLOCK_USER_COMMENT({ id });
-        this.$toast.success(this.$t(`Block comment for user ${email} successfully`));
+        this.$toast.success(
+          this.$t(`Block comment for user ${email} successfully`)
+        );
         await this.$fetch();
       } catch (error) {
         console.error(error);

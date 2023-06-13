@@ -5,11 +5,7 @@ import { ADMIN_TYPES } from "@/constants";
 export default {
   data() {
     return {
-      admin_types: [
-        ADMIN_TYPES.OWNER,
-        ADMIN_TYPES.COLLABORATOR,
-        ADMIN_TYPES.EDITOR,
-      ],
+      admin_types: [ADMIN_TYPES.OWNER, ADMIN_TYPES.COLLABORATOR],
       emailRules: [
         (v) => !!v || this.$t("E-mail is required."),
         (v) => /.+@.+\..+/.test(v) || this.$t("E-mail must be valid."),
