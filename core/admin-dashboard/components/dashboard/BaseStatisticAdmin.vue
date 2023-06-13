@@ -44,20 +44,6 @@
               <span v-html="ADMIN_TYPES.COLLABORATOR"></span>
             </v-tooltip>
           </v-btn>
-          <v-btn
-            @click="
-              refreshAdminAnalysticData({ author_type: ADMIN_TYPES.EDITOR })
-            "
-          >
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on, attrs }">
-                <v-icon v-bind="attrs" v-on="on" color="brick"
-                  >mdi-account-edit</v-icon
-                >
-              </template>
-              <span v-html="ADMIN_TYPES.EDITOR"></span>
-            </v-tooltip>
-          </v-btn>
         </v-btn-toggle>
       </v-col>
       <v-col cols="12">

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-page-roles="[ADMIN_TYPES.OWNER]">
     <v-row>
       <v-col cols="12" class="pb-0">
         <div class="text-h6 pb-3 text-center cyan--text">
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import { ADMIN_TYPES } from "@/constants";
 import BaseAdminTable from "@/components/admin/widget/BaseAdminTable";
 export default {
   name: "AdminIndex",
@@ -40,6 +41,11 @@ export default {
   head() {
     return {
       title: this.$t("Admins"),
+    };
+  },
+  data() {
+    return {
+      ADMIN_TYPES,
     };
   },
 };

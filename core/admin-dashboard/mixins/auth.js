@@ -5,7 +5,7 @@ import { ADMIN_TYPES } from "@/constants";
 export default {
   data() {
     return {
-      admin_types: [ADMIN_TYPES.SUPER, ADMIN_TYPES.NORMAL],
+      admin_types: [ADMIN_TYPES.OWNER, ADMIN_TYPES.COLLABORATOR],
       typeRules: [(v) => !!v || this.$t("Type is required.")],
       fullnameRules: [
         (v) => !!v || this.$t("Full-name is required."),
