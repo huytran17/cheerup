@@ -9,7 +9,7 @@ In this code base, the genuis of the application has been contributed by the fol
 
 ## Website
 
-https://cheerup.blog/
+http://cheerup.blog/
 
 ## Technology stack
 

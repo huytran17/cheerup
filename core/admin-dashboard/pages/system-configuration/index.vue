@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-page-roles="[ADMIN_TYPES.OWNER]">
     <v-row>
       <v-col cols="12" class="pb-0">
         <div class="text-h6 pb-3 text-center cyan--text">
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { ADMIN_TYPES } from "@/constants";
 import BaseUpdateSystemConfiguration from "@/components/system-configuration/widget/BaseUpdateSystemConfiguration";
 export default {
   name: "SystemConfigurationIndex",
@@ -26,6 +27,11 @@ export default {
   head() {
     return {
       title: this.$t("System configuration"),
+    };
+  },
+  data() {
+    return {
+      ADMIN_TYPES,
     };
   },
 };

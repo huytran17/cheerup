@@ -42,7 +42,7 @@ commentSchema.pre("deleteOne", { document: true }, async function (next) {
 
   const comment_likes = await CommentLikeModel.find({
     comment: get(this, "_id"),
-  });
+  }) || [];
 
   const delete_comment_like_promises = map(
     comment_likes,

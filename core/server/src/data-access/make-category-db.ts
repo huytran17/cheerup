@@ -393,7 +393,7 @@ export default function makeCategoryDb({
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<Category | null> {
-      const existing = await categoryDbModel.deleteOne({ _id: _id });
+      await categoryDbModel.deleteOne({ _id });
       const updated = await categoryDbModel
         .findOne({ _id })
         .lean({ virtuals: true });

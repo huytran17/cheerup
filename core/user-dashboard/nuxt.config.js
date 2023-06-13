@@ -181,7 +181,7 @@ export default {
 
   pwa: {
     meta: {
-      title: "The best topics about life",
+      title: "Be yourself, think your way",
       description:
         "Share thoughts on topics about love, work, life style, perspective and outlook on life",
       author: "Huy Tran",

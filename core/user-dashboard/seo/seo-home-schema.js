@@ -2,7 +2,7 @@ import { join } from "lodash";
 
 const seo_home_schema = {
   titleTemplate: "%s - Cheerup",
-  title: "The best topics about life",
+  title: "Be yourself, think your way",
   meta: [
     { charset: "utf-8" },
     {
@@ -62,7 +62,7 @@ const seo_home_schema = {
     {
       hid: "og:title",
       property: "og:title",
-      content: "The best topics about life",
+      content: "Be yourself, think your way",
     },
     {
       hid: "og:type",
@@ -103,7 +103,7 @@ const seo_home_schema = {
     {
       hid: "twitter:title",
       name: "twitter:title",
-      content: "The best topics about life",
+      content: "Be yourself, think your way",
     },
     {
       hid: "twitter:description",

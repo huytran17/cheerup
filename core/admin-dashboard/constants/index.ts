@@ -1,7 +1,6 @@
 const ADMIN_TYPES = {
   OWNER: "owner",
   COLLABORATOR: "collaborator",
-  EDITOR: "editor",
 };
 
 const HTTP_STATUS_CODE = {

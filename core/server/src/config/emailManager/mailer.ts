@@ -75,7 +75,8 @@ export default Object.freeze({
   }) => {
     const final_email_data = merge(
       {},
-      { ...email_data, ...object_data }
+      email_data,
+      object_data
     );
     const template = handlebars.compile(email_content);
     return template(final_email_data);
