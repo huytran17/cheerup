@@ -23,7 +23,11 @@ export default function makeGetPostBySlugController({
     };
 
     try {
-      const { slug, user_id } = get(httpRequest, "context.validated");
+      const { slug, user_id }: { slug: string; user_id: string } = get(
+        httpRequest,
+        "context.validated"
+      );
+
       const exists = await getPostBySlug({
         slug,
       });

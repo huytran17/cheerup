@@ -8,13 +8,16 @@ import { fakePostBookmark, fakeUser } from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
 import { redis } from "../../../../../__tests__/jest-redis";
 import makeUserDb from "../../../make-user-db";
+import makePostDb from "../../../make-post-db";
 import makePostBookmarkDb from "../../../make-post-bookmark-db";
 import PostBookmark from "../../../../database/entities/post-bookmark";
-import { PostBookmarkModel, UserModel } from "../../../models";
+import { PostBookmarkModel, UserModel, PostModel } from "../../../models";
 import makeHardDeletePostBookmark from "../../../../use-cases/post-bookmark/hard-delete-post-bookmark";
 import makeGetPostBookmarkByUserAndPost from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
 import makeCreatePostBookmark from "../../../../use-cases/post-bookmark/create-post-bookmark";
 import makeCreateUser from "../../../../use-cases/user/create-user";
+import makeGetUser from "../../../../use-cases/user/get-user";
+import makeGetPost from "../../../../use-cases/post/get-post";
 import makeCreateOrDeletePostBookmark from "./create-or-delete-post-bookmark";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
@@ -34,6 +37,10 @@ describe("createOrDeletePostBookmark", () => {
       postBookmarkDbModel: PostBookmarkModel,
       moment,
     });
+    const postDb = makePostDb({
+      postDbModel: PostModel,
+      moment,
+    });
     const userDb = makeUserDb({
       userDbModel: UserModel,
       moment,
@@ -46,6 +53,8 @@ describe("createOrDeletePostBookmark", () => {
       postBookmarkDb,
     });
     const createUser = makeCreateUser({ userDb });
+    const getUser = makeGetUser({ userDb, logger });
+    const getPost = makeGetPost({ postDb, logger });
     const getPostBookmarkByUserAndPost = makeGetPostBookmarkByUserAndPost({
       postBookmarkDb,
     });
@@ -61,6 +70,8 @@ describe("createOrDeletePostBookmark", () => {
       createPostBookmark,
       hardDeletePostBookmark,
       getPostBookmarkByUserAndPost,
+      getUser,
+      getPost,
       moment,
     });
 

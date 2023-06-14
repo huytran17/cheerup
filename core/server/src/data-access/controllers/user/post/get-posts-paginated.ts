@@ -31,26 +31,24 @@ export default function makeGetPostsPaginatedController({
         query,
         page,
         entries_per_page,
-        categories,
         is_only_published,
         user_id,
-        tags,
         sorts,
+        tags = "",
+        categories = "",
       }: {
         query: string;
         page: string;
         entries_per_page: string;
-        categories?: string;
         is_only_published?: boolean;
         user_id: string;
-        tags?: string;
         sorts?: string;
+        tags?: string;
+        categories?: string;
       } = get(httpRequest, "context.validated");
 
-      const categories_array = isEmpty(categories)
-        ? []
-        : split(categories, ",");
-      const tags_array = isEmpty(tags) ? [] : split(tags, ",");
+      const categories_array = split(categories, ",");
+      const tags_array = split(tags, ",");
 
       const paginated_data = await getPostsPaginated(
         {
@@ -102,7 +100,7 @@ export default function makeGetPostsPaginatedController({
       return {
         headers,
         statusCode: HttpStatusCode.OK,
-        body: final_paginated_data
+        body: final_paginated_data,
       };
     } catch (error) {
       throw {

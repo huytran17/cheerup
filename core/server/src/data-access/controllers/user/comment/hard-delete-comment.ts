@@ -26,8 +26,15 @@ export default function makeDeleteCommentController({
     };
 
     try {
-      const { _id: user_id } = get(httpRequest, "context.user");
-      const { _id: comment_id } = get(httpRequest, "context.validated");
+      const { _id: user_id }: { _id: string } = get(
+        httpRequest,
+        "context.user"
+      );
+
+      const { _id: comment_id }: { _id: string } = get(
+        httpRequest,
+        "context.validated"
+      );
 
       const exists = await getComment({
         _id: comment_id,

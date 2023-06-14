@@ -23,7 +23,11 @@ export default function makeGetPostController({
     };
 
     try {
-      const { _id: post_id, user_id } = get(httpRequest, "context.validated");
+      const { _id: post_id, user_id }: { _id: string; user_id: string } = get(
+        httpRequest,
+        "context.validated"
+      );
+
       const exists = await getPost({
         _id: post_id,
         is_only_published: true,

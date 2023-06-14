@@ -42,7 +42,10 @@ export default function makeCreateOrUpdateCommentLikeController({
     };
 
     try {
-      const { _id: user_id } = get(httpRequest, "context.user");
+      const { _id: user_id }: { _id: string } = get(
+        httpRequest,
+        "context.user"
+      );
 
       const user_exists = await getUser({ _id: user_id });
       if (isEmpty(user_exists)) {
@@ -50,7 +53,7 @@ export default function makeCreateOrUpdateCommentLikeController({
       }
 
       const commentLikeDetails = get(httpRequest, "context.validated");
-      const { comment_id } = commentLikeDetails;
+      const { comment_id }: { comment_id: string } = commentLikeDetails;
 
       const comment_exists = await getComment({
         _id: comment_id,
@@ -76,8 +79,8 @@ export default function makeCreateOrUpdateCommentLikeController({
       }
 
       const final_comment_like_details = {
-        user: user_id,
-        comment: comment_id,
+        user: user_exists,
+        comment: comment_exists,
         type: commentLikeDetails.type,
       };
 

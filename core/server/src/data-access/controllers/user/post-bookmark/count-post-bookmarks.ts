@@ -20,7 +20,10 @@ export default function makeCountPostBookmarkController({
     };
 
     try {
-      const { _id: user_id } = get(httpRequest, "context.user");
+      const { _id: user_id }: { _id: string } = get(
+        httpRequest,
+        "context.user"
+      );
 
       const user_exists = await getUser({
         _id: user_id,

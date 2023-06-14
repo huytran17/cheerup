@@ -25,11 +25,18 @@ export default function makeGetCommentController({
     };
 
     try {
-      const { _id: comment_id, is_show_children } = get(
+      const {
+        _id: comment_id,
+        is_show_children,
+      }: {
+        _id: string;
+        is_show_children: boolean;
+      } = get(httpRequest, "context.validated");
+
+      const { _id: user_id }: { _id: string } = get(
         httpRequest,
-        "context.validated"
+        "context.user"
       );
-      const { _id: user_id } = get(httpRequest, "context.user");
 
       const exists = await getComment({
         _id: comment_id,
@@ -85,13 +92,9 @@ export default function makeGetCommentController({
       );
       const mapped_comment_meta_data = await map_meta_data(exists);
 
-      const final_comment_data: IComment = merge(
-        {},
-        mapped_comment_meta_data,
-        {
-          children: mapped_children_meta_data,
-        }
-      );
+      const final_comment_data: IComment = merge({}, mapped_comment_meta_data, {
+        children: mapped_children_meta_data,
+      });
 
       return {
         headers,

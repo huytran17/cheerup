@@ -24,7 +24,8 @@ export default function makeUpdateUserController({
 
     try {
       const userDetails = get(httpRequest, "context.validated");
-      const { _id } = get(httpRequest, "context.user");
+
+      const { _id }: { _id: string } = get(httpRequest, "context.user");
 
       const exists = await getUser({ _id, is_include_deleted: false });
       if (isEmpty(exists)) {
