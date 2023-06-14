@@ -24,6 +24,6 @@ Vue.directive("component-roles", {
 
         const invalid_role = !roles.includes(user_type)
 
-        invalid_role && (el.style.display = 'none')
+        invalid_role && (el.innerHTML = '')
     },
 });
