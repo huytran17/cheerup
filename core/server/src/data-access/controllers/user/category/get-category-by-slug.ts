@@ -17,7 +17,7 @@ export default function makeGetCategoryBySlugController({
     };
 
     try {
-      const { slug } = get(httpRequest, "context.validated");
+      const { slug }: { slug: string } = get(httpRequest, "context.validated");
 
       const exists = await getCategoryBySlug({
         slug,

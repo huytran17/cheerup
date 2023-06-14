@@ -35,7 +35,13 @@ export default function makeSignUpController({
     try {
       const client_ip = get(httpRequest, "context.ip");
       const user: IUserRawData = get(httpRequest, "context.validated");
-      const { email, password, password_confirmation } = user;
+
+      const {
+        email,
+        password,
+        password_confirmation,
+      }: { email: string; password: string; password_confirmation: string } =
+        user;
 
       const exists = await getUserByEmail({ email });
       if (!isEmpty(exists)) {

@@ -17,7 +17,7 @@ export default function makeSignOutController({
     };
 
     try {
-      const { email } = get(httpRequest, "context.user");
+      const { email }: { email: string } = get(httpRequest, "context.user");
 
       const exists = await getUserByEmail({ email, is_include_deleted: false });
       if (isEmpty(exists)) {

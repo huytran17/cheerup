@@ -18,8 +18,12 @@ export default function makeGetSuggestionPostsController({
     try {
       const {
         amount,
-        categories = [],
-        exclude_ids = [],
+        categories = "",
+        exclude_ids = "",
+      }: {
+        amount: string;
+        categories: string;
+        exclude_ids: string;
       } = get(httpRequest, "context.validated");
 
       const categories_array = split(categories, ",");

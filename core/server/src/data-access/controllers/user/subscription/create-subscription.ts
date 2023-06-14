@@ -23,8 +23,11 @@ export default function makeCreateSubscriptionController({
     };
 
     try {
-      const { email } = get(httpRequest, "context.user");
-      const { is_active } = get(httpRequest, "context.validated");
+      const { email }: { email: string } = get(httpRequest, "context.user");
+      const { is_active }: { is_active: boolean } = get(
+        httpRequest,
+        "context.validated"
+      );
 
       const exists = await getSubscriptionByEmail({ email });
 

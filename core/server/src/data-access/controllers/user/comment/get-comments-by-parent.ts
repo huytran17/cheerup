@@ -28,8 +28,12 @@ export default function makeGetCommentsByParentController({
     };
 
     try {
-      const { _id } = get(httpRequest, "context.validated");
-      const { _id: user_id } = get(httpRequest, "context.user");
+      const { _id }: { _id: string } = get(httpRequest, "context.validated");
+
+      const { _id: user_id }: { _id: string } = get(
+        httpRequest,
+        "context.user"
+      );
 
       const comment_exists = await getComment({ _id });
       if (isEmpty(comment_exists)) {

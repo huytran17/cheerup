@@ -33,10 +33,15 @@ export default function makeResetPasswordController({
     };
 
     try {
-      const { verification_token, password, password_confirmation } = get(
-        httpRequest,
-        "context.validated"
-      );
+      const {
+        verification_token,
+        password,
+        password_confirmation,
+      }: {
+        verification_token: string;
+        password: string;
+        password_confirmation: string;
+      } = get(httpRequest, "context.validated");
 
       const decoded = <JwtPayload>verifyAccessToken(verification_token);
 

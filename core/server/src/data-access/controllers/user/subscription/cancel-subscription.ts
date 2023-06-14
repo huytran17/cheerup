@@ -20,7 +20,7 @@ export default function makeCancelSubscriptionController({
     };
 
     try {
-      const { email } = get(httpRequest, "context.user");
+      const { email }: { email: string } = get(httpRequest, "context.user");
 
       const exists = await getSubscriptionByEmail({ email });
 

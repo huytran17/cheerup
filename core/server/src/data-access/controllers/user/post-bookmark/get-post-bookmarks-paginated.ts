@@ -14,7 +14,7 @@ export default function makeGetPostBookmarksPaginatedController({
   getPostBookmarksPaginated,
   countCommentsByPost,
   readingTimeAnalyzer,
-  getUser
+  getUser,
 }: {
   getPostBookmarksPaginated: IGetPostBookmarksPaginated;
   countCommentsByPost: ICountCommentsByPost;
@@ -39,8 +39,8 @@ export default function makeGetPostBookmarksPaginatedController({
         entries_per_page: string;
       } = get(httpRequest, "context.validated");
 
-      const { _id } = get(httpRequest, "context.user")
-      const user_exists = await getUser({ _id })
+      const { _id }: { _id: string } = get(httpRequest, "context.user");
+      const user_exists = await getUser({ _id });
 
       if (isEmpty(user_exists)) {
         throw new Error(`User by ${_id} does not exist`);
@@ -50,7 +50,7 @@ export default function makeGetPostBookmarksPaginatedController({
         query,
         page: Number(page),
         entries_per_page: Number(entries_per_page),
-        user_id: _id
+        user_id: _id,
       });
 
       const post_bookmarks = get(paginated_data, "data", []);
@@ -91,7 +91,7 @@ export default function makeGetPostBookmarksPaginatedController({
       return {
         headers,
         statusCode: HttpStatusCode.OK,
-        body: final_paginated_data
+        body: final_paginated_data,
       };
     } catch (error) {
       throw {
