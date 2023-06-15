@@ -58,7 +58,7 @@ export default function makeCreateOrDeletePostBookmarkController({
       });
 
       if (isEmpty(post_exists)) {
-        throw new Error(`User by id ${user_id} does not exists`);
+        throw new Error(`Post by id ${post_id} does not exists`);
       }
 
       const post_bookmark_exists = await getPostBookmarkByUserAndPost({
