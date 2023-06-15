@@ -17,7 +17,10 @@ export default function makeGetAdminByEmailController({
     };
 
     try {
-      const { email } = get(httpRequest, "context.validated");
+      const { email }: { email: string } = get(
+        httpRequest,
+        "context.validated"
+      );
 
       const exists = await getAdminByEmail({ email });
       if (isEmpty(exists)) {

@@ -17,7 +17,10 @@ export default function makeGetUserByEmailController({
     };
 
     try {
-      const { email } = get(httpRequest, "context.validated");
+      const { email }: { email: string } = get(
+        httpRequest,
+        "context.validated"
+      );
 
       const exists = await getUserByEmail({ email });
       if (isEmpty(exists)) {

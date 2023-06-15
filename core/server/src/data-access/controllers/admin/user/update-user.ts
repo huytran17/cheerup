@@ -25,7 +25,10 @@ export default function makeUpdateUserController({
     try {
       const userDetails = get(httpRequest, "context.validated");
 
-      const { _id, is_blocked_comment } = userDetails;
+      const {
+        _id,
+        is_blocked_comment,
+      }: { _id: string; is_blocked_comment: boolean } = userDetails;
 
       const exists = await getUser({ _id });
       if (isEmpty(exists)) {

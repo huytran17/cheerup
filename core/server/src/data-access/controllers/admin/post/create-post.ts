@@ -38,7 +38,10 @@ export default function makeCreatePostController({
     };
 
     try {
-      const { _id: admin_id } = get(httpRequest, "context.user");
+      const { _id: admin_id }: { _id: string } = get(
+        httpRequest,
+        "context.user"
+      );
 
       const postDetails = get(httpRequest, "context.validated");
 

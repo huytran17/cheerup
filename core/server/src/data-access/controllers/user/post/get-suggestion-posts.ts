@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { IGetSuggestionPosts } from "../../../../use-cases/post/get-suggestion-posts";
-import { get, split } from "lodash";
+import { get, split, filter } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetSuggestionPostsController({
@@ -23,11 +23,11 @@ export default function makeGetSuggestionPostsController({
       }: {
         amount: string;
         categories: string;
-        exclude_ids: string;
+        exclude_ids?: string;
       } = get(httpRequest, "context.validated");
 
-      const categories_array = split(categories, ",");
-      const exclude_ids_array = split(exclude_ids, ",");
+      const categories_array = filter(split(categories, ","));
+      const exclude_ids_array = filter(split(exclude_ids, ","));
 
       const exists = await getSuggestionPosts({
         amount: Number(amount),

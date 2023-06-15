@@ -23,7 +23,7 @@ export default function makeRestoreCategoryController({
     };
 
     try {
-      const { _id } = get(httpRequest, "context.validated");
+      const { _id }: { _id: string } = get(httpRequest, "context.validated");
 
       const exists = await getCategory({ _id });
       if (isEmpty(exists)) {

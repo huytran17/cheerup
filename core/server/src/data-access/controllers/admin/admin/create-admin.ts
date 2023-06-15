@@ -27,7 +27,13 @@ export default function makeCreateAdminController({
 
     try {
       const admin = get(httpRequest, "context.validated");
-      const { email, password, password_confirmation } = admin;
+
+      const {
+        email,
+        password,
+        password_confirmation,
+      }: { email: string; password: string; password_confirmation: string } =
+        admin;
 
       const exists = await getAdminByEmail({ email });
       if (!isEmpty(exists)) {

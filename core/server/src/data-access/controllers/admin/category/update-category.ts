@@ -27,7 +27,7 @@ export default function makeUpdateCategoryController({
 
     try {
       const categoryDetails = get(httpRequest, "context.validated");
-      const { _id, title } = categoryDetails;
+      const { _id, title }: { _id: string; title: string } = categoryDetails;
 
       const exists = await getCategory({ _id });
       if (isEmpty(exists)) {

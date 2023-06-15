@@ -17,7 +17,7 @@ export default function makeGetAdminsController({
     };
 
     try {
-      const admin_id = get(httpRequest, "context.validated");
+      const admin_id: string = get(httpRequest, "context.validated");
 
       const exists = await getAdmins();
       if (isEmpty(exists)) {

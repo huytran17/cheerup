@@ -27,7 +27,7 @@ export default function makeCreateCategoryController({
 
     try {
       const categoryDetails = get(httpRequest, "context.validated");
-      const { title } = categoryDetails;
+      const { title }: { title: string } = categoryDetails;
 
       const category = await getCategoryByTitle({
         title,

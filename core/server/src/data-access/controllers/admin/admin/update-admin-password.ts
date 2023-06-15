@@ -26,7 +26,11 @@ export default function makeUpdateAdminPasswordController({
     };
 
     try {
-      const { _id, password, password_confirmation } = get(
+      const {
+        _id,
+        password,
+        password_confirmation,
+      }: { _id: string; password: string; password_confirmation: string } = get(
         httpRequest,
         "context.validated"
       );

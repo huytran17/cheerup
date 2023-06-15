@@ -20,7 +20,7 @@ export default function makeGetGalleriesByParentController({
     };
 
     try {
-      const { _id } = get(httpRequest, "context.validated");
+      const { _id }: { _id: string } = get(httpRequest, "context.validated");
 
       const exists = await getGallery({ _id });
 

@@ -35,8 +35,17 @@ export default function makeCreateUserController({
     try {
       const admin = get(httpRequest, "context.user");
       const user: IUserRawData = get(httpRequest, "context.validated");
-      const { email, password, password_confirmation, is_blocked_comment } =
-        user;
+      const {
+        email,
+        password,
+        password_confirmation,
+        is_blocked_comment,
+      }: {
+        email: string;
+        password: string;
+        password_confirmation: string;
+        is_blocked_comment?: boolean;
+      } = user;
 
       const exists = await getUserByEmail({ email });
       if (!isEmpty(exists)) {
