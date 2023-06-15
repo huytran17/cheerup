@@ -4,7 +4,11 @@ import {
   clearDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
-import { fakePostBookmark, fakeUser } from "../../../../../__tests__/__mock__";
+import {
+  fakePostBookmark,
+  fakeUser,
+  fakePost,
+} from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
 import { redis } from "../../../../../__tests__/jest-redis";
 import makeUserDb from "../../../make-user-db";
@@ -18,6 +22,7 @@ import makeCreatePostBookmark from "../../../../use-cases/post-bookmark/create-p
 import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeGetUser from "../../../../use-cases/user/get-user";
 import makeGetPost from "../../../../use-cases/post/get-post";
+import makeCreatePost from "../../../../use-cases/post/create-post";
 import makeCreateOrDeletePostBookmark from "./create-or-delete-post-bookmark";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
@@ -55,15 +60,21 @@ describe("createOrDeletePostBookmark", () => {
     const createUser = makeCreateUser({ userDb });
     const getUser = makeGetUser({ userDb, logger });
     const getPost = makeGetPost({ postDb, logger });
+    const createPost = makeCreatePost({ postDb });
     const getPostBookmarkByUserAndPost = makeGetPostBookmarkByUserAndPost({
       postBookmarkDb,
     });
 
     const mock_post_bookmark_data = fakePostBookmark();
     const mock_user_data = fakeUser();
+    const mock_post_data = fakePost();
 
     const created_user = await createUser({
       userDetails: mock_user_data,
+    });
+
+    const created_post = await createPost({
+      postDetails: mock_post_data,
     });
 
     const countPostBookmarksController = makeCreateOrDeletePostBookmark({
@@ -77,7 +88,7 @@ describe("createOrDeletePostBookmark", () => {
 
     const request = {
       context: {
-        validated: mock_post_bookmark_data,
+        validated: { ...mock_post_bookmark_data, post: created_post },
         user: created_user,
       },
     };
