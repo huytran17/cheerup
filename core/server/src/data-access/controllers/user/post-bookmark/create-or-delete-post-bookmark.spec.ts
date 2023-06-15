@@ -88,7 +88,7 @@ describe("createOrDeletePostBookmark", () => {
 
     const request = {
       context: {
-        validated: { ...mock_post_bookmark_data, post: created_post },
+        validated: { ...mock_post_bookmark_data, post: created_post._id },
         user: created_user,
       },
     };
