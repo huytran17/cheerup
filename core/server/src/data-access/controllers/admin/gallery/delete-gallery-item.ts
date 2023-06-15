@@ -28,6 +28,10 @@ export default function makeDeleteGalleryItemController({
         _id: gallery_id,
         bucket,
         key,
+      }: {
+        _id: string;
+        bucket: string;
+        key: string;
       } = get(httpRequest, "context.validated");
 
       const gallery_exists = await getGallery({ _id: gallery_id });

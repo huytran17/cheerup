@@ -29,10 +29,17 @@ export default function makeUpdateAdminPersonalPasswordController({
     };
 
     try {
-      const { _id, password, new_password, new_password_confirmation } = get(
-        httpRequest,
-        "context.validated"
-      );
+      const {
+        _id,
+        password,
+        new_password,
+        new_password_confirmation,
+      }: {
+        _id: string;
+        password: string;
+        new_password: string;
+        new_password_confirmation: string;
+      } = get(httpRequest, "context.validated");
 
       const exists = await getAdmin({ _id });
       if (isEmpty(exists)) {

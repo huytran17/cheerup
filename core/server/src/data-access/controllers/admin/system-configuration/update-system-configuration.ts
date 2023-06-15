@@ -24,7 +24,7 @@ export default function makeUpdateSystemConfigurationController({
 
     try {
       const systemConfigurationDetails = get(httpRequest, "context.validated");
-      const { _id } = systemConfigurationDetails;
+      const { _id }: { _id: string } = systemConfigurationDetails;
 
       const exists = await getSystemConfiguration({ _id });
       if (isEmpty(exists)) {
