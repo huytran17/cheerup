@@ -66,7 +66,7 @@
             ></v-img>
           </div>
 
-          <div class="text__content matte__black--text">
+          <div class="text__content matte__black--text font-italic">
             <span class="app-body" v-html="$t(post.description)"></span>
           </div>
 
