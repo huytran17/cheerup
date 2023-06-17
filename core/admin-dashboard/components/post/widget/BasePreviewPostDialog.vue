@@ -38,7 +38,9 @@
               </v-chip>
             </div>
 
-            <div class="text-h6 text-sm-h4 text-uppercase text-center py-4">
+            <div
+              class="text-h6 text-sm-h4 text-uppercase text-center pt-2 pb-4"
+            >
               <span
                 class="app-body position-relative"
                 v-html="$t(post.title)"
