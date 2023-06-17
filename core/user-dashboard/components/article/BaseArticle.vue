@@ -20,7 +20,7 @@
         class="text-h6 text-sm-h4 text-uppercase text-center pb-0 pb-sm-3 pt-2"
       >
         <span
-          class="app-body post__title position-relative clickable"
+          class="app-body position-relative clickable"
           v-html="post_data.title"
           @click="$router.push(localePath(`/post/${post_data.slug}`))"
         ></span>
@@ -209,12 +209,6 @@ export default {
 <style scoped>
 :deep(.v-chip--label) {
   border-radius: 0 !important;
-}
-.post__title:hover {
-  color: var(--color-title-hover);
-}
-.post__title {
-  transition: 0.1s linear all;
 }
 :deep(button.v-icon::after) {
   background: transparent !important;
