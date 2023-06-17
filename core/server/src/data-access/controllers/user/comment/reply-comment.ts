@@ -29,10 +29,17 @@ export default function makeReplyCommentController({
     };
 
     try {
-      const { _id: user_id } = get(httpRequest, "context.user");
+      const { _id: user_id }: { _id: string } = get(
+        httpRequest,
+        "context.user"
+      );
       const commentDetails = get(httpRequest, "context.validated");
 
-      const { post: post_id, parent: parent_id } = commentDetails;
+      const {
+        post: post_id,
+        parent: parent_id,
+      }: { post: string; parent: string } = commentDetails;
+
       const post_exists = await getPost({
         _id: post_id,
         is_only_published: true,

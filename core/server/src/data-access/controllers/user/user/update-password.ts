@@ -29,11 +29,17 @@ export default function makeUpdatePasswordController({
     };
 
     try {
-      const { password, new_password, password_confirmation } = get(
-        httpRequest,
-        "context.validated"
-      );
-      const { _id } = get(httpRequest, "context.user");
+      const {
+        password,
+        new_password,
+        password_confirmation,
+      }: {
+        password: string;
+        new_password: string;
+        password_confirmation: string;
+      } = get(httpRequest, "context.validated");
+
+      const { _id }: { _id: string } = get(httpRequest, "context.user");
 
       const exists = await getUser({ _id, is_include_deleted: false });
       if (isEmpty(exists)) {

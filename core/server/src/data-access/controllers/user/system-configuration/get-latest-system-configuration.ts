@@ -17,6 +17,7 @@ export default function makeGetLatestSystemConfigurationController({
 
     try {
       const exists = await getLatestSystemConfiguration();
+
       if (isEmpty(exists)) {
         throw new Error(`SystemConfiguration does not exists`);
       }

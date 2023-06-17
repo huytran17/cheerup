@@ -1,5 +1,7 @@
 import { ICreatePostBookmark } from "../../../../use-cases/post-bookmark/create-post-bookmark";
 import { IHardDeletePostBookmark } from "../../../../use-cases/post-bookmark/hard-delete-post-bookmark";
+import { IGetPost } from "../../../../use-cases/post/get-post";
+import { IGetUser } from "../../../../use-cases/user/get-user";
 import { IGetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
 import { Request } from "express";
 import { get, merge } from "lodash";
@@ -11,11 +13,15 @@ export default function makeCreateOrDeletePostBookmarkController({
   createPostBookmark,
   hardDeletePostBookmark,
   getPostBookmarkByUserAndPost,
+  getPost,
+  getUser,
   moment,
 }: {
   createPostBookmark: ICreatePostBookmark;
   hardDeletePostBookmark: IHardDeletePostBookmark;
   getPostBookmarkByUserAndPost: IGetPostBookmarkByUserAndPost;
+  getPost: IGetPost;
+  getUser: IGetUser;
   moment: typeof Moment;
 }) {
   return async function createOrDeletePostBookmarkController(
@@ -26,8 +32,34 @@ export default function makeCreateOrDeletePostBookmarkController({
     };
 
     try {
-      const { post: post_id } = get(httpRequest, "context.validated");
-      const { _id: user_id } = get(httpRequest, "context.user");
+      const { _id: user_id }: { _id: string } = get(
+        httpRequest,
+        "context.user"
+      );
+
+      const user_exists = await getUser({
+        _id: user_id,
+        is_include_deleted: false,
+      });
+
+      if (isEmpty(user_exists)) {
+        throw new Error(`User by id ${user_id} does not exists`);
+      }
+
+      const { post: post_id }: { post: string } = get(
+        httpRequest,
+        "context.validated"
+      );
+
+      const post_exists = await getPost({
+        _id: post_id,
+        is_only_published: true,
+        is_include_deleted: false,
+      });
+
+      if (isEmpty(post_exists)) {
+        throw new Error(`Post by id ${post_id} does not exists`);
+      }
 
       const post_bookmark_exists = await getPostBookmarkByUserAndPost({
         user_id,
@@ -40,8 +72,8 @@ export default function makeCreateOrDeletePostBookmarkController({
         const post_bookmark_details = merge(
           {},
           {
-            user: user_id,
-            post: post_id,
+            user: user_exists,
+            post: post_exists,
             timeline_date: moment(new Date()).format("YYYY-MM-DD"),
           }
         );

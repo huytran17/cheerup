@@ -21,7 +21,10 @@ export default function makeCreateGalleryController({
     try {
       const galleryDetails = get(httpRequest, "context.validated");
 
-      const { _id: user_id } = get(httpRequest, "context.user");
+      const { _id: user_id }: { _id: string } = get(
+        httpRequest,
+        "context.user"
+      );
 
       const final_gallery_data = merge({}, galleryDetails, {
         created_by: user_id,

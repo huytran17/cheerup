@@ -24,7 +24,7 @@ export default function makeUpdateAdminController({
 
     try {
       const adminDetails = get(httpRequest, "context.validated");
-      const { _id } = adminDetails;
+      const { _id }: { _id: string } = adminDetails;
 
       const exists = await getAdmin({ _id });
       if (isEmpty(exists)) {

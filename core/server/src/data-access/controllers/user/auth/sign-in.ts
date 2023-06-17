@@ -29,7 +29,7 @@ export default function makeSignInController({
 
     try {
       const payload: ILoginData = get(httpRequest, "context.validated");
-      const { email, password } = payload;
+      const { email, password }: { email: string; password: string } = payload;
 
       const exists = await getUserByEmail({ email, is_include_deleted: false });
       if (isEmpty(exists)) {

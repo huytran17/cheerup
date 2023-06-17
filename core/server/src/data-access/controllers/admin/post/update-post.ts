@@ -24,7 +24,7 @@ export default function makeUpdatePostController({
 
     try {
       const postDetails = get(httpRequest, "context.validated");
-      const { _id } = postDetails;
+      const { _id }: { _id: string } = postDetails;
 
       const exists = await getPost({ _id });
       if (isEmpty(exists)) {

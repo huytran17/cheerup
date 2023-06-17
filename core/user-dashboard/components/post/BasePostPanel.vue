@@ -43,7 +43,7 @@
       ></v-img>
     </div>
 
-    <div class="text__content matte__black--text">
+    <div class="text__content matte__black--text font-italic">
       <span class="app-body" v-html="post.description"></span>
     </div>
 
@@ -91,7 +91,12 @@
           </v-btn>
         </template>
         <div class="text-body-2 d-flex flex-column justify-center">
-          <span class="app-body" v-html="$t('Add to favourite')"></span>
+          <span
+            class="app-body"
+            v-html="
+              $t(is_bookmarked ? 'Remove from favourite' : 'Add to favourite')
+            "
+          ></span>
         </div>
       </v-tooltip>
       <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.FACEBOOK })">

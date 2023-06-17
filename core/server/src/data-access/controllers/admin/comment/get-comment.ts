@@ -17,7 +17,10 @@ export default function makeGetCommentController({
     };
 
     try {
-      const { comment_id } = get(httpRequest, "context.validated");
+      const { comment_id }: { comment_id: string } = get(
+        httpRequest,
+        "context.validated"
+      );
 
       const exists = await getComment({ _id: comment_id });
       if (isEmpty(exists)) {

@@ -17,7 +17,10 @@ export default function makeGetUserController({
     };
 
     try {
-      const { user_id } = get(httpRequest, "context.validated");
+      const { user_id }: { user_id: string } = get(
+        httpRequest,
+        "context.validated"
+      );
 
       const exists = await getUser({ _id: user_id, is_include_deleted: false });
 

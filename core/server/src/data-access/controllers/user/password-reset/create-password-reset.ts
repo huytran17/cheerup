@@ -46,7 +46,10 @@ export default function makeCreatePasswordResetController({
     };
 
     try {
-      const { email } = get(httpRequest, "context.validated");
+      const { email }: { email: string } = get(
+        httpRequest,
+        "context.validated"
+      );
 
       const user_exists = await getUserByEmail({ email });
       if (isEmpty(user_exists)) {

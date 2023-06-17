@@ -24,7 +24,7 @@ export default function makeUpdateGalleryController({
 
     try {
       const galleryDetails = get(httpRequest, "context.validated");
-      const { _id } = galleryDetails;
+      const { _id }: { _id: string } = galleryDetails;
 
       const exists = await getGallery({ _id });
       if (isEmpty(exists)) {

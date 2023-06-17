@@ -12,7 +12,7 @@
       <div class="text-h6 text-sm-h4 text-uppercase text-center pt-4 pb-3">
         <v-badge :color="data.badge_color" dot>
           <span
-            class="app-body post__title position-relative clickable"
+            class="app-body position-relative clickable"
             v-html="data.title"
             @click="$router.push(localePath(`/category/${data.slug}`))"
           ></span>

@@ -3,7 +3,7 @@ import { IGetPostsPaginated } from "../../../../use-cases/post/get-posts-paginat
 import { IReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import { ICountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
 import { IGetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
-import { get, map, replace, split, merge } from "lodash";
+import { get, map, replace, split, merge, filter } from "lodash";
 import Post from "../../../../database/entities/post";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -31,26 +31,24 @@ export default function makeGetPostsPaginatedController({
         query,
         page,
         entries_per_page,
-        categories,
         is_only_published,
         user_id,
-        tags,
         sorts,
+        tags = "",
+        categories = "",
       }: {
         query: string;
         page: string;
         entries_per_page: string;
-        categories?: string;
         is_only_published?: boolean;
-        user_id: string;
-        tags?: string;
+        user_id?: string;
         sorts?: string;
+        tags?: string;
+        categories?: string;
       } = get(httpRequest, "context.validated");
 
-      const categories_array = isEmpty(categories)
-        ? []
-        : split(categories, ",");
-      const tags_array = isEmpty(tags) ? [] : split(tags, ",");
+      const categories_array = filter(split(categories, ","));
+      const tags_array = filter(split(tags, ","));
 
       const paginated_data = await getPostsPaginated(
         {
@@ -102,7 +100,7 @@ export default function makeGetPostsPaginatedController({
       return {
         headers,
         statusCode: HttpStatusCode.OK,
-        body: final_paginated_data
+        body: final_paginated_data,
       };
     } catch (error) {
       throw {

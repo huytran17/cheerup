@@ -16,7 +16,10 @@ export default function makeVerifyAccessController({
     };
 
     try {
-      const { access_token } = get(httpRequest, "context.validated");
+      const { access_token }: { access_token: string } = get(
+        httpRequest,
+        "context.validated"
+      );
       const decoded_access_token = verifyAccessToken(access_token);
 
       return {

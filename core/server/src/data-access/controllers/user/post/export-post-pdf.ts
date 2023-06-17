@@ -27,7 +27,11 @@ export default function makeExportPostPdfController({
     };
 
     try {
-      const { _id: post_id } = get(httpRequest, "context.validated");
+      const { _id: post_id }: { _id: string } = get(
+        httpRequest,
+        "context.validated"
+      );
+
       const exists = await getPost({
         _id: post_id,
         is_only_published: true,

@@ -30,7 +30,7 @@
 
       <div class="text-body-2 text-sm-body-1 text-uppercase pt-2 pb-1">
         <span
-          class="app-body post__title position-relative clickable"
+          class="app-body position-relative clickable"
           v-html="$t(post_title)"
           @click="$router.push(localePath(`/post/${post_slug}`))"
         ></span>

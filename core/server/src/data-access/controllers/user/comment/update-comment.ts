@@ -27,8 +27,13 @@ export default function makeUpdateCommentController({
 
     try {
       const commentDetails = get(httpRequest, "context.validated");
-      const { _id: comment_id } = commentDetails;
-      const { _id: user_id } = get(httpRequest, "context.user");
+
+      const { _id: comment_id }: { _id: string } = commentDetails;
+
+      const { _id: user_id }: { _id: string } = get(
+        httpRequest,
+        "context.user"
+      );
 
       const exists = await getComment({
         _id: comment_id,

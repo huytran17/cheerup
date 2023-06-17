@@ -36,7 +36,7 @@ export default function makeSignInWithGoogleController({
     };
 
     try {
-      const { email } = get(httpRequest, "context.user");
+      const { email }: { email: string } = get(httpRequest, "context.user");
 
       const exists = await getUserByEmail({
         email,

@@ -18,7 +18,11 @@ export default function makeGetSubscriptionController({
     };
 
     try {
-      const { subscription_id } = get(httpRequest, "context.validated");
+      const { subscription_id }: { subscription_id: string } = get(
+        httpRequest,
+        "context.validated"
+      );
+
       const exists = await getSubscription({ _id: subscription_id });
 
       if (isEmpty(exists)) {

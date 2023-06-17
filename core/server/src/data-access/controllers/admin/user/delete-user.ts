@@ -24,7 +24,7 @@ export default function makeDeleteUserController({
 
     try {
       const userDetails = get(httpRequest, "context.validated");
-      const { _id } = userDetails;
+      const { _id }: { _id: string } = userDetails;
 
       const exists = await getUser({ _id });
       if (isEmpty(exists)) {

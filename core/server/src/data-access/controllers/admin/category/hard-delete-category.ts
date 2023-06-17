@@ -24,7 +24,7 @@ export default function makeHardDeleteCategoryController({
 
     try {
       const categoryDetails = get(httpRequest, "context.validated");
-      const { _id } = categoryDetails;
+      const { _id }: { _id: string } = categoryDetails;
 
       const exists = await getCategory({ _id });
       if (isEmpty(exists)) {

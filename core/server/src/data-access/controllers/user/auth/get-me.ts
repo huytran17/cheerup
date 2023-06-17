@@ -24,7 +24,11 @@ export default function makeGetMeController({
 
     try {
       const client_ip = get(httpRequest, "context.ip");
-      const { _id, email } = get(httpRequest, "context.user");
+
+      const { _id, email }: { _id: string; email: string } = get(
+        httpRequest,
+        "context.user"
+      );
 
       const exists = await getUser({ _id, is_include_deleted: false });
 

@@ -36,8 +36,12 @@ export default function makePublishPostController({
     };
 
     try {
-      const { _id } = get(httpRequest, "context.validated");
-      const { _id: user_id } = get(httpRequest, "context.user");
+      const { _id }: { _id: string } = get(httpRequest, "context.validated");
+
+      const { _id: user_id }: { _id: string } = get(
+        httpRequest,
+        "context.user"
+      );
 
       const exists = await getPost({ _id });
       if (isEmpty(exists)) {
