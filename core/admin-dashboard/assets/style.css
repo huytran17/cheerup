@@ -166,10 +166,13 @@ select:-webkit-autofill:focus {
   word-break: break-all;
 }
 
+.text__content p:has(img) {
+  display: flex;
+  justify-content: center;
+}
+
 .text__content img {
-  max-width: -webkit-fill-available !important;
-  display: block;
-  margin: 0 auto;
+  width: 100%;
 }
 
 .tiptap__text-no-margin p {
