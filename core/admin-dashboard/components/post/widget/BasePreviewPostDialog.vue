@@ -22,7 +22,7 @@
               <v-chip
                 v-for="(category, index) in post.categories"
                 :key="`category-${index}`"
-                class="ma-1 clickable"
+                class="ma-1 clickable app-body"
                 color="#42A5F5"
                 label
                 text-color="white"
