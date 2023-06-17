@@ -20,7 +20,7 @@
         class="text-h6 text-sm-h4 text-uppercase text-center pb-0 pb-sm-3 pt-2"
       >
         <span
-          class="app-body post__title position-relative clickable"
+          class="app-body position-relative clickable"
           v-html="post_data.title"
           @click="$router.push(localePath(`/post/${post_data.slug}`))"
         ></span>
@@ -88,7 +88,12 @@
           </v-btn>
         </template>
         <div class="text-body-2 d-flex flex-column justify-center">
-          <span class="app-body" v-html="$t('Add to favourite')"></span>
+          <span
+            class="app-body"
+            v-html="
+              $t(is_bookmarked ? 'Remove from favourite' : 'Add to favourite')
+            "
+          ></span>
         </div>
       </v-tooltip>
       <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.FACEBOOK })">
@@ -168,7 +173,7 @@ export default {
     },
 
     sharePost({ type }) {
-      const post_url = `${process.env.BASE_URL}/post/${this.post_data._id}`;
+      const post_url = `${process.env.BASE_URL}/post/${this.post_data.slug}`;
 
       let share_url = "";
       const encodedURI = encodeURIComponent(post_url);
@@ -209,12 +214,6 @@ export default {
 <style scoped>
 :deep(.v-chip--label) {
   border-radius: 0 !important;
-}
-.post__title:hover {
-  color: var(--color-title-hover);
-}
-.post__title {
-  transition: 0.1s linear all;
 }
 :deep(button.v-icon::after) {
   background: transparent !important;
