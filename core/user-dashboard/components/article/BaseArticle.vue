@@ -173,7 +173,7 @@ export default {
     },
 
     sharePost({ type }) {
-      const post_url = `${process.env.BASE_URL}/post/${this.post_data._id}`;
+      const post_url = `${process.env.BASE_URL}/post/${this.post_data.slug}`;
 
       let share_url = "";
       const encodedURI = encodeURIComponent(post_url);
