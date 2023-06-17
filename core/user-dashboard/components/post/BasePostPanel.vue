@@ -17,7 +17,7 @@
       </div>
 
       <div
-        class="text-h6 text-sm-h4 text-uppercase text-center pt-4 pb-0 pb-sm-3"
+        class="text-h6 text-sm-h4 text-uppercase text-center pt-2 pb-0 pb-sm-3"
       >
         <span class="app-body position-relative" v-html="post.title"></span>
       </div>
