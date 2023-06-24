@@ -40,6 +40,7 @@
     <v-col cols="12" class="pt-0">
       <TiptapEditor
         :content="new_comment"
+        :disabled="!has_user"
         attr="content"
         @on-input="
           updateNewCommentObject({ variable_path: 'content', data: $event })
@@ -170,7 +171,6 @@ export default {
   },
   methods: {
     ...mapMutations({
-      SET_LOGIN_REDIRECT_URL: "SET_LOGIN_REDIRECT_URL",
       SET_POST: "post/SET_POST",
     }),
 
@@ -234,11 +234,6 @@ export default {
       } finally {
         this.is_loading = false;
       }
-    },
-
-    redirectToLoginPage() {
-      this.SET_LOGIN_REDIRECT_URL({ data: this.$route.fullPath });
-      return this.$router.push(this.localePath("/login"));
     },
 
     async getMoreComments() {

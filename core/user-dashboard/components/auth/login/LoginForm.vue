@@ -123,7 +123,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      login_redirect_url: "login_redirect_url",
+      after_login_redirect_url: "after_login_redirect_url",
     }),
 
     google_login_uri() {
@@ -132,20 +132,15 @@ export default {
   },
   methods: {
     ...mapMutations({
-      SET_LOGIN_REDIRECT_URL: "SET_LOGIN_REDIRECT_URL",
+      SET_AFTER_LOGIN_REDIRECT_URL: "SET_AFTER_LOGIN_REDIRECT_URL",
     }),
 
     async signIn() {
       try {
         await this.SIGN_IN({ data: this.me });
 
-        const has_login_redirect_url = this.login_redirect_url;
-        if (!has_login_redirect_url) {
-          return this.$router.push(this.localePath("/"));
-        }
-
-        this.$router.push(this.localePath(this.login_redirect_url));
-        this.SET_LOGIN_REDIRECT_URL({ data: "" });
+        this.$router.push(this.localePath(this.after_login_redirect_url));
+        this.SET_AFTER_LOGIN_REDIRECT_URL({ data: "/" });
       } catch (error) {
         console.error(error);
         this.$toast.error("Email address or password is incorrect");
