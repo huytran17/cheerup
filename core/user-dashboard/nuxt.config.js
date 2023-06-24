@@ -1,6 +1,6 @@
 import colors from "vuetify/es5/util/colors";
 import axios from "axios";
-import { get, findIndex, map, flattenDeep, concat } from "lodash";
+import { get, findIndex, map, flattenDeep, concat, filter } from "lodash";
 
 import { SEO_TYPE } from "./constants";
 import {
@@ -44,7 +44,10 @@ export default {
           axios.get(`${process.env.SERVER_URL}/api/seo/categories`),
         ]);
 
-        const seo_post_data = get(seo_post_payload, "data.data", []);
+        const seo_post_data = filter(
+          get(seo_post_payload, "data.data", []),
+          (post) => post.slug
+        );
         const seo_post_routes = map(seo_post_data, (post) => ({
           route: `/post/${post.slug}`,
           payload:
@@ -55,7 +58,10 @@ export default {
             } || {},
         }));
 
-        const seo_category_data = get(seo_category_payload, "data.data", []);
+        const seo_category_data = filter(
+          get(seo_category_payload, "data.data", []),
+          (category) => category.slug
+        );
         const seo_category_routes = map(seo_category_data, (category) => ({
           route: `/category/${category.slug}`,
           payload:
