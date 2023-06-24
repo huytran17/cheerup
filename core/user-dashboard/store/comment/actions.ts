@@ -8,11 +8,13 @@ import { get } from "lodash";
 const actions: ActionTree<CommentState, RootState> = {
   async [ActionTypes.GET_COMMENTS_BY_PARENT](
     { commit },
-    { parent_id }: { parent_id: string }
+    { parent_id, user_id }: { parent_id: string; user_id: string }
   ) {
-    const { data: comments } = await this.$axios.$get(
-      `/comment/by-parent/${parent_id}`
-    );
+    const api_route = user_id
+      ? `/comment/by-parent/${parent_id}`
+      : `/comment/by-parent-public/${parent_id}`;
+
+    const { data: comments } = await this.$axios.$get(api_route);
 
     return comments;
   },
@@ -101,6 +103,7 @@ const actions: ActionTree<CommentState, RootState> = {
     const page = get(params, "page", 1);
     const entries_per_page = get(params, "entries_per_page", 15);
     const post_id = get(params, "post_id");
+    const user_id = get(params, "user_id");
     const new_state = get(params, "new_state", true);
 
     const url_query = new URLSearchParams();
@@ -113,9 +116,11 @@ const actions: ActionTree<CommentState, RootState> = {
 
     post_id && url_query.set("post_id", post_id);
 
-    const { data: comments, pagination } = await this.$axios.$get(
-      `/comment/by-post-paginated?${url_query}`
-    );
+    const api_route = user_id
+      ? `/comment/by-post-paginated?${url_query}`
+      : `/comment/by-post-paginated-public?${url_query}`;
+
+    const { data: comments, pagination } = await this.$axios.$get(api_route);
 
     commit(MutationTypes.SET_COMMENTS, { data: comments, new_state });
     commit(MutationTypes.SET_COMMENT_PAGINATION, { data: pagination });

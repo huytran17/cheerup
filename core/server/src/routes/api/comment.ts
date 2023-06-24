@@ -55,6 +55,18 @@ commentRouter.get(
 );
 
 commentRouter.get(
+  "/by-post-paginated-public",
+  makeValidator(getCommentsByPostPaginatedRules),
+  makeExpressCallback(getCommentsByPostPaginatedController)
+);
+
+commentRouter.get(
+  "/by-parent-public/:_id",
+  makeValidator(getCommentsByParentRules),
+  makeExpressCallback(getCommentsByParentController)
+);
+
+commentRouter.get(
   "/:_id",
   authenticateUserJWT(),
   makeValidator(getCommentRules),

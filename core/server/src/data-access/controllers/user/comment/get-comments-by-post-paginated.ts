@@ -2,7 +2,7 @@ import { Request } from "express";
 import { IGetCommentsByPostPaginated } from "../../../../use-cases/comment/get-comments-by-post-paginated";
 import { ICountCommentLikeByCommentAndType } from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
 import { IGetPost } from "../../../../use-cases/post/get-post";
-import { get, map } from "lodash";
+import { get, map, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { CommentLikeType } from "../../../../database/interfaces/comment-like";
 import IComment from "../../../../database/interfaces/comment";
@@ -40,10 +40,8 @@ export default function makeGetCommentsByPostPaginatedController({
         post_id: string;
       } = get(httpRequest, "context.validated");
 
-      const { _id: user_id }: { _id: string } = get(
-        httpRequest,
-        "context.user"
-      );
+      const { _id: user_id }: { _id: string } =
+        get(httpRequest, "context.user") || merge({});
 
       const post_exists = await getPost({
         _id: post_id,

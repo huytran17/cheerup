@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { IGetCommentsByParent } from "../../../../use-cases/comment/get-comments-by-parent";
-import { get, map } from "lodash";
+import { get, map, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { IGetComment } from "../../../../use-cases/comment/get-comment";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -30,10 +30,8 @@ export default function makeGetCommentsByParentController({
     try {
       const { _id }: { _id: string } = get(httpRequest, "context.validated");
 
-      const { _id: user_id }: { _id: string } = get(
-        httpRequest,
-        "context.user"
-      );
+      const { _id: user_id }: { _id: string } =
+        get(httpRequest, "context.user") || merge({});
 
       const comment_exists = await getComment({ _id });
       if (isEmpty(comment_exists)) {

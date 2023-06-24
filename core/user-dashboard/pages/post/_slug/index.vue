@@ -119,10 +119,10 @@ export default {
           exclude_ids: [post._id],
         }),
 
-        user_id &&
-          store.dispatch("comment/GET_COMMENTS_BY_POST_PAGINATED", {
-            post_id: post._id,
-          }),
+        store.dispatch("comment/GET_COMMENTS_BY_POST_PAGINATED", {
+          post_id: post._id,
+          user_id,
+        }),
       ]);
     } catch (error) {
       console.error(error);
