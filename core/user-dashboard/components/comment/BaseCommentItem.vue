@@ -87,7 +87,7 @@
         </div>
 
         <div
-          v-if="comment_data.is_parent"
+          v-if="can_reply"
           class="d-flex pl-2"
           @click="
             () => {
@@ -150,8 +150,13 @@ export default {
   computed: {
     ...mapGetters({
       me: "auth/me",
+      has_user: "auth/has_user",
       post: "post/post",
     }),
+
+    can_reply() {
+      return get(this.comment_data, "is_parent") && this.has_user;
+    },
 
     is_liked() {
       return get(this.comment_data, "is_liked", false);
@@ -187,6 +192,10 @@ export default {
   methods: {
     async likeComment() {
       try {
+        if (!this.has_user) {
+          return this.$toast.error("Login is required");
+        }
+
         const comment_id = get(this.comment_data, "_id");
         await this.CREATE_OR_UPDATE_COMMENT_LIKE({
           data: {
@@ -210,6 +219,10 @@ export default {
 
     async dislikeComment() {
       try {
+        if (!this.has_user) {
+          return this.$toast.error("Login is required");
+        }
+
         const comment_id = get(this.comment_data, "_id");
         await this.CREATE_OR_UPDATE_COMMENT_LIKE({
           data: {

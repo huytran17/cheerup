@@ -114,6 +114,8 @@ export default function makeCreatePostController({
         const final_post_details = merge({}, created_post, {
           is_notified_to_user: true,
           seo: {
+            title: created_post?.title,
+            description: created_post?.description,
             date_modified: created_post?.updated_at,
             author: admin?.full_name,
             publisher: created_post?.published_by?.full_name,

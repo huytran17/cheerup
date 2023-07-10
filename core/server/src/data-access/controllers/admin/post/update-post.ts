@@ -35,6 +35,9 @@ export default function makeUpdatePostController({
         ...postDetails,
         seo: {
           ...postDetails?.seo,
+          title: exists?.title,
+          description: exists?.description,
+          author: exists?.author?.full_name,
           date_modified: exists?.updated_at,
         },
       };

@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: "Unauthorized",
+  name: "Forbidden",
   head() {
     return {
       title: this.$t("Forbidden"),

@@ -40,6 +40,7 @@
     <v-col cols="12" class="pt-0">
       <TiptapEditor
         :content="new_comment"
+        :disabled="!has_user"
         attr="content"
         @on-input="
           updateNewCommentObject({ variable_path: 'content', data: $event })
@@ -145,11 +146,7 @@ export default {
     },
 
     can_not_show_comment_panel() {
-      return (
-        this.is_post_blocked_comment ||
-        this.is_user_blocked_comment ||
-        !this.has_user
-      );
+      return this.is_post_blocked_comment || this.is_user_blocked_comment;
     },
 
     is_post_blocked_comment() {
@@ -174,15 +171,16 @@ export default {
   },
   methods: {
     ...mapMutations({
-      SET_LOGIN_REDIRECT_URL: "SET_LOGIN_REDIRECT_URL",
       SET_POST: "post/SET_POST",
     }),
 
     async getChildComments(comment) {
       try {
         const parent_id = comment._id;
+
         const child_comments = await this.GET_COMMENTS_BY_PARENT({
           parent_id,
+          user_id: this.me?._id,
         });
 
         this.replaceCommentDataAtPath({
@@ -238,11 +236,6 @@ export default {
       }
     },
 
-    redirectToLoginPage() {
-      this.SET_LOGIN_REDIRECT_URL({ data: this.$route.fullPath });
-      return this.$router.push(this.localePath("/login"));
-    },
-
     async getMoreComments() {
       try {
         const post_id = get(this.post, "_id");
@@ -251,6 +244,7 @@ export default {
           page: this.comment_pagination.current_page + 1,
           new_state: false,
           post_id,
+          user_id: this.me?._id,
         });
       } catch (error) {
         console.error(error);

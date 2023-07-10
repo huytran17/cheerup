@@ -81,7 +81,7 @@
             tile
             color="brick"
             class="white--text"
-            @click="$router.push(localePath('/login'))"
+            @click="redirectToLoginPage"
           >
             <span class="app-body" v-html="$t('Login')"></span>
           </v-btn>
@@ -92,6 +92,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 import { get } from "lodash";
 import authMixins from "@/mixins/auth";
 import postBookmarkMixins from "@/mixins/post-bookmark";
@@ -109,6 +110,16 @@ export default {
   computed: {
     user_avatar() {
       return get(this.me, "avatar_url") || this.default_user_avatar;
+    },
+  },
+  methods: {
+    ...mapMutations({
+      SET_AFTER_LOGIN_REDIRECT_URL: "SET_AFTER_LOGIN_REDIRECT_URL",
+    }),
+
+    redirectToLoginPage() {
+      this.SET_AFTER_LOGIN_REDIRECT_URL({ data: this.$route.fullPath });
+      this.$router.push(this.localePath("/login"));
     },
   },
   async fetch() {
