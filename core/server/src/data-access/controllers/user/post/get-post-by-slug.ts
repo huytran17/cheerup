@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { IReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import { IGetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
-import { get, merge } from "lodash";
+import { get, merge, pick } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 import { IGetPostBySlug } from "../../../../use-cases/post/get-post-by-slug";
@@ -54,7 +54,9 @@ export default function makeGetPostBySlugController({
         );
       const reading_time = readingTimeAnalyzer({ text: analyzing_text });
 
-      const final_data = merge({}, exists, { reading_time });
+      const author = pick(exists.author, ["full_name"]);
+
+      const final_data = Object.assign({}, exists, { reading_time, author });
 
       return {
         headers,
