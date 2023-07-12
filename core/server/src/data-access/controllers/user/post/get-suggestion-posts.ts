@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { IGetSuggestionPosts } from "../../../../use-cases/post/get-suggestion-posts";
-import { get, split, filter } from "lodash";
+import { get, split, filter, pick } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetSuggestionPostsController({
@@ -35,11 +35,16 @@ export default function makeGetSuggestionPostsController({
         exclude_ids: exclude_ids_array,
       });
 
+      const final_posts_data = exists.map((post) => {
+        const author = pick(post.author, ["full_name"]);
+        return Object.assign({}, post, { author });
+      });
+
       return {
         headers,
         statusCode: HttpStatusCode.OK,
         body: {
-          data: exists,
+          data: final_posts_data,
         },
       };
     } catch (error) {

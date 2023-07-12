@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { JwtPayload } from "jsonwebtoken";
 import { IVerifyAccessToken } from "../../../../config/accessTokenManager/verify-access-token";
-import { get } from "lodash";
+import { get, pick } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -56,7 +56,7 @@ export default function makeVerifyAccessController({
         headers,
         statusCode: HttpStatusCode.OK,
         body: {
-          data: decoded_access_token,
+          data: pick(decoded_access_token, ["exp", "iat"]),
         },
       };
     } catch (error) {
