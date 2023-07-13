@@ -2,7 +2,7 @@ import { IGetUser } from "../../../../use-cases/user/get-user";
 import { IUpdateUser } from "../../../../use-cases/user/update-user";
 import { Logger } from "winston";
 import { Request } from "express";
-import { get, merge } from "lodash";
+import { get, merge, omit } from "lodash";
 import { IHashPassword } from "../../../../config/password/hash-password";
 import { IVerifyPassword } from "../../../../config/password/verify-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -80,7 +80,7 @@ export default function makeUpdatePasswordController({
         headers,
         statusCode: HttpStatusCode.OK,
         body: {
-          data: updated_user,
+          data: omit(updated_user, "hash_password"),
         },
       };
     } catch (error) {

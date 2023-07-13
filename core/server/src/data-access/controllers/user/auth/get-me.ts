@@ -2,7 +2,7 @@ import { Request } from "express";
 import { IGetUser } from "../../../../use-cases/user/get-user";
 import { IGetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
 import { IUpdateUser } from "../../../../use-cases/user/update-user";
-import { get, merge } from "lodash";
+import { get, merge, omit } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -45,7 +45,7 @@ export default function makeGetMeController({
       const subscription = await getSubscriptionByEmail({ email });
       const is_subscribed = get(subscription, "is_active", false);
 
-      const final_user_data = merge({}, exists, {
+      const final_user_data = merge({}, omit(exists, "hash_password"), {
         is_subscribed,
       });
 

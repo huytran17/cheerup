@@ -83,7 +83,7 @@ export default function makeGetPostsPaginatedController({
           );
           const reading_time = readingTimeAnalyzer({ text: analyzing_text });
 
-          const author = pick(post.author, ["full_name"]);
+          const author = pick(post.author, ["_id", "full_name"]);
 
           return Object.assign({}, post, {
             author,

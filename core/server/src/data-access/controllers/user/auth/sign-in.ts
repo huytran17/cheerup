@@ -1,4 +1,4 @@
-import { get } from "lodash";
+import { get, omit } from "lodash";
 import { Request } from "express";
 import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { IGenerateAccessToken } from "../../../../config/accessTokenManager/generate-access-token";
@@ -58,7 +58,7 @@ export default function makeSignInController({
         body: {
           data: {
             access_token,
-            user: exists,
+            user: omit(exists, "hash_password"),
           },
         },
       };

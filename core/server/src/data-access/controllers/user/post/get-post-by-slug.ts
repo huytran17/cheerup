@@ -54,7 +54,7 @@ export default function makeGetPostBySlugController({
         );
       const reading_time = readingTimeAnalyzer({ text: analyzing_text });
 
-      const author = pick(exists.author, ["full_name"]);
+      const author = pick(exists.author, ["_id", "full_name"]);
 
       const final_data = Object.assign({}, exists, { reading_time, author });
 

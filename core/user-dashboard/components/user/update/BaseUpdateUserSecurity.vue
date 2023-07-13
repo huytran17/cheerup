@@ -96,6 +96,7 @@ export default {
 
         await this.UPDATE_USER_PASSWORD({ data: final_user_data });
         this.$toast.success(this.$t("Updated password successfully"));
+        this.$router.push(this.localePath("/login"));
       } catch (error) {
         console.error(error);
         this.$toast.error(

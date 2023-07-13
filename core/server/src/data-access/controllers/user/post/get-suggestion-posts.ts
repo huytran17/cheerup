@@ -36,7 +36,7 @@ export default function makeGetSuggestionPostsController({
       });
 
       const final_posts_data = exists.map((post) => {
-        const author = pick(post.author, ["full_name"]);
+        const author = pick(post.author, ["_id", "full_name"]);
         return Object.assign({}, post, { author });
       });
 
