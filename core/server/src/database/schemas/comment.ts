@@ -33,46 +33,16 @@ commentSchema.pre("deleteOne", { document: true }, async function (next) {
     children,
     async (comment: mongoose.ObjectId) => {
       const comment_document = await CommentModel.findOne({
-        _id: comment.toString(),
+        _id: comment,
       });
 
       return await comment_document?.deleteOne();
     }
   );
 
-  const comment_likes = await CommentLikeModel.find({
+  const delete_comment_like_promises = await CommentLikeModel.deleteMany({
     comment: get(this, "_id"),
-  }) || [];
-
-  const delete_comment_like_promises = map(
-    comment_likes,
-    async (comment_like) => comment_like && (await comment_like.deleteOne())
-  );
-
-  const is_child = !!this.parent;
-  if (is_child) {
-    const parent_comment = await CommentModel.findOne({
-      _id: this.parent.toString(),
-    });
-
-    const parents_children: IComment[] = get(parent_comment, "children", []);
-    const new_parents_children: IComment[] = filter(
-      parents_children,
-      (comment_id) => comment_id.toString() !== this._id.toString()
-    );
-
-    const updated_parent_comment: Partial<IComment> = merge(
-      parent_comment,
-      {
-        children: new_parents_children,
-      }
-    );
-
-    await CommentModel.findOneAndUpdate(
-      { _id: parent_comment._id },
-      updated_parent_comment
-    );
-  }
+  });
 
   await Promise.all([delete_children_promises, delete_comment_like_promises]);
 
