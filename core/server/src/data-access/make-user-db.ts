@@ -173,6 +173,7 @@ export default function makeUserDb({
 
       const existing = await userDbModel
         .find(query_conditions)
+        .select("-__v -hash_password")
         .lean({ virtuals: true });
 
       if (existing) {
@@ -205,6 +206,7 @@ export default function makeUserDb({
 
       const existing = await userDbModel
         .find(query_conditions)
+        .select("-__v -hash_password")
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)
         .sort({
@@ -307,6 +309,7 @@ export default function makeUserDb({
       const result = await userDbModel.create([updated_payload]);
       const updated = await userDbModel
         .findOne({ _id: result[0]?._id })
+        .select("-__v -hash_password")
         .lean({ virtuals: true });
 
       if (updated) {
@@ -316,12 +319,10 @@ export default function makeUserDb({
     }
 
     async delete({ _id }: { _id: string }): Promise<User | null> {
-      await userDbModel.findOneAndUpdate(
-        { _id },
-        { deleted_at: new Date() }
-      );
+      await userDbModel.findOneAndUpdate({ _id }, { deleted_at: new Date() });
       const updated = await userDbModel
         .findOne({ _id })
+        .select("-__v -hash_password")
         .lean({ virtuals: true });
 
       if (updated) {
@@ -335,6 +336,7 @@ export default function makeUserDb({
       await userDbModel.deleteOne({ _id });
       const updated = await userDbModel
         .findOne({ _id })
+        .select("-__v -hash_password")
         .lean({ virtuals: true });
 
       if (updated) {
@@ -351,6 +353,7 @@ export default function makeUserDb({
 
       const updated = await userDbModel
         .findOne({ _id: result?._id })
+        .select("-__v -hash_password")
         .lean({ virtuals: true });
 
       if (updated) {
@@ -361,13 +364,11 @@ export default function makeUserDb({
     }
 
     async restore({ _id }: { _id: string }): Promise<User | null> {
-      await userDbModel.findOneAndUpdate(
-        { _id },
-        { deleted_at: null }
-      );
+      await userDbModel.findOneAndUpdate({ _id }, { deleted_at: null });
 
       const updated = await userDbModel
         .findOne({ _id })
+        .select("-__v -hash_password")
         .lean({ virtuals: true });
 
       if (updated) {

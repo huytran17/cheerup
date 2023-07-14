@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { get, map, sortBy, pick } from "lodash";
+import { get, map, sortBy, merge } from "lodash";
 import { ICountPostByCategory } from "../../../../use-cases/post/count-post-by-category";
 import { IGetCategoriesPaginated } from "../../../../use-cases/category/get-categories-paginated";
 import Category from "../../../../database/entities/category";
@@ -44,11 +44,8 @@ export default function makeGetOutstandingCategoriesPaginatedController({
             category_id: category._id,
           });
 
-          const created_by = pick(category.created_by, ["_id", "full_name"]);
-
-          return Object.assign({}, category, {
+          return merge({}, category, {
             post_count,
-            created_by,
           });
         }
       );

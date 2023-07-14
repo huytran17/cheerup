@@ -1,6 +1,7 @@
 import { IVerifyAccessToken } from "../../../../config/accessTokenManager/verify-access-token";
+import { JwtPayload } from "jsonwebtoken";
 import { Request } from "express";
-import { get, pick } from "lodash";
+import { get, omit } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeVerifyAccessController({
@@ -20,13 +21,13 @@ export default function makeVerifyAccessController({
         httpRequest,
         "context.validated"
       );
-      const decoded_access_token = verifyAccessToken(access_token);
+      const decoded_access_token = <JwtPayload>verifyAccessToken(access_token);
 
       return {
         headers,
         statusCode: HttpStatusCode.OK,
         body: {
-          data: pick(decoded_access_token, ["iat", "exp"]),
+          data: omit(decoded_access_token, "hash_password"),
         },
       };
     } catch (error) {

@@ -3,7 +3,7 @@ import { IGetPostsPaginated } from "../../../../use-cases/post/get-posts-paginat
 import { IReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import { ICountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
 import { IGetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
-import { get, map, replace, split, merge, filter, pick } from "lodash";
+import { get, map, replace, split, merge, filter } from "lodash";
 import Post from "../../../../database/entities/post";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -83,10 +83,7 @@ export default function makeGetPostsPaginatedController({
           );
           const reading_time = readingTimeAnalyzer({ text: analyzing_text });
 
-          const author = pick(post.author, ["_id", "full_name"]);
-
-          return Object.assign({}, post, {
-            author,
+          return merge({}, post, {
             comments_count,
             is_bookmarked: !isEmpty(post_bookmarked),
             reading_time,

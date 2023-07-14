@@ -243,6 +243,7 @@ export default function makeAdminDb({
 
       const existing = await adminDbModel
         .find(query_conditions)
+        .select("-hash_password -__v")
         .lean({ virtuals: true });
       if (existing) {
         return map(existing, (admin) => new Admin(admin));
@@ -274,6 +275,7 @@ export default function makeAdminDb({
 
       const existing = await adminDbModel
         .find(query_conditions)
+        .select("-hash_password -__v")
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)
         .sort({
@@ -324,6 +326,7 @@ export default function makeAdminDb({
 
       const existing = await adminDbModel
         .findOne(query_conditions)
+        .select("-__v -hash_password")
         .lean({ virtuals: true });
 
       if (existing) {
@@ -333,7 +336,10 @@ export default function makeAdminDb({
     }
 
     async findOne(): Promise<Admin | null> {
-      const existing = await adminDbModel.findOne().lean({ virtuals: true });
+      const existing = await adminDbModel
+        .findOne()
+        .select("-__v -hash_password")
+        .lean({ virtuals: true });
 
       if (existing) {
         return new Admin(existing);
@@ -347,7 +353,9 @@ export default function makeAdminDb({
         email,
         deleted_at: { $in: [null, undefined] },
       };
-      const existing = await adminDbModel.findOne(query_conditions);
+      const existing = await adminDbModel
+        .findOne(query_conditions)
+        .select("-__v -hash_password");
 
       if (existing) {
         return new Admin(existing);
@@ -361,6 +369,7 @@ export default function makeAdminDb({
       const result = await adminDbModel.create([updated_payload]);
       const updated = await adminDbModel
         .findOne({ _id: result[0]?._id })
+        .select("-__v -hash_password")
         .lean({ virtuals: true });
 
       if (updated) {
@@ -371,12 +380,10 @@ export default function makeAdminDb({
     }
 
     async delete({ _id }: { _id: string }): Promise<Admin | null> {
-      const existing = await adminDbModel.findOneAndUpdate(
-        { _id },
-        { deleted_at: new Date() }
-      );
+      await adminDbModel.findOneAndUpdate({ _id }, { deleted_at: new Date() });
       const updated = await adminDbModel
         .findOne({ _id })
+        .select("-__v -hash_password")
         .lean({ virtuals: true });
 
       if (updated) {
@@ -386,9 +393,10 @@ export default function makeAdminDb({
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<Admin | null> {
-      const existing = await adminDbModel.deleteOne({ _id });
+      await adminDbModel.deleteOne({ _id });
       const updated = await adminDbModel
         .findOne({ _id })
+        .select("-__v -hash_password")
         .lean({ virtuals: true });
 
       if (updated) {
@@ -404,6 +412,7 @@ export default function makeAdminDb({
 
       const updated = await adminDbModel
         .findOne({ _id: result?._id })
+        .select("-__v -hash_password")
         .lean({ virtuals: true });
 
       if (updated) {

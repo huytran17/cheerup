@@ -38,7 +38,7 @@ export default function makePostBookmarkDb({
       query = "",
       page = 1,
       entries_per_page = 15,
-      user_id
+      user_id,
     }: {
       query: string;
       page: number;
@@ -206,7 +206,7 @@ export default function makePostBookmarkDb({
     }
 
     async delete({ _id }: { _id: string }): Promise<PostBookmark | null> {
-      const existing = await postBookmarkDbModel.findOneAndUpdate(
+      await postBookmarkDbModel.findOneAndUpdate(
         { _id },
         { deleted_at: new Date() }
       );
@@ -222,7 +222,7 @@ export default function makePostBookmarkDb({
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<PostBookmark | null> {
-      const existing = await postBookmarkDbModel.deleteOne({ _id: _id });
+      await postBookmarkDbModel.deleteOne({ _id: _id });
       const updated = await postBookmarkDbModel
         .findOne({ _id })
         .lean({ virtuals: true });

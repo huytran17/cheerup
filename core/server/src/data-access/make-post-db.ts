@@ -250,7 +250,7 @@ export default function makePostDb({
 
       const existing = await postDbModel
         .find(query_conditions)
-        .populate("author", "-_v")
+        .populate("author", "-_v -hash_password")
         .populate("categories", "-_v")
         .sort({
           created_at: "desc",
@@ -336,7 +336,7 @@ export default function makePostDb({
 
       const existing = await postDbModel
         .find(query_conditions)
-        .populate("author", "-_v")
+        .populate("author", "-_v -hash_password")
         .populate("categories", "-_v")
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)
@@ -398,7 +398,7 @@ export default function makePostDb({
 
       const existing = await postDbModel
         .findOne(query_conditions)
-        .populate("author", "-_v")
+        .populate("author", "-_v -hash_password")
         .populate("categories", "-_v")
         .lean({ virtuals: true });
 
@@ -419,7 +419,7 @@ export default function makePostDb({
 
       const existing = await postDbModel
         .findOne(query_conditions)
-        .populate("author", "-_v")
+        .populate("author", "-_v -hash_password")
         .populate("categories", "-_v")
         .lean({ virtuals: true });
 
@@ -474,7 +474,7 @@ export default function makePostDb({
       const existing = await postDbModel
         .find(query_conditions)
         .limit(amount)
-        .populate("author", "-_v")
+        .populate("author", "-_v -hash_password")
         .populate("categories", "-_v")
         .sort({
           created_at: "desc",
@@ -495,7 +495,7 @@ export default function makePostDb({
 
       const existing = await postDbModel
         .findOne(query_conditions)
-        .populate("author", "-_v")
+        .populate("author", "-_v -hash_password")
         .populate("categories", "-_v")
         .lean({ virtuals: true });
 
@@ -530,10 +530,7 @@ export default function makePostDb({
     }
 
     async delete({ _id }: { _id: string }): Promise<Post | null> {
-      await postDbModel.findOneAndUpdate(
-        { _id },
-        { deleted_at: new Date() }
-      );
+      await postDbModel.findOneAndUpdate({ _id }, { deleted_at: new Date() });
       const updated = await postDbModel
         .findOne({ _id })
         .lean({ virtuals: true });

@@ -46,7 +46,7 @@ export default function makeGalleryDb({
 
       const existing = await galleryDbModel
         .find(query_conditions)
-        .populate("created_by", "-_v")
+        .populate("created_by", "-_v -hash_password")
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)
         .sort({
