@@ -17,10 +17,11 @@ export default function makeGetTwoFactorAuthenticationByCode({
   }: {
     code: string;
   }): Promise<TwoFactorAuthentication | null> {
-    const password_reset = await twoFactorAuthenticationDb.findByCode({
-      code,
-    });
+    const two_factor_authentication =
+      await twoFactorAuthenticationDb.findByCode({
+        code,
+      });
 
-    return password_reset;
+    return two_factor_authentication;
   };
 }

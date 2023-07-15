@@ -21,11 +21,12 @@ export default function makeGetTwoFactorAuthenticationByEmail({
     email: string;
     code: string;
   }): Promise<TwoFactorAuthentication | null> {
-    const password_reset = await twoFactorAuthenticationDb.findByEmailAndCode({
-      email,
-      code,
-    });
+    const two_factor_authentication =
+      await twoFactorAuthenticationDb.findByEmailAndCode({
+        email,
+        code,
+      });
 
-    return password_reset;
+    return two_factor_authentication;
   };
 }
