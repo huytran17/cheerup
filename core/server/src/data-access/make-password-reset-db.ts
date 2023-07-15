@@ -14,7 +14,7 @@ export default function makePasswordResetDb({
   >;
   moment: any;
 }): IPasswordResetDb {
-  return new (class MongooseGalleryDb implements IPasswordResetDb {
+  return new (class MongoosePasswordResetDb implements IPasswordResetDb {
     async findByCode({
       security_code,
     }: {

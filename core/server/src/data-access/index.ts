@@ -11,6 +11,7 @@ import makePostBookmarkDb from "./make-post-bookmark-db";
 import makeGalleryDb from "./make-gallery-db";
 import makeCommentLikeDb from "./make-comment-like-db";
 import makePasswordResetDb from "./make-password-reset-db";
+import makeTwoFactorAuthenticationDb from "./make-two-factor-authentication-db";
 
 import {
   UserModel,
@@ -24,7 +25,13 @@ import {
   GalleryModel,
   CommentLikeModel,
   PasswordResetModel,
+  TwoFactorAuthenticationModel,
 } from "./models";
+
+const TwoFactorAuthenticationDb = makeTwoFactorAuthenticationDb({
+  twoFactorAuthenticationDbModel: TwoFactorAuthenticationModel,
+  moment,
+});
 
 const PasswordResetDb = makePasswordResetDb({
   passwordResetDbModel: PasswordResetModel,
@@ -80,6 +87,7 @@ export default Object.freeze({
   GalleryDb,
   CommentLikeDb,
   PasswordResetDb,
+  TwoFactorAuthenticationDb,
 });
 
 export {
@@ -94,4 +102,5 @@ export {
   GalleryDb,
   CommentLikeDb,
   PasswordResetDb,
+  TwoFactorAuthenticationDb,
 };
