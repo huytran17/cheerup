@@ -16,6 +16,7 @@ const userSchema = new Schema(
       refresh_token: { type: String, trim: true },
     },
     is_blocked_comment: { type: Boolean, default: false },
+    is_enabled_2fa: { type: Boolean, default: false },
     blocked_comment_at: { type: Date },
     avatar: { type: Object },
     email: { type: String, trim: true, lowercase: true, required: true },
@@ -35,15 +36,18 @@ userSchema.virtual("avatar_url").get(function () {
   return get(this, "avatar.location");
 });
 
-userSchema.pre('deleteOne', { document: true }, async function (next) {
-  const user_id = get(this, "_id")
-  const comments = await CommentModel.find({ user: user_id }) || []
-  const delete_comment_promises = map(comments, async comment => comment && await comment.deleteOne())
+userSchema.pre("deleteOne", { document: true }, async function (next) {
+  const user_id = get(this, "_id");
+  const comments = (await CommentModel.find({ user: user_id })) || [];
+  const delete_comment_promises = map(
+    comments,
+    async (comment) => comment && (await comment.deleteOne())
+  );
 
-  await Promise.all(delete_comment_promises)
+  await Promise.all(delete_comment_promises);
 
-  next()
-})
+  next();
+});
 
 userSchema.plugin(mongoose_lean_virtuals);
 

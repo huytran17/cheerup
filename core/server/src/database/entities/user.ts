@@ -11,6 +11,7 @@ export default class User implements IUser {
   public readonly full_name: string;
   public readonly blocked_comment_at?: Date;
   public readonly is_blocked_comment?: boolean;
+  public readonly is_enabled_2fa?: boolean;
   public readonly socialite?: {
     provider?: string;
     access_token?: string;
@@ -30,6 +31,7 @@ export default class User implements IUser {
     full_name,
     avatar_url,
     is_blocked_comment,
+    is_enabled_2fa,
     created_at,
     updated_at,
     deleted_at,
@@ -43,6 +45,7 @@ export default class User implements IUser {
     this.avatar_url = avatar_url;
     this.hash_password = hash_password;
     this.is_blocked_comment = is_blocked_comment;
+    this.is_enabled_2fa = is_enabled_2fa;
     this.full_name = full_name;
     this.email = email;
     this.created_at = created_at;

@@ -10,6 +10,7 @@ import postBookmarkSchema from "../../database/schemas/post-bookmark";
 import gallerySchema from "../../database/schemas/gallery";
 import commentLikeSchema from "../../database/schemas/comment-like";
 import passwordResetSchema from "../../database/schemas/password-reset";
+import twoFactorAuthenticationSchema from "../../database/schemas/two-factor-authentication";
 
 import ISystemConfiguration from "../../database/interfaces/system-configuration";
 import ISubscription from "../../database/interfaces/subscription";
@@ -22,6 +23,7 @@ import IPostBookmark from "../../database/interfaces/post-bookmark";
 import IGallery from "../../database/interfaces/gallery";
 import ICommentLike from "../../database/interfaces/comment-like";
 import IPasswordReset from "../../database/interfaces/password-reset";
+import ITwoFactorAuthentication from "../../database/interfaces/two-factor-authentication";
 
 type IPostBookmarkModel = IPostBookmark & mongoose.Document;
 type ISystemConfigurationModel = ISystemConfiguration & mongoose.Document;
@@ -34,7 +36,14 @@ type ICommentModel = IComment & mongoose.Document;
 type IGalleryModel = IGallery & mongoose.Document;
 type ICommentLikeModel = ICommentLike & mongoose.Document;
 type IPasswordResetModel = IPasswordReset & mongoose.Document;
+type ITwoFactorAuthenticationModel = ITwoFactorAuthentication &
+  mongoose.Document;
 
+const TwoFactorAuthenticationModel =
+  mongoose.model<ITwoFactorAuthenticationModel>(
+    "TwoFactorAuthentication",
+    twoFactorAuthenticationSchema
+  );
 const PasswordResetModel = mongoose.model<IPasswordResetModel>(
   "PasswordReset",
   passwordResetSchema
@@ -77,6 +86,7 @@ export default Object.freeze({
   GalleryModel,
   CommentLikeModel,
   PasswordResetModel,
+  TwoFactorAuthenticationModel,
 });
 
 export {
@@ -91,4 +101,5 @@ export {
   GalleryModel,
   CommentLikeModel,
   PasswordResetModel,
+  TwoFactorAuthenticationModel,
 };
