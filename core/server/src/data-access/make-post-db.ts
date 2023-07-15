@@ -250,7 +250,7 @@ export default function makePostDb({
 
       const existing = await postDbModel
         .find(query_conditions)
-        .populate("author", "-_v -hash_password")
+        .populate("author", "_id full_name")
         .populate("categories", "-_v")
         .sort({
           created_at: "desc",
@@ -336,7 +336,7 @@ export default function makePostDb({
 
       const existing = await postDbModel
         .find(query_conditions)
-        .populate("author", "-_v -hash_password")
+        .populate("author", "_id full_name")
         .populate("categories", "-_v")
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)
@@ -398,7 +398,7 @@ export default function makePostDb({
 
       const existing = await postDbModel
         .findOne(query_conditions)
-        .populate("author", "-_v -hash_password")
+        .populate("author", "_id full_name")
         .populate("categories", "-_v")
         .lean({ virtuals: true });
 
@@ -419,7 +419,7 @@ export default function makePostDb({
 
       const existing = await postDbModel
         .findOne(query_conditions)
-        .populate("author", "-_v -hash_password")
+        .populate("author", "_id full_name")
         .populate("categories", "-_v")
         .lean({ virtuals: true });
 
@@ -474,7 +474,7 @@ export default function makePostDb({
       const existing = await postDbModel
         .find(query_conditions)
         .limit(amount)
-        .populate("author", "-_v -hash_password")
+        .populate("author", "_id full_name")
         .populate("categories", "-_v")
         .sort({
           created_at: "desc",
@@ -495,7 +495,7 @@ export default function makePostDb({
 
       const existing = await postDbModel
         .findOne(query_conditions)
-        .populate("author", "-_v -hash_password")
+        .populate("author", "_id full_name")
         .populate("categories", "-_v")
         .lean({ virtuals: true });
 

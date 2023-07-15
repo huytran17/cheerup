@@ -23,7 +23,7 @@ export default function makeCommentDb({
       const existing = await commentDbModel
         .find(query_conditions)
         .populate("children", "-_v")
-        .populate("user", "-_v -hash_password")
+        .populate("user", "_id full_name avatar_url")
         .populate("post", "-_v")
         .lean({ virtuals: true });
       if (existing) {
@@ -158,7 +158,7 @@ export default function makeCommentDb({
       const existing = await commentDbModel
         .find(query_conditions)
         .populate("children", "-_v")
-        .populate("user", "-_v -hash_password")
+        .populate("user", "_id full_name avatar_url")
         .populate("post", "-_v")
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)
@@ -301,7 +301,7 @@ export default function makeCommentDb({
       const existing = await commentDbModel
         .findOne()
         .populate("children", "-_v")
-        .populate("user", "-_v -hash_password")
+        .populate("user", "_id full_name avatar_url")
         .populate("post", "-_v")
         .lean({ virtuals: true });
 
@@ -350,7 +350,7 @@ export default function makeCommentDb({
       const result = await commentDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)
         .populate("children", "-_v")
-        .populate("user", "-_v -hash_password")
+        .populate("user", "_id full_name avatar_url")
         .populate("post", "-_v")
         .lean({ virtuals: true });
 

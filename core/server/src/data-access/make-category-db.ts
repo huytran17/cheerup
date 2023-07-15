@@ -145,7 +145,7 @@ export default function makeCategoryDb({
         .find(query_conditions)
         .populate({
           path: "created_by",
-          select: "-__v -hash_password",
+          select: "_id full_name",
         })
         .sort({
           created_at: "desc",
@@ -204,7 +204,7 @@ export default function makeCategoryDb({
         .find(query_conditions)
         .populate({
           path: "created_by",
-          select: "-__v -hash_password",
+          select: "_id full_name",
         })
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)
@@ -268,7 +268,7 @@ export default function makeCategoryDb({
         .findOne(query_conditions)
         .populate({
           path: "created_by",
-          select: "-__v -hash_password",
+          select: "_id full_name",
         })
         .lean({ virtuals: true });
 
@@ -332,7 +332,7 @@ export default function makeCategoryDb({
         .findOne(query_conditions)
         .populate({
           path: "created_by",
-          select: "-__v -hash_password",
+          select: "_id full_name",
         })
         .lean({ virtuals: true });
 
@@ -410,7 +410,7 @@ export default function makeCategoryDb({
         .findOneAndUpdate({ _id: payload._id }, payload)
         .populate({
           path: "created_by",
-          select: "-__v -hash_password",
+          select: "_id full_name",
         })
         .lean({ virtuals: true });
 
