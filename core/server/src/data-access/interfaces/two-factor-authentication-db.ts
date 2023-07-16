@@ -4,15 +4,19 @@ import ITwoFactorAuthentication from "../../database/interfaces/two-factor-authe
 export default interface ITwoFactorAuthenticationDb {
   findByCode: ({
     code,
+    type,
   }: {
     code: string;
+    type: string;
   }) => Promise<TwoFactorAuthentication | null>;
   findByEmailAndCode: ({
     email,
     code,
+    type,
   }: {
     email: string;
     code: string;
+    type: string;
   }) => Promise<TwoFactorAuthentication | null>;
   insert: (
     payload: Partial<ITwoFactorAuthentication>

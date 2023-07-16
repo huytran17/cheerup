@@ -8,6 +8,7 @@ export const getters: GetterTree<AuthState, RootState> = {
   },
   me: (state) => state.me,
   has_user: (state) => state.has_user,
+  is_open_2fa_modal: (state) => state.is_open_2fa_modal,
 };
 
 export default getters;

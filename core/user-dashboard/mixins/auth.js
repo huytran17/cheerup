@@ -4,6 +4,11 @@ import { mapActions, mapMutations, mapGetters } from "vuex";
 export default {
   data() {
     return {
+      twoFACodeRules: [
+        (v) => !!v || this.$t("Confirmation code is required."),
+        (v) =>
+          (v && v.length > 5) || this.$t("Password must be min 6 characters."),
+      ],
       emailRules: [
         (v) => !!v || this.$t("E-mail is required."),
         (v) => /.+@.+\..+/.test(v) || this.$t("E-mail must be valid."),
@@ -40,6 +45,7 @@ export default {
     ...mapGetters({
       me: "auth/me",
       has_user: "auth/has_user",
+      is_open_2fa_modal: "auth/is_open_2fa_modal",
       user: "user/user",
     }),
   },
@@ -50,11 +56,16 @@ export default {
       SIGN_OUT: "auth/SIGN_OUT",
       GET_ME: "auth/GET_ME",
       VERIFY_ACCESS: "auth/VERIFY_ACCESS",
+      ENABLE_2FA: "auth/ENABLE_2FA",
+      ENABLE_2FA_CONFIRMATION: "auth/ENABLE_2FA_CONFIRMATION",
+      DISABLE_2FA_CONFIRMATION: "auth/DISABLE_2FA_CONFIRMATION",
+      DISABLE_2FA: "auth/DISABLE_2FA",
     }),
 
     ...mapMutations({
       UPDATE_ME_DATA: "auth/UPDATE_ME_DATA",
       SET_ME: "auth/SET_ME",
+      SET_IS_OPEN_2FA_MODAL: "auth/SET_IS_OPEN_2FA_MODAL",
     }),
 
     updateMeObject({ variable_path, data }) {

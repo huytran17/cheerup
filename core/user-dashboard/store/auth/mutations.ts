@@ -4,6 +4,10 @@ import { AuthState } from ".";
 import { update } from "lodash";
 
 const mutations: MutationTree<AuthState> = {
+  [MutationTypes.SET_IS_OPEN_2FA_MODAL](state, { data }: { data: boolean }) {
+    state.is_open_2fa_modal = data;
+  },
+
   [MutationTypes.SET_HAS_USER](state, { data }: { data: boolean }) {
     state.has_user = data;
   },

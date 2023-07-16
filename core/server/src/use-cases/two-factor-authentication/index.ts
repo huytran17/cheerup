@@ -4,7 +4,7 @@ import makeCreateTwoFactorAuthentication from "./create-two-factor-authenticatio
 import makeHardDeleteTwoFactorAuthentication from "./hard-delete-two-factor-authentication";
 import makeGetTwoFactorAuthenticationByEmailAndCode from "./get-two-factor-authentication-by-email-and-code";
 
-const getTwoFactorAuthenticationByEmail =
+const getTwoFactorAuthenticationByEmailAndCode =
   makeGetTwoFactorAuthenticationByEmailAndCode({
     twoFactorAuthenticationDb: TwoFactorAuthenticationDb,
   });
@@ -27,7 +27,7 @@ const twoFactorAuthenticationServices = Object.freeze({
   getTwoFactorAuthenticationByCode,
   createTwoFactorAuthentication,
   hardDeleteTwoFactorAuthentication,
-  getTwoFactorAuthenticationByEmail,
+  getTwoFactorAuthenticationByEmailAndCode,
 });
 
 export default twoFactorAuthenticationServices;
@@ -36,5 +36,5 @@ export {
   getTwoFactorAuthenticationByCode,
   createTwoFactorAuthentication,
   hardDeleteTwoFactorAuthentication,
-  getTwoFactorAuthenticationByEmail,
+  getTwoFactorAuthenticationByEmailAndCode,
 };

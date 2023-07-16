@@ -6,24 +6,25 @@ import ITwoFactorAuthentication from "../database/interfaces/two-factor-authenti
 
 export default function makeTwoFactorAuthenticationDb({
   twoFactorAuthenticationDbModel,
-  moment,
 }: {
   twoFactorAuthenticationDbModel: mongoose.Model<
     ITwoFactorAuthentication & mongoose.Document,
     Record<string, unknown>
   >;
-  moment: any;
 }): ITwoFactorAuthenticationDb {
   return new (class MongooseTwoFactorAuthenticationDb
     implements ITwoFactorAuthenticationDb
   {
     async findByCode({
       code,
+      type,
     }: {
       code: string;
+      type: string;
     }): Promise<TwoFactorAuthentication | null> {
       const query_conditions = {
         code,
+        type,
       };
 
       const existing = await twoFactorAuthenticationDbModel
@@ -39,13 +40,16 @@ export default function makeTwoFactorAuthenticationDb({
     async findByEmailAndCode({
       email,
       code,
+      type,
     }: {
       email: string;
       code: string;
+      type: string;
     }): Promise<TwoFactorAuthentication | null> {
       const query_conditions = {
         email,
         code,
+        type,
       };
 
       const existing = await twoFactorAuthenticationDbModel

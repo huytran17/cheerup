@@ -33,7 +33,7 @@ export default function makeGetMeController({
       const exists = await getUser({ _id, is_include_deleted: false });
 
       if (isEmpty(exists)) {
-        throw new Error(`File does not exist`);
+        throw new Error(`User by id ${_id} does not exist`);
       }
 
       await updateUser({

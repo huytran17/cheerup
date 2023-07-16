@@ -30,7 +30,6 @@ import {
 
 const TwoFactorAuthenticationDb = makeTwoFactorAuthenticationDb({
   twoFactorAuthenticationDbModel: TwoFactorAuthenticationModel,
-  moment,
 });
 
 const PasswordResetDb = makePasswordResetDb({

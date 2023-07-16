@@ -8,6 +8,7 @@ import {
   signInRules,
   signUpRules,
   verifyAccessRules,
+  enable2FARules,
 } from "../../data-access/controllers/user/auth/validators";
 import {
   signOutController,
@@ -16,6 +17,9 @@ import {
   getMeController,
   verifyAccessController,
   signInWithGoogleController,
+  enable2FAConfirmationController,
+  disable2FAConfirmationController,
+  enable2FAController,
 } from "../../data-access/controllers/user/auth";
 
 const authRouter = express.Router();
@@ -54,6 +58,25 @@ authRouter.get(
   "/google/callback",
   authenticateUserGoogle(),
   makeExpressViewCallback(signInWithGoogleController)
+);
+
+authRouter.get(
+  "/enable-2fa-confirmation",
+  authenticateUserJWT(),
+  makeExpressViewCallback(enable2FAConfirmationController)
+);
+
+authRouter.get(
+  "/disable-2fa-confirmation",
+  authenticateUserJWT(),
+  makeExpressViewCallback(disable2FAConfirmationController)
+);
+
+authRouter.post(
+  "/enable-2fa",
+  authenticateUserJWT(),
+  makeValidator(enable2FARules),
+  makeExpressViewCallback(enable2FAController)
 );
 
 export default authRouter;

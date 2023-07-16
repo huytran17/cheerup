@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="supported-color-schemes" content="light dark" />
+    <title>Enable 2FA Confirmation</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" async />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
+      rel="stylesheet"
+      async
+    />
+
+    <style type="text/css" rel="stylesheet" media="all">
+      @import url("https://fonts.googleapis.com/css?family=Nunito+Sans:400,700&display=swap");
+
+      body {
+        width: 100% !important;
+        height: 100%;
+        max-width: 540px;
+        margin: 0 auto;
+        -webkit-text-size-adjust: none;
+        font-family: "Lato", sans-serif !important;
+      }
+
+      .body-text {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .primary--text {
+        color: #0657a9 !important;
+      }
+
+      .danger--text {
+        color: #cb3a31 !important;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          max-width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="body-text">
+      <br />
+
+      <h3 class="primary--text">ENABLE 2FA</h3>
+
+      <span>Please use the following code to verify your action:</span>
+
+      <h2>{{code}}</h2>
+
+      <span class="danger--text">
+        <small><i>* Confirmation code is valid for 5 minutes</i></small>
+      </span>
+
+      <br />
+      <br />
+
+      <span> Best regards, </span>
+
+      <br />
+
+      <span> {{product_name}} </span>
+    </div>
+  </body>
+</html>

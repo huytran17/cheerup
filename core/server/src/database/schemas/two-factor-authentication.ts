@@ -6,7 +6,13 @@ const Schema = mongoose.Schema;
 const twoFactorAuthenticationSchema = new Schema(
   {
     email: { type: String, required: true },
-    code: { type: String, required: true },
+    code: { type: String, trim: true, required: true },
+    type: {
+      type: String,
+      enum: ["enable", "disable"],
+      trim: true,
+      required: true,
+    },
     created_at: { type: Date, default: Date.now },
     expire_at: { type: Date, default: Date.now },
   },
