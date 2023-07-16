@@ -20,6 +20,7 @@ import {
   getTwoFactorAuthenticationByEmailAndCode,
   createTwoFactorAuthentication,
   hardDeleteTwoFactorAuthentication,
+  getTwoFactorAuthenticationByEmail,
 } from "../../../../use-cases/two-factor-authentication";
 import {
   generateAccessToken,
@@ -43,6 +44,8 @@ const enable2FAController = makeEnable2FAController({
 
 const disable2FAConfirmationController = makeDisable2FAConfirmationController({
   createTwoFactorAuthentication,
+  getTwoFactorAuthenticationByEmail,
+  hardDeleteTwoFactorAuthentication,
   getTwoFactorAuthenticationByEmailAndCode,
   getUser,
   getEmailContent,
@@ -54,6 +57,8 @@ const disable2FAConfirmationController = makeDisable2FAConfirmationController({
 
 const enable2FAConfirmationController = makeEnable2FAConfirmationController({
   createTwoFactorAuthentication,
+  getTwoFactorAuthenticationByEmail,
+  hardDeleteTwoFactorAuthentication,
   getTwoFactorAuthenticationByEmailAndCode,
   getUser,
   getEmailContent,

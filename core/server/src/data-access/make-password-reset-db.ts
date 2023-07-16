@@ -1,4 +1,3 @@
-import _ from "lodash";
 import mongoose from "mongoose";
 import IPasswordResetDb from "./interfaces/password-reset-db";
 import PasswordReset from "../database/entities/password-reset";

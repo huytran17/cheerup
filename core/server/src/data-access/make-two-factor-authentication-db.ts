@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { map } from "lodash";
 import mongoose from "mongoose";
 import ITwoFactorAuthenticationDb from "./interfaces/two-factor-authentication-db";
 import TwoFactorAuthentication from "../database/entities/two-factor-authentication";
@@ -33,6 +33,28 @@ export default function makeTwoFactorAuthenticationDb({
 
       if (existing) {
         return new TwoFactorAuthentication(existing);
+      }
+      return null;
+    }
+
+    async findByEmail({
+      email,
+      type,
+    }: {
+      email: string;
+      type: string;
+    }): Promise<TwoFactorAuthentication[] | null> {
+      const query_conditions = {
+        email,
+        type,
+      };
+
+      const existing = await twoFactorAuthenticationDbModel
+        .find(query_conditions)
+        .lean({ virtuals: true });
+
+      if (existing) {
+        return map(existing, (tfa) => new TwoFactorAuthentication(tfa));
       }
       return null;
     }

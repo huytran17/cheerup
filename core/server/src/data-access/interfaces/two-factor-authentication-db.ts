@@ -2,6 +2,13 @@ import TwoFactorAuthentication from "../../database/entities/two-factor-authenti
 import ITwoFactorAuthentication from "../../database/interfaces/two-factor-authentication";
 
 export default interface ITwoFactorAuthenticationDb {
+  findByEmail: ({
+    email,
+    type,
+  }: {
+    email: string;
+    type: string;
+  }) => Promise<TwoFactorAuthentication[] | null>;
   findByCode: ({
     code,
     type,

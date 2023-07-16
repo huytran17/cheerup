@@ -61,13 +61,14 @@ export default {
   },
   data() {
     return {
-      two_fa_code: undefined,
+      two_fa_code: "",
       form_valid: false,
     };
   },
 
   methods: {
     closeModal() {
+      this.two_fa_code = "";
       this.SET_IS_OPEN_2FA_MODAL({ data: false });
     },
   },

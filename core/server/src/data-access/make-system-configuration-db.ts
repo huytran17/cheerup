@@ -1,4 +1,3 @@
-import _ from "lodash";
 import mongoose from "mongoose";
 import ISystemConfigurationDb from "./interfaces/system-configuration-db";
 import SystemConfiguration from "../database/entities/system-configuration";

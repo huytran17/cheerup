@@ -88,18 +88,6 @@ export default {
         console.error(error);
       }
     },
-
-    // async toggle2FA({ data }) {
-    //   const is_enabled_2fa = !!data;
-
-    //   if (is_enabled_2fa) {
-    //     this.SET_IS_OPEN_2FA_MODAL({ data: true });
-    //     return await this.ENABLE_2FA_CONFIRMATION();
-    //   }
-
-    //   this.SET_IS_OPEN_2FA_MODAL({ data: false });
-    //   this.DISABLE_2FA_CONFIRMATION();
-    // },
   },
   fetch() {
     this.tfa_switcher = this.is_enabled_2fa;

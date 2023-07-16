@@ -27,8 +27,12 @@ export default {
       }
     },
   },
-  fetch() {
-    console.log("---------------okk");
+  async fetch() {
+    try {
+      await this.DISABLE_2FA_CONFIRMATION();
+    } catch (error) {
+      console.error(error);
+    }
   },
 };
 </script>

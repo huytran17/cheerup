@@ -1,4 +1,3 @@
-import _ from "lodash";
 import mongoose from "mongoose";
 import ICommentLikeDb from "./interfaces/comment-like-db";
 import CommentLike from "../database/entities/comment-like";

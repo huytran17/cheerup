@@ -31,8 +31,12 @@ export default {
       }
     },
   },
-  fetch() {
-    console.log("---------------ok");
+  async fetch() {
+    try {
+      await this.ENABLE_2FA_CONFIRMATION();
+    } catch (error) {
+      console.error(error);
+    }
   },
 };
 </script>

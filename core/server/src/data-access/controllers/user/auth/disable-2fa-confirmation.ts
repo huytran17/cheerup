@@ -6,16 +6,20 @@ import { TwoFAType } from "../../../../database/interfaces/two-factor-authentica
 import { IGetEmailContent } from "../../../../config/emailManager/get-email-content";
 import { IRenderEmailContent } from "../../../../config/emailManager/render-email-content";
 import { ISendEmail } from "../../../../config/emailManager/send-email";
-import { get, omit } from "lodash";
+import { get, omit, map } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { ICreateTwoFactorAuthentication } from "../../../../use-cases/two-factor-authentication/create-two-factor-authentication";
 import { IGetTwoFactorAuthenticationByEmailAndCode } from "../../../../use-cases/two-factor-authentication/get-two-factor-authentication-by-email-and-code";
+import { IGetTwoFactorAuthenticationByEmail } from "../../../../use-cases/two-factor-authentication/get-two-factor-authentication-by-email";
+import { IHardDeleteTwoFactorAuthentication } from "../../../../use-cases/two-factor-authentication/hard-delete-two-factor-authentication";
 import { IGetUser } from "../../../../use-cases/user/get-user";
 import { isEmpty } from "../../../../utils/is-empty";
 import { Logger } from "winston";
 
 export default function makeDisable2FAConfirmationController({
   createTwoFactorAuthentication,
+  getTwoFactorAuthenticationByEmail,
+  hardDeleteTwoFactorAuthentication,
   getTwoFactorAuthenticationByEmailAndCode,
   getUser,
   getEmailContent,
@@ -25,6 +29,8 @@ export default function makeDisable2FAConfirmationController({
   moment,
 }: {
   createTwoFactorAuthentication: ICreateTwoFactorAuthentication;
+  getTwoFactorAuthenticationByEmail: IGetTwoFactorAuthenticationByEmail;
+  hardDeleteTwoFactorAuthentication: IHardDeleteTwoFactorAuthentication;
   getTwoFactorAuthenticationByEmailAndCode: IGetTwoFactorAuthenticationByEmailAndCode;
   getUser: IGetUser;
   getEmailContent: IGetEmailContent;
@@ -51,6 +57,18 @@ export default function makeDisable2FAConfirmationController({
       if (isEmpty(user_exists)) {
         throw new Error(`User by ${_id} does not exist`);
       }
+
+      const existed = await getTwoFactorAuthenticationByEmail({
+        email: user_exists.email,
+        type: TwoFAType.DISABLE,
+      });
+
+      const delete_existed_promises = map(
+        existed,
+        async (tfa) => await hardDeleteTwoFactorAuthentication({ _id: tfa._id })
+      );
+
+      await Promise.all(delete_existed_promises);
 
       const generateCode = () =>
         randomString.generate({
