@@ -60,6 +60,18 @@ export default {
       return get(this.me, "is_enabled_2fa", false);
     },
   },
+  watch: {
+    should_open_enable_2fa_dialog: {
+      handler(value) {
+        value && this.SET_IS_OPEN_2FA_MODAL({ data: true });
+      },
+    },
+    should_open_disable_2fa_dialog: {
+      handler(value) {
+        value && this.SET_IS_OPEN_2FA_MODAL({ data: true });
+      },
+    },
+  },
   methods: {
     async toggleSubscription({ data }) {
       try {
