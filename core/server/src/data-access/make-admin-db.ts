@@ -326,7 +326,7 @@ export default function makeAdminDb({
 
       const existing = await adminDbModel
         .findOne(query_conditions)
-        .select("-__v -hash_password")
+        .select("-__v")
         .lean({ virtuals: true });
 
       if (existing) {
