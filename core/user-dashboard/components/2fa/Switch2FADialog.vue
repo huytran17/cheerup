@@ -2,7 +2,7 @@
   <v-dialog :value="is_open_2fa_modal" max-width="500" persistent>
     <v-row class="two-fa-confirmation-dialog">
       <v-col cols="12" class="text-center pb-0">
-        <v-icon color="brick" size="40">{{ icon }}</v-icon>
+        <v-icon color="brick" :size="icon_size">{{ icon }}</v-icon>
       </v-col>
       <v-col cols="12">
         <div class="text-body-2">
@@ -49,6 +49,10 @@ export default {
     icon: {
       type: String,
       default: () => "",
+    },
+    icon_size: {
+      type: Number,
+      default: () => 40,
     },
     message: {
       type: String,

@@ -77,6 +77,7 @@ export default {
     }),
 
     closeModal() {
+      this.can_close = false;
       this.SET_IS_OPEN_2FA_QR_MODAL({ data: false });
     },
 

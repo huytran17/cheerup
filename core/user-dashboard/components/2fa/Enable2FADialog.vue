@@ -2,7 +2,7 @@
   <div>
     <Switch2FADialog
       ref="enable2FADialog"
-      :icon="'mdi-email-heart-outline'"
+      :icon="'mdi-shield-lock-outline'"
       :message="'An email was sent to you, please check and type confirmation code into the form below.'"
       :submit_function="enable2FA"
     />

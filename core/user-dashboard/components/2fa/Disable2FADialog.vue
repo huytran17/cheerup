@@ -1,7 +1,8 @@
 <template>
   <Switch2FADialog
     ref="enable2FADialog"
-    :icon="'mdi-email-check-outline'"
+    :icon="'mdi-shield-off'"
+    :icon_size="36"
     :message="'An email was sent to you, please check and type confirmation code into the form below.'"
     :submit_function="disable2FA"
   />
