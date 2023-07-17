@@ -9,6 +9,7 @@ import {
   signUpRules,
   verifyAccessRules,
   enable2FARules,
+  disable2FARules,
 } from "../../data-access/controllers/user/auth/validators";
 import {
   signOutController,
@@ -20,6 +21,7 @@ import {
   enable2FAConfirmationController,
   disable2FAConfirmationController,
   enable2FAController,
+  disable2FAController,
 } from "../../data-access/controllers/user/auth";
 
 const authRouter = express.Router();
@@ -77,6 +79,13 @@ authRouter.post(
   authenticateUserJWT(),
   makeValidator(enable2FARules),
   makeExpressViewCallback(enable2FAController)
+);
+
+authRouter.post(
+  "/disable-2fa",
+  authenticateUserJWT(),
+  makeValidator(disable2FARules),
+  makeExpressViewCallback(disable2FAController)
 );
 
 export default authRouter;

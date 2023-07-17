@@ -9,7 +9,7 @@ import { get, merge, omit } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
-export default function makeEnable2FAController({
+export default function makeDisable2FAController({
   getUser,
   updateUser,
   getTwoFactorAuthenticationByEmailAndCode,
@@ -22,7 +22,7 @@ export default function makeEnable2FAController({
   hardDeleteTwoFactorAuthentication: IHardDeleteTwoFactorAuthentication;
   moment: typeof Moment;
 }) {
-  return async function enable2FAController(
+  return async function disable2FAController(
     httpRequest: Request & { context: { validated: { user_id: string } } }
   ) {
     const headers = {

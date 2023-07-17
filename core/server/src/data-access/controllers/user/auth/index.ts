@@ -7,6 +7,7 @@ import makeSignInWithGoogleController from "./sign-in-with-google";
 import makeEnable2FAConfirmationController from "./enable-2fa-confirmation";
 import makeDisable2FAConfirmationController from "./disable-2fa-confirmation";
 import makeEnable2FAController from "./enable-2fa";
+import makeDisable2FAController from "./disable-2fa";
 
 import { getSubscriptionByEmail } from "../../../../use-cases/subscription";
 import { hashPassword, verifyPassword } from "../../../../config/password";
@@ -33,6 +34,14 @@ import {
   renderEmailContent,
   sendEmail,
 } from "../../../../config/emailManager";
+
+const disable2FAController = makeDisable2FAController({
+  getUser,
+  updateUser,
+  getTwoFactorAuthenticationByEmailAndCode,
+  hardDeleteTwoFactorAuthentication,
+  moment,
+});
 
 const enable2FAController = makeEnable2FAController({
   getUser,
@@ -111,6 +120,7 @@ export default Object.freeze({
   enable2FAConfirmationController,
   disable2FAConfirmationController,
   enable2FAController,
+  disable2FAController,
 });
 
 export {
@@ -123,4 +133,5 @@ export {
   enable2FAConfirmationController,
   disable2FAConfirmationController,
   enable2FAController,
+  disable2FAController,
 };

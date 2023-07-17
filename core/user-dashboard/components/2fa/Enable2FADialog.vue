@@ -25,6 +25,7 @@ export default {
         await this.ENABLE_2FA({ data: payload });
         await this.GET_ME();
 
+        this.$toast.success(this.$t(`Enabled 2FA successfully`));
         this.$emit("close-2fa-modal");
       } catch (error) {
         console.error(error);

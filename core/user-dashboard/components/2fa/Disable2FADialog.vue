@@ -18,9 +18,14 @@ export default {
   methods: {
     async disable2FA() {
       try {
-        await this.DISABLE_2FA();
+        const payload = {
+          code: this.$refs.enable2FADialog.two_fa_code,
+        };
+
+        await this.DISABLE_2FA({ data: payload });
         await this.GET_ME();
 
+        this.$toast.success(this.$t(`Disabled 2FA successfully`));
         this.$emit("close-2fa-modal");
       } catch (error) {
         console.error(error);
