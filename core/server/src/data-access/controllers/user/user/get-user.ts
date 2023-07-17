@@ -28,7 +28,10 @@ export default function makeGetUserController({
         throw new Error(`User by ${user_id} does not exist`);
       }
 
-      const final_user_data = merge({}, omit(exists, ["tfa_secret"]));
+      const final_user_data = merge(
+        {},
+        omit(exists, ["tfa_secret", "hash_password"])
+      );
 
       return {
         headers,

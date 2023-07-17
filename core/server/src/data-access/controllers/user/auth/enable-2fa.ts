@@ -69,12 +69,14 @@ export default function makeEnable2FAController({
 
       const qr_uri = await generateQRCode({ otp_auth: otp_token });
 
+      const userDetails = merge({}, user_exists, {
+        is_enabled_2fa: true,
+        tfa_secret,
+      });
+
       const [updated_user] = await Promise.all([
         updateUser({
-          userDetails: merge({}, user_exists, {
-            is_enabled_2fa: true,
-            tfa_secret,
-          }),
+          userDetails,
         }),
 
         hardDeleteTwoFactorAuthentication({ _id: two_fa._id }),
