@@ -19,7 +19,7 @@ export default function makeHashPassword(hash: IHashFunction): IHashPassword {
     }
 
     if (!password_confirmation) {
-      throw new Error("confirm password is needed.");
+      throw new Error("Confirm password is needed.");
     }
 
     if (password !== password_confirmation) {
