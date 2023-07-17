@@ -27,6 +27,7 @@
 
     <Enable2FADialog v-if="should_open_enable_2fa_dialog" />
     <Disable2FADialog v-if="should_open_disable_2fa_dialog" />
+    <QRCodeDialog />
   </v-row>
 </template>
 
@@ -37,11 +38,12 @@ import subscriptionMixins from "@/mixins/subscription";
 
 import Enable2FADialog from "@/components/2fa/Enable2FADialog";
 import Disable2FADialog from "@/components/2fa/Disable2FADialog";
+import QRCodeDialog from "@/components/2fa/QRCodeDialog";
 
 export default {
   name: "BaseAccountFeatures",
   mixins: [authMixins, subscriptionMixins],
-  components: { Enable2FADialog, Disable2FADialog },
+  components: { Enable2FADialog, Disable2FADialog, QRCodeDialog },
   data() {
     return {
       tfa_switcher: false,

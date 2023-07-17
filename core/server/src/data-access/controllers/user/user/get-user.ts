@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { IGetUser } from "../../../../use-cases/user/get-user";
-import { get } from "lodash";
+import { get, merge, omit } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -28,11 +28,13 @@ export default function makeGetUserController({
         throw new Error(`User by ${user_id} does not exist`);
       }
 
+      const final_user_data = merge({}, omit(exists, ["tfa_secret"]));
+
       return {
         headers,
         statusCode: HttpStatusCode.OK,
         body: {
-          data: exists,
+          data: final_user_data,
         },
       };
     } catch (error) {

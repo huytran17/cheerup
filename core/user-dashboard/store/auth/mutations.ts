@@ -4,6 +4,14 @@ import { AuthState } from ".";
 import { update } from "lodash";
 
 const mutations: MutationTree<AuthState> = {
+  [MutationTypes.SET_QR_DATA](state, { data }: { data: boolean }) {
+    state.qr_data = data;
+  },
+
+  [MutationTypes.SET_IS_OPEN_2FA_QR_MODAL](state, { data }: { data: boolean }) {
+    state.is_open_2fa_qr_modal = data;
+  },
+
   [MutationTypes.SET_IS_OPEN_2FA_MODAL](state, { data }: { data: boolean }) {
     state.is_open_2fa_modal = data;
   },

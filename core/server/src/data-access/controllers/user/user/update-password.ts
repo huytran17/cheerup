@@ -80,7 +80,7 @@ export default function makeUpdatePasswordController({
         headers,
         statusCode: HttpStatusCode.OK,
         body: {
-          data: omit(updated_user, "hash_password"),
+          data: updated_user,
         },
       };
     } catch (error) {

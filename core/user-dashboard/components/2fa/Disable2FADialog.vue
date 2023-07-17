@@ -1,7 +1,7 @@
 <template>
   <Switch2FADialog
     ref="enable2FADialog"
-    :icon="'mdi-email-heart-outline'"
+    :icon="'mdi-email-check-outline'"
     :message="'An email was sent to you, please check and type confirmation code into the form below.'"
     :submit_function="disable2FA"
   />
@@ -26,9 +26,9 @@ export default {
         await this.GET_ME();
 
         this.$toast.success(this.$t(`Disabled 2FA successfully`));
-        this.$emit("close-2fa-modal");
       } catch (error) {
         console.error(error);
+        this.$toast.error(this.$t(`Invalid or expired code`));
       }
     },
   },

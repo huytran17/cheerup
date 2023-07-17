@@ -258,7 +258,7 @@ export default function makeUserDb({
 
       const existing = await userDbModel
         .findOne(query_conditions)
-        .select("-__v -hash_password -tfa_secret")
+        .select("-__v -hash_password")
         .lean({ virtuals: true });
       if (existing) {
         return new User(existing);
@@ -299,7 +299,7 @@ export default function makeUserDb({
 
       const existing = await userDbModel
         .findOne(query_conditions)
-        .select("-__v -hash_password -tfa_secret");
+        .select("-__v -tfa_secret");
 
       if (existing) {
         return new User(existing);

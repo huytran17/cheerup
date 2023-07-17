@@ -5,7 +5,7 @@ import { IGetUser } from "../../../../use-cases/user/get-user";
 import { IGetTwoFactorAuthenticationByEmailAndCode } from "../../../../use-cases/two-factor-authentication/get-two-factor-authentication-by-email-and-code";
 import { IHardDeleteTwoFactorAuthentication } from "../../../../use-cases/two-factor-authentication/hard-delete-two-factor-authentication";
 import { IUpdateUser } from "../../../../use-cases/user/update-user";
-import { get, merge, omit } from "lodash";
+import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { tfa } from "../../../../config/tfa";
 import { IGenerateQRCode } from "../../../../config/qrcode/make-generate-qr-code";
@@ -59,7 +59,7 @@ export default function makeEnable2FAController({
         throw new Error(`Two-factor authentication code is expired ${code}`);
       }
 
-      const tfa_secret = tfa.generateSecret();
+      const tfa_secret = user_exists.tfa_secret || tfa.generateSecret();
 
       const otp_token = tfa.generateToken({
         email: user_exists.email,
@@ -80,8 +80,9 @@ export default function makeEnable2FAController({
         hardDeleteTwoFactorAuthentication({ _id: two_fa._id }),
       ]);
 
-      const final_user_data = merge({}, omit(updated_user, "hash_password"), {
+      const final_user_data = merge({}, updated_user, {
         qr_uri,
+        tfa_secret,
       });
 
       return {

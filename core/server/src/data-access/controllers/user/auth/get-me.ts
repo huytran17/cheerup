@@ -45,7 +45,7 @@ export default function makeGetMeController({
       const subscription = await getSubscriptionByEmail({ email });
       const is_subscribed = get(subscription, "is_active", false);
 
-      const final_user_data = merge({}, omit(exists, "hash_password"), {
+      const final_user_data = merge({}, omit(exists, "tfa_secret"), {
         is_subscribed,
       });
 

@@ -106,7 +106,7 @@ export default function makeDisable2FAConfirmationController({
 
       const email_content = await getEmailContent({
         to: user_exists.email,
-        type: "enable-2fa-confirmation",
+        type: "disable-2fa-confirmation",
       });
 
       const rendered_email_content = await renderEmailContent({

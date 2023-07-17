@@ -46,6 +46,8 @@ export default {
       me: "auth/me",
       has_user: "auth/has_user",
       is_open_2fa_modal: "auth/is_open_2fa_modal",
+      is_open_2fa_qr_modal: "auth/is_open_2fa_qr_modal",
+      qr_data: "auth/qr_data",
       user: "user/user",
     }),
   },
@@ -66,6 +68,8 @@ export default {
       UPDATE_ME_DATA: "auth/UPDATE_ME_DATA",
       SET_ME: "auth/SET_ME",
       SET_IS_OPEN_2FA_MODAL: "auth/SET_IS_OPEN_2FA_MODAL",
+      SET_IS_OPEN_2FA_QR_MODAL: "auth/SET_IS_OPEN_2FA_QR_MODAL",
+      SET_QR_DATA: "auth/SET_QR_DATA",
     }),
 
     updateMeObject({ variable_path, data }) {

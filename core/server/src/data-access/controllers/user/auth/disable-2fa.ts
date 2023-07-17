@@ -5,7 +5,7 @@ import { IGetUser } from "../../../../use-cases/user/get-user";
 import { IGetTwoFactorAuthenticationByEmailAndCode } from "../../../../use-cases/two-factor-authentication/get-two-factor-authentication-by-email-and-code";
 import { IHardDeleteTwoFactorAuthentication } from "../../../../use-cases/two-factor-authentication/hard-delete-two-factor-authentication";
 import { IUpdateUser } from "../../../../use-cases/user/update-user";
-import { get, merge, omit } from "lodash";
+import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -55,13 +55,13 @@ export default function makeDisable2FAController({
         throw new Error(`Two-factor authentication code is expired ${code}`);
       }
 
-      const [updated_user] = await Promise.all([
-        updateUser({
-          userDetails: merge({}, omit(user_exists, "otp_secret"), {
-            is_enabled_2fa: false,
-          }),
-        }),
+      const userDetails = merge({}, user_exists, {
+        is_enabled_2fa: false,
+        tfa_secret: null,
+      });
 
+      const [updated_user] = await Promise.all([
+        updateUser({ userDetails }),
         hardDeleteTwoFactorAuthentication({ _id: two_fa._id }),
       ]);
 
@@ -69,7 +69,7 @@ export default function makeDisable2FAController({
         headers,
         statusCode: HttpStatusCode.OK,
         body: {
-          data: omit(updated_user, "hash_password"),
+          data: updated_user,
         },
       };
     } catch (error) {
