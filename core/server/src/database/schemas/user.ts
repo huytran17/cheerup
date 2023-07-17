@@ -20,6 +20,7 @@ const userSchema = new Schema(
     blocked_comment_at: { type: Date },
     avatar: { type: Object },
     email: { type: String, trim: true, lowercase: true, required: true },
+    tfa_secret: { type: String, trim: true },
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now },
     deleted_at: { type: Date, default: null },

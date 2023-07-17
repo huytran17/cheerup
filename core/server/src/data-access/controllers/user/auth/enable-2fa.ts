@@ -7,6 +7,8 @@ import { IHardDeleteTwoFactorAuthentication } from "../../../../use-cases/two-fa
 import { IUpdateUser } from "../../../../use-cases/user/update-user";
 import { get, merge, omit } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { tfa } from "../../../../config/tfa";
+import { IGenerateQRCode } from "../../../../config/qrcode/make-generate-qr-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeEnable2FAController({
@@ -14,12 +16,14 @@ export default function makeEnable2FAController({
   updateUser,
   getTwoFactorAuthenticationByEmailAndCode,
   hardDeleteTwoFactorAuthentication,
+  generateQRCode,
   moment,
 }: {
   getUser: IGetUser;
   updateUser: IUpdateUser;
   getTwoFactorAuthenticationByEmailAndCode: IGetTwoFactorAuthenticationByEmailAndCode;
   hardDeleteTwoFactorAuthentication: IHardDeleteTwoFactorAuthentication;
+  generateQRCode: IGenerateQRCode;
   moment: typeof Moment;
 }) {
   return async function enable2FAController(
@@ -55,21 +59,36 @@ export default function makeEnable2FAController({
         throw new Error(`Two-factor authentication code is expired ${code}`);
       }
 
+      const tfa_secret = tfa.generateSecret();
+
+      const otp_token = tfa.generateToken({
+        email: user_exists.email,
+        service_name: process.env.APP_NAME,
+        secret: tfa_secret,
+      });
+
+      const qr_uri = await generateQRCode({ otp_auth: otp_token });
+
       const [updated_user] = await Promise.all([
         updateUser({
           userDetails: merge({}, user_exists, {
             is_enabled_2fa: true,
+            tfa_secret,
           }),
         }),
 
         hardDeleteTwoFactorAuthentication({ _id: two_fa._id }),
       ]);
 
+      const final_user_data = merge({}, omit(updated_user, "hash_password"), {
+        qr_uri,
+      });
+
       return {
         headers,
         statusCode: HttpStatusCode.OK,
         body: {
-          data: omit(updated_user, "hash_password"),
+          data: final_user_data,
         },
       };
     } catch (error) {

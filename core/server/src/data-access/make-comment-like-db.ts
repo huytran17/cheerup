@@ -45,7 +45,7 @@ export default function makeCommentLikeDb({
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<CommentLike | null> {
-      const existing = await commentLikeDbModel.deleteOne({ _id: _id });
+      await commentLikeDbModel.deleteOne({ _id: _id });
       const deleted = await commentLikeDbModel
         .findOne({ _id })
         .lean({ virtuals: true });

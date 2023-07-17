@@ -57,7 +57,7 @@ export default function makeDisable2FAController({
 
       const [updated_user] = await Promise.all([
         updateUser({
-          userDetails: merge({}, user_exists, {
+          userDetails: merge({}, omit(user_exists, "otp_secret"), {
             is_enabled_2fa: false,
           }),
         }),

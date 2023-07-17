@@ -158,7 +158,7 @@ export default function makeCommentDb({
       const existing = await commentDbModel
         .find(query_conditions)
         .populate("children", "-_v")
-        .populate("user", "_id full_name avatar_url")
+        .populate("user", "_id full_name avatar_url avatar")
         .populate("post", "-_v")
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)

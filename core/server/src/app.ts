@@ -12,7 +12,7 @@ import {
 import { initializeMailer } from "./config/emailManager/mailer";
 import Storage from "./config/storage";
 import Redis from "./config/redis";
-import OTPLib from "./config/otplib";
+import OTPLib from "./config/tfa";
 import { upload } from "./config/middlewares/file-upload";
 import accessControlMiddleware from "./config/middlewares/access-control";
 

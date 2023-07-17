@@ -1,18 +1,18 @@
 import qrcode from "qrcode";
 
 export type IGenerateQRCode = ({
-  otpAuth,
+  otp_auth,
 }: {
-  otpAuth: string;
+  otp_auth: string;
 }) => Promise<string | null>;
 
 export default function makeGenerateQRCode(): IGenerateQRCode {
   return async function generateQRCode({
-    otpAuth,
+    otp_auth,
   }: {
-    otpAuth: string;
+    otp_auth: string;
   }): Promise<string | null> {
-    const QRCodeImageUrl = await qrcode.toDataURL(otpAuth);
+    const QRCodeImageUrl = await qrcode.toDataURL(otp_auth);
     return QRCodeImageUrl;
   };
 }

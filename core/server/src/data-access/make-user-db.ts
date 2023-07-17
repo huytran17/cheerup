@@ -173,7 +173,7 @@ export default function makeUserDb({
 
       const existing = await userDbModel
         .find(query_conditions)
-        .select("-__v -hash_password")
+        .select("-__v -hash_password -tfa_secret")
         .lean({ virtuals: true });
 
       if (existing) {
@@ -206,7 +206,7 @@ export default function makeUserDb({
 
       const existing = await userDbModel
         .find(query_conditions)
-        .select("-__v -hash_password")
+        .select("-__v -hash_password -tfa_secret")
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)
         .sort({
@@ -258,6 +258,7 @@ export default function makeUserDb({
 
       const existing = await userDbModel
         .findOne(query_conditions)
+        .select("-__v -hash_password -tfa_secret")
         .lean({ virtuals: true });
       if (existing) {
         return new User(existing);
@@ -272,6 +273,7 @@ export default function makeUserDb({
 
       const existing = await userDbModel
         .findOne(query_conditions)
+        .select("-__v -hash_password -tfa_secret")
         .lean({ virtuals: true });
 
       if (existing) {
@@ -295,7 +297,9 @@ export default function makeUserDb({
 
       is_include_deleted && delete query_conditions.deleted_at;
 
-      const existing = await userDbModel.findOne(query_conditions);
+      const existing = await userDbModel
+        .findOne(query_conditions)
+        .select("-__v -hash_password -tfa_secret");
 
       if (existing) {
         return new User(existing);
@@ -309,7 +313,7 @@ export default function makeUserDb({
       const result = await userDbModel.create([updated_payload]);
       const updated = await userDbModel
         .findOne({ _id: result[0]?._id })
-        .select("-__v -hash_password")
+        .select("-__v -hash_password -tfa_secret")
         .lean({ virtuals: true });
 
       if (updated) {
@@ -322,7 +326,7 @@ export default function makeUserDb({
       await userDbModel.findOneAndUpdate({ _id }, { deleted_at: new Date() });
       const updated = await userDbModel
         .findOne({ _id })
-        .select("-__v -hash_password")
+        .select("-__v -hash_password -tfa_secret")
         .lean({ virtuals: true });
 
       if (updated) {
@@ -336,7 +340,7 @@ export default function makeUserDb({
       await userDbModel.deleteOne({ _id });
       const updated = await userDbModel
         .findOne({ _id })
-        .select("-__v -hash_password")
+        .select("-__v -hash_password -tfa_secret")
         .lean({ virtuals: true });
 
       if (updated) {
@@ -353,7 +357,7 @@ export default function makeUserDb({
 
       const updated = await userDbModel
         .findOne({ _id: result?._id })
-        .select("-__v -hash_password")
+        .select("-__v -hash_password -tfa_secret")
         .lean({ virtuals: true });
 
       if (updated) {
@@ -368,7 +372,7 @@ export default function makeUserDb({
 
       const updated = await userDbModel
         .findOne({ _id })
-        .select("-__v -hash_password")
+        .select("-__v -hash_password -tfa_secret")
         .lean({ virtuals: true });
 
       if (updated) {

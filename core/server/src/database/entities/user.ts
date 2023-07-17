@@ -12,6 +12,7 @@ export default class User implements IUser {
   public readonly blocked_comment_at?: Date;
   public readonly is_blocked_comment?: boolean;
   public readonly is_enabled_2fa?: boolean;
+  public readonly tfa_secret?: string;
   public readonly socialite?: {
     provider?: string;
     access_token?: string;
@@ -38,6 +39,7 @@ export default class User implements IUser {
     created_by,
     blocked_comment_at,
     socialite,
+    tfa_secret,
   }: IUser) {
     this._id = _id;
     this.ip = ip;
@@ -54,5 +56,6 @@ export default class User implements IUser {
     this.created_by = created_by;
     this.blocked_comment_at = blocked_comment_at;
     this.socialite = socialite;
+    this.tfa_secret = tfa_secret;
   }
 }

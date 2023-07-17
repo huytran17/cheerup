@@ -11,6 +11,7 @@ export default interface IUser {
   is_enabled_2fa?: boolean;
   avatar_url?: string;
   email: string;
+  tfa_secret?: string;
   socialite?: {
     provider?: string;
     access_token?: string;

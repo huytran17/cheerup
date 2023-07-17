@@ -34,6 +34,7 @@ import {
   renderEmailContent,
   sendEmail,
 } from "../../../../config/emailManager";
+import { generateQRCode } from "../../../../config/qrcode";
 
 const disable2FAController = makeDisable2FAController({
   getUser,
@@ -48,6 +49,7 @@ const enable2FAController = makeEnable2FAController({
   updateUser,
   getTwoFactorAuthenticationByEmailAndCode,
   hardDeleteTwoFactorAuthentication,
+  generateQRCode,
   moment,
 });
 
