@@ -8,6 +8,7 @@ import makeEnable2FAConfirmationController from "./enable-2fa-confirmation";
 import makeDisable2FAConfirmationController from "./disable-2fa-confirmation";
 import makeEnable2FAController from "./enable-2fa";
 import makeDisable2FAController from "./disable-2fa";
+import makeVerify2FAController from "./verify-2fa";
 
 import { getSubscriptionByEmail } from "../../../../use-cases/subscription";
 import { hashPassword, verifyPassword } from "../../../../config/password";
@@ -35,6 +36,10 @@ import {
   sendEmail,
 } from "../../../../config/emailManager";
 import { generateQRCode } from "../../../../config/qrcode";
+
+const verify2FAController = makeVerify2FAController({
+  getUserByEmail,
+});
 
 const disable2FAController = makeDisable2FAController({
   getUser,
@@ -123,6 +128,7 @@ export default Object.freeze({
   disable2FAConfirmationController,
   enable2FAController,
   disable2FAController,
+  verify2FAController,
 });
 
 export {
@@ -136,4 +142,5 @@ export {
   disable2FAConfirmationController,
   enable2FAController,
   disable2FAController,
+  verify2FAController,
 };

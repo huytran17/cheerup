@@ -30,13 +30,8 @@ const actions: ActionTree<AuthState, RootState> = {
       "/auth/sign-in",
       data
     );
-    const { user, access_token } = returned_data;
 
-    access_token && localStorage.setItem("access_token", access_token);
-
-    commit(MutationTypes.SET_ME, { data: user });
-    commit(MutationTypes.SET_HAS_USER, { data: true });
-    return user;
+    return returned_data;
   },
 
   async [ActionTypes.SIGN_OUT]({ commit }) {
@@ -57,10 +52,13 @@ const actions: ActionTree<AuthState, RootState> = {
     return user;
   },
 
+  async [ActionTypes.VERIFY_2FA]({ commit }, { data }: { data: any }) {
+    const { data: user } = await this.$axios.$post("/auth/verify-2fa", data);
+    return user;
+  },
+
   async [ActionTypes.ENABLE_2FA]({ commit }, { data }: { data: any }) {
     const { data: two_fa } = await this.$axios.$post("/auth/enable-2fa", data);
-    console.log("-----------", two_fa);
-
     return two_fa;
   },
 

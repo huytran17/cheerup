@@ -3,6 +3,7 @@ import signUpRules from "./sign-up";
 import verifyAccessRules from "./verify-access";
 import enable2FARules from "./enable-2fa";
 import disable2FARules from "./disable-2fa";
+import verify2FARules from "./verify-2fa";
 
 export default Object.freeze({
   signInRules,
@@ -10,6 +11,7 @@ export default Object.freeze({
   verifyAccessRules,
   enable2FARules,
   disable2FARules,
+  verify2FARules,
 });
 
 export {
@@ -18,4 +20,5 @@ export {
   verifyAccessRules,
   enable2FARules,
   disable2FARules,
+  verify2FARules,
 };

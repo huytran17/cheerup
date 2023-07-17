@@ -49,6 +49,7 @@ export default {
       is_open_2fa_qr_modal: "auth/is_open_2fa_qr_modal",
       qr_data: "auth/qr_data",
       user: "user/user",
+      access_token: "auth/access_token",
     }),
   },
   methods: {
@@ -62,14 +63,17 @@ export default {
       ENABLE_2FA_CONFIRMATION: "auth/ENABLE_2FA_CONFIRMATION",
       DISABLE_2FA_CONFIRMATION: "auth/DISABLE_2FA_CONFIRMATION",
       DISABLE_2FA: "auth/DISABLE_2FA",
+      VERIFY_2FA: "auth/VERIFY_2FA",
     }),
 
     ...mapMutations({
       UPDATE_ME_DATA: "auth/UPDATE_ME_DATA",
       SET_ME: "auth/SET_ME",
+      SET_HAS_USER: "auth/SET_HAS_USER",
       SET_IS_OPEN_2FA_MODAL: "auth/SET_IS_OPEN_2FA_MODAL",
       SET_IS_OPEN_2FA_QR_MODAL: "auth/SET_IS_OPEN_2FA_QR_MODAL",
       SET_QR_DATA: "auth/SET_QR_DATA",
+      SET_ACCESS_TOKEN: "auth/SET_ACCESS_TOKEN",
     }),
 
     updateMeObject({ variable_path, data }) {

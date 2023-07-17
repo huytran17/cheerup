@@ -299,7 +299,7 @@ export default function makeUserDb({
 
       const existing = await userDbModel
         .findOne(query_conditions)
-        .select("-__v -tfa_secret");
+        .select("-__v");
 
       if (existing) {
         return new User(existing);

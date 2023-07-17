@@ -58,7 +58,7 @@ export default function makeSignInController({
         body: {
           data: {
             access_token,
-            user: omit(exists, "hash_password"),
+            user: omit(exists, ["hash_password", "tfa_secret"]),
           },
         },
       };

@@ -111,6 +111,7 @@
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
+import { get } from "lodash";
 import authMixins from "@/mixins/auth";
 
 export default {
@@ -137,7 +138,18 @@ export default {
 
     async signIn() {
       try {
-        await this.SIGN_IN({ data: this.me });
+        const { user, access_token } = await this.SIGN_IN({ data: this.me });
+
+        const is_enabled_2fa = get(user, "is_enabled_2fa", false);
+        if (is_enabled_2fa) {
+          this.SET_ACCESS_TOKEN({ data: access_token });
+          return this.$router.push(this.localePath("/auth/tfa-verification"));
+        }
+
+        access_token && localStorage.setItem("access_token", access_token);
+
+        this.SET_ME({ data: user });
+        this.SET_HAS_USER({ data: true });
 
         this.$router.push(this.localePath(this.after_login_redirect_url));
         this.SET_AFTER_LOGIN_REDIRECT_URL({ data: "/" });

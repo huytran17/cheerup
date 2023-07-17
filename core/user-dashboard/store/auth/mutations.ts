@@ -4,6 +4,10 @@ import { AuthState } from ".";
 import { update } from "lodash";
 
 const mutations: MutationTree<AuthState> = {
+  [MutationTypes.SET_ACCESS_TOKEN](state, { data }: { data: string }) {
+    state.access_token = data;
+  },
+
   [MutationTypes.SET_QR_DATA](state, { data }: { data: boolean }) {
     state.qr_data = data;
   },

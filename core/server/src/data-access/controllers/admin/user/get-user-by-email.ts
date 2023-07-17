@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
-import { get } from "lodash";
+import { get, omit } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -31,7 +31,7 @@ export default function makeGetUserByEmailController({
         headers,
         statusCode: HttpStatusCode.OK,
         body: {
-          data: exists,
+          data: omit(exists, ["hash_password", "tfa_secret"]),
         },
       };
     } catch (error) {
