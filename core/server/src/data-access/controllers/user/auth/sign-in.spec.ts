@@ -1,4 +1,5 @@
 import moment from "moment";
+import { omit } from "lodash";
 import {
   connectDatabase,
   clearDatabase,
@@ -56,7 +57,7 @@ describe("signIn", () => {
       statusCode: HttpStatusCode.OK,
       body: {
         data: {
-          user: result?.body?.data?.user,
+          user: omit(result?.body?.data?.user, "hash_password"),
           access_token: result?.body?.data?.access_token,
         },
       },
