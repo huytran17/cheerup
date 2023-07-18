@@ -277,7 +277,7 @@ export default {
     { src: "~/plugins/vue-avatar", mode: "client" },
     { src: "~/plugins/vue-line-clamp", mode: "client" },
     { src: "~/plugins/vue-slick-carousel", mode: "client" },
-    { src: "~/plugins/otp-input-vue2", mode: "client" },
+    { src: "~/plugins/vue-simple-otp-input", mode: "client" },
   ],
 
   components: true,
