@@ -50,7 +50,6 @@ import authMixins from "@/mixins/auth";
 
 export default {
   name: "Verify2FA",
-  middleware: ["redirect-logged-user"],
   mixins: [authMixins],
   data() {
     return {
