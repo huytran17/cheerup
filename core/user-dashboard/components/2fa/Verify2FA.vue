@@ -1,5 +1,5 @@
 <template>
-  <v-form v-model="form_valid">
+  <v-form>
     <v-row>
       <v-col cols="12">
         <div class="text-h6">
@@ -20,14 +20,15 @@
         </div>
       </v-col>
       <v-col cols="12">
-        <v-text-field
+        <!-- <v-text-field
           v-model="two_fa_code"
           class="pt-0"
           :label="$t('Confirmation code')"
           :placeholder="$t('XXXXXX')"
           :rules="twoFACodeRules"
         >
-        </v-text-field>
+        </v-text-field> -->
+        <otp-input class="mx-auto" @on-complete="onCompleteOtp" />
       </v-col>
       <v-col cols="12" class="text-right">
         <v-btn
@@ -35,7 +36,7 @@
           depressed
           class="mr-1 white--text"
           color="brick"
-          :disabled="!form_valid"
+          :disabled="!two_fa_code"
           @click="verify2FA"
         >
           <span class="app-body" v-html="$t('Submit')"></span>
@@ -55,8 +56,7 @@ export default {
   mixins: [authMixins],
   data() {
     return {
-      two_fa_code: "",
-      form_valid: false,
+      two_fa_code: null,
     };
   },
   computed: {
@@ -88,8 +88,10 @@ export default {
         console.error(error);
       }
     },
+
+    onCompleteOtp(code) {
+      this.two_fa_code = code;
+    },
   },
 };
 </script>
-
-<style></style>
