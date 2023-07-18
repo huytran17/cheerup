@@ -20,14 +20,6 @@
         </div>
       </v-col>
       <v-col cols="12">
-        <!-- <v-text-field
-          v-model="two_fa_code"
-          class="pt-0"
-          :label="$t('Confirmation code')"
-          :placeholder="$t('XXXXXX')"
-          :rules="twoFACodeRules"
-        >
-        </v-text-field> -->
         <OtpInput
           class="mx-auto"
           type="number"
@@ -102,8 +94,6 @@ export default {
     onCompleteOtp(code) {
       this.two_fa_code = code;
     },
-
-    validateOtp() {},
   },
 };
 </script>
