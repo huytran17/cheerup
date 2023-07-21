@@ -88,12 +88,12 @@ export default {
     },
 
     onChangeOtp(code) {
-      const invalid_code = isNumber(Number(code)) || Number(code) < 1e5;
+      const invalid_code = !isNumber(Number(code)) || Number(code) < 1e5;
       invalid_code && (this.two_fa_code = null);
     },
 
     onCompleteOtp(code) {
-      const invalid_code = isNumber(Number(code)) || Number(code) < 1e5;
+      const invalid_code = !isNumber(Number(code)) || Number(code) < 1e5;
       !invalid_code && (this.two_fa_code = code);
     },
   },
