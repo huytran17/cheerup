@@ -203,6 +203,72 @@ select:-webkit-autofill:focus {
   font-size: 12px;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--color-scrollbar-track);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--color-scrollbar-thumb);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-scrollbar-thumb-hover);
+}
+
+/* width */
+.horizontal__scrollbar::-webkit-scrollbar {
+  width: 1px;
+}
+
+/* Track */
+.horizontal__scrollbar::-webkit-scrollbar-track {
+  background: var(--color-scrollbar-track);
+}
+
+/* Handle */
+.horizontal__scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-scrollbar-thumb);
+}
+
+/* Handle on hover */
+.horizontal__scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-scrollbar-thumb-hover);
+}
+
+
+.simple-otp-input {
+  gap: 4px;
+}
+
+.otp-input {
+  border: 1px solid var(--color-grey);
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+}
+
+.otp-input:focus-visible {
+  outline: 1px solid var(--color-brick);
+}
+
+.otp-input::-webkit-outer-spin-button,
+.otp-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.otp-input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 @media only screen and (max-width: 600px) {
   .cheerup-toast-container {
     min-width: unset !important;
