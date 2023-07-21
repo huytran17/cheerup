@@ -1,6 +1,6 @@
 <template>
   <div class="mx-auto forget-password-form">
-    <v-form>
+    <v-form v-model="form_valid">
       <v-row class="soft-box-shadow py-4 px-3 mx-1">
         <v-col cols="12 pb-0">
           <div class="text-body-2 text-md-body-1">
@@ -33,6 +33,7 @@
             class="white--text"
             tile
             depressed
+            :disabled="!form_valid"
             @click="getVerificationCode"
           >
             <span class="app-body" v-html="$t('Submit')"></span>
@@ -52,17 +53,13 @@
           </div>
         </v-col>
         <v-col cols="12">
-          <v-text-field
-            :label="$t('Enter verification code')"
-            :rules="verifycationCodeRules"
-            :value="password_reset.security_code"
-            @input="
-              updatePasswordResetObject({
-                variable_path: 'security_code',
-                data: $event,
-              })
-            "
-          ></v-text-field>
+          <OtpInput
+            class="mx-auto"
+            type="number"
+            inputClasses="otp-input"
+            @change="onChangeOtp"
+            @complete="onCompleteOtp"
+          />
         </v-col>
         <v-col cols="12" class="d-flex justify-end pt-0">
           <v-btn
@@ -70,6 +67,7 @@
             class="white--text"
             tile
             depressed
+            :disabled="!password_reset.security_code"
             @click="verifySecurityCode"
           >
             <span class="app-body" v-html="$t('Submit')"></span>
@@ -81,11 +79,17 @@
 </template>
 
 <script>
+import { isNumber } from "lodash";
 import passwordResetMixins from "@/mixins/password-reset";
 
 export default {
   name: "BaseForgetPasswordForm",
   mixins: [passwordResetMixins],
+  data() {
+    return {
+      form_valid: false,
+    };
+  },
   methods: {
     async getVerificationCode() {
       try {
@@ -129,6 +133,30 @@ export default {
           this.$t("The security code is invalid or has been expired")
         );
       }
+    },
+
+    onChangeOtp(code) {
+      const invalid_code = !isNumber(Number(code)) || Number(code) < 1e5;
+
+      invalid_code &&
+        this.updatePasswordResetObject({
+          variable_path: "security_code",
+          data: null,
+        });
+
+      this.$forceUpdate();
+    },
+
+    onCompleteOtp(code) {
+      const invalid_code = !isNumber(Number(code)) || Number(code) < 1e5;
+
+      !invalid_code &&
+        this.updatePasswordResetObject({
+          variable_path: "security_code",
+          data: Number(code),
+        });
+
+      this.$forceUpdate();
     },
   },
 };
