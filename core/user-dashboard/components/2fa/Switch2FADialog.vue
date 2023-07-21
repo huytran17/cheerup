@@ -10,14 +10,14 @@
         </div>
       </v-col>
       <v-col cols="12">
-        <v-form v-model="form_valid">
-          <v-text-field
-            v-model="two_fa_code"
-            class="pt-0"
-            :label="$t('Confirmation code')"
-            :rules="twoFACodeRules"
-          >
-          </v-text-field>
+        <v-form>
+          <OtpInput
+            class="mx-auto"
+            type="number"
+            inputClasses="otp-input"
+            @change="onChangeOtp"
+            @complete="onCompleteOtp"
+          />
         </v-form>
       </v-col>
       <v-col cols="12" class="text-right">
@@ -29,7 +29,7 @@
           class="white--text"
           tile
           depressed
-          :disabled="!form_valid"
+          :disabled="!two_fa_code"
           @click="submit_function"
         >
           <span class="app-body" v-html="$t('Submit')"></span>
@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { isNumber } from "lodash";
 import authMixins from "@/mixins/auth";
 
 export default {
@@ -65,15 +66,24 @@ export default {
   },
   data() {
     return {
-      two_fa_code: "",
-      form_valid: false,
+      two_fa_code: null,
     };
   },
 
   methods: {
     closeModal() {
-      this.two_fa_code = "";
+      this.two_fa_code = null;
       this.SET_IS_OPEN_2FA_MODAL({ data: false });
+    },
+
+    onChangeOtp(code) {
+      const invalid_code = !isNumber(Number(code)) || Number(code) < 1e5;
+      invalid_code && (this.two_fa_code = null);
+    },
+
+    onCompleteOtp(code) {
+      const invalid_code = !isNumber(Number(code)) || Number(code) < 1e5;
+      !invalid_code && (this.two_fa_code = code);
     },
   },
 };
