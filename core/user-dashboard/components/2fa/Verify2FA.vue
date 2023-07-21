@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import { isNumber } from "lodash";
 import { mapGetters, mapMutations } from "vuex";
 import authMixins from "@/mixins/auth";
 
@@ -87,35 +88,14 @@ export default {
     },
 
     onChangeOtp(code) {
-      Number(code) < 1e5 && (this.two_fa_code = null);
+      const invalid_code = isNumber(Number(code)) || Number(code) < 1e5;
+      invalid_code && (this.two_fa_code = null);
     },
 
     onCompleteOtp(code) {
-      this.two_fa_code = code;
+      const invalid_code = isNumber(Number(code)) || Number(code) < 1e5;
+      !invalid_code && (this.two_fa_code = code);
     },
   },
 };
 </script>
-<style scoped>
-:deep(.simple-otp-input) {
-  gap: 4px;
-}
-:deep(.otp-input) {
-  border: 1px solid var(--color-grey);
-  width: 36px;
-  height: 36px;
-  border-radius: 4px;
-}
-:deep(.otp-input:focus-visible) {
-  outline: 1px solid var(--color-brick);
-}
-:deep(.otp-input::-webkit-outer-spin-button),
-:deep(.otp-input::-webkit-inner-spin-button) {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-:deep(.otp-input[type="number"]) {
-  -moz-appearance: textfield;
-}
-</style>
