@@ -113,12 +113,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations({
-      SET_AFTER_LOGIN_REDIRECT_URL: "SET_AFTER_LOGIN_REDIRECT_URL",
-    }),
-
     redirectToLoginPage() {
-      this.SET_AFTER_LOGIN_REDIRECT_URL({ data: this.$route.fullPath });
       this.$router.push(this.localePath("/login"));
     },
   },

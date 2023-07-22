@@ -46,7 +46,6 @@
 
 <script>
 import { isNumber } from "lodash";
-import { mapGetters, mapMutations } from "vuex";
 import authMixins from "@/mixins/auth";
 
 export default {
@@ -57,16 +56,7 @@ export default {
       two_fa_code: null,
     };
   },
-  computed: {
-    ...mapGetters({
-      after_login_redirect_url: "after_login_redirect_url",
-    }),
-  },
   methods: {
-    ...mapMutations({
-      SET_AFTER_LOGIN_REDIRECT_URL: "SET_AFTER_LOGIN_REDIRECT_URL",
-    }),
-
     async verify2FA() {
       try {
         const payload = {
@@ -80,8 +70,7 @@ export default {
 
         await this.GET_ME();
 
-        this.$router.push(this.localePath(this.after_login_redirect_url));
-        this.SET_AFTER_LOGIN_REDIRECT_URL({ data: "/" });
+        this.$router.push(this.localePath("/"));
       } catch (error) {
         console.error(error);
       }

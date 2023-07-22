@@ -110,7 +110,6 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
 import { get } from "lodash";
 import authMixins from "@/mixins/auth";
 
@@ -123,19 +122,11 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({
-      after_login_redirect_url: "after_login_redirect_url",
-    }),
-
     google_login_uri() {
       return `${process.env.SERVER_URL}/api/auth/google`;
     },
   },
   methods: {
-    ...mapMutations({
-      SET_AFTER_LOGIN_REDIRECT_URL: "SET_AFTER_LOGIN_REDIRECT_URL",
-    }),
-
     async signIn() {
       try {
         const { user, access_token } = await this.SIGN_IN({ data: this.me });
@@ -151,8 +142,7 @@ export default {
         this.SET_ME({ data: user });
         this.SET_HAS_USER({ data: true });
 
-        this.$router.push(this.localePath(this.after_login_redirect_url));
-        this.SET_AFTER_LOGIN_REDIRECT_URL({ data: "/" });
+        this.$router.push(this.localePath("/"));
       } catch (error) {
         console.error(error);
         this.$toast.error("Email address or password is incorrect");

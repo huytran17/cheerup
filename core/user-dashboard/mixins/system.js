@@ -3,10 +3,6 @@ import { mapGetters, mapMutations } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters({
-      after_login_redirect_url: "after_login_redirect_url",
-    }),
-
     is_mobile() {
       return this.$vuetify.breakpoint.name === "xs";
     },
@@ -16,10 +12,6 @@ export default {
     },
   },
   methods: {
-    ...mapMutations({
-      SET_AFTER_LOGIN_REDIRECT_URL: "SET_AFTER_LOGIN_REDIRECT_URL",
-    }),
-
     formatDate(date, format) {
       if (format) {
         return this.$moment(date).format(format);
