@@ -97,5 +97,9 @@ export default {
       !invalid_code && (this.two_fa_code = code);
     },
   },
+  mounted() {
+    const otp_inputs = document.getElementsByClassName("otp-input");
+    otp_inputs[0]?.focus();
+  },
 };
 </script>
