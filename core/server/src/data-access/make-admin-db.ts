@@ -243,7 +243,7 @@ export default function makeAdminDb({
 
       const existing = await adminDbModel
         .find(query_conditions)
-        .select("-hash_password -__v")
+        .select("-__v")
         .lean({ virtuals: true });
       if (existing) {
         return map(existing, (admin) => new Admin(admin));
@@ -275,7 +275,7 @@ export default function makeAdminDb({
 
       const existing = await adminDbModel
         .find(query_conditions)
-        .select("-hash_password -__v")
+        .select("-__v")
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)
         .sort({
@@ -338,7 +338,7 @@ export default function makeAdminDb({
     async findOne(): Promise<Admin | null> {
       const existing = await adminDbModel
         .findOne()
-        .select("-__v -hash_password")
+        .select("-__v")
         .lean({ virtuals: true });
 
       if (existing) {
@@ -355,7 +355,7 @@ export default function makeAdminDb({
       };
       const existing = await adminDbModel
         .findOne(query_conditions)
-        .select("-__v -hash_password");
+        .select("-__v");
 
       if (existing) {
         return new Admin(existing);
@@ -369,7 +369,7 @@ export default function makeAdminDb({
       const result = await adminDbModel.create([updated_payload]);
       const updated = await adminDbModel
         .findOne({ _id: result[0]?._id })
-        .select("-__v -hash_password")
+        .select("-__v")
         .lean({ virtuals: true });
 
       if (updated) {
@@ -383,7 +383,7 @@ export default function makeAdminDb({
       await adminDbModel.findOneAndUpdate({ _id }, { deleted_at: new Date() });
       const updated = await adminDbModel
         .findOne({ _id })
-        .select("-__v -hash_password")
+        .select("-__v")
         .lean({ virtuals: true });
 
       if (updated) {
@@ -396,7 +396,7 @@ export default function makeAdminDb({
       await adminDbModel.deleteOne({ _id });
       const updated = await adminDbModel
         .findOne({ _id })
-        .select("-__v -hash_password")
+        .select("-__v")
         .lean({ virtuals: true });
 
       if (updated) {
@@ -412,7 +412,7 @@ export default function makeAdminDb({
 
       const updated = await adminDbModel
         .findOne({ _id: result?._id })
-        .select("-__v -hash_password")
+        .select("-__v")
         .lean({ virtuals: true });
 
       if (updated) {

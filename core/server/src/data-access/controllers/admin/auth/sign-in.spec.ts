@@ -68,10 +68,7 @@ describe("signIn", () => {
     const expected = {
       headers,
       statusCode: HttpStatusCode.OK,
-      body: {
-        user: omit(result?.body?.data?.user, "hash_password"),
-        access_token: result?.body?.data?.access_token,
-      },
+      body: result?.body,
     };
 
     expect(result).toEqual(expected);

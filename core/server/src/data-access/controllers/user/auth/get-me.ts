@@ -47,7 +47,7 @@ export default function makeGetMeController({
 
       const final_user_data = merge(
         {},
-        omit(exists, "tfa_secret", "hash_password"),
+        omit(exists, ["tfa_secret", "hash_password"]),
         {
           is_subscribed,
         }
