@@ -4,7 +4,6 @@ import {
   connectDatabase,
   clearDatabase,
 } from "../../../../../__tests__/jest-mongo";
-import { ExpectSingedInResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakeAdmin } from "../../../../../__tests__/__mock__";
 import { redis } from "../../../../../__tests__/jest-redis";
 import makeAdminDb from "../../../make-admin-db";
@@ -13,7 +12,6 @@ import makeGetAdminByEmail from "../../../../use-cases/admin/get-admin-by-email"
 import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
 import makeSignInController from "./sign-in";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Admin from "../../../../database/entities/admin";
 import { generateAccessToken } from "../../../../config/accessTokenManager";
 import { hashPassword, verifyPassword } from "../../../../config/password";
 

@@ -41,17 +41,6 @@ export type ExpectPaginatedPartialResult<T> = {
   };
 };
 
-export type ExpectSingedInResult<T> = {
-  headers: Record<string, unknown>;
-  statusCode: number;
-  body: {
-    data: {
-      access_token: string;
-      user: T | null | undefined;
-    };
-  };
-};
-
 export type ExpectSingedOutResult = {
   headers: Record<string, unknown>;
   statusCode: number;
