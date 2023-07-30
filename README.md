@@ -37,6 +37,10 @@ Dashboard => Nuxtjs
 
 UX/UI => Vuetify
 
+2FA => Google Authenticator
+
+Optimizer => Gulp
+
 ---
 
 ## Clean Architecture
