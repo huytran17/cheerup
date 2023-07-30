@@ -1,11 +1,11 @@
 import moment from "moment";
+import { omit } from "lodash";
 import {
   connectDatabase,
   clearDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { ExpectSingedInResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakeAdmin } from "../../../../../__tests__/__mock__";
-import { logger } from "../../../../../__tests__/jest-logger";
 import { redis } from "../../../../../__tests__/jest-redis";
 import makeAdminDb from "../../../make-admin-db";
 import { AdminModel } from "../../../models";
@@ -67,10 +67,13 @@ describe("signIn", () => {
 
     const result = await signInController(request as any);
 
-    const expected: ExpectSingedInResult<Admin> = {
+    const expected = {
       headers,
       statusCode: HttpStatusCode.OK,
-      body: result?.body,
+      body: {
+        user: omit(result?.body?.data?.user, "hash_password"),
+        access_token: result?.body?.data?.access_token,
+      },
     };
 
     expect(result).toEqual(expected);

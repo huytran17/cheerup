@@ -57,7 +57,7 @@ describe("signIn", () => {
       statusCode: HttpStatusCode.OK,
       body: {
         data: {
-          user: omit(result?.body?.data?.user, "hash_password"),
+          user: omit(result?.body?.data?.user, ["hash_password", "tfa_secret"]),
           access_token: result?.body?.data?.access_token,
         },
       },
