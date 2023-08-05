@@ -243,6 +243,9 @@ select:-webkit-autofill:focus {
   background: var(--color-scrollbar-thumb-hover);
 }
 
+.lh-24 {
+  line-height: 24px;
+}
 
 .simple-otp-input {
   gap: 4px;
