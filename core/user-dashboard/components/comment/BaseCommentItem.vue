@@ -28,6 +28,9 @@
               <v-icon
                 v-bind="attrs"
                 v-on="on"
+                v-private="
+                  $t('You need to be logged in to perform this action')
+                "
                 :color="is_liked ? 'brick' : 'black'"
                 small
                 class="mr-1 clickable"
@@ -48,6 +51,9 @@
               <v-icon
                 v-bind="attrs"
                 v-on="on"
+                v-private="
+                  $t('You need to be logged in to perform this action')
+                "
                 :color="is_disliked ? 'brick' : 'black'"
                 small
                 class="mr-1 clickable"
@@ -193,7 +199,7 @@ export default {
     async likeComment() {
       try {
         if (!this.has_user) {
-          return this.$toast.error("Login is required");
+          return;
         }
 
         const comment_id = get(this.comment_data, "_id");
@@ -220,7 +226,7 @@ export default {
     async dislikeComment() {
       try {
         if (!this.has_user) {
-          return this.$toast.error("Login is required");
+          return;
         }
 
         const comment_id = get(this.comment_data, "_id");
