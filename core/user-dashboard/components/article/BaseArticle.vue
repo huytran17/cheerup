@@ -27,7 +27,7 @@
       </div>
 
       <div
-        class="text-uppercase grey--text text-center text-body-3 text-sm-body-2"
+        class="text-uppercase brick--text text-center text-body-3 text-sm-body-2"
       >
         <span class="app-body">{{
           formatDate(post_data.created_at, "LL")

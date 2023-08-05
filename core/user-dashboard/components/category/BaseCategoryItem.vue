@@ -21,7 +21,9 @@
       <div class="post__description text__content matte__black--text">
         <span class="app-body" v-html="data.description"></span>
       </div>
-      <div class="text-left text-caption grey--text text-uppercase">
+      <div
+        class="text-left text-body-3 text-sm-body-2 brick--text text-uppercase"
+      >
         <span class="app-body" v-html="$t('Total number of posts:')"></span>
         <span class="app-body">{{ data.post_count }}</span>
       </div>
