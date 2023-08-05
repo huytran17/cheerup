@@ -60,7 +60,7 @@
     </div>
 
     <div class="text-left">
-      <div class="text-caption grey--text text-uppercase">
+      <div class="text-caption brick--text text-uppercase">
         <span
           class="app-body"
           v-html="

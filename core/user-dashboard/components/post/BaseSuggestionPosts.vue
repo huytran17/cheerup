@@ -6,7 +6,7 @@
       <span class="app-body" v-html="$t('You may also like')"></span>
     </div>
     <slick-carousel
-      :arrows="true"
+      :arrows="false"
       :dots="true"
       :slidesToShow="3"
       :touchThreshold="5"
@@ -37,7 +37,7 @@
           />
         </div>
         <div
-          class="text-uppercase text-body-3 grey--text text-center pt-4 pb-1 px-2"
+          class="text-uppercase text-body-3 brick--text text-center pt-4 pb-1 px-2"
         >
           <span class="app-body">{{ formatDate(post.created_at, "LL") }}</span>
           <span>/</span>
