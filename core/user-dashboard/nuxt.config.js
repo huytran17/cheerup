@@ -269,6 +269,7 @@ export default {
   plugins: [
     "~/plugins/vuetify",
     "~/directives/private",
+    "~/directives/otp-auto-focus",
     "~/plugins/router",
     { src: "~/plugins/axios", ssr: false },
     { src: "~/plugins/vue-infinite-loading", mode: "client" },

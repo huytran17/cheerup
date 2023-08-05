@@ -21,6 +21,7 @@
       </v-col>
       <v-col cols="12">
         <OtpInput
+          v-otp-auto-focus
           class="mx-auto"
           type="number"
           inputClasses="otp-input"
@@ -85,10 +86,6 @@ export default {
       const invalid_code = !isNumber(Number(code)) || Number(code) < 1e5;
       !invalid_code && (this.two_fa_code = code);
     },
-  },
-  mounted() {
-    const otp_inputs = document.getElementsByClassName("otp-input");
-    otp_inputs[0]?.focus();
   },
 };
 </script>
