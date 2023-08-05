@@ -43,6 +43,7 @@
           class="white--text"
           tile
           depressed
+          small
           :disabled="!can_close"
           @click="closeModal"
         >

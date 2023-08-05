@@ -30,6 +30,7 @@
           class="white--text"
           tile
           depressed
+          small
           :disabled="!two_fa_code"
           @click="submit_function"
         >

@@ -33,6 +33,7 @@
         <v-btn
           tile
           depressed
+          small
           class="mr-1 white--text"
           color="brick"
           :disabled="!two_fa_code"

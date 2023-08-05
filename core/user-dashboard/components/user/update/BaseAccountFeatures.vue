@@ -11,6 +11,7 @@
         :label="$t('Get notified when there is a new post')"
         color="brick"
         hide-details
+        dense
         @change="toggleSubscription({ data: $event })"
       ></v-switch>
     </v-col>
@@ -22,6 +23,7 @@
         :false-value="false"
         :true-value="true"
         hide-details
+        dense
       ></v-switch>
     </v-col>
 

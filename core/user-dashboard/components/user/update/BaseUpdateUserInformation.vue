@@ -67,6 +67,7 @@
         <v-btn
           depressed
           tile
+          small
           color="brick"
           class="white--text"
           @click="updateUser"

@@ -52,6 +52,7 @@
           <v-btn
             depressed
             tile
+            small
             :disabled="!has_user || is_loading"
             color="brick"
             class="white--text"

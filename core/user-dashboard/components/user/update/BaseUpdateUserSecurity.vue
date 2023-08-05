@@ -52,6 +52,7 @@
         <v-btn
           depressed
           tile
+          small
           color="brick"
           class="white--text"
           :disabled="!form_valid"

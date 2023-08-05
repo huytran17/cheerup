@@ -81,6 +81,7 @@
             tile
             color="brick"
             class="white--text"
+            small
             @click="redirectToLoginPage"
           >
             <span class="app-body" v-html="$t('Login')"></span>

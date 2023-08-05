@@ -1,5 +1,5 @@
 <template>
-  <div class="text-body-2 text-uppercase text-center grey--text">
+  <div class="text-body-3 text-uppercase text-center brick--text">
     <span class="app-body" v-html="$t(message)"></span>
   </div>
 </template>
