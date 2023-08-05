@@ -12,6 +12,7 @@
         rounded
         dense
         hide-details
+        clearable
         type="search"
         :placeholder="$t('Search your favourites...')"
         :value="post_search_query"
@@ -36,7 +37,7 @@ export default {
       SET_POST_SEARCH_QUERY: "post/SET_POST_SEARCH_QUERY",
     }),
 
-    async search() {
+    search() {
       this.$router.push({
         path: this.localePath("/"),
         query: {
@@ -47,3 +48,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+:deep(.sidebar__card .v-input__append-inner button::before),
+:deep(.sidebar__card .v-input__append-inner button::after) {
+  color: var(--color-brick) !important;
+}
+</style>
