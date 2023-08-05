@@ -54,7 +54,6 @@
         </v-col>
         <v-col cols="12">
           <OtpInput
-            v-otp-auto-focus
             class="mx-auto"
             type="number"
             inputClasses="otp-input"

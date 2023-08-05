@@ -102,7 +102,7 @@ export default {
   },
   async fetch() {
     try {
-      await Promise.all([
+      Promise.all([
         this.GET_LATEST_SYSTEM_CONFIGURATION(),
         this.GET_CATEGORY_TITLES(),
       ]);
@@ -132,6 +132,11 @@ export default {
 @media only screen and (max-width: 767px) {
   :deep(.container) {
     width: 100% !important;
+  }
+
+  :deep(#icon-container) {
+    bottom: 20px !important;
+    right: 20px !important;
   }
 }
 </style>
