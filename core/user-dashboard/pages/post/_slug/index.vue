@@ -100,9 +100,15 @@ export default {
       link: [{ rel: "canonical", href: `${process.env.BASE_URL}/post` }],
     };
   },
-  async asyncData({ store, params }) {
+  async asyncData({ store, params, redirect }) {
     try {
       const slug = params.slug;
+
+      const invalidSlug = !slug || slug === "undefined" || slug === "null";
+      if (invalidSlug) {
+        return redirect("/404");
+      }
+
       const user_id = get(store.getters["auth/me"], "_id");
 
       const post = await store.dispatch("post/GET_POST_BY_SLUG", {
@@ -113,7 +119,7 @@ export default {
       const post_categories = get(post, "categories", []) || [];
       const category_ids = map(post_categories, (category) => category._id);
 
-      await Promise.all([
+      Promise.all([
         store.dispatch("post/GET_SUGGESTION_POSTS", {
           categories: category_ids,
           exclude_ids: [post._id],

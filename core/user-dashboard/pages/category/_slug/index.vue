@@ -88,9 +88,14 @@ export default {
       link: [{ rel: "canonical", href: `${process.env.BASE_URL}/category` }],
     };
   },
-  async asyncData({ store, params }) {
+  async asyncData({ store, params, redirect }) {
     try {
       const slug = params.slug;
+
+      const invalidSlug = !slug || slug === "undefined" || slug === "null";
+      if (invalidSlug) {
+        return redirect("/404");
+      }
 
       const category = await store.dispatch("category/GET_CATEGORY_BY_SLUG", {
         slug,
@@ -98,7 +103,7 @@ export default {
 
       store.commit("post/SET_CATEGORIES_FILTERS", { data: [category._id] });
 
-      await Promise.all([
+      Promise.all([
         store.dispatch("post/GET_POSTS_PAGINATED", {
           categories: [category._id],
           user_id: get(store.getters["auth/me"], "_id"),
