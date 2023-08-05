@@ -179,6 +179,6 @@ export default {
 }
 .sidebar li a:hover .links_name,
 .sidebar li a:hover i {
-  color: black !important;
+  color: var(--color-black) !important;
 }
 </style>

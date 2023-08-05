@@ -154,21 +154,25 @@ export default {
 
 <style scoped>
 .login-linear-background {
-  background: linear-gradient(135deg, #f75959 0%, #f35587 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-login-form-gradient-1) 0%,
+    var(--color-login-form-gradient-2) 100%
+  );
 }
 .login-box-shadow {
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  box-shadow: var(--color-login-form-shadow-bg) 0px 7px 29px 0px;
 }
 .login-form-background {
-  background: rgba(255, 255, 255, 0.6);
+  background: var(--color-login-form-bg);
 }
 .rounded-icon {
-  background: #f35587;
+  background: var(--color-rounded-icon-bg);
 }
 .rounded-icon * {
-  color: #ffffff !important;
+  color: var(--color-white) !important;
 }
 :deep(.v-btn--disabled) {
-  background: #e0e0e0;
+  background: var(--color-button-disabled-bg);
 }
 </style>

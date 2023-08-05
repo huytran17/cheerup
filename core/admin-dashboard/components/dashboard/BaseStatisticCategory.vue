@@ -101,10 +101,10 @@ export default {
 <style scoped>
 .category-item {
   transition: all 0.2s linear;
-  background-color: #f3faff;
+  background-color: var(--color-category-item-bg);
 }
 .category-item:hover {
-  background-color: #e9f5ff;
+  background-color: var(--color-category-item-hover-bg);
 }
 .chart-wrapper div:first-child {
   display: flex;
