@@ -41,7 +41,7 @@ const actions: ActionTree<AuthState, RootState> = {
 
     if (valid_signout) {
       localStorage.removeItem("access_token");
-      window.location.replace("");
+      window.location.href = "/";
     }
 
     return valid_signout;
