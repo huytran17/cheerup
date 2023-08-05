@@ -16,7 +16,7 @@ import en from "./locales/en.json";
 export default {
   ssr: false,
 
-  target: "server",
+  target: "static",
 
   head: seo_home_schema,
 
@@ -369,7 +369,7 @@ export default {
 
   i18n: {
     baseUrl: process.env.BASE_URL,
-    strategy: "prefix",
+    strategy: "no_prefix",
     locales: [
       {
         code: "en",
