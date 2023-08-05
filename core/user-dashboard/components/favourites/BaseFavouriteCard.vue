@@ -35,7 +35,7 @@
           @click="$router.push(localePath(`/post/${post_slug}`))"
         ></span>
       </div>
-      <div class="text-uppercase grey--text text-body-3 text-sm-body-2">
+      <div class="text-uppercase brick--text text-body-3 text-sm-body-2">
         <span class="app-body">{{ formatDate(post_created_at, "LL") }}</span>
         <span>/</span>
         <span class="app-body">{{ post_author_name }}</span>
@@ -43,7 +43,7 @@
         <span class="app-body">{{ reading_time }}</span>
       </div>
       <div class="text-left">
-        <div class="text-caption grey--text text-uppercase">
+        <div class="text-caption brick--text text-uppercase">
           <span
             class="app-body"
             v-html="
