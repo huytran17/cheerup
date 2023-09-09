@@ -18,8 +18,10 @@
                 :lazy-src="user_avatar"
                 :alt="me.full_name"
                 cover
-                max-width="100px"
-                max-height="100px"
+                :width="100"
+                :height="100"
+                :max-width="100"
+                :max-height="100"
                 class="rounded-circle clickable"
                 @click="$router.push(localePath(`/profile`))"
               ></v-img>
