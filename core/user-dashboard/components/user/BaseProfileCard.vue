@@ -95,7 +95,6 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
 import { get } from "lodash";
 import authMixins from "@/mixins/auth";
 import postBookmarkMixins from "@/mixins/post-bookmark";
