@@ -8,10 +8,10 @@
     </div>
     <div class="sidebar__card py-6 px-6 access__list horizontal__scrollbar">
       <div class="text-body-2">
-        <div class="py-2 font-italic text-left">
+        <div class="font-italic text-left">
           <span class="app-body">{{ quote.content }}</span>
         </div>
-        <div v-if="quote.author" class="pb-2 text-right">
+        <div v-if="quote.author" class="pt-2 text-right">
           <span class="app-body">{{ quote.author }}</span>
         </div>
       </div>
