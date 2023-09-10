@@ -34,6 +34,9 @@
               <v-col cols="12" class="mt-3">
                 <BaseSearchCard />
               </v-col>
+              <v-col cols="12" class="mt-3">
+                <BaseQuoteCard />
+              </v-col>
             </v-row>
           </v-col>
         </v-row>
@@ -54,6 +57,7 @@ import BaseProfileCard from "@/components/user/BaseProfileCard";
 import BaseCategoriesCard from "@/components/category/BaseCategoriesCard";
 import BaseSearchCard from "@/components/searching/BaseSearchCard";
 import BaseQuickAccessCard from "@/components/quick-access/BaseQuickAccessCard";
+import BaseQuoteCard from "@/components/quote/BaseQuoteCard";
 import BaseLanguageSwitcher from "@/components/BaseLanguageSwitcher";
 
 export default {
@@ -86,6 +90,7 @@ export default {
     BaseCategoriesCard,
     BaseSearchCard,
     BaseQuickAccessCard,
+    BaseQuoteCard,
     BaseLanguageSwitcher,
   },
   computed: {
