@@ -1,6 +1,10 @@
-import password_jwt from "passport-jwt";
+import { Request } from "express";
 import { PassportStatic } from "passport";
-import { UserModel, AdminModel } from "../../../data-access/models";
+import password_jwt from "passport-jwt";
+import { AdminModel, UserModel } from "../../../data-access/models";
+
+const extractAccessTokenFromRequest = (req: Request) =>
+  req.cookies?.access_token || "";
 
 export default function initializeJWT(
   passport: PassportStatic,
@@ -11,9 +15,7 @@ export default function initializeJWT(
 
   const opts = {
     secretOrKey,
-    jwtFromRequest: ExtractJwt.fromExtractors([
-      ExtractJwt.fromAuthHeaderAsBearerToken(),
-    ]),
+    jwtFromRequest: extractAccessTokenFromRequest,
   };
 
   passport.use(

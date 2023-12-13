@@ -21,9 +21,7 @@ const actions: ActionTree<AuthState, RootState> = {
       "/auth/sign-in",
       data
     );
-    const { user, access_token } = authenticated_user;
-
-    access_token && localStorage.setItem("admin_access_token", access_token);
+    const { user } = authenticated_user;
 
     commit(MutationTypes.SET_ME, { data: user });
     commit(MutationTypes.SET_HAS_USER, { data: true });

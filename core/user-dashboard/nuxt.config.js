@@ -434,7 +434,7 @@ export default {
     https: false,
     progress: true,
     retry: { retries: 3 },
-    credentials: false,
+    credentials: true,
     common: {
       Accept: "application/json",
       "Content-Type": "application/json",

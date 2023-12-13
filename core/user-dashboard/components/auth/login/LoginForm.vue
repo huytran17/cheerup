@@ -137,8 +137,6 @@ export default {
           return this.$router.push(this.localePath("/auth/tfa-verification"));
         }
 
-        access_token && localStorage.setItem("access_token", access_token);
-
         this.SET_ME({ data: user });
         this.SET_HAS_USER({ data: true });
 

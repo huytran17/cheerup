@@ -12,10 +12,6 @@ declare module "@nuxt/types" {
 const plugin: Plugin = ({ $axios, redirect, $toast }: Context, inject) => {
   $axios.onRequest((config) => {
     console.log("Making request to " + config.url);
-    config.headers.common["Authorization"] = `Bearer ${localStorage.getItem(
-      "access_token"
-    )}`;
-    config.headers.common["token-type"] = "bearer";
   });
 
   $axios.onResponse((response) => {
