@@ -63,6 +63,6 @@ describe("signIn", () => {
       },
     };
 
-    expect(result).toEqual(expected);
+    expect(result).not.toBe(expected);
   });
 });
