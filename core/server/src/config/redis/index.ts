@@ -46,8 +46,7 @@ export default class Redis {
       return;
     }
 
-    const invald_data = !key || !value;
-    if (invald_data) {
+    if (!key || !value) {
       logger.warn("Redis Client: Invalid data to set");
       return;
     }
@@ -57,7 +56,7 @@ export default class Redis {
         EX: duration_in_seconds,
       })
       .then(() => logger.verbose(`Redis Client: Cached data for key: ${key}`))
-      .catch((error) => logger.error(error));
+      .catch(logger.error);
 
     return;
   }
@@ -68,8 +67,7 @@ export default class Redis {
       return;
     }
 
-    const invald_data = !key;
-    if (invald_data) {
+    if (!key) {
       logger.warn("Redis Client: Invalid dataset");
       return;
     }
@@ -79,6 +77,8 @@ export default class Redis {
       if (!!cached_data && typeof cached_data === "string") {
         return JSON.parse(cached_data);
       }
+
+      return null;
     } catch (error) {
       console.error(error);
       await this.deleteData({ key });
@@ -93,14 +93,13 @@ export default class Redis {
       return;
     }
 
-    const invald_data = !key;
-    if (invald_data) {
+    if (!key) {
       logger.warn("Redis Client: Invalid key to get");
       return;
     }
 
     try {
-      await this.redis_client.unlink(key);
+      return await this.redis_client.unlink(key);
     } catch (error) {
       console.error(error);
     }
