@@ -127,7 +127,7 @@ export default class Redis {
       if (!value) {
         continue;
       }
-      key_array.push(`${key}=${params[key]}`);
+      key_array.push(`${key}=${value}`);
     }
     return key_array.join("&");
   }
