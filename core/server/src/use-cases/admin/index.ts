@@ -33,12 +33,10 @@ const createAdmin = makeCreateAdmin({
 
 const getAdmins = makeGetAdmins({
   adminDb: AdminDb,
-  logger,
 });
 
 const getAdmin = makeGetAdmin({
   adminDb: AdminDb,
-  logger,
 });
 
 const getAdminByEmail = makeGetAdminByEmail({

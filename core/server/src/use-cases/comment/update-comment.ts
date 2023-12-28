@@ -15,10 +15,7 @@ export default function makeUpdateComment({
 }: {
   commentDb: ICommentDb;
 }): IUpdateComment {
-  return async function updateComment({
-    commentDetails,
-  }: IUpdateCommentData): Promise<Comment | null> {
-    const comment = await commentDb.update(commentDetails);
-    return comment;
+  return async function updateComment({ commentDetails }) {
+    return await commentDb.update(commentDetails);
   };
 }

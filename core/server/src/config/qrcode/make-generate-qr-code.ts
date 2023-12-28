@@ -12,7 +12,6 @@ export default function makeGenerateQRCode(): IGenerateQRCode {
   }: {
     otp_auth: string;
   }): Promise<string | null> {
-    const QRCodeImageUrl = await qrcode.toDataURL(otp_auth);
-    return QRCodeImageUrl;
+    return await qrcode.toDataURL(otp_auth);
   };
 }

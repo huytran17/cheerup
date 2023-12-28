@@ -5,8 +5,7 @@ import { IGetOneSystemConfiguration } from "../../use-cases/system-configuration
 import _ from "lodash";
 import { isEmpty } from "../../utils/is-empty";
 
-export type IDefaultSystemConfiguration =
-  () => Promise<ISystemConfiguration | null>;
+export type IDefaultSystemConfiguration = () => Promise<void>;
 
 export default function makeCreateDefaultSystemConfiguration({
   getOneSystemConfiguration,
@@ -17,7 +16,7 @@ export default function makeCreateDefaultSystemConfiguration({
   createSystemConfiguration: ICreateSystemConfiguration;
   logger: Logger;
 }): IDefaultSystemConfiguration {
-  return async function createDefaultSystemConfiguration(): Promise<ISystemConfiguration | null> {
+  return async function createDefaultSystemConfiguration() {
     const systemConfigurationDetails = {
       is_blocked_comment: false,
     };
@@ -32,6 +31,6 @@ export default function makeCreateDefaultSystemConfiguration({
       systemConfigurationDetails,
     });
 
-    logger.verbose(`Created default system configuration`);
+    logger.verbose(`Created default system configuration.`);
   };
 }

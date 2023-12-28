@@ -15,10 +15,7 @@ export default function makeCreatePostBookmark({
 }: {
   postBookmarkDb: IPostBookmarkDb;
 }): ICreatePostBookmark {
-  return async function createPostBookmark({
-    postBookmarkDetails,
-  }: ICreatePostBookmarkData): Promise<PostBookmark | null> {
-    const post_bookmark = await postBookmarkDb.insert(postBookmarkDetails);
-    return post_bookmark;
+  return async function createPostBookmark({ postBookmarkDetails }) {
+    return await postBookmarkDb.insert(postBookmarkDetails);
   };
 }

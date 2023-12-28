@@ -17,15 +17,10 @@ export default function makeGetCommentLikeByUserAndComment({
   return async function getCommentLikeByUserAndComment({
     user_id,
     comment_id,
-  }: {
-    user_id: string;
-    comment_id: string;
-  }): Promise<CommentLike | null> {
-    const comment_like = await commentLikeDb.findByUserAndComment({
+  }) {
+    return await commentLikeDb.findByUserAndComment({
       user_id,
       comment_id,
     });
-
-    return comment_like;
   };
 }

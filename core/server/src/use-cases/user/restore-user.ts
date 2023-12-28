@@ -8,12 +8,7 @@ export default function makeRestoreUser({
 }: {
   userDb: IUserDb;
 }): IRestoreUser {
-  return async function restoreUser({
-    _id,
-  }: {
-    _id: string;
-  }): Promise<User | null> {
-    const user = await userDb.restore({ _id });
-    return user;
+  return async function restoreUser({ _id }) {
+    return await userDb.restore({ _id });
   };
 }

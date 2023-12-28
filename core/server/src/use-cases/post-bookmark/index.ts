@@ -25,7 +25,6 @@ const getPostBookmark = makeGetPostBookmark({
 
 const getPostBookmarksPaginated = makeGetPostBookmarksPaginated({
   postBookmarkDb: PostBookmarkDb,
-  logger,
 });
 
 const hardDeletePostBookmark = makeGetPostBookmarkAnalystics({

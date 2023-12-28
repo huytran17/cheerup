@@ -12,15 +12,7 @@ export default function makeGetCategoryBySlug({
 }: {
   categoryDb: ICategoryDb;
 }): IGetCategoryBySlug {
-  return async function getCategoryBySlug({
-    slug,
-  }: {
-    slug: string;
-  }): Promise<Category | null> {
-    const category = await categoryDb.findBySlug({
-      slug,
-    });
-
-    return category;
+  return async function getCategoryBySlug({ slug }) {
+    return await categoryDb.findBySlug({ slug });
   };
 }

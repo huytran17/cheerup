@@ -12,12 +12,7 @@ export default function makeHardDeletePasswordReset({
 }: {
   passwordResetDb: IPasswordResetDb;
 }): IHardDeletePasswordReset {
-  return async function hardDeletePasswordReset({
-    _id,
-  }: {
-    _id: string;
-  }): Promise<PasswordReset | null> {
-    const deleted = await passwordResetDb.hardDelete({ _id });
-    return deleted;
+  return async function hardDeletePasswordReset({ _id }) {
+    return await passwordResetDb.hardDelete({ _id });
   };
 }

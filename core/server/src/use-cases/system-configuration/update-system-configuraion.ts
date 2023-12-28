@@ -17,10 +17,7 @@ export default function makeUpdateSystemConfiguration({
 }): IUpdateSystemConfiguration {
   return async function updateSystemConfiguration({
     systemConfigurationDetails,
-  }: IUpdateSystemConfigurationData): Promise<SystemConfiguration | null> {
-    const system_configuration = await systemConfigurationDb.update(
-      systemConfigurationDetails
-    );
-    return system_configuration;
+  }) {
+    return await systemConfigurationDb.update(systemConfigurationDetails);
   };
 }

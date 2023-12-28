@@ -27,10 +27,6 @@ export default function makeGetMostPopularPostsAnalystics({
     range,
     unit,
     limit,
-  }: {
-    range?: string[];
-    unit?: string;
-    limit?: number;
   }): Promise<IMostPopularPostsAnalytics | null> {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "getMostPopularPostsAnalystics",

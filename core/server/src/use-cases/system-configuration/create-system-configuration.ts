@@ -20,10 +20,7 @@ export default function makeCreateSystemConfiguration({
 }): ICreateSystemConfiguration {
   return async function createSystemConfiguration({
     systemConfigurationDetails,
-  }: ICreateSystemConfigurationData): Promise<SystemConfiguration | null> {
-    const created_system_configuration = await systemConfigurationDb.insert(
-      systemConfigurationDetails
-    );
-    return created_system_configuration;
+  }) {
+    return await systemConfigurationDb.insert(systemConfigurationDetails);
   };
 }

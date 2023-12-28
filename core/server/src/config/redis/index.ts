@@ -99,7 +99,7 @@ export default class Redis {
     }
 
     try {
-      return await this.redis_client.unlink(key);
+      await this.redis_client.unlink(key);
     } catch (error) {
       console.error(error);
     }
@@ -121,15 +121,15 @@ export default class Redis {
       return null;
     }
 
-    const key_array = [];
+    let final_key = "";
     for (const key in params) {
-      const value = params[key];
-      if (!value) {
+      if (!params[key]) {
         continue;
       }
-      key_array.push(`${key}=${value}`);
+
+      final_key += `${key}=${params[key]}`;
     }
-    return key_array.join("&");
+    return final_key;
   }
 }
 

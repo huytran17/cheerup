@@ -11,12 +11,7 @@ export default function makeCountPostByCategory({
 }: {
   postDb: IPostDb;
 }): ICountPostByCategory {
-  return async function countPostByCategory({
-    category_id,
-  }: {
-    category_id: string;
-  }): Promise<number> {
-    const post = await postDb.countByCategory({ category_id });
-    return post;
+  return async function countPostByCategory({ category_id }) {
+    return await postDb.countByCategory({ category_id });
   };
 }

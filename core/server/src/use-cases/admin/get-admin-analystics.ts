@@ -28,10 +28,6 @@ export default function makeGetAdminAnalystics({
     unit,
     range,
     author_type,
-  }: {
-    unit?: string;
-    range?: string[];
-    author_type?: AdminType;
   }): Promise<IAdminAnalyticsData> {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "getAdminAnalystics",

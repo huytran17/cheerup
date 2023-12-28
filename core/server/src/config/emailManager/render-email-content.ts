@@ -29,20 +29,18 @@ export default function makeRenderEmailContent({
     let final_email_content = merge({}, email_content);
 
     const has_no_subject = !final_email_content.subject;
-    has_no_subject &&
-      (final_email_content = merge(final_email_content, {
+    if (has_no_subject) {
+      final_email_content = merge(final_email_content, {
         subject: "",
-      }));
+      });
+    }
 
     const has_no_content = !final_email_content.html;
-    has_no_content &&
-      (final_email_content = merge(final_email_content, { html: "" }));
+    if (has_no_content) {
+      final_email_content = merge(final_email_content, { html: "" });
+    }
 
-    const email_data = merge(
-      {},
-      defaultTemplateData,
-      user_template_data
-    );
+    const email_data = merge({}, defaultTemplateData, user_template_data);
 
     const rendered_subject = mailer.render({
       email_content: final_email_content.subject,

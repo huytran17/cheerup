@@ -9,8 +9,7 @@ export default function makeGetOneSystemConfiguration({
 }: {
   systemConfigurationDb: ISystemConfigurationDb;
 }): IGetOneSystemConfiguration {
-  return async function getOneSystemConfiguration(): Promise<SystemConfiguration | null> {
-    const system_configuration = await systemConfigurationDb.findOne();
-    return system_configuration;
+  return async function getOneSystemConfiguration() {
+    return await systemConfigurationDb.findOne();
   };
 }

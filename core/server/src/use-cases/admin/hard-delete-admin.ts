@@ -12,12 +12,7 @@ export default function makeHardDeleteAdmin({
 }: {
   adminDb: IAdminDb;
 }): IHardDeleteAdmin {
-  return async function hardDeleteAdmin({
-    _id,
-  }: {
-    _id: string;
-  }): Promise<Admin | null> {
-    const admin = await adminDb.hardDelete({ _id });
-    return admin;
+  return async function hardDeleteAdmin({ _id }) {
+    return await adminDb.hardDelete({ _id });
   };
 }

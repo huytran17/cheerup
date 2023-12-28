@@ -15,10 +15,7 @@ export default function makeCreateSubscription({
 }: {
   subscriptionDb: ISubscriptionDb;
 }): ICreateSubscription {
-  return async function createSubscription({
-    subscriptionDetails,
-  }: ICreateSubscriptionData): Promise<Subscription | null> {
-    const subscription = await subscriptionDb.insert(subscriptionDetails);
-    return subscription;
+  return async function createSubscription({ subscriptionDetails }) {
+    return await subscriptionDb.insert(subscriptionDetails);
   };
 }

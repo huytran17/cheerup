@@ -12,12 +12,7 @@ export default function makeDeleteCategory({
 }: {
   categoryDb: ICategoryDb;
 }): IDeleteCategory {
-  return async function deleteCategory({
-    _id,
-  }: {
-    _id: string;
-  }): Promise<Category | null> {
-    const category = await categoryDb.delete({ _id });
-    return category;
+  return async function deleteCategory({ _id }) {
+    return await categoryDb.delete({ _id });
   };
 }

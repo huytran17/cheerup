@@ -14,19 +14,10 @@ export default function makeGetTwoFactorAuthenticationByCode({
 }: {
   twoFactorAuthenticationDb: ITwoFactorAuthenticationDb;
 }): IGetTwoFactorAuthenticationByCode {
-  return async function getTwoFactorAuthenticationByCode({
-    code,
-    type,
-  }: {
-    code: string;
-    type: string;
-  }): Promise<TwoFactorAuthentication | null> {
-    const two_factor_authentication =
-      await twoFactorAuthenticationDb.findByCode({
-        code,
-        type,
-      });
-
-    return two_factor_authentication;
+  return async function getTwoFactorAuthenticationByCode({ code, type }) {
+    return await twoFactorAuthenticationDb.findByCode({
+      code,
+      type,
+    });
   };
 }

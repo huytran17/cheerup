@@ -15,10 +15,7 @@ export default function makeCreateUser({
 }: {
   userDb: UserDb;
 }): ICreateUser {
-  return async function createUser({
-    userDetails,
-  }: ICreateUserData): Promise<User | null> {
-    const created_user = await userDb.insert(userDetails);
-    return created_user;
+  return async function createUser({ userDetails }) {
+    return await userDb.insert(userDetails);
   };
 }

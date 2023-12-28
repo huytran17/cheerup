@@ -14,7 +14,6 @@ export default function makeVerifyAccessToken({
   secret: string;
 }): IVerifyAccessToken {
   return function verifyAccessToken(payload: string, options?: object) {
-    const decoded = verify(payload, secret, options);
-    return decoded;
+    return verify(payload, secret, options);
   };
 }

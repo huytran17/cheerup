@@ -12,12 +12,7 @@ export default function makeHardDeleteComment({
 }: {
   commentDb: ICommentDb;
 }): IHardDeleteComment {
-  return async function hardDeleteComment({
-    _id,
-  }: {
-    _id: string;
-  }): Promise<Comment | null> {
-    const comment = await commentDb.hardDelete({ _id });
-    return comment;
+  return async function hardDeleteComment({ _id }) {
+    return await commentDb.hardDelete({ _id });
   };
 }

@@ -8,12 +8,7 @@ export default function makeDeletePost({
 }: {
   postDb: IPostDb;
 }): IDeletePost {
-  return async function deletePost({
-    _id,
-  }: {
-    _id: string;
-  }): Promise<Post | null> {
-    const post = await postDb.delete({ _id });
-    return post;
+  return async function deletePost({ _id }) {
+    return await postDb.delete({ _id });
   };
 }

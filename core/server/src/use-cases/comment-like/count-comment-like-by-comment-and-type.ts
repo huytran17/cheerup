@@ -13,18 +13,10 @@ export default function makeCountCommentLikeByCommentAndType({
 }: {
   commentLikeDb: ICommentLikeDb;
 }): ICountCommentLikeByCommentAndType {
-  return async function countCommentLikeByCommentAndType({
-    comment_id,
-    type,
-  }: {
-    comment_id: string;
-    type: string;
-  }): Promise<number> {
-    const comment_like_count =
-      await commentLikeDb.countCommentLikeByCommentAndType({
-        comment_id,
-        type,
-      });
-    return comment_like_count;
+  return async function countCommentLikeByCommentAndType({ comment_id, type }) {
+    return await commentLikeDb.countCommentLikeByCommentAndType({
+      comment_id,
+      type,
+    });
   };
 }

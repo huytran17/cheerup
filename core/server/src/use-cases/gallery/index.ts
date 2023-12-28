@@ -1,4 +1,3 @@
-import { logger } from "../../config/logs/logger";
 import { GalleryDb } from "../../data-access";
 import makeGetGallery from "./get-gallery";
 import makeUpdateGallery from "./update-gallery";
@@ -9,12 +8,10 @@ import makeGetGalleriesByParent from "./get-galleries-by-parent";
 
 const getGalleriesByParent = makeGetGalleriesByParent({
   galleryDb: GalleryDb,
-  logger,
 });
 
 const getGalleriesPaginated = makeGetGalleriesPaginated({
   galleryDb: GalleryDb,
-  logger,
 });
 
 const hardDeleteGallery = makeHardDeleteGallery({
@@ -23,7 +20,6 @@ const hardDeleteGallery = makeHardDeleteGallery({
 
 const getGallery = makeGetGallery({
   galleryDb: GalleryDb,
-  logger,
 });
 
 const updateGallery = makeUpdateGallery({

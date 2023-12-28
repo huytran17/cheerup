@@ -22,7 +22,6 @@ export default function makeReadingTimeAnalyzer({
     text: string;
     options?: Options;
   }): ReadTimeResults {
-    const analyzed_data = analyzer(text, options);
-    return analyzed_data;
+    return analyzer(text, options);
   };
 }

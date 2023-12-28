@@ -21,17 +21,11 @@ export default function makeGetCategoriesPaginated({
     query,
     page,
     entries_per_page,
-  }: {
-    query: string;
-    page: number;
-    entries_per_page: number;
-  }): Promise<IPaginatedCategoryResult | null> {
-    const categories = await categoryDb.findAllPaginated({
+  }) {
+    return await categoryDb.findAllPaginated({
       query,
       page,
       entries_per_page,
     });
-
-    return categories;
   };
 }

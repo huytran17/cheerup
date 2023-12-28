@@ -1,5 +1,3 @@
-import { logger } from "../../config/logs/logger";
-
 import { SystemConfigurationDb } from "../../data-access";
 
 import makeGetSystemConfiguration from "./get-system-configuraion";
@@ -18,12 +16,10 @@ const getOneSystemConfiguration = makeGetOneSystemConfiguration({
 
 const getLatestSystemConfiguration = makeGetLatestSystemConfiguration({
   systemConfigurationDb: SystemConfigurationDb,
-  logger,
 });
 
 const getSystemConfiguration = makeGetSystemConfiguration({
   systemConfigurationDb: SystemConfigurationDb,
-  logger,
 });
 
 const updateSystemConfiguration = makeUpdateSystemConfiguration({

@@ -12,12 +12,7 @@ export default function makeHardDeletePostBookmark({
 }: {
   postBookmarkDb: IPostBookmarkDb;
 }): IHardDeletePostBookmark {
-  return async function hardDeletePostBookmark({
-    _id,
-  }: {
-    _id: string;
-  }): Promise<PostBookmark | null> {
-    const post_bookmark = await postBookmarkDb.hardDelete({ _id });
-    return post_bookmark;
+  return async function hardDeletePostBookmark({ _id }) {
+    return await postBookmarkDb.hardDelete({ _id });
   };
 }

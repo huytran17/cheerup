@@ -16,7 +16,6 @@ export default function makeGenerateAccessToken({
     payload: { email?: string; hash_password?: string; _id?: string },
     options?: { expiresIn: string | number }
   ) {
-    const token = generate(payload, secret, options);
-    return token;
+    return generate(payload, secret, options);
   };
 }

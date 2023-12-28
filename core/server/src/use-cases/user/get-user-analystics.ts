@@ -24,9 +24,6 @@ export default function makeGetUserAnalystics({
   return async function getUserAnalystics({
     unit,
     range,
-  }: {
-    unit?: string;
-    range?: string[];
   }): Promise<IUserAnalyticsData> {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "getUserAnalystics",

@@ -12,12 +12,7 @@ export default function makeHardDeleteTwoFactorAuthentication({
 }: {
   twoFactorAuthenticationDb: ITwoFactorAuthenticationDb;
 }): IHardDeleteTwoFactorAuthentication {
-  return async function hardDeleteTwoFactorAuthentication({
-    _id,
-  }: {
-    _id: string;
-  }): Promise<TwoFactorAuthentication | null> {
-    const deleted = await twoFactorAuthenticationDb.hardDelete({ _id });
-    return deleted;
+  return async function hardDeleteTwoFactorAuthentication({ _id }) {
+    return await twoFactorAuthenticationDb.hardDelete({ _id });
   };
 }

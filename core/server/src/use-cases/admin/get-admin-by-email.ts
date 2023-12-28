@@ -12,12 +12,7 @@ export default function makeGetAdminByEmail({
 }: {
   adminDb: IAdminDb;
 }): IGetAdminByEmail {
-  return async function getAdminByEmail({
-    email,
-  }: {
-    email: string;
-  }): Promise<Admin | null> {
-    const admin = await adminDb.findByEmail({ email });
-    return admin;
+  return async function getAdminByEmail({ email }) {
+    return await adminDb.findByEmail({ email });
   };
 }

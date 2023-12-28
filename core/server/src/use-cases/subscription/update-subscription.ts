@@ -15,10 +15,7 @@ export default function makeUpdateSubscription({
 }: {
   subscriptionDb: ISubscriptionDb;
 }): IUpdateSubscription {
-  return async function updateSubscription({
-    subscriptionDetails,
-  }: IUpdateSubscriptionData): Promise<Subscription | null> {
-    const subscription = await subscriptionDb.update(subscriptionDetails);
-    return subscription;
+  return async function updateSubscription({ subscriptionDetails }) {
+    return await subscriptionDb.update(subscriptionDetails);
   };
 }

@@ -20,10 +20,9 @@ export default function makeCreateTwoFactorAuthentication({
 }): ICreateTwoFactorAuthentication {
   return async function createTwoFactorAuthentication({
     twoFactorAuthenticationDetails,
-  }: ICreateTwoFactorAuthenticationData): Promise<TwoFactorAuthentication | null> {
-    const created = await twoFactorAuthenticationDb.insert(
+  }) {
+    return await twoFactorAuthenticationDb.insert(
       twoFactorAuthenticationDetails
     );
-    return created;
   };
 }

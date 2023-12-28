@@ -15,10 +15,7 @@ export default function makeUpdateAdmin({
 }: {
   adminDb: IAdminDb;
 }): IUpdateAdmin {
-  return async function updateAdmin({
-    adminDetails,
-  }: IUpdateAdminData): Promise<Admin | null> {
-    const admin = await adminDb.update(adminDetails);
-    return admin;
+  return async function updateAdmin({ adminDetails }) {
+    return await adminDb.update(adminDetails);
   };
 }

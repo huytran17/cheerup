@@ -1,8 +1,6 @@
-import Comment from "../../database/entities/comment";
 import ICommentDb, {
   IPaginatedCommentResult,
 } from "../../data-access/interfaces/comment-db";
-import { Logger } from "winston";
 
 export type IGetCommentsByPostPaginated = (
   {
@@ -23,28 +21,14 @@ export type IGetCommentsByPostPaginated = (
 
 export default function makeGetCommentsByPostPaginated({
   commentDb,
-  logger,
 }: {
   commentDb: ICommentDb;
-  logger: Logger;
 }): IGetCommentsByPostPaginated {
   return async function getCommentsByPostPaginated(
-    {
-      post_id,
-    }: {
-      post_id: string;
-    },
-    {
-      query,
-      page,
-      entries_per_page,
-    }: {
-      query: string;
-      page: number;
-      entries_per_page: number;
-    }
-  ): Promise<IPaginatedCommentResult | null> {
-    const data = await commentDb.findAllByPostPaginated(
+    { post_id },
+    { query, page, entries_per_page }
+  ) {
+    return await commentDb.findAllByPostPaginated(
       { post_id },
       {
         query,
@@ -52,6 +36,5 @@ export default function makeGetCommentsByPostPaginated({
         entries_per_page,
       }
     );
-    return data;
   };
 }

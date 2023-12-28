@@ -15,10 +15,7 @@ export default function makeUpdatePost({
 }: {
   postDb: IPostDb;
 }): IUpdatePost {
-  return async function updatePost({
-    postDetails,
-  }: IUpdatePostData): Promise<Post | null> {
-    const post = await postDb.update(postDetails);
-    return post;
+  return async function updatePost({ postDetails }) {
+    return await postDb.update(postDetails);
   };
 }

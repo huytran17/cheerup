@@ -8,8 +8,7 @@ export default function makeGetOneAdmin({
 }: {
   adminDb: IAdminDb;
 }): IGetOneAdmin {
-  return async function getOneAdmin(): Promise<Admin | null> {
-    const admin = await adminDb.findOne();
-    return admin;
+  return async function getOneAdmin() {
+    return await adminDb.findOne();
   };
 }

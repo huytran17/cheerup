@@ -15,10 +15,7 @@ export default function makeUpdateCommentLike({
 }: {
   commentLikeDb: ICommentLikeDb;
 }): IUpdateCommentLike {
-  return async function updateCommentLike({
-    commentLikeDetails,
-  }: IUpdateCommentLikeData): Promise<CommentLike | null> {
-    const comment_like = await commentLikeDb.update(commentLikeDetails);
-    return comment_like;
+  return async function updateCommentLike({ commentLikeDetails }) {
+    return await commentLikeDb.update(commentLikeDetails);
   };
 }

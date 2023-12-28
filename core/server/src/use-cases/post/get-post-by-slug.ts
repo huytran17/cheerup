@@ -12,15 +12,7 @@ export default function makeGetPostBySlug({
 }: {
   postDb: IPostDb;
 }): IGetPostBySlug {
-  return async function getPostBySlug({
-    slug,
-  }: {
-    slug: string;
-  }): Promise<Post | null> {
-    const post = await postDb.findBySlug({
-      slug,
-    });
-
-    return post;
+  return async function getPostBySlug({ slug }) {
+    return await postDb.findBySlug({ slug });
   };
 }

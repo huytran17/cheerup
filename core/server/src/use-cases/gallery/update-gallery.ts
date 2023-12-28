@@ -15,10 +15,7 @@ export default function makeUpdateGallery({
 }: {
   galleryDb: IGalleryDb;
 }): IUpdateGallery {
-  return async function updateGallery({
-    galleryDetails,
-  }: IUpdateGalleryData): Promise<Gallery | null> {
-    const gallery = await galleryDb.update(galleryDetails);
-    return gallery;
+  return async function updateGallery({ galleryDetails }) {
+    return await galleryDb.update(galleryDetails);
   };
 }

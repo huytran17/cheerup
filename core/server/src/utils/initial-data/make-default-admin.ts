@@ -7,7 +7,7 @@ import { IGetOneAdmin } from "../../use-cases/admin/get-one-admin";
 import _ from "lodash";
 import { isEmpty } from "../../utils/is-empty";
 
-export type IDefaultAdmin = () => Promise<IAdmin | null>;
+export type IDefaultAdmin = () => Promise<void>;
 
 export default function makeCreateDefaultAdmin({
   getOneAdmin,
@@ -20,7 +20,7 @@ export default function makeCreateDefaultAdmin({
   createAdmin: ICreateAdmin;
   logger: Logger;
 }): IDefaultAdmin {
-  return async function createDefaultAdmin(): Promise<IAdmin | null> {
+  return async function createDefaultAdmin() {
     const hash_password = await hashPassword({
       password: process.env.DEFAULT_ADMIN_PASSWORD,
       password_confirmation: process.env.DEFAULT_ADMIN_PASSWORD,
@@ -39,10 +39,8 @@ export default function makeCreateDefaultAdmin({
       return;
     }
 
-    const created_admin = await createAdmin({
-      adminDetails,
-    });
+    await createAdmin({ adminDetails });
 
-    logger.verbose(`Created default admin: ${created_admin.email}`);
+    logger.verbose(`Created default admin: ${adminDetails.email}`);
   };
 }

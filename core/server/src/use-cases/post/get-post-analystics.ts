@@ -22,9 +22,6 @@ export default function makeGetPostAnalystics({
   return async function getPostAnalystics({
     unit,
     range,
-  }: {
-    unit?: string;
-    range?: string[];
   }): Promise<IPostAnalytics> {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "getPostAnalystics",

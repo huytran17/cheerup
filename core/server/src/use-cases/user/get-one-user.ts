@@ -8,8 +8,7 @@ export default function makeGetOneUser({
 }: {
   userDb: IUserDb;
 }): IGetOneUser {
-  return async function getOneUser(): Promise<User | null> {
-    const user = await userDb.findOne();
-    return user;
+  return async function getOneUser() {
+    return await userDb.findOne();
   };
 }

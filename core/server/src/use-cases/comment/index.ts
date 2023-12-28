@@ -1,5 +1,3 @@
-import { logger } from "../../config/logs/logger";
-
 import { CommentDb } from "../../data-access";
 
 import makeGetComment from "./get-comment";
@@ -18,17 +16,14 @@ const replyComment = makeReplyComment({
 
 const getCommentsByPostPaginated = makeGetCommentsByPostPaginated({
   commentDb: CommentDb,
-  logger,
 });
 
 const countCommentsByPost = makeCountCommentsByPost({
   commentDb: CommentDb,
-  logger,
 });
 
 const getCommentsByParent = makeGetCommentsByParent({
   commentDb: CommentDb,
-  logger,
 });
 
 const createComment = makeCreateComment({
@@ -37,7 +32,6 @@ const createComment = makeCreateComment({
 
 const getComment = makeGetComment({
   commentDb: CommentDb,
-  logger,
 });
 
 const hardDeleteComment = makeHardDeleteComment({
@@ -50,7 +44,6 @@ const updateComment = makeUpdateComment({
 
 const getComments = makeGetComments({
   commentDb: CommentDb,
-  logger,
 });
 
 const commentServices = Object.freeze({

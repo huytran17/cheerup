@@ -26,6 +26,7 @@ export default function makeValidatorMiddleware(rules: Rules) {
       "Content-Type": "application/json",
     });
     res.type("json");
+
     return res.status(HttpStatusCode.BAD_REQUEST).send(validation.errors);
   };
 }

@@ -15,10 +15,7 @@ export default function makeCreateCategory({
 }: {
   categoryDb: ICategoryDb;
 }): ICreateCategory {
-  return async function createCategory({
-    categoryDetails,
-  }: ICreateCategoryData): Promise<Category | null> {
-    const category = await categoryDb.insert(categoryDetails);
-    return category;
+  return async function createCategory({ categoryDetails }) {
+    return await categoryDb.insert(categoryDetails);
   };
 }

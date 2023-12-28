@@ -12,15 +12,9 @@ export default function makeGetPasswordResetByCode({
 }: {
   passwordResetDb: IPasswordResetDb;
 }): IGetPasswordResetByCode {
-  return async function getPasswordResetByCode({
-    security_code,
-  }: {
-    security_code: string;
-  }): Promise<PasswordReset | null> {
-    const password_reset = await passwordResetDb.findByCode({
+  return async function getPasswordResetByCode({ security_code }) {
+    return await passwordResetDb.findByCode({
       security_code,
     });
-
-    return password_reset;
   };
 }

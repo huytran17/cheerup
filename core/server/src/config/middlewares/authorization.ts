@@ -23,6 +23,7 @@ export default function makeAuthorizationMiddleware(roles: string[]) {
       "content-type": "application/json",
     });
     res.type("json");
+
     return res
       .status(HttpStatusCode.FORBIDDEN)
       .send({ status: HttpStatusCode.FORBIDDEN, message: "Access Denied" });

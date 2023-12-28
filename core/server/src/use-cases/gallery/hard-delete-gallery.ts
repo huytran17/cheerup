@@ -12,12 +12,7 @@ export default function makeHardDeleteGallery({
 }: {
   galleryDb: IGalleryDb;
 }): IHardDeleteGallery {
-  return async function hardDeleteGallery({
-    _id,
-  }: {
-    _id: string;
-  }): Promise<Gallery | null> {
-    const gallery = await galleryDb.hardDelete({ _id });
-    return gallery;
+  return async function hardDeleteGallery({ _id }) {
+    return await galleryDb.hardDelete({ _id });
   };
 }

@@ -20,18 +20,11 @@ export default function makeGetTwoFactorAuthenticationByEmailAndCode({
     email,
     code,
     type,
-  }: {
-    email: string;
-    code: string;
-    type: string;
-  }): Promise<TwoFactorAuthentication | null> {
-    const two_factor_authentication =
-      await twoFactorAuthenticationDb.findByEmailAndCode({
-        email,
-        code,
-        type,
-      });
-
-    return two_factor_authentication;
+  }) {
+    return await twoFactorAuthenticationDb.findByEmailAndCode({
+      email,
+      code,
+      type,
+    });
   };
 }

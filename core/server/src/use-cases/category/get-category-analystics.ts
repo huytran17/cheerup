@@ -27,10 +27,6 @@ export default function makeGetCategoryAnalystics({
     unit,
     range,
     limit,
-  }: {
-    unit?: string;
-    range?: string[];
-    limit?: number;
   }): Promise<ICategoryAnalyticsData> {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "getCategoryAnalystics",

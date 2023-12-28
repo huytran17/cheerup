@@ -14,19 +14,10 @@ export default function makeGetTwoFactorAuthenticationByEmail({
 }: {
   twoFactorAuthenticationDb: ITwoFactorAuthenticationDb;
 }): IGetTwoFactorAuthenticationByEmail {
-  return async function getTwoFactorAuthenticationByEmail({
-    email,
-    type,
-  }: {
-    email: string;
-    type: string;
-  }): Promise<TwoFactorAuthentication[] | null> {
-    const two_factor_authentication =
-      await twoFactorAuthenticationDb.findByEmail({
-        email,
-        type,
-      });
-
-    return two_factor_authentication;
+  return async function getTwoFactorAuthenticationByEmail({ email, type }) {
+    return await twoFactorAuthenticationDb.findByEmail({
+      email,
+      type,
+    });
   };
 }

@@ -24,9 +24,6 @@ export default function makeGetSubscriptionAnalystics({
   return async function getSubscriptionAnalystics({
     unit,
     range,
-  }: {
-    unit?: string;
-    range?: string[];
   }): Promise<ISubscriptionAnalyticsData> {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "getSubscriptionAnalystics",

@@ -15,10 +15,7 @@ export default function makeUpdateCategory({
 }: {
   categoryDb: ICategoryDb;
 }): IUpdateCategory {
-  return async function updateCategory({
-    categoryDetails,
-  }: IUpdateCategoryData): Promise<Category | null> {
-    const category = await categoryDb.update(categoryDetails);
-    return category;
+  return async function updateCategory({ categoryDetails }) {
+    return await categoryDb.update(categoryDetails);
   };
 }

@@ -15,10 +15,7 @@ export default function makeUpdateUser({
 }: {
   userDb: IUserDb;
 }): IUpdateUser {
-  return async function updateUser({
-    userDetails,
-  }: IUpdateUserData): Promise<User | null> {
-    const user = await userDb.update(userDetails);
-    return user;
+  return async function updateUser({ userDetails }) {
+    return await userDb.update(userDetails);
   };
 }

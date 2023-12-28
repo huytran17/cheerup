@@ -18,10 +18,7 @@ export default function makeCreateAdmin({
 }: {
   adminDb: IAdminDb;
 }): ICreateAdmin {
-  return async function createAdmin({
-    adminDetails,
-  }: ICreateAdminData): Promise<Admin | null> {
-    const admin = await adminDb.insert(adminDetails);
-    return admin;
+  return async function createAdmin({ adminDetails }): Promise<Admin | null> {
+    return await adminDb.insert(adminDetails);
   };
 }

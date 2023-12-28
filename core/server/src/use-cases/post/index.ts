@@ -27,7 +27,6 @@ const countPostByCategory = makeCountPostByCategory({
 
 const getPostsForSEO = makeGetPostsForSEO({
   postDb: PostDb,
-  logger,
 });
 
 const getMostPopularPostsAnalystics = makeGetMostPopularPostsAnalystics({
@@ -38,12 +37,10 @@ const getMostPopularPostsAnalystics = makeGetMostPopularPostsAnalystics({
 
 const getPostsPaginated = makeGetPostsPaginated({
   postDb: PostDb,
-  logger,
 });
 
 const getSuggestionPosts = makeGetSuggestionPosts({
   postDb: PostDb,
-  logger,
 });
 
 const getPostAnalystics = makeGetPostAnalystics({
@@ -58,7 +55,6 @@ const hardDeletePost = makeHardDeletePost({
 
 const getPost = makeGetPost({
   postDb: PostDb,
-  logger,
 });
 
 const deletePost = makeDeletePost({
@@ -75,7 +71,6 @@ const createPost = makeCreatePost({
 
 const getPosts = makeGetPosts({
   postDb: PostDb,
-  logger,
 });
 
 const postServices = Object.freeze({

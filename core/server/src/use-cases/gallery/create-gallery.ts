@@ -15,10 +15,7 @@ export default function makeCreateGallery({
 }: {
   galleryDb: IGalleryDb;
 }): ICreateGallery {
-  return async function createGallery({
-    galleryDetails,
-  }: ICreateGalleryData): Promise<Gallery | null> {
-    const gallery = await galleryDb.insert(galleryDetails);
-    return gallery;
+  return async function createGallery({ galleryDetails }) {
+    return await galleryDb.insert(galleryDetails);
   };
 }

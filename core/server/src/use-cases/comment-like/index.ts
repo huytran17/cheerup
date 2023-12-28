@@ -1,5 +1,3 @@
-import { logger } from "../../config/logs/logger";
-
 import { CommentLikeDb } from "../../data-access";
 
 import makeUpdateCommentLike from "./update-comment-like";

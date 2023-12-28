@@ -14,7 +14,6 @@ export default function makeCompareHash(): ICompareHash {
     password,
     hash_password,
   }): Promise<boolean> {
-    const is_same: boolean = await bcrypt.compare(password, hash_password);
-    return is_same;
+    return await bcrypt.compare(password, hash_password);
   };
 }

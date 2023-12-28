@@ -15,10 +15,7 @@ export default function makeCreatePost({
 }: {
   postDb: IPostDb;
 }): ICreatePost {
-  return async function createPost({
-    postDetails,
-  }: ICreatePostData): Promise<Post | null> {
-    const post = await postDb.insert(postDetails);
-    return post;
+  return async function createPost({ postDetails }) {
+    return await postDb.insert(postDetails);
   };
 }

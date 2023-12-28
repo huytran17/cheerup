@@ -14,14 +14,7 @@ export default function makeGetUserByEmail({
 }: {
   userDb: IUserDb;
 }): IGetUserByEmail {
-  return async function getUserByEmail({
-    email,
-    is_include_deleted,
-  }: {
-    email: string;
-    is_include_deleted?: boolean;
-  }): Promise<User | null> {
-    const user = await userDb.findByEmail({ email, is_include_deleted });
-    return user;
+  return async function getUserByEmail({ email, is_include_deleted }) {
+    return await userDb.findByEmail({ email, is_include_deleted });
   };
 }

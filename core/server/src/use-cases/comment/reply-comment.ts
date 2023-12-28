@@ -15,10 +15,7 @@ export default function makeReplyComment({
 }: {
   commentDb: ICommentDb;
 }): IReplyComment {
-  return async function replyComment({
-    commentDetails,
-  }: IReplyCommentData): Promise<Comment | null> {
-    const comment = await commentDb.insert(commentDetails);
-    return comment;
+  return async function replyComment({ commentDetails }) {
+    return await commentDb.insert(commentDetails);
   };
 }

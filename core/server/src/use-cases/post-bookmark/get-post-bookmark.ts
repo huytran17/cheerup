@@ -12,12 +12,7 @@ export default function makeGetPostBookmark({
 }: {
   postBookmarkDb: IPostBookmarkDb;
 }): IGetPostBookmark {
-  return async function getPostBookmark({
-    _id,
-  }: {
-    _id: string;
-  }): Promise<PostBookmark | null> {
-    const post_bookmark = await postBookmarkDb.findById({ _id });
-    return post_bookmark;
+  return async function getPostBookmark({ _id }) {
+    return await postBookmarkDb.findById({ _id });
   };
 }

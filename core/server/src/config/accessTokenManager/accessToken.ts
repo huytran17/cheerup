@@ -23,12 +23,7 @@ export default Object.freeze({
     return jwt.sign(payload, secret, options);
   },
   verify: (payload: string, secret: string, options = {}) => {
-    try {
-      const decoded = jwt.verify(payload, secret, options);
-      return decoded;
-    } catch (e) {
-      return "";
-    }
+    return jwt.verify(payload, secret, options);
   },
 });
 export { IJwtGenerate, IJwtVerify };

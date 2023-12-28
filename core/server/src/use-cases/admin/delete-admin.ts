@@ -8,12 +8,7 @@ export default function makeDeleteAdmin({
 }: {
   adminDb: IAdminDb;
 }): IDeleteAdmin {
-  return async function deleteAdmin({
-    _id,
-  }: {
-    _id: string;
-  }): Promise<Admin | null> {
-    const admin = await adminDb.delete({ _id });
-    return admin;
+  return async function deleteAdmin({ _id }) {
+    return await adminDb.delete({ _id });
   };
 }

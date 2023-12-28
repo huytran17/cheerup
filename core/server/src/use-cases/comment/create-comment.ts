@@ -15,10 +15,7 @@ export default function makeCreateComment({
 }: {
   commentDb: ICommentDb;
 }): ICreateComment {
-  return async function createComment({
-    commentDetails,
-  }: ICreateCommentData): Promise<Comment | null> {
-    const comment = await commentDb.insert(commentDetails);
-    return comment;
+  return async function createComment({ commentDetails }) {
+    return await commentDb.insert(commentDetails);
   };
 }

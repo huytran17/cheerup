@@ -18,17 +18,14 @@ const getSubscriptionAnalystics = makeGetSubscriptionAnalystics({
 
 const getActivatingSubscriptions = makeGetActivatingSubscriptions({
   subscriptionDb: SubscriptionDb,
-  logger,
 });
 
 const getSubscription = makeGetSubscription({
   subscriptionDb: SubscriptionDb,
-  logger,
 });
 
 const getSubscriptionByEmail = makeGetSubscriptionByEmail({
   subscriptionDb: SubscriptionDb,
-  logger,
 });
 
 const updateSubscription = makeUpdateSubscription({
@@ -41,7 +38,6 @@ const createSubscription = makeCreateSubscription({
 
 const getSubscriptions = makeGetSubscriptions({
   subscriptionDb: SubscriptionDb,
-  logger,
 });
 
 const subscriptionServices = Object.freeze({

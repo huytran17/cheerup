@@ -26,7 +26,6 @@ const getCategoriesPaginated = makeGetCategoriesPaginated({
 
 const getCategoriesForSEO = makeGetCategoriesForSEO({
   categoryDb: CategoryDb,
-  logger,
 });
 
 const getCategoryAnalystics = makeGetCategoryAnalystics({
@@ -37,7 +36,6 @@ const getCategoryAnalystics = makeGetCategoryAnalystics({
 
 const getCategoryByTitle = makeGetCategoryByTitle({
   categoryDb: CategoryDb,
-  logger,
 });
 
 const getCategoryTitles = makeGetCategoryTitles({
@@ -54,7 +52,6 @@ const createCategory = makeCreateCategory({
 
 const getCategory = makeGetCategory({
   categoryDb: CategoryDb,
-  logger,
 });
 
 const deleteCategory = makeDeleteCategory({
@@ -67,7 +64,6 @@ const updateCategory = makeUpdateCategory({
 
 const getCategories = makeGetCategories({
   categoryDb: CategoryDb,
-  logger,
 });
 
 const categoryServices = Object.freeze({

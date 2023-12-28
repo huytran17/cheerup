@@ -12,12 +12,7 @@ export default function makeHardDeletePost({
 }: {
   postDb: IPostDb;
 }): IHardDeletePost {
-  return async function hardDeletePost({
-    _id,
-  }: {
-    _id: string;
-  }): Promise<Post | null> {
-    const post = await postDb.hardDelete({ _id });
-    return post;
+  return async function hardDeletePost({ _id }) {
+    return await postDb.hardDelete({ _id });
   };
 }

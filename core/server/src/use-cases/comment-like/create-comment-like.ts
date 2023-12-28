@@ -15,10 +15,7 @@ export default function makeCreateCommentLike({
 }: {
   commentLikeDb: ICommentLikeDb;
 }): ICreateCommentLike {
-  return async function createCommentLike({
-    commentLikeDetails,
-  }: ICreateCommentLikeData): Promise<CommentLike | null> {
-    const comment_like = await commentLikeDb.insert(commentLikeDetails);
-    return comment_like;
+  return async function createCommentLike({ commentLikeDetails }) {
+    return await commentLikeDb.insert(commentLikeDetails);
   };
 }

@@ -38,12 +38,10 @@ const hardDeleteUser = makeHardDeleteUser({
 
 const getUsers = makeGetUsers({
   userDb: UserDb,
-  logger,
 });
 
 const getUser = makeGetUser({
   userDb: UserDb,
-  logger,
 });
 
 const getUserByEmail = makeGetUserByEmail({

@@ -9,10 +9,7 @@ export default function makeGetCategoryTitles({
 }: {
   categoryDb: ICategoryDb;
 }): IGetCategoryTitles {
-  return async function getCategoryTitles(): Promise<
-    { _id: string; title: string; slug: string }[]
-  > {
-    const titles = await categoryDb.findAllCategoryTitles();
-    return titles;
+  return async function getCategoryTitles() {
+    return await categoryDb.findAllCategoryTitles();
   };
 }

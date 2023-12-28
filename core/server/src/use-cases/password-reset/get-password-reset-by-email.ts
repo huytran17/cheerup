@@ -12,15 +12,7 @@ export default function makeGetPasswordResetByEmail({
 }: {
   passwordResetDb: IPasswordResetDb;
 }): IGetPasswordResetByEmail {
-  return async function getPasswordResetByEmail({
-    email,
-  }: {
-    email: string;
-  }): Promise<PasswordReset | null> {
-    const password_reset = await passwordResetDb.findByEmail({
-      email,
-    });
-
-    return password_reset;
+  return async function getPasswordResetByEmail({ email }) {
+    return await passwordResetDb.findByEmail({ email });
   };
 }
