@@ -12,7 +12,7 @@ import {
 import { initializeMailer } from "./config/emailManager/mailer";
 import Storage from "./config/storage";
 import Redis from "./config/redis";
-import OTPLib from "./config/tfa";
+import TFA from "./config/tfa";
 import { upload } from "./config/middlewares/file-upload";
 import accessControlMiddleware from "./config/middlewares/access-control";
 
@@ -50,7 +50,7 @@ makeDb()
     ]);
     new Storage();
     new Redis();
-    new OTPLib();
+    new TFA();
   })
   .catch((err) => {
     console.error(err);
