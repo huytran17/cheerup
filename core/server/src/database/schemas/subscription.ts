@@ -1,9 +1,10 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import mongoose_lean_virtuals from "mongoose-lean-virtuals";
+import ISubscription from "../interfaces/subscription";
 
 const Schema = mongoose.Schema;
 
-const subscriptionSchema = new Schema(
+const subscriptionSchema = new Schema<ISubscription, Model<ISubscription>>(
   {
     email: { type: String, trim: true, required: true },
     is_active: { type: Boolean, default: true },

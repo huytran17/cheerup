@@ -1,11 +1,12 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import { get, map } from "lodash";
 import { CommentModel } from "../../data-access/models";
 import mongoose_lean_virtuals from "mongoose-lean-virtuals";
+import IUser from "../interfaces/user";
 
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema(
+const userSchema = new Schema<IUser, Model<IUser>>(
   {
     ip: { type: String, trim: true },
     hash_password: { type: String, trim: true },

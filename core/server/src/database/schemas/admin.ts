@@ -1,18 +1,19 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import { get } from "lodash";
 import mongoose_lean_virtuals from "mongoose-lean-virtuals";
+import IAdmin, { AdminType } from "../interfaces/admin";
 
 const Schema = mongoose.Schema;
 
-const adminSchema = new Schema(
+const adminSchema = new Schema<IAdmin, Model<IAdmin>>(
   {
     hash_password: { type: String, trim: true },
     full_name: { type: String, trim: true },
     type: {
       type: String,
       trim: true,
-      emum: ["super", "normal"],
-      default: "normal",
+      emum: AdminType,
+      default: AdminType.Editor,
     },
     is_auto_censorship_post: { type: Boolean, default: false },
     is_blocked: { type: Boolean, default: false },

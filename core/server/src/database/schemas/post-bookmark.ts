@@ -1,15 +1,15 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import mongoose_lean_virtuals from "mongoose-lean-virtuals";
+import IPostBookmark from "../interfaces/post-bookmark";
 
 const Schema = mongoose.Schema;
 
-const postBookmarkSchema = new Schema(
+const postBookmarkSchema = new Schema<IPostBookmark, Model<IPostBookmark>>(
   {
     user: { type: Schema.Types.ObjectId, ref: "User", required: true },
     post: { type: Schema.Types.ObjectId, ref: "Post", required: true },
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now },
-    deleted_at: { type: Date, default: null },
   },
   {
     toJSON: { virtuals: true },

@@ -1,10 +1,14 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import { get } from "lodash";
 import mongoose_lean_virtuals from "mongoose-lean-virtuals";
+import ISystemConfiguration from "../interfaces/system-configuration";
 
 const Schema = mongoose.Schema;
 
-const systemConfigurationSchema = new Schema(
+const systemConfigurationSchema = new Schema<
+  ISystemConfiguration,
+  Model<ISystemConfiguration>
+>(
   {
     is_blocked_comment: { type: Boolean, default: false },
     thumbnail: { type: Object },

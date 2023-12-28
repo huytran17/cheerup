@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import mongoose_lean_virtuals from "mongoose-lean-virtuals";
 import IPost from "../interfaces/post";
 import { get, map } from "lodash";
@@ -8,7 +8,7 @@ import { isEmpty } from "../../utils/is-empty";
 
 const Schema = mongoose.Schema;
 
-const postSchema = new Schema(
+const postSchema = new Schema<IPost, Model<IPost>>(
   {
     title: { type: String, trim: true },
     slug: { type: String, trim: true },
@@ -79,11 +79,14 @@ postSchema.pre("save", async function (next) {
 
 postSchema.pre("deleteOne", { document: true }, async function (next) {
   const post_id = get(this, "_id");
-  const comments = await CommentModel.find({ post: post_id }) || [];
-  const delete_comment_promises = map(comments, async (comment) => comment && (await comment.deleteOne()))
-  await Promise.all(delete_comment_promises)
+  const comments = (await CommentModel.find({ post: post_id })) || [];
+  const delete_comment_promises = map(
+    comments,
+    async (comment) => comment && (await comment.deleteOne())
+  );
+  await Promise.all(delete_comment_promises);
 
-  next()
+  next();
 });
 
 postSchema.plugin(mongoose_lean_virtuals);

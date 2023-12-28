@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import mongoose_lean_virtuals from "mongoose-lean-virtuals";
 import ICategory from "../interfaces/category";
 import { CategoryModel, PostModel } from "../../data-access/models";
@@ -8,7 +8,7 @@ import { isEmpty } from "../../utils/is-empty";
 
 const Schema = mongoose.Schema;
 
-const categorySchema = new Schema(
+const categorySchema = new Schema<ICategory, Model<ICategory>>(
   {
     title: { type: String, trim: true },
     slug: { type: String, trim: true },
@@ -66,15 +66,18 @@ categorySchema.pre("save", async function (next) {
   next();
 });
 
-categorySchema.pre('deleteOne', { document: true }, async function (next) {
-  const category_id = get(this, "_id")
-  const posts = await PostModel.find({ categories: category_id }) || []
-  const delete_post_promises = map(posts, async post => post && await post.deleteOne())
+categorySchema.pre("deleteOne", { document: true }, async function (next) {
+  const category_id = get(this, "_id");
+  const posts = (await PostModel.find({ categories: category_id })) || [];
+  const delete_post_promises = map(
+    posts,
+    async (post) => post && (await post.deleteOne())
+  );
 
-  await Promise.all(delete_post_promises)
+  await Promise.all(delete_post_promises);
 
-  next()
-})
+  next();
+});
 
 categorySchema.plugin(mongoose_lean_virtuals);
 

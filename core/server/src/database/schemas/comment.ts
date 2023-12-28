@@ -1,13 +1,13 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import mongoose_lean_virtuals from "mongoose-lean-virtuals";
-import { get, map, filter, merge } from "lodash";
+import { get, map } from "lodash";
 import { isEmpty } from "../../utils/is-empty";
 import { CommentLikeModel, CommentModel } from "../../data-access/models";
 import IComment from "../interfaces/comment";
 
 const Schema = mongoose.Schema;
 
-const commentSchema = new Schema({
+const commentSchema = new Schema<IComment, Model<IComment>>({
   content: { type: String, trim: true, required: true },
   user: { type: Schema.Types.ObjectId, ref: "User" },
   post: { type: Schema.Types.ObjectId, ref: "Post", required: true },

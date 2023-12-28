@@ -1,9 +1,13 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import mongoose_lean_virtuals from "mongoose-lean-virtuals";
+import ITwoFactorAuthentication from "../interfaces/two-factor-authentication";
 
 const Schema = mongoose.Schema;
 
-const twoFactorAuthenticationSchema = new Schema(
+const twoFactorAuthenticationSchema = new Schema<
+  ITwoFactorAuthentication,
+  Model<ITwoFactorAuthentication>
+>(
   {
     email: { type: String, required: true },
     code: { type: String, trim: true, required: true },
