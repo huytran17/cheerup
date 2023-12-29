@@ -35,7 +35,7 @@ describe("enableAutoCensorship", () => {
 
     const createAdmin = makeCreateAdmin({ adminDb });
     const updateAdmin = makeUpdateAdmin({ adminDb });
-    const getAdmin = makeGetAdmin({ adminDb, logger });
+    const getAdmin = makeGetAdmin({ adminDb });
 
     const mock_admin_data = fakeAdmin();
 

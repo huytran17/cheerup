@@ -37,7 +37,6 @@ describe("hardDeleteAdmin", () => {
     const hardDeleteAdmin = makeHardDeleteAdmin({ adminDb });
     const getAdmin = makeGetAdmin({
       adminDb,
-      logger,
     });
 
     const mock_admin_data = fakeAdmin();

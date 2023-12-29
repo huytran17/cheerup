@@ -11,7 +11,7 @@ export type ExpectSingleResult<T> = {
   headers: Record<string, unknown>;
   statusCode: number;
   body: {
-    data: T | null | undefined;
+    data: T | null | undefined | {};
   };
 };
 
@@ -19,7 +19,7 @@ export type ExpectMultipleResults<T> = {
   headers: Record<string, unknown>;
   statusCode: number;
   body: {
-    data: T[] | null | undefined;
+    data: T[] | null | undefined | [];
   };
 };
 
@@ -27,7 +27,7 @@ export type ExpectPaginatedResult<T> = {
   headers: Record<string, unknown>;
   statusCode: number;
   body: {
-    data: T[] | null | undefined;
+    data: T[] | null | undefined | [];
     pagination: IPagination;
   };
 };
@@ -36,7 +36,7 @@ export type ExpectPaginatedPartialResult<T> = {
   headers: Record<string, unknown>;
   statusCode: number;
   body: {
-    data: (T[] & Partial<T>) | null | undefined;
+    data: (T[] & Partial<T>) | null | undefined | [];
     pagination: IPagination;
   };
 };

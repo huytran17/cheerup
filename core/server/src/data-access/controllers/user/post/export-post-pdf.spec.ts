@@ -40,7 +40,7 @@ describe("exportPostPdf", () => {
 
     const createPost = makeCreatePost({ postDb });
     const createUser = makeCreateUser({ userDb });
-    const getPost = makeGetPost({ postDb, logger });
+    const getPost = makeGetPost({ postDb });
 
     const mock_post_data = fakePost();
     const mock_user_data = fakeUser();

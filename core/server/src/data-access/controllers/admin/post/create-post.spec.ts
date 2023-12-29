@@ -53,10 +53,9 @@ describe("createPost", () => {
     const createAdmin = makeCreateAdmin({ adminDb });
     const createPost = makeCreatePost({ postDb });
     const updatePost = makeUpdatePost({ postDb });
-    const getAdmin = makeGetAdmin({ adminDb, logger });
+    const getAdmin = makeGetAdmin({ adminDb });
     const getActivatingSubscriptions = makeGetActivatingSubscriptions({
       subscriptionDb,
-      logger,
     });
 
     const mock_post_data = fakePost();

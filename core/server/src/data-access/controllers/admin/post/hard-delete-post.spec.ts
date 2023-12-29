@@ -34,7 +34,7 @@ describe("hardDeletePost", () => {
     });
 
     const createPost = makeCreatePost({ postDb });
-    const getPost = makeGetPost({ postDb, logger });
+    const getPost = makeGetPost({ postDb });
     const hardDeletePost = makeHardDeletePost({ postDb });
 
     const mock_post_data = fakePost();

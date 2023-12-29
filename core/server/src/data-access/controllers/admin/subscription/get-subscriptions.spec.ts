@@ -35,7 +35,7 @@ describe("getSubscriptions", () => {
     const createSubscription = makeCreateSubscription({
       subscriptionDb,
     });
-    const getSubscriptions = makeGetSubscriptions({ subscriptionDb, logger });
+    const getSubscriptions = makeGetSubscriptions({ subscriptionDb });
 
     const mock_subscription_data = fakeSubscription();
 

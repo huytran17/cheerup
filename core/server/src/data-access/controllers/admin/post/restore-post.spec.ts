@@ -34,7 +34,7 @@ describe("restorePost", () => {
     });
 
     const createPost = makeCreatePost({ postDb });
-    const getPost = makeGetPost({ postDb, logger });
+    const getPost = makeGetPost({ postDb });
     const updatePost = makeUpdatePost({ postDb });
 
     const mock_post_data = fakePost();

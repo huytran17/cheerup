@@ -34,10 +34,9 @@ describe("getGalleriesByParent", () => {
     });
 
     const createGallery = makeCreateGallery({ galleryDb });
-    const getGallery = makeGetGallery({ galleryDb, logger });
+    const getGallery = makeGetGallery({ galleryDb });
     const getGalleriesByParent = makeGetGalleriesByParent({
       galleryDb,
-      logger,
     });
 
     const mock_gallery_data = fakeGallery();

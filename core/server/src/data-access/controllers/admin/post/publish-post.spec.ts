@@ -52,11 +52,10 @@ describe("publishPost", () => {
 
     const createUser = makeCreateUser({ userDb });
     const createPost = makeCreatePost({ postDb });
-    const getPost = makeGetPost({ postDb, logger });
+    const getPost = makeGetPost({ postDb });
     const updatePost = makeUpdatePost({ postDb });
     const getActivatingSubscriptions = makeGetActivatingSubscriptions({
       subscriptionDb,
-      logger,
     });
 
     const mock_post_data = fakePost();

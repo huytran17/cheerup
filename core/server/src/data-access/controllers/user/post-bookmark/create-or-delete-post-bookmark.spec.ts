@@ -58,8 +58,8 @@ describe("createOrDeletePostBookmark", () => {
       postBookmarkDb,
     });
     const createUser = makeCreateUser({ userDb });
-    const getUser = makeGetUser({ userDb, logger });
-    const getPost = makeGetPost({ postDb, logger });
+    const getUser = makeGetUser({ userDb });
+    const getPost = makeGetPost({ postDb });
     const createPost = makeCreatePost({ postDb });
     const getPostBookmarkByUserAndPost = makeGetPostBookmarkByUserAndPost({
       postBookmarkDb,

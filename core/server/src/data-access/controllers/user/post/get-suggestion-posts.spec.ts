@@ -40,7 +40,7 @@ describe("getSuggestionPosts", () => {
 
     const createPost = makeCreatePost({ postDb });
     const createCategory = makeCreateCategory({ categoryDb });
-    const getSuggestionPosts = makeGetSuggestionPosts({ postDb, logger });
+    const getSuggestionPosts = makeGetSuggestionPosts({ postDb });
 
     const mock_post_data = fakePost();
     const mock_category_data = fakeCategory();

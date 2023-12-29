@@ -38,7 +38,6 @@ describe("getGalleriesPaginated", () => {
     const createGallery = makeCreateGallery({ galleryDb });
     const getGalleriesPaginated = makeGetGalleriesPaginated({
       galleryDb,
-      logger,
     });
 
     const mock_gallery_data = fakeGallery();

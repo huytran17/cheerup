@@ -37,7 +37,6 @@ describe("getLatestSystemConfiguration", () => {
     });
     const getLatestSystemConfiguration = makeGetLatestSystemConfiguration({
       systemConfigurationDb,
-      logger,
     });
 
     const mock_system_configuration_data = fakeSystemConfiguration();

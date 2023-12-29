@@ -35,7 +35,6 @@ describe("cancelSubscription", () => {
 
     const getSubscriptionByEmail = makeGetSubscriptionByEmail({
       subscriptionDb,
-      logger,
     });
     const updateSubscription = makeUpdateSubscription({
       subscriptionDb,

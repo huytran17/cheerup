@@ -42,7 +42,6 @@ describe("createSubscription", () => {
     const createUser = makeCreateUser({ userDb });
     const getSubscriptionByEmail = makeGetSubscriptionByEmail({
       subscriptionDb,
-      logger,
     });
     const updateSubscription = makeUpdateSubscription({
       subscriptionDb,

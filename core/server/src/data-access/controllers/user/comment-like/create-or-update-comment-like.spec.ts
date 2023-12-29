@@ -62,11 +62,9 @@ describe("createOrUpdateCommentLike", () => {
     });
     const getUser = makeGetUser({
       userDb,
-      logger,
     });
     const getComment = makeGetComment({
       commentDb,
-      logger,
     });
     const getCommentLikeByUserAndComment = makeGetCommentLikeByUserAndPost({
       commentLikeDb,

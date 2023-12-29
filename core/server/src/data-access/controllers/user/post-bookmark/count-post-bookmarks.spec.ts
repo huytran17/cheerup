@@ -42,7 +42,7 @@ describe("countPostBookmarks", () => {
     const createPostBookmark = makeCreatePostBookmark({
       postBookmarkDb,
     });
-    const getUser = makeGetUser({ userDb, logger });
+    const getUser = makeGetUser({ userDb });
     const createUser = makeCreateUser({ userDb });
     const countPostBookmarks = makeCountPostBookmarks({
       postBookmarkDb,

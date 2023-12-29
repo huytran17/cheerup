@@ -28,7 +28,7 @@ describe("getCategories", () => {
       moment,
     });
 
-    const getCategories = makeGetCategories({ categoryDb, logger });
+    const getCategories = makeGetCategories({ categoryDb });
 
     const getCategoriesController = makeGetCategoriesController({
       getCategories,

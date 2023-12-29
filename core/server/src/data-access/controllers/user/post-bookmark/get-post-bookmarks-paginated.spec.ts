@@ -55,15 +55,12 @@ describe("getPostBookmarksPaginated", () => {
     });
     const getPostBookmarksPaginated = makeGetPostBookmarksPaginated({
       postBookmarkDb,
-      logger,
     });
     const countCommentsByPost = makeCountCommentsByPost({
       commentDb,
-      logger,
     });
     const getUser = makeGetUser({
       userDb,
-      logger
     });
     const createUser = makeCreateUser({
       userDb,
@@ -77,21 +74,21 @@ describe("getPostBookmarksPaginated", () => {
       createPostBookmark({
         postBookmarkDetails: mock_post_bookmark_data,
       }),
-      createUser({ userDetails: mock_user_data })
-    ])
+      createUser({ userDetails: mock_user_data }),
+    ]);
 
     const getPostBookmarksPaginatedController =
       makeGetPostBookmarksPaginatedController({
         getPostBookmarksPaginated,
         countCommentsByPost,
         readingTimeAnalyzer,
-        getUser
+        getUser,
       });
 
     const request = {
       context: {
         validated: mock_query_params,
-        user: created_user
+        user: created_user,
       },
     };
 

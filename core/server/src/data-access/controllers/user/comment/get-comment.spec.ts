@@ -46,7 +46,7 @@ describe("getComment", () => {
 
     const createUser = makeCreateUser({ userDb });
     const createComment = makeCreateComment({ commentDb });
-    const getComment = makeGetComment({ commentDb, logger });
+    const getComment = makeGetComment({ commentDb });
     const countCommentLikeByCommentAndType =
       makeCountCommentLikeByCommentAndType({ commentLikeDb });
     const getCommentLikeByUserAndComment = makeGetCommentLikeByUserAndComment({

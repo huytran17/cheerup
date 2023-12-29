@@ -35,11 +35,10 @@ describe("getMe", () => {
     });
 
     const createUser = makeCreateUser({ userDb });
-    const getUser = makeGetUser({ userDb, logger });
+    const getUser = makeGetUser({ userDb });
     const updateUser = makeUpdateUser({ userDb });
     const getSubscriptionByEmail = makeGetSubscriptionByEmail({
       subscriptionDb,
-      logger,
     });
 
     const mock_user_data = fakeUser();

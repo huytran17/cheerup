@@ -34,7 +34,7 @@ describe("hardDeleteUser", () => {
     });
 
     const createUser = makeCreateUser({ userDb });
-    const getUser = makeGetUser({ userDb, logger });
+    const getUser = makeGetUser({ userDb });
     const hardDeleteUser = makeHardDeleteUser({ userDb });
 
     const mock_user_data = fakeUser();

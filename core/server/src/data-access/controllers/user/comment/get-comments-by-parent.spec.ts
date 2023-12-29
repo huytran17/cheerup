@@ -47,10 +47,9 @@ describe("getCommentsByParent", () => {
 
     const createUser = makeCreateUser({ userDb });
     const createComment = makeCreateComment({ commentDb });
-    const getComment = makeGetComment({ commentDb, logger });
+    const getComment = makeGetComment({ commentDb });
     const getCommentsByParent = makeGetCommentsByParent({
       commentDb,
-      logger,
     });
     const countCommentLikeByCommentAndType =
       makeCountCommentLikeByCommentAndType({ commentLikeDb });

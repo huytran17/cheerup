@@ -33,7 +33,7 @@ describe("getPost", () => {
     });
 
     const createPost = makeCreatePost({ postDb });
-    const getPost = makeGetPost({ postDb, logger });
+    const getPost = makeGetPost({ postDb });
 
     const mock_post_data = fakePost();
 

@@ -35,7 +35,6 @@ describe("getAdmins", () => {
     const createAdmin = makeCreateAdmin({ adminDb });
     const getAdmins = makeGetAdmins({
       adminDb,
-      logger,
     });
 
     const mock_admin_data = fakeAdmin();

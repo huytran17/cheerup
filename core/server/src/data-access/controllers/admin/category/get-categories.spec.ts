@@ -33,7 +33,7 @@ describe("getCategories", () => {
     });
 
     const createCategory = makeCreateCategory({ categoryDb });
-    const getCategories = makeGetCategories({ categoryDb, logger });
+    const getCategories = makeGetCategories({ categoryDb });
 
     const mock_category_data = fakeCategory();
 

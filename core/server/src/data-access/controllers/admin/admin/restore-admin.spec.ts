@@ -37,7 +37,6 @@ describe("restoreAdmin", () => {
     const updateAdmin = makeUpdateAdmin({ adminDb });
     const getAdmin = makeGetAdmin({
       adminDb,
-      logger,
     });
 
     const mock_admin_data = fakeAdmin();

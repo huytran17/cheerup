@@ -33,7 +33,7 @@ describe("getComment", () => {
     });
 
     const createComment = makeCreateComment({ commentDb });
-    const getComment = makeGetComment({ commentDb, logger });
+    const getComment = makeGetComment({ commentDb });
 
     const mock_comment_data = fakeComment();
 

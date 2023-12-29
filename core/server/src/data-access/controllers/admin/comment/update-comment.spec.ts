@@ -34,7 +34,7 @@ describe("updateComment", () => {
     });
 
     const createComment = makeCreateComment({ commentDb });
-    const getComment = makeGetComment({ commentDb, logger });
+    const getComment = makeGetComment({ commentDb });
     const updateComment = makeUpdateComment({ commentDb });
 
     const mock_comment_data = fakeComment();

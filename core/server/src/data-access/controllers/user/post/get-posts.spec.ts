@@ -39,8 +39,8 @@ describe("getPosts", () => {
     });
 
     const createPost = makeCreatePost({ postDb });
-    const getPosts = makeGetPosts({ postDb, logger });
-    const countCommentsByPost = makeCountCommentsByPost({ commentDb, logger });
+    const getPosts = makeGetPosts({ postDb });
+    const countCommentsByPost = makeCountCommentsByPost({ commentDb });
 
     const mock_post_data = fakePost();
 

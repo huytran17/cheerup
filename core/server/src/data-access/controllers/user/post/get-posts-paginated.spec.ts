@@ -61,8 +61,8 @@ describe("getPostsPaginated", () => {
     });
 
     const createPost = makeCreatePost({ postDb });
-    const getPostsPaginated = makeGetPostsPaginated({ postDb, logger });
-    const countCommentsByPost = makeCountCommentsByPost({ commentDb, logger });
+    const getPostsPaginated = makeGetPostsPaginated({ postDb });
+    const countCommentsByPost = makeCountCommentsByPost({ commentDb });
     const createUser = makeCreateUser({ userDb });
     const getPostBookmarkByUserAndPost = makeGetPostBookmarkByUserAndPost({
       postBookmarkDb,

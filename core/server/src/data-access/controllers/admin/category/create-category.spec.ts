@@ -43,7 +43,7 @@ describe("createCategory", () => {
     const createAdmin = makeCreateAdmin({ adminDb });
     const createCategory = makeCreateCategory({ categoryDb });
     const updateCategory = makeUpdateCategory({ categoryDb });
-    const getCategoryByTitle = makeGetCategoryByTitle({ categoryDb, logger });
+    const getCategoryByTitle = makeGetCategoryByTitle({ categoryDb });
 
     const mock_category_data = fakeCategory();
     const mock_admin_data = fakeAdmin();

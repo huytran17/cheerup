@@ -38,7 +38,6 @@ describe("updateSystemConfiguration", () => {
     });
     const getSystemConfiguration = makeGetSystemConfiguration({
       systemConfigurationDb,
-      logger,
     });
     const updateSystemConfiguration = makeUpdateSystemConfiguration({
       systemConfigurationDb,

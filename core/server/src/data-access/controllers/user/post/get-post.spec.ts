@@ -47,7 +47,7 @@ describe("getPost", () => {
 
     const createPost = makeCreatePost({ postDb });
     const createUser = makeCreateUser({ userDb });
-    const getPost = makeGetPost({ postDb, logger });
+    const getPost = makeGetPost({ postDb });
     const getPostBookmarkByUserAndPost = makeGetPostBookmarkByUserAndPost({
       postBookmarkDb,
     });

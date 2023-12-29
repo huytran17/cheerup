@@ -38,7 +38,6 @@ describe("updatePassword", () => {
     const updateUser = makeUpdateUser({ userDb });
     const getUser = makeGetUser({
       userDb,
-      logger,
     });
 
     const mock_user_data = fakeUser();

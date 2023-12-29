@@ -30,7 +30,7 @@ describe("getUsers", () => {
       moment,
     });
 
-    const getUsers = makeGetUsers({ userDb, logger });
+    const getUsers = makeGetUsers({ userDb });
 
     const getUsersController = makeGetUsersController({
       getUsers,
