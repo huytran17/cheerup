@@ -31,7 +31,7 @@ export default function makeGetCommentsByParentController({
       const { _id }: { _id: string } = get(httpRequest, "context.validated");
 
       const { _id: user_id }: { _id: string } =
-        get(httpRequest, "context.user") || merge({});
+        get(httpRequest, "context.user") || {};
 
       const comment_exists = await getComment({ _id });
       if (isEmpty(comment_exists)) {

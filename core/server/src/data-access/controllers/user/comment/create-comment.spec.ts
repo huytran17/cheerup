@@ -61,11 +61,11 @@ describe("createComment", () => {
       commentLikeDbModel: CommentLikeModel,
     });
 
-    const getPost = makeGetPost({ postDb, logger });
+    const getPost = makeGetPost({ postDb });
     const createPost = makeCreatePost({ postDb });
     const createComment = makeCreateComment({ commentDb });
     const createUser = makeCreateUser({ userDb });
-    const getUser = makeGetUser({ userDb, logger });
+    const getUser = makeGetUser({ userDb });
     const countCommentLikeByCommentAndType =
       makeCountCommentLikeByCommentAndType({ commentLikeDb });
     const getCommentLikeByUserAndComment = makeGetCommentLikeByUserAndComment({

@@ -169,10 +169,8 @@ export default function makeUserDb({
     }
 
     async findAll(): Promise<User[] | null> {
-      let query_conditions = merge({});
-
       const existing = await userDbModel
-        .find(query_conditions)
+        .find()
         .select("-__v -hash_password -tfa_secret")
         .lean({ virtuals: true });
 
@@ -194,7 +192,7 @@ export default function makeUserDb({
     }): Promise<IPaginatedUserResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
-      const query_conditions = merge({});
+      const query_conditions = {};
 
       if (query) {
         query_conditions["$or"] = [

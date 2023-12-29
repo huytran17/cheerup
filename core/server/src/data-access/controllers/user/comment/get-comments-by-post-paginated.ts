@@ -41,7 +41,7 @@ export default function makeGetCommentsByPostPaginatedController({
       } = get(httpRequest, "context.validated");
 
       const { _id: user_id }: { _id: string } =
-        get(httpRequest, "context.user") || merge({});
+        get(httpRequest, "context.user") || {};
 
       const post_exists = await getPost({
         _id: post_id,

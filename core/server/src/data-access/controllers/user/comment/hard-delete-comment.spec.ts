@@ -52,12 +52,12 @@ describe("hardDeleteComment", () => {
       moment,
     });
 
-    const getPost = makeGetPost({ postDb, logger });
+    const getPost = makeGetPost({ postDb });
     const createPost = makeCreatePost({ postDb });
     const createComment = makeCreateComment({ commentDb });
     const hardDeleteComment = makeHardDeleteComment({ commentDb });
-    const getComment = makeGetComment({ commentDb, logger });
-    const getUser = makeGetUser({ userDb, logger });
+    const getComment = makeGetComment({ commentDb });
+    const getUser = makeGetUser({ userDb });
     const createUser = makeCreateUser({ userDb });
 
     const mock_comment_data = fakeComment();
@@ -73,7 +73,7 @@ describe("hardDeleteComment", () => {
     });
 
     const created_comment = await createComment({
-      commentDetails: merge(mock_comment_data, {
+      commentDetails: merge({}, mock_comment_data, {
         user: created_user._id,
         post: created_post._id,
       }),

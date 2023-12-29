@@ -18,10 +18,8 @@ export default function makePostBookmarkDb({
 }): IPostBookmarkDb {
   return new (class MongoosePostBookmarkDb implements IPostBookmarkDb {
     async findAll(): Promise<PostBookmark[] | null> {
-      let query_conditions = merge({});
-
       const existing = await postBookmarkDbModel
-        .find(query_conditions)
+        .find()
         .lean({ virtuals: true });
 
       if (existing) {

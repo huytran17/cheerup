@@ -31,7 +31,7 @@ export default function makeCreateSubscriptionController({
 
       const exists = await getSubscriptionByEmail({ email });
 
-      let subscription_data = merge({});
+      let subscription_data = {};
 
       if (!isEmpty(exists)) {
         const update_subscription_details = merge({}, exists, {

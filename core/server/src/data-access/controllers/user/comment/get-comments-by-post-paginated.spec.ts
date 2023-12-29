@@ -63,7 +63,7 @@ describe("getCommentsByPostPaginated", () => {
     });
 
     const createUser = makeCreateUser({ userDb });
-    const getPost = makeGetPost({ postDb, logger });
+    const getPost = makeGetPost({ postDb });
     const createPost = makeCreatePost({ postDb });
     const countCommentLikeByCommentAndType =
       makeCountCommentLikeByCommentAndType({ commentLikeDb });
@@ -73,7 +73,6 @@ describe("getCommentsByPostPaginated", () => {
     const createComment = makeCreateComment({ commentDb });
     const getCommentsByPostPaginated = makeGetCommentsByPostPaginated({
       commentDb,
-      logger,
     });
 
     const mock_comment_data = fakeComment();

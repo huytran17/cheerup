@@ -239,10 +239,8 @@ export default function makeAdminDb({
     }
 
     async findAll(): Promise<Admin[] | null> {
-      let query_conditions = merge({});
-
       const existing = await adminDbModel
-        .find(query_conditions)
+        .find()
         .select("-__v")
         .lean({ virtuals: true });
       if (existing) {
@@ -263,7 +261,7 @@ export default function makeAdminDb({
     }): Promise<IPaginatedAdminResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
-      const query_conditions = merge({});
+      const query_conditions = {};
 
       if (query) {
         query_conditions["$or"] = [

@@ -165,7 +165,7 @@ export default function makeSubscriptionDb({
     }): Promise<IPaginatedSubscriptionResult | null> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
-      const query_conditions = merge({});
+      const query_conditions = {};
 
       if (query) {
         query_conditions["$or"] = [

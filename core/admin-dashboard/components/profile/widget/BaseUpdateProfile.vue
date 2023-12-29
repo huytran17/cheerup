@@ -188,7 +188,7 @@
 </template>
 
 <script>
-import { omit, pick } from "lodash";
+import { omit, pick, merge } from "lodash";
 import { mapActions } from "vuex";
 import authMixins from "@/mixins/auth";
 import adminMixins from "@/mixins/admin";

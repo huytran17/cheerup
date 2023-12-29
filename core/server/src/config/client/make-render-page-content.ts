@@ -24,7 +24,7 @@ export default function makeRenderPageContent(): IRenderPageContent {
       throw new Error(`Invalid template type: ${type}`);
     }
 
-    const final_template_data = merge(template_data, data);
+    const final_template_data = merge({}, template_data, data);
 
     const template = handlebars.compile(page_template);
 

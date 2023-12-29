@@ -53,13 +53,13 @@ describe("replyComment", () => {
       moment,
     });
 
-    const getPost = makeGetPost({ postDb, logger });
+    const getPost = makeGetPost({ postDb });
     const createPost = makeCreatePost({ postDb });
     const createComment = makeCreateComment({ commentDb });
     const updateComment = makeUpdateComment({ commentDb });
     const replyComment = makeReplyComment({ commentDb });
-    const getComment = makeGetComment({ commentDb, logger });
-    const getUser = makeGetUser({ userDb, logger });
+    const getComment = makeGetComment({ commentDb });
+    const getUser = makeGetUser({ userDb });
     const createUser = makeCreateUser({ userDb });
 
     const mock_comment_data = fakeComment();
@@ -74,7 +74,7 @@ describe("replyComment", () => {
       userDetails: mock_user_data,
     });
 
-    const final_mock_comment_data = merge(mock_comment_data, {
+    const final_mock_comment_data = merge({}, mock_comment_data, {
       post: created_post._id,
       user: created_user._id,
     });
@@ -95,7 +95,7 @@ describe("replyComment", () => {
 
     const request = {
       context: {
-        validated: merge(final_mock_comment_data, {
+        validated: merge({}, final_mock_comment_data, {
           parent: created_parent_comment._id,
         }),
         user: created_user,

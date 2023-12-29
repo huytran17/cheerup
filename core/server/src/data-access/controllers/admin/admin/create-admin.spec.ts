@@ -53,7 +53,7 @@ describe("createAdmin", () => {
 
     const request = {
       context: {
-        validated: merge(mock_admin_data, password_data),
+        validated: merge({}, mock_admin_data, password_data),
       },
     };
 

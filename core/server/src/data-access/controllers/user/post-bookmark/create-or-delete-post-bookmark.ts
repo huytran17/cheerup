@@ -66,7 +66,7 @@ export default function makeCreateOrDeletePostBookmarkController({
         post_id,
       });
 
-      let post_bookmark_data = merge({});
+      let post_bookmark_data = {};
 
       if (isEmpty(post_bookmark_exists)) {
         const post_bookmark_details = merge(
