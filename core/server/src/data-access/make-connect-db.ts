@@ -1,17 +1,21 @@
 import mongoose from "mongoose";
 import _ from "lodash";
 
-async function makeDb() {
-  const DATABASE_URL = makeDatabaseURL();
-  const DATABASE_OPTIONS = makeDatabaseOptions();
+export type IMakeConnectDb = () => Promise<typeof mongoose>;
 
-  const is_not_connected = mongoose.connection.readyState == 0;
-  if (is_not_connected) {
-    await mongoose.connect(DATABASE_URL, DATABASE_OPTIONS);
-    console.log("Successfully connected to DB");
-  }
+export default function makeConnectDb(): IMakeConnectDb {
+  return async function connectDb() {
+    const DATABASE_URL = makeDatabaseURL();
+    const DATABASE_OPTIONS = makeDatabaseOptions();
 
-  return mongoose;
+    const is_not_connected = mongoose.connection.readyState == 0;
+    if (is_not_connected) {
+      await mongoose.connect(DATABASE_URL, DATABASE_OPTIONS);
+      console.log("Successfully connected to DB");
+    }
+
+    return mongoose;
+  };
 }
 
 export function makeDatabaseURL(): string {
@@ -35,5 +39,3 @@ export function makeDatabaseOptions() {
 
   return options;
 }
-
-export default makeDb;

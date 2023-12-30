@@ -1,5 +1,4 @@
 import mailer from "./mailer";
-import { logger } from "../logs/logger";
 
 import {
   emailTextTemplate,

@@ -1,5 +1,4 @@
 import { AdminType } from "../../database/interfaces/admin";
-import IAdmin from "../../database/interfaces/admin";
 import { Logger } from "winston";
 import { IHashPassword } from "../../config/password/hash-password";
 import { ICreateAdmin } from "../../use-cases/admin/create-admin";
@@ -7,7 +6,7 @@ import { IGetOneAdmin } from "../../use-cases/admin/get-one-admin";
 import _ from "lodash";
 import { isEmpty } from "../../utils/is-empty";
 
-export type IDefaultAdmin = () => Promise<void>;
+export type DefaultAdmin = () => Promise<void>;
 
 export default function makeCreateDefaultAdmin({
   getOneAdmin,
@@ -19,8 +18,14 @@ export default function makeCreateDefaultAdmin({
   hashPassword: IHashPassword;
   createAdmin: ICreateAdmin;
   logger: Logger;
-}): IDefaultAdmin {
+}): DefaultAdmin {
   return async function createDefaultAdmin() {
+    const admin = await getOneAdmin();
+
+    if (!isEmpty(admin)) {
+      return;
+    }
+
     const hash_password = await hashPassword({
       password: process.env.DEFAULT_ADMIN_PASSWORD,
       password_confirmation: process.env.DEFAULT_ADMIN_PASSWORD,
@@ -32,12 +37,6 @@ export default function makeCreateDefaultAdmin({
       type: AdminType.Owner,
       hash_password,
     };
-
-    const admin = await getOneAdmin();
-
-    if (!isEmpty(admin)) {
-      return;
-    }
 
     await createAdmin({ adminDetails });
 
