@@ -24,4 +24,4 @@ RUN chmod 777 .
 
 USER 1001
 EXPOSE 3000
-CMD [ "yarn", "d:serve" ]
+CMD [ "yarn", "serve" ]

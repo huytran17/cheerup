@@ -31,7 +31,7 @@ services:
     image: mongo
     restart: always
     volumes:
-      - ./mongo/data:/data/db
+      - ./mongo/cheerup:/data/cheerup
     ports:
       - ${MONGO_INITDB_PORT:-27017}:27017
     environment:
@@ -49,7 +49,7 @@ services:
     image: mongo-express
     restart: always
     volumes:
-      - ./mongo/data:/data/db
+      - ./mongo/cheerup:/data/cheerup
     ports:
       - 8081:8081
     depends_on:
