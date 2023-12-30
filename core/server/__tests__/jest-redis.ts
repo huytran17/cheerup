@@ -41,8 +41,7 @@ export default class Redis {
       return logger.warn("Redis Client: Not available");
     }
 
-    const invald_data = !key || !value;
-    if (invald_data) {
+    if (!key || !value) {
       return logger.warn("Redis Client: Invalid data to set");
     }
 
@@ -59,8 +58,7 @@ export default class Redis {
       return logger.warn("Redis Client: Not available");
     }
 
-    const invald_data = !key;
-    if (invald_data) {
+    if (!key) {
       return logger.warn("Redis Client: Invalid dataset");
     }
 
@@ -85,8 +83,7 @@ export default class Redis {
       return;
     }
 
-    const invald_data = !key;
-    if (invald_data) {
+    if (!key) {
       logger.warn("Redis Client: Invalid key to get");
       return;
     }
@@ -111,15 +108,16 @@ export default class Redis {
       return null;
     }
 
-    const key_array = [];
+    let final_key = "";
     for (const key in params) {
-      const value = params[key];
-      if (!value) {
+      if (!params[key]) {
         continue;
       }
-      key_array.push(`${key}=${params[key]}`);
+
+      final_key += `${key}=${params[key]}`;
     }
-    return key_array.join("&");
+
+    return final_key;
   }
 
   async disconnect(): Promise<void> {

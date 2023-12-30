@@ -129,6 +129,7 @@ export default class Redis {
 
       final_key += `${key}=${params[key]}`;
     }
+
     return final_key;
   }
 }

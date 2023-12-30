@@ -17,7 +17,7 @@ module.exports = async function ({
   watch?: () => Record<string, unknown>;
   watchAll?: () => Record<string, unknown>;
 } = {}) {
-  const notWatching = !watch && !watchAll;
-  notWatching &&
+  const is_not_watching = !watch && !watchAll;
+  is_not_watching &&
     (await Promise.all([closeDatabaseConnection(), redis.disconnect()]));
 };

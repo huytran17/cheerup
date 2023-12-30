@@ -59,9 +59,11 @@ export type Mailer = {
 export default Object.freeze({
   sendMail: async (payload: IEmailData) => {
     const transport = initializeMailer();
+
     transport.sendMail(payload).catch((error) => {
       console.error(error);
     });
+
     return payload;
   },
   render: ({
@@ -73,11 +75,7 @@ export default Object.freeze({
     email_data: { [key: string]: string };
     object_data?: { [key: string]: any };
   }) => {
-    const final_email_data = merge(
-      {},
-      email_data,
-      object_data
-    );
+    const final_email_data = merge({}, email_data, object_data);
     const template = handlebars.compile(email_content);
     return template(final_email_data);
   },

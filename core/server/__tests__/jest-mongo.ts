@@ -5,27 +5,29 @@ import { MongoMemoryServer } from "mongodb-memory-server-core";
 let mongod = (global as any).__MONGOD__;
 
 const initializeMongod = async () => {
-  !mongod && (mongod = await MongoMemoryServer.create());
-
-  (global as any).__MONGOD__ = mongod;
+  if (!mongod) {
+    mongod = await MongoMemoryServer.create();
+    (global as any).__MONGOD__ = mongod;
+  }
 };
 
 async function connectDatabase(): Promise<void> {
-  const mongoIsNotRunning = mongod.state !== MongoMemoryServerCoreState.RUNNING;
+  const mongo_is_not_running =
+    mongod.state !== MongoMemoryServerCoreState.RUNNING;
 
-  mongoIsNotRunning && (await mongod.start());
+  mongo_is_not_running && (await mongod.start());
 
   await mongod.ensureInstance();
 
   const uri = mongod.getUri();
 
-  const mongoOptions = {
+  const mongo_options = {
     useNewUrlParser: true,
     connectTimeoutMS: 10000,
     useUnifiedTopology: true,
   };
 
-  await mongoose.connect(uri, mongoOptions);
+  await mongoose.connect(uri, mongo_options);
 }
 
 async function closeConnection(): Promise<void> {
@@ -37,16 +39,16 @@ async function closeConnection(): Promise<void> {
 async function clearDatabase(): Promise<void> {
   const collections = mongoose.connection.collections;
 
-  const mappedCollectionsIntoArray = [];
+  const mapped_collections_into_array = [];
   for (const key in collections) {
-    mappedCollectionsIntoArray.push(collections[key]);
+    mapped_collections_into_array.push(collections[key]);
   }
 
-  const deleteCollectionPromises = mappedCollectionsIntoArray.map(
+  const delete_collection_promises = mapped_collections_into_array.map(
     async (collection) => await collection.deleteMany({})
   );
 
-  await Promise.all(deleteCollectionPromises);
+  await Promise.all(delete_collection_promises);
 }
 
 export default Object.freeze({
