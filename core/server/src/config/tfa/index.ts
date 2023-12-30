@@ -1,4 +1,4 @@
-import { authenticator } from "otplib";
+import { authenticator } from "@otplib/preset-v11";
 
 export default class TFA {
   public static tfa_instance: TFA;
