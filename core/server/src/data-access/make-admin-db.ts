@@ -56,18 +56,17 @@ export default function makeAdminDb({
       });
 
       const cloned_from_date = cloneDeep(from_date);
+
       while (cloned_from_date.isSameOrBefore(to_date, unit)) {
         let formatted_date = cloned_from_date.format("YYYY-MM-DD");
 
-        switch (unit) {
-          case AnalyssisUnit.MONTH:
-            formatted_date = cloned_from_date.format("YYYY-MM");
-            break;
-          case AnalyssisUnit.YEAR:
-            formatted_date = cloned_from_date.format("YYYY");
-            break;
-          default:
-            break;
+        const format_date_types = {
+          [AnalyssisUnit.MONTH]: cloned_from_date.format("YYYY-MM"),
+          [AnalyssisUnit.YEAR]: cloned_from_date.format("YYYY"),
+        };
+
+        if (format_date_types[unit]) {
+          formatted_date = format_date_types[unit];
         }
 
         formatted_dates.push(formatted_date);

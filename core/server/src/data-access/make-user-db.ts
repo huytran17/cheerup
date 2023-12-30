@@ -53,15 +53,13 @@ export default function makeUserDb({
       while (from_date.isSameOrBefore(to_date, unit)) {
         let formatted_date = from_date.format("YYYY-MM-DD");
 
-        switch (unit) {
-          case AnalyssisUnit.MONTH:
-            formatted_date = from_date.format("YYYY-MM");
-            break;
-          case AnalyssisUnit.YEAR:
-            formatted_date = from_date.format("YYYY");
-            break;
-          default:
-            break;
+        const format_date_types = {
+          [AnalyssisUnit.MONTH]: from_date.format("YYYY-MM"),
+          [AnalyssisUnit.YEAR]: from_date.format("YYYY"),
+        };
+
+        if (format_date_types[unit]) {
+          formatted_date = format_date_types[unit];
         }
 
         formatted_dates.push(formatted_date);
