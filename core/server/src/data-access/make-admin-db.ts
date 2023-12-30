@@ -55,14 +55,12 @@ export default function makeAdminDb({
         },
       });
 
-      const cloned_from_date = cloneDeep(from_date);
-
-      while (cloned_from_date.isSameOrBefore(to_date, unit)) {
-        let formatted_date = cloned_from_date.format("YYYY-MM-DD");
+      while (from_date.isSameOrBefore(to_date, unit)) {
+        let formatted_date = from_date.format("YYYY-MM-DD");
 
         const format_date_types = {
-          [AnalyssisUnit.MONTH]: cloned_from_date.format("YYYY-MM"),
-          [AnalyssisUnit.YEAR]: cloned_from_date.format("YYYY"),
+          [AnalyssisUnit.MONTH]: from_date.format("YYYY-MM"),
+          [AnalyssisUnit.YEAR]: from_date.format("YYYY"),
         };
 
         if (format_date_types[unit]) {
@@ -70,8 +68,8 @@ export default function makeAdminDb({
         }
 
         formatted_dates.push(formatted_date);
-        existing_dates.push(JSON.parse(JSON.stringify(cloned_from_date)));
-        cloned_from_date.add(1, unit);
+        existing_dates.push(JSON.parse(JSON.stringify(from_date)));
+        from_date.add(1, unit);
       }
 
       const analysis_promises = existing_dates.map(async (date, index) => {
