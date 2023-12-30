@@ -25,6 +25,8 @@ import requestIp from "request-ip";
 
 const app = express();
 
+console.log(`Worker PID: ${process.pid}.`);
+
 process.env.NODE_ENV === "production" && app.use(expressRateLimit());
 
 app.use(requestIp.mw());
