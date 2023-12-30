@@ -3,25 +3,26 @@ import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
 
+import { initializeMailer } from "./config/emailManager/mailer";
 import { expressRateLimit } from "./config/express-rate-limit";
+import accessControlMiddleware from "./config/middlewares/access-control";
+import { upload } from "./config/middlewares/file-upload";
+import Redis from "./config/redis";
+import Storage from "./config/storage";
+import TFA from "./config/tfa";
 import makeDb from "./data-access/make-db";
 import {
   createDefaultAdmin,
   createDefaultSystemConfiguration,
 } from "./utils/initial-data";
-import { initializeMailer } from "./config/emailManager/mailer";
-import Storage from "./config/storage";
-import Redis from "./config/redis";
-import TFA from "./config/tfa";
-import { upload } from "./config/middlewares/file-upload";
-import accessControlMiddleware from "./config/middlewares/access-control";
 
-import cors from "cors";
 import bodyParser from "body-parser";
-import appRouter from "./routes";
-import passport from "./config/passport";
+import compression from "compression";
+import cors from "cors";
 import helmet from "helmet";
 import requestIp from "request-ip";
+import passport from "./config/passport";
+import appRouter from "./routes";
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
+app.use(compression());
 app.use(appRouter);
 
 app.listen(process.env.SERVER_PORT, () =>
