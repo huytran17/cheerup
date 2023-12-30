@@ -8,14 +8,14 @@ export default interface ITwoFactorAuthenticationDb {
   }: {
     email: string;
     type: string;
-  }) => Promise<TwoFactorAuthentication[] | null>;
+  }) => Promise<TwoFactorAuthentication[]>;
   findByCode: ({
     code,
     type,
   }: {
     code: string;
     type: string;
-  }) => Promise<TwoFactorAuthentication | null>;
+  }) => Promise<TwoFactorAuthentication>;
   findByEmailAndCode: ({
     email,
     code,
@@ -24,13 +24,9 @@ export default interface ITwoFactorAuthenticationDb {
     email: string;
     code: string;
     type: string;
-  }) => Promise<TwoFactorAuthentication | null>;
+  }) => Promise<TwoFactorAuthentication>;
   insert: (
     payload: Partial<ITwoFactorAuthentication>
-  ) => Promise<TwoFactorAuthentication | null>;
-  hardDelete: ({
-    _id,
-  }: {
-    _id: string;
-  }) => Promise<TwoFactorAuthentication | null>;
+  ) => Promise<TwoFactorAuthentication>;
+  hardDelete: ({ _id }: { _id: string }) => Promise<TwoFactorAuthentication>;
 }

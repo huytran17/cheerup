@@ -1,7 +1,7 @@
 import User from "../../database/entities/user";
 import IUser from "../../database/interfaces/user";
 export default interface IUserDb {
-  findAll: () => Promise<User[] | null>;
+  findAll: () => Promise<User[]>;
   findAllPaginated: ({
     query,
     page,
@@ -10,27 +10,27 @@ export default interface IUserDb {
     query: string;
     page: number;
     entries_per_page?: number;
-  }) => Promise<IPaginatedUserResult | null>;
-  findOne: () => Promise<User | null>;
+  }) => Promise<IPaginatedUserResult>;
+  findOne: () => Promise<User>;
   findById: ({
     _id,
     is_include_deleted,
   }: {
     _id: string;
     is_include_deleted?: boolean;
-  }) => Promise<User | null>;
+  }) => Promise<User>;
   findByEmail: ({
     email,
     is_include_deleted,
   }: {
     email: string;
     is_include_deleted?: boolean;
-  }) => Promise<User | null>;
-  insert: (payload: Partial<IUser>) => Promise<User | null>;
-  delete: ({ _id }: { _id: string }) => Promise<User | null>;
-  restore: ({ _id }: { _id: string }) => Promise<User | null>;
-  hardDelete: ({ _id }: { _id: string }) => Promise<User | null>;
-  update: (updatePayload: Partial<IUser>) => Promise<User | null>;
+  }) => Promise<User>;
+  insert: (payload: Partial<IUser>) => Promise<User>;
+  delete: ({ _id }: { _id: string }) => Promise<User>;
+  restore: ({ _id }: { _id: string }) => Promise<User>;
+  hardDelete: ({ _id }: { _id: string }) => Promise<User>;
+  update: (updatePayload: Partial<IUser>) => Promise<User>;
   getUserAnalystics: ({
     range,
     unit,

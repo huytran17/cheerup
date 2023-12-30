@@ -1,8 +1,8 @@
 import Category from "../../database/entities/category";
 import ICategory from "../../database/interfaces/category";
 export default interface ICategoryDb {
-  findAllForSEO: () => Promise<Category[] | null>;
-  findAll: () => Promise<Category[] | null>;
+  findAllForSEO: () => Promise<Category[]>;
+  findAll: () => Promise<Category[]>;
   findAllPaginated: ({
     query,
     page,
@@ -11,8 +11,8 @@ export default interface ICategoryDb {
     query: string;
     page: number;
     entries_per_page?: number;
-  }) => Promise<IPaginatedCategoryResult | null>;
-  findOne: () => Promise<Category | null>;
+  }) => Promise<IPaginatedCategoryResult>;
+  findOne: () => Promise<Category>;
   findAllCategoryTitles: () => Promise<
     { _id: string; title: string; slug: string }[]
   >;
@@ -22,19 +22,19 @@ export default interface ICategoryDb {
   }: {
     _id: string;
     is_include_deleted?: boolean;
-  }) => Promise<Category | null>;
+  }) => Promise<Category>;
   findByTitle: ({
     title,
     is_include_deleted,
   }: {
     title: string;
     is_include_deleted?: boolean;
-  }) => Promise<Category | null>;
-  findBySlug: ({ slug }: { slug: string }) => Promise<Category | null>;
-  insert: (payload: Partial<ICategory>) => Promise<Category | null>;
-  delete: ({ _id }: { _id: string }) => Promise<Category | null>;
-  hardDelete: ({ _id }: { _id: string }) => Promise<Category | null>;
-  update: (updatePayload: Partial<ICategory>) => Promise<Category | null>;
+  }) => Promise<Category>;
+  findBySlug: ({ slug }: { slug: string }) => Promise<Category>;
+  insert: (payload: Partial<ICategory>) => Promise<Category>;
+  delete: ({ _id }: { _id: string }) => Promise<Category>;
+  hardDelete: ({ _id }: { _id: string }) => Promise<Category>;
+  update: (updatePayload: Partial<ICategory>) => Promise<Category>;
   getCategoryAnalystics: ({
     range,
     unit,

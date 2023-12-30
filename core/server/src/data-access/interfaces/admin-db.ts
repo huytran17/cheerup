@@ -1,7 +1,7 @@
 import Admin from "../../database/entities/admin";
 import IAdmin, { AdminType } from "../../database/interfaces/admin";
 export default interface IAdminDb {
-  findAll: () => Promise<Admin[] | null>;
+  findAll: () => Promise<Admin[]>;
   findAllPaginated: ({
     query,
     page,
@@ -10,14 +10,14 @@ export default interface IAdminDb {
     query: string;
     page: number;
     entries_per_page?: number;
-  }) => Promise<IPaginatedAdminResult | null>;
-  findOne: () => Promise<Admin | null>;
-  findById: ({ _id }: { _id: string }) => Promise<Admin | null>;
-  findByEmail: ({ email }: { email: string }) => Promise<Admin | null>;
-  insert: (payload: Partial<IAdmin>) => Promise<Admin | null>;
-  delete: ({ _id }: { _id: string }) => Promise<Admin | null>;
-  hardDelete: ({ _id }: { _id: string }) => Promise<Admin | null>;
-  update: (updatePayload: Partial<IAdmin>) => Promise<Admin | null>;
+  }) => Promise<IPaginatedAdminResult>;
+  findOne: () => Promise<Admin>;
+  findById: ({ _id }: { _id: string }) => Promise<Admin>;
+  findByEmail: ({ email }: { email: string }) => Promise<Admin>;
+  insert: (payload: Partial<IAdmin>) => Promise<Admin>;
+  delete: ({ _id }: { _id: string }) => Promise<Admin>;
+  hardDelete: ({ _id }: { _id: string }) => Promise<Admin>;
+  update: (updatePayload: Partial<IAdmin>) => Promise<Admin>;
   getAdminAnalystics: ({
     author_type,
     range,

@@ -138,7 +138,7 @@ export default function makeCategoryDb({
       };
     }
 
-    async findAll(): Promise<Category[] | null> {
+    async findAll(): Promise<Category[]> {
       let query_conditions = {};
 
       const existing = await categoryDbModel
@@ -159,7 +159,7 @@ export default function makeCategoryDb({
       return null;
     }
 
-    async findAllForSEO(): Promise<Category[] | null> {
+    async findAllForSEO(): Promise<Category[]> {
       let query_conditions = {
         deleted_at: { $in: [null, undefined] },
       };
@@ -187,7 +187,7 @@ export default function makeCategoryDb({
       query: string;
       page: number;
       entries_per_page?: number;
-    }): Promise<IPaginatedCategoryResult | null> {
+    }): Promise<IPaginatedCategoryResult> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = {};
@@ -249,7 +249,7 @@ export default function makeCategoryDb({
     }: {
       _id: string;
       is_include_deleted?: boolean;
-    }): Promise<Category | null> {
+    }): Promise<Category> {
       const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
       const is_mongo_id = mongo_id_regex.test(_id);
       if (!is_mongo_id || !_id) {
@@ -285,7 +285,7 @@ export default function makeCategoryDb({
     }: {
       title: string;
       is_include_deleted?: boolean;
-    }): Promise<Category | null> {
+    }): Promise<Category> {
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
       };
@@ -305,7 +305,7 @@ export default function makeCategoryDb({
       return null;
     }
 
-    async findBySlug({ slug }: { slug: string }): Promise<Category | null> {
+    async findBySlug({ slug }: { slug: string }): Promise<Category> {
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
       };
@@ -323,7 +323,7 @@ export default function makeCategoryDb({
       return null;
     }
 
-    async findOne(): Promise<Category | null> {
+    async findOne(): Promise<Category> {
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
       };
@@ -362,7 +362,7 @@ export default function makeCategoryDb({
       return null;
     }
 
-    async insert(payload: Partial<ICategory>): Promise<Category | null> {
+    async insert(payload: Partial<ICategory>): Promise<Category> {
       const updated_payload = payload;
 
       const result = await categoryDbModel.create([updated_payload]);
@@ -377,7 +377,7 @@ export default function makeCategoryDb({
       return null;
     }
 
-    async delete({ _id }: { _id: string }): Promise<Category | null> {
+    async delete({ _id }: { _id: string }): Promise<Category> {
       await categoryDbModel.findOneAndUpdate(
         { _id },
         { deleted_at: new Date() }
@@ -392,7 +392,7 @@ export default function makeCategoryDb({
       return null;
     }
 
-    async hardDelete({ _id }: { _id: string }): Promise<Category | null> {
+    async hardDelete({ _id }: { _id: string }): Promise<Category> {
       await categoryDbModel.deleteOne({ _id });
       const updated = await categoryDbModel
         .findOne({ _id })
@@ -405,7 +405,7 @@ export default function makeCategoryDb({
       return null;
     }
 
-    async update(payload: Partial<ICategory>): Promise<Category | null> {
+    async update(payload: Partial<ICategory>): Promise<Category> {
       const result = await categoryDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)
         .populate({

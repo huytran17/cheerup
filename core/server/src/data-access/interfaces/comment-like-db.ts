@@ -8,14 +8,14 @@ export default interface ICommentLikeDb {
     comment_id: string;
     type: string;
   }) => Promise<number>;
-  insert: (payload: Partial<ICommentLike>) => Promise<CommentLike | null>;
-  hardDelete: ({ _id }: { _id: string }) => Promise<CommentLike | null>;
+  insert: (payload: Partial<ICommentLike>) => Promise<CommentLike>;
+  hardDelete: ({ _id }: { _id: string }) => Promise<CommentLike>;
   findByUserAndComment: ({
     user_id,
     comment_id,
   }: {
     user_id: string;
     comment_id: string;
-  }) => Promise<CommentLike | null>;
-  update: (updatePayload: Partial<ICommentLike>) => Promise<CommentLike | null>;
+  }) => Promise<CommentLike>;
+  update: (updatePayload: Partial<ICommentLike>) => Promise<CommentLike>;
 }

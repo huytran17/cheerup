@@ -17,7 +17,7 @@ export default function makePostBookmarkDb({
   moment: any;
 }): IPostBookmarkDb {
   return new (class MongoosePostBookmarkDb implements IPostBookmarkDb {
-    async findAll(): Promise<PostBookmark[] | null> {
+    async findAll(): Promise<PostBookmark[]> {
       const existing = await postBookmarkDbModel
         .find()
         .lean({ virtuals: true });
@@ -42,7 +42,7 @@ export default function makePostBookmarkDb({
       page: number;
       entries_per_page?: number;
       user_id?: string;
-    }): Promise<IPaginatedPostBookmarkResult | null> {
+    }): Promise<IPaginatedPostBookmarkResult> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = {
@@ -114,7 +114,7 @@ export default function makePostBookmarkDb({
       return null;
     }
 
-    async findById({ _id }: { _id: string }): Promise<PostBookmark | null> {
+    async findById({ _id }: { _id: string }): Promise<PostBookmark> {
       const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
       const is_mongo_id = mongo_id_regex.test(_id);
       if (!is_mongo_id || !_id) {
@@ -143,7 +143,7 @@ export default function makePostBookmarkDb({
     }: {
       user_id: string;
       post_id: string;
-    }): Promise<PostBookmark | null> {
+    }): Promise<PostBookmark> {
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
         user: user_id,
@@ -161,7 +161,7 @@ export default function makePostBookmarkDb({
       return null;
     }
 
-    async findOne(): Promise<PostBookmark | null> {
+    async findOne(): Promise<PostBookmark> {
       const existing = await postBookmarkDbModel
         .findOne()
         .lean({ virtuals: true });
@@ -187,9 +187,7 @@ export default function makePostBookmarkDb({
       return count;
     }
 
-    async insert(
-      payload: Partial<IPostBookmark>
-    ): Promise<PostBookmark | null> {
+    async insert(payload: Partial<IPostBookmark>): Promise<PostBookmark> {
       const updated_payload = payload;
 
       const result = await postBookmarkDbModel.create([updated_payload]);
@@ -203,7 +201,7 @@ export default function makePostBookmarkDb({
       return null;
     }
 
-    async delete({ _id }: { _id: string }): Promise<PostBookmark | null> {
+    async delete({ _id }: { _id: string }): Promise<PostBookmark> {
       await postBookmarkDbModel.findOneAndUpdate(
         { _id },
         { deleted_at: new Date() }
@@ -219,7 +217,7 @@ export default function makePostBookmarkDb({
       return null;
     }
 
-    async hardDelete({ _id }: { _id: string }): Promise<PostBookmark | null> {
+    async hardDelete({ _id }: { _id: string }): Promise<PostBookmark> {
       await postBookmarkDbModel.deleteOne({ _id: _id });
       const updated = await postBookmarkDbModel
         .findOne({ _id })
@@ -232,9 +230,7 @@ export default function makePostBookmarkDb({
       return null;
     }
 
-    async update(
-      payload: Partial<IPostBookmark>
-    ): Promise<PostBookmark | null> {
+    async update(payload: Partial<IPostBookmark>): Promise<PostBookmark> {
       const result = await postBookmarkDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)
         .lean({ virtuals: true });

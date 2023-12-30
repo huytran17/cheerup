@@ -21,7 +21,7 @@ export default function makeTwoFactorAuthenticationDb({
     }: {
       code: string;
       type: string;
-    }): Promise<TwoFactorAuthentication | null> {
+    }): Promise<TwoFactorAuthentication> {
       const query_conditions = {
         code,
         type,
@@ -43,7 +43,7 @@ export default function makeTwoFactorAuthenticationDb({
     }: {
       email: string;
       type: string;
-    }): Promise<TwoFactorAuthentication[] | null> {
+    }): Promise<TwoFactorAuthentication[]> {
       const query_conditions = {
         email,
         type,
@@ -67,7 +67,7 @@ export default function makeTwoFactorAuthenticationDb({
       email: string;
       code: string;
       type: string;
-    }): Promise<TwoFactorAuthentication | null> {
+    }): Promise<TwoFactorAuthentication> {
       const query_conditions = {
         email,
         code,
@@ -86,7 +86,7 @@ export default function makeTwoFactorAuthenticationDb({
 
     async insert(
       payload: Partial<ITwoFactorAuthentication>
-    ): Promise<TwoFactorAuthentication | null> {
+    ): Promise<TwoFactorAuthentication> {
       const updated_payload = payload;
 
       const result = await twoFactorAuthenticationDbModel.create([
@@ -106,7 +106,7 @@ export default function makeTwoFactorAuthenticationDb({
       _id,
     }: {
       _id: string;
-    }): Promise<TwoFactorAuthentication | null> {
+    }): Promise<TwoFactorAuthentication> {
       const existing = await twoFactorAuthenticationDbModel.findOne({ _id });
       await existing.deleteOne();
 
@@ -120,11 +120,7 @@ export default function makeTwoFactorAuthenticationDb({
       return null;
     }
 
-    async findById({
-      _id,
-    }: {
-      _id: string;
-    }): Promise<TwoFactorAuthentication | null> {
+    async findById({ _id }: { _id: string }): Promise<TwoFactorAuthentication> {
       const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
       const is_mongo_id = mongo_id_regex.test(_id);
       if (!is_mongo_id || !_id) {

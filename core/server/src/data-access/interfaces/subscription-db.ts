@@ -1,8 +1,8 @@
 import Subscription from "../../database/entities/subscription";
 import ISubscription from "../../database/interfaces/subscription";
 export default interface ISubscriptionDb {
-  findAll: () => Promise<Subscription[] | null>;
-  findAllActivating: () => Promise<Subscription[] | null>;
+  findAll: () => Promise<Subscription[]>;
+  findAllActivating: () => Promise<Subscription[]>;
   findAllPaginated: ({
     query,
     page,
@@ -11,16 +11,14 @@ export default interface ISubscriptionDb {
     query: string;
     page: number;
     entries_per_page?: number;
-  }) => Promise<IPaginatedSubscriptionResult | null>;
-  findOne: () => Promise<Subscription | null>;
-  findByEmail: ({ email }: { email: string }) => Promise<Subscription | null>;
-  findById: ({ _id }: { _id: string }) => Promise<Subscription | null>;
-  insert: (payload: Partial<ISubscription>) => Promise<Subscription | null>;
-  delete: ({ _id }: { _id: string }) => Promise<Subscription | null>;
-  hardDelete: ({ _id }: { _id: string }) => Promise<Subscription | null>;
-  update: (
-    updatePayload: Partial<ISubscription>
-  ) => Promise<Subscription | null>;
+  }) => Promise<IPaginatedSubscriptionResult>;
+  findOne: () => Promise<Subscription>;
+  findByEmail: ({ email }: { email: string }) => Promise<Subscription>;
+  findById: ({ _id }: { _id: string }) => Promise<Subscription>;
+  insert: (payload: Partial<ISubscription>) => Promise<Subscription>;
+  delete: ({ _id }: { _id: string }) => Promise<Subscription>;
+  hardDelete: ({ _id }: { _id: string }) => Promise<Subscription>;
+  update: (updatePayload: Partial<ISubscription>) => Promise<Subscription>;
   getSubscriptionAnalystics: ({
     range,
     unit,

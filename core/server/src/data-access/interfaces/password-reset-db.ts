@@ -6,9 +6,9 @@ export default interface IPasswordResetDb {
     security_code,
   }: {
     security_code: string;
-  }) => Promise<PasswordReset | null>;
-  findByEmail: ({ email }: { email: string }) => Promise<PasswordReset | null>;
-  insert: (payload: Partial<IPasswordReset>) => Promise<PasswordReset | null>;
-  hardDelete: ({ _id }: { _id: string }) => Promise<PasswordReset | null>;
-  findById: ({ _id }: { _id: string }) => Promise<PasswordReset | null>;
+  }) => Promise<PasswordReset>;
+  findByEmail: ({ email }: { email: string }) => Promise<PasswordReset>;
+  insert: (payload: Partial<IPasswordReset>) => Promise<PasswordReset>;
+  hardDelete: ({ _id }: { _id: string }) => Promise<PasswordReset>;
+  findById: ({ _id }: { _id: string }) => Promise<PasswordReset>;
 }

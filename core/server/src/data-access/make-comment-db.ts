@@ -15,7 +15,7 @@ export default function makeCommentDb({
   moment: any;
 }): ICommentDb {
   return new (class MongooseCommentDb implements ICommentDb {
-    async findAll(): Promise<Comment[] | null> {
+    async findAll(): Promise<Comment[]> {
       const query_conditions = {
         parent: { $in: [null, undefined] },
       };
@@ -48,7 +48,7 @@ export default function makeCommentDb({
         page: number;
         entries_per_page: number;
       }
-    ): Promise<IPaginatedCommentResult | null> {
+    ): Promise<IPaginatedCommentResult> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = {
@@ -107,7 +107,7 @@ export default function makeCommentDb({
       parent_id,
     }: {
       parent_id: string;
-    }): Promise<Comment[] | null> {
+    }): Promise<Comment[]> {
       const query_conditions = {
         parent: parent_id,
       };
@@ -140,7 +140,7 @@ export default function makeCommentDb({
       query: string;
       page: number;
       entries_per_page?: number;
-    }): Promise<IPaginatedCommentResult | null> {
+    }): Promise<IPaginatedCommentResult> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = {
@@ -203,7 +203,7 @@ export default function makeCommentDb({
       _id: string;
       is_only_parent?: boolean;
       is_show_children?: boolean;
-    }): Promise<Comment | null> {
+    }): Promise<Comment> {
       const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
       const is_mongo_id = mongo_id_regex.test(_id);
       if (!is_mongo_id || !_id) {
@@ -275,11 +275,7 @@ export default function makeCommentDb({
       return existing;
     }
 
-    async countByPost({
-      post_id,
-    }: {
-      post_id: string;
-    }): Promise<number | null> {
+    async countByPost({ post_id }: { post_id: string }): Promise<number> {
       const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
       const is_mongo_id = mongo_id_regex.test(post_id);
       if (!is_mongo_id || !post_id) {
@@ -297,7 +293,7 @@ export default function makeCommentDb({
       return number_of_comments;
     }
 
-    async findOne(): Promise<Comment | null> {
+    async findOne(): Promise<Comment> {
       const existing = await commentDbModel
         .findOne()
         .populate("children", "-_v")
@@ -312,7 +308,7 @@ export default function makeCommentDb({
       return null;
     }
 
-    async insert(payload: Partial<IComment>): Promise<Comment | null> {
+    async insert(payload: Partial<IComment>): Promise<Comment> {
       const updated_payload = payload;
 
       const result = await commentDbModel.create([updated_payload]);
@@ -331,7 +327,7 @@ export default function makeCommentDb({
       return null;
     }
 
-    async hardDelete({ _id }: { _id: string }): Promise<Comment | null> {
+    async hardDelete({ _id }: { _id: string }): Promise<Comment> {
       const existing = await commentDbModel.findOne({ _id });
       await existing?.deleteOne();
 
@@ -346,7 +342,7 @@ export default function makeCommentDb({
       return null;
     }
 
-    async update(payload: Partial<IComment>): Promise<Comment | null> {
+    async update(payload: Partial<IComment>): Promise<Comment> {
       const result = await commentDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)
         .populate("children", "-_v")

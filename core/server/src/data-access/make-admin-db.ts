@@ -238,7 +238,7 @@ export default function makeAdminDb({
       };
     }
 
-    async findAll(): Promise<Admin[] | null> {
+    async findAll(): Promise<Admin[]> {
       const existing = await adminDbModel
         .find()
         .select("-__v")
@@ -258,7 +258,7 @@ export default function makeAdminDb({
       query: string;
       page: number;
       entries_per_page?: number;
-    }): Promise<IPaginatedAdminResult | null> {
+    }): Promise<IPaginatedAdminResult> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = {};
@@ -309,7 +309,7 @@ export default function makeAdminDb({
       return null;
     }
 
-    async findById({ _id }: { _id: string }): Promise<Admin | null> {
+    async findById({ _id }: { _id: string }): Promise<Admin> {
       const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
       const is_mongo_id = mongo_id_regex.test(_id);
       if (!is_mongo_id || !_id) {
@@ -333,7 +333,7 @@ export default function makeAdminDb({
       return null;
     }
 
-    async findOne(): Promise<Admin | null> {
+    async findOne(): Promise<Admin> {
       const existing = await adminDbModel
         .findOne()
         .select("-__v")
@@ -346,7 +346,7 @@ export default function makeAdminDb({
       return null;
     }
 
-    async findByEmail({ email }: { email: string }): Promise<Admin | null> {
+    async findByEmail({ email }: { email: string }): Promise<Admin> {
       const query_conditions = {
         email,
         deleted_at: { $in: [null, undefined] },
@@ -361,7 +361,7 @@ export default function makeAdminDb({
       return null;
     }
 
-    async insert(payload: Partial<IAdmin>): Promise<Admin | null> {
+    async insert(payload: Partial<IAdmin>): Promise<Admin> {
       const updated_payload = payload;
 
       const result = await adminDbModel.create([updated_payload]);
@@ -377,7 +377,7 @@ export default function makeAdminDb({
       return null;
     }
 
-    async delete({ _id }: { _id: string }): Promise<Admin | null> {
+    async delete({ _id }: { _id: string }): Promise<Admin> {
       await adminDbModel.findOneAndUpdate({ _id }, { deleted_at: new Date() });
       const updated = await adminDbModel
         .findOne({ _id })
@@ -390,7 +390,7 @@ export default function makeAdminDb({
       return null;
     }
 
-    async hardDelete({ _id }: { _id: string }): Promise<Admin | null> {
+    async hardDelete({ _id }: { _id: string }): Promise<Admin> {
       await adminDbModel.deleteOne({ _id });
       const updated = await adminDbModel
         .findOne({ _id })
@@ -403,7 +403,7 @@ export default function makeAdminDb({
       return null;
     }
 
-    async update(payload: Partial<IAdmin>): Promise<Admin | null> {
+    async update(payload: Partial<IAdmin>): Promise<Admin> {
       const result = await adminDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)
         .lean({ virtuals: true });

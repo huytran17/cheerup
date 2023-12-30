@@ -1,8 +1,8 @@
 import Post from "../../database/entities/post";
 import IPost from "../../database/interfaces/post";
 export default interface IPostDb {
-  findAllForSEO: () => Promise<Post[] | null>;
-  findAll: () => Promise<Post[] | null>;
+  findAllForSEO: () => Promise<Post[]>;
+  findAll: () => Promise<Post[]>;
   findAllPaginated: (
     {
       categories,
@@ -24,8 +24,8 @@ export default interface IPostDb {
       page: number;
       entries_per_page?: number;
     }
-  ) => Promise<IPaginatedPostResult | null>;
-  findOne: () => Promise<Post | null>;
+  ) => Promise<IPaginatedPostResult>;
+  findOne: () => Promise<Post>;
   countByCategory: ({
     category_id,
   }: {
@@ -48,12 +48,12 @@ export default interface IPostDb {
     _id: string;
     is_only_published?: boolean;
     is_include_deleted?: boolean;
-  }) => Promise<Post | null>;
-  findBySlug: ({ slug }: { slug: string }) => Promise<Post | null>;
-  insert: (payload: Partial<IPost>) => Promise<Post | null>;
-  delete: ({ _id }: { _id: string }) => Promise<Post | null>;
-  hardDelete: ({ _id }: { _id: string }) => Promise<Post | null>;
-  update: (updatePayload: Partial<IPost>) => Promise<Post | null>;
+  }) => Promise<Post>;
+  findBySlug: ({ slug }: { slug: string }) => Promise<Post>;
+  insert: (payload: Partial<IPost>) => Promise<Post>;
+  delete: ({ _id }: { _id: string }) => Promise<Post>;
+  hardDelete: ({ _id }: { _id: string }) => Promise<Post>;
+  update: (updatePayload: Partial<IPost>) => Promise<Post>;
   getPostAnalystics: ({
     range,
     unit,
@@ -69,7 +69,7 @@ export default interface IPostDb {
     range?: string[];
     unit?: string;
     limit?: number;
-  }) => Promise<IMostPopularPostsAnalytics | null>;
+  }) => Promise<IMostPopularPostsAnalytics>;
 }
 
 export interface IPaginatedPostResult {

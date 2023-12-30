@@ -1,7 +1,7 @@
 import Gallery from "../../database/entities/gallery";
 import IGallery from "../../database/interfaces/gallery";
 export default interface IGalleryDb {
-  findOne: () => Promise<Gallery | null>;
+  findOne: () => Promise<Gallery>;
   findAllPaginated: (
     {
       query,
@@ -17,18 +17,14 @@ export default interface IGalleryDb {
     }: {
       is_parent?: boolean;
     }
-  ) => Promise<IPaginatedGalleryResult | null>;
-  findAllByParent: ({
-    parent_id,
-  }: {
-    parent_id: string;
-  }) => Promise<Gallery[] | null>;
-  findByPost: ({ post_id }: { post_id: string }) => Promise<Gallery[] | null>;
-  findById: ({ _id }: { _id: string }) => Promise<Gallery | null>;
-  findOneByPost: ({ post_id }: { post_id: string }) => Promise<Gallery | null>;
-  insert: (payload: Partial<IGallery>) => Promise<Gallery | null>;
-  hardDelete: ({ _id }: { _id: string }) => Promise<Gallery | null>;
-  update: (updatePayload: Partial<IGallery>) => Promise<Gallery | null>;
+  ) => Promise<IPaginatedGalleryResult>;
+  findAllByParent: ({ parent_id }: { parent_id: string }) => Promise<Gallery[]>;
+  findByPost: ({ post_id }: { post_id: string }) => Promise<Gallery[]>;
+  findById: ({ _id }: { _id: string }) => Promise<Gallery>;
+  findOneByPost: ({ post_id }: { post_id: string }) => Promise<Gallery>;
+  insert: (payload: Partial<IGallery>) => Promise<Gallery>;
+  hardDelete: ({ _id }: { _id: string }) => Promise<Gallery>;
+  update: (updatePayload: Partial<IGallery>) => Promise<Gallery>;
 }
 
 export interface IPaginatedGalleryResult {

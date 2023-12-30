@@ -168,7 +168,7 @@ export default function makeUserDb({
       };
     }
 
-    async findAll(): Promise<User[] | null> {
+    async findAll(): Promise<User[]> {
       const existing = await userDbModel
         .find()
         .select("-__v -hash_password -tfa_secret")
@@ -189,7 +189,7 @@ export default function makeUserDb({
       query: string;
       page: number;
       entries_per_page?: number;
-    }): Promise<IPaginatedUserResult | null> {
+    }): Promise<IPaginatedUserResult> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = {};
@@ -246,7 +246,7 @@ export default function makeUserDb({
     }: {
       _id: string;
       is_include_deleted?: boolean;
-    }): Promise<User | null> {
+    }): Promise<User> {
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
         _id,
@@ -264,7 +264,7 @@ export default function makeUserDb({
       return null;
     }
 
-    async findOne(): Promise<User | null> {
+    async findOne(): Promise<User> {
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
       };
@@ -287,7 +287,7 @@ export default function makeUserDb({
     }: {
       email: string;
       is_include_deleted?: boolean;
-    }): Promise<User | null> {
+    }): Promise<User> {
       const query_conditions = {
         email,
         deleted_at: { $in: [undefined, null] },
@@ -305,7 +305,7 @@ export default function makeUserDb({
       return null;
     }
 
-    async insert(payload: Partial<IUser>): Promise<User | null> {
+    async insert(payload: Partial<IUser>): Promise<User> {
       const updated_payload = payload;
 
       const result = await userDbModel.create([updated_payload]);
@@ -320,7 +320,7 @@ export default function makeUserDb({
       return null;
     }
 
-    async delete({ _id }: { _id: string }): Promise<User | null> {
+    async delete({ _id }: { _id: string }): Promise<User> {
       await userDbModel.findOneAndUpdate({ _id }, { deleted_at: new Date() });
       const updated = await userDbModel
         .findOne({ _id })
@@ -334,7 +334,7 @@ export default function makeUserDb({
       return null;
     }
 
-    async hardDelete({ _id }: { _id: string }): Promise<User | null> {
+    async hardDelete({ _id }: { _id: string }): Promise<User> {
       await userDbModel.deleteOne({ _id });
       const updated = await userDbModel
         .findOne({ _id })
@@ -348,7 +348,7 @@ export default function makeUserDb({
       return null;
     }
 
-    async update(payload: Partial<IUser>): Promise<User | null> {
+    async update(payload: Partial<IUser>): Promise<User> {
       const result = await userDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)
         .lean({ virtuals: true });
@@ -365,7 +365,7 @@ export default function makeUserDb({
       return null;
     }
 
-    async restore({ _id }: { _id: string }): Promise<User | null> {
+    async restore({ _id }: { _id: string }): Promise<User> {
       await userDbModel.findOneAndUpdate({ _id }, { deleted_at: null });
 
       const updated = await userDbModel

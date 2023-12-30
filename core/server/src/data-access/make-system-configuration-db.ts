@@ -16,7 +16,7 @@ export default function makeSystemConfigurationDb({
   return new (class MongooseSystemConfigurationDb
     implements ISystemConfigurationDb
   {
-    async findOne(): Promise<SystemConfiguration | null> {
+    async findOne(): Promise<SystemConfiguration> {
       const existing = await systemConfigurationDbModel
         .findOne()
         .lean({ virtuals: true });
@@ -30,7 +30,7 @@ export default function makeSystemConfigurationDb({
 
     async insert(
       payload: Partial<ISystemConfiguration>
-    ): Promise<SystemConfiguration | null> {
+    ): Promise<SystemConfiguration> {
       const updated_payload = payload;
 
       const result = await systemConfigurationDbModel.create([updated_payload]);
@@ -45,11 +45,7 @@ export default function makeSystemConfigurationDb({
       return null;
     }
 
-    async findById({
-      _id,
-    }: {
-      _id: string;
-    }): Promise<SystemConfiguration | null> {
+    async findById({ _id }: { _id: string }): Promise<SystemConfiguration> {
       const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
       const is_mongo_id = mongo_id_regex.test(_id);
       if (!is_mongo_id || !_id) {
@@ -69,7 +65,7 @@ export default function makeSystemConfigurationDb({
 
     async update(
       payload: Partial<ISystemConfiguration>
-    ): Promise<SystemConfiguration | null> {
+    ): Promise<SystemConfiguration> {
       const result = await systemConfigurationDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)
         .lean({ virtuals: true });
