@@ -5,7 +5,7 @@ export type IGetSubscription = ({
   _id,
 }: {
   _id: string;
-}) => Promise<Subscription | null>;
+}) => Promise<Subscription>;
 
 export default function makeGetSubscription({
   subscriptionDb,

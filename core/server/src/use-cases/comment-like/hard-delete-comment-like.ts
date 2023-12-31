@@ -5,7 +5,7 @@ export type IHardDeleteCommentLike = ({
   _id,
 }: {
   _id: string;
-}) => Promise<CommentLike | null>;
+}) => Promise<CommentLike>;
 
 export default function makeHardDeleteCommentLike({
   commentLikeDb,

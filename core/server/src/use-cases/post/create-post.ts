@@ -6,9 +6,7 @@ export interface ICreatePostData {
   postDetails: Omit<IPost, "_id">;
 }
 
-export type ICreatePost = ({
-  postDetails,
-}: ICreatePostData) => Promise<Post | null>;
+export type ICreatePost = ({ postDetails }: ICreatePostData) => Promise<Post>;
 
 export default function makeCreatePost({
   postDb,

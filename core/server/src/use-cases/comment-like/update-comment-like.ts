@@ -8,7 +8,7 @@ export interface IUpdateCommentLikeData {
 
 export type IUpdateCommentLike = ({
   commentLikeDetails,
-}: IUpdateCommentLikeData) => Promise<CommentLike | null>;
+}: IUpdateCommentLikeData) => Promise<CommentLike>;
 
 export default function makeUpdateCommentLike({
   commentLikeDb,

@@ -8,7 +8,7 @@ export interface ICreateGalleryData {
 
 export type ICreateGallery = ({
   galleryDetails,
-}: ICreateGalleryData) => Promise<Gallery | null>;
+}: ICreateGalleryData) => Promise<Gallery>;
 
 export default function makeCreateGallery({
   galleryDb,

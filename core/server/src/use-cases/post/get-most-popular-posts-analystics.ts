@@ -12,7 +12,7 @@ export type IGetMostPopularPostsAnalystics = ({
   range?: string[];
   unit?: string;
   limit?: number;
-}) => Promise<IMostPopularPostsAnalytics | null>;
+}) => Promise<IMostPopularPostsAnalytics>;
 
 export default function makeGetMostPopularPostsAnalystics({
   postDb,
@@ -27,7 +27,7 @@ export default function makeGetMostPopularPostsAnalystics({
     range,
     unit,
     limit,
-  }): Promise<IMostPopularPostsAnalytics | null> {
+  }): Promise<IMostPopularPostsAnalytics> {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "getMostPopularPostsAnalystics",
       range,

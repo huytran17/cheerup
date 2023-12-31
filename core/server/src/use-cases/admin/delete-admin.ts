@@ -1,7 +1,7 @@
 import Admin from "../../database/entities/admin";
 import IAdminDb from "../../data-access/interfaces/admin-db";
 
-export type IDeleteAdmin = ({ _id }: { _id: string }) => Promise<Admin | null>;
+export type IDeleteAdmin = ({ _id }: { _id: string }) => Promise<Admin>;
 
 export default function makeDeleteAdmin({
   adminDb,

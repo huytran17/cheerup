@@ -8,7 +8,7 @@ export interface IReplyCommentData {
 
 export type IReplyComment = ({
   commentDetails,
-}: IReplyCommentData) => Promise<Comment | null>;
+}: IReplyCommentData) => Promise<Comment>;
 
 export default function makeReplyComment({
   commentDb,

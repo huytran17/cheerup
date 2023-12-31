@@ -5,7 +5,7 @@ export type IHardDeleteCategory = ({
   _id,
 }: {
   _id: string;
-}) => Promise<Category | null>;
+}) => Promise<Category>;
 
 export default function makeHardDeleteCategory({
   categoryDb,

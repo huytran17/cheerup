@@ -6,9 +6,7 @@ export interface ICreateUserData {
   userDetails: Omit<IUser, "_id" | "created_at" | "updated_at" | "deleted_at">;
 }
 
-export type ICreateUser = ({
-  userDetails,
-}: ICreateUserData) => Promise<User | null>;
+export type ICreateUser = ({ userDetails }: ICreateUserData) => Promise<User>;
 
 export default function makeCreateUser({
   userDb,

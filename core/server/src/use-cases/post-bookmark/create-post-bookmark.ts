@@ -8,7 +8,7 @@ export interface ICreatePostBookmarkData {
 
 export type ICreatePostBookmark = ({
   postBookmarkDetails,
-}: ICreatePostBookmarkData) => Promise<PostBookmark | null>;
+}: ICreatePostBookmarkData) => Promise<PostBookmark>;
 
 export default function makeCreatePostBookmark({
   postBookmarkDb,

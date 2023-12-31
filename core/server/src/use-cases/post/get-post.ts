@@ -9,7 +9,7 @@ export type IGetPost = ({
   _id: string;
   is_only_published?: boolean;
   is_include_deleted?: boolean;
-}) => Promise<Post | null>;
+}) => Promise<Post>;
 
 export default function makeGetPost({ postDb }: { postDb: IPostDb }): IGetPost {
   return async function getPost({

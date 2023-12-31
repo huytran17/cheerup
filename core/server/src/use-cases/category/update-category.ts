@@ -8,7 +8,7 @@ export interface IUpdateCategoryData {
 
 export type IUpdateCategory = ({
   categoryDetails,
-}: IUpdateCategoryData) => Promise<Category | null>;
+}: IUpdateCategoryData) => Promise<Category>;
 
 export default function makeUpdateCategory({
   categoryDb,

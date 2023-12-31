@@ -1,7 +1,7 @@
 import Category from "../../database/entities/category";
 import ICategoryDb from "../../data-access/interfaces/category-db";
 
-export type IGetCategories = () => Promise<Category[] | null>;
+export type IGetCategories = () => Promise<Category[]>;
 
 export default function makeGetCategories({
   categoryDb,

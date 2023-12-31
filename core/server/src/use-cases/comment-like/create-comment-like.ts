@@ -8,7 +8,7 @@ export interface ICreateCommentLikeData {
 
 export type ICreateCommentLike = ({
   commentLikeDetails,
-}: ICreateCommentLikeData) => Promise<CommentLike | null>;
+}: ICreateCommentLikeData) => Promise<CommentLike>;
 
 export default function makeCreateCommentLike({
   commentLikeDb,

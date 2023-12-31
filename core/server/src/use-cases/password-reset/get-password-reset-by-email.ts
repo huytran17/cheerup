@@ -5,7 +5,7 @@ export type IGetPasswordResetByEmail = ({
   email,
 }: {
   email: string;
-}) => Promise<PasswordReset | null>;
+}) => Promise<PasswordReset>;
 
 export default function makeGetPasswordResetByEmail({
   passwordResetDb,

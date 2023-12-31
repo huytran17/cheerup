@@ -8,7 +8,7 @@ export interface ICreateCommentData {
 
 export type ICreateComment = ({
   commentDetails,
-}: ICreateCommentData) => Promise<Comment | null>;
+}: ICreateCommentData) => Promise<Comment>;
 
 export default function makeCreateComment({
   commentDb,

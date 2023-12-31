@@ -11,14 +11,14 @@ export interface ICreateAdminData {
 
 export type ICreateAdmin = ({
   adminDetails,
-}: ICreateAdminData) => Promise<Admin | null>;
+}: ICreateAdminData) => Promise<Admin>;
 
 export default function makeCreateAdmin({
   adminDb,
 }: {
   adminDb: IAdminDb;
 }): ICreateAdmin {
-  return async function createAdmin({ adminDetails }): Promise<Admin | null> {
+  return async function createAdmin({ adminDetails }) {
     return await adminDb.insert(adminDetails);
   };
 }

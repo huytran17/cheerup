@@ -1,11 +1,7 @@
 import User from "../../database/entities/user";
 import IUserDb from "../../data-access/interfaces/user-db";
 
-export type IHardDeleteUser = ({
-  _id,
-}: {
-  _id: string;
-}) => Promise<User | null>;
+export type IHardDeleteUser = ({ _id }: { _id: string }) => Promise<User>;
 
 export default function makeHardDeleteUser({
   userDb,

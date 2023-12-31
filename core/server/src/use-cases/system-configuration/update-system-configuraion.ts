@@ -8,7 +8,7 @@ export interface IUpdateSystemConfigurationData {
 
 export type IUpdateSystemConfiguration = ({
   systemConfigurationDetails,
-}: IUpdateSystemConfigurationData) => Promise<SystemConfiguration | null>;
+}: IUpdateSystemConfigurationData) => Promise<SystemConfiguration>;
 
 export default function makeUpdateSystemConfiguration({
   systemConfigurationDb,

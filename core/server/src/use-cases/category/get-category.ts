@@ -7,7 +7,7 @@ export type IGetCategory = ({
 }: {
   _id: string;
   is_include_deleted?: boolean;
-}) => Promise<Category | null>;
+}) => Promise<Category>;
 
 export default function makeGetCategory({
   categoryDb,

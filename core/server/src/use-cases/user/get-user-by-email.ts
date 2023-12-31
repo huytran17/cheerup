@@ -7,7 +7,7 @@ export type IGetUserByEmail = ({
 }: {
   email: string;
   is_include_deleted?: boolean;
-}) => Promise<User | null>;
+}) => Promise<User>;
 
 export default function makeGetUserByEmail({
   userDb,

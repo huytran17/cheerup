@@ -1,7 +1,7 @@
 import User from "../../database/entities/user";
 import IUserDb from "../../data-access/interfaces/user-db";
 
-export type IGetOneUser = () => Promise<User | null>;
+export type IGetOneUser = () => Promise<User>;
 
 export default function makeGetOneUser({
   userDb,

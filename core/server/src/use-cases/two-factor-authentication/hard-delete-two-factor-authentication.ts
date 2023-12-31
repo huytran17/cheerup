@@ -5,7 +5,7 @@ export type IHardDeleteTwoFactorAuthentication = ({
   _id,
 }: {
   _id: string;
-}) => Promise<TwoFactorAuthentication | null>;
+}) => Promise<TwoFactorAuthentication>;
 
 export default function makeHardDeleteTwoFactorAuthentication({
   twoFactorAuthenticationDb,

@@ -20,7 +20,7 @@ export default function makeGetSuggestionPosts({
     amount,
     categories,
     exclude_ids,
-  }): Promise<Post[]> {
+  }) {
     return await postDb.findSuggestionPosts({
       amount,
       categories,

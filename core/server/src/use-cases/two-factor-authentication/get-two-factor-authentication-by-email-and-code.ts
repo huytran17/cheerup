@@ -9,7 +9,7 @@ export type IGetTwoFactorAuthenticationByEmailAndCode = ({
   email: string;
   code: string;
   type: string;
-}) => Promise<TwoFactorAuthentication | null>;
+}) => Promise<TwoFactorAuthentication>;
 
 export default function makeGetTwoFactorAuthenticationByEmailAndCode({
   twoFactorAuthenticationDb,

@@ -10,7 +10,7 @@ export type IGetCategoriesPaginated = ({
   query: string;
   page: number;
   entries_per_page: number;
-}) => Promise<IPaginatedCategoryResult | null>;
+}) => Promise<IPaginatedCategoryResult>;
 
 export default function makeGetCategoriesPaginated({
   categoryDb,

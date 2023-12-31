@@ -9,7 +9,7 @@ export type IGetComment = ({
   _id: string;
   is_only_parent?: boolean;
   is_show_children?: boolean;
-}) => Promise<Comment | null>;
+}) => Promise<Comment>;
 
 export default function makeGetComment({
   commentDb,

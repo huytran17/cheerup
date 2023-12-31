@@ -17,7 +17,7 @@ export type IGetCommentsByPostPaginated = (
     page: number;
     entries_per_page: number;
   }
-) => Promise<IPaginatedCommentResult | null>;
+) => Promise<IPaginatedCommentResult>;
 
 export default function makeGetCommentsByPostPaginated({
   commentDb,

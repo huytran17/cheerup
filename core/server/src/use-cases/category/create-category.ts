@@ -8,7 +8,7 @@ export interface ICreateCategoryData {
 
 export type ICreateCategory = ({
   categoryDetails,
-}: ICreateCategoryData) => Promise<Category | null>;
+}: ICreateCategoryData) => Promise<Category>;
 
 export default function makeCreateCategory({
   categoryDb,

@@ -5,7 +5,7 @@ export type IGetCategoryBySlug = ({
   slug,
 }: {
   slug: string;
-}) => Promise<Category | null>;
+}) => Promise<Category>;
 
 export default function makeGetCategoryBySlug({
   categoryDb,

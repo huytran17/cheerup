@@ -7,7 +7,7 @@ export type IGetCommentLikeByUserAndComment = ({
 }: {
   user_id: string;
   comment_id: string;
-}) => Promise<CommentLike | null>;
+}) => Promise<CommentLike>;
 
 export default function makeGetCommentLikeByUserAndComment({
   commentLikeDb,

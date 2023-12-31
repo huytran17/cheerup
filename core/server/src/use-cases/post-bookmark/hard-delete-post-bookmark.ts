@@ -5,7 +5,7 @@ export type IHardDeletePostBookmark = ({
   _id,
 }: {
   _id: string;
-}) => Promise<PostBookmark | null>;
+}) => Promise<PostBookmark>;
 
 export default function makeHardDeletePostBookmark({
   postBookmarkDb,

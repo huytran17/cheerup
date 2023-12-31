@@ -7,7 +7,7 @@ export type IGetUser = ({
 }: {
   _id: string;
   is_include_deleted?: boolean;
-}) => Promise<User | null>;
+}) => Promise<User>;
 
 export default function makeGetUser({ userDb }: { userDb: IUserDb }): IGetUser {
   return async function getUser({ _id, is_include_deleted }) {

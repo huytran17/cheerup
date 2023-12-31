@@ -1,11 +1,7 @@
 import Admin from "../../database/entities/admin";
 import IAdminDb from "../../data-access/interfaces/admin-db";
 
-export type IGetAdminByEmail = ({
-  email,
-}: {
-  email: string;
-}) => Promise<Admin | null>;
+export type IGetAdminByEmail = ({ email }: { email: string }) => Promise<Admin>;
 
 export default function makeGetAdminByEmail({
   adminDb,

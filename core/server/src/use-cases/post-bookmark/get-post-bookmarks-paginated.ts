@@ -12,7 +12,7 @@ export type IGetPostBookmarksPaginated = ({
   page: number;
   entries_per_page: number;
   user_id?: string;
-}) => Promise<IPaginatedPostBookmarkResult | null>;
+}) => Promise<IPaginatedPostBookmarkResult>;
 
 export default function makeGetPostBookmarksPaginated({
   postBookmarkDb,

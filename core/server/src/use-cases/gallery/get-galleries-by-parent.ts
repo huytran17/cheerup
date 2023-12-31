@@ -5,7 +5,7 @@ export type IGetGalleriesByParent = ({
   parent_id,
 }: {
   parent_id: string;
-}) => Promise<Gallery[] | null>;
+}) => Promise<Gallery[]>;
 
 export default function makeGetGalleriesByParent({
   galleryDb,

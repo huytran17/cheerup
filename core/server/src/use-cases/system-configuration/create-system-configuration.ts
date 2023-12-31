@@ -11,7 +11,7 @@ export interface ICreateSystemConfigurationData {
 
 export type ICreateSystemConfiguration = ({
   systemConfigurationDetails,
-}: ICreateSystemConfigurationData) => Promise<SystemConfiguration | null>;
+}: ICreateSystemConfigurationData) => Promise<SystemConfiguration>;
 
 export default function makeCreateSystemConfiguration({
   systemConfigurationDb,

@@ -8,7 +8,7 @@ export interface IUpdateGalleryData {
 
 export type IUpdateGallery = ({
   galleryDetails,
-}: IUpdateGalleryData) => Promise<Gallery | null>;
+}: IUpdateGalleryData) => Promise<Gallery>;
 
 export default function makeUpdateGallery({
   galleryDb,

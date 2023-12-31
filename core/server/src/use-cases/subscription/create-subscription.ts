@@ -8,7 +8,7 @@ export interface ICreateSubscriptionData {
 
 export type ICreateSubscription = ({
   subscriptionDetails,
-}: ICreateSubscriptionData) => Promise<Subscription | null>;
+}: ICreateSubscriptionData) => Promise<Subscription>;
 
 export default function makeCreateSubscription({
   subscriptionDb,

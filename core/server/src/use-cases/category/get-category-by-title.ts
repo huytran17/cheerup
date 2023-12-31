@@ -7,7 +7,7 @@ export type IGetCategoryByTitle = ({
 }: {
   title: string;
   is_include_deleted?: boolean;
-}) => Promise<Category | null>;
+}) => Promise<Category>;
 
 export default function makeGetCategoryByTitle({
   categoryDb,

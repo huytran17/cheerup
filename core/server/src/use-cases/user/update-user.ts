@@ -6,9 +6,7 @@ export interface IUpdateUserData {
   userDetails: Omit<IUser, "_id">;
 }
 
-export type IUpdateUser = ({
-  userDetails,
-}: IUpdateUserData) => Promise<User | null>;
+export type IUpdateUser = ({ userDetails }: IUpdateUserData) => Promise<User>;
 
 export default function makeUpdateUser({
   userDb,

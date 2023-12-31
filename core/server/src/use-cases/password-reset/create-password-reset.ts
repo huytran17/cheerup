@@ -8,7 +8,7 @@ export interface ICreatePasswordResetData {
 
 export type ICreatePasswordReset = ({
   passwordResetDetails,
-}: ICreatePasswordResetData) => Promise<PasswordReset | null>;
+}: ICreatePasswordResetData) => Promise<PasswordReset>;
 
 export default function makeCreatePasswordReset({
   passwordResetDb,

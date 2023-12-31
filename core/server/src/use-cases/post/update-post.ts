@@ -6,9 +6,7 @@ export interface IUpdatePostData {
   postDetails: Omit<IPost, "_id">;
 }
 
-export type IUpdatePost = ({
-  postDetails,
-}: IUpdatePostData) => Promise<Post | null>;
+export type IUpdatePost = ({ postDetails }: IUpdatePostData) => Promise<Post>;
 
 export default function makeUpdatePost({
   postDb,

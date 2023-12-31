@@ -8,7 +8,7 @@ export interface IUpdateCommentData {
 
 export type IUpdateComment = ({
   commentDetails,
-}: IUpdateCommentData) => Promise<Comment | null>;
+}: IUpdateCommentData) => Promise<Comment>;
 
 export default function makeUpdateComment({
   commentDb,

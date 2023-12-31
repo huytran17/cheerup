@@ -7,7 +7,7 @@ export type IGetPostBookmarkByUserAndPost = ({
 }: {
   user_id: string;
   post_id: string;
-}) => Promise<PostBookmark | null>;
+}) => Promise<PostBookmark>;
 
 export default function makeGetPostBookmarkByUserAndPost({
   postBookmarkDb,

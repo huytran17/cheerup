@@ -5,7 +5,7 @@ export type IGetSystemConfiguration = ({
   _id,
 }: {
   _id: string;
-}) => Promise<SystemConfiguration | null>;
+}) => Promise<SystemConfiguration>;
 
 export default function makeGetSystemConfiguration({
   systemConfigurationDb,

@@ -8,7 +8,7 @@ export interface IUpdateAdminData {
 
 export type IUpdateAdmin = ({
   adminDetails,
-}: IUpdateAdminData) => Promise<Admin | null>;
+}: IUpdateAdminData) => Promise<Admin>;
 
 export default function makeUpdateAdmin({
   adminDb,

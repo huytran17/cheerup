@@ -13,7 +13,7 @@ export default function makeCountPostBookmarks({
 }: {
   postBookmarkDb: IPostBookmarkDb;
 }): ICountPostBookmarks {
-  return async function countPostBookmarks({ user_id }): Promise<number> {
+  return async function countPostBookmarks({ user_id }) {
     return await postBookmarkDb.countPostBookmarks({ user_id });
   };
 }

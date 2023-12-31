@@ -5,7 +5,7 @@ export type IGetCommentsByParent = ({
   parent_id,
 }: {
   parent_id: string;
-}) => Promise<Comment[] | null>;
+}) => Promise<Comment[]>;
 
 export default function makeGetCommentsByParent({
   commentDb,

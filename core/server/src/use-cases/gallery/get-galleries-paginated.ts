@@ -17,7 +17,7 @@ export type IGetGalleriesPaginated = (
   }: {
     is_parent?: boolean;
   }
-) => Promise<IPaginatedGalleryResult | null>;
+) => Promise<IPaginatedGalleryResult>;
 
 export default function makeGetGalleriesPaginated({
   galleryDb,

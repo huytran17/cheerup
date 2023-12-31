@@ -4,7 +4,7 @@ export type ICountCommentsByPost = ({
   post_id,
 }: {
   post_id: string;
-}) => Promise<number | null>;
+}) => Promise<number>;
 
 export default function makeCountCommentsByPost({
   commentDb,

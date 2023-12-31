@@ -1,7 +1,7 @@
 import Comment from "../../database/entities/comment";
 import ICommentDb from "../../data-access/interfaces/comment-db";
 
-export type IGetComments = () => Promise<Comment[] | null>;
+export type IGetComments = () => Promise<Comment[]>;
 
 export default function makeGetComments({
   commentDb,

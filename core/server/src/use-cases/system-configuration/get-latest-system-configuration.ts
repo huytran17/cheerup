@@ -1,8 +1,7 @@
 import SystemConfiguration from "../../database/entities/system-configuration";
 import ISystemConfigurationDb from "../../data-access/interfaces/system-configuration-db";
 
-export type IGetLatestSystemConfiguration =
-  () => Promise<SystemConfiguration | null>;
+export type IGetLatestSystemConfiguration = () => Promise<SystemConfiguration>;
 
 export default function makeGetLatestSystemConfiguration({
   systemConfigurationDb,

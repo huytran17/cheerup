@@ -8,7 +8,7 @@ export interface IUpdateSubscriptionData {
 
 export type IUpdateSubscription = ({
   subscriptionDetails,
-}: IUpdateSubscriptionData) => Promise<Subscription | null>;
+}: IUpdateSubscriptionData) => Promise<Subscription>;
 
 export default function makeUpdateSubscription({
   subscriptionDb,

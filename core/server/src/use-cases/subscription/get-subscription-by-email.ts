@@ -5,7 +5,7 @@ export type IGetSubscriptionByEmail = ({
   email,
 }: {
   email: string;
-}) => Promise<Subscription | null>;
+}) => Promise<Subscription>;
 
 export default function makeGetSubscriptionByEmail({
   subscriptionDb,

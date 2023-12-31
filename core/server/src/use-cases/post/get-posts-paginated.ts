@@ -23,7 +23,7 @@ export type IGetPostsPaginated = (
     page: number;
     entries_per_page: number;
   }
-) => Promise<IPaginatedPostResult | null>;
+) => Promise<IPaginatedPostResult>;
 
 export default function makeGetPostsPaginated({
   postDb,
