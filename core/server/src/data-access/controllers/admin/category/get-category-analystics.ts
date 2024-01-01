@@ -1,12 +1,12 @@
 import { Request } from "express";
-import { IGetCategoryAnalystics } from "../../../../use-cases/category/get-category-analystics";
+import { GetCategoryAnalystics } from "../../../../use-cases/category/get-category-analystics";
 import { get, sortBy, split } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetCategoryAnalysticsController({
   getCategoryAnalystics,
 }: {
-  getCategoryAnalystics: IGetCategoryAnalystics;
+  getCategoryAnalystics: GetCategoryAnalystics;
 }) {
   return async function getCategoryAnalysticsController(
     httpRequest: Request & { context: { validated: { category_id: string } } }

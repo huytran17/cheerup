@@ -2,7 +2,7 @@ import IPostDb, {
   IPaginatedPostResult,
 } from "../../data-access/interfaces/post-db";
 
-export type IGetPostsPaginated = (
+export type GetPostsPaginated = (
   {
     categories,
     is_only_published,
@@ -29,7 +29,7 @@ export default function makeGetPostsPaginated({
   postDb,
 }: {
   postDb: IPostDb;
-}): IGetPostsPaginated {
+}): GetPostsPaginated {
   return async function getPostsPaginated(
     { categories = [], is_only_published, tags, sorts },
     { query, page, entries_per_page }

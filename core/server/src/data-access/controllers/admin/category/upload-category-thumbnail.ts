@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { get, merge } from "lodash";
-import { IGetCategory } from "../../../../use-cases/category/get-category";
-import { IUpdateCategory } from "../../../../use-cases/category/update-category";
+import { GetCategory } from "../../../../use-cases/category/get-category";
+import { UpdateCategory } from "../../../../use-cases/category/update-category";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 import deleteS3Object from "../../../../utils/delete-s3-object";
@@ -10,8 +10,8 @@ export default function makeUploadCategoryThumbnailController({
   getCategory,
   updateCategory,
 }: {
-  getCategory: IGetCategory;
-  updateCategory: IUpdateCategory;
+  getCategory: GetCategory;
+  updateCategory: UpdateCategory;
 }) {
   return async function uploadCategoryThumbnailController(
     httpRequest: Request & { context: { validated: {} } }

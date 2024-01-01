@@ -1,5 +1,5 @@
-import { IGetUser } from "../../../../use-cases/user/get-user";
-import { IUpdateUser } from "../../../../use-cases/user/update-user";
+import { GetUser } from "../../../../use-cases/user/get-user";
+import { UpdateUser } from "../../../../use-cases/user/update-user";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get, merge, omit } from "lodash";
@@ -15,8 +15,8 @@ export default function makeUpdatePasswordController({
   verifyPassword,
   logger,
 }: {
-  getUser: IGetUser;
-  updateUser: IUpdateUser;
+  getUser: GetUser;
+  updateUser: UpdateUser;
   hashPassword: IHashPassword;
   verifyPassword: IVerifyPassword;
   logger: Logger;

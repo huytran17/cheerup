@@ -8,7 +8,7 @@ export interface ICreateAdminData {
   >;
 }
 
-export type ICreateAdmin = ({
+export type CreateAdmin = ({
   adminDetails,
 }: ICreateAdminData) => Promise<IAdmin>;
 
@@ -16,7 +16,7 @@ export default function makeCreateAdmin({
   adminDb,
 }: {
   adminDb: IAdminDb;
-}): ICreateAdmin {
+}): CreateAdmin {
   return async function createAdmin({ adminDetails }) {
     return await adminDb.insert(adminDetails);
   };

@@ -1,7 +1,7 @@
 import ICommentLike from "../../database/interfaces/comment-like";
 import ICommentLikeDb from "../../data-access/interfaces/comment-like-db";
 
-export type IGetCommentLikeByUserAndComment = ({
+export type GetCommentLikeByUserAndComment = ({
   user_id,
   comment_id,
 }: {
@@ -13,7 +13,7 @@ export default function makeGetCommentLikeByUserAndComment({
   commentLikeDb,
 }: {
   commentLikeDb: ICommentLikeDb;
-}): IGetCommentLikeByUserAndComment {
+}): GetCommentLikeByUserAndComment {
   return async function getCommentLikeByUserAndComment({
     user_id,
     comment_id,

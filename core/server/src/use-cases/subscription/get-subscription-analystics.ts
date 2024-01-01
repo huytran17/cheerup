@@ -4,7 +4,7 @@ import ISubscriptionDb, {
 import Redis from "../../config/redis";
 import { Logger } from "winston";
 
-export type IGetSubscriptionAnalystics = ({
+export type GetSubscriptionAnalystics = ({
   range,
   unit,
 }: {
@@ -20,7 +20,7 @@ export default function makeGetSubscriptionAnalystics({
   subscriptionDb: ISubscriptionDb;
   redis: Redis;
   logger: Logger;
-}): IGetSubscriptionAnalystics {
+}): GetSubscriptionAnalystics {
   return async function getSubscriptionAnalystics({ unit, range }) {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "getSubscriptionAnalystics",

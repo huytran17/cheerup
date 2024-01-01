@@ -5,7 +5,7 @@ export interface ICreateCategoryData {
   categoryDetails: Omit<ICategory, "_id">;
 }
 
-export type ICreateCategory = ({
+export type CreateCategory = ({
   categoryDetails,
 }: ICreateCategoryData) => Promise<ICategory>;
 
@@ -13,7 +13,7 @@ export default function makeCreateCategory({
   categoryDb,
 }: {
   categoryDb: ICategoryDb;
-}): ICreateCategory {
+}): CreateCategory {
   return async function createCategory({ categoryDetails }) {
     return await categoryDb.insert(categoryDetails);
   };

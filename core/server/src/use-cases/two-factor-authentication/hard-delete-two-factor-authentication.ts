@@ -1,7 +1,7 @@
 import ITwoFactorAuthentication from "../../database/interfaces/two-factor-authentication";
 import ITwoFactorAuthenticationDb from "../../data-access/interfaces/two-factor-authentication-db";
 
-export type IHardDeleteTwoFactorAuthentication = ({
+export type HardDeleteTwoFactorAuthentication = ({
   _id,
 }: {
   _id: string;
@@ -11,7 +11,7 @@ export default function makeHardDeleteTwoFactorAuthentication({
   twoFactorAuthenticationDb,
 }: {
   twoFactorAuthenticationDb: ITwoFactorAuthenticationDb;
-}): IHardDeleteTwoFactorAuthentication {
+}): HardDeleteTwoFactorAuthentication {
   return async function hardDeleteTwoFactorAuthentication({ _id }) {
     return await twoFactorAuthenticationDb.hardDelete({ _id });
   };

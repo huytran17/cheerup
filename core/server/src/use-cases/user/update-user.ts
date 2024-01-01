@@ -5,13 +5,13 @@ export interface IUpdateUserData {
   userDetails: Omit<IUser, "_id">;
 }
 
-export type IUpdateUser = ({ userDetails }: IUpdateUserData) => Promise<IUser>;
+export type UpdateUser = ({ userDetails }: IUpdateUserData) => Promise<IUser>;
 
 export default function makeUpdateUser({
   userDb,
 }: {
   userDb: IUserDb;
-}): IUpdateUser {
+}): UpdateUser {
   return async function updateUser({ userDetails }) {
     return await userDb.update(userDetails);
   };

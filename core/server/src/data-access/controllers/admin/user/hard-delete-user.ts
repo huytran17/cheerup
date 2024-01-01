@@ -1,5 +1,5 @@
-import { IGetUser } from "../../../../use-cases/user/get-user";
-import { IHardDeleteUser } from "../../../../use-cases/user/hard-delete-user";
+import { GetUser } from "../../../../use-cases/user/get-user";
+import { HardDeleteUser } from "../../../../use-cases/user/hard-delete-user";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get } from "lodash";
@@ -11,8 +11,8 @@ export default function makeHardDeleteUserController({
   hardDeleteUser,
   logger,
 }: {
-  getUser: IGetUser;
-  hardDeleteUser: IHardDeleteUser;
+  getUser: GetUser;
+  hardDeleteUser: HardDeleteUser;
   logger: Logger;
 }) {
   return async function hardDeleteUserController(

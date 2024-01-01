@@ -5,7 +5,7 @@ export interface IUpdateSystemConfigurationData {
   systemConfigurationDetails: Omit<ISystemConfiguration, "_id">;
 }
 
-export type IUpdateSystemConfiguration = ({
+export type UpdateSystemConfiguration = ({
   systemConfigurationDetails,
 }: IUpdateSystemConfigurationData) => Promise<ISystemConfiguration>;
 
@@ -13,7 +13,7 @@ export default function makeUpdateSystemConfiguration({
   systemConfigurationDb,
 }: {
   systemConfigurationDb: ISystemConfigurationDb;
-}): IUpdateSystemConfiguration {
+}): UpdateSystemConfiguration {
   return async function updateSystemConfiguration({
     systemConfigurationDetails,
   }) {

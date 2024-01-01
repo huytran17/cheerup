@@ -1,6 +1,6 @@
 import ICommentLikeDb from "../../data-access/interfaces/comment-like-db";
 
-export type ICountCommentLikeByCommentAndType = ({
+export type CountCommentLikeByCommentAndType = ({
   comment_id,
   type,
 }: {
@@ -12,7 +12,7 @@ export default function makeCountCommentLikeByCommentAndType({
   commentLikeDb,
 }: {
   commentLikeDb: ICommentLikeDb;
-}): ICountCommentLikeByCommentAndType {
+}): CountCommentLikeByCommentAndType {
   return async function countCommentLikeByCommentAndType({ comment_id, type }) {
     return await commentLikeDb.countCommentLikeByCommentAndType({
       comment_id,

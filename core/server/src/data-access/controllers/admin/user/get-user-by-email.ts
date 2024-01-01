@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
+import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { get, omit } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -7,7 +7,7 @@ import { isEmpty } from "../../../../utils/is-empty";
 export default function makeGetUserByEmailController({
   getUserByEmail,
 }: {
-  getUserByEmail: IGetUserByEmail;
+  getUserByEmail: GetUserByEmail;
 }) {
   return async function getUserByEmailController(
     httpRequest: Request & { context: { validated: {} } }

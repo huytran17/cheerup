@@ -1,8 +1,8 @@
-import { ICreateSubscription } from "../../../../use-cases/subscription/create-subscription";
-import { IUpdateSubscription } from "../../../../use-cases/subscription/update-subscription";
+import { CreateSubscription } from "../../../../use-cases/subscription/create-subscription";
+import { UpdateSubscription } from "../../../../use-cases/subscription/update-subscription";
 import { Request } from "express";
 import { get, merge } from "lodash";
-import { IGetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
+import { GetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -11,9 +11,9 @@ export default function makeCreateSubscriptionController({
   getSubscriptionByEmail,
   updateSubscription,
 }: {
-  createSubscription: ICreateSubscription;
-  getSubscriptionByEmail: IGetSubscriptionByEmail;
-  updateSubscription: IUpdateSubscription;
+  createSubscription: CreateSubscription;
+  getSubscriptionByEmail: GetSubscriptionByEmail;
+  updateSubscription: UpdateSubscription;
 }) {
   return async function createSubscriptionController(
     httpRequest: Request & { context: { validated: {} } }

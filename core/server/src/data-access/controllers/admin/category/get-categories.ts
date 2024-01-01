@@ -1,11 +1,11 @@
 import { Request } from "express";
-import { IGetCategories } from "../../../../use-cases/category/get-categories";
+import { GetCategories } from "../../../../use-cases/category/get-categories";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetCategoriesController({
   getCategories,
 }: {
-  getCategories: IGetCategories;
+  getCategories: GetCategories;
 }) {
   return async function getCategoriesController(
     httpRequest: Request & { context: { validated: {} } }

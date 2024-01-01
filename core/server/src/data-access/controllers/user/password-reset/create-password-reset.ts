@@ -8,11 +8,11 @@ import { IGetEmailContent } from "../../../../config/emailManager/get-email-cont
 import { IRenderEmailContent } from "../../../../config/emailManager/render-email-content";
 import { ISendEmail } from "../../../../config/emailManager/send-email";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { ICreatePasswordReset } from "../../../../use-cases/password-reset/create-password-reset";
-import { IGetPasswordResetByCode } from "../../../../use-cases/password-reset/get-password-reset-by-code";
-import { IGetPasswordResetByEmail } from "../../../../use-cases/password-reset/get-password-reset-by-email";
-import { IHardDeletePasswordReset } from "../../../../use-cases/password-reset/hard-delete-password-reset";
-import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
+import { CreatePasswordReset } from "../../../../use-cases/password-reset/create-password-reset";
+import { GetPasswordResetByCode } from "../../../../use-cases/password-reset/get-password-reset-by-code";
+import { GetPasswordResetByEmail } from "../../../../use-cases/password-reset/get-password-reset-by-email";
+import { HardDeletePasswordReset } from "../../../../use-cases/password-reset/hard-delete-password-reset";
+import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeCreatePasswordResetController({
@@ -27,11 +27,11 @@ export default function makeCreatePasswordResetController({
   moment,
   logger,
 }: {
-  getUserByEmail: IGetUserByEmail;
-  createPasswordReset: ICreatePasswordReset;
-  getPasswordResetByCode: IGetPasswordResetByCode;
-  getPasswordResetByEmail: IGetPasswordResetByEmail;
-  hardDeletePasswordReset: IHardDeletePasswordReset;
+  getUserByEmail: GetUserByEmail;
+  createPasswordReset: CreatePasswordReset;
+  getPasswordResetByCode: GetPasswordResetByCode;
+  getPasswordResetByEmail: GetPasswordResetByEmail;
+  hardDeletePasswordReset: HardDeletePasswordReset;
   getEmailContent: IGetEmailContent;
   renderEmailContent: IRenderEmailContent;
   sendEmail: ISendEmail;

@@ -5,7 +5,7 @@ export interface ICreateGalleryData {
   galleryDetails: Omit<IGallery, "_id">;
 }
 
-export type ICreateGallery = ({
+export type CreateGallery = ({
   galleryDetails,
 }: ICreateGalleryData) => Promise<IGallery>;
 
@@ -13,7 +13,7 @@ export default function makeCreateGallery({
   galleryDb,
 }: {
   galleryDb: IGalleryDb;
-}): ICreateGallery {
+}): CreateGallery {
   return async function createGallery({ galleryDetails }) {
     return await galleryDb.insert(galleryDetails);
   };

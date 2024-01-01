@@ -1,11 +1,11 @@
 import { Request } from "express";
-import { IGetPosts } from "../../../../use-cases/post/get-posts";
+import { GetPosts } from "../../../../use-cases/post/get-posts";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetPostsController({
   getPosts,
 }: {
-  getPosts: IGetPosts;
+  getPosts: GetPosts;
 }) {
   return async function getPostsController(
     httpRequest: Request & { context: { validated: {} } }

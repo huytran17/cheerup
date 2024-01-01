@@ -2,7 +2,7 @@ import IPostBookmarkDb, {
   IPaginatedPostBookmarkResult,
 } from "../../data-access/interfaces/post-bookmark-db";
 
-export type IGetPostBookmarksPaginated = ({
+export type GetPostBookmarksPaginated = ({
   query,
   page,
   entries_per_page,
@@ -18,7 +18,7 @@ export default function makeGetPostBookmarksPaginated({
   postBookmarkDb,
 }: {
   postBookmarkDb: IPostBookmarkDb;
-}): IGetPostBookmarksPaginated {
+}): GetPostBookmarksPaginated {
   return async function getPostBookmarksPaginated({
     query,
     page,

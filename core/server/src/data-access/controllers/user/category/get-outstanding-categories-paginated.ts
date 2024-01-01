@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { get, map, sortBy, merge } from "lodash";
-import { ICountPostByCategory } from "../../../../use-cases/post/count-post-by-category";
-import { IGetCategoriesPaginated } from "../../../../use-cases/category/get-categories-paginated";
+import { CountPostByCategory } from "../../../../use-cases/post/count-post-by-category";
+import { GetCategoriesPaginated } from "../../../../use-cases/category/get-categories-paginated";
 import Category from "../../../../database/entities/category";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
@@ -9,8 +9,8 @@ export default function makeGetOutstandingCategoriesPaginatedController({
   countPostByCategory,
   getCategoriesPaginated,
 }: {
-  countPostByCategory: ICountPostByCategory;
-  getCategoriesPaginated: IGetCategoriesPaginated;
+  countPostByCategory: CountPostByCategory;
+  getCategoriesPaginated: GetCategoriesPaginated;
 }) {
   return async function getOutstandingCategoriesPaginatedController(
     httpRequest: Request & { context: { validated: {} } }

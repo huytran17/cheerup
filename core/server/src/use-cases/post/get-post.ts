@@ -1,7 +1,7 @@
 import IPost from "../../database/interfaces/post";
 import IPostDb from "../../data-access/interfaces/post-db";
 
-export type IGetPost = ({
+export type GetPost = ({
   _id,
   is_only_published,
   is_include_deleted,
@@ -11,7 +11,7 @@ export type IGetPost = ({
   is_include_deleted?: boolean;
 }) => Promise<IPost>;
 
-export default function makeGetPost({ postDb }: { postDb: IPostDb }): IGetPost {
+export default function makeGetPost({ postDb }: { postDb: IPostDb }): GetPost {
   return async function getPost({
     _id,
     is_only_published,

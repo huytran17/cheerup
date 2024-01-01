@@ -1,5 +1,5 @@
-import { IGetCategory } from "../../../../use-cases/category/get-category";
-import { IUpdateCategory } from "../../../../use-cases/category/update-category";
+import { GetCategory } from "../../../../use-cases/category/get-category";
+import { UpdateCategory } from "../../../../use-cases/category/update-category";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get, merge } from "lodash";
@@ -11,8 +11,8 @@ export default function makeRestoreCategoryController({
   updateCategory,
   logger,
 }: {
-  getCategory: IGetCategory;
-  updateCategory: IUpdateCategory;
+  getCategory: GetCategory;
+  updateCategory: UpdateCategory;
   logger: Logger;
 }) {
   return async function restoreCategoryController(

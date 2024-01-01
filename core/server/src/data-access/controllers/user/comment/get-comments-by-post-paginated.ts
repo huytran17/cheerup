@@ -1,12 +1,12 @@
 import { Request } from "express";
-import { IGetCommentsByPostPaginated } from "../../../../use-cases/comment/get-comments-by-post-paginated";
-import { ICountCommentLikeByCommentAndType } from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
-import { IGetPost } from "../../../../use-cases/post/get-post";
+import { GetCommentsByPostPaginated } from "../../../../use-cases/comment/get-comments-by-post-paginated";
+import { CountCommentLikeByCommentAndType } from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
+import { GetPost } from "../../../../use-cases/post/get-post";
 import { get, map, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { CommentLikeType } from "../../../../database/interfaces/comment-like";
 import IComment from "../../../../database/interfaces/comment";
-import { IGetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
+import { GetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetCommentsByPostPaginatedController({
@@ -15,10 +15,10 @@ export default function makeGetCommentsByPostPaginatedController({
   countCommentLikeByCommentAndType,
   getCommentLikeByUserAndComment,
 }: {
-  getCommentsByPostPaginated: IGetCommentsByPostPaginated;
-  getPost: IGetPost;
-  countCommentLikeByCommentAndType: ICountCommentLikeByCommentAndType;
-  getCommentLikeByUserAndComment: IGetCommentLikeByUserAndComment;
+  getCommentsByPostPaginated: GetCommentsByPostPaginated;
+  getPost: GetPost;
+  countCommentLikeByCommentAndType: CountCommentLikeByCommentAndType;
+  getCommentLikeByUserAndComment: GetCommentLikeByUserAndComment;
 }) {
   return async function getCommentsByPostPaginatedController(
     httpRequest: Request & { context: { validated: {} } }

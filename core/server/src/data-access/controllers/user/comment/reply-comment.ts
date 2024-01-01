@@ -1,8 +1,8 @@
-import { IReplyComment } from "../../../../use-cases/comment/reply-comment";
-import { IUpdateComment } from "../../../../use-cases/comment/update-comment";
-import { IGetComment } from "../../../../use-cases/comment/get-comment";
-import { IGetPost } from "../../../../use-cases/post/get-post";
-import { IGetUser } from "../../../../use-cases/user/get-user";
+import { ReplyComment } from "../../../../use-cases/comment/reply-comment";
+import { UpdateComment } from "../../../../use-cases/comment/update-comment";
+import { GetComment } from "../../../../use-cases/comment/get-comment";
+import { GetPost } from "../../../../use-cases/post/get-post";
+import { GetUser } from "../../../../use-cases/user/get-user";
 import { Request } from "express";
 import { get, union, concat, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -15,11 +15,11 @@ export default function makeReplyCommentController({
   getPost,
   getUser,
 }: {
-  replyComment: IReplyComment;
-  getComment: IGetComment;
-  updateComment: IUpdateComment;
-  getPost: IGetPost;
-  getUser: IGetUser;
+  replyComment: ReplyComment;
+  getComment: GetComment;
+  updateComment: UpdateComment;
+  getPost: GetPost;
+  getUser: GetUser;
 }) {
   return async function replyCommentController(
     httpRequest: Request & { context: { validated: {} } }

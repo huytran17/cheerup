@@ -1,12 +1,12 @@
 import { Request } from "express";
-import { IGetLatestSystemConfiguration } from "../../../../use-cases/system-configuration/get-latest-system-configuration";
+import { GetLatestSystemConfiguration } from "../../../../use-cases/system-configuration/get-latest-system-configuration";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetLatestSystemConfigurationController({
   getLatestSystemConfiguration,
 }: {
-  getLatestSystemConfiguration: IGetLatestSystemConfiguration;
+  getLatestSystemConfiguration: GetLatestSystemConfiguration;
 }) {
   return async function getLatestSystemConfigurationController(
     httpRequest: Request & { context: { validated: {} } }

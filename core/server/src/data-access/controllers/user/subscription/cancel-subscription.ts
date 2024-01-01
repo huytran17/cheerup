@@ -1,5 +1,5 @@
-import { IGetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
-import { IUpdateSubscription } from "../../../../use-cases/subscription/update-subscription";
+import { GetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
+import { UpdateSubscription } from "../../../../use-cases/subscription/update-subscription";
 import { Request } from "express";
 import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -9,8 +9,8 @@ export default function makeCancelSubscriptionController({
   getSubscriptionByEmail,
   updateSubscription,
 }: {
-  getSubscriptionByEmail: IGetSubscriptionByEmail;
-  updateSubscription: IUpdateSubscription;
+  getSubscriptionByEmail: GetSubscriptionByEmail;
+  updateSubscription: UpdateSubscription;
 }) {
   return async function cancelSubscriptionController(
     httpRequest: Request & { context: { validated: {} } }

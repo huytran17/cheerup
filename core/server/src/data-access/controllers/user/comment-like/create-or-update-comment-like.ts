@@ -1,12 +1,12 @@
 import { Request } from "express";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { IGetUser } from "../../../../use-cases/user/get-user";
-import { ICreateCommentLike } from "../../../../use-cases/comment-like/create-comment-like";
-import { IUpdateCommentLike } from "../../../../use-cases/comment-like/update-comment-like";
-import { IHardDeleteCommentLike } from "../../../../use-cases/comment-like/hard-delete-comment-like";
-import { IGetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
-import { IGetComment } from "../../../../use-cases/comment/get-comment";
+import { GetUser } from "../../../../use-cases/user/get-user";
+import { CreateCommentLike } from "../../../../use-cases/comment-like/create-comment-like";
+import { UpdateCommentLike } from "../../../../use-cases/comment-like/update-comment-like";
+import { HardDeleteCommentLike } from "../../../../use-cases/comment-like/hard-delete-comment-like";
+import { GetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
+import { GetComment } from "../../../../use-cases/comment/get-comment";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeCreateOrUpdateCommentLikeController({
@@ -17,12 +17,12 @@ export default function makeCreateOrUpdateCommentLikeController({
   getComment,
   getCommentLikeByUserAndComment,
 }: {
-  createCommentLike: ICreateCommentLike;
-  updateCommentLike: IUpdateCommentLike;
-  hardDeleteCommentLike: IHardDeleteCommentLike;
-  getUser: IGetUser;
-  getComment: IGetComment;
-  getCommentLikeByUserAndComment: IGetCommentLikeByUserAndComment;
+  createCommentLike: CreateCommentLike;
+  updateCommentLike: UpdateCommentLike;
+  hardDeleteCommentLike: HardDeleteCommentLike;
+  getUser: GetUser;
+  getComment: GetComment;
+  getCommentLikeByUserAndComment: GetCommentLikeByUserAndComment;
 }) {
   return async function createOrUpdateCommentLikeController(
     httpRequest: Request & { context: { validated: {} } }

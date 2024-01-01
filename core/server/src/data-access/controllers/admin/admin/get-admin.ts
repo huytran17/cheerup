@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { IGetAdmin } from "../../../../use-cases/admin/get-admin";
+import { GetAdmin } from "../../../../use-cases/admin/get-admin";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -7,7 +7,7 @@ import { isEmpty } from "../../../../utils/is-empty";
 export default function makeGetAdminController({
   getAdmin,
 }: {
-  getAdmin: IGetAdmin;
+  getAdmin: GetAdmin;
 }) {
   return async function getAdminController(
     httpRequest: Request & { context: { validated: { admin_id: string } } }

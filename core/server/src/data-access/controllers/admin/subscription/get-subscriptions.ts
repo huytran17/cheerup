@@ -1,11 +1,11 @@
 import { Request } from "express";
-import { IGetSubscriptions } from "../../../../use-cases/subscription/get-subscriptions";
+import { GetSubscriptions } from "../../../../use-cases/subscription/get-subscriptions";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetSubscriptionsController({
   getSubscriptions,
 }: {
-  getSubscriptions: IGetSubscriptions;
+  getSubscriptions: GetSubscriptions;
 }) {
   return async function getSubscriptionsController(
     httpRequest: Request & { context: { validated: {} } }

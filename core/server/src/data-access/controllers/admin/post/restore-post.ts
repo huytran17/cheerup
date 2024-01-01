@@ -1,5 +1,5 @@
-import { IGetPost } from "../../../../use-cases/post/get-post";
-import { IUpdatePost } from "../../../../use-cases/post/update-post";
+import { GetPost } from "../../../../use-cases/post/get-post";
+import { UpdatePost } from "../../../../use-cases/post/update-post";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get, merge } from "lodash";
@@ -11,8 +11,8 @@ export default function makeRestorePostController({
   updatePost,
   logger,
 }: {
-  getPost: IGetPost;
-  updatePost: IUpdatePost;
+  getPost: GetPost;
+  updatePost: UpdatePost;
   logger: Logger;
 }) {
   return async function restorePostController(

@@ -1,9 +1,9 @@
 import { Request } from "express";
 import { JwtPayload } from "jsonwebtoken";
-import { IGetPasswordReset } from "../../../../use-cases/password-reset/get-password-reset";
-import { IHardDeletePasswordReset } from "../../../../use-cases/password-reset/hard-delete-password-reset";
-import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
-import { IUpdateUser } from "../../../../use-cases/user/update-user";
+import { GetPasswordReset } from "../../../../use-cases/password-reset/get-password-reset";
+import { HardDeletePasswordReset } from "../../../../use-cases/password-reset/hard-delete-password-reset";
+import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
+import { UpdateUser } from "../../../../use-cases/user/update-user";
 import { IVerifyAccessToken } from "../../../../config/accessTokenManager/verify-access-token";
 import { IHashPassword } from "../../../../config/password/hash-password";
 import { get } from "lodash";
@@ -18,10 +18,10 @@ export default function makeResetPasswordController({
   verifyAccessToken,
   hashPassword,
 }: {
-  getPasswordReset: IGetPasswordReset;
-  hardDeletePasswordReset: IHardDeletePasswordReset;
-  getUserByEmail: IGetUserByEmail;
-  updateUser: IUpdateUser;
+  getPasswordReset: GetPasswordReset;
+  hardDeletePasswordReset: HardDeletePasswordReset;
+  getUserByEmail: GetUserByEmail;
+  updateUser: UpdateUser;
   verifyAccessToken: IVerifyAccessToken;
   hashPassword: IHashPassword;
 }) {

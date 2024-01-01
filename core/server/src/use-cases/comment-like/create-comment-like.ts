@@ -5,7 +5,7 @@ export interface ICreateCommentLikeData {
   commentLikeDetails: Omit<ICommentLike, "_id" | "created_at">;
 }
 
-export type ICreateCommentLike = ({
+export type CreateCommentLike = ({
   commentLikeDetails,
 }: ICreateCommentLikeData) => Promise<ICommentLike>;
 
@@ -13,7 +13,7 @@ export default function makeCreateCommentLike({
   commentLikeDb,
 }: {
   commentLikeDb: ICommentLikeDb;
-}): ICreateCommentLike {
+}): CreateCommentLike {
   return async function createCommentLike({ commentLikeDetails }) {
     return await commentLikeDb.insert(commentLikeDetails);
   };

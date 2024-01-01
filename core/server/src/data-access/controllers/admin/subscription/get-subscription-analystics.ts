@@ -1,12 +1,12 @@
 import { Request } from "express";
-import { IGetSubscriptionAnalystics } from "../../../../use-cases/subscription/get-subscription-analystics";
+import { GetSubscriptionAnalystics } from "../../../../use-cases/subscription/get-subscription-analystics";
 import { get, sortBy, split } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetSubscriptionAnalysticsController({
   getSubscriptionAnalystics,
 }: {
-  getSubscriptionAnalystics: IGetSubscriptionAnalystics;
+  getSubscriptionAnalystics: GetSubscriptionAnalystics;
 }) {
   return async function getSubscriptionAnalysticsController(
     httpRequest: Request & {

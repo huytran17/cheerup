@@ -1,5 +1,5 @@
-import { IGetSystemConfiguration } from "../../../../use-cases/system-configuration/get-system-configuraion";
-import { IUpdateSystemConfiguration } from "../../../../use-cases/system-configuration/update-system-configuraion";
+import { GetSystemConfiguration } from "../../../../use-cases/system-configuration/get-system-configuraion";
+import { UpdateSystemConfiguration } from "../../../../use-cases/system-configuration/update-system-configuraion";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get, merge } from "lodash";
@@ -11,8 +11,8 @@ export default function makeUpdateSystemConfigurationController({
   updateSystemConfiguration,
   logger,
 }: {
-  getSystemConfiguration: IGetSystemConfiguration;
-  updateSystemConfiguration: IUpdateSystemConfiguration;
+  getSystemConfiguration: GetSystemConfiguration;
+  updateSystemConfiguration: UpdateSystemConfiguration;
   logger: Logger;
 }) {
   return async function updateSystemConfigurationController(

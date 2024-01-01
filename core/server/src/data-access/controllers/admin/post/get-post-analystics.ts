@@ -1,12 +1,12 @@
 import { Request } from "express";
-import { IGetPostAnalystics } from "../../../../use-cases/post/get-post-analystics";
+import { GetPostAnalystics } from "../../../../use-cases/post/get-post-analystics";
 import { get, sortBy, split } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetPostAnalysticsController({
   getPostAnalystics,
 }: {
-  getPostAnalystics: IGetPostAnalystics;
+  getPostAnalystics: GetPostAnalystics;
 }) {
   return async function getPostAnalysticsController(
     httpRequest: Request & { context: { validated: { post_id: string } } }

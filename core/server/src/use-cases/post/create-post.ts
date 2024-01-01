@@ -5,13 +5,13 @@ export interface ICreatePostData {
   postDetails: Omit<IPost, "_id">;
 }
 
-export type ICreatePost = ({ postDetails }: ICreatePostData) => Promise<IPost>;
+export type CreatePost = ({ postDetails }: ICreatePostData) => Promise<IPost>;
 
 export default function makeCreatePost({
   postDb,
 }: {
   postDb: IPostDb;
-}): ICreatePost {
+}): CreatePost {
   return async function createPost({ postDetails }) {
     return await postDb.insert(postDetails);
   };

@@ -5,7 +5,7 @@ export interface IUpdateSubscriptionData {
   subscriptionDetails: Omit<ISubscription, "_id">;
 }
 
-export type IUpdateSubscription = ({
+export type UpdateSubscription = ({
   subscriptionDetails,
 }: IUpdateSubscriptionData) => Promise<ISubscription>;
 
@@ -13,7 +13,7 @@ export default function makeUpdateSubscription({
   subscriptionDb,
 }: {
   subscriptionDb: ISubscriptionDb;
-}): IUpdateSubscription {
+}): UpdateSubscription {
   return async function updateSubscription({ subscriptionDetails }) {
     return await subscriptionDb.update(subscriptionDetails);
   };

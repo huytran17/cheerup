@@ -1,7 +1,7 @@
 import ICategory from "../../database/interfaces/category";
 import ICategoryDb from "../../data-access/interfaces/category-db";
 
-export type IHardDeleteCategory = ({
+export type HardDeleteCategory = ({
   _id,
 }: {
   _id: string;
@@ -11,7 +11,7 @@ export default function makeHardDeleteCategory({
   categoryDb,
 }: {
   categoryDb: ICategoryDb;
-}): IHardDeleteCategory {
+}): HardDeleteCategory {
   return async function hardDeleteCategory({ _id }) {
     return await categoryDb.hardDelete({ _id });
   };

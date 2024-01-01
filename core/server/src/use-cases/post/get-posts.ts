@@ -1,13 +1,13 @@
 import IPost from "../../database/interfaces/post";
 import IPostDb from "../../data-access/interfaces/post-db";
 
-export type IGetPosts = () => Promise<IPost[]>;
+export type GetPosts = () => Promise<IPost[]>;
 
 export default function makeGetPosts({
   postDb,
 }: {
   postDb: IPostDb;
-}): IGetPosts {
+}): GetPosts {
   return async function getPosts() {
     return await postDb.findAll();
   };

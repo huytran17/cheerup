@@ -5,13 +5,13 @@ export interface IUpdatePostData {
   postDetails: Omit<IPost, "_id">;
 }
 
-export type IUpdatePost = ({ postDetails }: IUpdatePostData) => Promise<IPost>;
+export type UpdatePost = ({ postDetails }: IUpdatePostData) => Promise<IPost>;
 
 export default function makeUpdatePost({
   postDb,
 }: {
   postDb: IPostDb;
-}): IUpdatePost {
+}): UpdatePost {
   return async function updatePost({ postDetails }) {
     return await postDb.update(postDetails);
   };

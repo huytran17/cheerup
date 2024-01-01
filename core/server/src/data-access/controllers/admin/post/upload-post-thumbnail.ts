@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { get, merge } from "lodash";
-import { IGetPost } from "../../../../use-cases/post/get-post";
-import { IUpdatePost } from "../../../../use-cases/post/update-post";
+import { GetPost } from "../../../../use-cases/post/get-post";
+import { UpdatePost } from "../../../../use-cases/post/update-post";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 import deleteS3Object from "../../../../utils/delete-s3-object";
@@ -10,8 +10,8 @@ export default function makeUploadPostThumbnailController({
   getPost,
   updatePost,
 }: {
-  getPost: IGetPost;
-  updatePost: IUpdatePost;
+  getPost: GetPost;
+  updatePost: UpdatePost;
 }) {
   return async function uploadPostThumbnailController(
     httpRequest: Request & { context: { validated: {} } }

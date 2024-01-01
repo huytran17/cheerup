@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { IGetAdminAnalystics } from "../../../../use-cases/admin/get-admin-analystics";
+import { GetAdminAnalystics } from "../../../../use-cases/admin/get-admin-analystics";
 import { get, sortBy, split } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { AdminType } from "../../../../database/interfaces/admin";
@@ -7,7 +7,7 @@ import { AdminType } from "../../../../database/interfaces/admin";
 export default function makeGetAdminAnalysticsController({
   getAdminAnalystics,
 }: {
-  getAdminAnalystics: IGetAdminAnalystics;
+  getAdminAnalystics: GetAdminAnalystics;
 }) {
   return async function getAdminAnalysticsController(
     httpRequest: Request & { context: { validated: {} } }

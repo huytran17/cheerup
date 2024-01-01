@@ -1,7 +1,7 @@
 import ICategory from "../../database/interfaces/category";
 import ICategoryDb from "../../data-access/interfaces/category-db";
 
-export type IGetCategoryBySlug = ({
+export type GetCategoryBySlug = ({
   slug,
 }: {
   slug: string;
@@ -11,7 +11,7 @@ export default function makeGetCategoryBySlug({
   categoryDb,
 }: {
   categoryDb: ICategoryDb;
-}): IGetCategoryBySlug {
+}): GetCategoryBySlug {
   return async function getCategoryBySlug({ slug }) {
     return await categoryDb.findBySlug({ slug });
   };

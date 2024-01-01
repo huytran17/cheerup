@@ -4,7 +4,7 @@ import IUserDb, {
 import Redis from "../../config/redis";
 import { Logger } from "winston";
 
-export type IGetUserAnalystics = ({
+export type GetUserAnalystics = ({
   range,
   unit,
 }: {
@@ -20,7 +20,7 @@ export default function makeGetUserAnalystics({
   userDb: IUserDb;
   redis: Redis;
   logger: Logger;
-}): IGetUserAnalystics {
+}): GetUserAnalystics {
   return async function getUserAnalystics({ unit, range }) {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "getUserAnalystics",

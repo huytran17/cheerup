@@ -1,11 +1,11 @@
 import { Request } from "express";
-import { IGetPostsForSEO } from "../../../../use-cases/post/get-posts-for-seo";
+import { GetPostsForSEO } from "../../../../use-cases/post/get-posts-for-seo";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetPostsForSEOController({
   getPostsForSEO,
 }: {
-  getPostsForSEO: IGetPostsForSEO;
+  getPostsForSEO: GetPostsForSEO;
 }) {
   return async function getPostsForSEOController(
     httpRequest: Request & { context: { validated: {} } }

@@ -1,7 +1,7 @@
 import { Request } from "express";
-import { IGetUser } from "../../../../use-cases/user/get-user";
-import { IGetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
-import { IUpdateUser } from "../../../../use-cases/user/update-user";
+import { GetUser } from "../../../../use-cases/user/get-user";
+import { GetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
+import { UpdateUser } from "../../../../use-cases/user/update-user";
 import { get, merge, omit } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -11,9 +11,9 @@ export default function makeGetMeController({
   getSubscriptionByEmail,
   updateUser,
 }: {
-  getUser: IGetUser;
-  getSubscriptionByEmail: IGetSubscriptionByEmail;
-  updateUser: IUpdateUser;
+  getUser: GetUser;
+  getSubscriptionByEmail: GetSubscriptionByEmail;
+  updateUser: UpdateUser;
 }) {
   return async function getMeController(
     httpRequest: Request & { context: { validated: { user_id: string } } }

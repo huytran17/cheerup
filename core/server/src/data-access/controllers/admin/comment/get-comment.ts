@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { IGetComment } from "../../../../use-cases/comment/get-comment";
+import { GetComment } from "../../../../use-cases/comment/get-comment";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -7,7 +7,7 @@ import { isEmpty } from "../../../../utils/is-empty";
 export default function makeGetCommentController({
   getComment,
 }: {
-  getComment: IGetComment;
+  getComment: GetComment;
 }) {
   return async function getCommentController(
     httpRequest: Request & { context: { validated: {} } }

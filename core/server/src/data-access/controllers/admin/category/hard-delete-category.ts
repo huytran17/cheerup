@@ -1,5 +1,5 @@
-import { IGetCategory } from "../../../../use-cases/category/get-category";
-import { IHardDeleteCategory } from "../../../../use-cases/category/hard-delete-category";
+import { GetCategory } from "../../../../use-cases/category/get-category";
+import { HardDeleteCategory } from "../../../../use-cases/category/hard-delete-category";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get } from "lodash";
@@ -11,8 +11,8 @@ export default function makeHardDeleteCategoryController({
   hardDeleteCategory,
   logger,
 }: {
-  getCategory: IGetCategory;
-  hardDeleteCategory: IHardDeleteCategory;
+  getCategory: GetCategory;
+  hardDeleteCategory: HardDeleteCategory;
   logger: Logger;
 }) {
   return async function hardDeleteCategoryController(

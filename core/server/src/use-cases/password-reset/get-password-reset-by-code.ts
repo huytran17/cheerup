@@ -1,7 +1,7 @@
 import IPasswordReset from "../../database/interfaces/password-reset";
 import IPasswordResetDb from "../../data-access/interfaces/password-reset-db";
 
-export type IGetPasswordResetByCode = ({
+export type GetPasswordResetByCode = ({
   security_code,
 }: {
   security_code: string;
@@ -11,7 +11,7 @@ export default function makeGetPasswordResetByCode({
   passwordResetDb,
 }: {
   passwordResetDb: IPasswordResetDb;
-}): IGetPasswordResetByCode {
+}): GetPasswordResetByCode {
   return async function getPasswordResetByCode({ security_code }) {
     return await passwordResetDb.findByCode({
       security_code,

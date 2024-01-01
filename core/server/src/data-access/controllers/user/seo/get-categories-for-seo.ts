@@ -1,11 +1,11 @@
 import { Request } from "express";
-import { IGetCategoriesForSEO } from "../../../../use-cases/category/get-categories-for-seo";
+import { GetCategoriesForSEO } from "../../../../use-cases/category/get-categories-for-seo";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetCategoriesForSEOController({
   getCategoriesForSEO,
 }: {
-  getCategoriesForSEO: IGetCategoriesForSEO;
+  getCategoriesForSEO: GetCategoriesForSEO;
 }) {
   return async function getCategoriesForSEOController(
     httpRequest: Request & { context: { validated: {} } }

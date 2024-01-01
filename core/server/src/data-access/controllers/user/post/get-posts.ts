@@ -1,6 +1,6 @@
 import { Request } from "express";
-import { IGetPosts } from "../../../../use-cases/post/get-posts";
-import { ICountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
+import { GetPosts } from "../../../../use-cases/post/get-posts";
+import { CountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
 import { map, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
@@ -8,8 +8,8 @@ export default function makeGetPostsController({
   getPosts,
   countCommentsByPost,
 }: {
-  getPosts: IGetPosts;
-  countCommentsByPost: ICountCommentsByPost;
+  getPosts: GetPosts;
+  countCommentsByPost: CountCommentsByPost;
 }) {
   return async function getPostsController(
     httpRequest: Request & { context: { validated: {} } }

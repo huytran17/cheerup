@@ -2,7 +2,7 @@ import IGalleryDb, {
   IPaginatedGalleryResult,
 } from "../../data-access/interfaces/gallery-db";
 
-export type IGetGalleriesPaginated = (
+export type GetGalleriesPaginated = (
   {
     query,
     page,
@@ -23,7 +23,7 @@ export default function makeGetGalleriesPaginated({
   galleryDb,
 }: {
   galleryDb: IGalleryDb;
-}): IGetGalleriesPaginated {
+}): GetGalleriesPaginated {
   return async function getGalleriesPaginated(
     { query, page, entries_per_page },
     { is_parent }

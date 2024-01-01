@@ -1,12 +1,12 @@
 import { Request } from "express";
-import { IGetCategoryTitles } from "../../../../use-cases/category/get-category-titles";
+import { GetCategoryTitles } from "../../../../use-cases/category/get-category-titles";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetCategoryTitlesController({
   getCategoryTitles,
 }: {
-  getCategoryTitles: IGetCategoryTitles;
+  getCategoryTitles: GetCategoryTitles;
 }) {
   return async function getCategoryTitlesController(
     httpRequest: Request & { context: { validated: {} } }

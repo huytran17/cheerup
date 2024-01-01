@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { get, merge } from "lodash";
-import { IGetUser } from "../../../../use-cases/user/get-user";
-import { IUpdateUser } from "../../../../use-cases/user/update-user";
+import { GetUser } from "../../../../use-cases/user/get-user";
+import { UpdateUser } from "../../../../use-cases/user/update-user";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 import deleteS3Object from "../../../../utils/delete-s3-object";
@@ -10,8 +10,8 @@ export default function makeUploadUserAvatarController({
   getUser,
   updateUser,
 }: {
-  getUser: IGetUser;
-  updateUser: IUpdateUser;
+  getUser: GetUser;
+  updateUser: UpdateUser;
 }) {
   return async function uploadUserAvatarController(
     httpRequest: Request & { context: { validated: {} } }

@@ -1,19 +1,19 @@
 import { Request } from "express";
 import { IReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
-import { IGetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
+import { GetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
 import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
-import { IGetPostBySlug } from "../../../../use-cases/post/get-post-by-slug";
+import { GetPostBySlug } from "../../../../use-cases/post/get-post-by-slug";
 
 export default function makeGetPostBySlugController({
   getPostBySlug,
   readingTimeAnalyzer,
   getPostBookmarkByUserAndPost,
 }: {
-  getPostBySlug: IGetPostBySlug;
+  getPostBySlug: GetPostBySlug;
   readingTimeAnalyzer: IReadingTimeAnalyzer;
-  getPostBookmarkByUserAndPost: IGetPostBookmarkByUserAndPost;
+  getPostBookmarkByUserAndPost: GetPostBookmarkByUserAndPost;
 }) {
   return async function getPostBySlugController(
     httpRequest: Request & { context: { validated: {} } }

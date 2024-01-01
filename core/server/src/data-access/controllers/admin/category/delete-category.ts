@@ -1,5 +1,5 @@
-import { IGetCategory } from "../../../../use-cases/category/get-category";
-import { IDeleteCategory } from "../../../../use-cases/category/delete-category";
+import { GetCategory } from "../../../../use-cases/category/get-category";
+import { DeleteCategory } from "../../../../use-cases/category/delete-category";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get } from "lodash";
@@ -11,8 +11,8 @@ export default function makeDeleteCategoryController({
   deleteCategory,
   logger,
 }: {
-  getCategory: IGetCategory;
-  deleteCategory: IDeleteCategory;
+  getCategory: GetCategory;
+  deleteCategory: DeleteCategory;
   logger: Logger;
 }) {
   return async function deleteCategoryController(

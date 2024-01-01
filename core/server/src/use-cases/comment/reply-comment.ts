@@ -5,7 +5,7 @@ export interface IReplyCommentData {
   commentDetails: Omit<IComment, "_id" | "created_at" | "updated_at">;
 }
 
-export type IReplyComment = ({
+export type ReplyComment = ({
   commentDetails,
 }: IReplyCommentData) => Promise<IComment>;
 
@@ -13,7 +13,7 @@ export default function makeReplyComment({
   commentDb,
 }: {
   commentDb: ICommentDb;
-}): IReplyComment {
+}): ReplyComment {
   return async function replyComment({ commentDetails }) {
     return await commentDb.insert(commentDetails);
   };

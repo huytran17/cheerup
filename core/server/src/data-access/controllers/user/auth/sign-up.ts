@@ -1,8 +1,8 @@
 import { Request } from "express";
 import { Logger } from "winston";
 import { get, omit, merge } from "lodash";
-import { ICreateUser } from "../../../../use-cases/user/create-user";
-import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
+import { CreateUser } from "../../../../use-cases/user/create-user";
+import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { IHashPassword } from "../../../../config/password/hash-password";
 import User from "../../../../database/entities/user";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -20,8 +20,8 @@ export default function makeSignUpController({
   hashPassword,
   logger,
 }: {
-  createUser: ICreateUser;
-  getUserByEmail: IGetUserByEmail;
+  createUser: CreateUser;
+  getUserByEmail: GetUserByEmail;
   hashPassword: IHashPassword;
   logger: Logger;
 }) {

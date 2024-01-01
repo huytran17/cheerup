@@ -4,7 +4,7 @@ import ICategoryDb, {
 import Redis from "../../config/redis";
 import { Logger } from "winston";
 
-export type IGetCategoryAnalystics = ({
+export type GetCategoryAnalystics = ({
   range,
   unit,
   limit,
@@ -22,7 +22,7 @@ export default function makeGetCategoryAnalystics({
   categoryDb: ICategoryDb;
   redis: Redis;
   logger: Logger;
-}): IGetCategoryAnalystics {
+}): GetCategoryAnalystics {
   return async function getCategoryAnalystics({ unit, range, limit }) {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "getCategoryAnalystics",

@@ -1,12 +1,12 @@
 import { Request } from "express";
-import { IGetSuggestionPosts } from "../../../../use-cases/post/get-suggestion-posts";
+import { GetSuggestionPosts } from "../../../../use-cases/post/get-suggestion-posts";
 import { get, split, filter } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetSuggestionPostsController({
   getSuggestionPosts,
 }: {
-  getSuggestionPosts: IGetSuggestionPosts;
+  getSuggestionPosts: GetSuggestionPosts;
 }) {
   return async function getSuggestionPostsController(
     httpRequest: Request & { context: { validated: {} } }

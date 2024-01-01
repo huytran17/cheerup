@@ -3,7 +3,7 @@ import { JwtPayload } from "jsonwebtoken";
 import { IVerifyAccessToken } from "../../../../config/accessTokenManager/verify-access-token";
 import { get, omit } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
+import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeVerifyAccessController({
@@ -11,7 +11,7 @@ export default function makeVerifyAccessController({
   getUserByEmail,
 }: {
   verifyAccessToken: IVerifyAccessToken;
-  getUserByEmail: IGetUserByEmail;
+  getUserByEmail: GetUserByEmail;
 }) {
   return async function verifyAccessController(
     httpRequest: Request & { context: { validated: {} } }

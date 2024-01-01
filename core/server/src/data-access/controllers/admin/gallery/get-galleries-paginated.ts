@@ -1,12 +1,12 @@
 import { Request } from "express";
-import { IGetGalleriesPaginated } from "../../../../use-cases/gallery/get-galleries-paginated";
+import { GetGalleriesPaginated } from "../../../../use-cases/gallery/get-galleries-paginated";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetGalleriesPaginatedController({
   getGalleriesPaginated,
 }: {
-  getGalleriesPaginated: IGetGalleriesPaginated;
+  getGalleriesPaginated: GetGalleriesPaginated;
 }) {
   return async function getGalleriesPaginatedController(
     httpRequest: Request & { context: { validated: {} } }

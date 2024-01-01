@@ -1,7 +1,7 @@
-import { IGetComment } from "../../../../use-cases/comment/get-comment";
-import { IHardDeleteComment } from "../../../../use-cases/comment/hard-delete-comment";
-import { IGetUser } from "../../../../use-cases/user/get-user";
-import { IGetPost } from "../../../../use-cases/post/get-post";
+import { GetComment } from "../../../../use-cases/comment/get-comment";
+import { HardDeleteComment } from "../../../../use-cases/comment/hard-delete-comment";
+import { GetUser } from "../../../../use-cases/user/get-user";
+import { GetPost } from "../../../../use-cases/post/get-post";
 import { Request } from "express";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -13,10 +13,10 @@ export default function makeDeleteCommentController({
   getPost,
   getUser,
 }: {
-  getComment: IGetComment;
-  hardDeleteComment: IHardDeleteComment;
-  getPost: IGetPost;
-  getUser: IGetUser;
+  getComment: GetComment;
+  hardDeleteComment: HardDeleteComment;
+  getPost: GetPost;
+  getUser: GetUser;
 }) {
   return async function deleteCommentController(
     httpRequest: Request & { context: { validated: {} } }

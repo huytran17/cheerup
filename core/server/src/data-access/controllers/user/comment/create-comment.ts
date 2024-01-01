@@ -1,12 +1,12 @@
-import { IGetPost } from "../../../../use-cases/post/get-post";
-import { IGetUser } from "../../../../use-cases/user/get-user";
-import { ICreateComment } from "../../../../use-cases/comment/create-comment";
+import { GetPost } from "../../../../use-cases/post/get-post";
+import { GetUser } from "../../../../use-cases/user/get-user";
+import { CreateComment } from "../../../../use-cases/comment/create-comment";
 import { Request } from "express";
 import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IComment from "../../../../database/interfaces/comment";
-import { ICountCommentLikeByCommentAndType } from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
-import { IGetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
+import { CountCommentLikeByCommentAndType } from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
+import { GetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
 import { CommentLikeType } from "../../../../database/interfaces/comment-like";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -17,11 +17,11 @@ export default function makeCreateCommentController({
   countCommentLikeByCommentAndType,
   getCommentLikeByUserAndComment,
 }: {
-  createComment: ICreateComment;
-  getPost: IGetPost;
-  getUser: IGetUser;
-  countCommentLikeByCommentAndType: ICountCommentLikeByCommentAndType;
-  getCommentLikeByUserAndComment: IGetCommentLikeByUserAndComment;
+  createComment: CreateComment;
+  getPost: GetPost;
+  getUser: GetUser;
+  countCommentLikeByCommentAndType: CountCommentLikeByCommentAndType;
+  getCommentLikeByUserAndComment: GetCommentLikeByUserAndComment;
 }) {
   return async function createCommentController(
     httpRequest: Request & { context: { validated: {} } }

@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { get, merge } from "lodash";
-import { IGetAdmin } from "../../../../use-cases/admin/get-admin";
-import { IUpdateAdmin } from "../../../../use-cases/admin/update-admin";
+import { GetAdmin } from "../../../../use-cases/admin/get-admin";
+import { UpdateAdmin } from "../../../../use-cases/admin/update-admin";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 import deleteS3Object from "../../../../utils/delete-s3-object";
@@ -10,8 +10,8 @@ export default function makeUploadAdminAvatarController({
   getAdmin,
   updateAdmin,
 }: {
-  getAdmin: IGetAdmin;
-  updateAdmin: IUpdateAdmin;
+  getAdmin: GetAdmin;
+  updateAdmin: UpdateAdmin;
 }) {
   return async function uploadAdminAvatarController(
     httpRequest: Request & { context: { validated: {} } }

@@ -1,6 +1,6 @@
 import { Request } from "express";
-import { IGetPasswordReset } from "../../../../use-cases/password-reset/get-password-reset";
-import { IHardDeletePasswordReset } from "../../../../use-cases/password-reset/hard-delete-password-reset";
+import { GetPasswordReset } from "../../../../use-cases/password-reset/get-password-reset";
+import { HardDeletePasswordReset } from "../../../../use-cases/password-reset/hard-delete-password-reset";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -9,8 +9,8 @@ export default function makeHardDeletePasswordResetController({
   getPasswordReset,
   hardDeletePasswordReset,
 }: {
-  getPasswordReset: IGetPasswordReset;
-  hardDeletePasswordReset: IHardDeletePasswordReset;
+  getPasswordReset: GetPasswordReset;
+  hardDeletePasswordReset: HardDeletePasswordReset;
 }) {
   return async function hardDeletePasswordResetController(
     httpRequest: Request & { context: { validated: {} } }

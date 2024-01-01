@@ -1,12 +1,12 @@
 import { Request } from "express";
-import { IGetCommentsByParent } from "../../../../use-cases/comment/get-comments-by-parent";
+import { GetCommentsByParent } from "../../../../use-cases/comment/get-comments-by-parent";
 import { get, map, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { IGetComment } from "../../../../use-cases/comment/get-comment";
+import { GetComment } from "../../../../use-cases/comment/get-comment";
 import { isEmpty } from "../../../../utils/is-empty";
 import IComment from "../../../../database/interfaces/comment";
-import { ICountCommentLikeByCommentAndType } from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
-import { IGetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
+import { CountCommentLikeByCommentAndType } from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
+import { GetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
 import { CommentLikeType } from "../../../../database/interfaces/comment-like";
 
 export default function makeGetCommentsByParentController({
@@ -15,10 +15,10 @@ export default function makeGetCommentsByParentController({
   countCommentLikeByCommentAndType,
   getCommentLikeByUserAndComment,
 }: {
-  getCommentsByParent: IGetCommentsByParent;
-  getComment: IGetComment;
-  countCommentLikeByCommentAndType: ICountCommentLikeByCommentAndType;
-  getCommentLikeByUserAndComment: IGetCommentLikeByUserAndComment;
+  getCommentsByParent: GetCommentsByParent;
+  getComment: GetComment;
+  countCommentLikeByCommentAndType: CountCommentLikeByCommentAndType;
+  getCommentLikeByUserAndComment: GetCommentLikeByUserAndComment;
 }) {
   return async function getCommentsByParentController(
     httpRequest: Request & { context: { validated: {} } }

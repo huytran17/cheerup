@@ -1,5 +1,5 @@
-import { IGetUser } from "../../../../use-cases/user/get-user";
-import { IDeleteUser } from "../../../../use-cases/user/delete-user";
+import { GetUser } from "../../../../use-cases/user/get-user";
+import { DeleteUser } from "../../../../use-cases/user/delete-user";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get } from "lodash";
@@ -11,8 +11,8 @@ export default function makeDeleteUserController({
   deleteUser,
   logger,
 }: {
-  getUser: IGetUser;
-  deleteUser: IDeleteUser;
+  getUser: GetUser;
+  deleteUser: DeleteUser;
   logger: Logger;
 }) {
   return async function deleteUserController(

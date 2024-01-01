@@ -1,5 +1,5 @@
-import { IGetGallery } from "../../../../use-cases/gallery/get-gallery";
-import { IUpdateGallery } from "../../../../use-cases/gallery/update-gallery";
+import { GetGallery } from "../../../../use-cases/gallery/get-gallery";
+import { UpdateGallery } from "../../../../use-cases/gallery/update-gallery";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get } from "lodash";
@@ -11,8 +11,8 @@ export default function makeUpdateGalleryController({
   updateGallery,
   logger,
 }: {
-  getGallery: IGetGallery;
-  updateGallery: IUpdateGallery;
+  getGallery: GetGallery;
+  updateGallery: UpdateGallery;
   logger: Logger;
 }) {
   return async function updateGalleryController(

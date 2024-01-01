@@ -1,5 +1,5 @@
-import { IGetUser } from "../../../../use-cases/user/get-user";
-import { IUpdateUser } from "../../../../use-cases/user/update-user";
+import { GetUser } from "../../../../use-cases/user/get-user";
+import { UpdateUser } from "../../../../use-cases/user/update-user";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get } from "lodash";
@@ -11,8 +11,8 @@ export default function makeUpdateUserController({
   updateUser,
   logger,
 }: {
-  getUser: IGetUser;
-  updateUser: IUpdateUser;
+  getUser: GetUser;
+  updateUser: UpdateUser;
   logger: Logger;
 }) {
   return async function updateUserController(

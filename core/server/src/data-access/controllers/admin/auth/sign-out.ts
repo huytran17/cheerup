@@ -1,4 +1,4 @@
-import { IGetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email";
+import { GetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email";
 import { Request } from "express";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -7,7 +7,7 @@ import { isEmpty } from "../../../../utils/is-empty";
 export default function makeSignOutController({
   getAdminByEmail,
 }: {
-  getAdminByEmail: IGetAdminByEmail;
+  getAdminByEmail: GetAdminByEmail;
 }) {
   return async function signOutController(
     httpRequest: Request & { context: { validated: {} } }

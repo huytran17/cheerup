@@ -1,12 +1,12 @@
 import { Request } from "express";
-import { IGetMostPopularPostsAnalystics } from "../../../../use-cases/post/get-most-popular-posts-analystics";
+import { GetMostPopularPostsAnalystics } from "../../../../use-cases/post/get-most-popular-posts-analystics";
 import { get, sortBy, split } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetMostPopularPostsAnalysticsController({
   getMostPopularPostsAnalystics,
 }: {
-  getMostPopularPostsAnalystics: IGetMostPopularPostsAnalystics;
+  getMostPopularPostsAnalystics: GetMostPopularPostsAnalystics;
 }) {
   return async function getMostPopularPostsAnalysticsController(
     httpRequest: Request & { context: { validated: { post_id: string } } }

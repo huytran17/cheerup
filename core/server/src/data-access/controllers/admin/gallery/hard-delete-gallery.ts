@@ -1,6 +1,6 @@
 import { Request } from "express";
-import { IGetGallery } from "../../../../use-cases/gallery/get-gallery";
-import { IHardDeleteGallery } from "../../../../use-cases/gallery/hard-delete-gallery";
+import { GetGallery } from "../../../../use-cases/gallery/get-gallery";
+import { HardDeleteGallery } from "../../../../use-cases/gallery/hard-delete-gallery";
 import { get } from "lodash";
 import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -11,8 +11,8 @@ export default function makeHardDeleteGalleryController({
   hardDeleteGallery,
   logger,
 }: {
-  getGallery: IGetGallery;
-  hardDeleteGallery: IHardDeleteGallery;
+  getGallery: GetGallery;
+  hardDeleteGallery: HardDeleteGallery;
   logger: Logger;
 }) {
   return async function hardDeleteGalleryController(

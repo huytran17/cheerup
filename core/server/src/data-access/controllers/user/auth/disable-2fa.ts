@@ -1,10 +1,10 @@
 import { Request } from "express";
 import Moment from "moment";
 import { TwoFAType } from "../../../../database/interfaces/two-factor-authentication";
-import { IGetUser } from "../../../../use-cases/user/get-user";
-import { IGetTwoFactorAuthenticationByEmailAndCode } from "../../../../use-cases/two-factor-authentication/get-two-factor-authentication-by-email-and-code";
-import { IHardDeleteTwoFactorAuthentication } from "../../../../use-cases/two-factor-authentication/hard-delete-two-factor-authentication";
-import { IUpdateUser } from "../../../../use-cases/user/update-user";
+import { GetUser } from "../../../../use-cases/user/get-user";
+import { GetTwoFactorAuthenticationByEmailAndCode } from "../../../../use-cases/two-factor-authentication/get-two-factor-authentication-by-email-and-code";
+import { HardDeleteTwoFactorAuthentication } from "../../../../use-cases/two-factor-authentication/hard-delete-two-factor-authentication";
+import { UpdateUser } from "../../../../use-cases/user/update-user";
 import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -16,10 +16,10 @@ export default function makeDisable2FAController({
   hardDeleteTwoFactorAuthentication,
   moment,
 }: {
-  getUser: IGetUser;
-  updateUser: IUpdateUser;
-  getTwoFactorAuthenticationByEmailAndCode: IGetTwoFactorAuthenticationByEmailAndCode;
-  hardDeleteTwoFactorAuthentication: IHardDeleteTwoFactorAuthentication;
+  getUser: GetUser;
+  updateUser: UpdateUser;
+  getTwoFactorAuthenticationByEmailAndCode: GetTwoFactorAuthenticationByEmailAndCode;
+  hardDeleteTwoFactorAuthentication: HardDeleteTwoFactorAuthentication;
   moment: typeof Moment;
 }) {
   return async function disable2FAController(

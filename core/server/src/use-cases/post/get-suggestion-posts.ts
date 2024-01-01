@@ -1,7 +1,7 @@
 import IPost from "../../database/interfaces/post";
 import IPostDb from "../../data-access/interfaces/post-db";
 
-export type IGetSuggestionPosts = ({
+export type GetSuggestionPosts = ({
   amount,
   categories,
   exclude_ids,
@@ -15,7 +15,7 @@ export default function makeGetSuggestionPosts({
   postDb,
 }: {
   postDb: IPostDb;
-}): IGetSuggestionPosts {
+}): GetSuggestionPosts {
   return async function getSuggestionPosts({
     amount,
     categories,

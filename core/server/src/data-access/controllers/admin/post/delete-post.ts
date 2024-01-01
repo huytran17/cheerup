@@ -1,5 +1,5 @@
-import { IGetPost } from "../../../../use-cases/post/get-post";
-import { IDeletePost } from "../../../../use-cases/post/delete-post";
+import { GetPost } from "../../../../use-cases/post/get-post";
+import { DeletePost } from "../../../../use-cases/post/delete-post";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get } from "lodash";
@@ -11,8 +11,8 @@ export default function makeDeletePostController({
   deletePost,
   logger,
 }: {
-  getPost: IGetPost;
-  deletePost: IDeletePost;
+  getPost: GetPost;
+  deletePost: DeletePost;
   logger: Logger;
 }) {
   return async function deletePostController(

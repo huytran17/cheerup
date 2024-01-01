@@ -1,7 +1,7 @@
 import IPostBookmark from "../../database/interfaces/post-bookmark";
 import IPostBookmarkDb from "../../data-access/interfaces/post-bookmark-db";
 
-export type IHardDeletePostBookmark = ({
+export type HardDeletePostBookmark = ({
   _id,
 }: {
   _id: string;
@@ -11,7 +11,7 @@ export default function makeHardDeletePostBookmark({
   postBookmarkDb,
 }: {
   postBookmarkDb: IPostBookmarkDb;
-}): IHardDeletePostBookmark {
+}): HardDeletePostBookmark {
   return async function hardDeletePostBookmark({ _id }) {
     return await postBookmarkDb.hardDelete({ _id });
   };

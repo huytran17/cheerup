@@ -1,6 +1,6 @@
 import { get, omit } from "lodash";
 import { Request } from "express";
-import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
+import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { IGenerateAccessToken } from "../../../../config/accessTokenManager/generate-access-token";
 import { IVerifyPassword } from "../../../../config/password/verify-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -16,7 +16,7 @@ export default function makeSignInController({
   generateAccessToken,
   verifyPassword,
 }: {
-  getUserByEmail: IGetUserByEmail;
+  getUserByEmail: GetUserByEmail;
   generateAccessToken: IGenerateAccessToken;
   verifyPassword: IVerifyPassword;
 }) {

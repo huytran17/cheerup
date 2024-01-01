@@ -1,5 +1,5 @@
-import { IGetUser } from "../../../../use-cases/user/get-user";
-import { IRestoreUser } from "../../../../use-cases/user/restore-user";
+import { GetUser } from "../../../../use-cases/user/get-user";
+import { RestoreUser } from "../../../../use-cases/user/restore-user";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get } from "lodash";
@@ -11,8 +11,8 @@ export default function makeRestoreUserController({
   restoreUser,
   logger,
 }: {
-  getUser: IGetUser;
-  restoreUser: IRestoreUser;
+  getUser: GetUser;
+  restoreUser: RestoreUser;
   logger: Logger;
 }) {
   return async function restoreUserController(

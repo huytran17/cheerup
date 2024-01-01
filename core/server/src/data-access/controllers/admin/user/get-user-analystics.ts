@@ -1,12 +1,12 @@
 import { Request } from "express";
-import { IGetUserAnalystics } from "../../../../use-cases/user/get-user-analystics";
+import { GetUserAnalystics } from "../../../../use-cases/user/get-user-analystics";
 import { get, sortBy, split } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetUserAnalysticsController({
   getUserAnalystics,
 }: {
-  getUserAnalystics: IGetUserAnalystics;
+  getUserAnalystics: GetUserAnalystics;
 }) {
   return async function getUserAnalysticsController(
     httpRequest: Request & { context: { validated: { user_id: string } } }

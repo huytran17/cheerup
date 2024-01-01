@@ -1,7 +1,7 @@
 import ICategory from "../../database/interfaces/category";
 import ICategoryDb from "../../data-access/interfaces/category-db";
 
-export type IGetCategory = ({
+export type GetCategory = ({
   _id,
   is_include_deleted,
 }: {
@@ -13,7 +13,7 @@ export default function makeGetCategory({
   categoryDb,
 }: {
   categoryDb: ICategoryDb;
-}): IGetCategory {
+}): GetCategory {
   return async function getCategory({ _id, is_include_deleted }) {
     return await categoryDb.findById({ _id, is_include_deleted });
   };

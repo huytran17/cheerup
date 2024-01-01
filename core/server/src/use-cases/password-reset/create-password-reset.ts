@@ -5,7 +5,7 @@ export interface ICreatePasswordResetData {
   passwordResetDetails: Omit<IPasswordReset, "_id" | "created_at">;
 }
 
-export type ICreatePasswordReset = ({
+export type CreatePasswordReset = ({
   passwordResetDetails,
 }: ICreatePasswordResetData) => Promise<IPasswordReset>;
 
@@ -13,7 +13,7 @@ export default function makeCreatePasswordReset({
   passwordResetDb,
 }: {
   passwordResetDb: IPasswordResetDb;
-}): ICreatePasswordReset {
+}): CreatePasswordReset {
   return async function createPasswordReset({ passwordResetDetails }) {
     return await passwordResetDb.insert(passwordResetDetails);
   };

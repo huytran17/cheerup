@@ -6,9 +6,9 @@ import { IGetEmailContent } from "../../../../config/emailManager/get-email-cont
 import { IRenderEmailContent } from "../../../../config/emailManager/render-email-content";
 import { ISendEmail } from "../../../../config/emailManager/send-email";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { IGetPost } from "../../../../use-cases/post/get-post";
-import { IUpdatePost } from "../../../../use-cases/post/update-post";
-import { IGetActivatingSubscriptions } from "../../../../use-cases/subscription/get-activating-subscriptions";
+import { GetPost } from "../../../../use-cases/post/get-post";
+import { UpdatePost } from "../../../../use-cases/post/update-post";
+import { GetActivatingSubscriptions } from "../../../../use-cases/subscription/get-activating-subscriptions";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makePublishPostController({
@@ -20,9 +20,9 @@ export default function makePublishPostController({
   sendEmail,
   logger,
 }: {
-  getPost: IGetPost;
-  updatePost: IUpdatePost;
-  getActivatingSubscriptions: IGetActivatingSubscriptions;
+  getPost: GetPost;
+  updatePost: UpdatePost;
+  getActivatingSubscriptions: GetActivatingSubscriptions;
   getEmailContent: IGetEmailContent;
   renderEmailContent: IRenderEmailContent;
   sendEmail: ISendEmail;

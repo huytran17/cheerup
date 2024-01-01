@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { IGetCategoryBySlug } from "../../../../use-cases/category/get-category-by-slug";
+import { GetCategoryBySlug } from "../../../../use-cases/category/get-category-by-slug";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -7,7 +7,7 @@ import { isEmpty } from "../../../../utils/is-empty";
 export default function makeGetCategoryBySlugController({
   getCategoryBySlug,
 }: {
-  getCategoryBySlug: IGetCategoryBySlug;
+  getCategoryBySlug: GetCategoryBySlug;
 }) {
   return async function getCategoryBySlugController(
     httpRequest: Request & { context: { validated: {} } }

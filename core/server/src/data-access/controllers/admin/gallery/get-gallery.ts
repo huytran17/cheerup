@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { IGetGallery } from "../../../../use-cases/gallery/get-gallery";
+import { GetGallery } from "../../../../use-cases/gallery/get-gallery";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -7,7 +7,7 @@ import { isEmpty } from "../../../../utils/is-empty";
 export default function makeGetGalleryController({
   getGallery,
 }: {
-  getGallery: IGetGallery;
+  getGallery: GetGallery;
 }) {
   return async function getGalleryController(
     httpRequest: Request & { context: { validated: {} } }

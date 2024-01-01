@@ -1,7 +1,7 @@
-import { IGetComment } from "../../../../use-cases/comment/get-comment";
-import { IUpdateComment } from "../../../../use-cases/comment/update-comment";
-import { IGetPost } from "../../../../use-cases/post/get-post";
-import { IGetUser } from "../../../../use-cases/user/get-user";
+import { GetComment } from "../../../../use-cases/comment/get-comment";
+import { UpdateComment } from "../../../../use-cases/comment/update-comment";
+import { GetPost } from "../../../../use-cases/post/get-post";
+import { GetUser } from "../../../../use-cases/user/get-user";
 import { Request } from "express";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -13,10 +13,10 @@ export default function makeUpdateCommentController({
   getPost,
   getUser,
 }: {
-  getComment: IGetComment;
-  updateComment: IUpdateComment;
-  getPost: IGetPost;
-  getUser: IGetUser;
+  getComment: GetComment;
+  updateComment: UpdateComment;
+  getPost: GetPost;
+  getUser: GetUser;
 }) {
   return async function updateCommentController(
     httpRequest: Request & { context: { validated: {} } }

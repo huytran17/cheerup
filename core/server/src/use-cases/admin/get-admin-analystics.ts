@@ -5,7 +5,7 @@ import Redis from "../../config/redis";
 import { Logger } from "winston";
 import { AdminType } from "../../database/interfaces/admin";
 
-export type IGetAdminAnalystics = ({
+export type GetAdminAnalystics = ({
   range,
   unit,
   author_type,
@@ -23,7 +23,7 @@ export default function makeGetAdminAnalystics({
   adminDb: IAdminDb;
   redis: Redis;
   logger: Logger;
-}): IGetAdminAnalystics {
+}): GetAdminAnalystics {
   return async function getAdminAnalystics({ unit, range, author_type }) {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "getAdminAnalystics",

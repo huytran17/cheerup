@@ -1,5 +1,5 @@
-import { IGetPost } from "../../../../use-cases/post/get-post";
-import { IHardDeletePost } from "../../../../use-cases/post/hard-delete-post";
+import { GetPost } from "../../../../use-cases/post/get-post";
+import { HardDeletePost } from "../../../../use-cases/post/hard-delete-post";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get } from "lodash";
@@ -11,8 +11,8 @@ export default function makeHardDeletePostController({
   hardDeletePost,
   logger,
 }: {
-  getPost: IGetPost;
-  hardDeletePost: IHardDeletePost;
+  getPost: GetPost;
+  hardDeletePost: HardDeletePost;
   logger: Logger;
 }) {
   return async function hardDeletePostController(

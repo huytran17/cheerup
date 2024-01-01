@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { IGetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email";
+import { GetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -7,7 +7,7 @@ import { isEmpty } from "../../../../utils/is-empty";
 export default function makeGetAdminByEmailController({
   getAdminByEmail,
 }: {
-  getAdminByEmail: IGetAdminByEmail;
+  getAdminByEmail: GetAdminByEmail;
 }) {
   return async function getAdminByEmailController(
     httpRequest: Request & { context: { validated: {} } }

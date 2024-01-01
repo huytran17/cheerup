@@ -1,5 +1,5 @@
-import { IGetAdmin } from "../../../../use-cases/admin/get-admin";
-import { IUpdateAdmin } from "../../../../use-cases/admin/update-admin";
+import { GetAdmin } from "../../../../use-cases/admin/get-admin";
+import { UpdateAdmin } from "../../../../use-cases/admin/update-admin";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get, merge } from "lodash";
@@ -15,8 +15,8 @@ export default function makeUpdateAdminPersonalPasswordController({
   verifyPassword,
   logger,
 }: {
-  getAdmin: IGetAdmin;
-  updateAdmin: IUpdateAdmin;
+  getAdmin: GetAdmin;
+  updateAdmin: UpdateAdmin;
   hashPassword: IHashPassword;
   verifyPassword: IVerifyPassword;
   logger: Logger;

@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { get } from "lodash";
-import { IGetLatestSystemConfiguration } from "../../../../use-cases/system-configuration/get-latest-system-configuration";
-import { IUpdateSystemConfiguration } from "../../../../use-cases/system-configuration/update-system-configuraion";
+import { GetLatestSystemConfiguration } from "../../../../use-cases/system-configuration/get-latest-system-configuration";
+import { UpdateSystemConfiguration } from "../../../../use-cases/system-configuration/update-system-configuraion";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 import deleteS3Object from "../../../../utils/delete-s3-object";
@@ -10,8 +10,8 @@ export default function makeUploadFolderIconController({
   getLatestSystemConfiguration,
   updateSystemConfiguration,
 }: {
-  getLatestSystemConfiguration: IGetLatestSystemConfiguration;
-  updateSystemConfiguration: IUpdateSystemConfiguration;
+  getLatestSystemConfiguration: GetLatestSystemConfiguration;
+  updateSystemConfiguration: UpdateSystemConfiguration;
 }) {
   return async function uploadFolderIconController(
     httpRequest: Request & { context: { validated: {} } }

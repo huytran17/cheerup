@@ -1,8 +1,8 @@
 import { AdminType } from "../../database/interfaces/admin";
 import { Logger } from "winston";
 import { IHashPassword } from "../../config/password/hash-password";
-import { ICreateAdmin } from "../../use-cases/admin/create-admin";
-import { IGetOneAdmin } from "../../use-cases/admin/get-one-admin";
+import { CreateAdmin } from "../../use-cases/admin/create-admin";
+import { GetOneAdmin } from "../../use-cases/admin/get-one-admin";
 import _ from "lodash";
 import { isEmpty } from "../../utils/is-empty";
 
@@ -14,9 +14,9 @@ export default function makeCreateDefaultAdmin({
   createAdmin,
   logger,
 }: {
-  getOneAdmin: IGetOneAdmin;
+  getOneAdmin: GetOneAdmin;
   hashPassword: IHashPassword;
-  createAdmin: ICreateAdmin;
+  createAdmin: CreateAdmin;
   logger: Logger;
 }): DefaultAdmin {
   return async function createDefaultAdmin() {

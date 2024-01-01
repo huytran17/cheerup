@@ -5,7 +5,7 @@ export interface IUpdateGalleryData {
   galleryDetails: IGallery;
 }
 
-export type IUpdateGallery = ({
+export type UpdateGallery = ({
   galleryDetails,
 }: IUpdateGalleryData) => Promise<IGallery>;
 
@@ -13,7 +13,7 @@ export default function makeUpdateGallery({
   galleryDb,
 }: {
   galleryDb: IGalleryDb;
-}): IUpdateGallery {
+}): UpdateGallery {
   return async function updateGallery({ galleryDetails }) {
     return await galleryDb.update(galleryDetails);
   };

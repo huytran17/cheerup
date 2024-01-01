@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { IGetSystemConfiguration } from "../../../../use-cases/system-configuration/get-system-configuraion";
+import { GetSystemConfiguration } from "../../../../use-cases/system-configuration/get-system-configuraion";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -7,7 +7,7 @@ import { isEmpty } from "../../../../utils/is-empty";
 export default function makeGetSystemConfigurationController({
   getSystemConfiguration,
 }: {
-  getSystemConfiguration: IGetSystemConfiguration;
+  getSystemConfiguration: GetSystemConfiguration;
 }) {
   return async function getSystemConfigurationController(
     httpRequest: Request & { context: { validated: {} } }

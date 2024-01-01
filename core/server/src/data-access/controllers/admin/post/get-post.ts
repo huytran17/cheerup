@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { IGetPost } from "../../../../use-cases/post/get-post";
+import { GetPost } from "../../../../use-cases/post/get-post";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -7,7 +7,7 @@ import { isEmpty } from "../../../../utils/is-empty";
 export default function makeGetPostController({
   getPost,
 }: {
-  getPost: IGetPost;
+  getPost: GetPost;
 }) {
   return async function getPostController(
     httpRequest: Request & { context: { validated: {} } }

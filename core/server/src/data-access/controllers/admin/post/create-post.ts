@@ -6,10 +6,10 @@ import { IGetEmailContent } from "../../../../config/emailManager/get-email-cont
 import { IRenderEmailContent } from "../../../../config/emailManager/render-email-content";
 import { ISendEmail } from "../../../../config/emailManager/send-email";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { IGetAdmin } from "../../../../use-cases/admin/get-admin";
-import { ICreatePost } from "../../../../use-cases/post/create-post";
-import { IUpdatePost } from "../../../../use-cases/post/update-post";
-import { IGetActivatingSubscriptions } from "../../../../use-cases/subscription/get-activating-subscriptions";
+import { GetAdmin } from "../../../../use-cases/admin/get-admin";
+import { CreatePost } from "../../../../use-cases/post/create-post";
+import { UpdatePost } from "../../../../use-cases/post/update-post";
+import { GetActivatingSubscriptions } from "../../../../use-cases/subscription/get-activating-subscriptions";
 
 export default function makeCreatePostController({
   createPost,
@@ -21,13 +21,13 @@ export default function makeCreatePostController({
   updatePost,
   logger,
 }: {
-  createPost: ICreatePost;
-  getAdmin: IGetAdmin;
-  getActivatingSubscriptions: IGetActivatingSubscriptions;
+  createPost: CreatePost;
+  getAdmin: GetAdmin;
+  getActivatingSubscriptions: GetActivatingSubscriptions;
   getEmailContent: IGetEmailContent;
   renderEmailContent: IRenderEmailContent;
   sendEmail: ISendEmail;
-  updatePost: IUpdatePost;
+  updatePost: UpdatePost;
   logger: Logger;
 }) {
   return async function createPostController(

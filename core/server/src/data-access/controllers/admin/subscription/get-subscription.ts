@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { IGetSubscription } from "../../../../use-cases/subscription/get-subscription";
+import { GetSubscription } from "../../../../use-cases/subscription/get-subscription";
 import { get } from "lodash";
 import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -8,7 +8,7 @@ import { isEmpty } from "../../../../utils/is-empty";
 export default function makeGetSubscriptionController({
   getSubscription,
 }: {
-  getSubscription: IGetSubscription;
+  getSubscription: GetSubscription;
 }) {
   return async function getSubscriptionController(
     httpRequest: Request & { context: { validated: {} } }

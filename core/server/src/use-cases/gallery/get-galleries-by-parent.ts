@@ -1,7 +1,7 @@
 import IGallery from "../../database/interfaces/gallery";
 import IGalleryDb from "../../data-access/interfaces/gallery-db";
 
-export type IGetGalleriesByParent = ({
+export type GetGalleriesByParent = ({
   parent_id,
 }: {
   parent_id: string;
@@ -11,7 +11,7 @@ export default function makeGetGalleriesByParent({
   galleryDb,
 }: {
   galleryDb: IGalleryDb;
-}): IGetGalleriesByParent {
+}): GetGalleriesByParent {
   return async function getGalleriesByParent({ parent_id }) {
     return await galleryDb.findAllByParent({ parent_id });
   };

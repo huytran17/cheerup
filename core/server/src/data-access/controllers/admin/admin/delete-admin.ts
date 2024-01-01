@@ -1,5 +1,5 @@
-import { IGetAdmin } from "../../../../use-cases/admin/get-admin";
-import { IDeleteAdmin } from "../../../../use-cases/admin/delete-admin";
+import { GetAdmin } from "../../../../use-cases/admin/get-admin";
+import { DeleteAdmin } from "../../../../use-cases/admin/delete-admin";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get } from "lodash";
@@ -11,8 +11,8 @@ export default function makeDeleteAdminController({
   deleteAdmin,
   logger,
 }: {
-  getAdmin: IGetAdmin;
-  deleteAdmin: IDeleteAdmin;
+  getAdmin: GetAdmin;
+  deleteAdmin: DeleteAdmin;
   logger: Logger;
 }) {
   return async function deleteAdminController(

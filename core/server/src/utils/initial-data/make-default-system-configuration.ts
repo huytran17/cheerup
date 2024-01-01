@@ -1,7 +1,7 @@
 import ISystemConfiguration from "../../database/interfaces/system-configuration";
 import { Logger } from "winston";
-import { ICreateSystemConfiguration } from "../../use-cases/system-configuration/create-system-configuration";
-import { IGetOneSystemConfiguration } from "../../use-cases/system-configuration/get-one-system-configuration";
+import { CreateSystemConfiguration } from "../../use-cases/system-configuration/create-system-configuration";
+import { GetOneSystemConfiguration } from "../../use-cases/system-configuration/get-one-system-configuration";
 import _ from "lodash";
 import { isEmpty } from "../../utils/is-empty";
 
@@ -12,8 +12,8 @@ export default function makeCreateDefaultSystemConfiguration({
   createSystemConfiguration,
   logger,
 }: {
-  getOneSystemConfiguration: IGetOneSystemConfiguration;
-  createSystemConfiguration: ICreateSystemConfiguration;
+  getOneSystemConfiguration: GetOneSystemConfiguration;
+  createSystemConfiguration: CreateSystemConfiguration;
   logger: Logger;
 }): DefaultSystemConfiguration {
   return async function createDefaultSystemConfiguration() {

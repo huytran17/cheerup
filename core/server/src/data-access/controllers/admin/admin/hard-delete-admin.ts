@@ -1,5 +1,5 @@
-import { IGetAdmin } from "../../../../use-cases/admin/get-admin";
-import { IHardDeleteAdmin } from "../../../../use-cases/admin/hard-delete-admin";
+import { GetAdmin } from "../../../../use-cases/admin/get-admin";
+import { HardDeleteAdmin } from "../../../../use-cases/admin/hard-delete-admin";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get } from "lodash";
@@ -11,8 +11,8 @@ export default function makeHardDeleteAdminController({
   hardDeleteAdmin,
   logger,
 }: {
-  getAdmin: IGetAdmin;
-  hardDeleteAdmin: IHardDeleteAdmin;
+  getAdmin: GetAdmin;
+  hardDeleteAdmin: HardDeleteAdmin;
   logger: Logger;
 }) {
   return async function hardDeleteAdminController(

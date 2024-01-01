@@ -4,7 +4,7 @@ import IPostDb, {
 import { Logger } from "winston";
 import Redis from "../../config/redis";
 
-export type IGetMostPopularPostsAnalystics = ({
+export type GetMostPopularPostsAnalystics = ({
   range,
   unit,
   limit,
@@ -22,7 +22,7 @@ export default function makeGetMostPopularPostsAnalystics({
   postDb: IPostDb;
   logger: Logger;
   redis: Redis;
-}): IGetMostPopularPostsAnalystics {
+}): GetMostPopularPostsAnalystics {
   return async function getMostPopularPostsAnalystics({ range, unit, limit }) {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "getMostPopularPostsAnalystics",

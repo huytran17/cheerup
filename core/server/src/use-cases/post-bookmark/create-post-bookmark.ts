@@ -5,7 +5,7 @@ export interface ICreatePostBookmarkData {
   postBookmarkDetails: Omit<IPostBookmark, "_id" | "created_at" | "updated_at">;
 }
 
-export type ICreatePostBookmark = ({
+export type CreatePostBookmark = ({
   postBookmarkDetails,
 }: ICreatePostBookmarkData) => Promise<IPostBookmark>;
 
@@ -13,7 +13,7 @@ export default function makeCreatePostBookmark({
   postBookmarkDb,
 }: {
   postBookmarkDb: IPostBookmarkDb;
-}): ICreatePostBookmark {
+}): CreatePostBookmark {
   return async function createPostBookmark({ postBookmarkDetails }) {
     return await postBookmarkDb.insert(postBookmarkDetails);
   };

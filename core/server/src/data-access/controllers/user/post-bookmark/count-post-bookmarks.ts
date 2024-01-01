@@ -1,6 +1,6 @@
 import { Request } from "express";
-import { ICountPostBookmarks } from "../../../../use-cases/post-bookmark/count-post-bookmarks";
-import { IGetUser } from "../../../../use-cases/user/get-user";
+import { CountPostBookmarks } from "../../../../use-cases/post-bookmark/count-post-bookmarks";
+import { GetUser } from "../../../../use-cases/user/get-user";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -9,8 +9,8 @@ export default function makeCountPostBookmarkController({
   countPostBookmarks,
   getUser,
 }: {
-  countPostBookmarks: ICountPostBookmarks;
-  getUser: IGetUser;
+  countPostBookmarks: CountPostBookmarks;
+  getUser: GetUser;
 }) {
   return async function countPostBookmarkController(
     httpRequest: Request & { context: { validated: {} } }

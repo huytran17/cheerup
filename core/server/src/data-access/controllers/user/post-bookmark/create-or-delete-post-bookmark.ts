@@ -1,8 +1,8 @@
-import { ICreatePostBookmark } from "../../../../use-cases/post-bookmark/create-post-bookmark";
-import { IHardDeletePostBookmark } from "../../../../use-cases/post-bookmark/hard-delete-post-bookmark";
-import { IGetPost } from "../../../../use-cases/post/get-post";
-import { IGetUser } from "../../../../use-cases/user/get-user";
-import { IGetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
+import { CreatePostBookmark } from "../../../../use-cases/post-bookmark/create-post-bookmark";
+import { HardDeletePostBookmark } from "../../../../use-cases/post-bookmark/hard-delete-post-bookmark";
+import { GetPost } from "../../../../use-cases/post/get-post";
+import { GetUser } from "../../../../use-cases/user/get-user";
+import { GetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
 import { Request } from "express";
 import { get, merge } from "lodash";
 import Moment from "moment";
@@ -17,11 +17,11 @@ export default function makeCreateOrDeletePostBookmarkController({
   getUser,
   moment,
 }: {
-  createPostBookmark: ICreatePostBookmark;
-  hardDeletePostBookmark: IHardDeletePostBookmark;
-  getPostBookmarkByUserAndPost: IGetPostBookmarkByUserAndPost;
-  getPost: IGetPost;
-  getUser: IGetUser;
+  createPostBookmark: CreatePostBookmark;
+  hardDeletePostBookmark: HardDeletePostBookmark;
+  getPostBookmarkByUserAndPost: GetPostBookmarkByUserAndPost;
+  getPost: GetPost;
+  getUser: GetUser;
   moment: typeof Moment;
 }) {
   return async function createOrDeletePostBookmarkController(

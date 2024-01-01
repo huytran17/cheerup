@@ -8,11 +8,11 @@ import { IRenderEmailContent } from "../../../../config/emailManager/render-emai
 import { ISendEmail } from "../../../../config/emailManager/send-email";
 import { get, omit, map } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { ICreateTwoFactorAuthentication } from "../../../../use-cases/two-factor-authentication/create-two-factor-authentication";
-import { IGetTwoFactorAuthenticationByEmailAndCode } from "../../../../use-cases/two-factor-authentication/get-two-factor-authentication-by-email-and-code";
-import { IGetTwoFactorAuthenticationByEmail } from "../../../../use-cases/two-factor-authentication/get-two-factor-authentication-by-email";
-import { IHardDeleteTwoFactorAuthentication } from "../../../../use-cases/two-factor-authentication/hard-delete-two-factor-authentication";
-import { IGetUser } from "../../../../use-cases/user/get-user";
+import { CreateTwoFactorAuthentication } from "../../../../use-cases/two-factor-authentication/create-two-factor-authentication";
+import { GetTwoFactorAuthenticationByEmailAndCode } from "../../../../use-cases/two-factor-authentication/get-two-factor-authentication-by-email-and-code";
+import { GetTwoFactorAuthenticationByEmail } from "../../../../use-cases/two-factor-authentication/get-two-factor-authentication-by-email";
+import { HardDeleteTwoFactorAuthentication } from "../../../../use-cases/two-factor-authentication/hard-delete-two-factor-authentication";
+import { GetUser } from "../../../../use-cases/user/get-user";
 import { isEmpty } from "../../../../utils/is-empty";
 import { Logger } from "winston";
 
@@ -28,11 +28,11 @@ export default function makeDisable2FAConfirmationController({
   logger,
   moment,
 }: {
-  createTwoFactorAuthentication: ICreateTwoFactorAuthentication;
-  getTwoFactorAuthenticationByEmail: IGetTwoFactorAuthenticationByEmail;
-  hardDeleteTwoFactorAuthentication: IHardDeleteTwoFactorAuthentication;
-  getTwoFactorAuthenticationByEmailAndCode: IGetTwoFactorAuthenticationByEmailAndCode;
-  getUser: IGetUser;
+  createTwoFactorAuthentication: CreateTwoFactorAuthentication;
+  getTwoFactorAuthenticationByEmail: GetTwoFactorAuthenticationByEmail;
+  hardDeleteTwoFactorAuthentication: HardDeleteTwoFactorAuthentication;
+  getTwoFactorAuthenticationByEmailAndCode: GetTwoFactorAuthenticationByEmailAndCode;
+  getUser: GetUser;
   getEmailContent: IGetEmailContent;
   renderEmailContent: IRenderEmailContent;
   sendEmail: ISendEmail;

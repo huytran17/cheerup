@@ -1,7 +1,7 @@
 import ITwoFactorAuthentication from "../../database/interfaces/two-factor-authentication";
 import ITwoFactorAuthenticationDb from "../../data-access/interfaces/two-factor-authentication-db";
 
-export type IGetTwoFactorAuthenticationByEmailAndCode = ({
+export type GetTwoFactorAuthenticationByEmailAndCode = ({
   email,
   code,
   type,
@@ -15,7 +15,7 @@ export default function makeGetTwoFactorAuthenticationByEmailAndCode({
   twoFactorAuthenticationDb,
 }: {
   twoFactorAuthenticationDb: ITwoFactorAuthenticationDb;
-}): IGetTwoFactorAuthenticationByEmailAndCode {
+}): GetTwoFactorAuthenticationByEmailAndCode {
   return async function getTwoFactorAuthenticationByEmailAndCode({
     email,
     code,

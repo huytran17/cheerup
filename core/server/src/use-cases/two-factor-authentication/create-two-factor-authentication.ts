@@ -8,7 +8,7 @@ export interface ICreateTwoFactorAuthenticationData {
   >;
 }
 
-export type ICreateTwoFactorAuthentication = ({
+export type CreateTwoFactorAuthentication = ({
   twoFactorAuthenticationDetails,
 }: ICreateTwoFactorAuthenticationData) => Promise<ITwoFactorAuthentication>;
 
@@ -16,7 +16,7 @@ export default function makeCreateTwoFactorAuthentication({
   twoFactorAuthenticationDb,
 }: {
   twoFactorAuthenticationDb: ITwoFactorAuthenticationDb;
-}): ICreateTwoFactorAuthentication {
+}): CreateTwoFactorAuthentication {
   return async function createTwoFactorAuthentication({
     twoFactorAuthenticationDetails,
   }) {

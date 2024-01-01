@@ -5,7 +5,7 @@ export interface ICreateSubscriptionData {
   subscriptionDetails: Omit<ISubscription, "_id">;
 }
 
-export type ICreateSubscription = ({
+export type CreateSubscription = ({
   subscriptionDetails,
 }: ICreateSubscriptionData) => Promise<ISubscription>;
 
@@ -13,7 +13,7 @@ export default function makeCreateSubscription({
   subscriptionDb,
 }: {
   subscriptionDb: ISubscriptionDb;
-}): ICreateSubscription {
+}): CreateSubscription {
   return async function createSubscription({ subscriptionDetails }) {
     return await subscriptionDb.insert(subscriptionDetails);
   };

@@ -1,11 +1,11 @@
 import { Request } from "express";
-import { IGetComment } from "../../../../use-cases/comment/get-comment";
+import { GetComment } from "../../../../use-cases/comment/get-comment";
 import { get, map, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 import { CommentLikeType } from "../../../../database/interfaces/comment-like";
-import { ICountCommentLikeByCommentAndType } from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
-import { IGetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
+import { CountCommentLikeByCommentAndType } from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
+import { GetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
 import IComment from "../../../../database/interfaces/comment";
 
 export default function makeGetCommentController({
@@ -13,9 +13,9 @@ export default function makeGetCommentController({
   countCommentLikeByCommentAndType,
   getCommentLikeByUserAndComment,
 }: {
-  getComment: IGetComment;
-  countCommentLikeByCommentAndType: ICountCommentLikeByCommentAndType;
-  getCommentLikeByUserAndComment: IGetCommentLikeByUserAndComment;
+  getComment: GetComment;
+  countCommentLikeByCommentAndType: CountCommentLikeByCommentAndType;
+  getCommentLikeByUserAndComment: GetCommentLikeByUserAndComment;
 }) {
   return async function getCommentController(
     httpRequest: Request & { context: { validated: {} } }

@@ -1,7 +1,7 @@
 import IComment from "../../database/interfaces/comment";
 import ICommentDb from "../../data-access/interfaces/comment-db";
 
-export type IGetComment = ({
+export type GetComment = ({
   _id,
   is_only_parent,
   is_show_children,
@@ -15,7 +15,7 @@ export default function makeGetComment({
   commentDb,
 }: {
   commentDb: ICommentDb;
-}): IGetComment {
+}): GetComment {
   return async function getComment({ _id, is_only_parent, is_show_children }) {
     return await commentDb.findById({
       _id,

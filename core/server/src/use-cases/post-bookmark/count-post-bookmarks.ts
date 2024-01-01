@@ -4,7 +4,7 @@ export interface ICountPostBookmarksData {
   user_id: string;
 }
 
-export type ICountPostBookmarks = ({
+export type CountPostBookmarks = ({
   user_id,
 }: ICountPostBookmarksData) => Promise<number>;
 
@@ -12,7 +12,7 @@ export default function makeCountPostBookmarks({
   postBookmarkDb,
 }: {
   postBookmarkDb: IPostBookmarkDb;
-}): ICountPostBookmarks {
+}): CountPostBookmarks {
   return async function countPostBookmarks({ user_id }) {
     return await postBookmarkDb.countPostBookmarks({ user_id });
   };

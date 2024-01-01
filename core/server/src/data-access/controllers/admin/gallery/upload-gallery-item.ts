@@ -1,7 +1,7 @@
 import { get, concat, merge } from "lodash";
 import { Request } from "express";
-import { IUpdateGallery } from "../../../../use-cases/gallery/update-gallery";
-import { IGetGallery } from "../../../../use-cases/gallery/get-gallery";
+import { UpdateGallery } from "../../../../use-cases/gallery/update-gallery";
+import { GetGallery } from "../../../../use-cases/gallery/get-gallery";
 import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -11,8 +11,8 @@ export default function makeUploadGalleryItemController({
   updateGallery,
   logger,
 }: {
-  getGallery: IGetGallery;
-  updateGallery: IUpdateGallery;
+  getGallery: GetGallery;
+  updateGallery: UpdateGallery;
   logger: Logger;
 }) {
   return async function uploadGalleryItemController(

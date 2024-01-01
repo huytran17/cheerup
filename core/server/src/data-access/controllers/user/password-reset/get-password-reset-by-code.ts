@@ -3,7 +3,7 @@ import { get } from "lodash";
 import Moment from "moment";
 import { IGenerateAccessToken } from "../../../../config/accessTokenManager/generate-access-token";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { IGetPasswordResetByCode } from "../../../../use-cases/password-reset/get-password-reset-by-code";
+import { GetPasswordResetByCode } from "../../../../use-cases/password-reset/get-password-reset-by-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetPasswordResetByEmailAndCodeController({
@@ -11,7 +11,7 @@ export default function makeGetPasswordResetByEmailAndCodeController({
   generateAccessToken,
   moment,
 }: {
-  getPasswordResetByCode: IGetPasswordResetByCode;
+  getPasswordResetByCode: GetPasswordResetByCode;
   generateAccessToken: IGenerateAccessToken;
   moment: typeof Moment;
 }) {

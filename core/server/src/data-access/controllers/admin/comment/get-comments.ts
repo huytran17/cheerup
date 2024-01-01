@@ -1,11 +1,11 @@
 import { Request } from "express";
-import { IGetComments } from "../../../../use-cases/comment/get-comments";
+import { GetComments } from "../../../../use-cases/comment/get-comments";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetCommentsController({
   getComments,
 }: {
-  getComments: IGetComments;
+  getComments: GetComments;
 }) {
   return async function getCommentsController(
     httpRequest: Request & { context: { validated: {} } }

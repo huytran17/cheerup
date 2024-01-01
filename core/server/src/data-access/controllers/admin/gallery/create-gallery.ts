@@ -1,4 +1,4 @@
-import { ICreateGallery } from "../../../../use-cases/gallery/create-gallery";
+import { CreateGallery } from "../../../../use-cases/gallery/create-gallery";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get, merge } from "lodash";
@@ -8,7 +8,7 @@ export default function makeCreateGalleryController({
   createGallery,
   logger,
 }: {
-  createGallery: ICreateGallery;
+  createGallery: CreateGallery;
   logger: Logger;
 }) {
   return async function createGalleryController(

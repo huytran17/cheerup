@@ -1,7 +1,7 @@
 import { Request } from "express";
-import { IGetPostBookmarksPaginated } from "../../../../use-cases/post-bookmark/get-post-bookmarks-paginated";
-import { ICountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
-import { IGetUser } from "../../../../use-cases/user/get-user";
+import { GetPostBookmarksPaginated } from "../../../../use-cases/post-bookmark/get-post-bookmarks-paginated";
+import { CountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
+import { GetUser } from "../../../../use-cases/user/get-user";
 import { IReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import { get, map, replace } from "lodash";
 import PostBookmark from "../../../../database/entities/post-bookmark";
@@ -16,10 +16,10 @@ export default function makeGetPostBookmarksPaginatedController({
   readingTimeAnalyzer,
   getUser,
 }: {
-  getPostBookmarksPaginated: IGetPostBookmarksPaginated;
-  countCommentsByPost: ICountCommentsByPost;
+  getPostBookmarksPaginated: GetPostBookmarksPaginated;
+  countCommentsByPost: CountCommentsByPost;
   readingTimeAnalyzer: IReadingTimeAnalyzer;
-  getUser: IGetUser;
+  getUser: GetUser;
 }) {
   return async function getPostBookmarksPaginatedController(
     httpRequest: Request & { context: { validated: {} } }

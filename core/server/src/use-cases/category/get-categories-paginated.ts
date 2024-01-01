@@ -2,7 +2,7 @@ import ICategoryDb, {
   IPaginatedCategoryResult,
 } from "../../data-access/interfaces/category-db";
 
-export type IGetCategoriesPaginated = ({
+export type GetCategoriesPaginated = ({
   query,
   page,
   entries_per_page,
@@ -16,7 +16,7 @@ export default function makeGetCategoriesPaginated({
   categoryDb,
 }: {
   categoryDb: ICategoryDb;
-}): IGetCategoriesPaginated {
+}): GetCategoriesPaginated {
   return async function getCategoriesPaginated({
     query,
     page,

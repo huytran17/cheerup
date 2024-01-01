@@ -2,7 +2,7 @@ import ICommentDb, {
   IPaginatedCommentResult,
 } from "../../data-access/interfaces/comment-db";
 
-export type IGetCommentsByPostPaginated = (
+export type GetCommentsByPostPaginated = (
   {
     post_id,
   }: {
@@ -23,7 +23,7 @@ export default function makeGetCommentsByPostPaginated({
   commentDb,
 }: {
   commentDb: ICommentDb;
-}): IGetCommentsByPostPaginated {
+}): GetCommentsByPostPaginated {
   return async function getCommentsByPostPaginated(
     { post_id },
     { query, page, entries_per_page }

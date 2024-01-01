@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { IGetUser } from "../../../../use-cases/user/get-user";
+import { GetUser } from "../../../../use-cases/user/get-user";
 import { get, merge, omit } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -7,7 +7,7 @@ import { isEmpty } from "../../../../utils/is-empty";
 export default function makeGetUserController({
   getUser,
 }: {
-  getUser: IGetUser;
+  getUser: GetUser;
 }) {
   return async function getUserController(
     httpRequest: Request & { context: { validated: {} } }

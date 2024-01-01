@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { IGetCategory } from "../../../../use-cases/category/get-category";
+import { GetCategory } from "../../../../use-cases/category/get-category";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -7,7 +7,7 @@ import { isEmpty } from "../../../../utils/is-empty";
 export default function makeGetCategoryController({
   getCategory,
 }: {
-  getCategory: IGetCategory;
+  getCategory: GetCategory;
 }) {
   return async function getCategoryController(
     httpRequest: Request & { context: { validated: {} } }

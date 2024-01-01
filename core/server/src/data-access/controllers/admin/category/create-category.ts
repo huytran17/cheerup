@@ -1,6 +1,6 @@
-import { ICreateCategory } from "../../../../use-cases/category/create-category";
-import { IUpdateCategory } from "../../../../use-cases/category/update-category";
-import { IGetCategoryByTitle } from "../../../../use-cases/category/get-category-by-title";
+import { CreateCategory } from "../../../../use-cases/category/create-category";
+import { UpdateCategory } from "../../../../use-cases/category/update-category";
+import { GetCategoryByTitle } from "../../../../use-cases/category/get-category-by-title";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get, merge } from "lodash";
@@ -13,9 +13,9 @@ export default function makeCreateCategoryController({
   getCategoryByTitle,
   logger,
 }: {
-  createCategory: ICreateCategory;
-  updateCategory: IUpdateCategory;
-  getCategoryByTitle: IGetCategoryByTitle;
+  createCategory: CreateCategory;
+  updateCategory: UpdateCategory;
+  getCategoryByTitle: GetCategoryByTitle;
   logger: Logger;
 }) {
   return async function createCategoryController(

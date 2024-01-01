@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { IGetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
+import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { get, omit, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { tfa } from "../../../../config/tfa";
@@ -8,7 +8,7 @@ import { isEmpty } from "../../../../utils/is-empty";
 export default function makeVerify2FAController({
   getUserByEmail,
 }: {
-  getUserByEmail: IGetUserByEmail;
+  getUserByEmail: GetUserByEmail;
 }) {
   return async function verify2FAController(
     httpRequest: Request & { context: { validated: { user_id: string } } }

@@ -5,7 +5,7 @@ export interface IUpdateCommentData {
   commentDetails: Omit<IComment, "_id">;
 }
 
-export type IUpdateComment = ({
+export type UpdateComment = ({
   commentDetails,
 }: IUpdateCommentData) => Promise<IComment>;
 
@@ -13,7 +13,7 @@ export default function makeUpdateComment({
   commentDb,
 }: {
   commentDb: ICommentDb;
-}): IUpdateComment {
+}): UpdateComment {
   return async function updateComment({ commentDetails }) {
     return await commentDb.update(commentDetails);
   };

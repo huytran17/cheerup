@@ -5,7 +5,7 @@ export interface IUpdateAdminData {
   adminDetails: Omit<IAdmin, "_id">;
 }
 
-export type IUpdateAdmin = ({
+export type UpdateAdmin = ({
   adminDetails,
 }: IUpdateAdminData) => Promise<IAdmin>;
 
@@ -13,7 +13,7 @@ export default function makeUpdateAdmin({
   adminDb,
 }: {
   adminDb: IAdminDb;
-}): IUpdateAdmin {
+}): UpdateAdmin {
   return async function updateAdmin({ adminDetails }) {
     return await adminDb.update(adminDetails);
   };

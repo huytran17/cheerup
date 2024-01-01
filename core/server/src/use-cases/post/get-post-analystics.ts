@@ -2,7 +2,7 @@ import IPostDb, { IPostAnalytics } from "../../data-access/interfaces/post-db";
 import Redis from "../../config/redis";
 import { Logger } from "winston";
 
-export type IGetPostAnalystics = ({
+export type GetPostAnalystics = ({
   range,
   unit,
 }: {
@@ -18,7 +18,7 @@ export default function makeGetPostAnalystics({
   postDb: IPostDb;
   redis: Redis;
   logger: Logger;
-}): IGetPostAnalystics {
+}): GetPostAnalystics {
   return async function getPostAnalystics({ unit, range }) {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "getPostAnalystics",

@@ -5,7 +5,7 @@ export interface ICreateCommentData {
   commentDetails: Omit<IComment, "_id">;
 }
 
-export type ICreateComment = ({
+export type CreateComment = ({
   commentDetails,
 }: ICreateCommentData) => Promise<IComment>;
 
@@ -13,7 +13,7 @@ export default function makeCreateComment({
   commentDb,
 }: {
   commentDb: ICommentDb;
-}): ICreateComment {
+}): CreateComment {
   return async function createComment({ commentDetails }) {
     return await commentDb.insert(commentDetails);
   };

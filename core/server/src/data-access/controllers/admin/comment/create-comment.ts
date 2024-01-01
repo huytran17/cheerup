@@ -1,4 +1,4 @@
-import { ICreateComment } from "../../../../use-cases/comment/create-comment";
+import { CreateComment } from "../../../../use-cases/comment/create-comment";
 import { Request } from "express";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -6,7 +6,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 export default function makeCreateCommentController({
   createComment,
 }: {
-  createComment: ICreateComment;
+  createComment: CreateComment;
 }) {
   return async function createCommentController(
     httpRequest: Request & { context: { validated: {} } }

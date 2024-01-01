@@ -1,13 +1,13 @@
 import IPost from "../../database/interfaces/post";
 import IPostDb from "../../data-access/interfaces/post-db";
 
-export type IGetPostsForSEO = () => Promise<IPost[]>;
+export type GetPostsForSEO = () => Promise<IPost[]>;
 
 export default function makeGetPostsForSEO({
   postDb,
 }: {
   postDb: IPostDb;
-}): IGetPostsForSEO {
+}): GetPostsForSEO {
   return async function getPostsForSEO() {
     return await postDb.findAllForSEO();
   };
