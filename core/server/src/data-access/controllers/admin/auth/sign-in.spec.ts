@@ -1,5 +1,4 @@
 import moment from "moment";
-import { omit } from "lodash";
 import {
   connectDatabase,
   clearDatabase,

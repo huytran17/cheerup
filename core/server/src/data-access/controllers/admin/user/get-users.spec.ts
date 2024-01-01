@@ -4,7 +4,6 @@ import {
   clearDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
-import { logger } from "../../../../../__tests__/jest-logger";
 import { redis } from "../../../../../__tests__/jest-redis";
 import makeUserDb from "../../../make-user-db";
 import { UserModel } from "../../../models";

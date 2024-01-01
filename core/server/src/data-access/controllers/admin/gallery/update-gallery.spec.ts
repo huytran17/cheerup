@@ -1,4 +1,3 @@
-import moment from "moment";
 import {
   connectDatabase,
   clearDatabase,
@@ -30,7 +29,6 @@ describe("updateGallery", () => {
 
     const galleryDb = makeGalleryDb({
       galleryDbModel: GalleryModel,
-      moment,
     });
 
     const createGallery = makeCreateGallery({ galleryDb });

@@ -5,7 +5,6 @@ import {
 } from "../../../../../__tests__/jest-mongo";
 import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakeUser } from "../../../../../__tests__/__mock__";
-import { logger } from "../../../../../__tests__/jest-logger";
 import { redis } from "../../../../../__tests__/jest-redis";
 import makeUserDb from "../../../make-user-db";
 import { UserModel } from "../../../models";

@@ -30,7 +30,6 @@ describe("createGallery", () => {
 
     const galleryDb = makeGalleryDb({
       galleryDbModel: GalleryModel,
-      moment,
     });
     const userDb = makeUserDb({
       userDbModel: UserModel,

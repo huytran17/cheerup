@@ -1,4 +1,3 @@
-import moment from "moment";
 import {
   connectDatabase,
   clearDatabase,
@@ -30,7 +29,6 @@ describe("updateSystemConfiguration", () => {
 
     const systemConfigurationDb = makeSystemConfigurationDb({
       systemConfigurationDbModel: SystemConfigurationModel,
-      moment,
     });
 
     const createSystemConfiguration = makeCreateSystemConfiguration({
