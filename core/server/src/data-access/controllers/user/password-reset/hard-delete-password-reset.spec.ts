@@ -1,4 +1,3 @@
-import moment from "moment";
 import {
   connectDatabase,
   clearDatabase,
@@ -29,7 +28,6 @@ describe("hardDeletePasswordReset", () => {
 
     const passwordResetDb = makePasswordResetDb({
       passwordResetDbModel: PasswordResetModel,
-      moment,
     });
 
     const createPasswordReset = makeCreatePasswordReset({ passwordResetDb });

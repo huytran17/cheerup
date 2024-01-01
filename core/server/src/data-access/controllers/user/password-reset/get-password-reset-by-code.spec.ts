@@ -1,5 +1,4 @@
 import moment from "moment";
-
 import { fakePasswordReset } from "../../../../../__tests__/__mock__";
 import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import {
@@ -30,7 +29,6 @@ describe("getPasswordResetByCode", () => {
 
     const passwordResetDb = makePasswordResetDb({
       passwordResetDbModel: PasswordResetModel,
-      moment,
     });
 
     const createPasswordReset = makeCreatePasswordReset({ passwordResetDb });
