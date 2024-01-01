@@ -5,7 +5,6 @@ import {
 } from "../../../../../__tests__/jest-mongo";
 import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
 import { fakePost } from "../../../../../__tests__/__mock__";
-import { logger } from "../../../../../__tests__/jest-logger";
 import { redis } from "../../../../../__tests__/jest-redis";
 import makePostDb from "../../../make-post-db";
 import makeCommentDb from "../../../make-comment-db";
@@ -35,7 +34,6 @@ describe("getPosts", () => {
     });
     const commentDb = makeCommentDb({
       commentDbModel: CommentModel,
-      moment,
     });
 
     const createPost = makeCreatePost({ postDb });

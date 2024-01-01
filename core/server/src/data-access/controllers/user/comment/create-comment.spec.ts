@@ -11,7 +11,6 @@ import {
 } from "../../../../../__tests__/__mock__";
 import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import Comment from "../../../../database/entities/comment";
-import { logger } from "../../../../../__tests__/jest-logger";
 import { redis } from "../../../../../__tests__/jest-redis";
 import makeCommentDb from "../../../make-comment-db";
 import makePostDb from "../../../make-post-db";
@@ -47,7 +46,6 @@ describe("createComment", () => {
 
     const commentDb = makeCommentDb({
       commentDbModel: CommentModel,
-      moment,
     });
     const postDb = makePostDb({
       postDbModel: PostModel,

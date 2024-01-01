@@ -10,7 +10,6 @@ import {
   fakeQueryParams,
 } from "../../../../../__tests__/__mock__";
 import { readingTimeAnalyzer } from "../../../../../__tests__/reading-time";
-import { logger } from "../../../../../__tests__/jest-logger";
 import { redis } from "../../../../../__tests__/jest-redis";
 import makeCommentDb from "../../../make-comment-db";
 import makeUserDb from "../../../make-user-db";
@@ -39,11 +38,9 @@ describe("getPostBookmarksPaginated", () => {
 
     const postBookmarkDb = makePostBookmarkDb({
       postBookmarkDbModel: PostBookmarkModel,
-      moment,
     });
     const commentDb = makeCommentDb({
       commentDbModel: CommentModel,
-      moment,
     });
     const userDb = makeUserDb({
       userDbModel: UserModel,

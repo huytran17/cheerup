@@ -9,7 +9,6 @@ import {
   fakePost,
   fakeUser,
 } from "../../../../../__tests__/__mock__";
-import { logger } from "../../../../../__tests__/jest-logger";
 import { redis } from "../../../../../__tests__/jest-redis";
 import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import Comment from "../../../../database/entities/comment";
@@ -41,7 +40,6 @@ describe("updateComment", () => {
 
     const commentDb = makeCommentDb({
       commentDbModel: CommentModel,
-      moment,
     });
     const postDb = makePostDb({
       postDbModel: PostModel,

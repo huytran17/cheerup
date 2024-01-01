@@ -38,7 +38,6 @@ describe("resetPassword", () => {
 
     const passwordResetDb = makePasswordResetDb({
       passwordResetDbModel: PasswordResetModel,
-      moment,
     });
     const userDb = makeUserDb({
       userDbModel: UserModel,

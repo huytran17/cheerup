@@ -9,7 +9,6 @@ import {
   fakeUser,
   fakeQueryParams,
 } from "../../../../../__tests__/__mock__";
-import { logger } from "../../../../../__tests__/jest-logger";
 import { redis } from "../../../../../__tests__/jest-redis";
 import { readingTimeAnalyzer } from "../../../../../__tests__/reading-time";
 import makePostDb from "../../../make-post-db";
@@ -49,7 +48,6 @@ describe("getPostsPaginated", () => {
     });
     const postBookmarkDb = makePostBookmarkDb({
       postBookmarkDbModel: PostBookmarkModel,
-      moment,
     });
     const userDb = makeUserDb({
       userDbModel: UserModel,
@@ -57,7 +55,6 @@ describe("getPostsPaginated", () => {
     });
     const commentDb = makeCommentDb({
       commentDbModel: CommentModel,
-      moment,
     });
 
     const createPost = makeCreatePost({ postDb });

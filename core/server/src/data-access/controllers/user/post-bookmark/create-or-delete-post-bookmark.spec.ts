@@ -9,7 +9,6 @@ import {
   fakeUser,
   fakePost,
 } from "../../../../../__tests__/__mock__";
-import { logger } from "../../../../../__tests__/jest-logger";
 import { redis } from "../../../../../__tests__/jest-redis";
 import makeUserDb from "../../../make-user-db";
 import makePostDb from "../../../make-post-db";
@@ -40,7 +39,6 @@ describe("createOrDeletePostBookmark", () => {
 
     const postBookmarkDb = makePostBookmarkDb({
       postBookmarkDbModel: PostBookmarkModel,
-      moment,
     });
     const postDb = makePostDb({
       postDbModel: PostModel,
