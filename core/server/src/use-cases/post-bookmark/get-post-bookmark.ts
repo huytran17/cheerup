@@ -1,11 +1,11 @@
-import PostBookmark from "../../database/entities/post-bookmark";
+import IPostBookmark from "../../database/interfaces/post-bookmark";
 import IPostBookmarkDb from "../../data-access/interfaces/post-bookmark-db";
 
 export type IGetPostBookmark = ({
   _id,
 }: {
   _id: string;
-}) => Promise<PostBookmark>;
+}) => Promise<IPostBookmark>;
 
 export default function makeGetPostBookmark({
   postBookmarkDb,

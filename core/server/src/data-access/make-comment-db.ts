@@ -6,16 +6,14 @@ import IComment from "../database/interfaces/comment";
 
 export default function makeCommentDb({
   commentDbModel,
-  moment,
 }: {
   commentDbModel: mongoose.Model<
     IComment & mongoose.Document,
     Record<string, unknown>
   >;
-  moment: any;
 }): ICommentDb {
   return new (class MongooseCommentDb implements ICommentDb {
-    async findAll(): Promise<Comment[]> {
+    async findAll(): Promise<IComment[]> {
       const query_conditions = {
         parent: { $in: [null, undefined] },
       };
@@ -107,7 +105,7 @@ export default function makeCommentDb({
       parent_id,
     }: {
       parent_id: string;
-    }): Promise<Comment[]> {
+    }): Promise<IComment[]> {
       const query_conditions = {
         parent: parent_id,
       };
@@ -203,7 +201,7 @@ export default function makeCommentDb({
       _id: string;
       is_only_parent?: boolean;
       is_show_children?: boolean;
-    }): Promise<Comment> {
+    }): Promise<IComment> {
       const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
       const is_mongo_id = mongo_id_regex.test(_id);
       if (!is_mongo_id || !_id) {
@@ -293,7 +291,7 @@ export default function makeCommentDb({
       return number_of_comments;
     }
 
-    async findOne(): Promise<Comment> {
+    async findOne(): Promise<IComment> {
       const existing = await commentDbModel
         .findOne()
         .populate("children", "-_v")
@@ -308,7 +306,7 @@ export default function makeCommentDb({
       return null;
     }
 
-    async insert(payload: Partial<IComment>): Promise<Comment> {
+    async insert(payload: Partial<IComment>): Promise<IComment> {
       const updated_payload = payload;
 
       const result = await commentDbModel.create([updated_payload]);
@@ -327,7 +325,7 @@ export default function makeCommentDb({
       return null;
     }
 
-    async hardDelete({ _id }: { _id: string }): Promise<Comment> {
+    async hardDelete({ _id }: { _id: string }): Promise<IComment> {
       const existing = await commentDbModel.findOne({ _id });
       await existing?.deleteOne();
 
@@ -342,7 +340,7 @@ export default function makeCommentDb({
       return null;
     }
 
-    async update(payload: Partial<IComment>): Promise<Comment> {
+    async update(payload: Partial<IComment>): Promise<IComment> {
       const result = await commentDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)
         .populate("children", "-_v")

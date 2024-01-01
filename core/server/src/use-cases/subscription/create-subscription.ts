@@ -1,4 +1,3 @@
-import Subscription from "../../database/entities/subscription";
 import ISubscriptionDb from "../../data-access/interfaces/subscription-db";
 import ISubscription from "../../database/interfaces/subscription";
 
@@ -8,7 +7,7 @@ export interface ICreateSubscriptionData {
 
 export type ICreateSubscription = ({
   subscriptionDetails,
-}: ICreateSubscriptionData) => Promise<Subscription>;
+}: ICreateSubscriptionData) => Promise<ISubscription>;
 
 export default function makeCreateSubscription({
   subscriptionDb,

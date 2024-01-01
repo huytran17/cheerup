@@ -1,7 +1,7 @@
-import Post from "../../database/entities/post";
+import IPost from "../../database/interfaces/post";
 import IPostDb from "../../data-access/interfaces/post-db";
 
-export type IGetPostsForSEO = () => Promise<Post[]>;
+export type IGetPostsForSEO = () => Promise<IPost[]>;
 
 export default function makeGetPostsForSEO({
   postDb,

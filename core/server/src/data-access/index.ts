@@ -37,7 +37,6 @@ const TwoFactorAuthenticationDb = makeTwoFactorAuthenticationDb({
 
 const PasswordResetDb = makePasswordResetDb({
   passwordResetDbModel: PasswordResetModel,
-  moment,
 });
 
 const CommentLikeDb = makeCommentLikeDb({
@@ -46,12 +45,10 @@ const CommentLikeDb = makeCommentLikeDb({
 
 const GalleryDb = makeGalleryDb({
   galleryDbModel: GalleryModel,
-  moment,
 });
 
 const PostBookmarkDb = makePostBookmarkDb({
   postBookmarkDbModel: PostBookmarkModel,
-  moment,
 });
 
 const SubscriptionDb = makeSubscriptionDb({
@@ -61,12 +58,11 @@ const SubscriptionDb = makeSubscriptionDb({
 
 const SystemConfigurationDb = makeSystemConfigurationDb({
   systemConfigurationDbModel: SystemConfigurationModel,
-  moment,
 });
 
 const PostDb = makePostDb({ postDbModel: PostModel, moment });
 
-const CommentDb = makeCommentDb({ commentDbModel: CommentModel, moment });
+const CommentDb = makeCommentDb({ commentDbModel: CommentModel });
 
 const UserDb = makeUserDb({ userDbModel: UserModel, moment });
 

@@ -1,7 +1,7 @@
-import Admin from "../../database/entities/admin";
+import IAdmin from "../../database/interfaces/admin";
 import IAdminDb from "../../data-access/interfaces/admin-db";
 
-export type IGetOneAdmin = () => Promise<Admin>;
+export type IGetOneAdmin = () => Promise<IAdmin>;
 
 export default function makeGetOneAdmin({
   adminDb,

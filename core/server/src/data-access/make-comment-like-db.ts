@@ -31,7 +31,7 @@ export default function makeCommentLikeDb({
       return total_count;
     }
 
-    async insert(payload: Partial<ICommentLike>): Promise<CommentLike> {
+    async insert(payload: Partial<ICommentLike>): Promise<ICommentLike> {
       const result = await commentLikeDbModel.create([payload]);
       const created = await commentLikeDbModel
         .findOne({ _id: result[0]?._id })
@@ -44,7 +44,7 @@ export default function makeCommentLikeDb({
       return null;
     }
 
-    async hardDelete({ _id }: { _id: string }): Promise<CommentLike> {
+    async hardDelete({ _id }: { _id: string }): Promise<ICommentLike> {
       await commentLikeDbModel.deleteOne({ _id: _id });
       const deleted = await commentLikeDbModel
         .findOne({ _id })
@@ -63,7 +63,7 @@ export default function makeCommentLikeDb({
     }: {
       user_id: string;
       comment_id: string;
-    }): Promise<CommentLike> {
+    }): Promise<ICommentLike> {
       const query_conditions = {
         user: user_id,
         comment: comment_id,
@@ -80,7 +80,7 @@ export default function makeCommentLikeDb({
       return null;
     }
 
-    async update(payload: Partial<ICommentLike>): Promise<CommentLike> {
+    async update(payload: Partial<ICommentLike>): Promise<ICommentLike> {
       await commentLikeDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)
         .lean({ virtuals: true });

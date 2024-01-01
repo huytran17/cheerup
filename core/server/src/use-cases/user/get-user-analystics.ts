@@ -21,17 +21,17 @@ export default function makeGetUserAnalystics({
   redis: Redis;
   logger: Logger;
 }): IGetUserAnalystics {
-  return async function getUserAnalystics({
-    unit,
-    range,
-  }): Promise<IUserAnalyticsData> {
+  return async function getUserAnalystics({ unit, range }) {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "getUserAnalystics",
       unit,
       range,
     });
 
-    const cached_data = await redis.getData({ key: cache_key });
+    const cached_data = <IUserAnalyticsData>(
+      await redis.getData({ key: cache_key })
+    );
+
     if (cached_data) {
       logger.verbose("Redis: Data found in cache", { cache_key });
       return cached_data;

@@ -23,18 +23,17 @@ export default function makeGetCategoryAnalystics({
   redis: Redis;
   logger: Logger;
 }): IGetCategoryAnalystics {
-  return async function getCategoryAnalystics({
-    unit,
-    range,
-    limit,
-  }): Promise<ICategoryAnalyticsData> {
+  return async function getCategoryAnalystics({ unit, range, limit }) {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "getCategoryAnalystics",
       unit,
       range,
     });
 
-    const cached_data = await redis.getData({ key: cache_key });
+    const cached_data = <ICategoryAnalyticsData>(
+      await redis.getData({ key: cache_key })
+    );
+
     if (cached_data) {
       logger.verbose("Redis: Data found in cache", { cache_key });
       return cached_data;

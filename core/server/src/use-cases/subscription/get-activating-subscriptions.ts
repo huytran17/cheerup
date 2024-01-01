@@ -1,7 +1,7 @@
 import ISubscriptionDb from "../../data-access/interfaces/subscription-db";
-import Subscription from "../../database/entities/subscription";
+import ISubscription from "../../database/interfaces/subscription";
 
-export type IGetActivatingSubscriptions = () => Promise<Subscription[]>;
+export type IGetActivatingSubscriptions = () => Promise<ISubscription[]>;
 
 export default function makeGetActivatingSubscriptions({
   subscriptionDb,

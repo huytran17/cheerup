@@ -1,8 +1,7 @@
-import Post from "../../database/entities/post";
 import IPost from "../../database/interfaces/post";
 export default interface IPostDb {
-  findAllForSEO: () => Promise<Post[]>;
-  findAll: () => Promise<Post[]>;
+  findAllForSEO: () => Promise<IPost[]>;
+  findAll: () => Promise<IPost[]>;
   findAllPaginated: (
     {
       categories,
@@ -25,7 +24,7 @@ export default interface IPostDb {
       entries_per_page?: number;
     }
   ) => Promise<IPaginatedPostResult>;
-  findOne: () => Promise<Post>;
+  findOne: () => Promise<IPost>;
   countByCategory: ({
     category_id,
   }: {
@@ -39,7 +38,7 @@ export default interface IPostDb {
     amount: number;
     categories: string[];
     exclude_ids?: string[];
-  }) => Promise<Post[]>;
+  }) => Promise<IPost[]>;
   findById: ({
     _id,
     is_only_published,
@@ -48,12 +47,12 @@ export default interface IPostDb {
     _id: string;
     is_only_published?: boolean;
     is_include_deleted?: boolean;
-  }) => Promise<Post>;
-  findBySlug: ({ slug }: { slug: string }) => Promise<Post>;
-  insert: (payload: Partial<IPost>) => Promise<Post>;
-  delete: ({ _id }: { _id: string }) => Promise<Post>;
-  hardDelete: ({ _id }: { _id: string }) => Promise<Post>;
-  update: (updatePayload: Partial<IPost>) => Promise<Post>;
+  }) => Promise<IPost>;
+  findBySlug: ({ slug }: { slug: string }) => Promise<IPost>;
+  insert: (payload: Partial<IPost>) => Promise<IPost>;
+  delete: ({ _id }: { _id: string }) => Promise<IPost>;
+  hardDelete: ({ _id }: { _id: string }) => Promise<IPost>;
+  update: (updatePayload: Partial<IPost>) => Promise<IPost>;
   getPostAnalystics: ({
     range,
     unit,
@@ -73,7 +72,7 @@ export default interface IPostDb {
 }
 
 export interface IPaginatedPostResult {
-  data: Post[];
+  data: IPost[];
   pagination: {
     current_page: number | null;
     from: number | null;
@@ -94,6 +93,6 @@ export interface IPostAnalytics {
 }
 
 export interface IMostPopularPostsAnalytics {
-  posts: Post[];
+  posts: IPost[];
   category_ratio: Record<string, unknown>;
 }

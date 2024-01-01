@@ -243,7 +243,7 @@ export default function makePostDb({
       };
     }
 
-    async findAll(): Promise<Post[]> {
+    async findAll(): Promise<IPost[]> {
       let query_conditions = {};
 
       const existing = await postDbModel
@@ -262,7 +262,7 @@ export default function makePostDb({
       return null;
     }
 
-    async findAllForSEO(): Promise<Post[]> {
+    async findAllForSEO(): Promise<IPost[]> {
       let query_conditions = {
         deleted_at: { $in: [null, undefined] },
         is_published: true,
@@ -377,7 +377,7 @@ export default function makePostDb({
       _id: string;
       is_only_published?: boolean;
       is_include_deleted?: boolean;
-    }): Promise<Post> {
+    }): Promise<IPost> {
       const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
       const is_mongo_id = mongo_id_regex.test(_id);
       if (!is_mongo_id || !_id) {
@@ -407,7 +407,7 @@ export default function makePostDb({
       return null;
     }
 
-    async findBySlug({ slug }: { slug: string }): Promise<Post> {
+    async findBySlug({ slug }: { slug: string }): Promise<IPost> {
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
         is_published: true,
@@ -457,7 +457,7 @@ export default function makePostDb({
       amount: number;
       categories: string[];
       exclude_ids?: string[];
-    }): Promise<Post[]> {
+    }): Promise<IPost[]> {
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
         is_published: true,
@@ -486,7 +486,7 @@ export default function makePostDb({
       return null;
     }
 
-    async findOne(): Promise<Post> {
+    async findOne(): Promise<IPost> {
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
       };
@@ -504,7 +504,7 @@ export default function makePostDb({
       return null;
     }
 
-    async insert(payload: Partial<IPost>): Promise<Post> {
+    async insert(payload: Partial<IPost>): Promise<IPost> {
       const updated_payload = payload;
 
       const result = await postDbModel.create([updated_payload]);
@@ -527,7 +527,7 @@ export default function makePostDb({
       return null;
     }
 
-    async delete({ _id }: { _id: string }): Promise<Post> {
+    async delete({ _id }: { _id: string }): Promise<IPost> {
       await postDbModel.findOneAndUpdate({ _id }, { deleted_at: new Date() });
       const updated = await postDbModel
         .findOne({ _id })
@@ -539,7 +539,7 @@ export default function makePostDb({
       return null;
     }
 
-    async hardDelete({ _id }: { _id: string }): Promise<Post> {
+    async hardDelete({ _id }: { _id: string }): Promise<IPost> {
       await postDbModel.deleteOne({ _id });
       const updated = await postDbModel
         .findOne({ _id })
@@ -552,7 +552,7 @@ export default function makePostDb({
       return null;
     }
 
-    async update(payload: Partial<IPost>): Promise<Post> {
+    async update(payload: Partial<IPost>): Promise<IPost> {
       const result = await postDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)
         .lean({ virtuals: true });

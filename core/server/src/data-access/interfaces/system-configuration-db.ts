@@ -1,12 +1,11 @@
-import SystemConfiguration from "../../database/entities/system-configuration";
 import ISystemConfiguration from "../../database/interfaces/system-configuration";
 export default interface ISystemConfigurationDb {
-  findById: ({ _id }: { _id: string }) => Promise<SystemConfiguration>;
+  findById: ({ _id }: { _id: string }) => Promise<ISystemConfiguration>;
   update: (
     updatePayload: Partial<ISystemConfiguration>
-  ) => Promise<SystemConfiguration>;
-  findOne: () => Promise<SystemConfiguration>;
+  ) => Promise<ISystemConfiguration>;
+  findOne: () => Promise<ISystemConfiguration>;
   insert: (
     payload: Partial<ISystemConfiguration>
-  ) => Promise<SystemConfiguration>;
+  ) => Promise<ISystemConfiguration>;
 }

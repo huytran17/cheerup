@@ -1,8 +1,7 @@
-import Category from "../../database/entities/category";
 import ICategory from "../../database/interfaces/category";
 export default interface ICategoryDb {
-  findAllForSEO: () => Promise<Category[]>;
-  findAll: () => Promise<Category[]>;
+  findAllForSEO: () => Promise<ICategory[]>;
+  findAll: () => Promise<ICategory[]>;
   findAllPaginated: ({
     query,
     page,
@@ -12,7 +11,7 @@ export default interface ICategoryDb {
     page: number;
     entries_per_page?: number;
   }) => Promise<IPaginatedCategoryResult>;
-  findOne: () => Promise<Category>;
+  findOne: () => Promise<ICategory>;
   findAllCategoryTitles: () => Promise<
     { _id: string; title: string; slug: string }[]
   >;
@@ -22,19 +21,19 @@ export default interface ICategoryDb {
   }: {
     _id: string;
     is_include_deleted?: boolean;
-  }) => Promise<Category>;
+  }) => Promise<ICategory>;
   findByTitle: ({
     title,
     is_include_deleted,
   }: {
     title: string;
     is_include_deleted?: boolean;
-  }) => Promise<Category>;
-  findBySlug: ({ slug }: { slug: string }) => Promise<Category>;
-  insert: (payload: Partial<ICategory>) => Promise<Category>;
-  delete: ({ _id }: { _id: string }) => Promise<Category>;
-  hardDelete: ({ _id }: { _id: string }) => Promise<Category>;
-  update: (updatePayload: Partial<ICategory>) => Promise<Category>;
+  }) => Promise<ICategory>;
+  findBySlug: ({ slug }: { slug: string }) => Promise<ICategory>;
+  insert: (payload: Partial<ICategory>) => Promise<ICategory>;
+  delete: ({ _id }: { _id: string }) => Promise<ICategory>;
+  hardDelete: ({ _id }: { _id: string }) => Promise<ICategory>;
+  update: (updatePayload: Partial<ICategory>) => Promise<ICategory>;
   getCategoryAnalystics: ({
     range,
     unit,
@@ -47,7 +46,7 @@ export default interface ICategoryDb {
 }
 
 export interface IPaginatedCategoryResult {
-  data: Category[];
+  data: ICategory[];
   pagination: {
     current_page: number | null;
     from: number | null;
@@ -59,8 +58,8 @@ export interface IPaginatedCategoryResult {
 }
 
 export interface ICategoryAnalyticsData {
-  created_categories: Category[];
-  most_popular_categories: Category[];
+  created_categories: ICategory[];
+  most_popular_categories: ICategory[];
   total_count: number;
   formatted_dates: string[];
   created_category_titles: string[];

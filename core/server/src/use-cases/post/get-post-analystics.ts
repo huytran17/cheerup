@@ -19,17 +19,15 @@ export default function makeGetPostAnalystics({
   redis: Redis;
   logger: Logger;
 }): IGetPostAnalystics {
-  return async function getPostAnalystics({
-    unit,
-    range,
-  }): Promise<IPostAnalytics> {
+  return async function getPostAnalystics({ unit, range }) {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "getPostAnalystics",
       unit,
       range,
     });
 
-    const cached_data = await redis.getData({ key: cache_key });
+    const cached_data = <IPostAnalytics>await redis.getData({ key: cache_key });
+
     if (cached_data) {
       logger.verbose("Redis: Data found in cache", { cache_key });
       return cached_data;

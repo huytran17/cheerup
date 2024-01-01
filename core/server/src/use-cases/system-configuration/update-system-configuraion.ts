@@ -1,4 +1,3 @@
-import SystemConfiguration from "../../database/entities/system-configuration";
 import ISystemConfigurationDb from "../../data-access/interfaces/system-configuration-db";
 import ISystemConfiguration from "../../database/interfaces/system-configuration";
 
@@ -8,7 +7,7 @@ export interface IUpdateSystemConfigurationData {
 
 export type IUpdateSystemConfiguration = ({
   systemConfigurationDetails,
-}: IUpdateSystemConfigurationData) => Promise<SystemConfiguration>;
+}: IUpdateSystemConfigurationData) => Promise<ISystemConfiguration>;
 
 export default function makeUpdateSystemConfiguration({
   systemConfigurationDb,

@@ -1,4 +1,3 @@
-import Gallery from "../../database/entities/gallery";
 import IGalleryDb from "../../data-access/interfaces/gallery-db";
 import IGallery from "../../database/interfaces/gallery";
 
@@ -8,7 +7,7 @@ export interface IUpdateGalleryData {
 
 export type IUpdateGallery = ({
   galleryDetails,
-}: IUpdateGalleryData) => Promise<Gallery>;
+}: IUpdateGalleryData) => Promise<IGallery>;
 
 export default function makeUpdateGallery({
   galleryDb,

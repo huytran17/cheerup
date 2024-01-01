@@ -1,7 +1,6 @@
-import Admin from "../../database/entities/admin";
 import IAdmin, { AdminType } from "../../database/interfaces/admin";
 export default interface IAdminDb {
-  findAll: () => Promise<Admin[]>;
+  findAll: () => Promise<IAdmin[]>;
   findAllPaginated: ({
     query,
     page,
@@ -11,13 +10,13 @@ export default interface IAdminDb {
     page: number;
     entries_per_page?: number;
   }) => Promise<IPaginatedAdminResult>;
-  findOne: () => Promise<Admin>;
-  findById: ({ _id }: { _id: string }) => Promise<Admin>;
-  findByEmail: ({ email }: { email: string }) => Promise<Admin>;
-  insert: (payload: Partial<IAdmin>) => Promise<Admin>;
-  delete: ({ _id }: { _id: string }) => Promise<Admin>;
-  hardDelete: ({ _id }: { _id: string }) => Promise<Admin>;
-  update: (updatePayload: Partial<IAdmin>) => Promise<Admin>;
+  findOne: () => Promise<IAdmin>;
+  findById: ({ _id }: { _id: string }) => Promise<IAdmin>;
+  findByEmail: ({ email }: { email: string }) => Promise<IAdmin>;
+  insert: (payload: Partial<IAdmin>) => Promise<IAdmin>;
+  delete: ({ _id }: { _id: string }) => Promise<IAdmin>;
+  hardDelete: ({ _id }: { _id: string }) => Promise<IAdmin>;
+  update: (updatePayload: Partial<IAdmin>) => Promise<IAdmin>;
   getAdminAnalystics: ({
     author_type,
     range,
@@ -30,7 +29,7 @@ export default interface IAdminDb {
 }
 
 export interface IPaginatedAdminResult {
-  data: Admin[];
+  data: IAdmin[];
   pagination: {
     current_page: number | null;
     from: number | null;

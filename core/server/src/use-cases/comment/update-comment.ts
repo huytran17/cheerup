@@ -1,4 +1,3 @@
-import Comment from "../../database/entities/comment";
 import ICommentDb from "../../data-access/interfaces/comment-db";
 import IComment from "../../database/interfaces/comment";
 
@@ -8,7 +7,7 @@ export interface IUpdateCommentData {
 
 export type IUpdateComment = ({
   commentDetails,
-}: IUpdateCommentData) => Promise<Comment>;
+}: IUpdateCommentData) => Promise<IComment>;
 
 export default function makeUpdateComment({
   commentDb,

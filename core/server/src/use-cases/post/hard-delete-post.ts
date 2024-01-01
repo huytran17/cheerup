@@ -1,7 +1,7 @@
-import Post from "../../database/entities/post";
+import IPost from "../../database/interfaces/post";
 import IPostDb from "../../data-access/interfaces/post-db";
 
-export type IHardDeletePost = ({ _id }: { _id: string }) => Promise<Post>;
+export type IHardDeletePost = ({ _id }: { _id: string }) => Promise<IPost>;
 
 export default function makeHardDeletePost({
   postDb,

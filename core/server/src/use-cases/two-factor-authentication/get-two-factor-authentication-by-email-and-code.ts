@@ -1,4 +1,4 @@
-import TwoFactorAuthentication from "../../database/entities/two-factor-authentication";
+import ITwoFactorAuthentication from "../../database/interfaces/two-factor-authentication";
 import ITwoFactorAuthenticationDb from "../../data-access/interfaces/two-factor-authentication-db";
 
 export type IGetTwoFactorAuthenticationByEmailAndCode = ({
@@ -9,7 +9,7 @@ export type IGetTwoFactorAuthenticationByEmailAndCode = ({
   email: string;
   code: string;
   type: string;
-}) => Promise<TwoFactorAuthentication>;
+}) => Promise<ITwoFactorAuthentication>;
 
 export default function makeGetTwoFactorAuthenticationByEmailAndCode({
   twoFactorAuthenticationDb,

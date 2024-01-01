@@ -1,4 +1,3 @@
-import Category from "../../database/entities/category";
 import ICategoryDb from "../../data-access/interfaces/category-db";
 import ICategory from "../../database/interfaces/category";
 
@@ -8,7 +7,7 @@ export interface ICreateCategoryData {
 
 export type ICreateCategory = ({
   categoryDetails,
-}: ICreateCategoryData) => Promise<Category>;
+}: ICreateCategoryData) => Promise<ICategory>;
 
 export default function makeCreateCategory({
   categoryDb,

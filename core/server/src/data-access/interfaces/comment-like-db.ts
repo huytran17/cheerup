@@ -1,4 +1,3 @@
-import CommentLike from "../../database/entities/comment-like";
 import ICommentLike from "../../database/interfaces/comment-like";
 export default interface ICommentLikeDb {
   countCommentLikeByCommentAndType: ({
@@ -8,14 +7,14 @@ export default interface ICommentLikeDb {
     comment_id: string;
     type: string;
   }) => Promise<number>;
-  insert: (payload: Partial<ICommentLike>) => Promise<CommentLike>;
-  hardDelete: ({ _id }: { _id: string }) => Promise<CommentLike>;
+  insert: (payload: Partial<ICommentLike>) => Promise<ICommentLike>;
+  hardDelete: ({ _id }: { _id: string }) => Promise<ICommentLike>;
   findByUserAndComment: ({
     user_id,
     comment_id,
   }: {
     user_id: string;
     comment_id: string;
-  }) => Promise<CommentLike>;
-  update: (updatePayload: Partial<ICommentLike>) => Promise<CommentLike>;
+  }) => Promise<ICommentLike>;
+  update: (updatePayload: Partial<ICommentLike>) => Promise<ICommentLike>;
 }

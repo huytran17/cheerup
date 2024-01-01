@@ -1,4 +1,3 @@
-import Comment from "../../database/entities/comment";
 import ICommentDb from "../../data-access/interfaces/comment-db";
 import IComment from "../../database/interfaces/comment";
 
@@ -8,7 +7,7 @@ export interface IReplyCommentData {
 
 export type IReplyComment = ({
   commentDetails,
-}: IReplyCommentData) => Promise<Comment>;
+}: IReplyCommentData) => Promise<IComment>;
 
 export default function makeReplyComment({
   commentDb,

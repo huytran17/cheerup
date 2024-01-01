@@ -1,4 +1,3 @@
-import PasswordReset from "../../database/entities/password-reset";
 import IPasswordResetDb from "../../data-access/interfaces/password-reset-db";
 import IPasswordReset from "../../database/interfaces/password-reset";
 
@@ -8,7 +7,7 @@ export interface ICreatePasswordResetData {
 
 export type ICreatePasswordReset = ({
   passwordResetDetails,
-}: ICreatePasswordResetData) => Promise<PasswordReset>;
+}: ICreatePasswordResetData) => Promise<IPasswordReset>;
 
 export default function makeCreatePasswordReset({
   passwordResetDb,

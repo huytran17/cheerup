@@ -1,4 +1,4 @@
-import User from "../../database/entities/user";
+import IUser from "../../database/interfaces/user";
 import IUserDb from "../../data-access/interfaces/user-db";
 
 export type IGetUserByEmail = ({
@@ -7,7 +7,7 @@ export type IGetUserByEmail = ({
 }: {
   email: string;
   is_include_deleted?: boolean;
-}) => Promise<User>;
+}) => Promise<IUser>;
 
 export default function makeGetUserByEmail({
   userDb,

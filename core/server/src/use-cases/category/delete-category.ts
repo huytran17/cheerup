@@ -1,7 +1,7 @@
-import Category from "../../database/entities/category";
+import ICategory from "../../database/interfaces/category";
 import ICategoryDb from "../../data-access/interfaces/category-db";
 
-export type IDeleteCategory = ({ _id }: { _id: string }) => Promise<Category>;
+export type IDeleteCategory = ({ _id }: { _id: string }) => Promise<ICategory>;
 
 export default function makeDeleteCategory({
   categoryDb,

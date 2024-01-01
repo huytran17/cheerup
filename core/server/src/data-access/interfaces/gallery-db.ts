@@ -1,7 +1,6 @@
-import Gallery from "../../database/entities/gallery";
 import IGallery from "../../database/interfaces/gallery";
 export default interface IGalleryDb {
-  findOne: () => Promise<Gallery>;
+  findOne: () => Promise<IGallery>;
   findAllPaginated: (
     {
       query,
@@ -18,17 +17,21 @@ export default interface IGalleryDb {
       is_parent?: boolean;
     }
   ) => Promise<IPaginatedGalleryResult>;
-  findAllByParent: ({ parent_id }: { parent_id: string }) => Promise<Gallery[]>;
-  findByPost: ({ post_id }: { post_id: string }) => Promise<Gallery[]>;
-  findById: ({ _id }: { _id: string }) => Promise<Gallery>;
-  findOneByPost: ({ post_id }: { post_id: string }) => Promise<Gallery>;
-  insert: (payload: Partial<IGallery>) => Promise<Gallery>;
-  hardDelete: ({ _id }: { _id: string }) => Promise<Gallery>;
-  update: (updatePayload: Partial<IGallery>) => Promise<Gallery>;
+  findAllByParent: ({
+    parent_id,
+  }: {
+    parent_id: string;
+  }) => Promise<IGallery[]>;
+  findByPost: ({ post_id }: { post_id: string }) => Promise<IGallery[]>;
+  findById: ({ _id }: { _id: string }) => Promise<IGallery>;
+  findOneByPost: ({ post_id }: { post_id: string }) => Promise<IGallery>;
+  insert: (payload: Partial<IGallery>) => Promise<IGallery>;
+  hardDelete: ({ _id }: { _id: string }) => Promise<IGallery>;
+  update: (updatePayload: Partial<IGallery>) => Promise<IGallery>;
 }
 
 export interface IPaginatedGalleryResult {
-  data: Gallery[];
+  data: IGallery[];
   pagination: {
     current_page: number | null;
     from: number | null;

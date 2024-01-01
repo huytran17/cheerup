@@ -1,4 +1,4 @@
-import Post from "../../database/entities/post";
+import IPost from "../../database/interfaces/post";
 import IPostDb from "../../data-access/interfaces/post-db";
 
 export type IGetPost = ({
@@ -9,7 +9,7 @@ export type IGetPost = ({
   _id: string;
   is_only_published?: boolean;
   is_include_deleted?: boolean;
-}) => Promise<Post>;
+}) => Promise<IPost>;
 
 export default function makeGetPost({ postDb }: { postDb: IPostDb }): IGetPost {
   return async function getPost({

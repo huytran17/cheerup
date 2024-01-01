@@ -1,4 +1,3 @@
-import Admin from "../../database/entities/admin";
 import IAdminDb from "../../data-access/interfaces/admin-db";
 import IAdmin from "../../database/interfaces/admin";
 
@@ -11,7 +10,7 @@ export interface ICreateAdminData {
 
 export type ICreateAdmin = ({
   adminDetails,
-}: ICreateAdminData) => Promise<Admin>;
+}: ICreateAdminData) => Promise<IAdmin>;
 
 export default function makeCreateAdmin({
   adminDb,

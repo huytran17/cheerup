@@ -1,4 +1,3 @@
-import CommentLike from "../../database/entities/comment-like";
 import ICommentLikeDb from "../../data-access/interfaces/comment-like-db";
 import ICommentLike from "../../database/interfaces/comment-like";
 
@@ -8,7 +7,7 @@ export interface IUpdateCommentLikeData {
 
 export type IUpdateCommentLike = ({
   commentLikeDetails,
-}: IUpdateCommentLikeData) => Promise<CommentLike>;
+}: IUpdateCommentLikeData) => Promise<ICommentLike>;
 
 export default function makeUpdateCommentLike({
   commentLikeDb,

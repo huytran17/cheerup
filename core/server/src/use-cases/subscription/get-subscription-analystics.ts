@@ -21,17 +21,17 @@ export default function makeGetSubscriptionAnalystics({
   redis: Redis;
   logger: Logger;
 }): IGetSubscriptionAnalystics {
-  return async function getSubscriptionAnalystics({
-    unit,
-    range,
-  }): Promise<ISubscriptionAnalyticsData> {
+  return async function getSubscriptionAnalystics({ unit, range }) {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "getSubscriptionAnalystics",
       unit,
       range,
     });
 
-    const cached_data = await redis.getData({ key: cache_key });
+    const cached_data = <ISubscriptionAnalyticsData>(
+      await redis.getData({ key: cache_key })
+    );
+
     if (cached_data) {
       logger.verbose("Redis: Data found in cache", { cache_key });
       return cached_data;

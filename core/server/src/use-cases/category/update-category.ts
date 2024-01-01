@@ -1,4 +1,3 @@
-import Category from "../../database/entities/category";
 import ICategoryDb from "../../data-access/interfaces/category-db";
 import ICategory from "../../database/interfaces/category";
 
@@ -8,7 +7,7 @@ export interface IUpdateCategoryData {
 
 export type IUpdateCategory = ({
   categoryDetails,
-}: IUpdateCategoryData) => Promise<Category>;
+}: IUpdateCategoryData) => Promise<ICategory>;
 
 export default function makeUpdateCategory({
   categoryDb,

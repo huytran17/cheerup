@@ -1,4 +1,4 @@
-import Post from "../../database/entities/post";
+import IPost from "../../database/interfaces/post";
 import IPostDb from "../../data-access/interfaces/post-db";
 
 export type IGetSuggestionPosts = ({
@@ -9,7 +9,7 @@ export type IGetSuggestionPosts = ({
   amount: number;
   categories: string[];
   exclude_ids?: string[];
-}) => Promise<Post[]>;
+}) => Promise<IPost[]>;
 
 export default function makeGetSuggestionPosts({
   postDb,

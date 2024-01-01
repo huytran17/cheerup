@@ -1,4 +1,3 @@
-import TwoFactorAuthentication from "../../database/entities/two-factor-authentication";
 import ITwoFactorAuthentication from "../../database/interfaces/two-factor-authentication";
 
 export default interface ITwoFactorAuthenticationDb {
@@ -8,14 +7,14 @@ export default interface ITwoFactorAuthenticationDb {
   }: {
     email: string;
     type: string;
-  }) => Promise<TwoFactorAuthentication[]>;
+  }) => Promise<ITwoFactorAuthentication[]>;
   findByCode: ({
     code,
     type,
   }: {
     code: string;
     type: string;
-  }) => Promise<TwoFactorAuthentication>;
+  }) => Promise<ITwoFactorAuthentication>;
   findByEmailAndCode: ({
     email,
     code,
@@ -24,9 +23,9 @@ export default interface ITwoFactorAuthenticationDb {
     email: string;
     code: string;
     type: string;
-  }) => Promise<TwoFactorAuthentication>;
+  }) => Promise<ITwoFactorAuthentication>;
   insert: (
     payload: Partial<ITwoFactorAuthentication>
-  ) => Promise<TwoFactorAuthentication>;
-  hardDelete: ({ _id }: { _id: string }) => Promise<TwoFactorAuthentication>;
+  ) => Promise<ITwoFactorAuthentication>;
+  hardDelete: ({ _id }: { _id: string }) => Promise<ITwoFactorAuthentication>;
 }

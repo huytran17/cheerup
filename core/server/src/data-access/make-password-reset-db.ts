@@ -5,20 +5,18 @@ import IPasswordReset from "../database/interfaces/password-reset";
 
 export default function makePasswordResetDb({
   passwordResetDbModel,
-  moment,
 }: {
   passwordResetDbModel: mongoose.Model<
     IPasswordReset & mongoose.Document,
     Record<string, unknown>
   >;
-  moment: any;
 }): IPasswordResetDb {
   return new (class MongoosePasswordResetDb implements IPasswordResetDb {
     async findByCode({
       security_code,
     }: {
       security_code: string;
-    }): Promise<PasswordReset> {
+    }): Promise<IPasswordReset> {
       const query_conditions = {
         security_code,
       };
@@ -33,7 +31,7 @@ export default function makePasswordResetDb({
       return null;
     }
 
-    async findByEmail({ email }: { email: string }): Promise<PasswordReset> {
+    async findByEmail({ email }: { email: string }): Promise<IPasswordReset> {
       const query_conditions = {
         email,
       };
@@ -48,7 +46,7 @@ export default function makePasswordResetDb({
       return null;
     }
 
-    async insert(payload: Partial<IPasswordReset>): Promise<PasswordReset> {
+    async insert(payload: Partial<IPasswordReset>): Promise<IPasswordReset> {
       const updated_payload = payload;
 
       const result = await passwordResetDbModel.create([updated_payload]);
@@ -62,7 +60,7 @@ export default function makePasswordResetDb({
       return null;
     }
 
-    async hardDelete({ _id }: { _id: string }): Promise<PasswordReset> {
+    async hardDelete({ _id }: { _id: string }): Promise<IPasswordReset> {
       const existing = await passwordResetDbModel.findOne({ _id });
       await existing.deleteOne();
 
@@ -76,7 +74,7 @@ export default function makePasswordResetDb({
       return null;
     }
 
-    async findById({ _id }: { _id: string }): Promise<PasswordReset> {
+    async findById({ _id }: { _id: string }): Promise<IPasswordReset> {
       const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
       const is_mongo_id = mongo_id_regex.test(_id);
       if (!is_mongo_id || !_id) {

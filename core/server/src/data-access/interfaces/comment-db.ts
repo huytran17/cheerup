@@ -1,7 +1,6 @@
-import Comment from "../../database/entities/comment";
 import IComment from "../../database/interfaces/comment";
 export default interface ICommentDb {
-  findAll: () => Promise<Comment[]>;
+  findAll: () => Promise<IComment[]>;
   findAllPaginated: ({
     query,
     page,
@@ -11,7 +10,7 @@ export default interface ICommentDb {
     page: number;
     entries_per_page?: number;
   }) => Promise<IPaginatedCommentResult>;
-  findOne: () => Promise<Comment>;
+  findOne: () => Promise<IComment>;
   findById: ({
     _id,
     is_only_parent,
@@ -20,7 +19,7 @@ export default interface ICommentDb {
     _id: string;
     is_only_parent?: boolean;
     is_show_children?: boolean;
-  }) => Promise<Comment>;
+  }) => Promise<IComment>;
   findAllByPostPaginated: (
     {
       post_id,
@@ -40,14 +39,18 @@ export default interface ICommentDb {
     }
   ) => Promise<IPaginatedCommentResult>;
   countByPost: ({ post_id }: { post_id: string }) => Promise<number>;
-  findAllByParent: ({ parent_id }: { parent_id: string }) => Promise<Comment[]>;
-  insert: (payload: Partial<IComment>) => Promise<Comment>;
-  hardDelete: ({ _id }: { _id: string }) => Promise<Comment>;
-  update: (payload: Partial<IComment>) => Promise<Comment>;
+  findAllByParent: ({
+    parent_id,
+  }: {
+    parent_id: string;
+  }) => Promise<IComment[]>;
+  insert: (payload: Partial<IComment>) => Promise<IComment>;
+  hardDelete: ({ _id }: { _id: string }) => Promise<IComment>;
+  update: (payload: Partial<IComment>) => Promise<IComment>;
 }
 
 export interface IPaginatedCommentResult {
-  data: Comment[];
+  data: IComment[];
   pagination: {
     current_page: number | null;
     from: number | null;

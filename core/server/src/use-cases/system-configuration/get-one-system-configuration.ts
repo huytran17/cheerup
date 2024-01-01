@@ -1,7 +1,7 @@
-import SystemConfiguration from "../../database/entities/system-configuration";
+import ISystemConfiguration from "../../database/interfaces/system-configuration";
 import ISystemConfigurationDb from "../../data-access/interfaces/system-configuration-db";
 
-export type IGetOneSystemConfiguration = () => Promise<SystemConfiguration>;
+export type IGetOneSystemConfiguration = () => Promise<ISystemConfiguration>;
 
 export default function makeGetOneSystemConfiguration({
   systemConfigurationDb,

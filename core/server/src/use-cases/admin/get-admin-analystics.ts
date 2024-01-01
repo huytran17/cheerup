@@ -24,11 +24,7 @@ export default function makeGetAdminAnalystics({
   redis: Redis;
   logger: Logger;
 }): IGetAdminAnalystics {
-  return async function getAdminAnalystics({
-    unit,
-    range,
-    author_type,
-  }): Promise<IAdminAnalyticsData> {
+  return async function getAdminAnalystics({ unit, range, author_type }) {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "getAdminAnalystics",
       unit,
@@ -36,7 +32,10 @@ export default function makeGetAdminAnalystics({
       range,
     });
 
-    const cached_data = await redis.getData({ key: cache_key });
+    const cached_data = <IAdminAnalyticsData>(
+      await redis.getData({ key: cache_key })
+    );
+
     if (cached_data) {
       logger.verbose("Redis: Data found in cache", { cache_key });
       return cached_data;

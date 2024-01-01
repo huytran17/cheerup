@@ -1,11 +1,11 @@
-import Comment from "../../database/entities/comment";
+import IComment from "../../database/interfaces/comment";
 import ICommentDb from "../../data-access/interfaces/comment-db";
 
 export type IGetCommentsByParent = ({
   parent_id,
 }: {
   parent_id: string;
-}) => Promise<Comment[]>;
+}) => Promise<IComment[]>;
 
 export default function makeGetCommentsByParent({
   commentDb,

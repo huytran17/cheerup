@@ -1,4 +1,4 @@
-import User from "../../database/entities/user";
+import IUser from "../../database/interfaces/user";
 import IUserDb from "../../data-access/interfaces/user-db";
 
 export type IGetUser = ({
@@ -7,7 +7,7 @@ export type IGetUser = ({
 }: {
   _id: string;
   is_include_deleted?: boolean;
-}) => Promise<User>;
+}) => Promise<IUser>;
 
 export default function makeGetUser({ userDb }: { userDb: IUserDb }): IGetUser {
   return async function getUser({ _id, is_include_deleted }) {

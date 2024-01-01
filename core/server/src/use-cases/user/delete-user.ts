@@ -1,7 +1,7 @@
-import User from "../../database/entities/user";
+import IUser from "../../database/interfaces/user";
 import IUserDb from "../../data-access/interfaces/user-db";
 
-export type IDeleteUser = ({ _id }: { _id: string }) => Promise<User>;
+export type IDeleteUser = ({ _id }: { _id: string }) => Promise<IUser>;
 
 export default function makeDeleteUser({
   userDb,

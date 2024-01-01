@@ -1,11 +1,11 @@
-import SystemConfiguration from "../../database/entities/system-configuration";
+import ISystemConfiguration from "../../database/interfaces/system-configuration";
 import ISystemConfigurationDb from "../../data-access/interfaces/system-configuration-db";
 
 export type IGetSystemConfiguration = ({
   _id,
 }: {
   _id: string;
-}) => Promise<SystemConfiguration>;
+}) => Promise<ISystemConfiguration>;
 
 export default function makeGetSystemConfiguration({
   systemConfigurationDb,

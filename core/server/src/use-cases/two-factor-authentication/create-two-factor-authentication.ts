@@ -1,4 +1,3 @@
-import TwoFactorAuthentication from "../../database/entities/two-factor-authentication";
 import ITwoFactorAuthenticationDb from "../../data-access/interfaces/two-factor-authentication-db";
 import ITwoFactorAuthentication from "../../database/interfaces/two-factor-authentication";
 
@@ -11,7 +10,7 @@ export interface ICreateTwoFactorAuthenticationData {
 
 export type ICreateTwoFactorAuthentication = ({
   twoFactorAuthenticationDetails,
-}: ICreateTwoFactorAuthenticationData) => Promise<TwoFactorAuthentication>;
+}: ICreateTwoFactorAuthenticationData) => Promise<ITwoFactorAuthentication>;
 
 export default function makeCreateTwoFactorAuthentication({
   twoFactorAuthenticationDb,

@@ -1,11 +1,11 @@
-import PasswordReset from "../../database/entities/password-reset";
+import IPasswordReset from "../../database/interfaces/password-reset";
 import IPasswordResetDb from "../../data-access/interfaces/password-reset-db";
 
 export type IGetPasswordResetByCode = ({
   security_code,
 }: {
   security_code: string;
-}) => Promise<PasswordReset>;
+}) => Promise<IPasswordReset>;
 
 export default function makeGetPasswordResetByCode({
   passwordResetDb,

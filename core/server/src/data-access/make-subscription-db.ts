@@ -1,4 +1,4 @@
-import { sortBy, map, merge } from "lodash";
+import { sortBy, map } from "lodash";
 import mongoose from "mongoose";
 import Subscription from "../database/entities/subscription";
 import ISubscription from "../database/interfaces/subscription";
@@ -127,7 +127,7 @@ export default function makeSubscriptionDb({
       };
     }
 
-    async findAll(): Promise<Subscription[]> {
+    async findAll(): Promise<ISubscription[]> {
       const existing = await subscriptionDbModel
         .find()
         .lean({ virtuals: true });
@@ -138,7 +138,7 @@ export default function makeSubscriptionDb({
 
       return null;
     }
-    async findAllActivating(): Promise<Subscription[]> {
+    async findAllActivating(): Promise<ISubscription[]> {
       const query_conditions = {
         is_active: true,
       };
@@ -217,7 +217,7 @@ export default function makeSubscriptionDb({
       return null;
     }
 
-    async findById({ _id }: { _id: string }): Promise<Subscription> {
+    async findById({ _id }: { _id: string }): Promise<ISubscription> {
       const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
       const is_mongo_id = mongo_id_regex.test(_id);
       if (!is_mongo_id || !_id) {
@@ -240,7 +240,7 @@ export default function makeSubscriptionDb({
       return null;
     }
 
-    async findByEmail({ email }: { email: string }): Promise<Subscription> {
+    async findByEmail({ email }: { email: string }): Promise<ISubscription> {
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
       };
@@ -257,7 +257,7 @@ export default function makeSubscriptionDb({
       return null;
     }
 
-    async findOne(): Promise<Subscription> {
+    async findOne(): Promise<ISubscription> {
       const existing = await subscriptionDbModel
         .findOne()
         .lean({ virtuals: true });
@@ -269,7 +269,7 @@ export default function makeSubscriptionDb({
       return null;
     }
 
-    async insert(payload: Partial<ISubscription>): Promise<Subscription> {
+    async insert(payload: Partial<ISubscription>): Promise<ISubscription> {
       const updated_payload = payload;
 
       const result = await subscriptionDbModel.create([updated_payload]);
@@ -284,7 +284,7 @@ export default function makeSubscriptionDb({
       return null;
     }
 
-    async delete({ _id }: { _id: string }): Promise<Subscription> {
+    async delete({ _id }: { _id: string }): Promise<ISubscription> {
       const existing = await subscriptionDbModel.findOneAndUpdate(
         { _id },
         { deleted_at: new Date() }
@@ -300,7 +300,7 @@ export default function makeSubscriptionDb({
       return null;
     }
 
-    async hardDelete({ _id }: { _id: string }): Promise<Subscription> {
+    async hardDelete({ _id }: { _id: string }): Promise<ISubscription> {
       const existing = await subscriptionDbModel.deleteOne({ _id: _id });
       const updated = await subscriptionDbModel
         .findOne({ _id })
@@ -313,7 +313,7 @@ export default function makeSubscriptionDb({
       return null;
     }
 
-    async update(payload: Partial<ISubscription>): Promise<Subscription> {
+    async update(payload: Partial<ISubscription>): Promise<ISubscription> {
       const result = await subscriptionDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)
         .lean({ virtuals: true });

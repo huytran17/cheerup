@@ -23,11 +23,7 @@ export default function makeGetMostPopularPostsAnalystics({
   logger: Logger;
   redis: Redis;
 }): IGetMostPopularPostsAnalystics {
-  return async function getMostPopularPostsAnalystics({
-    range,
-    unit,
-    limit,
-  }): Promise<IMostPopularPostsAnalytics> {
+  return async function getMostPopularPostsAnalystics({ range, unit, limit }) {
     const cache_key = redis.cacheKeyBuilder({
       prefix: "getMostPopularPostsAnalystics",
       range,
@@ -35,7 +31,10 @@ export default function makeGetMostPopularPostsAnalystics({
       limit,
     });
 
-    const cached_data = await redis.getData({ key: cache_key });
+    const cached_data = <IMostPopularPostsAnalytics>(
+      await redis.getData({ key: cache_key })
+    );
+
     if (cached_data) {
       logger.verbose("Redis: Data found in cache", { cache_key });
       return cached_data;

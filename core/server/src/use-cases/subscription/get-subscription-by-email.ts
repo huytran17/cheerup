@@ -1,11 +1,11 @@
-import Subscription from "../../database/entities/subscription";
+import ISubscription from "../../database/interfaces/subscription";
 import ISubscriptionDb from "../../data-access/interfaces/subscription-db";
 
 export type IGetSubscriptionByEmail = ({
   email,
 }: {
   email: string;
-}) => Promise<Subscription>;
+}) => Promise<ISubscription>;
 
 export default function makeGetSubscriptionByEmail({
   subscriptionDb,

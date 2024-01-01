@@ -1,4 +1,4 @@
-import CommentLike from "../../database/entities/comment-like";
+import ICommentLike from "../../database/interfaces/comment-like";
 import ICommentLikeDb from "../../data-access/interfaces/comment-like-db";
 
 export type IGetCommentLikeByUserAndComment = ({
@@ -7,7 +7,7 @@ export type IGetCommentLikeByUserAndComment = ({
 }: {
   user_id: string;
   comment_id: string;
-}) => Promise<CommentLike>;
+}) => Promise<ICommentLike>;
 
 export default function makeGetCommentLikeByUserAndComment({
   commentLikeDb,

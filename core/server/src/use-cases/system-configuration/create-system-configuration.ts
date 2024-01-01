@@ -1,4 +1,3 @@
-import SystemConfiguration from "../../database/entities/system-configuration";
 import ISystemConfiguration from "../../database/interfaces/system-configuration";
 import SystemConfigurationDb from "../../data-access/interfaces/system-configuration-db";
 
@@ -11,7 +10,7 @@ export interface ICreateSystemConfigurationData {
 
 export type ICreateSystemConfiguration = ({
   systemConfigurationDetails,
-}: ICreateSystemConfigurationData) => Promise<SystemConfiguration>;
+}: ICreateSystemConfigurationData) => Promise<ISystemConfiguration>;
 
 export default function makeCreateSystemConfiguration({
   systemConfigurationDb,

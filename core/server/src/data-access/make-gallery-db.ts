@@ -6,13 +6,11 @@ import IGallery from "../database/interfaces/gallery";
 
 export default function makeGalleryDb({
   galleryDbModel,
-  moment,
 }: {
   galleryDbModel: mongoose.Model<
     IGallery & mongoose.Document,
     Record<string, unknown>
   >;
-  moment: any;
 }): IGalleryDb {
   return new (class MongooseGalleryDb implements IGalleryDb {
     async findAllPaginated(
@@ -30,7 +28,7 @@ export default function makeGalleryDb({
       }: {
         is_parent: boolean;
       }
-    ): Promise<IPaginatedGalleryResult | null> {
+    ): Promise<IPaginatedGalleryResult> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = {};
@@ -82,7 +80,7 @@ export default function makeGalleryDb({
       return null;
     }
 
-    async findById({ _id }: { _id: string }): Promise<Gallery> {
+    async findById({ _id }: { _id: string }): Promise<IGallery> {
       const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
       const is_mongo_id = mongo_id_regex.test(_id);
       if (!is_mongo_id || !_id) {
@@ -105,7 +103,7 @@ export default function makeGalleryDb({
       return null;
     }
 
-    async findOneByPost({ post_id }: { post_id: string }): Promise<Gallery> {
+    async findOneByPost({ post_id }: { post_id: string }): Promise<IGallery> {
       const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
       const is_mongo_id = mongo_id_regex.test(post_id);
       if (!is_mongo_id || !post_id) {
@@ -126,7 +124,7 @@ export default function makeGalleryDb({
       return null;
     }
 
-    async findByPost({ post_id }: { post_id: string }): Promise<Gallery[]> {
+    async findByPost({ post_id }: { post_id: string }): Promise<IGallery[]> {
       const query_conditions = {};
 
       post_id && (query_conditions["post"] = post_id);
@@ -146,7 +144,7 @@ export default function makeGalleryDb({
       parent_id,
     }: {
       parent_id: string;
-    }): Promise<Gallery[]> {
+    }): Promise<IGallery[]> {
       const query_conditions = {};
 
       parent_id && (query_conditions["parent"] = parent_id);
@@ -162,7 +160,7 @@ export default function makeGalleryDb({
       return null;
     }
 
-    async findOne(): Promise<Gallery> {
+    async findOne(): Promise<IGallery> {
       const existing = await galleryDbModel.findOne().lean({ virtuals: true });
 
       if (existing) {
@@ -172,7 +170,7 @@ export default function makeGalleryDb({
       return null;
     }
 
-    async insert(payload: Partial<IGallery>): Promise<Gallery> {
+    async insert(payload: Partial<IGallery>): Promise<IGallery> {
       const updated_payload = payload;
 
       const result = await galleryDbModel.create([updated_payload]);
@@ -186,7 +184,7 @@ export default function makeGalleryDb({
       return null;
     }
 
-    async hardDelete({ _id }: { _id: string }): Promise<Gallery> {
+    async hardDelete({ _id }: { _id: string }): Promise<IGallery> {
       const existing = await galleryDbModel.findOne({ _id });
       await existing.deleteOne();
 
@@ -200,7 +198,7 @@ export default function makeGalleryDb({
       return null;
     }
 
-    async update(payload: Partial<IGallery>): Promise<Gallery> {
+    async update(payload: Partial<IGallery>): Promise<IGallery> {
       const result = await galleryDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)
         .lean({ virtuals: true });
