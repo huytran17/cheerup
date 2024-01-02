@@ -217,22 +217,15 @@ export default {
     sharePost({ type }) {
       const post_url = `${process.env.BASE_URL}/post/${this.post.slug}`;
 
-      let share_url = "";
       const encodedURI = encodeURIComponent(post_url);
 
-      switch (type) {
-        case SOCIAL_MEDIA_TYPES.FACEBOOK:
-          share_url = `https://www.facebook.com/share.php?u=${encodedURI}`;
-          break;
-        case SOCIAL_MEDIA_TYPES.TWITTER:
-          share_url = `https://twitter.com/intent/tweet?text=${this.post?.title}?url=${encodedURI}`;
-          break;
-        case SOCIAL_MEDIA_TYPES.PINTEREST:
-          share_url = `http://pinterest.com/pin/create/button?url=${encodedURI}&description=${this.post?.description}&media=${this.post?.thumbnail_url}`;
-          break;
-      }
+      const social_urls = {
+        [SOCIAL_MEDIA_TYPES.FACEBOOK]: `https://www.facebook.com/share.php?u=${encodedURI}`,
+        [SOCIAL_MEDIA_TYPES.TWITTER]: `https://twitter.com/intent/tweet?text=${this.post_data?.title}?url=${encodedURI}`,
+        [SOCIAL_MEDIA_TYPES.PINTEREST]: `http://pinterest.com/pin/create/button?url=${encodedURI}&description=${this.post_data?.description}&media=${this.post_data?.thumbnail_url}`,
+      };
 
-      share_url && window.open(share_url, "_blank");
+      social_urls[type] && window.open(social_urls[type], "_blank");
     },
     async copyLinkToClipboard() {
       try {
