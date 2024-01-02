@@ -8,7 +8,7 @@ import { fakeComment, fakeUser } from "../../../../../__tests__/__mock__";
 import { redis } from "../../../../../__tests__/jest-redis";
 import makeUserDb from "../../../make-user-db";
 import makeCommentDb from "../../../make-comment-db";
-import Comment from "../../../../database/entities/comment";
+import IComment from "../../../../database/interfaces/comment";
 import { CommentModel, CommentLikeModel, UserModel } from "../../../models";
 import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeCreateComment from "../../../../use-cases/comment/create-comment";
@@ -81,7 +81,7 @@ describe("getCommentsByParent", () => {
 
     const result = await getCommentsByParentController(request as any);
 
-    const expected: ExpectMultipleResults<Comment> = {
+    const expected: ExpectMultipleResults<IComment> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

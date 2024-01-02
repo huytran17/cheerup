@@ -10,7 +10,7 @@ import { UserModel } from "../../../models";
 import makeGetUsers from "../../../../use-cases/user/get-users";
 import makeGetUsersController from "./get-users";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import User from "../../../../database/entities/user";
+import IUser from "../../../../database/interfaces/user";
 
 describe("getUsers", () => {
   beforeAll(async () => await connectDatabase());
@@ -43,7 +43,7 @@ describe("getUsers", () => {
 
     const result = await getUsersController(request as any);
 
-    const expected: ExpectMultipleResults<User> = {
+    const expected: ExpectMultipleResults<IUser> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

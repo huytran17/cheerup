@@ -16,7 +16,7 @@ import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeGetUserByEmail from "../../../../use-cases/user/get-user-by-email";
 import makeCreateUserController from "./create-user";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import User from "../../../../database/entities/user";
+import IUser from "../../../../database/interfaces/user";
 
 describe("createUser", () => {
   beforeAll(async () => await connectDatabase());
@@ -70,7 +70,7 @@ describe("createUser", () => {
 
     const result = await createUserController(request as any);
 
-    const expected: ExpectSingleResult<User> = {
+    const expected: ExpectSingleResult<IUser> = {
       headers,
       statusCode: HttpStatusCode.CREATED,
       body: result?.body,

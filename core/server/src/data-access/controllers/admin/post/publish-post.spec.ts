@@ -23,7 +23,7 @@ import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeGetActivatingSubscriptions from "../../../../use-cases/subscription/get-activating-subscriptions";
 import makePublishPostController from "./publish-post";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Post from "../../../../database/entities/post";
+import IPost from "../../../../database/interfaces/post";
 
 describe("publishPost", () => {
   beforeAll(async () => await connectDatabase());
@@ -87,7 +87,7 @@ describe("publishPost", () => {
 
     const result = await publishPostController(request as any);
 
-    const expected: ExpectSingleResult<Post> = {
+    const expected: ExpectSingleResult<IPost> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

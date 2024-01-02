@@ -14,7 +14,7 @@ import makeGetPost from "../../../../use-cases/post/get-post";
 import makeDeletePost from "../../../../use-cases/post/delete-post";
 import makeDeletePostController from "./delete-post";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Post from "../../../../database/entities/post";
+import IPost from "../../../../database/interfaces/post";
 
 describe("deletePost", () => {
   beforeAll(async () => await connectDatabase());
@@ -57,7 +57,7 @@ describe("deletePost", () => {
 
     const result = await deletePostController(request as any);
 
-    const expected: ExpectSingleResult<Post> = {
+    const expected: ExpectSingleResult<IPost> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

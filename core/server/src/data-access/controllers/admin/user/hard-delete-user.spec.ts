@@ -14,7 +14,7 @@ import makeHardDeleteUser from "../../../../use-cases/user/hard-delete-user";
 import makeGetUser from "../../../../use-cases/user/get-user";
 import makeHardDeleteUserController from "./hard-delete-user";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import User from "../../../../database/entities/user";
+import IUser from "../../../../database/interfaces/user";
 
 describe("hardDeleteUser", () => {
   beforeAll(async () => await connectDatabase());
@@ -57,7 +57,7 @@ describe("hardDeleteUser", () => {
 
     const result = await hardDeleteUserController(request as any);
 
-    const expected: ExpectSingleResult<User> = {
+    const expected: ExpectSingleResult<IUser> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

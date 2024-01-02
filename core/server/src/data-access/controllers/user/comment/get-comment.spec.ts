@@ -8,7 +8,7 @@ import { fakeComment, fakeUser } from "../../../../../__tests__/__mock__";
 import { redis } from "../../../../../__tests__/jest-redis";
 import makeCommentDb from "../../../make-comment-db";
 import makeCommentLikeDb from "../../../make-comment-like-db";
-import Comment from "../../../../database/entities/comment";
+import IComment from "../../../../database/interfaces/comment";
 import { CommentModel, CommentLikeModel, UserModel } from "../../../models";
 import makeCreateComment from "../../../../use-cases/comment/create-comment";
 import makeGetComment from "../../../../use-cases/comment/get-comment";
@@ -76,7 +76,7 @@ describe("getComment", () => {
 
     const result = await getCommentController(request as any);
 
-    const expected: ExpectSingleResult<Comment> = {
+    const expected: ExpectSingleResult<IComment> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

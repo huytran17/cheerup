@@ -8,12 +8,12 @@ import {
 import { redis } from "../../../../../__tests__/jest-redis";
 import { generateAccessToken } from "../../../../config/accessTokenManager";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import PasswordReset from "../../../../database/entities/password-reset";
 import makeCreatePasswordReset from "../../../../use-cases/password-reset/create-password-reset";
 import makeGetPasswordResetByCode from "../../../../use-cases/password-reset/get-password-reset-by-code";
 import makePasswordResetDb from "../../../make-password-reset-db";
 import { PasswordResetModel } from "../../../models";
 import makeGetPasswordResetByCodeController from "./get-password-reset-by-code";
+import IPasswordReset from "../../../../database/interfaces/password-reset";
 
 describe("getPasswordResetByCode", () => {
   beforeAll(async () => await connectDatabase());
@@ -57,7 +57,7 @@ describe("getPasswordResetByCode", () => {
 
     const result = await getPasswordResetByCodeController(request as any);
 
-    const expected: ExpectSingleResult<PasswordReset> = {
+    const expected: ExpectSingleResult<IPasswordReset> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

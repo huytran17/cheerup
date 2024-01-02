@@ -10,7 +10,7 @@ import { readingTimeAnalyzer } from "../../../../../__tests__/reading-time";
 import makePostDb from "../../../make-post-db";
 import makeUserDb from "../../../make-user-db";
 import makePostBookmarkDb from "../../../make-post-bookmark-db";
-import Post from "../../../../database/entities/post";
+import IPost from "../../../../database/interfaces/post";
 import { PostModel, PostBookmarkModel, UserModel } from "../../../models";
 import makeCreatePost from "../../../../use-cases/post/create-post";
 import makeCreateUser from "../../../../use-cases/user/create-user";
@@ -78,7 +78,7 @@ describe("getPost", () => {
 
     const result = await getPostController(request as any);
 
-    const expected: ExpectSingleResult<Post> = {
+    const expected: ExpectSingleResult<IPost> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

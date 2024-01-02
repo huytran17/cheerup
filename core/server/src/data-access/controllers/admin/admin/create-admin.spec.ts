@@ -14,8 +14,8 @@ import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
 import makeGetAdminByEmail from "../../../../use-cases/admin/get-admin-by-email";
 import makeCreateAdminController from "./create-admin";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Admin from "../../../../database/entities/admin";
 import { hashPassword } from "../../../../config/password";
+import IAdmin from "../../../../database/interfaces/admin";
 
 describe("createAdmin", () => {
   beforeAll(async () => await connectDatabase());
@@ -59,7 +59,7 @@ describe("createAdmin", () => {
 
     const result = await createAdminController(request as any);
 
-    const expected: ExpectSingleResult<Admin> = {
+    const expected: ExpectSingleResult<IAdmin> = {
       headers,
       statusCode: HttpStatusCode.CREATED,
       body: result?.body,

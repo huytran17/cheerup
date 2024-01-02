@@ -12,7 +12,7 @@ import makeGetPasswordReset from "../../../../use-cases/password-reset/get-passw
 import makeHardDeletePasswordReset from "../../../../use-cases/password-reset/hard-delete-password-reset";
 import makeHardDeletePasswordResetController from "./hard-delete-password-reset";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import PasswordReset from "../../../../database/entities/password-reset";
+import IPasswordReset from "../../../../database/interfaces/password-reset";
 
 describe("hardDeletePasswordReset", () => {
   beforeAll(async () => await connectDatabase());
@@ -58,7 +58,7 @@ describe("hardDeletePasswordReset", () => {
 
     const result = await hardDeletPasswordResetController(request as any);
 
-    const expected: ExpectSingleResult<PasswordReset> = {
+    const expected: ExpectSingleResult<IPasswordReset> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

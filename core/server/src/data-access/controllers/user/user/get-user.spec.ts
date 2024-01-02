@@ -12,7 +12,7 @@ import makeGetUser from "../../../../use-cases/user/get-user";
 import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeGetUserController from "./get-user";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import User from "../../../../database/entities/user";
+import IUser from "../../../../database/interfaces/user";
 
 describe("getUser", () => {
   beforeAll(async () => await connectDatabase());
@@ -56,7 +56,7 @@ describe("getUser", () => {
 
     const result = await getUserController(request as any);
 
-    const expected: ExpectSingleResult<User> = {
+    const expected: ExpectSingleResult<IUser> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

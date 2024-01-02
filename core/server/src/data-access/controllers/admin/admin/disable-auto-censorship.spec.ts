@@ -14,7 +14,7 @@ import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
 import makeUpdateAdmin from "../../../../use-cases/admin/update-admin";
 import makeDisableAutoCensorshipController from "./disable-auto-censorship";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Admin from "../../../../database/entities/admin";
+import IAdmin from "../../../../database/interfaces/admin";
 
 describe("disableAutoCensorship", () => {
   beforeAll(async () => await connectDatabase());
@@ -59,7 +59,7 @@ describe("disableAutoCensorship", () => {
 
     const result = await disableAutoCensorshipController(request as any);
 
-    const expected: ExpectSingleResult<Admin> = {
+    const expected: ExpectSingleResult<IAdmin> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

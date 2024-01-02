@@ -14,7 +14,7 @@ import makeGetUser from "../../../../use-cases/user/get-user";
 import makeRestoreUser from "../../../../use-cases/user/restore-user";
 import makeRestoreUserController from "./restore-user";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import User from "../../../../database/entities/user";
+import IUser from "../../../../database/interfaces/user";
 
 describe("restoreUser", () => {
   beforeAll(async () => await connectDatabase());
@@ -57,7 +57,7 @@ describe("restoreUser", () => {
 
     const result = await restoreUserController(request as any);
 
-    const expected: ExpectSingleResult<User> = {
+    const expected: ExpectSingleResult<IUser> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

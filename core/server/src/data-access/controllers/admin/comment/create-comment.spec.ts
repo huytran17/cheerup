@@ -10,7 +10,7 @@ import { CommentModel } from "../../../models";
 import makeCreateComment from "../../../../use-cases/comment/create-comment";
 import makeCreateCommentController from "./create-comment";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Comment from "../../../../database/entities/comment";
+import IComment from "../../../../database/interfaces/comment";
 
 describe("createComment", () => {
   beforeAll(async () => await connectDatabase());
@@ -44,7 +44,7 @@ describe("createComment", () => {
 
     const result = await createCommentController(request as any);
 
-    const expected: ExpectSingleResult<Comment> = {
+    const expected: ExpectSingleResult<IComment> = {
       headers,
       statusCode: HttpStatusCode.CREATED,
       body: result?.body,

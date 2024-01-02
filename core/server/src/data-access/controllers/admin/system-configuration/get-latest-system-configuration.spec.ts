@@ -11,7 +11,7 @@ import makeCreateSystemConfiguration from "../../../../use-cases/system-configur
 import makeGetLatestSystemConfiguration from "../../../../use-cases/system-configuration/get-latest-system-configuration";
 import makeGetLatestSystemConfigurationController from "./get-latest-system-configuration";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import SystemConfiguration from "../../../../database/entities/system-configuration";
+import ISystemConfiguration from "../../../../database/interfaces/system-configuration";
 
 describe("getLatestSystemConfiguration", () => {
   beforeAll(async () => await connectDatabase());
@@ -55,7 +55,7 @@ describe("getLatestSystemConfiguration", () => {
 
     const result = await getLatestSystemConfigurationController(request as any);
 
-    const expected: ExpectSingleResult<SystemConfiguration> = {
+    const expected: ExpectSingleResult<ISystemConfiguration> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

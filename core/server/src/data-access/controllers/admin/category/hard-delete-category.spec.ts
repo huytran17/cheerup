@@ -14,7 +14,7 @@ import makeGetCategory from "../../../../use-cases/category/get-category";
 import makeHardDeleteCategory from "../../../../use-cases/category/hard-delete-category";
 import makeHardDeleteCategoryController from "./hard-delete-category";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Category from "../../../../database/entities/category";
+import ICategory from "../../../../database/interfaces/category";
 
 describe("hardDeleteCategory", () => {
   beforeAll(async () => await connectDatabase());
@@ -57,7 +57,7 @@ describe("hardDeleteCategory", () => {
 
     const result = await hardDeleteCategoryController(request as any);
 
-    const expected: ExpectSingleResult<Category> = {
+    const expected: ExpectSingleResult<ICategory> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

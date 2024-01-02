@@ -8,7 +8,7 @@ import { fakePost, fakeCategory } from "../../../../../__tests__/__mock__";
 import { redis } from "../../../../../__tests__/jest-redis";
 import makePostDb from "../../../make-post-db";
 import makeCategoryDb from "../../../make-category-db";
-import Post from "../../../../database/entities/post";
+import IPost from "../../../../database/interfaces/post";
 import { PostModel, CategoryModel } from "../../../models";
 import makeCreateCategory from "../../../../use-cases/category/create-category";
 import makeCreatePost from "../../../../use-cases/post/create-post";
@@ -68,7 +68,7 @@ describe("getSuggestionPosts", () => {
 
     const result = await getSuggestionPostsController(request as any);
 
-    const expected: ExpectMultipleResults<Post> = {
+    const expected: ExpectMultipleResults<IPost> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

@@ -12,7 +12,7 @@ import makeGetComment from "../../../../use-cases/comment/get-comment";
 import makeUpdateComment from "../../../../use-cases/comment/update-comment";
 import makeUpdateCommentController from "./update-comment";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Comment from "../../../../database/entities/comment";
+import IComment from "../../../../database/interfaces/comment";
 
 describe("updateComment", () => {
   beforeAll(async () => await connectDatabase());
@@ -53,7 +53,7 @@ describe("updateComment", () => {
 
     const result = await updateCommentController(request as any);
 
-    const expected: ExpectSingleResult<Comment> = {
+    const expected: ExpectSingleResult<IComment> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

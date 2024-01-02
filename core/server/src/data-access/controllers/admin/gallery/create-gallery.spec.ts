@@ -14,7 +14,7 @@ import makeCreateGallery from "../../../../use-cases/gallery/create-gallery";
 import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeCreateGalleryController from "./create-gallery";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Gallery from "../../../../database/entities/gallery";
+import IGallery from "../../../../database/interfaces/gallery";
 
 describe("createGallery", () => {
   beforeAll(async () => await connectDatabase());
@@ -58,7 +58,7 @@ describe("createGallery", () => {
 
     const result = await createGalleryController(request as any);
 
-    const expected: ExpectSingleResult<Gallery> = {
+    const expected: ExpectSingleResult<IGallery> = {
       headers,
       statusCode: HttpStatusCode.CREATED,
       body: result?.body,

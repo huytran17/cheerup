@@ -14,7 +14,7 @@ import makeUpdateUser from "../../../../use-cases/user/update-user";
 import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeUpdatePasswordController from "./update-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import User from "../../../../database/entities/user";
+import IUser from "../../../../database/interfaces/user";
 import { hashPassword, verifyPassword } from "../../../../config/password";
 
 describe("updatePassword", () => {
@@ -72,7 +72,7 @@ describe("updatePassword", () => {
 
     const result = await updatePasswordController(request as any);
 
-    const expected: ExpectSingleResult<User> = {
+    const expected: ExpectSingleResult<IUser> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

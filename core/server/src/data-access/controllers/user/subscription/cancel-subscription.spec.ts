@@ -13,7 +13,7 @@ import makeGetSubscriptionByEmail from "../../../../use-cases/subscription/get-s
 import makeUpdateSubscription from "../../../../use-cases/subscription/update-subscription";
 import makeCancelSubscriptionController from "./cancel-subscription";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Subscription from "../../../../database/entities/subscription";
+import ISubscription from "../../../../database/interfaces/subscription";
 
 describe("cancelSubscription", () => {
   beforeAll(async () => await connectDatabase());
@@ -63,7 +63,7 @@ describe("cancelSubscription", () => {
 
     const result = await cancelSubscriptionController(request as any);
 
-    const expected: ExpectSingleResult<Subscription> = {
+    const expected: ExpectSingleResult<ISubscription> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

@@ -11,7 +11,7 @@ import makeCreateSystemConfiguration from "../../../../use-cases/system-configur
 import makeGetSystemConfiguration from "../../../../use-cases/system-configuration/get-system-configuraion";
 import makeGetSystemConfigurationController from "./get-system-configuration";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import SystemConfiguration from "../../../../database/entities/system-configuration";
+import ISystemConfiguration from "../../../../database/interfaces/system-configuration";
 
 describe("getSystemConfiguration", () => {
   beforeAll(async () => await connectDatabase());
@@ -55,7 +55,7 @@ describe("getSystemConfiguration", () => {
 
     const result = await getSystemConfigurationController(request as any);
 
-    const expected: ExpectSingleResult<SystemConfiguration> = {
+    const expected: ExpectSingleResult<ISystemConfiguration> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

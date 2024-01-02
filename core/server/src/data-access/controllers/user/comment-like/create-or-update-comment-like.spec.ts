@@ -13,7 +13,6 @@ import { redis } from "../../../../../__tests__/jest-redis";
 import makeUserDb from "../../../make-user-db";
 import makeCommentLikeDb from "../../../make-comment-like-db";
 import makeCommentDb from "../../../make-comment-db";
-import CommentLike from "../../../../database/entities/comment-like";
 import { CommentLikeModel, UserModel, CommentModel } from "../../../models";
 import makeCreateCommentLike from "../../../../use-cases/comment-like/create-comment-like";
 import makeHardDeleteCommentLike from "../../../../use-cases/comment-like/hard-delete-comment-like";
@@ -25,6 +24,7 @@ import makeGetUser from "../../../../use-cases/user/get-user";
 import makeGetComment from "../../../../use-cases/comment/get-comment";
 import makeCreateOrUpdateCommentLikeController from "./create-or-update-comment-like";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import ICommentLike from "../../../../database/interfaces/comment-like";
 
 describe("createOrUpdateCommentLike", () => {
   beforeAll(async () => await connectDatabase());
@@ -106,7 +106,7 @@ describe("createOrUpdateCommentLike", () => {
 
     const result = await countCommentLikesController(request as any);
 
-    const expected: ExpectSingleResult<CommentLike> = {
+    const expected: ExpectSingleResult<ICommentLike> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: {

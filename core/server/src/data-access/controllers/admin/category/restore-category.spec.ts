@@ -14,7 +14,7 @@ import makeGetCategory from "../../../../use-cases/category/get-category";
 import makeUpdateCategory from "../../../../use-cases/category/update-category";
 import makeRestoreCategoryController from "./restore-category";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Category from "../../../../database/entities/category";
+import ICategory from "../../../../database/interfaces/category";
 
 describe("restoreCategory", () => {
   beforeAll(async () => await connectDatabase());
@@ -57,7 +57,7 @@ describe("restoreCategory", () => {
 
     const result = await restoreCategoryController(request as any);
 
-    const expected: ExpectSingleResult<Category> = {
+    const expected: ExpectSingleResult<ICategory> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

@@ -12,7 +12,7 @@ import makeCreatePost from "../../../../use-cases/post/create-post";
 import makeGetPosts from "../../../../use-cases/post/get-posts";
 import makeGetPostsController from "./get-posts";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Post from "../../../../database/entities/post";
+import IPost from "../../../../database/interfaces/post";
 
 describe("getPosts", () => {
   beforeAll(async () => await connectDatabase());
@@ -52,7 +52,7 @@ describe("getPosts", () => {
 
     const result = await getPostsController(request as any);
 
-    const expected: ExpectMultipleResults<Post> = {
+    const expected: ExpectMultipleResults<IPost> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

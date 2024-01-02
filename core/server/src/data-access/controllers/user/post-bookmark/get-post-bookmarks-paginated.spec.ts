@@ -14,7 +14,7 @@ import { redis } from "../../../../../__tests__/jest-redis";
 import makeCommentDb from "../../../make-comment-db";
 import makeUserDb from "../../../make-user-db";
 import makePostBookmarkDb from "../../../make-post-bookmark-db";
-import PostBookmark from "../../../../database/entities/post-bookmark";
+import IPostBookmark from "../../../../database/interfaces/post-bookmark";
 import { PostBookmarkModel, CommentModel, UserModel } from "../../../models";
 import makeGetPostBookmarksPaginated from "../../../../use-cases/post-bookmark/get-post-bookmarks-paginated";
 import makeCountCommentsByPost from "../../../../use-cases/comment/count-comments-by-post";
@@ -91,7 +91,7 @@ describe("getPostBookmarksPaginated", () => {
 
     const result = await getPostBookmarksPaginatedController(request as any);
 
-    const expected: ExpectPaginatedResult<PostBookmark> = {
+    const expected: ExpectPaginatedResult<IPostBookmark> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

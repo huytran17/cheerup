@@ -14,7 +14,7 @@ import makeCreateGallery from "../../../../use-cases/gallery/create-gallery";
 import makeGetGalleriesPaginated from "../../../../use-cases/gallery/get-galleries-paginated";
 import makeGetGalleriesPaginatedController from "./get-galleries-paginated";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Gallery from "../../../../database/entities/gallery";
+import IGallery from "../../../../database/interfaces/gallery";
 
 describe("getGalleriesPaginated", () => {
   beforeAll(async () => await connectDatabase());
@@ -56,7 +56,7 @@ describe("getGalleriesPaginated", () => {
 
     const result = await getGalleriesPaginatedController(request as any);
 
-    const expected: ExpectMultipleResults<Gallery> = {
+    const expected: ExpectMultipleResults<IGallery> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

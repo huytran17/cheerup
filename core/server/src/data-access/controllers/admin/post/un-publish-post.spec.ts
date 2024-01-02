@@ -14,7 +14,7 @@ import makeGetPost from "../../../../use-cases/post/get-post";
 import makeUpdatePost from "../../../../use-cases/post/update-post";
 import makeUnPublishPostController from "./un-publish-post";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Post from "../../../../database/entities/post";
+import IPost from "../../../../database/interfaces/post";
 
 describe("unPublishPost", () => {
   beforeAll(async () => await connectDatabase());
@@ -57,7 +57,7 @@ describe("unPublishPost", () => {
 
     const result = await unPublishPostController(request as any);
 
-    const expected: ExpectSingleResult<Post> = {
+    const expected: ExpectSingleResult<IPost> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

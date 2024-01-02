@@ -15,7 +15,7 @@ import makeUpdateSubscription from "../../../../use-cases/subscription/update-su
 import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeCreateSubscriptionController from "./create-subscription";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Subscription from "../../../../database/entities/subscription";
+import ISubscription from "../../../../database/interfaces/subscription";
 
 describe("createSubscription", () => {
   beforeAll(async () => await connectDatabase());
@@ -74,7 +74,7 @@ describe("createSubscription", () => {
 
     const result = await createSubscriptionController(request as any);
 
-    const expected: ExpectSingleResult<Subscription> = {
+    const expected: ExpectSingleResult<ISubscription> = {
       headers,
       statusCode: HttpStatusCode.CREATED,
       body: result?.body,

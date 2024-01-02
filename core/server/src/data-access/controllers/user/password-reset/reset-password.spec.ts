@@ -17,12 +17,12 @@ import makeGetPasswordReset from "../../../../use-cases/password-reset/get-passw
 import makeHardDeletePasswordReset from "../../../../use-cases/password-reset/hard-delete-password-reset";
 import makeResetPasswordController from "./reset-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import User from "../../../../database/entities/user";
 import {
   verifyAccessToken,
   generateAccessToken,
 } from "../../../../config/accessTokenManager";
 import { hashPassword } from "../../../../config/password";
+import IUser from "../../../../database/interfaces/user";
 
 describe("resetPassword", () => {
   beforeAll(async () => await connectDatabase());
@@ -93,7 +93,7 @@ describe("resetPassword", () => {
 
     const result = await resetPasswordController(request as any);
 
-    const expected: ExpectSingleResult<User> = {
+    const expected: ExpectSingleResult<IUser> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

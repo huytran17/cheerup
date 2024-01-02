@@ -8,7 +8,7 @@ import { fakePost } from "../../../../../__tests__/__mock__";
 import { redis } from "../../../../../__tests__/jest-redis";
 import makePostDb from "../../../make-post-db";
 import makeCommentDb from "../../../make-comment-db";
-import Post from "../../../../database/entities/post";
+import IPost from "../../../../database/interfaces/post";
 import { PostModel, CommentModel } from "../../../models";
 import makeCreatePost from "../../../../use-cases/post/create-post";
 import makeGetPosts from "../../../../use-cases/post/get-posts";
@@ -59,7 +59,7 @@ describe("getPosts", () => {
 
     const result = await getPostsController(request as any);
 
-    const expected: ExpectMultipleResults<Post> = {
+    const expected: ExpectMultipleResults<IPost> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

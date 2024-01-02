@@ -23,7 +23,7 @@ import makeGetAdmin from "../../../../use-cases/admin/get-admin";
 import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
 import makeCreatePostController from "./create-post";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Post from "../../../../database/entities/post";
+import IPost from "../../../../database/interfaces/post";
 
 describe("createPost", () => {
   beforeAll(async () => await connectDatabase());
@@ -83,7 +83,7 @@ describe("createPost", () => {
 
     const result = await createPostController(request as any);
 
-    const expected: ExpectSingleResult<Post> = {
+    const expected: ExpectSingleResult<IPost> = {
       headers,
       statusCode: HttpStatusCode.CREATED,
       body: result?.body,

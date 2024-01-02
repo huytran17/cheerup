@@ -12,7 +12,7 @@ import makeGetGallery from "../../../../use-cases/gallery/get-gallery";
 import makeGetGalleriesByParent from "../../../../use-cases/gallery/get-galleries-by-parent";
 import makeGetGalleriesByParentController from "./get-galleries-by-parent";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Gallery from "../../../../database/entities/gallery";
+import IGallery from "../../../../database/interfaces/gallery";
 
 describe("getGalleriesByParent", () => {
   beforeAll(async () => await connectDatabase());
@@ -62,7 +62,7 @@ describe("getGalleriesByParent", () => {
 
     const result = await getGalleriesByParentController(request as any);
 
-    const expected: ExpectMultipleResults<Gallery> = {
+    const expected: ExpectMultipleResults<IGallery> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

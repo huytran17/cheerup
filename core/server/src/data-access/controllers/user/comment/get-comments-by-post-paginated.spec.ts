@@ -11,7 +11,7 @@ import {
   fakeUser,
 } from "../../../../../__tests__/__mock__";
 import { ExpectPaginatedResult } from "../../../../../__tests__/__types__/expect-types";
-import Comment from "../../../../database/entities/comment";
+import IComment from "../../../../database/interfaces/comment";
 import { redis } from "../../../../../__tests__/jest-redis";
 import makeCommentDb from "../../../make-comment-db";
 import makePostDb from "../../../make-post-db";
@@ -113,7 +113,7 @@ describe("getCommentsByPostPaginated", () => {
 
     const result = await getCommentsByPostPaginatedController(request as any);
 
-    const expected: ExpectPaginatedResult<Comment> = {
+    const expected: ExpectPaginatedResult<IComment> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

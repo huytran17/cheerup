@@ -12,7 +12,7 @@ import makeCreatePost from "../../../../use-cases/post/create-post";
 import makeGetPost from "../../../../use-cases/post/get-post";
 import makeGetPostController from "./get-post";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Post from "../../../../database/entities/post";
+import IPost from "../../../../database/interfaces/post";
 
 describe("getPost", () => {
   beforeAll(async () => await connectDatabase());
@@ -52,7 +52,7 @@ describe("getPost", () => {
 
     const result = await getPostController(request as any);
 
-    const expected: ExpectSingleResult<Post> = {
+    const expected: ExpectSingleResult<IPost> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

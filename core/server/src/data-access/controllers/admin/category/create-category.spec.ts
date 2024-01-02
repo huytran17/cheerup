@@ -16,7 +16,7 @@ import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
 import makeGetCategoryByTitle from "../../../../use-cases/category/get-category-by-title";
 import makeCreateCategoryController from "./create-category";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Category from "../../../../database/entities/category";
+import ICategory from "../../../../database/interfaces/category";
 
 describe("createCategory", () => {
   beforeAll(async () => await connectDatabase());
@@ -66,7 +66,7 @@ describe("createCategory", () => {
 
     const result = await createCategoryController(request as any);
 
-    const expected: ExpectSingleResult<Category> = {
+    const expected: ExpectSingleResult<ICategory> = {
       headers,
       statusCode: HttpStatusCode.CREATED,
       body: result?.body,

@@ -12,7 +12,7 @@ import makeCreateSubscription from "../../../../use-cases/subscription/create-su
 import makeGetSubscriptions from "../../../../use-cases/subscription/get-subscriptions";
 import makeGetSubscriptionsController from "./get-subscriptions";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Subscription from "../../../../database/entities/subscription";
+import ISubscription from "../../../../database/interfaces/subscription";
 
 describe("getSubscriptions", () => {
   beforeAll(async () => await connectDatabase());
@@ -54,7 +54,7 @@ describe("getSubscriptions", () => {
 
     const result = await getSubscriptionsController(request as any);
 
-    const expected: ExpectMultipleResults<Subscription> = {
+    const expected: ExpectMultipleResults<ISubscription> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

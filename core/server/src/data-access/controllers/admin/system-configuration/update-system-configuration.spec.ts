@@ -13,7 +13,7 @@ import makeUpdateSystemConfiguration from "../../../../use-cases/system-configur
 import makeGetSystemConfiguration from "../../../../use-cases/system-configuration/get-system-configuraion";
 import makeUpdateSystemConfigurationController from "./update-system-configuration";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import SystemConfiguration from "../../../../database/entities/system-configuration";
+import ISystemConfiguration from "../../../../database/interfaces/system-configuration";
 
 describe("updateSystemConfiguration", () => {
   beforeAll(async () => await connectDatabase());
@@ -62,7 +62,7 @@ describe("updateSystemConfiguration", () => {
 
     const result = await updateSystemConfigurationController(request as any);
 
-    const expected: ExpectSingleResult<SystemConfiguration> = {
+    const expected: ExpectSingleResult<ISystemConfiguration> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

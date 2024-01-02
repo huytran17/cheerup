@@ -13,7 +13,6 @@ import { redis } from "../../../../../__tests__/jest-redis";
 import makeUserDb from "../../../make-user-db";
 import makePostDb from "../../../make-post-db";
 import makePostBookmarkDb from "../../../make-post-bookmark-db";
-import PostBookmark from "../../../../database/entities/post-bookmark";
 import { PostBookmarkModel, UserModel, PostModel } from "../../../models";
 import makeHardDeletePostBookmark from "../../../../use-cases/post-bookmark/hard-delete-post-bookmark";
 import makeGetPostBookmarkByUserAndPost from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
@@ -24,6 +23,7 @@ import makeGetPost from "../../../../use-cases/post/get-post";
 import makeCreatePost from "../../../../use-cases/post/create-post";
 import makeCreateOrDeletePostBookmark from "./create-or-delete-post-bookmark";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import IPostBookmark from "../../../../database/interfaces/post-bookmark";
 
 describe("createOrDeletePostBookmark", () => {
   beforeAll(async () => await connectDatabase());
@@ -93,7 +93,7 @@ describe("createOrDeletePostBookmark", () => {
 
     const result = await countPostBookmarksController(request as any);
 
-    const expected: ExpectSingleResult<PostBookmark> = {
+    const expected: ExpectSingleResult<IPostBookmark> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

@@ -14,7 +14,7 @@ import makeDeleteCategory from "../../../../use-cases/category/delete-category";
 import makeGetCategory from "../../../../use-cases/category/get-category";
 import makeDeleteCategoryController from "./delete-category";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Category from "../../../../database/entities/category";
+import ICategory from "../../../../database/interfaces/category";
 
 describe("deleteCategory", () => {
   beforeAll(async () => await connectDatabase());
@@ -57,7 +57,7 @@ describe("deleteCategory", () => {
 
     const result = await deleteCategoryController(request as any);
 
-    const expected: ExpectSingleResult<Category> = {
+    const expected: ExpectSingleResult<ICategory> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

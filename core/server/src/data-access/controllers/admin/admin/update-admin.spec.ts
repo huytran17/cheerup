@@ -14,7 +14,7 @@ import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
 import makeUpdateAdmin from "../../../../use-cases/admin/update-admin";
 import makeUpdateAdminController from "./update-admin";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Admin from "../../../../database/entities/admin";
+import IAdmin from "../../../../database/interfaces/admin";
 
 describe("updateAdmin", () => {
   beforeAll(async () => await connectDatabase());
@@ -59,7 +59,7 @@ describe("updateAdmin", () => {
 
     const result = await updateAdminController(request as any);
 
-    const expected: ExpectSingleResult<Admin> = {
+    const expected: ExpectSingleResult<IAdmin> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

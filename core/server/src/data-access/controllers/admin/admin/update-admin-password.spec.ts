@@ -14,7 +14,7 @@ import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
 import makeUpdateAdmin from "../../../../use-cases/admin/update-admin";
 import makeUpdateAdminPasswordController from "./update-admin-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Admin from "../../../../database/entities/admin";
+import IAdmin from "../../../../database/interfaces/admin";
 import { hashPassword } from "../../../../config/password";
 
 describe("updateAdminPassword", () => {
@@ -65,7 +65,7 @@ describe("updateAdminPassword", () => {
 
     const result = await updateAdminPasswordController(request as any);
 
-    const expected: ExpectSingleResult<Admin> = {
+    const expected: ExpectSingleResult<IAdmin> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

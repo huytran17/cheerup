@@ -11,7 +11,7 @@ import {
 } from "../../../../../__tests__/__mock__";
 import { redis } from "../../../../../__tests__/jest-redis";
 import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
-import Comment from "../../../../database/entities/comment";
+import IComment from "../../../../database/interfaces/comment";
 import makeCommentDb from "../../../make-comment-db";
 import makePostDb from "../../../make-post-db";
 import makeUserDb from "../../../make-user-db";
@@ -93,7 +93,7 @@ describe("hardDeleteComment", () => {
 
     const result = await hardDeleteCommentController(request as any);
 
-    const expected: ExpectSingleResult<Comment> = {
+    const expected: ExpectSingleResult<IComment> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

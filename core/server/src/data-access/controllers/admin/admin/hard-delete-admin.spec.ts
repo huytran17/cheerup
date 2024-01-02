@@ -14,7 +14,7 @@ import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
 import makeHardDeleteAdmin from "../../../../use-cases/admin/hard-delete-admin";
 import makeHardDeleteAdminController from "./hard-delete-admin";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Admin from "../../../../database/entities/admin";
+import IAdmin from "../../../../database/interfaces/admin";
 
 describe("hardDeleteAdmin", () => {
   beforeAll(async () => await connectDatabase());
@@ -59,7 +59,7 @@ describe("hardDeleteAdmin", () => {
 
     const result = await hardDeleteAdminController(request as any);
 
-    const expected: ExpectSingleResult<Admin> = {
+    const expected: ExpectSingleResult<IAdmin> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

@@ -14,7 +14,7 @@ import makeUpdateUser from "../../../../use-cases/user/update-user";
 import makeGetUser from "../../../../use-cases/user/get-user";
 import makeUnBlockUserCommentController from "./un-block-user-comment";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import User from "../../../../database/entities/user";
+import IUser from "../../../../database/interfaces/user";
 
 describe("unBlockUserComment", () => {
   beforeAll(async () => await connectDatabase());
@@ -57,7 +57,7 @@ describe("unBlockUserComment", () => {
 
     const result = await unblockUserCommentController(request as any);
 
-    const expected: ExpectSingleResult<User> = {
+    const expected: ExpectSingleResult<IUser> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

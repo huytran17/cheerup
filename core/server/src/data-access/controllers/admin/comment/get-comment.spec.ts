@@ -11,7 +11,7 @@ import makeCreateComment from "../../../../use-cases/comment/create-comment";
 import makeGetComment from "../../../../use-cases/comment/get-comment";
 import makeGetCommentController from "./get-comment";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Comment from "../../../../database/entities/comment";
+import IComment from "../../../../database/interfaces/comment";
 
 describe("getComment", () => {
   beforeAll(async () => await connectDatabase());
@@ -50,7 +50,7 @@ describe("getComment", () => {
 
     const result = await getCommentController(request as any);
 
-    const expected: ExpectSingleResult<Comment> = {
+    const expected: ExpectSingleResult<IComment> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

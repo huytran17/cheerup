@@ -6,7 +6,7 @@ import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect
 import { fakeComment } from "../../../../../__tests__/__mock__";
 import { redis } from "../../../../../__tests__/jest-redis";
 import makeCommentDb from "../../../make-comment-db";
-import Comment from "../../../../database/entities/comment";
+import IComment from "../../../../database/interfaces/comment";
 import { CommentModel } from "../../../models";
 import makeCreateComment from "../../../../use-cases/comment/create-comment";
 import makeGetComments from "../../../../use-cases/comment/get-comments";
@@ -50,7 +50,7 @@ describe("getComments", () => {
 
     const result = await getCommentsController(request as any);
 
-    const expected: ExpectMultipleResults<Comment> = {
+    const expected: ExpectMultipleResults<IComment> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

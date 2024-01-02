@@ -15,7 +15,7 @@ import makePostDb from "../../../make-post-db";
 import makeCommentDb from "../../../make-comment-db";
 import makeUserDb from "../../../make-user-db";
 import makePostBookmarkDb from "../../../make-post-bookmark-db";
-import Post from "../../../../database/entities/post";
+import IPost from "../../../../database/interfaces/post";
 import {
   PostModel,
   PostBookmarkModel,
@@ -95,7 +95,7 @@ describe("getPostsPaginated", () => {
 
     const result = await getPostsPaginatedController(request as any);
 
-    const expected: ExpectPaginatedPartialResult<Post> = {
+    const expected: ExpectPaginatedPartialResult<IPost> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

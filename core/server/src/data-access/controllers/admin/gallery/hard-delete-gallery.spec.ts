@@ -13,7 +13,7 @@ import makeGetGallery from "../../../../use-cases/gallery/get-gallery";
 import makeHardDeleteGallery from "../../../../use-cases/gallery/hard-delete-gallery";
 import makeHardDeleteGalleryController from "./hard-delete-gallery";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Gallery from "../../../../database/entities/gallery";
+import IGallery from "../../../../database/interfaces/gallery";
 
 describe("hardDeleteGallery", () => {
   beforeAll(async () => await connectDatabase());
@@ -55,7 +55,7 @@ describe("hardDeleteGallery", () => {
 
     const result = await hardDeletGalleryController(request as any);
 
-    const expected: ExpectSingleResult<Gallery> = {
+    const expected: ExpectSingleResult<IGallery> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

@@ -12,7 +12,7 @@ import makeHardDeleteComment from "../../../../use-cases/comment/hard-delete-com
 import makeGetComment from "../../../../use-cases/comment/get-comment";
 import makeHardDeleteCommentController from "./hard-delete-comment";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Comment from "../../../../database/entities/comment";
+import IComment from "../../../../database/interfaces/comment";
 
 describe("hardDeleteComment", () => {
   beforeAll(async () => await connectDatabase());
@@ -53,7 +53,7 @@ describe("hardDeleteComment", () => {
 
     const result = await hardDeleteCommentController(request as any);
 
-    const expected: ExpectSingleResult<Comment> = {
+    const expected: ExpectSingleResult<IComment> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

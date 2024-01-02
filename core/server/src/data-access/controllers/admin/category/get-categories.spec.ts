@@ -12,7 +12,7 @@ import makeCreateCategory from "../../../../use-cases/category/create-category";
 import makeGetCategories from "../../../../use-cases/category/get-categories";
 import makeGetCategoriesController from "./get-categories";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Category from "../../../../database/entities/category";
+import ICategory from "../../../../database/interfaces/category";
 
 describe("getCategories", () => {
   beforeAll(async () => await connectDatabase());
@@ -52,7 +52,7 @@ describe("getCategories", () => {
 
     const result = await getCategoriesController(request as any);
 
-    const expected: ExpectMultipleResults<Category> = {
+    const expected: ExpectMultipleResults<ICategory> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,

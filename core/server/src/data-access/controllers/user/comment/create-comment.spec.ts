@@ -10,7 +10,6 @@ import {
   fakeComment,
 } from "../../../../../__tests__/__mock__";
 import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
-import Comment from "../../../../database/entities/comment";
 import { redis } from "../../../../../__tests__/jest-redis";
 import makeCommentDb from "../../../make-comment-db";
 import makePostDb from "../../../make-post-db";
@@ -31,6 +30,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import makeCountCommentLikeByCommentAndType from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
 import makeGetCommentLikeByUserAndComment from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
 import makeCommentLikeDb from "../../../make-comment-like-db";
+import IComment from "../../../../database/interfaces/comment";
 
 describe("createComment", () => {
   beforeAll(async () => await connectDatabase());
@@ -100,7 +100,7 @@ describe("createComment", () => {
 
     const result = await createCommentController(request as any);
 
-    const expected: ExpectSingleResult<Comment> = {
+    const expected: ExpectSingleResult<IComment> = {
       headers,
       statusCode: HttpStatusCode.CREATED,
       body: result?.body,

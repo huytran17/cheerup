@@ -12,7 +12,7 @@ import makeGetAdmin from "../../../../use-cases/admin/get-admin";
 import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
 import makeGetAdminController from "./get-admin";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import Admin from "../../../../database/entities/admin";
+import IAdmin from "../../../../database/interfaces/admin";
 
 describe("getAdmin", () => {
   beforeAll(async () => await connectDatabase());
@@ -54,7 +54,7 @@ describe("getAdmin", () => {
 
     const result = await getAdminController(request as any);
 
-    const expected: ExpectSingleResult<Admin> = {
+    const expected: ExpectSingleResult<IAdmin> = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,
