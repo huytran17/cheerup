@@ -7,8 +7,7 @@ export default function deleteS3Object({
   bucket: string;
   key: string;
 }): void {
-  const validCredentials = bucket && key;
-  if (!validCredentials) {
+  if (!bucket || !key) {
     return;
   }
 
