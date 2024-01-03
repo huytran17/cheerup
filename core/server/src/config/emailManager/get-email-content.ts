@@ -1,4 +1,4 @@
-import { IHtmlToText } from "../../utils/html-to-text";
+import { HtmlToText } from "../html-to-text/make-html-to-text";
 
 interface IGetEmailContentData {
   to: string | string[];
@@ -31,7 +31,7 @@ export default function makeGetEmailContent({
 }: {
   emailTextTemplate: { [type: string]: string };
   subjectTemplate: { [type: string]: string };
-  htmlToText: IHtmlToText;
+  htmlToText: HtmlToText;
   email_from: string;
   email_sender_name?: string;
 }) {
@@ -54,7 +54,7 @@ export default function makeGetEmailContent({
     const final_from = from || email_from;
     const final_sender_name = sender_name || email_sender_name;
 
-    const text = htmlToText(template_html_message);
+    const text = htmlToText({ html: template_html_message });
     const email_content = {
       to,
       cc,

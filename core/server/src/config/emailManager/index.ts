@@ -6,7 +6,7 @@ import {
   defaultTemplateData,
 } from "./templates";
 import makeSendEmail from "./send-email";
-import { htmlToText } from "../../utils/html-to-text";
+import { htmlToText } from "../html-to-text";
 import makeGetEmailContent, { IGetEmailContent } from "./get-email-content";
 import makeRenderEmailContent from "./render-email-content";
 
