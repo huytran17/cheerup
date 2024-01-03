@@ -3,7 +3,7 @@ import mongoose_lean_virtuals from "mongoose-lean-virtuals";
 import ICategory from "../interfaces/category";
 import { CategoryModel, PostModel } from "../../data-access/models";
 import { get, map } from "lodash";
-import { textToSlug } from "../../utils/text-to-slug";
+import { textToSlug } from "../../config/text-to-slug";
 import { isEmpty } from "../../utils/is-empty";
 
 const Schema = mongoose.Schema;
