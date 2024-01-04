@@ -2,7 +2,7 @@ import handlebars from "handlebars";
 import { merge } from "lodash";
 import { templates, template_data } from "./templates";
 
-export type IRenderPageContent = ({
+export type RenderPageContent = ({
   type,
   data,
 }: {
@@ -10,14 +10,8 @@ export type IRenderPageContent = ({
   data?: Record<string, unknown>;
 }) => string;
 
-export default function makeRenderPageContent(): IRenderPageContent {
-  return function renderPageContent({
-    type,
-    data,
-  }: {
-    type: string;
-    data?: Record<string, unknown>;
-  }): string {
+export default function makeRenderPageContent(): RenderPageContent {
+  return function renderPageContent({ type, data }) {
     const page_template = templates[type];
 
     if (!page_template) {

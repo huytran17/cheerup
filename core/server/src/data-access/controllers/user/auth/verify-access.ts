@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { JwtPayload } from "jsonwebtoken";
-import { IVerifyAccessToken } from "../../../../config/accessTokenManager/verify-access-token";
+import { VerifyAccessToken } from "../../../../config/accessTokenManager/verify-access-token";
 import { get, omit } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
@@ -10,7 +10,7 @@ export default function makeVerifyAccessController({
   verifyAccessToken,
   getUserByEmail,
 }: {
-  verifyAccessToken: IVerifyAccessToken;
+  verifyAccessToken: VerifyAccessToken;
   getUserByEmail: GetUserByEmail;
 }) {
   return async function verifyAccessController(

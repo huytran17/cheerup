@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { GetPost } from "../../../../use-cases/post/get-post";
-import { IReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
+import { ReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import { GetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
 import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -12,7 +12,7 @@ export default function makeGetPostController({
   getPostBookmarkByUserAndPost,
 }: {
   getPost: GetPost;
-  readingTimeAnalyzer: IReadingTimeAnalyzer;
+  readingTimeAnalyzer: ReadingTimeAnalyzer;
   getPostBookmarkByUserAndPost: GetPostBookmarkByUserAndPost;
 }) {
   return async function getPostController(

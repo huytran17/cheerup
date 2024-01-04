@@ -3,7 +3,7 @@ import { UpdateAdmin } from "../../../../use-cases/admin/update-admin";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get, merge } from "lodash";
-import { IHashPassword } from "../../../../config/password/hash-password";
+import { HashPassword } from "../../../../config/password/hash-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -15,7 +15,7 @@ export default function makeUpdateAdminPasswordController({
 }: {
   getAdmin: GetAdmin;
   updateAdmin: UpdateAdmin;
-  hashPassword: IHashPassword;
+  hashPassword: HashPassword;
   logger: Logger;
 }) {
   return async function updateAdminPasswordController(

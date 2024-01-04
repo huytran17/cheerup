@@ -3,6 +3,12 @@ import handlebars from "handlebars";
 import { IEmailData } from "./get-email-content";
 import { merge } from "lodash";
 
+interface RenderEmailContent {
+  email_content: string;
+  email_data: { [key: string]: string };
+  object_data?: { [key: string]: any };
+}
+
 let mailer: undefined | Transporter | any = undefined;
 export function initializeMailer(): Transporter {
   if (mailer) {
@@ -49,11 +55,7 @@ export type Mailer = {
     email_content,
     email_data,
     object_data,
-  }: {
-    email_content: string;
-    email_data: { [key: string]: string };
-    object_data?: { [key: string]: any };
-  }) => string;
+  }: RenderEmailContent) => string;
 };
 
 export default Object.freeze({
@@ -66,15 +68,7 @@ export default Object.freeze({
 
     return payload;
   },
-  render: ({
-    email_content,
-    email_data,
-    object_data,
-  }: {
-    email_content: string;
-    email_data: { [key: string]: string };
-    object_data?: { [key: string]: any };
-  }) => {
+  render: ({ email_content, email_data, object_data }: RenderEmailContent) => {
     const final_email_data = merge({}, email_data, object_data);
     const template = handlebars.compile(email_content);
     return template(final_email_data);

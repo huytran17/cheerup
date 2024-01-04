@@ -3,7 +3,7 @@ import { Logger } from "winston";
 import { get, merge } from "lodash";
 import { CreateAdmin } from "../../../../use-cases/admin/create-admin";
 import { GetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email";
-import { IHashPassword } from "../../../../config/password/hash-password";
+import { HashPassword } from "../../../../config/password/hash-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -15,7 +15,7 @@ export default function makeCreateAdminController({
 }: {
   createAdmin: CreateAdmin;
   getAdminByEmail: GetAdminByEmail;
-  hashPassword: IHashPassword;
+  hashPassword: HashPassword;
   logger: Logger;
 }) {
   return async function createAdminController(

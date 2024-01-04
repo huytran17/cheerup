@@ -8,7 +8,7 @@ import { UpdateUser } from "../../../../use-cases/user/update-user";
 import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { tfa } from "../../../../config/tfa";
-import { IGenerateQRCode } from "../../../../config/qrcode/make-generate-qr-code";
+import { GenerateQRCode } from "../../../../config/qrcode/make-generate-qr-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeEnable2FAController({
@@ -23,7 +23,7 @@ export default function makeEnable2FAController({
   updateUser: UpdateUser;
   getTwoFactorAuthenticationByEmailAndCode: GetTwoFactorAuthenticationByEmailAndCode;
   hardDeleteTwoFactorAuthentication: HardDeleteTwoFactorAuthentication;
-  generateQRCode: IGenerateQRCode;
+  generateQRCode: GenerateQRCode;
   moment: typeof Moment;
 }) {
   return async function enable2FAController(

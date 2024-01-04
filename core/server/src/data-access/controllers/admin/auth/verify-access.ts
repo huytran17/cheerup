@@ -1,4 +1,4 @@
-import { IVerifyAccessToken } from "../../../../config/accessTokenManager/verify-access-token";
+import { VerifyAccessToken } from "../../../../config/accessTokenManager/verify-access-token";
 import { JwtPayload } from "jsonwebtoken";
 import { Request } from "express";
 import { get, omit } from "lodash";
@@ -7,7 +7,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 export default function makeVerifyAccessController({
   verifyAccessToken,
 }: {
-  verifyAccessToken: IVerifyAccessToken;
+  verifyAccessToken: VerifyAccessToken;
 }) {
   return async function verifyAccessController(
     httpRequest: Request & { context: { validated: {} } }

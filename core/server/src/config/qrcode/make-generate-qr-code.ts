@@ -1,17 +1,13 @@
 import qrcode from "qrcode";
 
-export type IGenerateQRCode = ({
+export type GenerateQRCode = ({
   otp_auth,
 }: {
   otp_auth: string;
-}) => Promise<string | null>;
+}) => Promise<string>;
 
-export default function makeGenerateQRCode(): IGenerateQRCode {
-  return async function generateQRCode({
-    otp_auth,
-  }: {
-    otp_auth: string;
-  }): Promise<string | null> {
+export default function makeGenerateQRCode(): GenerateQRCode {
+  return async function generateQRCode({ otp_auth }) {
     return await qrcode.toDataURL(otp_auth);
   };
 }

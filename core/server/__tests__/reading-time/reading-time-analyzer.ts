@@ -5,7 +5,7 @@ export interface IReadingTimeAnalyzerData {
   options?: Options;
 }
 
-export type IReadingTimeAnalyzer = ({
+export type ReadingTimeAnalyzer = ({
   text,
   options,
 }: IReadingTimeAnalyzerData) => ReadTimeResults;
@@ -14,7 +14,7 @@ export default function makeReadingTimeAnalyzer({
   analyzer,
 }: {
   analyzer: typeof ReadingTime;
-}): IReadingTimeAnalyzer {
+}): ReadingTimeAnalyzer {
   return function readingTimeAnalyzer({
     text,
     options,

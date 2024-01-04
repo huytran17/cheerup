@@ -1,7 +1,7 @@
 import { get } from "lodash";
 import { Request } from "express";
 import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
-import { IGenerateAccessToken } from "../../../../config/accessTokenManager/generate-access-token";
+import { GenerateAccessToken } from "../../../../config/accessTokenManager/generate-access-token";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 import { renderPageContent } from "../../../../config/client";
@@ -16,7 +16,7 @@ export default function makeSignInWithGoogleController({
   generateAccessToken,
 }: {
   getUserByEmail: GetUserByEmail;
-  generateAccessToken: IGenerateAccessToken;
+  generateAccessToken: GenerateAccessToken;
 }) {
   return async function signInWithGoogleController(
     httpRequest: Request & { context: { validated: {} } }

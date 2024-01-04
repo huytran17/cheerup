@@ -2,7 +2,7 @@ import { Request } from "express";
 import { GetPostBookmarksPaginated } from "../../../../use-cases/post-bookmark/get-post-bookmarks-paginated";
 import { CountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
 import { GetUser } from "../../../../use-cases/user/get-user";
-import { IReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
+import { ReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import { get, map, replace } from "lodash";
 import PostBookmark from "../../../../database/entities/post-bookmark";
 import IPostBookmark from "../../../../database/interfaces/post-bookmark";
@@ -18,7 +18,7 @@ export default function makeGetPostBookmarksPaginatedController({
 }: {
   getPostBookmarksPaginated: GetPostBookmarksPaginated;
   countCommentsByPost: CountCommentsByPost;
-  readingTimeAnalyzer: IReadingTimeAnalyzer;
+  readingTimeAnalyzer: ReadingTimeAnalyzer;
   getUser: GetUser;
 }) {
   return async function getPostBookmarksPaginatedController(

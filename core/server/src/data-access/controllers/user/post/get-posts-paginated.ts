@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { GetPostsPaginated } from "../../../../use-cases/post/get-posts-paginated";
-import { IReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
+import { ReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import { CountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
 import { GetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
 import { get, map, replace, split, merge, filter } from "lodash";
@@ -17,7 +17,7 @@ export default function makeGetPostsPaginatedController({
   getPostsPaginated: GetPostsPaginated;
   countCommentsByPost: CountCommentsByPost;
   getPostBookmarkByUserAndPost: GetPostBookmarkByUserAndPost;
-  readingTimeAnalyzer: IReadingTimeAnalyzer;
+  readingTimeAnalyzer: ReadingTimeAnalyzer;
 }) {
   return async function getPostsPaginatedController(
     httpRequest: Request & { context: { validated: {} } }

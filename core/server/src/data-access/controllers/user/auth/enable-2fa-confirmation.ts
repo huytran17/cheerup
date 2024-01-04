@@ -3,9 +3,9 @@ import Moment from "moment";
 import randomString from "randomstring";
 
 import { TwoFAType } from "../../../../database/interfaces/two-factor-authentication";
-import { IGetEmailContent } from "../../../../config/emailManager/get-email-content";
-import { IRenderEmailContent } from "../../../../config/emailManager/render-email-content";
-import { ISendEmail } from "../../../../config/emailManager/send-email";
+import { GetEmailContent } from "../../../../config/emailManager/get-email-content";
+import { RenderEmailContent } from "../../../../config/emailManager/render-email-content";
+import { SendEmail } from "../../../../config/emailManager/send-email";
 import { get, omit, map } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { CreateTwoFactorAuthentication } from "../../../../use-cases/two-factor-authentication/create-two-factor-authentication";
@@ -33,9 +33,9 @@ export default function makeEnable2FAConfirmationController({
   hardDeleteTwoFactorAuthentication: HardDeleteTwoFactorAuthentication;
   getTwoFactorAuthenticationByEmailAndCode: GetTwoFactorAuthenticationByEmailAndCode;
   getUser: GetUser;
-  getEmailContent: IGetEmailContent;
-  renderEmailContent: IRenderEmailContent;
-  sendEmail: ISendEmail;
+  getEmailContent: GetEmailContent;
+  renderEmailContent: RenderEmailContent;
+  sendEmail: SendEmail;
   logger: Logger;
   moment: typeof Moment;
 }) {

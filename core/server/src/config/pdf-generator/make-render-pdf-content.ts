@@ -2,7 +2,7 @@ import { merge } from "lodash";
 import handlebars from "handlebars";
 import { pdfTemplate, template_data } from "./template";
 
-export type IPdfContent = ({
+export type PdfContent = ({
   type,
   data,
 }: {
@@ -10,14 +10,8 @@ export type IPdfContent = ({
   data: Record<string, unknown>;
 }) => string;
 
-export default function makeRenderPdfContent(): IPdfContent {
-  return function renderPdfContent({
-    type,
-    data,
-  }: {
-    type: string;
-    data: Record<string, unknown>;
-  }): string {
+export default function makeRenderPdfContent(): PdfContent {
+  return function renderPdfContent({ type, data }) {
     const export_template = pdfTemplate[type];
 
     if (!export_template) {

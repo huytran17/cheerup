@@ -2,9 +2,9 @@ import { Request } from "express";
 import { convert } from "html-to-text";
 import { get, filter, join, map, merge } from "lodash";
 import { Logger } from "winston";
-import { IGetEmailContent } from "../../../../config/emailManager/get-email-content";
-import { IRenderEmailContent } from "../../../../config/emailManager/render-email-content";
-import { ISendEmail } from "../../../../config/emailManager/send-email";
+import { GetEmailContent } from "../../../../config/emailManager/get-email-content";
+import { RenderEmailContent } from "../../../../config/emailManager/render-email-content";
+import { SendEmail } from "../../../../config/emailManager/send-email";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetPost } from "../../../../use-cases/post/get-post";
 import { UpdatePost } from "../../../../use-cases/post/update-post";
@@ -23,9 +23,9 @@ export default function makePublishPostController({
   getPost: GetPost;
   updatePost: UpdatePost;
   getActivatingSubscriptions: GetActivatingSubscriptions;
-  getEmailContent: IGetEmailContent;
-  renderEmailContent: IRenderEmailContent;
-  sendEmail: ISendEmail;
+  getEmailContent: GetEmailContent;
+  renderEmailContent: RenderEmailContent;
+  sendEmail: SendEmail;
   logger: Logger;
 }) {
   return async function publishPostController(

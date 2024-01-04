@@ -3,8 +3,8 @@ import { UpdateAdmin } from "../../../../use-cases/admin/update-admin";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get, merge } from "lodash";
-import { IHashPassword } from "../../../../config/password/hash-password";
-import { IVerifyPassword } from "../../../../config/password/verify-password";
+import { HashPassword } from "../../../../config/password/hash-password";
+import { VerifyPassword } from "../../../../config/password/verify-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -17,8 +17,8 @@ export default function makeUpdateAdminPersonalPasswordController({
 }: {
   getAdmin: GetAdmin;
   updateAdmin: UpdateAdmin;
-  hashPassword: IHashPassword;
-  verifyPassword: IVerifyPassword;
+  hashPassword: HashPassword;
+  verifyPassword: VerifyPassword;
   logger: Logger;
 }) {
   return async function updateAdminPersonalPasswordController(

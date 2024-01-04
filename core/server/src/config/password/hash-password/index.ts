@@ -1,19 +1,16 @@
-import { IHashFunction } from "./make-hash";
+import { HashFunction } from "./make-hash";
 
 interface IHashPasswordData {
   password: string;
   password_confirmation: string;
 }
-export type IHashPassword = ({
+export type HashPassword = ({
   password,
   password_confirmation,
 }: IHashPasswordData) => Promise<string>;
 
-export default function makeHashPassword(hash: IHashFunction): IHashPassword {
-  return async function hashPassword({
-    password,
-    password_confirmation,
-  }: IHashPasswordData): Promise<string> {
+export default function makeHashPassword(hash: HashFunction): HashPassword {
+  return async function hashPassword({ password, password_confirmation }) {
     if (!password) {
       throw new Error("Password is needed.");
     }

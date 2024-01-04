@@ -8,7 +8,7 @@ interface IRenderEmailContentData {
   object_data?: { [key: string]: any };
 }
 
-export type IRenderEmailContent = ({
+export type RenderEmailContent = ({
   email_content,
   user_template_data,
   object_data,
@@ -20,12 +20,12 @@ export default function makeRenderEmailContent({
 }: {
   mailer: Mailer;
   defaultTemplateData: { [key: string]: string };
-}): IRenderEmailContent {
+}): RenderEmailContent {
   return async function renderEmailContent({
     email_content,
     user_template_data,
     object_data,
-  }: IRenderEmailContentData): Promise<IEmailData> {
+  }) {
     let final_email_content = merge({}, email_content);
 
     const has_no_subject = !final_email_content.subject;
@@ -54,7 +54,7 @@ export default function makeRenderEmailContent({
       object_data,
     });
 
-    const rendered_mail_content = merge({}, final_email_content, {
+    const rendered_mail_content: IEmailData = merge({}, final_email_content, {
       subject: rendered_subject,
       html: rendered_html,
     });

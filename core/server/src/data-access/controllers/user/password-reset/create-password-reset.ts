@@ -4,9 +4,9 @@ import Moment from "moment";
 import randomString from "randomstring";
 import { Logger } from "winston";
 
-import { IGetEmailContent } from "../../../../config/emailManager/get-email-content";
-import { IRenderEmailContent } from "../../../../config/emailManager/render-email-content";
-import { ISendEmail } from "../../../../config/emailManager/send-email";
+import { GetEmailContent } from "../../../../config/emailManager/get-email-content";
+import { RenderEmailContent } from "../../../../config/emailManager/render-email-content";
+import { SendEmail } from "../../../../config/emailManager/send-email";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { CreatePasswordReset } from "../../../../use-cases/password-reset/create-password-reset";
 import { GetPasswordResetByCode } from "../../../../use-cases/password-reset/get-password-reset-by-code";
@@ -32,9 +32,9 @@ export default function makeCreatePasswordResetController({
   getPasswordResetByCode: GetPasswordResetByCode;
   getPasswordResetByEmail: GetPasswordResetByEmail;
   hardDeletePasswordReset: HardDeletePasswordReset;
-  getEmailContent: IGetEmailContent;
-  renderEmailContent: IRenderEmailContent;
-  sendEmail: ISendEmail;
+  getEmailContent: GetEmailContent;
+  renderEmailContent: RenderEmailContent;
+  sendEmail: SendEmail;
   moment: typeof Moment;
   logger: Logger;
 }) {

@@ -1,8 +1,8 @@
 import { get, omit } from "lodash";
 import { Request } from "express";
 import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
-import { IGenerateAccessToken } from "../../../../config/accessTokenManager/generate-access-token";
-import { IVerifyPassword } from "../../../../config/password/verify-password";
+import { GenerateAccessToken } from "../../../../config/accessTokenManager/generate-access-token";
+import { VerifyPassword } from "../../../../config/password/verify-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -17,8 +17,8 @@ export default function makeSignInController({
   verifyPassword,
 }: {
   getUserByEmail: GetUserByEmail;
-  generateAccessToken: IGenerateAccessToken;
-  verifyPassword: IVerifyPassword;
+  generateAccessToken: GenerateAccessToken;
+  verifyPassword: VerifyPassword;
 }) {
   return async function signInController(
     httpRequest: Request & { context: { validated: {} } }

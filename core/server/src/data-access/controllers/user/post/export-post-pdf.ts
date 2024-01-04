@@ -1,7 +1,7 @@
 import Moment from "moment";
 import { Request } from "express";
 import { GetPost } from "../../../../use-cases/post/get-post";
-import { IReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
+import { ReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -16,7 +16,7 @@ export default function makeExportPostPdfController({
   moment,
 }: {
   getPost: GetPost;
-  readingTimeAnalyzer: IReadingTimeAnalyzer;
+  readingTimeAnalyzer: ReadingTimeAnalyzer;
   moment: typeof Moment;
 }) {
   return async function exportPostPdfController(

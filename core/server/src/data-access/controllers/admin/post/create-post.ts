@@ -2,9 +2,9 @@ import { Request } from "express";
 import { convert } from "html-to-text";
 import { get, map, filter, join, merge } from "lodash";
 import { Logger } from "winston";
-import { IGetEmailContent } from "../../../../config/emailManager/get-email-content";
-import { IRenderEmailContent } from "../../../../config/emailManager/render-email-content";
-import { ISendEmail } from "../../../../config/emailManager/send-email";
+import { GetEmailContent } from "../../../../config/emailManager/get-email-content";
+import { RenderEmailContent } from "../../../../config/emailManager/render-email-content";
+import { SendEmail } from "../../../../config/emailManager/send-email";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetAdmin } from "../../../../use-cases/admin/get-admin";
 import { CreatePost } from "../../../../use-cases/post/create-post";
@@ -24,9 +24,9 @@ export default function makeCreatePostController({
   createPost: CreatePost;
   getAdmin: GetAdmin;
   getActivatingSubscriptions: GetActivatingSubscriptions;
-  getEmailContent: IGetEmailContent;
-  renderEmailContent: IRenderEmailContent;
-  sendEmail: ISendEmail;
+  getEmailContent: GetEmailContent;
+  renderEmailContent: RenderEmailContent;
+  sendEmail: SendEmail;
   updatePost: UpdatePost;
   logger: Logger;
 }) {

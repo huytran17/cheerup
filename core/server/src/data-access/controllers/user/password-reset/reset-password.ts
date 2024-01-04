@@ -4,8 +4,8 @@ import { GetPasswordReset } from "../../../../use-cases/password-reset/get-passw
 import { HardDeletePasswordReset } from "../../../../use-cases/password-reset/hard-delete-password-reset";
 import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { UpdateUser } from "../../../../use-cases/user/update-user";
-import { IVerifyAccessToken } from "../../../../config/accessTokenManager/verify-access-token";
-import { IHashPassword } from "../../../../config/password/hash-password";
+import { VerifyAccessToken } from "../../../../config/accessTokenManager/verify-access-token";
+import { HashPassword } from "../../../../config/password/hash-password";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -22,8 +22,8 @@ export default function makeResetPasswordController({
   hardDeletePasswordReset: HardDeletePasswordReset;
   getUserByEmail: GetUserByEmail;
   updateUser: UpdateUser;
-  verifyAccessToken: IVerifyAccessToken;
-  hashPassword: IHashPassword;
+  verifyAccessToken: VerifyAccessToken;
+  hashPassword: HashPassword;
 }) {
   return async function resetPasswordController(
     httpRequest: Request & { context: { validated: {} } }

@@ -1,12 +1,12 @@
 import jwt from "jsonwebtoken";
 
-type IJwtGenerate = (
+type JwtGenerate = (
   payload: { [key: string]: any },
   secret: string,
   options?: { expiresIn: string | number }
 ) => string;
 
-type IJwtVerify = (
+type JwtVerify = (
   payload: string,
   secret: string,
   options?: object
@@ -26,4 +26,4 @@ export default Object.freeze({
     return jwt.verify(payload, secret, options);
   },
 });
-export { IJwtGenerate, IJwtVerify };
+export { JwtGenerate, JwtVerify };

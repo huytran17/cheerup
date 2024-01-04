@@ -1,7 +1,7 @@
-import { IJwtVerify } from "./accessToken";
+import { JwtVerify } from "./accessToken";
 import { JwtPayload } from "jsonwebtoken";
 
-export type IVerifyAccessToken = (
+export type VerifyAccessToken = (
   payload: string,
   options?: object
 ) => string | JwtPayload;
@@ -10,10 +10,10 @@ export default function makeVerifyAccessToken({
   verify,
   secret,
 }: {
-  verify: IJwtVerify;
+  verify: JwtVerify;
   secret: string;
-}): IVerifyAccessToken {
-  return function verifyAccessToken(payload: string, options?: object) {
+}): VerifyAccessToken {
+  return function verifyAccessToken(payload, options = {}) {
     return verify(payload, secret, options);
   };
 }

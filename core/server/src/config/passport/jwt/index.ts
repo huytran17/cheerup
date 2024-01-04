@@ -10,8 +10,7 @@ export default function initializeJWT(
   passport: PassportStatic,
   secretOrKey: string
 ): PassportStatic {
-  const JwtStrategy = password_jwt.Strategy,
-    ExtractJwt = password_jwt.ExtractJwt;
+  const JwtStrategy = password_jwt.Strategy;
 
   const opts = {
     secretOrKey,

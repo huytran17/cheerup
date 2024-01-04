@@ -8,19 +8,30 @@ interface IGetEmailContentData {
   from?: string;
   sender_name?: string;
 }
-export type IGetEmailContent = ({
-  to,
-  type,
-}: IGetEmailContentData) => Promise<IEmailData>;
 
 export interface IEmailData {
   to: string | string[];
   from: string;
+  cc: string | string[];
+  bcc: string | string[];
   subject: string;
   text: string;
   html: string;
   sender_name?: string;
 }
+
+interface IMakeGetEmailContent {
+  emailTextTemplate: { [type: string]: string };
+  subjectTemplate: { [type: string]: string };
+  htmlToText: HtmlToText;
+  email_from: string;
+  email_sender_name?: string;
+}
+
+export type GetEmailContent = ({
+  to,
+  type,
+}: IGetEmailContentData) => Promise<Readonly<IEmailData>>;
 
 export default function makeGetEmailContent({
   emailTextTemplate,
@@ -28,13 +39,7 @@ export default function makeGetEmailContent({
   htmlToText,
   email_from,
   email_sender_name = "Huy Tran",
-}: {
-  emailTextTemplate: { [type: string]: string };
-  subjectTemplate: { [type: string]: string };
-  htmlToText: HtmlToText;
-  email_from: string;
-  email_sender_name?: string;
-}) {
+}: IMakeGetEmailContent): GetEmailContent {
   return async function getEmailContent({
     to,
     cc = [],
@@ -42,7 +47,7 @@ export default function makeGetEmailContent({
     type,
     from,
     sender_name,
-  }: IGetEmailContentData): Promise<IEmailData> {
+  }) {
     const invalid_destination = !to || (to && to.length === 0);
     if (invalid_destination) {
       throw new Error(`email ${to} cannot be empty.`);
@@ -55,7 +60,7 @@ export default function makeGetEmailContent({
     const final_sender_name = sender_name || email_sender_name;
 
     const text = htmlToText({ html: template_html_message });
-    const email_content = {
+    const email_content: IEmailData = {
       to,
       cc,
       bcc,

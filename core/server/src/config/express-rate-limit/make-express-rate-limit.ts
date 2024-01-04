@@ -1,13 +1,13 @@
 import rateLimit, { RateLimitRequestHandler } from "express-rate-limit";
 
-export type IExpressRateLimitOptions = () => RateLimitRequestHandler;
+export type ExpressRateLimitOptions = () => RateLimitRequestHandler;
 
 export default function makeExpressRateLimit({
   options,
 }: {
   options: Record<string, unknown>;
-}): IExpressRateLimitOptions {
-  return function expressRateLimit(): RateLimitRequestHandler {
+}): ExpressRateLimitOptions {
+  return function expressRateLimit() {
     return rateLimit({ ...options });
   };
 }
