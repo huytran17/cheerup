@@ -52,10 +52,10 @@ export default function makeSignInController({
         { expiresIn: "1y" }
       );
 
-      const token_max_age = 60 * 60 * 24 * 365;
+      const token_age_in_seconds = 60 * 60 * 24 * 365;
       headers[
         "Set-Cookie"
-      ] = `access_token="${access_token}; Max-Age=${token_max_age}; HttpOnly=true; Path=/`;
+      ] = `access_token="${access_token}; Max-Age=${token_age_in_seconds}; HttpOnly=true; Path=/`;
 
       return {
         headers,
