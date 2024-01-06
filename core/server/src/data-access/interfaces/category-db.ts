@@ -15,20 +15,8 @@ export default interface ICategoryDb {
   findAllCategoryTitles: () => Promise<
     { _id: string; title: string; slug: string }[]
   >;
-  findById: ({
-    _id,
-    is_include_deleted,
-  }: {
-    _id: string;
-    is_include_deleted?: boolean;
-  }) => Promise<ICategory>;
-  findByTitle: ({
-    title,
-    is_include_deleted,
-  }: {
-    title: string;
-    is_include_deleted?: boolean;
-  }) => Promise<ICategory>;
+  findById: ({ _id }: { _id: string }) => Promise<ICategory>;
+  findByTitle: ({ title }: { title: string }) => Promise<ICategory>;
   findBySlug: ({ slug }: { slug: string }) => Promise<ICategory>;
   insert: (payload: Partial<ICategory>) => Promise<ICategory>;
   delete: ({ _id }: { _id: string }) => Promise<ICategory>;

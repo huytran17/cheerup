@@ -40,11 +40,7 @@ export default function makeReplyCommentController({
         parent: parent_id,
       }: { post: string; parent: string } = commentDetails;
 
-      const post_exists = await getPost({
-        _id: post_id,
-        is_only_published: true,
-        is_include_deleted: false,
-      });
+      const post_exists = await getPost({ _id: post_id });
 
       if (isEmpty(post_exists)) {
         throw new Error(`Post by ${post_id} does not exist`);
@@ -64,10 +60,7 @@ export default function makeReplyCommentController({
         throw new Error(`Post by ${post_id} has been blocked from comments`);
       }
 
-      const user_exists = await getUser({
-        _id: user_id,
-        is_include_deleted: false,
-      });
+      const user_exists = await getUser({ _id: user_id });
 
       if (isEmpty(user_exists)) {
         throw new Error(`User by ${user_id} does not exist`);

@@ -5,12 +5,10 @@ import IPostDb, {
 export type GetPostsPaginated = (
   {
     categories,
-    is_only_published,
     tags,
     sorts,
   }: {
     categories?: string[];
-    is_only_published?: boolean;
     tags?: string[];
     sorts?: string;
   },
@@ -31,11 +29,11 @@ export default function makeGetPostsPaginated({
   postDb: IPostDb;
 }): GetPostsPaginated {
   return async function getPostsPaginated(
-    { categories = [], is_only_published, tags, sorts },
+    { categories = [], tags, sorts },
     { query, page, entries_per_page }
   ) {
     return await postDb.findAllPaginated(
-      { categories, is_only_published, tags, sorts },
+      { categories, tags, sorts },
       {
         query,
         page,

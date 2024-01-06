@@ -22,13 +22,15 @@ const userSchema = new Schema<IUser, Model<IUser>>(
     avatar: { type: Object },
     email: { type: String, trim: true, lowercase: true, required: true },
     tfa_secret: { type: String, trim: true },
-    created_at: { type: Date, default: Date.now },
-    updated_at: { type: Date, default: Date.now },
     deleted_at: { type: Date, default: null },
     created_by: { type: Schema.Types.ObjectId, ref: "Admin" },
   },
   {
     toJSON: { virtuals: true },
+    timestamps: {
+      createdAt: "created_at",
+      updatedAt: "updated_at",
+    },
   }
 );
 

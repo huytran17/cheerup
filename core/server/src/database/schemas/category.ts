@@ -17,12 +17,14 @@ const categorySchema = new Schema<ICategory, Model<ICategory>>(
     created_by: { type: Schema.Types.ObjectId, ref: "Admin" },
     thumbnail: { type: Object },
     seo: { type: Object },
-    created_at: { type: Date, default: Date.now },
-    updated_at: { type: Date, default: Date.now },
     deleted_at: { type: Date, default: null },
   },
   {
     toJSON: { virtuals: true },
+    timestamps: {
+      createdAt: "created_at",
+      updatedAt: "updated_at",
+    },
   }
 );
 

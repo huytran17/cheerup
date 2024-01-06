@@ -286,12 +286,10 @@ export default function makePostDb({
     async findAllPaginated(
       {
         categories,
-        is_only_published = false,
         tags,
         sorts,
       }: {
         categories?: string[];
-        is_only_published?: boolean;
         tags?: string[];
         sorts?: string;
       },
@@ -310,8 +308,6 @@ export default function makePostDb({
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
       };
-
-      is_only_published && (query_conditions["is_published"] = true);
 
       const has_categories = !isEmpty(categories);
       has_categories && (query_conditions["categories"] = { $in: categories });
@@ -369,15 +365,7 @@ export default function makePostDb({
       return null;
     }
 
-    async findById({
-      _id,
-      is_only_published = false,
-      is_include_deleted = true,
-    }: {
-      _id: string;
-      is_only_published?: boolean;
-      is_include_deleted?: boolean;
-    }): Promise<IPost> {
+    async findById({ _id }: { _id: string }): Promise<IPost> {
       const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
       const is_mongo_id = mongo_id_regex.test(_id);
       if (!is_mongo_id || !_id) {
@@ -385,14 +373,9 @@ export default function makePostDb({
       }
 
       const query_conditions = {
+        _id,
         deleted_at: { $in: [null, undefined] },
       };
-
-      is_include_deleted && delete query_conditions.deleted_at;
-
-      _id && (query_conditions["_id"] = _id);
-
-      is_only_published && (query_conditions["is_published"] = true);
 
       const existing = await postDbModel
         .findOne(query_conditions)

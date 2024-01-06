@@ -8,12 +8,14 @@ const passwordResetSchema = new Schema<IPasswordReset, Model<IPasswordReset>>(
   {
     email: { type: String, required: true },
     security_code: { type: String, required: true },
-    created_at: { type: Date, default: Date.now },
     expire_at: { type: Date, default: Date.now },
   },
   {
     toJSON: {
       virtuals: true,
+    },
+    timestamps: {
+      createdAt: "created_at",
     },
   }
 );

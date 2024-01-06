@@ -22,7 +22,7 @@ export default function makeGetUserController({
         "context.validated"
       );
 
-      const exists = await getUser({ _id: user_id, is_include_deleted: false });
+      const exists = await getUser({ _id: user_id });
 
       if (isEmpty(exists)) {
         throw new Error(`User by ${user_id} does not exist`);

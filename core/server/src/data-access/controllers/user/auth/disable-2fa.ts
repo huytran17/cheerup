@@ -33,7 +33,7 @@ export default function makeDisable2FAController({
       const { _id } = get(httpRequest, "context.user");
       const { code } = get(httpRequest, "context.validated");
 
-      const user_exists = await getUser({ _id, is_include_deleted: false });
+      const user_exists = await getUser({ _id });
 
       if (isEmpty(user_exists)) {
         throw new Error(`User by id ${_id} does not exist`);

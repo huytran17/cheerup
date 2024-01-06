@@ -30,7 +30,7 @@ export default function makeGetMeController({
         "context.user"
       );
 
-      const exists = await getUser({ _id, is_include_deleted: false });
+      const exists = await getUser({ _id });
 
       if (isEmpty(exists)) {
         throw new Error(`User by id ${_id} does not exist`);

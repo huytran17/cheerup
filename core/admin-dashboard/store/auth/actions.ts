@@ -5,18 +5,12 @@ import { AuthState } from "./";
 import { RootState } from "..";
 
 const actions: ActionTree<AuthState, RootState> = {
-  async [ActionTypes.VERIFY_ACCESS](
-    { commit },
-    { access_token }: { access_token: string }
-  ) {
-    const { data } = await this.$axios.$post("/auth/verify-access", {
-      access_token,
-    });
-
+  async [ActionTypes.VERIFY_ACCESS]() {
+    const { data } = await this.$axios.$post("/auth/verify-access");
     return data;
   },
 
-  async [ActionTypes.SIGN_IN]({ commit, state }, { data }: { data: any }) {
+  async [ActionTypes.SIGN_IN]({ commit }, { data }: { data: any }) {
     const { data: authenticated_user } = await this.$axios.$post(
       "/auth/sign-in",
       data
@@ -28,7 +22,7 @@ const actions: ActionTree<AuthState, RootState> = {
     return user;
   },
 
-  async [ActionTypes.SIGN_OUT]({ commit }) {
+  async [ActionTypes.SIGN_OUT]() {
     const { data } = await this.$axios.$post("/auth/sign-out");
 
     localStorage.removeItem("admin_access_token");

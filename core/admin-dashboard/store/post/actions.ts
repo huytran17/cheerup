@@ -76,16 +76,6 @@ const actions: ActionTree<PostState, RootState> = {
     return post;
   },
 
-  async [ActionTypes.PUBLISH_POST]({ commit }, { id }: { id: string }) {
-    const { data: post } = await this.$axios.$put(`/post/publish/${id}`);
-    return post;
-  },
-
-  async [ActionTypes.UNPUBLISH_POST]({ commit }, { id }: { id: string }) {
-    const { data: post } = await this.$axios.$put(`/post/un-publish/${id}`);
-    return post;
-  },
-
   async [ActionTypes.UNBLOCK_POST_COMMENT]({ commit }, { id }: { id: string }) {
     const { data: post } = await this.$axios.$put(
       `/post/un-block-comment/${id}`

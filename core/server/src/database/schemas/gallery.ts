@@ -13,11 +13,13 @@ const gallerySchema = new Schema<IGallery, Model<IGallery>>(
     parent: { type: Schema.Types.ObjectId, ref: "Gallery" },
     items: [{ type: Schema.Types.Mixed }],
     created_by: { type: Schema.Types.ObjectId, ref: "Admin" },
-    created_at: { type: Date, default: Date.now },
-    updated_at: { type: Date, default: Date.now },
   },
   {
     toJSON: { virtuals: true },
+    timestamps: {
+      createdAt: "created_at",
+      updatedAt: "updated_at",
+    },
   }
 );
 

@@ -31,7 +31,6 @@ export default function makeGetPostsPaginatedController({
         query,
         page,
         entries_per_page,
-        is_only_published,
         user_id,
         sorts,
         tags = "",
@@ -40,7 +39,6 @@ export default function makeGetPostsPaginatedController({
         query: string;
         page: string;
         entries_per_page: string;
-        is_only_published?: boolean;
         user_id?: string;
         sorts?: string;
         tags?: string;
@@ -53,7 +51,6 @@ export default function makeGetPostsPaginatedController({
       const paginated_data = await getPostsPaginated(
         {
           categories: categories_array,
-          is_only_published,
           tags: tags_array,
           sorts,
         },

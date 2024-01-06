@@ -146,35 +146,6 @@
               ></span>
               <span v-else v-html="$t('Block comment')"></span>
             </v-tooltip>
-            <v-tooltip left>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  v-if="item.is_published"
-                  icon
-                  v-bind="attrs"
-                  v-on="on"
-                  small
-                  @click="unpublishPost(item)"
-                >
-                  <v-icon small color="error">mdi-earth-off</v-icon>
-                </v-btn>
-                <v-btn
-                  v-else
-                  icon
-                  v-bind="attrs"
-                  v-on="on"
-                  small
-                  @click="publishPost(item)"
-                >
-                  <v-icon small color="success">mdi-earth</v-icon>
-                </v-btn>
-              </template>
-              <span
-                v-if="item.is_published"
-                v-html="$t('Un-publish this post')"
-              ></span>
-              <span v-else v-html="$t('Publish this post')"></span>
-            </v-tooltip>
           </template>
         </v-data-table>
       </v-col>
@@ -291,36 +262,6 @@ export default {
         console.error(error);
         this.$toast.error(
           this.$t("Encountered error while un-blocking comment for post")
-        );
-      }
-    },
-
-    async publishPost(post) {
-      try {
-        const id = get(post, "_id");
-        const title = get(post, "title");
-
-        await this.PUBLISH_POST({ id });
-        this.$toast.success(this.$t(`Published post ${title} successfully`));
-        await this.$fetch();
-      } catch (error) {
-        console.error(error);
-        this.$toast.error(this.$t("Encountered error while publishing post"));
-      }
-    },
-
-    async unpublishPost(post) {
-      try {
-        const id = get(post, "_id");
-        const title = get(post, "title");
-
-        await this.UNPUBLISH_POST({ id });
-        this.$toast.success(this.$t(`Un-published post ${title} successfully`));
-        await this.$fetch();
-      } catch (error) {
-        console.error(error);
-        this.$toast.error(
-          this.$t("Encountered error while un-publishing post")
         );
       }
     },

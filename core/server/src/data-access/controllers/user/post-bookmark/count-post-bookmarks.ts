@@ -25,10 +25,7 @@ export default function makeCountPostBookmarkController({
         "context.user"
       );
 
-      const user_exists = await getUser({
-        _id: user_id,
-        is_include_deleted: false,
-      });
+      const user_exists = await getUser({ _id: user_id });
 
       if (isEmpty(user_exists)) {
         throw new Error(`User by id ${user_id} does not exists`);

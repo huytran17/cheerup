@@ -14,7 +14,6 @@ const postSchema = new Schema<IPost, Model<IPost>>(
     slug: { type: String, trim: true },
     description: { type: String, trim: true },
     is_blocked_comment: { type: Boolean, default: false },
-    is_published: { type: Boolean, default: false },
     is_notified_to_user: { type: Boolean, default: false },
     thumbnail: { type: Object },
     seo: { type: Object },
@@ -22,13 +21,9 @@ const postSchema = new Schema<IPost, Model<IPost>>(
     source: { type: String, trim: true },
     tags: [{ type: String, trim: true, default: [] }],
     author: { type: Schema.Types.ObjectId, ref: "Admin" },
-    published_by: { type: Schema.Types.ObjectId, ref: "Admin" },
     categories: [{ type: Schema.Types.ObjectId, ref: "Category" }],
     views: { type: Number, default: 0 },
-    published_at: { type: Date, default: Date.now },
     created_at: { type: Date, default: Date.now },
-    updated_at: { type: Date, default: Date.now },
-    deleted_at: { type: Date, default: null },
   },
   {
     toJSON: {

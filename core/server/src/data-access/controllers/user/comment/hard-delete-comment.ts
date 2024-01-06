@@ -54,11 +54,7 @@ export default function makeDeleteCommentController({
       }
 
       const post_id = get(exists, "post._id");
-      const post_exists = await getPost({
-        _id: post_id,
-        is_only_published: true,
-        is_include_deleted: false,
-      });
+      const post_exists = await getPost({ _id: post_id });
 
       if (isEmpty(post_exists)) {
         throw new Error(`Post by ${post_id} does not exist`);
@@ -73,10 +69,7 @@ export default function makeDeleteCommentController({
         throw new Error(`Post by ${post_id} has been blocked from comments`);
       }
 
-      const user_exists = await getUser({
-        _id: user_id,
-        is_include_deleted: false,
-      });
+      const user_exists = await getUser({ _id: user_id });
 
       if (isEmpty(user_exists)) {
         throw new Error(`User by ${user_id} does not exist`);

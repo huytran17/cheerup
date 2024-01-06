@@ -24,9 +24,7 @@ import makeGetPostController from "./get-post";
 import makeGetPostAnalysticsController from "./get-post-analystics";
 import makeGetPostsController from "./get-posts";
 import makeHardDeletePostController from "./hard-delete-post";
-import makePublishPostController from "./publish-post";
 import makeRestorePostController from "./restore-post";
-import makeUnPublishPostController from "./un-publish-post";
 import makeUnblockPostCommentController from "./un-block-post-comment";
 import makeUpdatePostController from "./update-post";
 import makeUploadPostThumbnailController from "./upload-post-thumbnail";
@@ -39,22 +37,6 @@ const getMostPopularPostsAnalysticsController =
 
 const getPostAnalysticsController = makeGetPostAnalysticsController({
   getPostAnalystics,
-});
-
-const publishPostController = makePublishPostController({
-  getPost,
-  updatePost,
-  getActivatingSubscriptions,
-  getEmailContent,
-  renderEmailContent,
-  sendEmail,
-  logger,
-});
-
-const unPublishPostController = makeUnPublishPostController({
-  getPost,
-  updatePost,
-  logger,
 });
 
 const hardDeletePostController = makeHardDeletePostController({
@@ -128,8 +110,6 @@ export default Object.freeze({
   unblockPostCommentController,
   blockPostCommentController,
   hardDeletePostController,
-  publishPostController,
-  unPublishPostController,
   getPostAnalysticsController,
   getMostPopularPostsAnalysticsController,
 });
@@ -145,8 +125,6 @@ export {
   unblockPostCommentController,
   blockPostCommentController,
   hardDeletePostController,
-  publishPostController,
-  unPublishPostController,
   getPostAnalysticsController,
   getMostPopularPostsAnalysticsController,
 };

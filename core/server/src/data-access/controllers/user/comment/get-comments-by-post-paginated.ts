@@ -43,11 +43,7 @@ export default function makeGetCommentsByPostPaginatedController({
       const { _id: user_id }: { _id: string } =
         get(httpRequest, "context.user") || {};
 
-      const post_exists = await getPost({
-        _id: post_id,
-        is_only_published: true,
-        is_include_deleted: false,
-      });
+      const post_exists = await getPost({ _id: post_id });
 
       if (isEmpty(post_exists)) {
         throw new Error(`Post by ${post_id} does not exist`);

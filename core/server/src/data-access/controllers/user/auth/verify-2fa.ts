@@ -20,10 +20,7 @@ export default function makeVerify2FAController({
     try {
       const { code, email } = get(httpRequest, "context.validated");
 
-      const user_exists = await getUserByEmail({
-        email,
-        is_include_deleted: false,
-      });
+      const user_exists = await getUserByEmail({ email });
 
       if (isEmpty(user_exists)) {
         throw new Error(`User by email ${email} does not exist`);

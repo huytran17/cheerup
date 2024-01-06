@@ -17,12 +17,14 @@ const twoFactorAuthenticationSchema = new Schema<
       trim: true,
       required: true,
     },
-    created_at: { type: Date, default: Date.now },
     expire_at: { type: Date, default: Date.now },
   },
   {
     toJSON: {
       virtuals: true,
+    },
+    timestamps: {
+      createdAt: "created_at",
     },
   }
 );

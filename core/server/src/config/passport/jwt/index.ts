@@ -20,9 +20,11 @@ export default function initializeJWT(
   passport.use(
     "user-jwt",
     new JwtStrategy(opts, async function (jwt_payload, done) {
+      const { email, hash_password } = jwt_payload;
+
       const exists = await UserModel.findOne({
-        email: jwt_payload.email,
-        hash_password: jwt_payload.hash_password,
+        email,
+        hash_password,
         deleted_at: { $in: [null, undefined] },
       });
 

@@ -19,10 +19,7 @@ export default function makeGetCategoryController({
     try {
       const { _id }: { _id: string } = get(httpRequest, "context.validated");
 
-      const exists = await getCategory({
-        _id,
-        is_include_deleted: false,
-      });
+      const exists = await getCategory({ _id });
 
       if (isEmpty(exists)) {
         throw new Error(`Category ${_id} does not exists`);

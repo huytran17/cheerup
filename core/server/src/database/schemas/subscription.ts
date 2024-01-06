@@ -8,12 +8,14 @@ const subscriptionSchema = new Schema<ISubscription, Model<ISubscription>>(
   {
     email: { type: String, trim: true, required: true },
     is_active: { type: Boolean, default: true },
-    created_at: { type: Date, default: Date.now },
-    updated_at: { type: Date, default: Date.now },
     deleted_at: { type: Date, default: null },
   },
   {
     toJSON: { virtuals: true },
+    timestamps: {
+      createdAt: "created_at",
+      updatedAt: "updated_at",
+    },
   }
 );
 

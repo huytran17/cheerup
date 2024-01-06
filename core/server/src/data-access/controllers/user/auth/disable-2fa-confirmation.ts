@@ -49,10 +49,7 @@ export default function makeDisable2FAConfirmationController({
     try {
       const { _id } = get(httpRequest, "context.user");
 
-      const user_exists = await getUser({
-        _id,
-        is_include_deleted: false,
-      });
+      const user_exists = await getUser({ _id });
 
       if (isEmpty(user_exists)) {
         throw new Error(`User by ${_id} does not exist`);

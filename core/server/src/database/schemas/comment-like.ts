@@ -14,10 +14,12 @@ const commentLikeSchema = new Schema<ICommentLike, Model<ICommentLike>>(
       emum: CommentLikeType,
       default: CommentLikeType.Like,
     },
-    created_at: { type: Date, default: Date.now },
   },
   {
     toJSON: { virtuals: true },
+    timestamps: {
+      createdAt: "created_at",
+    },
   }
 );
 

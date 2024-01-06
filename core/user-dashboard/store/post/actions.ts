@@ -53,13 +53,10 @@ const actions: ActionTree<PostState, RootState> = {
     const amount = get(params, "amount", 5);
     const categories = get(params, "categories", []);
     const exclude_ids = get(params, "exclude_ids", []);
-    const is_only_published = get(params, "is_only_published", true);
 
     const url_query = new URLSearchParams();
 
     amount && url_query.set("amount", amount);
-
-    is_only_published && url_query.set("is_only_published", is_only_published);
 
     !isEmpty(categories) && url_query.set("categories", join(categories, ","));
 
@@ -80,7 +77,6 @@ const actions: ActionTree<PostState, RootState> = {
     const page = get(params, "page", 1);
     const entries_per_page = get(params, "entries_per_page", 15);
     const new_state = get(params, "new_state", true);
-    const is_only_published = get(params, "is_only_published", true);
     const categories = get(params, "categories", []);
     const tags = get(params, "tags", []);
     const sorts = get(params, "sorts");
@@ -95,8 +91,6 @@ const actions: ActionTree<PostState, RootState> = {
     user_id && url_query.set("user_id", user_id);
 
     page && url_query.set("page", page);
-
-    is_only_published && url_query.set("is_only_published", is_only_published);
 
     entries_per_page && url_query.set("entries_per_page", entries_per_page);
 

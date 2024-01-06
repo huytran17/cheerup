@@ -12,8 +12,6 @@ import {
   blockPostCommentRules,
   unBlockPostCommentRules,
   hardDeletePostRules,
-  publishPostRules,
-  unPublishPostRules,
   getPostAnalysticsRules,
   getMostPopularPostsAnalysticsRules,
 } from "../../data-access/controllers/admin/post/validators";
@@ -28,8 +26,6 @@ import {
   unblockPostCommentController,
   blockPostCommentController,
   hardDeletePostController,
-  publishPostController,
-  unPublishPostController,
   getPostAnalysticsController,
   getMostPopularPostsAnalysticsController,
 } from "../../data-access/controllers/admin/post";
@@ -46,18 +42,6 @@ postRouter.get(
   "/most-popular-posts-analystics",
   makeValidator(getMostPopularPostsAnalysticsRules),
   makeExpressCallback(getMostPopularPostsAnalysticsController)
-);
-
-postRouter.put(
-  "/publish/:_id",
-  makeValidator(publishPostRules),
-  makeExpressCallback(publishPostController)
-);
-
-postRouter.put(
-  "/un-publish/:_id",
-  makeValidator(unPublishPostRules),
-  makeExpressCallback(unPublishPostController)
 );
 
 postRouter.delete(

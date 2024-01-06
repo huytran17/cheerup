@@ -5,12 +5,10 @@ export default interface IPostDb {
   findAllPaginated: (
     {
       categories,
-      is_only_published,
       tags,
       sorts,
     }: {
       categories?: string[];
-      is_only_published?: boolean;
       tags?: string[];
       sorts?: string;
     },
@@ -39,15 +37,7 @@ export default interface IPostDb {
     categories: string[];
     exclude_ids?: string[];
   }) => Promise<IPost[]>;
-  findById: ({
-    _id,
-    is_only_published,
-    is_include_deleted,
-  }: {
-    _id: string;
-    is_only_published?: boolean;
-    is_include_deleted?: boolean;
-  }) => Promise<IPost>;
+  findById: ({ _id }: { _id: string }) => Promise<IPost>;
   findBySlug: ({ slug }: { slug: string }) => Promise<IPost>;
   insert: (payload: Partial<IPost>) => Promise<IPost>;
   delete: ({ _id }: { _id: string }) => Promise<IPost>;

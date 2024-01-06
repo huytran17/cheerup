@@ -23,10 +23,8 @@ export default interface ICommentDb {
   findAllByPostPaginated: (
     {
       post_id,
-      is_include_deleted,
     }: {
       post_id: string;
-      is_include_deleted?: boolean;
     },
     {
       query,

@@ -2,13 +2,9 @@ import { Context } from "@nuxt/types";
 
 export default async function ({ store, redirect, app }: Context) {
   try {
-    const access_token = localStorage.getItem("access_token");
+    const { _id } = await store.dispatch("auth/VERIFY_ACCESS");
 
-    const { email } = await store.dispatch("auth/VERIFY_ACCESS", {
-      access_token,
-    });
-
-    if (email) {
+    if (_id) {
       return await store.dispatch("auth/GET_ME");
     }
 

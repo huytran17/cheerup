@@ -58,7 +58,6 @@ export default {
       SIGN_UP: "auth/SIGN_UP",
       SIGN_OUT: "auth/SIGN_OUT",
       GET_ME: "auth/GET_ME",
-      VERIFY_ACCESS: "auth/VERIFY_ACCESS",
       ENABLE_2FA: "auth/ENABLE_2FA",
       ENABLE_2FA_CONFIRMATION: "auth/ENABLE_2FA_CONFIRMATION",
       DISABLE_2FA_CONFIRMATION: "auth/DISABLE_2FA_CONFIRMATION",

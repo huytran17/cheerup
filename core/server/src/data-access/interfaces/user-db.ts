@@ -11,20 +11,8 @@ export default interface IUserDb {
     entries_per_page?: number;
   }) => Promise<IPaginatedUserResult>;
   findOne: () => Promise<IUser>;
-  findById: ({
-    _id,
-    is_include_deleted,
-  }: {
-    _id: string;
-    is_include_deleted?: boolean;
-  }) => Promise<IUser>;
-  findByEmail: ({
-    email,
-    is_include_deleted,
-  }: {
-    email: string;
-    is_include_deleted?: boolean;
-  }) => Promise<IUser>;
+  findById: ({ _id }: { _id: string }) => Promise<IUser>;
+  findByEmail: ({ email }: { email: string }) => Promise<IUser>;
   insert: (payload: Partial<IUser>) => Promise<IUser>;
   delete: ({ _id }: { _id: string }) => Promise<IUser>;
   restore: ({ _id }: { _id: string }) => Promise<IUser>;

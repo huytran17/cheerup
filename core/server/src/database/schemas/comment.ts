@@ -7,15 +7,22 @@ import IComment from "../interfaces/comment";
 
 const Schema = mongoose.Schema;
 
-const commentSchema = new Schema<IComment, Model<IComment>>({
-  content: { type: String, trim: true, required: true },
-  user: { type: Schema.Types.ObjectId, ref: "User" },
-  post: { type: Schema.Types.ObjectId, ref: "Post", required: true },
-  parent: { type: Schema.Types.ObjectId, ref: "Comment" },
-  children: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
-  created_at: { type: Date, default: Date.now },
-  updated_at: { type: Date, default: Date.now },
-});
+const commentSchema = new Schema<IComment, Model<IComment>>(
+  {
+    content: { type: String, trim: true, required: true },
+    user: { type: Schema.Types.ObjectId, ref: "User" },
+    post: { type: Schema.Types.ObjectId, ref: "Post", required: true },
+    parent: { type: Schema.Types.ObjectId, ref: "Comment" },
+    children: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
+  },
+  {
+    toJSON: { virtuals: true },
+    timestamps: {
+      createdAt: "created_at",
+      updatedAt: "updated_at",
+    },
+  }
+);
 
 commentSchema.index({ created_at: -1 });
 

@@ -238,19 +238,11 @@ export default function makeUserDb({
       return null;
     }
 
-    async findById({
-      _id,
-      is_include_deleted = true,
-    }: {
-      _id: string;
-      is_include_deleted?: boolean;
-    }): Promise<IUser> {
+    async findById({ _id }: { _id: string }): Promise<IUser> {
       const query_conditions = {
-        deleted_at: { $in: [null, undefined] },
         _id,
+        deleted_at: { $in: [null, undefined] },
       };
-
-      is_include_deleted && delete query_conditions.deleted_at;
 
       const existing = await userDbModel
         .findOne(query_conditions)
@@ -279,23 +271,16 @@ export default function makeUserDb({
       return null;
     }
 
-    async findByEmail({
-      email,
-      is_include_deleted = true,
-    }: {
-      email: string;
-      is_include_deleted?: boolean;
-    }): Promise<IUser> {
+    async findByEmail({ email }: { email: string }): Promise<IUser> {
       const query_conditions = {
         email,
         deleted_at: { $in: [undefined, null] },
       };
 
-      is_include_deleted && delete query_conditions.deleted_at;
-
       const existing = await userDbModel
         .findOne(query_conditions)
-        .select("-__v");
+        .select("-__v")
+        .lean({ virtuals: true });
 
       if (existing) {
         return new User(existing);

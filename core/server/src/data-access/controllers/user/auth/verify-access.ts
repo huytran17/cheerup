@@ -34,7 +34,6 @@ export default function makeVerifyAccessController({
 
       const user_exists = await getUserByEmail({
         email: decoded_access_token.email,
-        is_include_deleted: false,
       });
 
       if (isEmpty(user_exists)) {
