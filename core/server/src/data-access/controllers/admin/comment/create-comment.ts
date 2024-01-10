@@ -1,4 +1,7 @@
-import { CreateComment } from "../../../../use-cases/comment/create-comment";
+import {
+  CreateComment,
+  ICreateCommentPayload,
+} from "../../../../use-cases/comment/create-comment";
 import { Request } from "express";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -9,14 +12,16 @@ export default function makeCreateCommentController({
   createComment: CreateComment;
 }) {
   return async function createCommentController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const commentDetails = get(httpRequest, "context.validated");
+      const commentDetails = <ICreateCommentPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const created_comment = await createComment({ commentDetails });
 

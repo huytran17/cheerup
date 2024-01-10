@@ -1,15 +1,17 @@
 import IPost from "../../database/interfaces/post";
 import IPostDb from "../../data-access/interfaces/post-db";
 
+export interface IGetSuggestionPostsPayload {
+  amount: number;
+  categories: string[];
+  exclude_ids?: string[];
+}
+
 export type GetSuggestionPosts = ({
   amount,
   categories,
   exclude_ids,
-}: {
-  amount: number;
-  categories: string[];
-  exclude_ids?: string[];
-}) => Promise<IPost[]>;
+}: IGetSuggestionPostsPayload) => Promise<IPost[]>;
 
 export default function makeGetSuggestionPosts({
   postDb,

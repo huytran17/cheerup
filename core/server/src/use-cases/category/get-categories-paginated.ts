@@ -2,15 +2,17 @@ import ICategoryDb, {
   IPaginatedCategoryResult,
 } from "../../data-access/interfaces/category-db";
 
+export interface IGetCategoriesPaginatedPayload {
+  query: string;
+  page: number;
+  entries_per_page: number;
+}
+
 export type GetCategoriesPaginated = ({
   query,
   page,
   entries_per_page,
-}: {
-  query: string;
-  page: number;
-  entries_per_page: number;
-}) => Promise<IPaginatedCategoryResult>;
+}: IGetCategoriesPaginatedPayload) => Promise<IPaginatedCategoryResult>;
 
 export default function makeGetCategoriesPaginated({
   categoryDb,

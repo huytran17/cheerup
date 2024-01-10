@@ -1,5 +1,8 @@
 import { Request } from "express";
-import { GetAdmin } from "../../../../use-cases/admin/get-admin";
+import {
+  GetAdmin,
+  IGetAdminPayload,
+} from "../../../../use-cases/admin/get-admin";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -10,14 +13,14 @@ export default function makeGetMeController({
   getAdmin: GetAdmin;
 }) {
   return async function getMeController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id }: { _id: string } = get(httpRequest, "context.user");
+      const { _id } = <IGetAdminPayload>get(httpRequest, "context.user", {});
 
       const exists = await getAdmin({ _id });
       if (isEmpty(exists)) {

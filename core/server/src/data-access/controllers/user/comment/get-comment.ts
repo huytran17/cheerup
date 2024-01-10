@@ -1,5 +1,8 @@
 import { Request } from "express";
-import { GetComment } from "../../../../use-cases/comment/get-comment";
+import {
+  GetComment,
+  IGetCommentPayload,
+} from "../../../../use-cases/comment/get-comment";
 import { get, map, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -7,6 +10,7 @@ import { CommentLikeType } from "../../../../database/interfaces/comment-like";
 import { CountCommentLikeByCommentAndType } from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
 import { GetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
 import IComment from "../../../../database/interfaces/comment";
+import IUser from "../../../../database/interfaces/user";
 
 export default function makeGetCommentController({
   getComment,
@@ -18,25 +22,18 @@ export default function makeGetCommentController({
   getCommentLikeByUserAndComment: GetCommentLikeByUserAndComment;
 }) {
   return async function getCommentController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const {
-        _id: comment_id,
-        is_show_children,
-      }: {
-        _id: string;
-        is_show_children: boolean;
-      } = get(httpRequest, "context.validated");
-
-      const { _id: user_id }: { _id: string } = get(
-        httpRequest,
-        "context.user"
+      const { _id: comment_id, is_show_children } = <IGetCommentPayload>(
+        get(httpRequest, "context.validated", {})
       );
+
+      const { _id: user_id } = <IUser>get(httpRequest, "context.user", {});
 
       const exists = await getComment({
         _id: comment_id,

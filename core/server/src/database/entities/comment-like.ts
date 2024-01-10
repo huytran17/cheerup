@@ -1,11 +1,11 @@
+import IComment from "../interfaces/comment";
 import ICommentLike, { CommentLikeType } from "../interfaces/comment-like";
-import Comment from "./comment";
-import User from "./user";
+import IUser from "../interfaces/user";
 
 export default class CommentLike implements ICommentLike {
   public readonly _id: string;
-  public readonly comment: Comment;
-  public readonly user: User;
+  public readonly comment: IComment;
+  public readonly user: IUser;
   public readonly type: CommentLikeType;
   public readonly created_at: Date;
 

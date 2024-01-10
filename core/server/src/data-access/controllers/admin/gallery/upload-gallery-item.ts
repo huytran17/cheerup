@@ -1,7 +1,10 @@
 import { get, concat, merge } from "lodash";
 import { Request } from "express";
 import { UpdateGallery } from "../../../../use-cases/gallery/update-gallery";
-import { GetGallery } from "../../../../use-cases/gallery/get-gallery";
+import {
+  GetGallery,
+  IGetGalleryPayload,
+} from "../../../../use-cases/gallery/get-gallery";
 import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -16,15 +19,17 @@ export default function makeUploadGalleryItemController({
   logger: Logger;
 }) {
   return async function uploadGalleryItemController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id }: { _id: string } = get(httpRequest, "context.validated");
-      const file = get(httpRequest, "context.file");
+      const { _id } = <IGetGalleryPayload>(
+        get(httpRequest, "context.validated", {})
+      );
+      const file = get(httpRequest, "context.file", {});
 
       if (isEmpty(file)) {
         throw new Error(`File does not exist`);

@@ -1,8 +1,14 @@
 import { Request } from "express";
-import { GetAdminAnalystics } from "../../../../use-cases/admin/get-admin-analystics";
+import {
+  GetAdminAnalystics,
+  IGetAdminAnalysticsPayload,
+} from "../../../../use-cases/admin/get-admin-analystics";
 import { get, sortBy, split } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { AdminType } from "../../../../database/interfaces/admin";
+
+interface IPayload extends Omit<IGetAdminAnalysticsPayload, "range"> {
+  range?: string;
+}
 
 export default function makeGetAdminAnalysticsController({
   getAdminAnalystics,
@@ -10,20 +16,15 @@ export default function makeGetAdminAnalysticsController({
   getAdminAnalystics: GetAdminAnalystics;
 }) {
   return async function getAdminAnalysticsController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const {
-        range,
-        unit,
-        author_type,
-      }: { range?: string; unit?: string; author_type?: AdminType } = get(
-        httpRequest,
-        "context.validated"
+      const { range, unit, author_type } = <IPayload>(
+        get(httpRequest, "context.validated", {})
       );
 
       const splitted_range = sortBy(split(range, ","));

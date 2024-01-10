@@ -1,6 +1,9 @@
 import { Request } from "express";
 import { GetGallery } from "../../../../use-cases/gallery/get-gallery";
-import { HardDeleteGallery } from "../../../../use-cases/gallery/hard-delete-gallery";
+import {
+  HardDeleteGallery,
+  IHardDeleteGalleryPayload,
+} from "../../../../use-cases/gallery/hard-delete-gallery";
 import { get } from "lodash";
 import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -16,14 +19,16 @@ export default function makeHardDeleteGalleryController({
   logger: Logger;
 }) {
   return async function hardDeleteGalleryController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id }: { _id: string } = get(httpRequest, "context.validated");
+      const { _id } = <IHardDeleteGalleryPayload>(
+        get(httpRequest, "context.validated", {})
+      );
       const exists = await getGallery({ _id });
 
       if (isEmpty(exists)) {

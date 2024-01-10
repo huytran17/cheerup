@@ -6,6 +6,10 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetPasswordResetByCode } from "../../../../use-cases/password-reset/get-password-reset-by-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
+interface IPayload {
+  security_code: string;
+}
+
 export default function makeGetPasswordResetByEmailAndCodeController({
   getPasswordResetByCode,
   generateAccessToken,
@@ -16,21 +20,18 @@ export default function makeGetPasswordResetByEmailAndCodeController({
   moment: typeof Moment;
 }) {
   return async function getPasswordResetByEmailAndCodeController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { security_code }: { security_code: string } = get(
-        httpRequest,
-        "context.validated"
+      const { security_code } = <IPayload>(
+        get(httpRequest, "context.validated", {})
       );
 
-      const exists = await getPasswordResetByCode({
-        security_code,
-      });
+      const exists = await getPasswordResetByCode({ security_code });
 
       if (isEmpty(exists)) {
         throw new Error(

@@ -1,7 +1,10 @@
 import { Request } from "express";
 import { get, map, sortBy, merge } from "lodash";
 import { CountPostByCategory } from "../../../../use-cases/post/count-post-by-category";
-import { GetCategoriesPaginated } from "../../../../use-cases/category/get-categories-paginated";
+import {
+  GetCategoriesPaginated,
+  IGetCategoriesPaginatedPayload,
+} from "../../../../use-cases/category/get-categories-paginated";
 import Category from "../../../../database/entities/category";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
@@ -13,22 +16,16 @@ export default function makeGetOutstandingCategoriesPaginatedController({
   getCategoriesPaginated: GetCategoriesPaginated;
 }) {
   return async function getOutstandingCategoriesPaginatedController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const {
-        query,
-        page,
-        entries_per_page,
-      }: {
-        query: string;
-        page: string;
-        entries_per_page: string;
-      } = get(httpRequest, "context.validated");
+      const { query, page, entries_per_page } = <
+        IGetCategoriesPaginatedPayload
+      >get(httpRequest, "context.validated", {});
 
       const paginated_data = await getCategoriesPaginated({
         query,

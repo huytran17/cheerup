@@ -1,7 +1,6 @@
 import { Request } from "express";
 import Moment from "moment";
 import randomString from "randomstring";
-
 import { TwoFAType } from "../../../../database/interfaces/two-factor-authentication";
 import { GetEmailContent } from "../../../../config/emailManager/get-email-content";
 import { RenderEmailContent } from "../../../../config/emailManager/render-email-content";
@@ -15,6 +14,7 @@ import { HardDeleteTwoFactorAuthentication } from "../../../../use-cases/two-fac
 import { GetUser } from "../../../../use-cases/user/get-user";
 import { isEmpty } from "../../../../utils/is-empty";
 import { Logger } from "winston";
+import IUser from "../../../../database/interfaces/user";
 
 export default function makeDisable2FAConfirmationController({
   createTwoFactorAuthentication,
@@ -40,14 +40,14 @@ export default function makeDisable2FAConfirmationController({
   moment: typeof Moment;
 }) {
   return async function disable2FAConfirmationController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id } = get(httpRequest, "context.user");
+      const { _id } = <IUser>get(httpRequest, "context.user", {});
 
       const user_exists = await getUser({ _id });
 

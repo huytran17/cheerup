@@ -8,7 +8,7 @@ export default function makeGetCommentsController({
   getComments: GetComments;
 }) {
   return async function getCommentsController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",

@@ -1,7 +1,14 @@
 import { Request } from "express";
-import { GetUserAnalystics } from "../../../../use-cases/user/get-user-analystics";
+import {
+  GetUserAnalystics,
+  IGetUserAnalysticsPayload,
+} from "../../../../use-cases/user/get-user-analystics";
 import { get, sortBy, split } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+
+interface IPayload extends Omit<IGetUserAnalysticsPayload, "range"> {
+  range?: string;
+}
 
 export default function makeGetUserAnalysticsController({
   getUserAnalystics,
@@ -9,16 +16,15 @@ export default function makeGetUserAnalysticsController({
   getUserAnalystics: GetUserAnalystics;
 }) {
   return async function getUserAnalysticsController(
-    httpRequest: Request & { context: { validated: { user_id: string } } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { range, unit }: { range?: string; unit?: string } = get(
-        httpRequest,
-        "context.validated"
+      const { range, unit } = <IPayload>(
+        get(httpRequest, "context.validated", {})
       );
 
       const splitted_range = sortBy(split(range, ","));

@@ -1,5 +1,8 @@
 import { Request } from "express";
-import { GetGallery } from "../../../../use-cases/gallery/get-gallery";
+import {
+  GetGallery,
+  IGetGalleryPayload,
+} from "../../../../use-cases/gallery/get-gallery";
 import { GetGalleriesByParent } from "../../../../use-cases/gallery/get-galleries-by-parent";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -13,14 +16,16 @@ export default function makeGetGalleriesByParentController({
   getGalleriesByParent: GetGalleriesByParent;
 }) {
   return async function getGalleriesByParentController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id }: { _id: string } = get(httpRequest, "context.validated");
+      const { _id } = <IGetGalleryPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const exists = await getGallery({ _id });
 

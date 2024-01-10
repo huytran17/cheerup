@@ -1,6 +1,6 @@
+import IAdmin from "../interfaces/admin";
+import ICategory from "../interfaces/category";
 import IPost from "../interfaces/post";
-import Admin from "./admin";
-import Category from "./category";
 
 export default class Post implements IPost {
   public readonly _id: string;
@@ -14,8 +14,8 @@ export default class Post implements IPost {
   public readonly content: string;
   public readonly source: string;
   public readonly tags: string[];
-  public readonly author: Admin;
-  public readonly categories: Category[];
+  public readonly author: IAdmin;
+  public readonly categories: ICategory[];
   public readonly views: number;
   public readonly seo?: Record<string, unknown>;
   public readonly created_at: Date;

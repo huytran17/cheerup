@@ -1,6 +1,9 @@
 import { Request } from "express";
-import { GetCommentsByParent } from "../../../../use-cases/comment/get-comments-by-parent";
-import { get, map, merge } from "lodash";
+import {
+  GetCommentsByParent,
+  IGetCommentsByParentPayload,
+} from "../../../../use-cases/comment/get-comments-by-parent";
+import { get, map } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetComment } from "../../../../use-cases/comment/get-comment";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -8,6 +11,7 @@ import IComment from "../../../../database/interfaces/comment";
 import { CountCommentLikeByCommentAndType } from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
 import { GetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
 import { CommentLikeType } from "../../../../database/interfaces/comment-like";
+import IUser from "../../../../database/interfaces/user";
 
 export default function makeGetCommentsByParentController({
   getCommentsByParent,
@@ -21,24 +25,24 @@ export default function makeGetCommentsByParentController({
   getCommentLikeByUserAndComment: GetCommentLikeByUserAndComment;
 }) {
   return async function getCommentsByParentController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id }: { _id: string } = get(httpRequest, "context.validated");
-
-      const { _id: user_id }: { _id: string } =
-        get(httpRequest, "context.user") || {};
+      const { _id } = <IGetCommentsByParentPayload>(
+        get(httpRequest, "context.validated", {})
+      );
+      const { _id: user_id } = <IUser>get(httpRequest, "context.user") || {};
 
       const comment_exists = await getComment({ _id });
       if (isEmpty(comment_exists)) {
         throw new Error(`Comment by ${_id} does not exist`);
       }
 
-      const comments = await getCommentsByParent({ parent_id: _id });
+      const comments = await getCommentsByParent({ _id });
 
       const map_meta_data = async (comment: IComment) => {
         const likes_count = await countCommentLikeByCommentAndType({

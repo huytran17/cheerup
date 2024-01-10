@@ -37,11 +37,7 @@ export default interface ICommentDb {
     }
   ) => Promise<IPaginatedCommentResult>;
   countByPost: ({ post_id }: { post_id: string }) => Promise<number>;
-  findAllByParent: ({
-    parent_id,
-  }: {
-    parent_id: string;
-  }) => Promise<IComment[]>;
+  findAllByParent: ({ _id }: { _id: string }) => Promise<IComment[]>;
   insert: (payload: Partial<IComment>) => Promise<IComment>;
   hardDelete: ({ _id }: { _id: string }) => Promise<IComment>;
   update: (payload: Partial<IComment>) => Promise<IComment>;

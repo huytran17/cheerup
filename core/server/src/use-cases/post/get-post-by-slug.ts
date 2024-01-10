@@ -1,7 +1,11 @@
 import IPost from "../../database/interfaces/post";
 import IPostDb from "../../data-access/interfaces/post-db";
 
-export type GetPostBySlug = ({ slug }: { slug: string }) => Promise<IPost>;
+export interface IGetPostBySlugPayload {
+  slug: string;
+}
+
+export type GetPostBySlug = ({ slug }: IGetPostBySlugPayload) => Promise<IPost>;
 
 export default function makeGetPostBySlug({
   postDb,

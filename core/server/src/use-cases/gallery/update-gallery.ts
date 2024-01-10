@@ -1,13 +1,15 @@
 import IGalleryDb from "../../data-access/interfaces/gallery-db";
 import IGallery from "../../database/interfaces/gallery";
 
-export interface IUpdateGalleryData {
-  galleryDetails: IGallery;
+export interface IUpdateGalleryPayload extends Partial<IGallery> {}
+
+interface IUpdateGallery {
+  galleryDetails: IUpdateGalleryPayload;
 }
 
 export type UpdateGallery = ({
   galleryDetails,
-}: IUpdateGalleryData) => Promise<IGallery>;
+}: IUpdateGallery) => Promise<IGallery>;
 
 export default function makeUpdateGallery({
   galleryDb,

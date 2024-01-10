@@ -8,7 +8,6 @@ export default class Admin implements IAdmin {
   public readonly email: string;
   public readonly type: AdminType;
   public readonly full_name: string;
-  public readonly is_auto_censorship_post?: boolean;
   public readonly is_blocked?: boolean;
   public readonly created_at: Date;
   public readonly updated_at: Date;
@@ -22,7 +21,6 @@ export default class Admin implements IAdmin {
     full_name,
     type,
     avatar_url,
-    is_auto_censorship_post,
     is_blocked,
     created_at,
     updated_at,
@@ -33,7 +31,6 @@ export default class Admin implements IAdmin {
     this.avatar_url = avatar_url;
     this.hash_password = hash_password;
     this.full_name = full_name;
-    this.is_auto_censorship_post = is_auto_censorship_post;
     this.is_blocked = is_blocked;
     this.email = email;
     this.type = type;

@@ -1,13 +1,17 @@
 import ISubscriptionDb from "../../data-access/interfaces/subscription-db";
 import ISubscription from "../../database/interfaces/subscription";
 
-export interface IUpdateSubscriptionData {
-  subscriptionDetails: Omit<ISubscription, "_id">;
+export interface IUpdateSubscriptionPayload extends Partial<ISubscription> {
+  [key: string]: any;
+}
+
+export interface IUpdateSubscription {
+  subscriptionDetails: IUpdateSubscriptionPayload;
 }
 
 export type UpdateSubscription = ({
   subscriptionDetails,
-}: IUpdateSubscriptionData) => Promise<ISubscription>;
+}: IUpdateSubscription) => Promise<ISubscription>;
 
 export default function makeUpdateSubscription({
   subscriptionDb,

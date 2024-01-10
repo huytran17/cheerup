@@ -8,7 +8,7 @@ export default function makeGetPostsController({
   getPosts: GetPosts;
 }) {
   return async function getPostsController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",

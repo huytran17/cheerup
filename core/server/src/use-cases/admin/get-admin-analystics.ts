@@ -5,15 +5,17 @@ import Redis from "../../config/redis";
 import { Logger } from "winston";
 import { AdminType } from "../../database/interfaces/admin";
 
+export interface IGetAdminAnalysticsPayload {
+  range?: string[];
+  unit?: string;
+  author_type?: AdminType;
+}
+
 export type GetAdminAnalystics = ({
   range,
   unit,
   author_type,
-}: {
-  range?: string[];
-  unit?: string;
-  author_type?: AdminType;
-}) => Promise<IAdminAnalyticsData>;
+}: IGetAdminAnalysticsPayload) => Promise<IAdminAnalyticsData>;
 
 export default function makeGetAdminAnalystics({
   adminDb,

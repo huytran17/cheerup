@@ -14,7 +14,7 @@ export default function makeUploadFolderIconController({
   updateSystemConfiguration: UpdateSystemConfiguration;
 }) {
   return async function uploadFolderIconController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
@@ -27,14 +27,14 @@ export default function makeUploadFolderIconController({
         throw new Error(`System configuration by ${exists._id} does not exist`);
       }
 
-      const file = get(httpRequest, "context.file");
+      const file = get(httpRequest, "context.file", {});
 
       if (isEmpty(file)) {
         throw new Error(`File does not exist`);
       }
 
-      const bucket = get(exists, "folder_icon.bucket");
-      const key = get(exists, "folder_icon.key");
+      const bucket = <string>get(exists, "folder_icon.bucket", "");
+      const key = <string>get(exists, "folder_icon.key", "");
 
       deleteS3Object({ bucket, key });
 

@@ -1,7 +1,15 @@
 import { Request } from "express";
-import { GetMostPopularPostsAnalystics } from "../../../../use-cases/post/get-most-popular-posts-analystics";
+import {
+  GetMostPopularPostsAnalystics,
+  IGetMostPopularPostsAnalysticsPayload,
+} from "../../../../use-cases/post/get-most-popular-posts-analystics";
 import { get, sortBy, split } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+
+interface IPayload
+  extends Omit<IGetMostPopularPostsAnalysticsPayload, "range"> {
+  range?: string;
+}
 
 export default function makeGetMostPopularPostsAnalysticsController({
   getMostPopularPostsAnalystics,
@@ -9,20 +17,15 @@ export default function makeGetMostPopularPostsAnalysticsController({
   getMostPopularPostsAnalystics: GetMostPopularPostsAnalystics;
 }) {
   return async function getMostPopularPostsAnalysticsController(
-    httpRequest: Request & { context: { validated: { post_id: string } } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const {
-        range,
-        unit,
-        limit,
-      }: { range?: string; unit?: string; limit?: number } = get(
-        httpRequest,
-        "context.validated"
+      const { range, unit, limit } = <IPayload>(
+        get(httpRequest, "context.validated", {})
       );
 
       const splitted_range = sortBy(split(range, ","));

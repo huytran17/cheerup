@@ -1,5 +1,8 @@
 import { Request } from "express";
-import { GetGalleriesPaginated } from "../../../../use-cases/gallery/get-galleries-paginated";
+import {
+  GetGalleriesPaginated,
+  IGetGalleriesPaginatedPayload,
+} from "../../../../use-cases/gallery/get-galleries-paginated";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
@@ -9,35 +12,23 @@ export default function makeGetGalleriesPaginatedController({
   getGalleriesPaginated: GetGalleriesPaginated;
 }) {
   return async function getGalleriesPaginatedController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const {
+      const { query, page, entries_per_page, is_parent } = <
+        IGetGalleriesPaginatedPayload
+      >get(httpRequest, "context.validated", {});
+
+      const galleries = await getGalleriesPaginated({
         query,
         page,
         entries_per_page,
         is_parent,
-      }: {
-        query: string;
-        page: number;
-        entries_per_page: number;
-        is_parent?: boolean;
-      } = get(httpRequest, "context.validated");
-
-      const galleries = await getGalleriesPaginated(
-        {
-          query,
-          page,
-          entries_per_page,
-        },
-        {
-          is_parent,
-        }
-      );
+      });
 
       return {
         headers,

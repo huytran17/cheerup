@@ -7,9 +7,13 @@ import { RenderEmailContent } from "../../../../config/emailManager/render-email
 import { SendEmail } from "../../../../config/emailManager/send-email";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetAdmin } from "../../../../use-cases/admin/get-admin";
-import { CreatePost } from "../../../../use-cases/post/create-post";
+import {
+  CreatePost,
+  ICreatePostPayload,
+} from "../../../../use-cases/post/create-post";
 import { UpdatePost } from "../../../../use-cases/post/update-post";
 import { GetActivatingSubscriptions } from "../../../../use-cases/subscription/get-activating-subscriptions";
+import IAdmin from "../../../../database/interfaces/admin";
 
 export default function makeCreatePostController({
   createPost,
@@ -31,106 +35,94 @@ export default function makeCreatePostController({
   logger: Logger;
 }) {
   return async function createPostController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id: admin_id }: { _id: string } = get(
-        httpRequest,
-        "context.user"
-      );
+      const { _id: admin_id } = <IAdmin>get(httpRequest, "context.user", {});
 
-      const postDetails = get(httpRequest, "context.validated");
+      const postDetails = <ICreatePostPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const admin = await getAdmin({ _id: admin_id });
       if (!admin) {
         throw new Error(`Admin by ${admin_id} does not exist`);
       }
 
-      const { is_auto_censorship_post } = admin;
-
-      const final_post_details = merge({}, postDetails, {
+      const post_details = merge({}, postDetails, {
         author: admin,
-        is_published: is_auto_censorship_post,
-        published_by: (is_auto_censorship_post && admin) || null,
-        published_at: (is_auto_censorship_post && new Date()) || null,
       });
 
-      let created_post = await createPost({
-        postDetails: final_post_details,
+      const created_post = await createPost({
+        postDetails: post_details,
       });
 
-      const { is_published, title, description, categories, author, tags } =
-        created_post;
+      const { title, description, categories, author, tags } = created_post;
 
       logger.verbose(`Created post ${created_post.title}`);
 
-      if (is_published) {
-        const subscriptions = await getActivatingSubscriptions();
+      const subscriptions = await getActivatingSubscriptions();
+      const send_notification_promises = map(
+        subscriptions,
+        async (subscription) => {
+          const user_email = get(subscription, "email", "");
 
-        const send_notification_promises = map(
-          subscriptions,
-          async (subscription) => {
-            const user_email = get(subscription, "email", "");
+          const email_content = await getEmailContent({
+            to: user_email,
+            type: "new-post-notification",
+          });
 
-            const email_content = await getEmailContent({
-              to: user_email,
-              type: "new-post-notification",
-            });
+          const categories_titles = map(categories, (category) =>
+            get(category, "title", "")
+          );
 
-            const categories_titles = map(categories, (category) =>
-              get(category, "title", "")
-            );
+          const rendered_email_content = await renderEmailContent({
+            email_content,
+            user_template_data: {
+              email: user_email,
+              title,
+              description: convert(description, { wordwrap: 10 }),
+              categories: join(categories_titles, ", "),
+              author: get(author, "full_name", ""),
+              tags: join(tags, ", "),
+            },
+          });
 
-            const rendered_email_content = await renderEmailContent({
-              email_content,
-              user_template_data: {
-                email: user_email,
-                title,
-                description: convert(description, { wordwrap: 10 }),
-                categories: join(categories_titles, ", "),
-                author: get(author, "full_name", ""),
-                tags: join(tags, ", "),
-              },
-            });
+          await sendEmail(rendered_email_content);
+        }
+      );
 
-            await sendEmail(rendered_email_content);
-          }
-        );
+      logger.verbose(
+        `Sending notifications email for new post to subscribers...`
+      );
+      await Promise.all(
+        filter(send_notification_promises, (promise) => promise)
+      );
+      logger.verbose(`Sent notifications email for new post to subscribers!!!`);
 
-        logger.verbose(
-          `Sending notifications email for new post to subscribers...`
-        );
-        await Promise.all(
-          filter(send_notification_promises, (promise) => promise)
-        );
-        logger.verbose(
-          `Sent notifications email for new post to subscribers!!!`
-        );
+      const final_post_details = merge({}, created_post, {
+        is_notified_to_user: true,
+        seo: {
+          title: created_post?.title,
+          description: created_post?.description,
+          date_modified: created_post?.updated_at,
+          author: admin?.full_name,
+        },
+      });
 
-        const final_post_details = merge({}, created_post, {
-          is_notified_to_user: true,
-          seo: {
-            title: created_post?.title,
-            description: created_post?.description,
-            date_modified: created_post?.updated_at,
-            author: admin?.full_name,
-            publisher: created_post?.published_by?.full_name,
-            date_published: created_post?.published_at,
-          },
-        });
-
-        created_post = await updatePost({ postDetails: final_post_details });
-      }
+      const updated_post = await updatePost({
+        postDetails: final_post_details,
+      });
 
       return {
         headers,
         statusCode: HttpStatusCode.CREATED,
         body: {
-          data: created_post,
+          data: updated_post,
         },
       };
     } catch (error) {

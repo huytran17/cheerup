@@ -52,9 +52,7 @@ describe("getPosts", () => {
     });
 
     const request = {
-      context: {
-        validated: {},
-      },
+      context: {},
     };
 
     const result = await getPostsController(request as any);

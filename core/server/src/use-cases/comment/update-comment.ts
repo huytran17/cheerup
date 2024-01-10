@@ -1,13 +1,15 @@
 import ICommentDb from "../../data-access/interfaces/comment-db";
 import IComment from "../../database/interfaces/comment";
 
-export interface IUpdateCommentData {
-  commentDetails: Omit<IComment, "_id">;
+export interface IUpdateCommentData extends Partial<IComment> {}
+
+interface IUpdateComment {
+  commentDetails: IUpdateCommentData;
 }
 
 export type UpdateComment = ({
   commentDetails,
-}: IUpdateCommentData) => Promise<IComment>;
+}: IUpdateComment) => Promise<IComment>;
 
 export default function makeUpdateComment({
   commentDb,

@@ -1,12 +1,16 @@
 import { GetUser } from "../../../../use-cases/user/get-user";
-import { UpdateUser } from "../../../../use-cases/user/update-user";
+import {
+  IUpdateUserPayload,
+  UpdateUser,
+} from "../../../../use-cases/user/update-user";
 import { Logger } from "winston";
 import { Request } from "express";
-import { get, merge, omit } from "lodash";
+import { get, merge } from "lodash";
 import { HashPassword } from "../../../../config/password/hash-password";
 import { VerifyPassword } from "../../../../config/password/verify-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
+import IUser from "../../../../database/interfaces/user";
 
 export default function makeUpdatePasswordController({
   getUser,
@@ -22,24 +26,18 @@ export default function makeUpdatePasswordController({
   logger: Logger;
 }) {
   return async function updatePasswordController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const {
-        password,
-        new_password,
-        password_confirmation,
-      }: {
-        password: string;
-        new_password: string;
-        password_confirmation: string;
-      } = get(httpRequest, "context.validated");
+      const { password, new_password, password_confirmation } = <
+        IUpdateUserPayload
+      >get(httpRequest, "context.validated", {});
 
-      const { _id }: { _id: string } = get(httpRequest, "context.user");
+      const { _id } = <IUser>get(httpRequest, "context.user", {});
 
       const exists = await getUser({ _id });
       if (isEmpty(exists)) {

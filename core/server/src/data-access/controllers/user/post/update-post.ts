@@ -1,5 +1,8 @@
 import { GetPost } from "../../../../use-cases/post/get-post";
-import { UpdatePost } from "../../../../use-cases/post/update-post";
+import {
+  IUpdatePostPayload,
+  UpdatePost,
+} from "../../../../use-cases/post/update-post";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get } from "lodash";
@@ -16,15 +19,17 @@ export default function makeUpdatePostController({
   logger: Logger;
 }) {
   return async function updatePostController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const postDetails = get(httpRequest, "context.validated");
-      const { _id }: { _id: string } = postDetails;
+      const postDetails = <IUpdatePostPayload>(
+        get(httpRequest, "context.validated", {})
+      );
+      const { _id } = postDetails;
 
       const exists = await getPost({ _id });
       if (isEmpty(exists)) {

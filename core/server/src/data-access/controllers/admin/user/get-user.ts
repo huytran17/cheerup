@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { GetUser } from "../../../../use-cases/user/get-user";
+import { GetUser, IGetUserPayload } from "../../../../use-cases/user/get-user";
 import { get, merge, omit } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -10,14 +10,16 @@ export default function makeGetUserController({
   getUser: GetUser;
 }) {
   return async function getUserController(
-    httpRequest: Request & { context: { validated: { user_id: string } } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id }: { _id: string } = get(httpRequest, "context.validated");
+      const { _id } = <IGetUserPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const exists = await getUser({ _id });
       if (isEmpty(exists)) {

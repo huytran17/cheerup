@@ -1,5 +1,8 @@
 import { GetUser } from "../../../../use-cases/user/get-user";
-import { UpdateUser } from "../../../../use-cases/user/update-user";
+import {
+  IUpdateUserPayload,
+  UpdateUser,
+} from "../../../../use-cases/user/update-user";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get, merge } from "lodash";
@@ -19,20 +22,15 @@ export default function makeUpdateUserPasswordController({
   logger: Logger;
 }) {
   return async function updateUserPasswordController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const {
-        _id,
-        password,
-        password_confirmation,
-      }: { _id: string; password: string; password_confirmation: string } = get(
-        httpRequest,
-        "context.validated"
+      const { _id, password, password_confirmation } = <IUpdateUserPayload>(
+        get(httpRequest, "context.validated", {})
       );
 
       const exists = await getUser({ _id });

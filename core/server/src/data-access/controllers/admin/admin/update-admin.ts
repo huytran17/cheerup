@@ -1,5 +1,8 @@
 import { GetAdmin } from "../../../../use-cases/admin/get-admin";
-import { UpdateAdmin } from "../../../../use-cases/admin/update-admin";
+import {
+  IUpdateAdminPayload,
+  UpdateAdmin,
+} from "../../../../use-cases/admin/update-admin";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get, merge } from "lodash";
@@ -16,15 +19,17 @@ export default function makeUpdateAdminController({
   logger: Logger;
 }) {
   return async function updateAdminController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const adminDetails = get(httpRequest, "context.validated");
-      const { _id }: { _id: string } = adminDetails;
+      const adminDetails = <IUpdateAdminPayload>(
+        get(httpRequest, "context.validated", {})
+      );
+      const { _id } = adminDetails;
 
       const exists = await getAdmin({ _id });
       if (isEmpty(exists)) {

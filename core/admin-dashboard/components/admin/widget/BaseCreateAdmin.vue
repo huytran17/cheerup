@@ -79,21 +79,6 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="12">
-            <v-switch
-              :label="$t('Enable auto censorship post')"
-              @change="
-                updateAdminObject({
-                  variable_path: 'is_auto_censorship_post',
-                  data: $event,
-                })
-              "
-              :false-value="false"
-              :true-value="true"
-            ></v-switch>
-          </v-col>
-        </v-row>
-        <v-row>
           <v-col cols="12" class="d-flex justify-end">
             <v-btn
               depressed

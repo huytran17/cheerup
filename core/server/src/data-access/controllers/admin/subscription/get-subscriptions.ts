@@ -8,7 +8,7 @@ export default function makeGetSubscriptionsController({
   getSubscriptions: GetSubscriptions;
 }) {
   return async function getSubscriptionsController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",

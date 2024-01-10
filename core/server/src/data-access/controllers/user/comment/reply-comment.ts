@@ -1,4 +1,7 @@
-import { ReplyComment } from "../../../../use-cases/comment/reply-comment";
+import {
+  IReplyCommentPayload,
+  ReplyComment,
+} from "../../../../use-cases/comment/reply-comment";
 import { UpdateComment } from "../../../../use-cases/comment/update-comment";
 import { GetComment } from "../../../../use-cases/comment/get-comment";
 import { GetPost } from "../../../../use-cases/post/get-post";
@@ -7,6 +10,7 @@ import { Request } from "express";
 import { get, union, concat, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
+import IUser from "../../../../database/interfaces/user";
 
 export default function makeReplyCommentController({
   replyComment,
@@ -22,23 +26,19 @@ export default function makeReplyCommentController({
   getUser: GetUser;
 }) {
   return async function replyCommentController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id: user_id }: { _id: string } = get(
-        httpRequest,
-        "context.user"
+      const { _id: user_id } = <IUser>get(httpRequest, "context.user", {});
+      const commentDetails = <IReplyCommentPayload>(
+        get(httpRequest, "context.validated", {})
       );
-      const commentDetails = get(httpRequest, "context.validated");
 
-      const {
-        post: post_id,
-        parent: parent_id,
-      }: { post: string; parent: string } = commentDetails;
+      const { post: post_id, parent: parent_id } = commentDetails;
 
       const post_exists = await getPost({ _id: post_id });
 

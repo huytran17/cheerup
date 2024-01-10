@@ -1,5 +1,8 @@
 import { GetUser } from "../../../../use-cases/user/get-user";
-import { UpdateUser } from "../../../../use-cases/user/update-user";
+import {
+  IUpdateUserPayload,
+  UpdateUser,
+} from "../../../../use-cases/user/update-user";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get, merge } from "lodash";
@@ -16,19 +19,18 @@ export default function makeUpdateUserController({
   logger: Logger;
 }) {
   return async function updateUserController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const userDetails = get(httpRequest, "context.validated");
+      const userDetails = <IUpdateUserPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
-      const {
-        _id,
-        is_blocked_comment,
-      }: { _id: string; is_blocked_comment: boolean } = userDetails;
+      const { _id, is_blocked_comment } = userDetails;
 
       const exists = await getUser({ _id });
       if (isEmpty(exists)) {

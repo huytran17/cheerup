@@ -8,7 +8,7 @@ export default function makeGetUsersController({
   getUsers: GetUsers;
 }) {
   return async function getUsersController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",

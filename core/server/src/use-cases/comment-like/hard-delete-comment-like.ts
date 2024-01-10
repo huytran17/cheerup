@@ -1,11 +1,13 @@
 import ICommentLike from "../../database/interfaces/comment-like";
 import ICommentLikeDb from "../../data-access/interfaces/comment-like-db";
 
+export interface IHardDeleteCommentLikePayload {
+  _id: string;
+}
+
 export type HardDeleteCommentLike = ({
   _id,
-}: {
-  _id: string;
-}) => Promise<ICommentLike>;
+}: IHardDeleteCommentLikePayload) => Promise<ICommentLike>;
 
 export default function makeHardDeleteCommentLike({
   commentLikeDb,

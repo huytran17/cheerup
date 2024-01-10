@@ -1,5 +1,8 @@
 import { GetUser } from "../../../../use-cases/user/get-user";
-import { DeleteUser } from "../../../../use-cases/user/delete-user";
+import {
+  DeleteUser,
+  IDeleteUserPayload,
+} from "../../../../use-cases/user/delete-user";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get } from "lodash";
@@ -16,15 +19,16 @@ export default function makeDeleteUserController({
   logger: Logger;
 }) {
   return async function deleteUserController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const userDetails = get(httpRequest, "context.validated");
-      const { _id }: { _id: string } = userDetails;
+      const { _id } = <IDeleteUserPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const exists = await getUser({ _id });
       if (isEmpty(exists)) {

@@ -9,7 +9,7 @@ export default function makeGetLatestSystemConfigurationController({
   getLatestSystemConfiguration: GetLatestSystemConfiguration;
 }) {
   return async function getLatestSystemConfigurationController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",

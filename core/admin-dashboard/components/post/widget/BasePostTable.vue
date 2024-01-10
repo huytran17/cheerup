@@ -232,8 +232,7 @@ export default {
     }),
     async blockComment(post) {
       try {
-        const id = get(post, "_id");
-        const title = get(post, "title");
+        const { id, title } = post;
 
         await this.BLOCK_POST_COMMENT({ id });
         this.$toast.success(
@@ -250,8 +249,7 @@ export default {
 
     async unblockComment(post) {
       try {
-        const id = get(post, "_id");
-        const title = get(post, "title");
+        const { id, title } = post;
 
         await this.UNBLOCK_POST_COMMENT({ id });
         this.$toast.success(
@@ -268,8 +266,7 @@ export default {
 
     async deletePost(post) {
       try {
-        const id = get(post, "_id");
-        const title = get(post, "title");
+        const { id, title } = post;
 
         await this.DELETE_POST({ id });
         this.$toast.success(this.$t(`Deleted post ${title} successfully`));
@@ -282,8 +279,7 @@ export default {
 
     async hardDeletePost() {
       try {
-        const id = get(this.post, "_id");
-        const title = get(this.post, "title");
+        const { id, title } = this.post;
 
         await this.HARD_DELETE_POST({ id });
         this.$toast.success(

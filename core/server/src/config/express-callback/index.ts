@@ -32,8 +32,8 @@ export default function makeExpressCallback(controller: IController) {
       .catch((errorObject: any) => {
         res.status(errorObject.statusCode).send(errorObject.body);
 
-        const Bucket: string = get(httpRequest, "context.file.bucket");
-        const Key: string = get(httpRequest, "context.file.key");
+        const Bucket = <string>get(httpRequest, "context.file.bucket", "");
+        const Key = <string>get(httpRequest, "context.file.key", "");
 
         httpRequest.context.file &&
           deleteS3Object({ bucket: Bucket, key: Key });

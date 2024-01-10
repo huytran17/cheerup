@@ -10,6 +10,12 @@ import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
+interface IPayload {
+  verification_token: string;
+  password: string;
+  password_confirmation: string;
+}
+
 export default function makeResetPasswordController({
   getPasswordReset,
   hardDeletePasswordReset,
@@ -26,22 +32,16 @@ export default function makeResetPasswordController({
   hashPassword: HashPassword;
 }) {
   return async function resetPasswordController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const {
-        verification_token,
-        password,
-        password_confirmation,
-      }: {
-        verification_token: string;
-        password: string;
-        password_confirmation: string;
-      } = get(httpRequest, "context.validated");
+      const { verification_token, password, password_confirmation } = <
+        IPayload
+      >get(httpRequest, "context.validated", {});
 
       const decoded = <JwtPayload>verifyAccessToken(verification_token);
 

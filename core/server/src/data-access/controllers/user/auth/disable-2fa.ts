@@ -1,13 +1,18 @@
 import { Request } from "express";
+import { get, merge } from "lodash";
 import Moment from "moment";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { TwoFAType } from "../../../../database/interfaces/two-factor-authentication";
-import { GetUser } from "../../../../use-cases/user/get-user";
 import { GetTwoFactorAuthenticationByEmailAndCode } from "../../../../use-cases/two-factor-authentication/get-two-factor-authentication-by-email-and-code";
 import { HardDeleteTwoFactorAuthentication } from "../../../../use-cases/two-factor-authentication/hard-delete-two-factor-authentication";
+import { GetUser } from "../../../../use-cases/user/get-user";
 import { UpdateUser } from "../../../../use-cases/user/update-user";
-import { get, merge } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
+import IUser from "../../../../database/interfaces/user";
+
+interface IPayload {
+  code: string;
+}
 
 export default function makeDisable2FAController({
   getUser,
@@ -23,15 +28,15 @@ export default function makeDisable2FAController({
   moment: typeof Moment;
 }) {
   return async function disable2FAController(
-    httpRequest: Request & { context: { validated: { user_id: string } } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id } = get(httpRequest, "context.user");
-      const { code } = get(httpRequest, "context.validated");
+      const { _id } = <IUser>get(httpRequest, "context.user", {});
+      const { code } = <IPayload>get(httpRequest, "context.validated", {});
 
       const user_exists = await getUser({ _id });
 

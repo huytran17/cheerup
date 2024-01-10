@@ -1,12 +1,11 @@
 import Storage from "../config/storage";
 
-export default function deleteS3Object({
-  bucket,
-  key,
-}: {
+interface IPayload {
   bucket: string;
   key: string;
-}): void {
+}
+
+export default function deleteS3Object({ bucket, key }: IPayload): void {
   if (!bucket || !key) {
     return;
   }

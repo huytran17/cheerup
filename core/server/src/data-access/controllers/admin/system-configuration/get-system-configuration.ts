@@ -1,5 +1,8 @@
 import { Request } from "express";
-import { GetSystemConfiguration } from "../../../../use-cases/system-configuration/get-system-configuraion";
+import {
+  GetSystemConfiguration,
+  IGetSystemConfigurationPayload,
+} from "../../../../use-cases/system-configuration/get-system-configuraion";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -10,14 +13,16 @@ export default function makeGetSystemConfigurationController({
   getSystemConfiguration: GetSystemConfiguration;
 }) {
   return async function getSystemConfigurationController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id }: { _id: string } = get(httpRequest, "context.validated");
+      const { _id } = <IGetSystemConfigurationPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const exists = await getSystemConfiguration({ _id });
       if (isEmpty(exists)) {

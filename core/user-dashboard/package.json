@@ -2,6 +2,7 @@
   "name": "user-dashboard",
   "version": "1.0.0",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider nuxt",
     "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider nuxt build",

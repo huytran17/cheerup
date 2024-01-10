@@ -45,9 +45,7 @@ describe("getCategories", () => {
     });
 
     const request = {
-      context: {
-        validated: {},
-      },
+      context: {},
     };
 
     const result = await getCategoriesController(request as any);

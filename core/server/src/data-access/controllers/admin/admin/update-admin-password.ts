@@ -1,5 +1,8 @@
 import { GetAdmin } from "../../../../use-cases/admin/get-admin";
-import { UpdateAdmin } from "../../../../use-cases/admin/update-admin";
+import {
+  IUpdateAdminPayload,
+  UpdateAdmin,
+} from "../../../../use-cases/admin/update-admin";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get, merge } from "lodash";
@@ -19,20 +22,15 @@ export default function makeUpdateAdminPasswordController({
   logger: Logger;
 }) {
   return async function updateAdminPasswordController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const {
-        _id,
-        password,
-        password_confirmation,
-      }: { _id: string; password: string; password_confirmation: string } = get(
-        httpRequest,
-        "context.validated"
+      const { _id, password, password_confirmation } = <IUpdateAdminPayload>(
+        get(httpRequest, "context.validated", {})
       );
 
       const exists = await getAdmin({ _id });

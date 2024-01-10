@@ -10,6 +10,11 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { tfa } from "../../../../config/tfa";
 import { GenerateQRCode } from "../../../../config/qrcode/make-generate-qr-code";
 import { isEmpty } from "../../../../utils/is-empty";
+import IUser from "../../../../database/interfaces/user";
+
+interface IPayload {
+  code: string;
+}
 
 export default function makeEnable2FAController({
   getUser,
@@ -27,15 +32,15 @@ export default function makeEnable2FAController({
   moment: typeof Moment;
 }) {
   return async function enable2FAController(
-    httpRequest: Request & { context: { validated: { user_id: string } } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id } = get(httpRequest, "context.user");
-      const { code } = get(httpRequest, "context.validated");
+      const { _id } = <IUser>get(httpRequest, "context.user", {});
+      const { code } = <IPayload>get(httpRequest, "context.validated", {});
 
       const user_exists = await getUser({ _id });
 

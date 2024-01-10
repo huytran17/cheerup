@@ -2,17 +2,19 @@ import IPostBookmarkDb, {
   IPaginatedPostBookmarkResult,
 } from "../../data-access/interfaces/post-bookmark-db";
 
+export interface IGetPostBookmarksPaginatedPayload {
+  query: string;
+  page: number;
+  entries_per_page: number;
+  user_id?: string;
+}
+
 export type GetPostBookmarksPaginated = ({
   query,
   page,
   entries_per_page,
   user_id,
-}: {
-  query: string;
-  page: number;
-  entries_per_page: number;
-  user_id?: string;
-}) => Promise<IPaginatedPostBookmarkResult>;
+}: IGetPostBookmarksPaginatedPayload) => Promise<IPaginatedPostBookmarkResult>;
 
 export default function makeGetPostBookmarksPaginated({
   postBookmarkDb,

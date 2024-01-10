@@ -1,7 +1,14 @@
 import { Request } from "express";
-import { GetSubscriptionAnalystics } from "../../../../use-cases/subscription/get-subscription-analystics";
+import {
+  GetSubscriptionAnalystics,
+  IGetSubscriptionAnalysticsPayload,
+} from "../../../../use-cases/subscription/get-subscription-analystics";
 import { get, sortBy, split } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+
+interface IPayload extends Omit<IGetSubscriptionAnalysticsPayload, "range"> {
+  range?: string;
+}
 
 export default function makeGetSubscriptionAnalysticsController({
   getSubscriptionAnalystics,
@@ -10,7 +17,7 @@ export default function makeGetSubscriptionAnalysticsController({
 }) {
   return async function getSubscriptionAnalysticsController(
     httpRequest: Request & {
-      context: { validated: { subscription_id: string } };
+      context: { validated: {} };
     }
   ) {
     const headers = {
@@ -18,9 +25,8 @@ export default function makeGetSubscriptionAnalysticsController({
     };
 
     try {
-      const { range, unit }: { range?: string; unit?: string } = get(
-        httpRequest,
-        "context.validated"
+      const { range, unit } = <IPayload>(
+        get(httpRequest, "context.validated", {})
       );
 
       const splitted_range = sortBy(split(range, ","));

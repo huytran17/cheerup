@@ -1,7 +1,14 @@
 import { Request } from "express";
-import { GetCategoryAnalystics } from "../../../../use-cases/category/get-category-analystics";
+import {
+  GetCategoryAnalystics,
+  IGetCategoryAnalysticsPayload,
+} from "../../../../use-cases/category/get-category-analystics";
 import { get, sortBy, split } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+
+interface IPayload extends Omit<IGetCategoryAnalysticsPayload, "range"> {
+  range?: string;
+}
 
 export default function makeGetCategoryAnalysticsController({
   getCategoryAnalystics,
@@ -9,20 +16,15 @@ export default function makeGetCategoryAnalysticsController({
   getCategoryAnalystics: GetCategoryAnalystics;
 }) {
   return async function getCategoryAnalysticsController(
-    httpRequest: Request & { context: { validated: { category_id: string } } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const {
-        range,
-        unit,
-        limit,
-      }: { range?: string; unit?: string; limit?: number } = get(
-        httpRequest,
-        "context.validated"
+      const { range, unit, limit } = <IPayload>(
+        get(httpRequest, "context.validated", {})
       );
 
       const splitted_range = sortBy(split(range, ","));

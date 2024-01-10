@@ -14,7 +14,7 @@ export default function makeUploadThumbnaiilController({
   updateSystemConfiguration: UpdateSystemConfiguration;
 }) {
   return async function uploadThumbnaiilController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
@@ -27,14 +27,14 @@ export default function makeUploadThumbnaiilController({
         throw new Error(`System configuration by ${exists._id} does not exist`);
       }
 
-      const file = get(httpRequest, "context.file");
+      const file = get(httpRequest, "context.file", {});
 
       if (isEmpty(file)) {
         throw new Error(`File does not exist`);
       }
 
-      const bucket = get(exists, "thumbnail.bucket");
-      const key = get(exists, "thumbnail.key");
+      const bucket = <string>get(exists, "thumbnail.bucket", "");
+      const key = <string>get(exists, "thumbnail.key", "");
 
       deleteS3Object({ bucket, key });
 

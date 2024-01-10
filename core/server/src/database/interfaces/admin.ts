@@ -6,7 +6,6 @@ export default interface IAdmin {
   avatar?: Record<string, unknown>;
   email: string;
   type: AdminType;
-  is_auto_censorship_post?: boolean;
   is_blocked?: boolean;
   created_at: Date;
   updated_at: Date;

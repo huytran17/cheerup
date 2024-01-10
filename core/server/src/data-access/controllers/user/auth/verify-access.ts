@@ -6,6 +6,10 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { isEmpty } from "../../../../utils/is-empty";
 
+interface IPayload {
+  access_token: string;
+}
+
 export default function makeVerifyAccessController({
   verifyAccessToken,
   getUserByEmail,
@@ -14,16 +18,16 @@ export default function makeVerifyAccessController({
   getUserByEmail: GetUserByEmail;
 }) {
   return async function verifyAccessController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
+    //TODO: Need to be change: update verify access base on httpOnly cookie
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { access_token }: { access_token: string } = get(
-        httpRequest,
-        "context.validated"
+      const { access_token } = <IPayload>(
+        get(httpRequest, "context.validated", {})
       );
 
       if (!access_token) {

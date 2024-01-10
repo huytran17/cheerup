@@ -4,7 +4,14 @@ import { GetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmar
 import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
-import { GetPostBySlug } from "../../../../use-cases/post/get-post-by-slug";
+import {
+  GetPostBySlug,
+  IGetPostBySlugPayload,
+} from "../../../../use-cases/post/get-post-by-slug";
+
+interface IPayload extends IGetPostBySlugPayload {
+  user_id: string;
+}
 
 export default function makeGetPostBySlugController({
   getPostBySlug,
@@ -16,21 +23,18 @@ export default function makeGetPostBySlugController({
   getPostBookmarkByUserAndPost: GetPostBookmarkByUserAndPost;
 }) {
   return async function getPostBySlugController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { slug, user_id }: { slug: string; user_id: string } = get(
-        httpRequest,
-        "context.validated"
+      const { slug, user_id } = <IPayload>(
+        get(httpRequest, "context.validated", {})
       );
 
-      const exists = await getPostBySlug({
-        slug,
-      });
+      const exists = await getPostBySlug({ slug });
 
       if (isEmpty(exists)) {
         throw new Error(`Post by slug ${slug} does not exists`);

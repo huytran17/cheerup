@@ -101,13 +101,9 @@ export default function makeCommentDb({
       return null;
     }
 
-    async findAllByParent({
-      parent_id,
-    }: {
-      parent_id: string;
-    }): Promise<IComment[]> {
+    async findAllByParent({ _id }: { _id: string }): Promise<IComment[]> {
       const query_conditions = {
-        parent: parent_id,
+        parent: _id,
       };
 
       const existing = await commentDbModel

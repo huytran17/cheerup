@@ -1,5 +1,8 @@
 import { Request } from "express";
-import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
+import {
+  GetUserByEmail,
+  IGetUserByEmailPayload,
+} from "../../../../use-cases/user/get-user-by-email";
 import { get, omit } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -10,16 +13,15 @@ export default function makeGetUserByEmailController({
   getUserByEmail: GetUserByEmail;
 }) {
   return async function getUserByEmailController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { email }: { email: string } = get(
-        httpRequest,
-        "context.validated"
+      const { email } = <IGetUserByEmailPayload>(
+        get(httpRequest, "context.validated", {})
       );
 
       const exists = await getUserByEmail({ email });

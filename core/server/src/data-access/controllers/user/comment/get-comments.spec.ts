@@ -43,9 +43,7 @@ describe("getComments", () => {
     });
 
     const request = {
-      context: {
-        validated: {},
-      },
+      context: {},
     };
 
     const result = await getCommentsController(request as any);

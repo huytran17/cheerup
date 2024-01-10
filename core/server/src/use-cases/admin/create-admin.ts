@@ -1,16 +1,15 @@
 import IAdminDb from "../../data-access/interfaces/admin-db";
 import IAdmin from "../../database/interfaces/admin";
 
-export interface ICreateAdminData {
-  adminDetails: Omit<
-    IAdmin,
-    "_id" | "created_at" | "updated_at" | "deleted_at"
-  >;
+export interface ICreateAdminPayload extends Partial<IAdmin> {
+  [key: string]: any;
 }
 
-export type CreateAdmin = ({
-  adminDetails,
-}: ICreateAdminData) => Promise<IAdmin>;
+interface ICreateAdmin {
+  adminDetails: ICreateAdminPayload;
+}
+
+export type CreateAdmin = ({ adminDetails }: ICreateAdmin) => Promise<IAdmin>;
 
 export default function makeCreateAdmin({
   adminDb,

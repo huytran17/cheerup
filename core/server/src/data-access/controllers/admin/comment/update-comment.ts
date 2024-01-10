@@ -1,5 +1,8 @@
 import { GetComment } from "../../../../use-cases/comment/get-comment";
-import { UpdateComment } from "../../../../use-cases/comment/update-comment";
+import {
+  IUpdateCommentData,
+  UpdateComment,
+} from "../../../../use-cases/comment/update-comment";
 import { Request } from "express";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -13,15 +16,17 @@ export default function makeUpdateCommentController({
   updateComment: UpdateComment;
 }) {
   return async function updateCommentController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const commentDetails = get(httpRequest, "context.validated");
-      const { _id }: { _id: string } = commentDetails;
+      const commentDetails = <IUpdateCommentData>(
+        get(httpRequest, "context.validated", {})
+      );
+      const { _id } = commentDetails;
 
       const exists = await getComment({ _id });
       if (isEmpty(exists)) {

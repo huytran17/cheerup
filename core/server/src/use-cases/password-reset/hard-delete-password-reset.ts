@@ -1,11 +1,13 @@
 import IPasswordReset from "../../database/interfaces/password-reset";
 import IPasswordResetDb from "../../data-access/interfaces/password-reset-db";
 
+export interface IHardDeletePasswordResetPayload {
+  _id: string;
+}
+
 export type HardDeletePasswordReset = ({
   _id,
-}: {
-  _id: string;
-}) => Promise<IPasswordReset>;
+}: IHardDeletePasswordResetPayload) => Promise<IPasswordReset>;
 
 export default function makeHardDeletePasswordReset({
   passwordResetDb,

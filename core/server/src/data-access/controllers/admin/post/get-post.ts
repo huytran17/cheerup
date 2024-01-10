@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { GetPost } from "../../../../use-cases/post/get-post";
+import { GetPost, IGetPostPayload } from "../../../../use-cases/post/get-post";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -10,14 +10,16 @@ export default function makeGetPostController({
   getPost: GetPost;
 }) {
   return async function getPostController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id }: { _id: string } = get(httpRequest, "context.validated");
+      const { _id } = <IGetPostPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const exists = await getPost({ _id });
       if (isEmpty(exists)) {

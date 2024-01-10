@@ -1,11 +1,15 @@
 import { GetComment } from "../../../../use-cases/comment/get-comment";
-import { HardDeleteComment } from "../../../../use-cases/comment/hard-delete-comment";
+import {
+  HardDeleteComment,
+  IHardDeleteCommentPayload,
+} from "../../../../use-cases/comment/hard-delete-comment";
 import { GetUser } from "../../../../use-cases/user/get-user";
 import { GetPost } from "../../../../use-cases/post/get-post";
 import { Request } from "express";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
+import IUser from "../../../../database/interfaces/user";
 
 export default function makeDeleteCommentController({
   getComment,
@@ -19,21 +23,16 @@ export default function makeDeleteCommentController({
   getUser: GetUser;
 }) {
   return async function deleteCommentController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id: user_id }: { _id: string } = get(
-        httpRequest,
-        "context.user"
-      );
-
-      const { _id: comment_id }: { _id: string } = get(
-        httpRequest,
-        "context.validated"
+      const { _id: user_id } = <IUser>get(httpRequest, "context.user", {});
+      const { _id: comment_id } = <IHardDeleteCommentPayload>(
+        get(httpRequest, "context.validated", {})
       );
 
       const exists = await getComment({

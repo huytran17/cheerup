@@ -1,10 +1,14 @@
 import { Request } from "express";
-import { GetPost } from "../../../../use-cases/post/get-post";
+import { GetPost, IGetPostPayload } from "../../../../use-cases/post/get-post";
 import { ReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import { GetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
 import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
+
+interface IPayload extends IGetPostPayload {
+  user_id: string;
+}
 
 export default function makeGetPostController({
   getPost,
@@ -16,16 +20,15 @@ export default function makeGetPostController({
   getPostBookmarkByUserAndPost: GetPostBookmarkByUserAndPost;
 }) {
   return async function getPostController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id: post_id, user_id }: { _id: string; user_id: string } = get(
-        httpRequest,
-        "context.validated"
+      const { _id: post_id, user_id } = <IPayload>(
+        get(httpRequest, "context.validated", {})
       );
 
       const exists = await getPost({ _id: post_id });

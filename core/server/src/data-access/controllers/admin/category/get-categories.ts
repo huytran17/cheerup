@@ -8,7 +8,7 @@ export default function makeGetCategoriesController({
   getCategories: GetCategories;
 }) {
   return async function getCategoriesController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",

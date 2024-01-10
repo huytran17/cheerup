@@ -1,5 +1,8 @@
 import { GetCategory } from "../../../../use-cases/category/get-category";
-import { HardDeleteCategory } from "../../../../use-cases/category/hard-delete-category";
+import {
+  HardDeleteCategory,
+  IHardDeleteCategoryPayload,
+} from "../../../../use-cases/category/hard-delete-category";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get } from "lodash";
@@ -16,15 +19,16 @@ export default function makeHardDeleteCategoryController({
   logger: Logger;
 }) {
   return async function hardDeleteCategoryController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const categoryDetails = get(httpRequest, "context.validated");
-      const { _id }: { _id: string } = categoryDetails;
+      const { _id } = <IHardDeleteCategoryPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const exists = await getCategory({ _id });
       if (isEmpty(exists)) {

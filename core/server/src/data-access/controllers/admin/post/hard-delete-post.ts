@@ -1,5 +1,8 @@
 import { GetPost } from "../../../../use-cases/post/get-post";
-import { HardDeletePost } from "../../../../use-cases/post/hard-delete-post";
+import {
+  HardDeletePost,
+  IHardDeletePayload,
+} from "../../../../use-cases/post/hard-delete-post";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get } from "lodash";
@@ -16,15 +19,16 @@ export default function makeHardDeletePostController({
   logger: Logger;
 }) {
   return async function hardDeletePostController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const postDetails = get(httpRequest, "context.validated");
-      const { _id }: { _id: string } = postDetails;
+      const { _id } = <IHardDeletePayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const exists = await getPost({ _id });
       if (isEmpty(exists)) {

@@ -4,15 +4,17 @@ import ICategoryDb, {
 import Redis from "../../config/redis";
 import { Logger } from "winston";
 
+export interface IGetCategoryAnalysticsPayload {
+  range?: string[];
+  unit?: string;
+  limit?: number;
+}
+
 export type GetCategoryAnalystics = ({
   range,
   unit,
   limit,
-}: {
-  range?: string[];
-  unit?: string;
-  limit?: number;
-}) => Promise<ICategoryAnalyticsData>;
+}: IGetCategoryAnalysticsPayload) => Promise<ICategoryAnalyticsData>;
 
 export default function makeGetCategoryAnalystics({
   categoryDb,

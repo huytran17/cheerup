@@ -1,13 +1,17 @@
 import ICategoryDb from "../../data-access/interfaces/category-db";
 import ICategory from "../../database/interfaces/category";
 
-export interface IUpdateCategoryData {
-  categoryDetails: Omit<ICategory, "_id">;
+export interface IUpdateCategoryPayload extends Partial<ICategory> {
+  [key: string]: any;
+}
+
+interface IUpdateCategory {
+  categoryDetails: IUpdateCategoryPayload;
 }
 
 export type UpdateCategory = ({
   categoryDetails,
-}: IUpdateCategoryData) => Promise<ICategory>;
+}: IUpdateCategory) => Promise<ICategory>;
 
 export default function makeUpdateCategory({
   categoryDb,

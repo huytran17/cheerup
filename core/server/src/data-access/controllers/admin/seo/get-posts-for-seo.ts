@@ -8,7 +8,7 @@ export default function makeGetPostsForSEOController({
   getPostsForSEO: GetPostsForSEO;
 }) {
   return async function getPostsForSEOController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",

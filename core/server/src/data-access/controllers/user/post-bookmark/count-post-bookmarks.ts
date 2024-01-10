@@ -4,6 +4,7 @@ import { GetUser } from "../../../../use-cases/user/get-user";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
+import IUser from "../../../../database/interfaces/user";
 
 export default function makeCountPostBookmarkController({
   countPostBookmarks,
@@ -13,17 +14,14 @@ export default function makeCountPostBookmarkController({
   getUser: GetUser;
 }) {
   return async function countPostBookmarkController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id: user_id }: { _id: string } = get(
-        httpRequest,
-        "context.user"
-      );
+      const { _id: user_id } = <IUser>get(httpRequest, "context.user", {});
 
       const user_exists = await getUser({ _id: user_id });
 

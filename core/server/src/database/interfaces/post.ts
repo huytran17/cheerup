@@ -1,5 +1,5 @@
-import Admin from "../entities/admin";
-import Category from "../entities/category";
+import IAdmin from "./admin";
+import ICategory from "./category";
 
 export default interface IPost {
   _id: string;
@@ -13,8 +13,8 @@ export default interface IPost {
   thumbnail?: Record<string, unknown>;
   content: string;
   tags: string[];
-  author: Admin;
-  categories: Category[];
+  author: IAdmin;
+  categories: ICategory[];
   views: number;
   seo?: Record<string, unknown>;
   created_at: Date;

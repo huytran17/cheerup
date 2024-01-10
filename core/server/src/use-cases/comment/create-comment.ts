@@ -1,13 +1,18 @@
 import ICommentDb from "../../data-access/interfaces/comment-db";
 import IComment from "../../database/interfaces/comment";
 
-export interface ICreateCommentData {
-  commentDetails: Omit<IComment, "_id">;
+export interface ICreateCommentPayload
+  extends Omit<Partial<IComment>, "post" | "parent"> {
+  [key: string]: any;
+}
+
+interface ICreateComment {
+  commentDetails: ICreateCommentPayload;
 }
 
 export type CreateComment = ({
   commentDetails,
-}: ICreateCommentData) => Promise<IComment>;
+}: ICreateComment) => Promise<IComment>;
 
 export default function makeCreateComment({
   commentDb,

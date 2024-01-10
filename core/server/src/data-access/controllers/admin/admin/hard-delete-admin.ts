@@ -1,5 +1,8 @@
 import { GetAdmin } from "../../../../use-cases/admin/get-admin";
-import { HardDeleteAdmin } from "../../../../use-cases/admin/hard-delete-admin";
+import {
+  HardDeleteAdmin,
+  IHardDeleteAdminPayload,
+} from "../../../../use-cases/admin/hard-delete-admin";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get } from "lodash";
@@ -16,14 +19,16 @@ export default function makeHardDeleteAdminController({
   logger: Logger;
 }) {
   return async function hardDeleteAdminController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id }: { _id: string } = get(httpRequest, "context.validated");
+      const { _id } = <IHardDeleteAdminPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const exists = await getAdmin({ _id });
       if (isEmpty(exists)) {

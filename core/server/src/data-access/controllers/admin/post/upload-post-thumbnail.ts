@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { get, merge } from "lodash";
-import { GetPost } from "../../../../use-cases/post/get-post";
+import { GetPost, IGetPostPayload } from "../../../../use-cases/post/get-post";
 import { UpdatePost } from "../../../../use-cases/post/update-post";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -14,14 +14,16 @@ export default function makeUploadPostThumbnailController({
   updatePost: UpdatePost;
 }) {
   return async function uploadPostThumbnailController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id }: { _id: string } = get(httpRequest, "context.validated");
+      const { _id } = <IGetPostPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const exists = await getPost({ _id });
 
@@ -29,14 +31,16 @@ export default function makeUploadPostThumbnailController({
         throw new Error(`Post by ${_id} does not exist`);
       }
 
-      const file = get(httpRequest, "context.file");
+      const file = <Record<string, unknown>>(
+        get(httpRequest, "context.file", {})
+      );
 
       if (isEmpty(file)) {
         throw new Error(`File does not exist`);
       }
 
-      const bucket = get(exists, "thumbnail.bucket");
-      const key = get(exists, "thumbnail.key");
+      const bucket = <string>get(exists, "thumbnail.bucket", "");
+      const key = <string>get(exists, "thumbnail.key", "");
 
       deleteS3Object({ bucket, key });
 

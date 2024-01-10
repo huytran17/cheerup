@@ -1,7 +1,13 @@
 import IAdmin from "../../database/interfaces/admin";
 import IAdminDb from "../../data-access/interfaces/admin-db";
 
-export type HardDeleteAdmin = ({ _id }: { _id: string }) => Promise<IAdmin>;
+export interface IHardDeleteAdminPayload {
+  _id: string;
+}
+
+export type HardDeleteAdmin = ({
+  _id,
+}: IHardDeleteAdminPayload) => Promise<IAdmin>;
 
 export default function makeHardDeleteAdmin({
   adminDb,

@@ -55,22 +55,6 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="12">
-            <v-switch
-              :input-value="me.is_auto_censorship_post"
-              :label="$t('Enable auto censorship post')"
-              @change="
-                updateMeObject({
-                  variable_path: 'is_auto_censorship_post',
-                  data: $event,
-                })
-              "
-              :false-value="false"
-              :true-value="true"
-            ></v-switch>
-          </v-col>
-        </v-row>
-        <v-row>
           <v-col cols="12" class="pb-0">
             <div class="text-body-2">
               <span class="app-body">

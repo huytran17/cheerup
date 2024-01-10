@@ -54,7 +54,7 @@
                   v-on="on"
                   class="text-body-2 clickable primary--text"
                   :class="{
-                    'error--text': post.deleted_at || !post.is_published,
+                    'error--text': post.deleted_at,
                     'text-decoration-line-through': post.deleted_at,
                   }"
                   @click="goToPost(post)"
@@ -63,10 +63,6 @@
                 </div>
               </template>
               <span v-if="post.deleted_at" v-html="$t('Deleted')"></span>
-              <span
-                v-else-if="!post.is_published"
-                v-html="$t('Not published')"
-              ></span>
               <span v-else v-html="$t('Go to post')"></span>
             </v-tooltip>
 

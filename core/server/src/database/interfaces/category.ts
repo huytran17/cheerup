@@ -1,4 +1,5 @@
 import Admin from "../entities/admin";
+import IAdmin from "./admin";
 
 export default interface ICategory {
   _id: string;
@@ -9,7 +10,7 @@ export default interface ICategory {
   badge_color?: string;
   thumbnail?: Record<string, unknown>;
   seo?: Record<string, unknown>;
-  created_by: Admin;
+  created_by: IAdmin;
   created_at: Date;
   updated_at: Date;
   deleted_at: Date;

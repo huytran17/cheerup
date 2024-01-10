@@ -5,11 +5,7 @@ import { GenerateAccessToken } from "../../../../config/accessTokenManager/gener
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 import { renderPageContent } from "../../../../config/client";
-
-export type ILoginData = {
-  email: string;
-  password: string;
-};
+import IUser from "../../../../database/interfaces/user";
 
 export default function makeSignInWithGoogleController({
   getUserByEmail,
@@ -19,7 +15,7 @@ export default function makeSignInWithGoogleController({
   generateAccessToken: GenerateAccessToken;
 }) {
   return async function signInWithGoogleController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "text/html",
@@ -36,7 +32,7 @@ export default function makeSignInWithGoogleController({
     };
 
     try {
-      const { email }: { email: string } = get(httpRequest, "context.user");
+      const { email } = <IUser>get(httpRequest, "context.user", {});
 
       const exists = await getUserByEmail({ email });
 

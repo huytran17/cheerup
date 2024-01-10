@@ -1,10 +1,10 @@
-import Comment from "../entities/comment";
-import User from "../entities/user";
+import IComment from "./comment";
+import IUser from "./user";
 
 export default interface ICommentLike {
   _id: string;
-  comment: Comment;
-  user: User;
+  comment: IComment;
+  user: IUser;
   type: CommentLikeType;
   created_at: Date;
 }

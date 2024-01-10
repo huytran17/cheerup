@@ -4,15 +4,17 @@ import IPostDb, {
 import { Logger } from "winston";
 import Redis from "../../config/redis";
 
+export interface IGetMostPopularPostsAnalysticsPayload {
+  range?: string[];
+  unit?: string;
+  limit?: number;
+}
+
 export type GetMostPopularPostsAnalystics = ({
   range,
   unit,
   limit,
-}: {
-  range?: string[];
-  unit?: string;
-  limit?: number;
-}) => Promise<IMostPopularPostsAnalytics>;
+}: IGetMostPopularPostsAnalysticsPayload) => Promise<IMostPopularPostsAnalytics>;
 
 export default function makeGetMostPopularPostsAnalystics({
   postDb,

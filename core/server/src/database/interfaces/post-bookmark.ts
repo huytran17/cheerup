@@ -1,10 +1,10 @@
-import Post from "../entities/post";
-import User from "../entities/user";
+import IPost from "./post";
+import IUser from "./user";
 
 export default interface IPostBookmark {
   _id: string;
-  post: Post;
-  user: User;
+  post: IPost;
+  user: IUser;
   created_at: Date;
   updated_at: Date;
 }

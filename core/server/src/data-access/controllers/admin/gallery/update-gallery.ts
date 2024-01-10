@@ -1,5 +1,8 @@
 import { GetGallery } from "../../../../use-cases/gallery/get-gallery";
-import { UpdateGallery } from "../../../../use-cases/gallery/update-gallery";
+import {
+  IUpdateGalleryPayload,
+  UpdateGallery,
+} from "../../../../use-cases/gallery/update-gallery";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get } from "lodash";
@@ -16,15 +19,17 @@ export default function makeUpdateGalleryController({
   logger: Logger;
 }) {
   return async function updateGalleryController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const galleryDetails = get(httpRequest, "context.validated");
-      const { _id }: { _id: string } = galleryDetails;
+      const galleryDetails = <IUpdateGalleryPayload>(
+        get(httpRequest, "context.validated", {})
+      );
+      const { _id } = galleryDetails;
 
       const exists = await getGallery({ _id });
       if (isEmpty(exists)) {

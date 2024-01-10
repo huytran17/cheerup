@@ -1,4 +1,4 @@
-import { GetUser } from "../../../../use-cases/user/get-user";
+import { GetUser, IGetUserPayload } from "../../../../use-cases/user/get-user";
 import { UpdateUser } from "../../../../use-cases/user/update-user";
 import { Logger } from "winston";
 import { Request } from "express";
@@ -16,14 +16,16 @@ export default function makeUnBlockUserCommentController({
   logger: Logger;
 }) {
   return async function unblockUserCommentController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id }: { _id: string } = get(httpRequest, "context.validated");
+      const { _id } = <IGetUserPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const exists = await getUser({ _id });
       if (isEmpty(exists)) {

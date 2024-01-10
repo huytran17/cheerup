@@ -1,5 +1,8 @@
 import { GetPost } from "../../../../use-cases/post/get-post";
-import { DeletePost } from "../../../../use-cases/post/delete-post";
+import {
+  DeletePost,
+  IDeletePostPayload,
+} from "../../../../use-cases/post/delete-post";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get } from "lodash";
@@ -16,23 +19,23 @@ export default function makeDeletePostController({
   logger: Logger;
 }) {
   return async function deletePostController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id }: { _id: string } = get(httpRequest, "context.validated");
+      const { _id } = <IDeletePostPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const exists = await getPost({ _id });
       if (isEmpty(exists)) {
         throw new Error(`Post by ${_id} does not exist`);
       }
 
-      const deleted_post = await deletePost({
-        _id,
-      });
+      const deleted_post = await deletePost({ _id });
 
       logger.verbose(`Deleted post ${deleted_post.title}`);
 

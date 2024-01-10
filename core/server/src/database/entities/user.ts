@@ -1,3 +1,4 @@
+import IAdmin from "../interfaces/admin";
 import IUser from "../interfaces/user";
 import Admin from "./admin";
 
@@ -18,7 +19,7 @@ export default class User implements IUser {
     access_token?: string;
     refresh_token?: string;
   };
-  public readonly created_by?: Admin;
+  public readonly created_by?: IAdmin;
   public readonly created_at: Date;
   public readonly updated_at: Date;
   public readonly deleted_at: Date;

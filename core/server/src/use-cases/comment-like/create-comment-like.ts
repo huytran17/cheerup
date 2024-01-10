@@ -1,13 +1,17 @@
 import ICommentLikeDb from "../../data-access/interfaces/comment-like-db";
 import ICommentLike from "../../database/interfaces/comment-like";
 
-export interface ICreateCommentLikeData {
-  commentLikeDetails: Omit<ICommentLike, "_id" | "created_at">;
+export interface ICreateCommentLikePayload extends Partial<ICommentLike> {
+  [key: string]: any;
+}
+
+interface ICreateCommentLike {
+  commentLikeDetails: ICreateCommentLikePayload;
 }
 
 export type CreateCommentLike = ({
   commentLikeDetails,
-}: ICreateCommentLikeData) => Promise<ICommentLike>;
+}: ICreateCommentLike) => Promise<ICommentLike>;
 
 export default function makeCreateCommentLike({
   commentLikeDb,

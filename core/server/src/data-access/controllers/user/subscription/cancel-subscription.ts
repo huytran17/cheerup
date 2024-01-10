@@ -4,6 +4,7 @@ import { Request } from "express";
 import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
+import IUser from "../../../../database/interfaces/user";
 
 export default function makeCancelSubscriptionController({
   getSubscriptionByEmail,
@@ -13,14 +14,14 @@ export default function makeCancelSubscriptionController({
   updateSubscription: UpdateSubscription;
 }) {
   return async function cancelSubscriptionController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { email }: { email: string } = get(httpRequest, "context.user");
+      const { email } = <IUser>get(httpRequest, "context.user", {});
 
       const exists = await getSubscriptionByEmail({ email });
 

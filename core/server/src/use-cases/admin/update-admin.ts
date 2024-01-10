@@ -1,13 +1,15 @@
 import IAdminDb from "../../data-access/interfaces/admin-db";
 import IAdmin from "../../database/interfaces/admin";
 
-export interface IUpdateAdminData {
-  adminDetails: Omit<IAdmin, "_id">;
+export interface IUpdateAdminPayload extends Partial<IAdmin> {
+  [key: string]: any;
 }
 
-export type UpdateAdmin = ({
-  adminDetails,
-}: IUpdateAdminData) => Promise<IAdmin>;
+interface IUpdateAdmin {
+  adminDetails: IUpdateAdminPayload;
+}
+
+export type UpdateAdmin = ({ adminDetails }: IUpdateAdmin) => Promise<IAdmin>;
 
 export default function makeUpdateAdmin({
   adminDb,

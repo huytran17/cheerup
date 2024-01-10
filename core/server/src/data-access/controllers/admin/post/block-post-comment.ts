@@ -1,4 +1,4 @@
-import { GetPost } from "../../../../use-cases/post/get-post";
+import { GetPost, IGetPostPayload } from "../../../../use-cases/post/get-post";
 import { UpdatePost } from "../../../../use-cases/post/update-post";
 import { Logger } from "winston";
 import { Request } from "express";
@@ -16,14 +16,16 @@ export default function makeBlockPostCommentController({
   logger: Logger;
 }) {
   return async function blockPostCommentController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id }: { _id: string } = get(httpRequest, "context.validated");
+      const { _id } = <IGetPostPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const exists = await getPost({ _id });
       if (isEmpty(exists)) {

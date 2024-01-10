@@ -1,16 +1,18 @@
 import ITwoFactorAuthenticationDb from "../../data-access/interfaces/two-factor-authentication-db";
 import ITwoFactorAuthentication from "../../database/interfaces/two-factor-authentication";
 
-export interface ICreateTwoFactorAuthenticationData {
-  twoFactorAuthenticationDetails: Omit<
-    ITwoFactorAuthentication,
-    "_id" | "created_at"
-  >;
+export interface ICreateTwoFactorAuthenticationPayload
+  extends Partial<ITwoFactorAuthentication> {
+  [key: string]: any;
+}
+
+interface ICreateTwoFactorAuthentication {
+  twoFactorAuthenticationDetails: ICreateTwoFactorAuthenticationPayload;
 }
 
 export type CreateTwoFactorAuthentication = ({
   twoFactorAuthenticationDetails,
-}: ICreateTwoFactorAuthenticationData) => Promise<ITwoFactorAuthentication>;
+}: ICreateTwoFactorAuthentication) => Promise<ITwoFactorAuthentication>;
 
 export default function makeCreateTwoFactorAuthentication({
   twoFactorAuthenticationDb,

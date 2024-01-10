@@ -4,13 +4,15 @@ import ISubscriptionDb, {
 import Redis from "../../config/redis";
 import { Logger } from "winston";
 
+export interface IGetSubscriptionAnalysticsPayload {
+  range?: string[];
+  unit?: string;
+}
+
 export type GetSubscriptionAnalystics = ({
   range,
   unit,
-}: {
-  range?: string[];
-  unit?: string;
-}) => Promise<ISubscriptionAnalyticsData>;
+}: IGetSubscriptionAnalysticsPayload) => Promise<ISubscriptionAnalyticsData>;
 
 export default function makeGetSubscriptionAnalystics({
   subscriptionDb,

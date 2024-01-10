@@ -1,11 +1,13 @@
 import ICategory from "../../database/interfaces/category";
 import ICategoryDb from "../../data-access/interfaces/category-db";
 
+export interface IHardDeleteCategoryPayload {
+  _id: string;
+}
+
 export type HardDeleteCategory = ({
   _id,
-}: {
-  _id: string;
-}) => Promise<ICategory>;
+}: IHardDeleteCategoryPayload) => Promise<ICategory>;
 
 export default function makeHardDeleteCategory({
   categoryDb,

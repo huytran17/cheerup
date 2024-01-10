@@ -1,4 +1,4 @@
-import Admin from "../entities/admin";
+import IAdmin from "./admin";
 
 export default interface IUser {
   _id: string;
@@ -17,7 +17,7 @@ export default interface IUser {
     access_token?: string;
     refresh_token?: string;
   };
-  created_by?: Admin;
+  created_by?: IAdmin;
   created_at: Date;
   updated_at: Date;
   deleted_at: Date;

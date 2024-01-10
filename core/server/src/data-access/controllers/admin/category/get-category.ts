@@ -1,7 +1,9 @@
 import { Request } from "express";
-import { GetCategory } from "../../../../use-cases/category/get-category";
+import {
+  GetCategory,
+  IGetCategoryPayload,
+} from "../../../../use-cases/category/get-category";
 import { get } from "lodash";
-import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -11,14 +13,16 @@ export default function makeGetCategoryController({
   getCategory: GetCategory;
 }) {
   return async function getCategoryController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id }: { _id: string } = get(httpRequest, "context.validated");
+      const { _id } = <IGetCategoryPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const exists = await getCategory({ _id });
       if (isEmpty(exists)) {

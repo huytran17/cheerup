@@ -7,6 +7,12 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 import deleteS3Object from "../../../../utils/delete-s3-object";
 
+interface IPayload {
+  _id: string;
+  bucket: string;
+  key: string;
+}
+
 export default function makeDeleteGalleryItemController({
   getGallery,
   updateGallery,
@@ -17,7 +23,7 @@ export default function makeDeleteGalleryItemController({
   logger: Logger;
 }) {
   return async function deleteGalleryItemController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
@@ -28,11 +34,7 @@ export default function makeDeleteGalleryItemController({
         _id: gallery_id,
         bucket,
         key,
-      }: {
-        _id: string;
-        bucket: string;
-        key: string;
-      } = get(httpRequest, "context.validated");
+      } = <IPayload>get(httpRequest, "context.validated", {});
 
       const gallery_exists = await getGallery({ _id: gallery_id });
 
@@ -46,8 +48,8 @@ export default function makeDeleteGalleryItemController({
         (item) => item.bucket === bucket && item.key === key
       );
 
-      const current_bucket = get(item_to_delete, "bucket");
-      const current_key = get(item_to_delete, "key");
+      const current_bucket = <string>get(item_to_delete, "bucket", "");
+      const current_key = <string>get(item_to_delete, "key", "");
 
       deleteS3Object({ bucket: current_bucket, key: current_key });
 

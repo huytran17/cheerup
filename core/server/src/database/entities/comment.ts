@@ -1,16 +1,16 @@
 import IComment from "../interfaces/comment";
-import User from "./user";
-import Post from "./post";
+import IUser from "../interfaces/user";
+import IPost from "../interfaces/post";
 
 export default class Comment implements IComment {
   public readonly _id: string;
   public readonly content: string;
-  public readonly user: User;
-  public readonly post: Post;
-  public readonly parent: Comment;
+  public readonly user: IUser;
+  public readonly post: IPost;
+  public readonly parent: IComment;
   public readonly is_parent: boolean;
   public readonly has_children: boolean;
-  public readonly children: Comment[];
+  public readonly children: IComment[];
   public readonly created_at: Date;
   public readonly updated_at: Date;
 

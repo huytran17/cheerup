@@ -1,5 +1,8 @@
 import { GetComment } from "../../../../use-cases/comment/get-comment";
-import { HardDeleteComment } from "../../../../use-cases/comment/hard-delete-comment";
+import {
+  HardDeleteComment,
+  IHardDeleteCommentPayload,
+} from "../../../../use-cases/comment/hard-delete-comment";
 import { Request } from "express";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -13,15 +16,16 @@ export default function makeDeleteComment({
   hardDeleteComment: HardDeleteComment;
 }) {
   return async function deleteCommentController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const commentDetails = get(httpRequest, "context.validated");
-      const { _id }: { _id: string } = commentDetails;
+      const { _id } = <IHardDeleteCommentPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const exists = await getComment({ _id });
       if (isEmpty(exists)) {

@@ -1,11 +1,13 @@
 import ICategory from "../../database/interfaces/category";
 import ICategoryDb from "../../data-access/interfaces/category-db";
 
+export interface IGetCategoryByTitlePayload {
+  title: string;
+}
+
 export type GetCategoryByTitle = ({
   title,
-}: {
-  title: string;
-}) => Promise<ICategory>;
+}: IGetCategoryByTitlePayload) => Promise<ICategory>;
 
 export default function makeGetCategoryByTitle({
   categoryDb,

@@ -1,7 +1,16 @@
 import { Request } from "express";
-import { GetSuggestionPosts } from "../../../../use-cases/post/get-suggestion-posts";
+import {
+  GetSuggestionPosts,
+  IGetSuggestionPostsPayload,
+} from "../../../../use-cases/post/get-suggestion-posts";
 import { get, split, filter } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+
+interface IPayload
+  extends Omit<IGetSuggestionPostsPayload, "categories" | "exclude_ids"> {
+  categories: string;
+  exclude_ids?: string;
+}
 
 export default function makeGetSuggestionPostsController({
   getSuggestionPosts,
@@ -9,7 +18,7 @@ export default function makeGetSuggestionPostsController({
   getSuggestionPosts: GetSuggestionPosts;
 }) {
   return async function getSuggestionPostsController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
@@ -20,11 +29,7 @@ export default function makeGetSuggestionPostsController({
         amount,
         categories = "",
         exclude_ids = "",
-      }: {
-        amount: string;
-        categories: string;
-        exclude_ids?: string;
-      } = get(httpRequest, "context.validated");
+      } = <IPayload>get(httpRequest, "context.validated", {});
 
       const categories_array = filter(split(categories, ","));
       const exclude_ids_array = filter(split(exclude_ids, ","));

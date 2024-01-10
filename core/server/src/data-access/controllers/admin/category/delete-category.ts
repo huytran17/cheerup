@@ -1,5 +1,8 @@
 import { GetCategory } from "../../../../use-cases/category/get-category";
-import { DeleteCategory } from "../../../../use-cases/category/delete-category";
+import {
+  DeleteCategory,
+  IDeleteCategoryPayload,
+} from "../../../../use-cases/category/delete-category";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get } from "lodash";
@@ -16,14 +19,16 @@ export default function makeDeleteCategoryController({
   logger: Logger;
 }) {
   return async function deleteCategoryController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id }: { _id: string } = get(httpRequest, "context.validated");
+      const { _id } = <IDeleteCategoryPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const exists = await getCategory({ _id });
       if (isEmpty(exists)) {

@@ -1,5 +1,8 @@
 import { Request } from "express";
-import { GetCommentsByPostPaginated } from "../../../../use-cases/comment/get-comments-by-post-paginated";
+import {
+  GetCommentsByPostPaginated,
+  IGetCommentsByPostPaginatedPayload,
+} from "../../../../use-cases/comment/get-comments-by-post-paginated";
 import { CountCommentLikeByCommentAndType } from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
 import { GetPost } from "../../../../use-cases/post/get-post";
 import { get, map, merge } from "lodash";
@@ -8,6 +11,7 @@ import { CommentLikeType } from "../../../../database/interfaces/comment-like";
 import IComment from "../../../../database/interfaces/comment";
 import { GetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
 import { isEmpty } from "../../../../utils/is-empty";
+import IUser from "../../../../database/interfaces/user";
 
 export default function makeGetCommentsByPostPaginatedController({
   getCommentsByPostPaginated,
@@ -21,27 +25,18 @@ export default function makeGetCommentsByPostPaginatedController({
   getCommentLikeByUserAndComment: GetCommentLikeByUserAndComment;
 }) {
   return async function getCommentsByPostPaginatedController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const {
-        query,
-        page,
-        entries_per_page,
-        post_id,
-      }: {
-        query: string;
-        page: string;
-        entries_per_page: string;
-        post_id: string;
-      } = get(httpRequest, "context.validated");
+      const { query, page, entries_per_page, post_id } = <
+        IGetCommentsByPostPaginatedPayload
+      >get(httpRequest, "context.validated", {});
 
-      const { _id: user_id }: { _id: string } =
-        get(httpRequest, "context.user") || {};
+      const { _id: user_id } = <IUser>get(httpRequest, "context.user") || {};
 
       const post_exists = await getPost({ _id: post_id });
 
@@ -49,14 +44,12 @@ export default function makeGetCommentsByPostPaginatedController({
         throw new Error(`Post by ${post_id} does not exist`);
       }
 
-      const paginated_data = await getCommentsByPostPaginated(
-        { post_id },
-        {
-          query,
-          page: Number(page),
-          entries_per_page: Number(entries_per_page),
-        }
-      );
+      const paginated_data = await getCommentsByPostPaginated({
+        post_id,
+        query,
+        page: Number(page),
+        entries_per_page: Number(entries_per_page),
+      });
 
       const map_meta_data = async (comment: IComment) => {
         const likes_count = await countCommentLikeByCommentAndType({

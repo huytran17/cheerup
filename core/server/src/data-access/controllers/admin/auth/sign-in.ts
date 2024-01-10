@@ -1,4 +1,4 @@
-import { get, omit } from "lodash";
+import { get } from "lodash";
 import { Request } from "express";
 import { GetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email";
 import { GenerateAccessToken } from "../../../../config/accessTokenManager/generate-access-token";
@@ -6,10 +6,10 @@ import { VerifyPassword } from "../../../../config/password/verify-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
-export type ILoginData = {
+interface IPayload {
   email: string;
   password: string;
-};
+}
 
 export default function makeSignInController({
   getAdminByEmail,
@@ -21,15 +21,16 @@ export default function makeSignInController({
   verifyPassword: VerifyPassword;
 }) {
   return async function signInController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const payload: ILoginData = get(httpRequest, "context.validated");
-      const { email, password }: { email: string; password: string } = payload;
+      const { email, password } = <IPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const exists = await getAdminByEmail({ email });
       if (isEmpty(exists)) {

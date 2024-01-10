@@ -1,4 +1,7 @@
-import { GetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email";
+import {
+  GetAdminByEmail,
+  IGetAdminByEmailPayload,
+} from "../../../../use-cases/admin/get-admin-by-email";
 import { Request } from "express";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -10,14 +13,16 @@ export default function makeSignOutController({
   getAdminByEmail: GetAdminByEmail;
 }) {
   return async function signOutController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { email }: { email: string } = get(httpRequest, "context.user");
+      const { email } = <IGetAdminByEmailPayload>(
+        get(httpRequest, "context.user", {})
+      );
 
       const exists = await getAdminByEmail({ email });
       if (isEmpty(exists)) {

@@ -44,11 +44,9 @@ export default function makePostBookmarkDb({
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = {
+        user: user_id,
         deleted_at: { $in: [null, undefined] },
-        is_published: true,
       };
-
-      user_id && (query_conditions["user"] = user_id);
 
       const existing = await postBookmarkDbModel
         .find(query_conditions)

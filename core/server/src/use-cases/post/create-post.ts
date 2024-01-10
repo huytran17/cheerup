@@ -1,11 +1,13 @@
 import IPostDb from "../../data-access/interfaces/post-db";
 import IPost from "../../database/interfaces/post";
 
-export interface ICreatePostData {
-  postDetails: Omit<IPost, "_id">;
+export interface ICreatePostPayload extends Partial<IPost> {}
+
+interface ICreatePost {
+  postDetails: ICreatePostPayload;
 }
 
-export type CreatePost = ({ postDetails }: ICreatePostData) => Promise<IPost>;
+export type CreatePost = ({ postDetails }: ICreatePost) => Promise<IPost>;
 
 export default function makeCreatePost({
   postDb,

@@ -36,7 +36,7 @@ describe("getCategories", () => {
     const request = {
       context: {
         user: {
-          validated: {},
+          ,
         },
       },
     };

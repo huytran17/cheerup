@@ -1,13 +1,15 @@
 import IPostBookmark from "../../database/interfaces/post-bookmark";
 import IPostBookmarkDb from "../../data-access/interfaces/post-bookmark-db";
 
+export interface IGetPostBookmarkByUserAndPostPayload {
+  user_id: string;
+  post_id: string;
+}
+
 export type GetPostBookmarkByUserAndPost = ({
   user_id,
   post_id,
-}: {
-  user_id: string;
-  post_id: string;
-}) => Promise<IPostBookmark>;
+}: IGetPostBookmarkByUserAndPostPayload) => Promise<IPostBookmark>;
 
 export default function makeGetPostBookmarkByUserAndPost({
   postBookmarkDb,

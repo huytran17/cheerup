@@ -1,11 +1,15 @@
 import { GetComment } from "../../../../use-cases/comment/get-comment";
-import { UpdateComment } from "../../../../use-cases/comment/update-comment";
+import {
+  IUpdateCommentData,
+  UpdateComment,
+} from "../../../../use-cases/comment/update-comment";
 import { GetPost } from "../../../../use-cases/post/get-post";
 import { GetUser } from "../../../../use-cases/user/get-user";
 import { Request } from "express";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
+import IUser from "../../../../database/interfaces/user";
 
 export default function makeUpdateCommentController({
   getComment,
@@ -19,21 +23,19 @@ export default function makeUpdateCommentController({
   getUser: GetUser;
 }) {
   return async function updateCommentController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const commentDetails = get(httpRequest, "context.validated");
-
-      const { _id: comment_id }: { _id: string } = commentDetails;
-
-      const { _id: user_id }: { _id: string } = get(
-        httpRequest,
-        "context.user"
+      const commentDetails = <IUpdateCommentData>(
+        get(httpRequest, "context.validated", {})
       );
+
+      const { _id: comment_id } = commentDetails;
+      const { _id: user_id } = <IUser>get(httpRequest, "context.user", {});
 
       const exists = await getComment({
         _id: comment_id,

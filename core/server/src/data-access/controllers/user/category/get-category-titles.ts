@@ -9,7 +9,7 @@ export default function makeGetCategoryTitlesController({
   getCategoryTitles: GetCategoryTitles;
 }) {
   return async function getCategoryTitlesController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",

@@ -65,9 +65,7 @@ export default function makePostDb({
           .lean({ virtual: true }),
         postDbModel
           .find(query_conditions)
-          .select(
-            "_id categories author title views is_published created_at deleted_at"
-          )
+          .select("_id categories author title views created_at deleted_at")
           .populate({
             path: "categories",
             select: "_id title badge_color",
@@ -179,7 +177,6 @@ export default function makePostDb({
                         created_at: { $gte: start_of, $lte: end_of },
                       },
                       { deleted_at: { $in: [null, undefined] } },
-                      { is_published: true },
                     ],
                   },
                 },
@@ -265,7 +262,6 @@ export default function makePostDb({
     async findAllForSEO(): Promise<IPost[]> {
       let query_conditions = {
         deleted_at: { $in: [null, undefined] },
-        is_published: true,
       };
 
       const existing = await postDbModel
@@ -393,7 +389,6 @@ export default function makePostDb({
     async findBySlug({ slug }: { slug: string }): Promise<IPost> {
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
-        is_published: true,
       };
 
       slug && (query_conditions["slug"] = slug);
@@ -443,7 +438,6 @@ export default function makePostDb({
     }): Promise<IPost[]> {
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
-        is_published: true,
       };
 
       !isEmpty(categories) &&

@@ -14,8 +14,6 @@ import { hashPassword, verifyPassword } from "../../../../config/password";
 import makeGetAdminController from "./get-admin";
 import makeDeleteAdminController from "./delete-admin";
 import makeUpdateAdminController from "./update-admin";
-import makeDisableAutoCensorshipController from "./disable-auto-censorship";
-import makeEnableAutoCensorshipController from "./enable-auto-censorship";
 import makeGetAdminsController from "./get-admins";
 import makeCreateAdminController from "./create-admin";
 import makeRestoreAdminController from "./restore-admin";
@@ -73,18 +71,6 @@ const getAdminsController = makeGetAdminsController({
   getAdmins,
 });
 
-const disableAutoCensorshipController = makeDisableAutoCensorshipController({
-  getAdmin,
-  updateAdmin,
-  logger,
-});
-
-const enableAutoCensorshipController = makeEnableAutoCensorshipController({
-  getAdmin,
-  updateAdmin,
-  logger,
-});
-
 const getAdminController = makeGetAdminController({
   getAdmin,
 });
@@ -105,8 +91,6 @@ export default Object.freeze({
   getAdminController,
   deleteAdminController,
   updateAdminController,
-  disableAutoCensorshipController,
-  enableAutoCensorshipController,
   getAdminsController,
   createAdminController,
   restoreAdminController,
@@ -121,8 +105,6 @@ export {
   getAdminController,
   deleteAdminController,
   updateAdminController,
-  disableAutoCensorshipController,
-  enableAutoCensorshipController,
   getAdminsController,
   createAdminController,
   restoreAdminController,

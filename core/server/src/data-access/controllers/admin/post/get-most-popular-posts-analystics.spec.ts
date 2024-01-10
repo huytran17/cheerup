@@ -51,9 +51,7 @@ describe("getMostPopularPostsAnalystics", () => {
       });
 
     const request = {
-      context: {
-        validated: {},
-      },
+      context: {},
     };
 
     const result = await getMostPopularPostsAnalysticsController(

@@ -8,7 +8,7 @@ export default function makeGetCategoriesForSEOController({
   getCategoriesForSEO: GetCategoriesForSEO;
 }) {
   return async function getCategoriesForSEOController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",

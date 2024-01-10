@@ -1,5 +1,8 @@
 import { Request } from "express";
-import { GetPostsPaginated } from "../../../../use-cases/post/get-posts-paginated";
+import {
+  GetPostsPaginated,
+  IGetPostsPaginatedPayload,
+} from "../../../../use-cases/post/get-posts-paginated";
 import { ReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import { CountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
 import { GetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
@@ -7,6 +10,13 @@ import { get, map, replace, split, merge, filter } from "lodash";
 import Post from "../../../../database/entities/post";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
+
+interface IPayload
+  extends Omit<IGetPostsPaginatedPayload, "tags" | "categories"> {
+  tags?: string;
+  categories?: string;
+  user_id?: string;
+}
 
 export default function makeGetPostsPaginatedController({
   getPostsPaginated,
@@ -20,7 +30,7 @@ export default function makeGetPostsPaginatedController({
   readingTimeAnalyzer: ReadingTimeAnalyzer;
 }) {
   return async function getPostsPaginatedController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
@@ -35,31 +45,19 @@ export default function makeGetPostsPaginatedController({
         sorts,
         tags = "",
         categories = "",
-      }: {
-        query: string;
-        page: string;
-        entries_per_page: string;
-        user_id?: string;
-        sorts?: string;
-        tags?: string;
-        categories?: string;
-      } = get(httpRequest, "context.validated");
+      } = <IPayload>get(httpRequest, "context.validated", {});
 
       const categories_array = filter(split(categories, ","));
       const tags_array = filter(split(tags, ","));
 
-      const paginated_data = await getPostsPaginated(
-        {
-          categories: categories_array,
-          tags: tags_array,
-          sorts,
-        },
-        {
-          query,
-          page: Number(page),
-          entries_per_page: Number(entries_per_page),
-        }
-      );
+      const paginated_data = await getPostsPaginated({
+        categories: categories_array,
+        tags: tags_array,
+        sorts,
+        query,
+        page: Number(page),
+        entries_per_page: Number(entries_per_page),
+      });
 
       const post_data = get(paginated_data, "data", []);
       const map_count_comments_promises = map(

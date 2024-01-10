@@ -1,5 +1,8 @@
 import { Request } from "express";
-import { GetPostBookmarksPaginated } from "../../../../use-cases/post-bookmark/get-post-bookmarks-paginated";
+import {
+  GetPostBookmarksPaginated,
+  IGetPostBookmarksPaginatedPayload,
+} from "../../../../use-cases/post-bookmark/get-post-bookmarks-paginated";
 import { CountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
 import { GetUser } from "../../../../use-cases/user/get-user";
 import { ReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
@@ -9,6 +12,7 @@ import IPostBookmark from "../../../../database/interfaces/post-bookmark";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { IPaginatedPostBookmarkResult } from "../../../../data-access/interfaces/post-bookmark-db";
 import { isEmpty } from "../../../../utils/is-empty";
+import IUser from "../../../../database/interfaces/user";
 
 export default function makeGetPostBookmarksPaginatedController({
   getPostBookmarksPaginated,
@@ -22,24 +26,18 @@ export default function makeGetPostBookmarksPaginatedController({
   getUser: GetUser;
 }) {
   return async function getPostBookmarksPaginatedController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const {
-        query,
-        page,
-        entries_per_page,
-      }: {
-        query: string;
-        page: string;
-        entries_per_page: string;
-      } = get(httpRequest, "context.validated");
+      const { query, page, entries_per_page } = <
+        IGetPostBookmarksPaginatedPayload
+      >get(httpRequest, "context.validated", {});
 
-      const { _id }: { _id: string } = get(httpRequest, "context.user");
+      const { _id } = <IUser>get(httpRequest, "context.user", {});
       const user_exists = await getUser({ _id });
 
       if (isEmpty(user_exists)) {

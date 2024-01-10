@@ -1,7 +1,10 @@
 import { Request } from "express";
 import { Logger } from "winston";
 import { get, merge } from "lodash";
-import { CreateAdmin } from "../../../../use-cases/admin/create-admin";
+import {
+  CreateAdmin,
+  ICreateAdminPayload,
+} from "../../../../use-cases/admin/create-admin";
 import { GetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email";
 import { HashPassword } from "../../../../config/password/hash-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -19,21 +22,18 @@ export default function makeCreateAdminController({
   logger: Logger;
 }) {
   return async function createAdminController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const admin = get(httpRequest, "context.validated");
+      const admin = <ICreateAdminPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
-      const {
-        email,
-        password,
-        password_confirmation,
-      }: { email: string; password: string; password_confirmation: string } =
-        admin;
+      const { email, password, password_confirmation } = admin;
 
       const exists = await getAdminByEmail({ email });
       if (!isEmpty(exists)) {

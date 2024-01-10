@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { get, merge } from "lodash";
-import { GetUser } from "../../../../use-cases/user/get-user";
+import { GetUser, IGetUserPayload } from "../../../../use-cases/user/get-user";
 import { UpdateUser } from "../../../../use-cases/user/update-user";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -14,14 +14,16 @@ export default function makeUploadUserAvatarController({
   updateUser: UpdateUser;
 }) {
   return async function uploadUserAvatarController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id }: { _id: string } = get(httpRequest, "context.validated");
+      const { _id } = <IGetUserPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const exists = await getUser({ _id });
 
@@ -29,14 +31,14 @@ export default function makeUploadUserAvatarController({
         throw new Error(`User by ${_id} does not exist`);
       }
 
-      const file = get(httpRequest, "context.file");
+      const file = get(httpRequest, "context.file", {});
 
       if (isEmpty(file)) {
         throw new Error(`File does not exist`);
       }
 
-      const bucket = get(exists, "avatar.bucket");
-      const key = get(exists, "avatar.key");
+      const bucket = <string>get(exists, "avatar.bucket", "");
+      const key = <string>get(exists, "avatar.key", "");
 
       deleteS3Object({ bucket, key });
 

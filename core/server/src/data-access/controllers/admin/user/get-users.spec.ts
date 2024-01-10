@@ -36,9 +36,7 @@ describe("getUsers", () => {
     });
 
     const request = {
-      context: {
-        validated: {},
-      },
+      context: {},
     };
 
     const result = await getUsersController(request as any);

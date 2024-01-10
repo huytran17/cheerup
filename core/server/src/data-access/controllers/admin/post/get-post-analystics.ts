@@ -1,7 +1,13 @@
 import { Request } from "express";
-import { GetPostAnalystics } from "../../../../use-cases/post/get-post-analystics";
+import {
+  GetPostAnalystics,
+  IGetPostAnalysticsPayload,
+} from "../../../../use-cases/post/get-post-analystics";
 import { get, sortBy, split } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+interface IPayload extends Omit<IGetPostAnalysticsPayload, "range"> {
+  range?: string;
+}
 
 export default function makeGetPostAnalysticsController({
   getPostAnalystics,
@@ -16,9 +22,8 @@ export default function makeGetPostAnalysticsController({
     };
 
     try {
-      const { range, unit }: { range?: string; unit?: string } = get(
-        httpRequest,
-        "context.validated"
+      const { range, unit } = <IPayload>(
+        get(httpRequest, "context.validated", {})
       );
 
       const splitted_range = sortBy(split(range, ","));

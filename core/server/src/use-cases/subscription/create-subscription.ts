@@ -1,13 +1,15 @@
 import ISubscriptionDb from "../../data-access/interfaces/subscription-db";
 import ISubscription from "../../database/interfaces/subscription";
 
-export interface ICreateSubscriptionData {
-  subscriptionDetails: Omit<ISubscription, "_id">;
+export interface ICreateSubscriptionPayload extends Partial<ISubscription> {}
+
+interface ICreateSubscription {
+  subscriptionDetails: ICreateSubscriptionPayload;
 }
 
 export type CreateSubscription = ({
   subscriptionDetails,
-}: ICreateSubscriptionData) => Promise<ISubscription>;
+}: ICreateSubscription) => Promise<ISubscription>;
 
 export default function makeCreateSubscription({
   subscriptionDb,

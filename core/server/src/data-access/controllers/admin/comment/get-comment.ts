@@ -1,5 +1,8 @@
 import { Request } from "express";
-import { GetComment } from "../../../../use-cases/comment/get-comment";
+import {
+  GetComment,
+  IGetCommentPayload,
+} from "../../../../use-cases/comment/get-comment";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -10,21 +13,20 @@ export default function makeGetCommentController({
   getComment: GetComment;
 }) {
   return async function getCommentController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { comment_id }: { comment_id: string } = get(
-        httpRequest,
-        "context.validated"
+      const { _id } = <IGetCommentPayload>(
+        get(httpRequest, "context.validated", {})
       );
 
-      const exists = await getComment({ _id: comment_id });
+      const exists = await getComment({ _id });
       if (isEmpty(exists)) {
-        throw new Error(`Comment ${comment_id} does not exists`);
+        throw new Error(`Comment ${_id} does not exists`);
       }
 
       return {

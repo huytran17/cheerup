@@ -28,7 +28,7 @@ gallerySchema.index({ created_at: -1 });
 gallerySchema.plugin(mongoose_lean_virtuals);
 
 gallerySchema.pre("deleteOne", { document: true }, async function (next) {
-  const items = get(this, "items", []);
+  const items = <{ [key: string]: string }[]>get(this, "items", []);
 
   for (const item of items) {
     deleteS3Object({ bucket: item.bucket, key: item.key });

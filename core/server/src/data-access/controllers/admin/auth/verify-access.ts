@@ -4,22 +4,25 @@ import { Request } from "express";
 import { get, omit } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
+interface IPayload {
+  access_token: string;
+}
+
 export default function makeVerifyAccessController({
   verifyAccessToken,
 }: {
   verifyAccessToken: VerifyAccessToken;
 }) {
   return async function verifyAccessController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { access_token }: { access_token: string } = get(
-        httpRequest,
-        "context.validated"
+      const { access_token } = <IPayload>(
+        get(httpRequest, "context.validated", {})
       );
       const decoded_access_token = <JwtPayload>verifyAccessToken(access_token);
 

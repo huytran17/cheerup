@@ -1,10 +1,14 @@
-import { CreateSubscription } from "../../../../use-cases/subscription/create-subscription";
+import {
+  CreateSubscription,
+  ICreateSubscriptionPayload,
+} from "../../../../use-cases/subscription/create-subscription";
 import { UpdateSubscription } from "../../../../use-cases/subscription/update-subscription";
 import { Request } from "express";
 import { get, merge } from "lodash";
 import { GetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
+import IUser from "../../../../database/interfaces/user";
 
 export default function makeCreateSubscriptionController({
   createSubscription,
@@ -16,17 +20,16 @@ export default function makeCreateSubscriptionController({
   updateSubscription: UpdateSubscription;
 }) {
   return async function createSubscriptionController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { email }: { email: string } = get(httpRequest, "context.user");
-      const { is_active }: { is_active: boolean } = get(
-        httpRequest,
-        "context.validated"
+      const { email } = <IUser>get(httpRequest, "context.user", {});
+      const { is_active } = <ICreateSubscriptionPayload>(
+        get(httpRequest, "context.validated", {})
       );
 
       const exists = await getSubscriptionByEmail({ email });

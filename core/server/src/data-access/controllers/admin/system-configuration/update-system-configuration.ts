@@ -1,5 +1,8 @@
 import { GetSystemConfiguration } from "../../../../use-cases/system-configuration/get-system-configuraion";
-import { UpdateSystemConfiguration } from "../../../../use-cases/system-configuration/update-system-configuraion";
+import {
+  IUpdateSystemConfigurationPayload,
+  UpdateSystemConfiguration,
+} from "../../../../use-cases/system-configuration/update-system-configuraion";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get, merge } from "lodash";
@@ -16,15 +19,17 @@ export default function makeUpdateSystemConfigurationController({
   logger: Logger;
 }) {
   return async function updateSystemConfigurationController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const systemConfigurationDetails = get(httpRequest, "context.validated");
-      const { _id }: { _id: string } = systemConfigurationDetails;
+      const systemConfigurationDetails = <IUpdateSystemConfigurationPayload>(
+        get(httpRequest, "context.validated", {})
+      );
+      const { _id } = systemConfigurationDetails;
 
       const exists = await getSystemConfiguration({ _id });
       if (isEmpty(exists)) {

@@ -48,9 +48,7 @@ describe("getLatestSystemConfiguration", () => {
       });
 
     const request = {
-      context: {
-        validated: {},
-      },
+      context: {},
     };
 
     const result = await getLatestSystemConfigurationController(request as any);

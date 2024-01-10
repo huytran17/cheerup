@@ -4,13 +4,15 @@ import IUserDb, {
 import Redis from "../../config/redis";
 import { Logger } from "winston";
 
+export interface IGetUserAnalysticsPayload {
+  range?: string[];
+  unit?: string;
+}
+
 export type GetUserAnalystics = ({
   range,
   unit,
-}: {
-  range?: string[];
-  unit?: string;
-}) => Promise<IUserAnalyticsData>;
+}: IGetUserAnalysticsPayload) => Promise<IUserAnalyticsData>;
 
 export default function makeGetUserAnalystics({
   userDb,

@@ -109,40 +109,6 @@
                 <span v-html="$t('Delete Forever')"></span>
               </v-tooltip>
             </div>
-            <div v-if="item.is_auto_censorship_post">
-              <v-tooltip left>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    icon
-                    v-bind="attrs"
-                    v-on="on"
-                    small
-                    @click="disableAutoCensorshipPost(item)"
-                  >
-                    <v-icon small color="error">mdi-note-off-outline</v-icon>
-                  </v-btn>
-                </template>
-                <span v-html="$t('Disable auto censorship post')"></span>
-              </v-tooltip>
-            </div>
-            <div v-else>
-              <v-tooltip left>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    icon
-                    v-bind="attrs"
-                    v-on="on"
-                    small
-                    @click="enableAutoCensorshipPost(item)"
-                  >
-                    <v-icon small color="success"
-                      >mdi-note-check-outline</v-icon
-                    >
-                  </v-btn>
-                </template>
-                <span v-html="$t('Enable auto censorship post')"></span>
-              </v-tooltip>
-            </div>
           </template>
         </v-data-table>
       </v-col>
@@ -223,42 +189,6 @@ export default {
   },
 
   methods: {
-    async disableAutoCensorshipPost(admin) {
-      try {
-        const id = get(admin, "_id");
-        const email = get(admin, "email");
-
-        await this.DISABLE_AUTO_CENSORSHIP_POST({ id });
-        this.$toast.success(
-          this.$t(`Disable auto censorship for admin ${email} successfully`)
-        );
-        await this.$fetch();
-      } catch (error) {
-        console.error(error);
-        this.$toast.error(
-          this.$t(`Encountered error while disabling auto censorship`)
-        );
-      }
-    },
-
-    async enableAutoCensorshipPost(admin) {
-      try {
-        const id = get(admin, "_id");
-        const email = get(admin, "email");
-
-        await this.ENABLE_AUTO_CENSORSHIP_POST({ id });
-        this.$toast.success(
-          this.$t(`Enable auto censorship for admin ${email} successfully`)
-        );
-        await this.$fetch();
-      } catch (error) {
-        console.error(error);
-        this.$toast.error(
-          this.$t(`Encountered error while enabling auto censorship`)
-        );
-      }
-    },
-
     async restoreDeletedAdmin(admin) {
       try {
         const id = get(admin, "_id");

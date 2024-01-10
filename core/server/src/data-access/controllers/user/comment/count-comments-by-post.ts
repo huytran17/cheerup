@@ -1,5 +1,8 @@
 import { Request } from "express";
-import { CountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
+import {
+  CountCommentsByPost,
+  ICountCommentsByPostPayload,
+} from "../../../../use-cases/comment/count-comments-by-post";
 import { GetPost } from "../../../../use-cases/post/get-post";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -13,18 +16,16 @@ export default function makeCountCommentsByPostController({
   getPost: GetPost;
 }) {
   return async function countCommentsByPostController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const {
-        post_id,
-      }: {
-        post_id: string;
-      } = get(httpRequest, "context.validated");
+      const { post_id } = <ICountCommentsByPostPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const post_exists = await getPost({ _id: post_id });
 

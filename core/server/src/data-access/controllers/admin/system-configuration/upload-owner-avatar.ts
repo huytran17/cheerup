@@ -14,7 +14,7 @@ export default function makeUploadOwnerAvatarController({
   updateSystemConfiguration: UpdateSystemConfiguration;
 }) {
   return async function uploadClientAvatarController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
@@ -27,14 +27,14 @@ export default function makeUploadOwnerAvatarController({
         throw new Error(`System configuration by ${exists._id} does not exist`);
       }
 
-      const file = get(httpRequest, "context.file");
+      const file = get(httpRequest, "context.file", {});
 
       if (isEmpty(file)) {
         throw new Error(`File does not exist`);
       }
 
-      const bucket = get(exists, "owner.avatar.bucket");
-      const key = get(exists, "owner.avatar.key");
+      const bucket = <string>get(exists, "owner.avatar.bucket", "");
+      const key = <string>get(exists, "owner.avatar.key", "");
 
       deleteS3Object({ bucket, key });
 

@@ -1,8 +1,6 @@
 import { Request } from "express";
 import { GetAdmins } from "../../../../use-cases/admin/get-admins";
-import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetAdminsController({
   getAdmins,
@@ -10,19 +8,14 @@ export default function makeGetAdminsController({
   getAdmins: GetAdmins;
 }) {
   return async function getAdminsController(
-    httpRequest: Request & { context: { validated: { admin_id: string } } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const admin_id: string = get(httpRequest, "context.validated");
-
       const exists = await getAdmins();
-      if (isEmpty(exists)) {
-        throw new Error(`Admin ${admin_id} does not exist`);
-      }
 
       return {
         headers,

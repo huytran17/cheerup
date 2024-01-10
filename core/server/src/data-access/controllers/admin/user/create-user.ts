@@ -1,18 +1,17 @@
 import { Request } from "express";
 import { Logger } from "winston";
 import { get, omit, merge } from "lodash";
-import { CreateUser } from "../../../../use-cases/user/create-user";
+import {
+  CreateUser,
+  ICreateUserPayload,
+} from "../../../../use-cases/user/create-user";
 import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { HashPassword } from "../../../../config/password/hash-password";
-import User from "../../../../database/entities/user";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
+import IAdmin from "../../../../database/interfaces/admin";
 
-export type IUserRawData = Omit<User, "hash_password"> & {
-  email: string;
-  password: string;
-  password_confirmation: string;
-};
+interface IPayload extends ICreateUserPayload {}
 
 export default function makeCreateUserController({
   createUser,
@@ -26,26 +25,17 @@ export default function makeCreateUserController({
   logger: Logger;
 }) {
   return async function createUserController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const admin = get(httpRequest, "context.user");
-      const user: IUserRawData = get(httpRequest, "context.validated");
-      const {
-        email,
-        password,
-        password_confirmation,
-        is_blocked_comment,
-      }: {
-        email: string;
-        password: string;
-        password_confirmation: string;
-        is_blocked_comment?: boolean;
-      } = user;
+      const admin = <IAdmin>get(httpRequest, "context.user", {});
+      const user = <IPayload>get(httpRequest, "context.validated", {});
+      const { email, password, password_confirmation, is_blocked_comment } =
+        user;
 
       const exists = await getUserByEmail({ email });
       if (!isEmpty(exists)) {

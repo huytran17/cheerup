@@ -5,20 +5,27 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { tfa } from "../../../../config/tfa";
 import { isEmpty } from "../../../../utils/is-empty";
 
+interface IPayload {
+  code: string;
+  email: string;
+}
+
 export default function makeVerify2FAController({
   getUserByEmail,
 }: {
   getUserByEmail: GetUserByEmail;
 }) {
   return async function verify2FAController(
-    httpRequest: Request & { context: { validated: { user_id: string } } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { code, email } = get(httpRequest, "context.validated");
+      const { code, email } = <IPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const user_exists = await getUserByEmail({ email });
 

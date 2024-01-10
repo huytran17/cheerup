@@ -1,6 +1,6 @@
 import Moment from "moment";
 import { Request } from "express";
-import { GetPost } from "../../../../use-cases/post/get-post";
+import { GetPost, IGetPostPayload } from "../../../../use-cases/post/get-post";
 import { ReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -20,16 +20,15 @@ export default function makeExportPostPdfController({
   moment: typeof Moment;
 }) {
   return async function exportPostPdfController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id: post_id }: { _id: string } = get(
-        httpRequest,
-        "context.validated"
+      const { _id: post_id } = <IGetPostPayload>(
+        get(httpRequest, "context.validated", {})
       );
 
       const exists = await getPost({ _id: post_id });

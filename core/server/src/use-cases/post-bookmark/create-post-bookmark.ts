@@ -1,13 +1,17 @@
 import IPostBookmarkDb from "../../data-access/interfaces/post-bookmark-db";
 import IPostBookmark from "../../database/interfaces/post-bookmark";
 
-export interface ICreatePostBookmarkData {
-  postBookmarkDetails: Omit<IPostBookmark, "_id" | "created_at" | "updated_at">;
+export interface ICreatePostBookmarkPayload extends Partial<IPostBookmark> {
+  [key: string]: any;
+}
+
+export interface ICreatePostBookmark {
+  postBookmarkDetails: ICreatePostBookmarkPayload;
 }
 
 export type CreatePostBookmark = ({
   postBookmarkDetails,
-}: ICreatePostBookmarkData) => Promise<IPostBookmark>;
+}: ICreatePostBookmark) => Promise<IPostBookmark>;
 
 export default function makeCreatePostBookmark({
   postBookmarkDb,

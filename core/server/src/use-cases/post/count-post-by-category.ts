@@ -1,10 +1,12 @@
 import IPostDb from "../../data-access/interfaces/post-db";
 
+export interface ICountPostByCategoryPayload {
+  category_id: string;
+}
+
 export type CountPostByCategory = ({
   category_id,
-}: {
-  category_id: string;
-}) => Promise<number>;
+}: ICountPostByCategoryPayload) => Promise<number>;
 
 export default function makeCountPostByCategory({
   postDb,

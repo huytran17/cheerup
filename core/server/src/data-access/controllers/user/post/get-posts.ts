@@ -12,7 +12,7 @@ export default function makeGetPostsController({
   countCommentsByPost: CountCommentsByPost;
 }) {
   return async function getPostsController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",

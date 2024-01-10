@@ -1,6 +1,9 @@
 import { Request } from "express";
 import { GetPasswordReset } from "../../../../use-cases/password-reset/get-password-reset";
-import { HardDeletePasswordReset } from "../../../../use-cases/password-reset/hard-delete-password-reset";
+import {
+  HardDeletePasswordReset,
+  IHardDeletePasswordResetPayload,
+} from "../../../../use-cases/password-reset/hard-delete-password-reset";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -13,14 +16,16 @@ export default function makeHardDeletePasswordResetController({
   hardDeletePasswordReset: HardDeletePasswordReset;
 }) {
   return async function hardDeletePasswordResetController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id }: { _id: string } = get(httpRequest, "context.validated");
+      const { _id } = <IHardDeletePasswordResetPayload>(
+        get(httpRequest, "context.validated", {})
+      );
       const exists = await getPasswordReset({ _id });
 
       if (isEmpty(exists)) {

@@ -2,13 +2,16 @@ import IPostDb, { IPostAnalytics } from "../../data-access/interfaces/post-db";
 import Redis from "../../config/redis";
 import { Logger } from "winston";
 
+export interface IGetPostAnalysticsPayload {
+  range?: string[];
+  unit?: string;
+  limit?: number;
+}
+
 export type GetPostAnalystics = ({
   range,
   unit,
-}: {
-  range?: string[];
-  unit?: string;
-}) => Promise<IPostAnalytics>;
+}: IGetPostAnalysticsPayload) => Promise<IPostAnalytics>;
 
 export default function makeGetPostAnalystics({
   postDb,

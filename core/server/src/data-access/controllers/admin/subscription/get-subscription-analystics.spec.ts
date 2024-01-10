@@ -53,9 +53,7 @@ describe("getSubscriptionAnalystics", () => {
       });
 
     const request = {
-      context: {
-        validated: {},
-      },
+      context: {},
     };
 
     const result = await getSubscriptionAnalysticsController(request as any);

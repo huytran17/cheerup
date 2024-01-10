@@ -2,12 +2,16 @@ import { Request } from "express";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetUser } from "../../../../use-cases/user/get-user";
-import { CreateCommentLike } from "../../../../use-cases/comment-like/create-comment-like";
+import {
+  CreateCommentLike,
+  ICreateCommentLikePayload,
+} from "../../../../use-cases/comment-like/create-comment-like";
 import { UpdateCommentLike } from "../../../../use-cases/comment-like/update-comment-like";
 import { HardDeleteCommentLike } from "../../../../use-cases/comment-like/hard-delete-comment-like";
 import { GetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
 import { GetComment } from "../../../../use-cases/comment/get-comment";
 import { isEmpty } from "../../../../utils/is-empty";
+import IUser from "../../../../database/interfaces/user";
 
 export default function makeCreateOrUpdateCommentLikeController({
   createCommentLike,
@@ -25,7 +29,7 @@ export default function makeCreateOrUpdateCommentLikeController({
   getCommentLikeByUserAndComment: GetCommentLikeByUserAndComment;
 }) {
   return async function createOrUpdateCommentLikeController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
@@ -42,18 +46,17 @@ export default function makeCreateOrUpdateCommentLikeController({
     };
 
     try {
-      const { _id: user_id }: { _id: string } = get(
-        httpRequest,
-        "context.user"
-      );
+      const { _id: user_id } = <IUser>get(httpRequest, "context.user", {});
 
       const user_exists = await getUser({ _id: user_id });
       if (isEmpty(user_exists)) {
         throw new Error(`User by ${user_id} does not exist`);
       }
 
-      const commentLikeDetails = get(httpRequest, "context.validated");
-      const { comment_id }: { comment_id: string } = commentLikeDetails;
+      const commentLikeDetails = <ICreateCommentLikePayload>(
+        get(httpRequest, "context.validated", {})
+      );
+      const { comment_id } = commentLikeDetails;
 
       const comment_exists = await getComment({
         _id: comment_id,

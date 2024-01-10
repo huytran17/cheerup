@@ -1,5 +1,8 @@
 import { GetCategory } from "../../../../use-cases/category/get-category";
-import { UpdateCategory } from "../../../../use-cases/category/update-category";
+import {
+  IUpdateCategoryPayload,
+  UpdateCategory,
+} from "../../../../use-cases/category/update-category";
 import { GetCategoryByTitle } from "../../../../use-cases/category/get-category-by-title";
 import { Logger } from "winston";
 import { Request } from "express";
@@ -19,15 +22,17 @@ export default function makeUpdateCategoryController({
   logger: Logger;
 }) {
   return async function updateCategoryController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const categoryDetails = get(httpRequest, "context.validated");
-      const { _id, title }: { _id: string; title: string } = categoryDetails;
+      const categoryDetails = <IUpdateCategoryPayload>(
+        get(httpRequest, "context.validated", {})
+      );
+      const { _id, title } = categoryDetails;
 
       const exists = await getCategory({ _id });
       if (isEmpty(exists)) {
@@ -35,11 +40,13 @@ export default function makeUpdateCategoryController({
       }
 
       const updated_title = exists.title !== title;
-      const exists_by_title =
-        updated_title &&
-        (await getCategoryByTitle({
+      let exists_by_title = null;
+
+      if (updated_title) {
+        exists_by_title = await getCategoryByTitle({
           title,
-        }));
+        });
+      }
 
       if (!isEmpty(exists_by_title)) {
         throw new Error(`Category ${title} already exists`);

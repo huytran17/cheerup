@@ -1,6 +1,9 @@
 import { GetPost } from "../../../../use-cases/post/get-post";
 import { GetUser } from "../../../../use-cases/user/get-user";
-import { CreateComment } from "../../../../use-cases/comment/create-comment";
+import {
+  CreateComment,
+  ICreateCommentPayload,
+} from "../../../../use-cases/comment/create-comment";
 import { Request } from "express";
 import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -9,6 +12,7 @@ import { CountCommentLikeByCommentAndType } from "../../../../use-cases/comment-
 import { GetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
 import { CommentLikeType } from "../../../../database/interfaces/comment-like";
 import { isEmpty } from "../../../../utils/is-empty";
+import IUser from "../../../../database/interfaces/user";
 
 export default function makeCreateCommentController({
   createComment,
@@ -24,15 +28,17 @@ export default function makeCreateCommentController({
   getCommentLikeByUserAndComment: GetCommentLikeByUserAndComment;
 }) {
   return async function createCommentController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id: user_id } = get(httpRequest, "context.user");
-      const commentDetails = get(httpRequest, "context.validated");
+      const { _id: user_id } = <IUser>get(httpRequest, "context.user", {});
+      const commentDetails = <ICreateCommentPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const { post: post_id } = commentDetails;
       const post_exists = await getPost({ _id: post_id });

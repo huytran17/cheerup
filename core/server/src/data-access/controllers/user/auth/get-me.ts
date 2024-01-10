@@ -5,6 +5,7 @@ import { UpdateUser } from "../../../../use-cases/user/update-user";
 import { get, merge, omit } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
+import IUser from "../../../../database/interfaces/user";
 
 export default function makeGetMeController({
   getUser,
@@ -16,19 +17,16 @@ export default function makeGetMeController({
   updateUser: UpdateUser;
 }) {
   return async function getMeController(
-    httpRequest: Request & { context: { validated: { user_id: string } } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const client_ip = get(httpRequest, "context.ip");
+      const client_ip: string = get(httpRequest, "context.ip", "");
 
-      const { _id, email }: { _id: string; email: string } = get(
-        httpRequest,
-        "context.user"
-      );
+      const { _id, email } = <IUser>get(httpRequest, "context.user", {});
 
       const exists = await getUser({ _id });
 

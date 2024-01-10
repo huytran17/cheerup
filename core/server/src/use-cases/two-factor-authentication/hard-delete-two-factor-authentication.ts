@@ -1,11 +1,13 @@
 import ITwoFactorAuthentication from "../../database/interfaces/two-factor-authentication";
 import ITwoFactorAuthenticationDb from "../../data-access/interfaces/two-factor-authentication-db";
 
+export interface IHardDeleteTwoFactorAuthenticationPayload {
+  _id: string;
+}
+
 export type HardDeleteTwoFactorAuthentication = ({
   _id,
-}: {
-  _id: string;
-}) => Promise<ITwoFactorAuthentication>;
+}: IHardDeleteTwoFactorAuthenticationPayload) => Promise<ITwoFactorAuthentication>;
 
 export default function makeHardDeleteTwoFactorAuthentication({
   twoFactorAuthenticationDb,

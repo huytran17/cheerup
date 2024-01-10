@@ -1,13 +1,16 @@
 import ISystemConfigurationDb from "../../data-access/interfaces/system-configuration-db";
 import ISystemConfiguration from "../../database/interfaces/system-configuration";
 
-export interface IUpdateSystemConfigurationData {
-  systemConfigurationDetails: Omit<ISystemConfiguration, "_id">;
+export interface IUpdateSystemConfigurationPayload
+  extends Partial<ISystemConfiguration> {}
+
+interface IUpdateSystemConfiguration {
+  systemConfigurationDetails: IUpdateSystemConfigurationPayload;
 }
 
 export type UpdateSystemConfiguration = ({
   systemConfigurationDetails,
-}: IUpdateSystemConfigurationData) => Promise<ISystemConfiguration>;
+}: IUpdateSystemConfiguration) => Promise<ISystemConfiguration>;
 
 export default function makeUpdateSystemConfiguration({
   systemConfigurationDb,

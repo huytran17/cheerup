@@ -1,12 +1,12 @@
+import IAdmin from "../interfaces/admin";
 import IGallery from "../interfaces/gallery";
-import Admin from "./admin";
 
 export default class Gallery implements IGallery {
   public readonly _id: string;
   public readonly name: string;
   public readonly parent?: Gallery;
   public readonly items: Record<string, unknown>[];
-  public readonly created_by: Admin;
+  public readonly created_by: IAdmin;
   public readonly created_at: Date;
   public readonly updated_at: Date;
 

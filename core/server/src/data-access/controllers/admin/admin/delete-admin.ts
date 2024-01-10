@@ -1,5 +1,8 @@
 import { GetAdmin } from "../../../../use-cases/admin/get-admin";
-import { DeleteAdmin } from "../../../../use-cases/admin/delete-admin";
+import {
+  DeleteAdmin,
+  IDeleteAdminPayload,
+} from "../../../../use-cases/admin/delete-admin";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get } from "lodash";
@@ -16,14 +19,16 @@ export default function makeDeleteAdminController({
   logger: Logger;
 }) {
   return async function deleteAdminController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id }: { _id: string } = get(httpRequest, "context.validated");
+      const { _id } = <IDeleteAdminPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const exists = await getAdmin({ _id });
       if (isEmpty(exists)) {

@@ -1,4 +1,7 @@
-import { CreateCategory } from "../../../../use-cases/category/create-category";
+import {
+  CreateCategory,
+  ICreateCategoryPayload,
+} from "../../../../use-cases/category/create-category";
 import { UpdateCategory } from "../../../../use-cases/category/update-category";
 import { GetCategoryByTitle } from "../../../../use-cases/category/get-category-by-title";
 import { Logger } from "winston";
@@ -6,6 +9,7 @@ import { Request } from "express";
 import { get, merge } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
+import IAdmin from "../../../../database/interfaces/admin";
 
 export default function makeCreateCategoryController({
   createCategory,
@@ -19,15 +23,18 @@ export default function makeCreateCategoryController({
   logger: Logger;
 }) {
   return async function createCategoryController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const categoryDetails = get(httpRequest, "context.validated");
-      const { title }: { title: string } = categoryDetails;
+      const categoryDetails = <ICreateCategoryPayload>(
+        get(httpRequest, "context.validated", {})
+      );
+
+      const { title } = categoryDetails;
 
       const category = await getCategoryByTitle({
         title,
@@ -37,11 +44,13 @@ export default function makeCreateCategoryController({
         throw new Error(`Category ${title} already exists`);
       }
 
-      const { _id: user_id } = get(httpRequest, "context.user");
+      const { _id: admin_id } = <IAdmin>get(httpRequest, "context.user", {});
 
-      const final_category_data = merge({}, categoryDetails, {
-        created_by: user_id,
-      });
+      const final_category_data = <ICreateCategoryPayload>(
+        merge({}, categoryDetails, {
+          created_by: admin_id,
+        })
+      );
 
       const created_category = await createCategory({
         categoryDetails: final_category_data,

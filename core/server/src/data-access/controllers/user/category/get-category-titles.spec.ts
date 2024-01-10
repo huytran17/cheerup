@@ -43,9 +43,7 @@ describe("getCategoryTitles", () => {
     });
 
     const request = {
-      context: {
-        validated: {},
-      },
+      context: {},
     };
 
     const result = await getCategoryTitlesController(request as any);

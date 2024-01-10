@@ -1,5 +1,8 @@
 import { Request } from "express";
-import { GetGallery } from "../../../../use-cases/gallery/get-gallery";
+import {
+  GetGallery,
+  IGetGalleryPayload,
+} from "../../../../use-cases/gallery/get-gallery";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -10,14 +13,16 @@ export default function makeGetGalleryController({
   getGallery: GetGallery;
 }) {
   return async function getGalleryController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id }: { _id: string } = get(httpRequest, "context.validated");
+      const { _id } = <IGetGalleryPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const exists = await getGallery({ _id });
 

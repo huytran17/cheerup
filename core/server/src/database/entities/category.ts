@@ -1,5 +1,5 @@
+import IAdmin from "../interfaces/admin";
 import ICategory from "../interfaces/category";
-import Admin from "./admin";
 
 export default class Category implements ICategory {
   public readonly _id: string;
@@ -10,7 +10,7 @@ export default class Category implements ICategory {
   public readonly badge_color?: string;
   public readonly thumbnail_url?: string;
   public readonly seo?: Record<string, unknown>;
-  public readonly created_by: Admin;
+  public readonly created_by: IAdmin;
   public readonly created_at: Date;
   public readonly updated_at: Date;
   public readonly deleted_at: Date;

@@ -8,6 +8,11 @@ import { get, merge } from "lodash";
 import Moment from "moment";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
+import IUser from "../../../../database/interfaces/user";
+
+interface IPayload {
+  post: string;
+}
 
 export default function makeCreateOrDeletePostBookmarkController({
   createPostBookmark,
@@ -25,17 +30,14 @@ export default function makeCreateOrDeletePostBookmarkController({
   moment: typeof Moment;
 }) {
   return async function createOrDeletePostBookmarkController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id: user_id }: { _id: string } = get(
-        httpRequest,
-        "context.user"
-      );
+      const { _id: user_id } = <IUser>get(httpRequest, "context.user", {});
 
       const user_exists = await getUser({ _id: user_id });
 
@@ -43,9 +45,8 @@ export default function makeCreateOrDeletePostBookmarkController({
         throw new Error(`User by id ${user_id} does not exists`);
       }
 
-      const { post: post_id }: { post: string } = get(
-        httpRequest,
-        "context.validated"
+      const { post: post_id } = <IPayload>(
+        get(httpRequest, "context.validated", {})
       );
 
       const post_exists = await getPost({ _id: post_id });

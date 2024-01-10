@@ -1,4 +1,7 @@
-import { GetCategory } from "../../../../use-cases/category/get-category";
+import {
+  GetCategory,
+  IGetCategoryPayload,
+} from "../../../../use-cases/category/get-category";
 import { UpdateCategory } from "../../../../use-cases/category/update-category";
 import { Logger } from "winston";
 import { Request } from "express";
@@ -16,14 +19,16 @@ export default function makeRestoreCategoryController({
   logger: Logger;
 }) {
   return async function restoreCategoryController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { _id }: { _id: string } = get(httpRequest, "context.validated");
+      const { _id } = <IGetCategoryPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const exists = await getCategory({ _id });
       if (isEmpty(exists)) {

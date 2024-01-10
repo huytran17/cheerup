@@ -1,8 +1,12 @@
 import IUser from "../../database/interfaces/user";
 import UserDb from "../../data-access/interfaces/user-db";
 
-export interface ICreateUserData {
-  userDetails: Omit<IUser, "_id" | "created_at" | "updated_at" | "deleted_at">;
+export interface ICreateUserPayload extends Partial<IUser> {
+  [key: string]: any;
+}
+
+interface ICreateUserData {
+  userDetails: ICreateUserPayload;
 }
 
 export type CreateUser = ({ userDetails }: ICreateUserData) => Promise<IUser>;

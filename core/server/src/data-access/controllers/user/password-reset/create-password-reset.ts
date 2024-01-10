@@ -3,7 +3,6 @@ import { get, omit } from "lodash";
 import Moment from "moment";
 import randomString from "randomstring";
 import { Logger } from "winston";
-
 import { GetEmailContent } from "../../../../config/emailManager/get-email-content";
 import { RenderEmailContent } from "../../../../config/emailManager/render-email-content";
 import { SendEmail } from "../../../../config/emailManager/send-email";
@@ -12,7 +11,10 @@ import { CreatePasswordReset } from "../../../../use-cases/password-reset/create
 import { GetPasswordResetByCode } from "../../../../use-cases/password-reset/get-password-reset-by-code";
 import { GetPasswordResetByEmail } from "../../../../use-cases/password-reset/get-password-reset-by-email";
 import { HardDeletePasswordReset } from "../../../../use-cases/password-reset/hard-delete-password-reset";
-import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
+import {
+  GetUserByEmail,
+  IGetUserByEmailPayload,
+} from "../../../../use-cases/user/get-user-by-email";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeCreatePasswordResetController({
@@ -39,16 +41,15 @@ export default function makeCreatePasswordResetController({
   logger: Logger;
 }) {
   return async function createPasswordResetController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const { email }: { email: string } = get(
-        httpRequest,
-        "context.validated"
+      const { email } = <IGetUserByEmailPayload>(
+        get(httpRequest, "context.validated", {})
       );
 
       const user_exists = await getUserByEmail({ email });

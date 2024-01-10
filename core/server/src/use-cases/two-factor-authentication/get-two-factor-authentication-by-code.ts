@@ -1,13 +1,15 @@
 import ITwoFactorAuthentication from "../../database/interfaces/two-factor-authentication";
 import ITwoFactorAuthenticationDb from "../../data-access/interfaces/two-factor-authentication-db";
 
+export interface IGetTwoFactorAuthenticationByCodePayload {
+  code: string;
+  type: string;
+}
+
 export type GetTwoFactorAuthenticationByCode = ({
   code,
   type,
-}: {
-  code: string;
-  type: string;
-}) => Promise<ITwoFactorAuthentication>;
+}: IGetTwoFactorAuthenticationByCodePayload) => Promise<ITwoFactorAuthentication>;
 
 export default function makeGetTwoFactorAuthenticationByCode({
   twoFactorAuthenticationDb,

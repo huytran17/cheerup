@@ -1,13 +1,15 @@
 import IGalleryDb from "../../data-access/interfaces/gallery-db";
 import IGallery from "../../database/interfaces/gallery";
 
-export interface ICreateGalleryData {
-  galleryDetails: Omit<IGallery, "_id">;
+export interface ICreateGalleryPayload extends Partial<IGallery> {}
+
+interface ICreateGallery {
+  galleryDetails: ICreateGalleryPayload;
 }
 
 export type CreateGallery = ({
   galleryDetails,
-}: ICreateGalleryData) => Promise<IGallery>;
+}: ICreateGallery) => Promise<IGallery>;
 
 export default function makeCreateGallery({
   galleryDb,

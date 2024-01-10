@@ -1,11 +1,13 @@
 import IGallery from "../../database/interfaces/gallery";
 import IGalleryDb from "../../data-access/interfaces/gallery-db";
 
+export interface IGetGalleriesByParentPayload {
+  parent_id: string;
+}
+
 export type GetGalleriesByParent = ({
   parent_id,
-}: {
-  parent_id: string;
-}) => Promise<IGallery[]>;
+}: IGetGalleriesByParentPayload) => Promise<IGallery[]>;
 
 export default function makeGetGalleriesByParent({
   galleryDb,

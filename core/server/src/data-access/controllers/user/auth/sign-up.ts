@@ -1,18 +1,14 @@
 import { Request } from "express";
 import { Logger } from "winston";
 import { get, omit, merge } from "lodash";
-import { CreateUser } from "../../../../use-cases/user/create-user";
+import {
+  CreateUser,
+  ICreateUserPayload,
+} from "../../../../use-cases/user/create-user";
 import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { HashPassword } from "../../../../config/password/hash-password";
-import User from "../../../../database/entities/user";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
-
-export type IUserRawData = Omit<User, "hash_password"> & {
-  email: string;
-  password: string;
-  password_confirmation: string;
-};
 
 export default function makeSignUpController({
   createUser,
@@ -26,22 +22,19 @@ export default function makeSignUpController({
   logger: Logger;
 }) {
   return async function signUpController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",
     };
 
     try {
-      const client_ip = get(httpRequest, "context.ip");
-      const user: IUserRawData = get(httpRequest, "context.validated");
+      const client_ip: string = get(httpRequest, "context.ip", "");
+      const user = <ICreateUserPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
-      const {
-        email,
-        password,
-        password_confirmation,
-      }: { email: string; password: string; password_confirmation: string } =
-        user;
+      const { email, password, password_confirmation } = user;
 
       const exists = await getUserByEmail({ email });
       if (!isEmpty(exists)) {

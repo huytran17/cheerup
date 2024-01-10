@@ -46,9 +46,7 @@ describe("getPostAnalystics", () => {
     });
 
     const request = {
-      context: {
-        validated: {},
-      },
+      context: {},
     };
 
     const result = await getPostAnalysticsController(request as any);
