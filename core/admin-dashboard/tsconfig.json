@@ -27,7 +27,8 @@
       "@nuxt/types",
       "@nuxtjs/axios",
       "@types/node",
-      "vuetify"
+      "vuetify",
+      "@nuxtjs/toast",
     ]
   },
   "exclude": [

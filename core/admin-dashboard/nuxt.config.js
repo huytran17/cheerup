@@ -55,7 +55,15 @@ export default {
     "nuxt-speedkit",
     "nuxt-helmet",
     "@nuxtjs/imagemin",
+    "@nuxtjs/toast",
   ],
+
+  toast: {
+    position: "top-center",
+    duration: 5000,
+    className: "cheerup-toast",
+    containerClass: "cheerup-toast-container",
+  },
 
   build: {
     splitChunks: {
