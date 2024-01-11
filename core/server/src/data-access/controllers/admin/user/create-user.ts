@@ -11,8 +11,6 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 import IAdmin from "../../../../database/interfaces/admin";
 
-interface IPayload extends ICreateUserPayload {}
-
 export default function makeCreateUserController({
   createUser,
   getUserByEmail,
@@ -33,7 +31,9 @@ export default function makeCreateUserController({
 
     try {
       const admin = <IAdmin>get(httpRequest, "context.user", {});
-      const user = <IPayload>get(httpRequest, "context.validated", {});
+      const user = <ICreateUserPayload>(
+        get(httpRequest, "context.validated", {})
+      );
       const { email, password, password_confirmation, is_blocked_comment } =
         user;
 
