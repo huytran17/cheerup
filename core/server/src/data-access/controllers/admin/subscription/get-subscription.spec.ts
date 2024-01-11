@@ -48,7 +48,7 @@ describe("getSubscription", () => {
 
     const request = {
       context: {
-        validated: { subscription_id: created_subscription._id },
+        validated: { _id: created_subscription._id },
       },
     };
 
