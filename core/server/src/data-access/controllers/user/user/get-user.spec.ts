@@ -49,7 +49,7 @@ describe("getUser", () => {
     const request = {
       context: {
         validated: {
-          user_id: created_user._id,
+          _id: created_user._id,
         },
       },
     };
