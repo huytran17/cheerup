@@ -35,9 +35,7 @@ describe("getCategories", () => {
 
     const request = {
       context: {
-        user: {
-          ,
-        },
+        user: {},
       },
     };
 
