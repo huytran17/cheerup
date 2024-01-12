@@ -2,7 +2,6 @@ import makeSignInController from "./sign-in";
 import makeSignOutController from "./sign-out";
 import makeSignUpController from "./sign-up";
 import makeGetMeController from "./get-me";
-import makeVerifyAccessController from "./verify-access";
 import makeSignInWithGoogleController from "./sign-in-with-google";
 import makeEnable2FAConfirmationController from "./enable-2fa-confirmation";
 import makeDisable2FAConfirmationController from "./disable-2fa-confirmation";
@@ -89,11 +88,6 @@ const signInWithGoogleController = makeSignInWithGoogleController({
   generateAccessToken,
 });
 
-const verifyAccessController = makeVerifyAccessController({
-  verifyAccessToken,
-  getUserByEmail,
-});
-
 const getMeController = makeGetMeController({
   getUser,
   getSubscriptionByEmail,
@@ -122,7 +116,6 @@ export default Object.freeze({
   signOutController,
   signUpController,
   getMeController,
-  verifyAccessController,
   signInWithGoogleController,
   enable2FAConfirmationController,
   disable2FAConfirmationController,
@@ -136,7 +129,6 @@ export {
   signOutController,
   signUpController,
   getMeController,
-  verifyAccessController,
   signInWithGoogleController,
   enable2FAConfirmationController,
   disable2FAConfirmationController,

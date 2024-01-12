@@ -7,7 +7,6 @@ import makeExpressViewCallback from "../../config/express-view-callback";
 import {
   signInRules,
   signUpRules,
-  verifyAccessRules,
   enable2FARules,
   disable2FARules,
   verify2FARules,
@@ -17,7 +16,6 @@ import {
   signInController,
   signUpController,
   getMeController,
-  verifyAccessController,
   signInWithGoogleController,
   enable2FAConfirmationController,
   disable2FAConfirmationController,
@@ -27,12 +25,6 @@ import {
 } from "../../data-access/controllers/user/auth";
 
 const authRouter = express.Router();
-
-authRouter.post(
-  "/verify-access",
-  makeValidator(verifyAccessRules),
-  makeExpressCallback(verifyAccessController)
-);
 
 authRouter.get(
   "/me",
