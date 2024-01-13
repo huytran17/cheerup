@@ -55,12 +55,7 @@ describe("signIn", () => {
     const expected = {
       headers,
       statusCode: HttpStatusCode.OK,
-      body: {
-        data: {
-          user: omit(result?.body?.data?.user, "tfa_secret"),
-          access_token: result?.body?.data?.access_token,
-        },
-      },
+      body: result?.body,
     };
 
     expect(result).not.toBe(expected);

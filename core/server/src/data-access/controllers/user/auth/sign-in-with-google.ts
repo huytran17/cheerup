@@ -2,7 +2,6 @@ import { get } from "lodash";
 import { Request } from "express";
 import { GenerateAccessToken } from "../../../../config/accessTokenManager/generate-access-token";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { renderPageContent } from "../../../../config/client";
 import IUser from "../../../../database/interfaces/user";
 
 export default function makeSignInWithGoogleController({
@@ -14,17 +13,7 @@ export default function makeSignInWithGoogleController({
     httpRequest: Request & { context: {} }
   ) {
     const headers = {
-      "Content-Type": "text/html",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers":
-        "Origin, X-Requested-With, Content-Type, Accept",
-      "Access-Control-Allow-Methods": "GET, POST, PATCH, DELETE, OPTIONS",
-      "Content-Security-Policy":
-        "default-src * 'unsafe-inline' ; script-src 'unsafe-inline';",
-      "X-Content-Security-Policy":
-        "default-src * 'unsafe-inline' ; script-src 'unsafe-inline';",
-      "X-WebKit-CSP":
-        "default-src * 'unsafe-inline' ; script-src 'unsafe-inline';",
+      "Content-Type": "application/json",
     };
 
     try {
@@ -35,15 +24,15 @@ export default function makeSignInWithGoogleController({
         { expiresIn: "1y" }
       );
 
-      const rendered_page_content = renderPageContent({
-        type: "home",
-        data: { access_token },
-      });
-
       return {
         headers,
         statusCode: HttpStatusCode.OK,
-        body: rendered_page_content,
+        body: {
+          data: {
+            access_token,
+            sign_in: true,
+          },
+        },
       };
     } catch (error) {
       throw {

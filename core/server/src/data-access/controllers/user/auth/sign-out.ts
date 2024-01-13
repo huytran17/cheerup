@@ -1,7 +1,5 @@
 import { Request } from "express";
-import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import IUser from "../../../../database/interfaces/user";
 
 export default function makeSignOutController() {
   return async function signOutController(
@@ -12,15 +10,12 @@ export default function makeSignOutController() {
     };
 
     try {
-      //TODO: remove auth cookie
-      const exists = <IUser>get(httpRequest, "context.user", {});
-
       return {
         headers,
         statusCode: HttpStatusCode.OK,
         body: {
           data: {
-            valid_signout: true,
+            sign_out: true,
           },
         },
       };

@@ -1,8 +1,5 @@
 import { Request } from "express";
-import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { isEmpty } from "../../../../utils/is-empty";
-import IAdmin from "../../../../database/interfaces/admin";
 
 export default function makeSignOutController() {
   return async function signOutController(
