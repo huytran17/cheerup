@@ -2,11 +2,9 @@ import { Context } from "@nuxt/types";
 
 export default async function ({ store, redirect, app }: Context) {
   try {
-    const { _id } = await store.dispatch("auth/VERIFY_ACCESS");
+    const { _id } = await store.dispatch("auth/GET_ME");
 
-    if (_id) {
-      return redirect(app.localePath("/"));
-    }
+    !_id && redirect(app.localePath("/login"));
   } catch (error) {
     console.error(error);
   }
