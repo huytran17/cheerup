@@ -3,8 +3,7 @@ import { PassportStatic } from "passport";
 import password_jwt from "passport-jwt";
 import { AdminModel, UserModel } from "../../../data-access/models";
 
-const extractAccessTokenFromRequest = (req: Request) =>
-  req.cookies?.access_token || "";
+const cookieExtractor = (req: Request) => req.cookies?.access_token;
 
 export default function initializeJWT(
   passport: PassportStatic,
@@ -14,12 +13,12 @@ export default function initializeJWT(
 
   const opts = {
     secretOrKey,
-    jwtFromRequest: extractAccessTokenFromRequest,
+    jwtFromRequest: cookieExtractor,
   };
 
   passport.use(
     "user-jwt",
-    new JwtStrategy(opts, async function (jwt_payload, done) {
+    new JwtStrategy(opts, async (jwt_payload, done) => {
       const { email, hash_password } = jwt_payload;
 
       const exists = await UserModel.findOne({
@@ -38,10 +37,12 @@ export default function initializeJWT(
 
   passport.use(
     "admin-jwt",
-    new JwtStrategy(opts, async function (jwt_payload, done) {
+    new JwtStrategy(opts, async (jwt_payload, done) => {
+      const { email, hash_password } = jwt_payload;
+
       const exists = await AdminModel.findOne({
-        email: jwt_payload.email,
-        hash_password: jwt_payload.hash_password,
+        email,
+        hash_password,
         deleted_at: { $in: [null, undefined] },
       });
 

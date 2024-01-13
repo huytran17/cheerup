@@ -9,8 +9,6 @@ import {
   updateAdminRules,
   deleteAdminRules,
   createAdminRules,
-  disableAutoCensorshipRules,
-  enableAutoCensorshipRules,
   restoreAdminRules,
   hardDeleteAdminRules,
   updateAdminPasswordRules,
@@ -24,8 +22,6 @@ import {
   getAdminsController,
   deleteAdminController,
   createAdminController,
-  disableAutoCensorshipController,
-  enableAutoCensorshipController,
   restoreAdminController,
   hardDeleteAdminController,
   updateAdminPasswordController,
@@ -71,24 +67,10 @@ adminRouter.delete(
 );
 
 adminRouter.put(
-  "/disable-auto-censorship/:_id",
-  makeAuthorization(AuthorizationRole.ONLY_OWNER),
-  makeValidator(disableAutoCensorshipRules),
-  makeExpressCallback(disableAutoCensorshipController)
-);
-
-adminRouter.put(
   "/restore/:_id",
   makeAuthorization(AuthorizationRole.ONLY_OWNER),
   makeValidator(restoreAdminRules),
   makeExpressCallback(restoreAdminController)
-);
-
-adminRouter.put(
-  "/enable-auto-censorship/:_id",
-  makeAuthorization(AuthorizationRole.ONLY_OWNER),
-  makeValidator(enableAutoCensorshipRules),
-  makeExpressCallback(enableAutoCensorshipController)
 );
 
 adminRouter.delete(

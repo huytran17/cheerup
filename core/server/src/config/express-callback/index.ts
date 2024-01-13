@@ -17,6 +17,7 @@ export default function makeExpressCallback(controller: IController) {
       params: req.params,
       method: req.method,
       path: req.path,
+      cookies: req.cookies,
       headers: {
         "Content-Type": req.get("Content-Type"),
         Referer: req.get("referer"),
@@ -27,7 +28,24 @@ export default function makeExpressCallback(controller: IController) {
       .then((httpResponse: any) => {
         httpResponse.headers && res.set(httpResponse.headers);
         res.type("json");
-        res.status(httpResponse.statusCode).send(httpResponse.body);
+
+        const body = httpResponse.body || {};
+        const body_data = body.data || {};
+        const { sign_out, sign_in, access_token } = body_data;
+
+        sign_out && res.clearCookie("access_token", { path: "/" });
+
+        if (sign_in) {
+          const one_year_in_ms = 365 * 24 * 60 * 60 * 1000;
+
+          res.cookie("access_token", access_token, {
+            path: "/",
+            httpOnly: true,
+            maxAge: one_year_in_ms,
+          });
+        }
+
+        res.status(httpResponse.statusCode).send(body);
       })
       .catch((errorObject: any) => {
         res.status(errorObject.statusCode).send(errorObject.body);
@@ -38,7 +56,7 @@ export default function makeExpressCallback(controller: IController) {
         httpRequest.context.file &&
           deleteS3Object({ bucket: Bucket, key: Key });
 
-        next(errorObject);
+        next(JSON.stringify(errorObject));
       });
   };
 }

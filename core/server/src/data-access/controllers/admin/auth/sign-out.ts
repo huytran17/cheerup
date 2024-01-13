@@ -13,19 +13,12 @@ export default function makeSignOutController() {
     };
 
     try {
-      //TODO: remove cookies
-      const exists = <IAdmin>get(httpRequest, "context.user", {});
-
-      if (isEmpty(exists)) {
-        throw new Error(`Admin does not exist`);
-      }
-
       return {
         headers,
         statusCode: HttpStatusCode.OK,
         body: {
           data: {
-            signed_out: true,
+            sign_out: true,
           },
         },
       };

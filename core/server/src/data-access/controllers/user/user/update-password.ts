@@ -1,7 +1,4 @@
-import {
-  IUpdateUserPayload,
-  UpdateUser,
-} from "../../../../use-cases/user/update-user";
+import { UpdateUser } from "../../../../use-cases/user/update-user";
 import { Logger } from "winston";
 import { Request } from "express";
 import { get, merge } from "lodash";
@@ -9,6 +6,12 @@ import { HashPassword } from "../../../../config/password/hash-password";
 import { VerifyPassword } from "../../../../config/password/verify-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IUser from "../../../../database/interfaces/user";
+
+interface IPayload {
+  password: string;
+  new_password: string;
+  password_confirmation: string;
+}
 
 export default function makeUpdatePasswordController({
   updateUser,
@@ -29,9 +32,9 @@ export default function makeUpdatePasswordController({
     };
 
     try {
-      const { password, new_password, password_confirmation } = <
-        IUpdateUserPayload
-      >get(httpRequest, "context.validated", {});
+      const { password, new_password, password_confirmation } = <IPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const exists = <IUser>get(httpRequest, "context.user", {});
 

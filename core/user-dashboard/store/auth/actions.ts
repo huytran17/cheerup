@@ -15,7 +15,7 @@ const actions: ActionTree<AuthState, RootState> = {
   },
 
   async [ActionTypes.SIGN_IN]({ commit }, { data }: { data: any }) {
-    const { data: returned_data } = await this.$axios.$post(
+    const returned_data = await this.$axios.$post(
       "/auth/sign-in",
       data
     );

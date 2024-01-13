@@ -5,11 +5,11 @@ dotenv.config();
 
 import bodyParser from "body-parser";
 import compression from "compression";
-import cors from "cors";
+import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import requestIp from "request-ip";
 import { expressRateLimit } from "./config/express-rate-limit";
-import accessControlMiddleware from "./config/middlewares/access-control";
+import { cors } from "./config/middlewares/access-control";
 import { upload } from "./config/middlewares/file-upload";
 import passport from "./config/passport";
 import appRouter from "./routes";
@@ -23,9 +23,10 @@ process.env.NODE_ENV === "production" && app.use(expressRateLimit());
 
 app.use(requestIp.mw());
 app.use(upload.single("file"));
-app.use(cors(), accessControlMiddleware);
+app.use(cors);
 app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(compression());

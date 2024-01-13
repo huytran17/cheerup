@@ -46,7 +46,7 @@ export type ExpectSingedOutResult = {
   statusCode: number;
   body: {
     data: {
-      signed_out: boolean;
+      sign_out: boolean;
     };
   };
 };

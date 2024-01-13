@@ -53,18 +53,13 @@ export default function makeSignInController({
         { expiresIn: "1y" }
       );
 
-      const token_age_in_seconds = 60 * 60 * 24 * 365;
-      headers[
-        "Set-Cookie"
-      ] = `access_token="${access_token}; Max-Age=${token_age_in_seconds}; HttpOnly=true; Path=/`;
-
       return {
         headers,
         statusCode: HttpStatusCode.OK,
         body: {
           data: {
             access_token,
-            user: omit(exists, "tfa_secret"),
+            sign_in: true,
           },
         },
       };

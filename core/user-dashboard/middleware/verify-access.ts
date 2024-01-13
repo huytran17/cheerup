@@ -1,6 +1,6 @@
 import { Context } from "@nuxt/types";
 
-export default async function ({ store }: Context) {
+export default async function ({ store, redirect, app }: Context) {
   try {
     const { _id } = await store.dispatch("auth/GET_ME");
 
