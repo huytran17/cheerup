@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { get, merge } from "lodash";
-import deleteS3Object from "../../utils/delete-s3-object";
+import { merge } from "lodash";
+// import deleteS3Object from "../../utils/delete-s3-object";
 
 type IController = (httpRequest: any) => any;
 
@@ -50,11 +50,11 @@ export default function makeExpressCallback(controller: IController) {
       .catch((errorObject: any) => {
         res.status(errorObject.statusCode).send(errorObject.body);
 
-        const Bucket = <string>get(httpRequest, "context.file.bucket", "");
-        const Key = <string>get(httpRequest, "context.file.key", "");
+        // const Bucket = <string>get(httpRequest, "context.file.bucket", "");
+        // const Key = <string>get(httpRequest, "context.file.key", "");
 
-        httpRequest.context.file &&
-          deleteS3Object({ bucket: Bucket, key: Key });
+        // httpRequest.context.file &&
+        //   deleteS3Object({ bucket: Bucket, key: Key });
 
         next(JSON.stringify(errorObject));
       });

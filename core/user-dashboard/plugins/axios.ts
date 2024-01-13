@@ -9,7 +9,7 @@ declare module "@nuxt/types" {
   }
 }
 
-const plugin: Plugin = ({ $axios, $toast }: Context, inject) => {
+const plugin: Plugin = ({ $axios }: Context, inject) => {
   $axios.onRequest((config) => {
     console.log("Making request to " + config.url);
   });
@@ -18,12 +18,9 @@ const plugin: Plugin = ({ $axios, $toast }: Context, inject) => {
     console.log(
       `Got response with status code ${response.status} from ${response.config.url}`
     );
-    $toast.success("Action performed successfully");
   });
 
   $axios.onError((error) => {
-    $toast.error("Encountered error occurred");
-
     const code = get(error, "response.status", HTTP_STATUS_CODE.NOT_FOUND);
     if (code === HTTP_STATUS_CODE.BAD_REQUEST) {
       return;
