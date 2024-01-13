@@ -6,7 +6,6 @@ import { GetEmailContent } from "../../../../config/emailManager/get-email-conte
 import { RenderEmailContent } from "../../../../config/emailManager/render-email-content";
 import { SendEmail } from "../../../../config/emailManager/send-email";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { GetAdmin } from "../../../../use-cases/admin/get-admin";
 import {
   CreatePost,
   ICreatePostPayload,
@@ -17,7 +16,6 @@ import IAdmin from "../../../../database/interfaces/admin";
 
 export default function makeCreatePostController({
   createPost,
-  getAdmin,
   getActivatingSubscriptions,
   getEmailContent,
   renderEmailContent,
@@ -26,7 +24,6 @@ export default function makeCreatePostController({
   logger,
 }: {
   createPost: CreatePost;
-  getAdmin: GetAdmin;
   getActivatingSubscriptions: GetActivatingSubscriptions;
   getEmailContent: GetEmailContent;
   renderEmailContent: RenderEmailContent;
@@ -42,19 +39,14 @@ export default function makeCreatePostController({
     };
 
     try {
-      const { _id: admin_id } = <IAdmin>get(httpRequest, "context.user", {});
+      const { _id, full_name } = <IAdmin>get(httpRequest, "context.user", {});
 
       const postDetails = <ICreatePostPayload>(
         get(httpRequest, "context.validated", {})
       );
 
-      const admin = await getAdmin({ _id: admin_id });
-      if (!admin) {
-        throw new Error(`Admin by ${admin_id} does not exist`);
-      }
-
       const post_details = merge({}, postDetails, {
-        author: admin,
+        author: _id,
       });
 
       const created_post = await createPost({
@@ -110,7 +102,7 @@ export default function makeCreatePostController({
           title: created_post?.title,
           description: created_post?.description,
           date_modified: created_post?.updated_at,
-          author: admin?.full_name,
+          author: full_name,
         },
       });
 

@@ -1,47 +1,41 @@
-import makeSignInController from "./sign-in";
-import makeSignOutController from "./sign-out";
-import makeSignUpController from "./sign-up";
-import makeGetMeController from "./get-me";
-import makeSignInWithGoogleController from "./sign-in-with-google";
-import makeEnable2FAConfirmationController from "./enable-2fa-confirmation";
-import makeDisable2FAConfirmationController from "./disable-2fa-confirmation";
-import makeEnable2FAController from "./enable-2fa";
-import makeDisable2FAController from "./disable-2fa";
-import makeVerify2FAController from "./verify-2fa";
-
-import { getSubscriptionByEmail } from "../../../../use-cases/subscription";
-import { hashPassword, verifyPassword } from "../../../../config/password";
-import {
-  getUserByEmail,
-  getUser,
-  createUser,
-  updateUser,
-} from "../../../../use-cases/user";
-import {
-  getTwoFactorAuthenticationByEmailAndCode,
-  createTwoFactorAuthentication,
-  hardDeleteTwoFactorAuthentication,
-  getTwoFactorAuthenticationByEmail,
-} from "../../../../use-cases/two-factor-authentication";
-import {
-  generateAccessToken,
-  verifyAccessToken,
-} from "../../../../config/accessTokenManager";
-import { logger } from "../../../../config/logs/logger";
 import moment from "moment";
+import { generateAccessToken } from "../../../../config/accessTokenManager";
 import {
   getEmailContent,
   renderEmailContent,
   sendEmail,
 } from "../../../../config/emailManager";
+import { logger } from "../../../../config/logs/logger";
+import { hashPassword, verifyPassword } from "../../../../config/password";
 import { generateQRCode } from "../../../../config/qrcode";
+import { getSubscriptionByEmail } from "../../../../use-cases/subscription";
+import {
+  createTwoFactorAuthentication,
+  getTwoFactorAuthenticationByEmail,
+  getTwoFactorAuthenticationByEmailAndCode,
+  hardDeleteTwoFactorAuthentication,
+} from "../../../../use-cases/two-factor-authentication";
+import {
+  createUser,
+  getUserByEmail,
+  updateUser,
+} from "../../../../use-cases/user";
+import makeDisable2FAController from "./disable-2fa";
+import makeDisable2FAConfirmationController from "./disable-2fa-confirmation";
+import makeEnable2FAController from "./enable-2fa";
+import makeEnable2FAConfirmationController from "./enable-2fa-confirmation";
+import makeGetMeController from "./get-me";
+import makeSignInController from "./sign-in";
+import makeSignInWithGoogleController from "./sign-in-with-google";
+import makeSignOutController from "./sign-out";
+import makeSignUpController from "./sign-up";
+import makeVerify2FAController from "./verify-2fa";
 
 const verify2FAController = makeVerify2FAController({
   getUserByEmail,
 });
 
 const disable2FAController = makeDisable2FAController({
-  getUser,
   updateUser,
   getTwoFactorAuthenticationByEmailAndCode,
   hardDeleteTwoFactorAuthentication,
@@ -49,7 +43,6 @@ const disable2FAController = makeDisable2FAController({
 });
 
 const enable2FAController = makeEnable2FAController({
-  getUser,
   updateUser,
   getTwoFactorAuthenticationByEmailAndCode,
   hardDeleteTwoFactorAuthentication,
@@ -62,7 +55,6 @@ const disable2FAConfirmationController = makeDisable2FAConfirmationController({
   getTwoFactorAuthenticationByEmail,
   hardDeleteTwoFactorAuthentication,
   getTwoFactorAuthenticationByEmailAndCode,
-  getUser,
   getEmailContent,
   renderEmailContent,
   sendEmail,
@@ -75,7 +67,6 @@ const enable2FAConfirmationController = makeEnable2FAConfirmationController({
   getTwoFactorAuthenticationByEmail,
   hardDeleteTwoFactorAuthentication,
   getTwoFactorAuthenticationByEmailAndCode,
-  getUser,
   getEmailContent,
   renderEmailContent,
   sendEmail,
@@ -84,12 +75,10 @@ const enable2FAConfirmationController = makeEnable2FAConfirmationController({
 });
 
 const signInWithGoogleController = makeSignInWithGoogleController({
-  getUserByEmail,
   generateAccessToken,
 });
 
 const getMeController = makeGetMeController({
-  getUser,
   getSubscriptionByEmail,
   updateUser,
 });
@@ -100,9 +89,7 @@ const signInController = makeSignInController({
   verifyPassword,
 });
 
-const signOutController = makeSignOutController({
-  getUserByEmail,
-});
+const signOutController = makeSignOutController();
 
 const signUpController = makeSignUpController({
   createUser,
@@ -125,14 +112,14 @@ export default Object.freeze({
 });
 
 export {
+  disable2FAConfirmationController,
+  disable2FAController,
+  enable2FAConfirmationController,
+  enable2FAController,
+  getMeController,
   signInController,
+  signInWithGoogleController,
   signOutController,
   signUpController,
-  getMeController,
-  signInWithGoogleController,
-  enable2FAConfirmationController,
-  disable2FAConfirmationController,
-  enable2FAController,
-  disable2FAController,
   verify2FAController,
 };

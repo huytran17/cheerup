@@ -1,4 +1,3 @@
-import { GetUser } from "../../../../use-cases/user/get-user";
 import {
   IUpdateUserPayload,
   UpdateUser,
@@ -7,15 +6,11 @@ import { Logger } from "winston";
 import { Request } from "express";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { isEmpty } from "../../../../utils/is-empty";
-import IUser from "../../../../database/interfaces/user";
 
 export default function makeUpdateUserController({
-  getUser,
   updateUser,
   logger,
 }: {
-  getUser: GetUser;
   updateUser: UpdateUser;
   logger: Logger;
 }) {
@@ -31,16 +26,9 @@ export default function makeUpdateUserController({
         get(httpRequest, "context.validated", {})
       );
 
-      const { _id } = <IUser>get(httpRequest, "context.user", {});
-
-      const exists = await getUser({ _id });
-      if (isEmpty(exists)) {
-        throw new Error(`User by ${_id} does not exist`);
-      }
-
       const updated_user = await updateUser({ userDetails });
 
-      logger.verbose(`Updated user ${exists.email}`);
+      logger.verbose(`Updated user ${updated_user.email}`);
 
       return {
         headers,

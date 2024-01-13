@@ -1,22 +1,22 @@
 import moment from "moment";
-import { hashPassword } from "../../../../config/password";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakeAdmin, fakeUser } from "../../../../../__tests__/__mock__";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { logger } from "../../../../../__tests__/jest-logger";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeUserDb from "../../../make-user-db";
-import makeAdminDb from "../../../make-admin-db";
-import { UserModel, AdminModel } from "../../../models";
+import { hashPassword } from "../../../../config/password";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import IUser from "../../../../database/interfaces/user";
 import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
 import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeGetUserByEmail from "../../../../use-cases/user/get-user-by-email";
+import makeAdminDb from "../../../make-admin-db";
+import makeUserDb from "../../../make-user-db";
+import { AdminModel, UserModel } from "../../../models";
 import makeCreateUserController from "./create-user";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
-import IUser from "../../../../database/interfaces/user";
 
 describe("createUser", () => {
   beforeAll(async () => await connectDatabase());

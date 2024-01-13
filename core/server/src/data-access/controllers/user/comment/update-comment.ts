@@ -4,7 +4,6 @@ import {
   UpdateComment,
 } from "../../../../use-cases/comment/update-comment";
 import { GetPost } from "../../../../use-cases/post/get-post";
-import { GetUser } from "../../../../use-cases/user/get-user";
 import { Request } from "express";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -15,12 +14,10 @@ export default function makeUpdateCommentController({
   getComment,
   updateComment,
   getPost,
-  getUser,
 }: {
   getComment: GetComment;
   updateComment: UpdateComment;
   getPost: GetPost;
-  getUser: GetUser;
 }) {
   return async function updateCommentController(
     httpRequest: Request & { context: {} }
@@ -35,7 +32,6 @@ export default function makeUpdateCommentController({
       );
 
       const { _id: comment_id } = commentDetails;
-      const { _id: user_id } = <IUser>get(httpRequest, "context.user", {});
 
       const exists = await getComment({
         _id: comment_id,
@@ -46,9 +42,13 @@ export default function makeUpdateCommentController({
         throw new Error(`Comment by ${comment_id} does not exist`);
       }
 
+      const { _id, is_blocked_comment } = <IUser>(
+        get(httpRequest, "context.user", {})
+      );
+
       const comment_user_id = get(exists, "user._id");
       const user_not_own_comment =
-        comment_user_id.toString() !== user_id.toString();
+        comment_user_id.toString() !== _id.toString();
 
       if (user_not_own_comment) {
         throw new Error(`You have not own this comment`);
@@ -70,19 +70,8 @@ export default function makeUpdateCommentController({
         throw new Error(`Post by ${post_id} has been blocked from comments`);
       }
 
-      const user_exists = await getUser({ _id: user_id });
-
-      if (isEmpty(user_exists)) {
-        throw new Error(`User by ${user_id} does not exist`);
-      }
-
-      const is_user_blocked_comment = get(
-        user_exists,
-        "is_blocked_comment",
-        false
-      );
-      if (is_user_blocked_comment) {
-        throw new Error(`User by ${user_id} has been blocked from comments`);
+      if (is_blocked_comment) {
+        throw new Error(`User by ${_id} has been blocked from comments`);
       }
 
       const updated_comment = await updateComment({ commentDetails });

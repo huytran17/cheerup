@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { Logger } from "winston";
-import { get, omit, merge } from "lodash";
+import { get, merge } from "lodash";
 import {
   CreateUser,
   ICreateUserPayload,
@@ -30,10 +30,12 @@ export default function makeCreateUserController({
     };
 
     try {
-      const admin = <IAdmin>get(httpRequest, "context.user", {});
+      const { _id } = <IAdmin>get(httpRequest, "context.user", {});
+
       const user = <ICreateUserPayload>(
         get(httpRequest, "context.validated", {})
       );
+
       const { email, password, password_confirmation, is_blocked_comment } =
         user;
 
@@ -47,17 +49,13 @@ export default function makeCreateUserController({
         password_confirmation,
       });
 
-      const final_user_details = merge(
-        {},
-        omit(user, ["_id", "password", "password_confirmation"]),
-        {
-          email,
-          hash_password: hashed_password,
-          created_by: admin,
-          is_blocked_comment,
-          blocked_comment_at: is_blocked_comment ? new Date() : null,
-        }
-      );
+      const final_user_details = merge({}, user, {
+        email,
+        hash_password: hashed_password,
+        created_by: _id,
+        is_blocked_comment,
+        blocked_comment_at: is_blocked_comment ? new Date() : null,
+      });
 
       const created_user = await createUser({
         userDetails: final_user_details,

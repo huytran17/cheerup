@@ -5,7 +5,6 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { TwoFAType } from "../../../../database/interfaces/two-factor-authentication";
 import { GetTwoFactorAuthenticationByEmailAndCode } from "../../../../use-cases/two-factor-authentication/get-two-factor-authentication-by-email-and-code";
 import { HardDeleteTwoFactorAuthentication } from "../../../../use-cases/two-factor-authentication/hard-delete-two-factor-authentication";
-import { GetUser } from "../../../../use-cases/user/get-user";
 import { UpdateUser } from "../../../../use-cases/user/update-user";
 import { isEmpty } from "../../../../utils/is-empty";
 import IUser from "../../../../database/interfaces/user";
@@ -15,13 +14,11 @@ interface IPayload {
 }
 
 export default function makeDisable2FAController({
-  getUser,
   updateUser,
   getTwoFactorAuthenticationByEmailAndCode,
   hardDeleteTwoFactorAuthentication,
   moment,
 }: {
-  getUser: GetUser;
   updateUser: UpdateUser;
   getTwoFactorAuthenticationByEmailAndCode: GetTwoFactorAuthenticationByEmailAndCode;
   hardDeleteTwoFactorAuthentication: HardDeleteTwoFactorAuthentication;
@@ -35,17 +32,12 @@ export default function makeDisable2FAController({
     };
 
     try {
-      const { _id } = <IUser>get(httpRequest, "context.user", {});
+      const exists = <IUser>get(httpRequest, "context.user", {});
+
       const { code } = <IPayload>get(httpRequest, "context.validated", {});
 
-      const user_exists = await getUser({ _id });
-
-      if (isEmpty(user_exists)) {
-        throw new Error(`User by id ${_id} does not exist`);
-      }
-
       const two_fa = await getTwoFactorAuthenticationByEmailAndCode({
-        email: user_exists.email,
+        email: exists.email,
         code,
         type: TwoFAType.DISABLE,
       });
@@ -60,7 +52,7 @@ export default function makeDisable2FAController({
         throw new Error(`Two-factor authentication code is expired ${code}`);
       }
 
-      const userDetails = merge({}, user_exists, {
+      const userDetails = merge({}, exists, {
         is_enabled_2fa: false,
         tfa_secret: null,
       });

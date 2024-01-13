@@ -35,12 +35,13 @@ export default function makeGetCommentsByParentController({
       const { _id } = <IGetCommentsByParentPayload>(
         get(httpRequest, "context.validated", {})
       );
-      const { _id: user_id } = <IUser>get(httpRequest, "context.user") || {};
 
       const comment_exists = await getComment({ _id });
       if (isEmpty(comment_exists)) {
         throw new Error(`Comment by ${_id} does not exist`);
       }
+
+      const { _id: user_id } = <IUser>get(httpRequest, "context.user") || {};
 
       const comments = await getCommentsByParent({ _id });
 

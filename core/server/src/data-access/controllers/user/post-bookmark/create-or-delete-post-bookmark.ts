@@ -1,7 +1,6 @@
 import { CreatePostBookmark } from "../../../../use-cases/post-bookmark/create-post-bookmark";
 import { HardDeletePostBookmark } from "../../../../use-cases/post-bookmark/hard-delete-post-bookmark";
 import { GetPost } from "../../../../use-cases/post/get-post";
-import { GetUser } from "../../../../use-cases/user/get-user";
 import { GetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
 import { Request } from "express";
 import { get, merge } from "lodash";
@@ -19,14 +18,12 @@ export default function makeCreateOrDeletePostBookmarkController({
   hardDeletePostBookmark,
   getPostBookmarkByUserAndPost,
   getPost,
-  getUser,
   moment,
 }: {
   createPostBookmark: CreatePostBookmark;
   hardDeletePostBookmark: HardDeletePostBookmark;
   getPostBookmarkByUserAndPost: GetPostBookmarkByUserAndPost;
   getPost: GetPost;
-  getUser: GetUser;
   moment: typeof Moment;
 }) {
   return async function createOrDeletePostBookmarkController(
@@ -37,14 +34,6 @@ export default function makeCreateOrDeletePostBookmarkController({
     };
 
     try {
-      const { _id: user_id } = <IUser>get(httpRequest, "context.user", {});
-
-      const user_exists = await getUser({ _id: user_id });
-
-      if (isEmpty(user_exists)) {
-        throw new Error(`User by id ${user_id} does not exists`);
-      }
-
       const { post: post_id } = <IPayload>(
         get(httpRequest, "context.validated", {})
       );
@@ -55,8 +44,10 @@ export default function makeCreateOrDeletePostBookmarkController({
         throw new Error(`Post by id ${post_id} does not exists`);
       }
 
+      const exists = <IUser>get(httpRequest, "context.user", {});
+
       const post_bookmark_exists = await getPostBookmarkByUserAndPost({
-        user_id,
+        user_id: exists._id,
         post_id,
       });
 
@@ -66,7 +57,7 @@ export default function makeCreateOrDeletePostBookmarkController({
         const post_bookmark_details = merge(
           {},
           {
-            user: user_exists,
+            user: exists,
             post: post_exists,
             timeline_date: moment(new Date()).format("YYYY-MM-DD"),
           }

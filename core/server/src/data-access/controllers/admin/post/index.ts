@@ -4,7 +4,6 @@ import {
   sendEmail,
 } from "../../../../config/emailManager";
 import { logger } from "../../../../config/logs/logger";
-import { getAdmin } from "../../../../use-cases/admin";
 import {
   createPost,
   deletePost,
@@ -74,7 +73,6 @@ const getPostsController = makeGetPostsController({
 
 const createPostController = makeCreatePostController({
   createPost,
-  getAdmin,
   getActivatingSubscriptions,
   getEmailContent,
   renderEmailContent,

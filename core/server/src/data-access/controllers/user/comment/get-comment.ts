@@ -33,8 +33,6 @@ export default function makeGetCommentController({
         get(httpRequest, "context.validated", {})
       );
 
-      const { _id: user_id } = <IUser>get(httpRequest, "context.user", {});
-
       const exists = await getComment({
         _id: comment_id,
         is_only_parent: false,
@@ -44,6 +42,8 @@ export default function makeGetCommentController({
       if (isEmpty(exists)) {
         throw new Error(`Comment ${comment_id} does not exists`);
       }
+
+      const { _id: user_id } = <IUser>get(httpRequest, "context.user", {});
 
       const map_meta_data = async (comment: IComment) => {
         const likes_count = await countCommentLikeByCommentAndType({

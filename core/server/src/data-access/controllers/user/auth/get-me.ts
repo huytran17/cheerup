@@ -1,18 +1,14 @@
 import { Request } from "express";
-import { GetUser } from "../../../../use-cases/user/get-user";
 import { GetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
 import { UpdateUser } from "../../../../use-cases/user/update-user";
 import { get, merge, omit } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { isEmpty } from "../../../../utils/is-empty";
 import IUser from "../../../../database/interfaces/user";
 
 export default function makeGetMeController({
-  getUser,
   getSubscriptionByEmail,
   updateUser,
 }: {
-  getUser: GetUser;
   getSubscriptionByEmail: GetSubscriptionByEmail;
   updateUser: UpdateUser;
 }) {
@@ -26,13 +22,7 @@ export default function makeGetMeController({
     try {
       const client_ip: string = get(httpRequest, "context.ip", "");
 
-      const { _id, email } = <IUser>get(httpRequest, "context.user", {});
-
-      const exists = await getUser({ _id });
-
-      if (isEmpty(exists)) {
-        throw new Error(`User by id ${_id} does not exist`);
-      }
+      const exists = <IUser>get(httpRequest, "context.user", {});
 
       await updateUser({
         userDetails: merge({}, exists, {
@@ -40,7 +30,9 @@ export default function makeGetMeController({
         }),
       });
 
-      const subscription = await getSubscriptionByEmail({ email });
+      const subscription = await getSubscriptionByEmail({
+        email: exists.email,
+      });
       const is_subscribed = get(subscription, "is_active", false);
 
       const final_user_data = merge(

@@ -1,30 +1,28 @@
 import {
-  getComment,
-  hardDeleteComment,
-  updateComment,
-  createComment,
-  getComments,
-  getCommentsByPostPaginated,
-  replyComment,
   countCommentsByPost,
+  createComment,
+  getComment,
+  getComments,
   getCommentsByParent,
+  getCommentsByPostPaginated,
+  hardDeleteComment,
+  replyComment,
+  updateComment,
 } from "../../../../use-cases/comment";
 import {
   countCommentLikeByCommentAndType,
   getCommentLikeByUserAndComment,
 } from "../../../../use-cases/comment-like";
 import { getPost } from "../../../../use-cases/post";
-import { getUser } from "../../../../use-cases/user";
-
-import makeGetCommentController from "./get-comment";
-import makeHardDeleteCommentController from "./hard-delete-comment";
-import makeUpdateCommentController from "./update-comment";
-import makeCreateCommentController from "./create-comment";
-import makeGetCommentsController from "./get-comments";
-import makeGetCommentsByPostPaginatedController from "./get-comments-by-post-paginated";
-import makeReplyCommentController from "./reply-comment";
 import makeCountCommentsByPostController from "./count-comments-by-post";
+import makeCreateCommentController from "./create-comment";
+import makeGetCommentController from "./get-comment";
+import makeGetCommentsController from "./get-comments";
 import makeGetCommentsByParentController from "./get-comments-by-parent";
+import makeGetCommentsByPostPaginatedController from "./get-comments-by-post-paginated";
+import makeHardDeleteCommentController from "./hard-delete-comment";
+import makeReplyCommentController from "./reply-comment";
+import makeUpdateCommentController from "./update-comment";
 
 const getCommentsByParentController = makeGetCommentsByParentController({
   getCommentsByParent,
@@ -43,7 +41,6 @@ const replyCommentController = makeReplyCommentController({
   getComment,
   updateComment,
   getPost,
-  getUser,
 });
 
 const getCommentsByPostPaginatedController =
@@ -61,7 +58,6 @@ const getCommentsController = makeGetCommentsController({
 const createCommentController = makeCreateCommentController({
   createComment,
   getPost,
-  getUser,
   countCommentLikeByCommentAndType,
   getCommentLikeByUserAndComment,
 });
@@ -76,14 +72,12 @@ const hardDeleteCommentController = makeHardDeleteCommentController({
   getComment,
   hardDeleteComment,
   getPost,
-  getUser,
 });
 
 const updateCommentController = makeUpdateCommentController({
   getComment,
   updateComment,
   getPost,
-  getUser,
 });
 
 export default Object.freeze({
@@ -99,13 +93,13 @@ export default Object.freeze({
 });
 
 export {
-  getCommentController,
-  hardDeleteCommentController,
-  updateCommentController,
-  createCommentController,
-  getCommentsController,
-  getCommentsByPostPaginatedController,
-  replyCommentController,
   countCommentsByPostController,
+  createCommentController,
+  getCommentController,
   getCommentsByParentController,
+  getCommentsByPostPaginatedController,
+  getCommentsController,
+  hardDeleteCommentController,
+  replyCommentController,
+  updateCommentController,
 };

@@ -1,7 +1,6 @@
 import { Request } from "express";
 import Moment from "moment";
 import { TwoFAType } from "../../../../database/interfaces/two-factor-authentication";
-import { GetUser } from "../../../../use-cases/user/get-user";
 import { GetTwoFactorAuthenticationByEmailAndCode } from "../../../../use-cases/two-factor-authentication/get-two-factor-authentication-by-email-and-code";
 import { HardDeleteTwoFactorAuthentication } from "../../../../use-cases/two-factor-authentication/hard-delete-two-factor-authentication";
 import { UpdateUser } from "../../../../use-cases/user/update-user";
@@ -17,14 +16,12 @@ interface IPayload {
 }
 
 export default function makeEnable2FAController({
-  getUser,
   updateUser,
   getTwoFactorAuthenticationByEmailAndCode,
   hardDeleteTwoFactorAuthentication,
   generateQRCode,
   moment,
 }: {
-  getUser: GetUser;
   updateUser: UpdateUser;
   getTwoFactorAuthenticationByEmailAndCode: GetTwoFactorAuthenticationByEmailAndCode;
   hardDeleteTwoFactorAuthentication: HardDeleteTwoFactorAuthentication;
@@ -39,17 +36,15 @@ export default function makeEnable2FAController({
     };
 
     try {
-      const { _id } = <IUser>get(httpRequest, "context.user", {});
+      const exists = <IUser>get(httpRequest, "context.user", {});
       const { code } = <IPayload>get(httpRequest, "context.validated", {});
 
-      const user_exists = await getUser({ _id });
-
-      if (isEmpty(user_exists)) {
-        throw new Error(`User by id ${_id} does not exist`);
+      if (isEmpty(exists)) {
+        throw new Error(`User does not exist`);
       }
 
       const two_fa = await getTwoFactorAuthenticationByEmailAndCode({
-        email: user_exists.email,
+        email: exists.email,
         code,
         type: TwoFAType.ENABLE,
       });
@@ -64,17 +59,17 @@ export default function makeEnable2FAController({
         throw new Error(`Two-factor authentication code is expired ${code}`);
       }
 
-      const tfa_secret = user_exists.tfa_secret || tfa.generateSecret();
+      const tfa_secret = exists.tfa_secret || tfa.generateSecret();
 
       const otp_token = tfa.generateToken({
-        email: user_exists.email,
+        email: exists.email,
         service_name: process.env.APP_NAME,
         secret: tfa_secret,
       });
 
       const qr_uri = await generateQRCode({ otp_auth: otp_token });
 
-      const userDetails = merge({}, user_exists, {
+      const userDetails = merge({}, exists, {
         is_enabled_2fa: true,
         tfa_secret,
       });

@@ -1,4 +1,3 @@
-import { GetUser } from "../../../../use-cases/user/get-user";
 import {
   IUpdateUserPayload,
   UpdateUser,
@@ -9,17 +8,14 @@ import { get, merge } from "lodash";
 import { HashPassword } from "../../../../config/password/hash-password";
 import { VerifyPassword } from "../../../../config/password/verify-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { isEmpty } from "../../../../utils/is-empty";
 import IUser from "../../../../database/interfaces/user";
 
 export default function makeUpdatePasswordController({
-  getUser,
   updateUser,
   hashPassword,
   verifyPassword,
   logger,
 }: {
-  getUser: GetUser;
   updateUser: UpdateUser;
   hashPassword: HashPassword;
   verifyPassword: VerifyPassword;
@@ -37,16 +33,13 @@ export default function makeUpdatePasswordController({
         IUpdateUserPayload
       >get(httpRequest, "context.validated", {});
 
-      const { _id } = <IUser>get(httpRequest, "context.user", {});
-
-      const exists = await getUser({ _id });
-      if (isEmpty(exists)) {
-        throw new Error(`User by ${_id} does not exist`);
-      }
+      const exists = <IUser>get(httpRequest, "context.user", {});
 
       const is_socialite_account = get(exists, "socialite.provider");
       if (is_socialite_account) {
-        throw new Error(`Can not update password for socialite account ${_id}`);
+        throw new Error(
+          `Can not update password for socialite account ${exists._id}`
+        );
       }
 
       const current_password = get(exists, "hash_password");

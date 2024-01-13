@@ -1,12 +1,10 @@
-import { getUser } from "../../../../use-cases/user";
+import { getComment } from "../../../../use-cases/comment";
 import {
   createCommentLike,
-  updateCommentLike,
-  hardDeleteCommentLike,
   getCommentLikeByUserAndComment,
+  hardDeleteCommentLike,
+  updateCommentLike,
 } from "../../../../use-cases/comment-like";
-import { getComment } from "../../../../use-cases/comment";
-
 import makeCreateOrUpdateCommentLikeController from "./create-or-update-comment-like";
 
 const createOrUpdateCommentLikeController =
@@ -14,7 +12,6 @@ const createOrUpdateCommentLikeController =
     createCommentLike,
     updateCommentLike,
     hardDeleteCommentLike,
-    getUser,
     getComment,
     getCommentLikeByUserAndComment,
   });

@@ -1,17 +1,13 @@
 import { get } from "lodash";
 import { Request } from "express";
-import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { GenerateAccessToken } from "../../../../config/accessTokenManager/generate-access-token";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { isEmpty } from "../../../../utils/is-empty";
 import { renderPageContent } from "../../../../config/client";
 import IUser from "../../../../database/interfaces/user";
 
 export default function makeSignInWithGoogleController({
-  getUserByEmail,
   generateAccessToken,
 }: {
-  getUserByEmail: GetUserByEmail;
   generateAccessToken: GenerateAccessToken;
 }) {
   return async function signInWithGoogleController(
@@ -33,12 +29,6 @@ export default function makeSignInWithGoogleController({
 
     try {
       const { email } = <IUser>get(httpRequest, "context.user", {});
-
-      const exists = await getUserByEmail({ email });
-
-      if (isEmpty(exists)) {
-        throw new Error(`User by ${email} does not exist`);
-      }
 
       const access_token = await generateAccessToken(
         { email },

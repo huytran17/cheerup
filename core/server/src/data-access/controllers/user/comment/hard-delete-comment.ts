@@ -3,7 +3,6 @@ import {
   HardDeleteComment,
   IHardDeleteCommentPayload,
 } from "../../../../use-cases/comment/hard-delete-comment";
-import { GetUser } from "../../../../use-cases/user/get-user";
 import { GetPost } from "../../../../use-cases/post/get-post";
 import { Request } from "express";
 import { get } from "lodash";
@@ -15,12 +14,10 @@ export default function makeDeleteCommentController({
   getComment,
   hardDeleteComment,
   getPost,
-  getUser,
 }: {
   getComment: GetComment;
   hardDeleteComment: HardDeleteComment;
   getPost: GetPost;
-  getUser: GetUser;
 }) {
   return async function deleteCommentController(
     httpRequest: Request & { context: {} }
@@ -30,7 +27,6 @@ export default function makeDeleteCommentController({
     };
 
     try {
-      const { _id: user_id } = <IUser>get(httpRequest, "context.user", {});
       const { _id: comment_id } = <IHardDeleteCommentPayload>(
         get(httpRequest, "context.validated", {})
       );
@@ -44,9 +40,13 @@ export default function makeDeleteCommentController({
         throw new Error(`Comment by ${comment_id} does not exist`);
       }
 
+      const { _id, is_blocked_comment } = <IUser>(
+        get(httpRequest, "context.user", {})
+      );
+
       const comment_user_id = get(exists, "user._id");
       const user_not_own_comment =
-        comment_user_id.toString() !== user_id.toString();
+        comment_user_id.toString() !== _id.toString();
 
       if (user_not_own_comment) {
         throw new Error(`You have not own this comment`);
@@ -68,19 +68,8 @@ export default function makeDeleteCommentController({
         throw new Error(`Post by ${post_id} has been blocked from comments`);
       }
 
-      const user_exists = await getUser({ _id: user_id });
-
-      if (isEmpty(user_exists)) {
-        throw new Error(`User by ${user_id} does not exist`);
-      }
-
-      const is_user_blocked_comment = get(
-        user_exists,
-        "is_blocked_comment",
-        false
-      );
-      if (is_user_blocked_comment) {
-        throw new Error(`User by ${user_id} has been blocked from comments`);
+      if (is_blocked_comment) {
+        throw new Error(`User by ${_id} has been blocked from comments`);
       }
 
       const deleted_comment = await hardDeleteComment({ _id: comment_id });

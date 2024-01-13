@@ -20,7 +20,6 @@ import makeUpdateCommentLike from "../../../../use-cases/comment-like/update-com
 import makeCreateComment from "../../../../use-cases/comment/create-comment";
 import makeGetCommentLikeByUserAndPost from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
 import makeCreateUser from "../../../../use-cases/user/create-user";
-import makeGetUser from "../../../../use-cases/user/get-user";
 import makeGetComment from "../../../../use-cases/comment/get-comment";
 import makeCreateOrUpdateCommentLikeController from "./create-or-update-comment-like";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -58,9 +57,6 @@ describe("createOrUpdateCommentLike", () => {
     const createComment = makeCreateComment({
       commentDb,
     });
-    const getUser = makeGetUser({
-      userDb,
-    });
     const getComment = makeGetComment({
       commentDb,
     });
@@ -88,7 +84,6 @@ describe("createOrUpdateCommentLike", () => {
         createCommentLike,
         updateCommentLike,
         hardDeleteCommentLike,
-        getUser,
         getComment,
         getCommentLikeByUserAndComment,
       }

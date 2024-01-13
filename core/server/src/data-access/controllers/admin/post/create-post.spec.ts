@@ -1,29 +1,28 @@
 import moment from "moment";
+import { fakeAdmin, fakePost } from "../../../../../__tests__/__mock__";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
+import { logger } from "../../../../../__tests__/jest-logger";
 import {
-  connectDatabase,
   clearDatabase,
+  connectDatabase,
 } from "../../../../../__tests__/jest-mongo";
+import { redis } from "../../../../../__tests__/jest-redis";
 import {
   getEmailContent,
   renderEmailContent,
   sendEmail,
 } from "../../../../config/emailManager";
-import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
-import { fakePost, fakeAdmin } from "../../../../../__tests__/__mock__";
-import { logger } from "../../../../../__tests__/jest-logger";
-import { redis } from "../../../../../__tests__/jest-redis";
-import makePostDb from "../../../make-post-db";
-import makeAdminDb from "../../../make-admin-db";
-import makeSubscriptionDb from "../../../make-subscription-db";
-import { PostModel, AdminModel, SubscriptionModel } from "../../../models";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import IPost from "../../../../database/interfaces/post";
+import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
 import makeCreatePost from "../../../../use-cases/post/create-post";
 import makeUpdatePost from "../../../../use-cases/post/update-post";
 import makeGetActivatingSubscriptions from "../../../../use-cases/subscription/get-activating-subscriptions";
-import makeGetAdmin from "../../../../use-cases/admin/get-admin";
-import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
+import makeAdminDb from "../../../make-admin-db";
+import makePostDb from "../../../make-post-db";
+import makeSubscriptionDb from "../../../make-subscription-db";
+import { AdminModel, PostModel, SubscriptionModel } from "../../../models";
 import makeCreatePostController from "./create-post";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
-import IPost from "../../../../database/interfaces/post";
 
 describe("createPost", () => {
   beforeAll(async () => await connectDatabase());
@@ -53,7 +52,6 @@ describe("createPost", () => {
     const createAdmin = makeCreateAdmin({ adminDb });
     const createPost = makeCreatePost({ postDb });
     const updatePost = makeUpdatePost({ postDb });
-    const getAdmin = makeGetAdmin({ adminDb });
     const getActivatingSubscriptions = makeGetActivatingSubscriptions({
       subscriptionDb,
     });
@@ -65,7 +63,6 @@ describe("createPost", () => {
 
     const createPostController = makeCreatePostController({
       createPost,
-      getAdmin,
       getActivatingSubscriptions,
       getEmailContent,
       renderEmailContent,

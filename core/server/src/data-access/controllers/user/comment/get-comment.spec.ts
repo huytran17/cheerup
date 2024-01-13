@@ -1,23 +1,23 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakeComment, fakeUser } from "../../../../../__tests__/__mock__";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeCommentDb from "../../../make-comment-db";
-import makeCommentLikeDb from "../../../make-comment-like-db";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IComment from "../../../../database/interfaces/comment";
-import { CommentModel, CommentLikeModel, UserModel } from "../../../models";
-import makeCreateComment from "../../../../use-cases/comment/create-comment";
-import makeGetComment from "../../../../use-cases/comment/get-comment";
-import makeGetCommentController from "./get-comment";
 import makeCountCommentLikeByCommentAndType from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
 import makeGetCommentLikeByUserAndComment from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
+import makeCreateComment from "../../../../use-cases/comment/create-comment";
+import makeGetComment from "../../../../use-cases/comment/get-comment";
 import makeCreateUser from "../../../../use-cases/user/create-user";
+import makeCommentDb from "../../../make-comment-db";
+import makeCommentLikeDb from "../../../make-comment-like-db";
 import makeUserDb from "../../../make-user-db";
+import { CommentLikeModel, CommentModel, UserModel } from "../../../models";
+import makeGetCommentController from "./get-comment";
 
 describe("getComment", () => {
   beforeAll(async () => await connectDatabase());

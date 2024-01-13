@@ -10,7 +10,6 @@ import { redis } from "../../../../../__tests__/jest-redis";
 import makeUserDb from "../../../make-user-db";
 import { UserModel } from "../../../models";
 import makeUpdateUser from "../../../../use-cases/user/update-user";
-import makeGetUser from "../../../../use-cases/user/get-user";
 import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeUpdateUserController from "./update-user";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -34,9 +33,7 @@ describe("updateUser", () => {
     });
 
     const createUser = makeCreateUser({ userDb });
-    const getUser = makeGetUser({
-      userDb,
-    });
+
     const updateUser = makeUpdateUser({
       userDb,
     });
@@ -48,7 +45,6 @@ describe("updateUser", () => {
     });
 
     const updateUserController = makeUpdateUserController({
-      getUser,
       updateUser,
       logger,
     });

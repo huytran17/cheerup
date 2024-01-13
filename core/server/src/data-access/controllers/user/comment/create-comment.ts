@@ -1,5 +1,4 @@
 import { GetPost } from "../../../../use-cases/post/get-post";
-import { GetUser } from "../../../../use-cases/user/get-user";
 import {
   CreateComment,
   ICreateCommentPayload,
@@ -17,13 +16,11 @@ import IUser from "../../../../database/interfaces/user";
 export default function makeCreateCommentController({
   createComment,
   getPost,
-  getUser,
   countCommentLikeByCommentAndType,
   getCommentLikeByUserAndComment,
 }: {
   createComment: CreateComment;
   getPost: GetPost;
-  getUser: GetUser;
   countCommentLikeByCommentAndType: CountCommentLikeByCommentAndType;
   getCommentLikeByUserAndComment: GetCommentLikeByUserAndComment;
 }) {
@@ -35,7 +32,6 @@ export default function makeCreateCommentController({
     };
 
     try {
-      const { _id: user_id } = <IUser>get(httpRequest, "context.user", {});
       const commentDetails = <ICreateCommentPayload>(
         get(httpRequest, "context.validated", {})
       );
@@ -56,23 +52,16 @@ export default function makeCreateCommentController({
         throw new Error(`Post by ${post_id} has been blocked from comments`);
       }
 
-      const user_exists = await getUser({ _id: user_id });
-
-      if (isEmpty(user_exists)) {
-        throw new Error(`User by ${user_id} does not exist`);
-      }
-
-      const is_user_blocked_comment = get(
-        user_exists,
-        "is_blocked_comment",
-        false
+      const { _id, is_blocked_comment } = <IUser>(
+        get(httpRequest, "context.user", {})
       );
-      if (is_user_blocked_comment) {
-        throw new Error(`User by ${user_id} has been blocked from comments`);
+
+      if (is_blocked_comment) {
+        throw new Error(`User by ${_id} has been blocked from comments`);
       }
 
       const final_comment_data = merge({}, commentDetails, {
-        user: user_id,
+        user: _id,
       });
 
       const created_comment = await createComment({
@@ -91,7 +80,7 @@ export default function makeCreateCommentController({
         });
 
         const comment_liked_by_user = await getCommentLikeByUserAndComment({
-          user_id,
+          user_id: _id,
           comment_id: comment._id,
         });
 

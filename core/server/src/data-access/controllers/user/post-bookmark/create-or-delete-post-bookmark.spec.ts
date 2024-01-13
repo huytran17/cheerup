@@ -18,7 +18,6 @@ import makeHardDeletePostBookmark from "../../../../use-cases/post-bookmark/hard
 import makeGetPostBookmarkByUserAndPost from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
 import makeCreatePostBookmark from "../../../../use-cases/post-bookmark/create-post-bookmark";
 import makeCreateUser from "../../../../use-cases/user/create-user";
-import makeGetUser from "../../../../use-cases/user/get-user";
 import makeGetPost from "../../../../use-cases/post/get-post";
 import makeCreatePost from "../../../../use-cases/post/create-post";
 import makeCreateOrDeletePostBookmark from "./create-or-delete-post-bookmark";
@@ -56,7 +55,6 @@ describe("createOrDeletePostBookmark", () => {
       postBookmarkDb,
     });
     const createUser = makeCreateUser({ userDb });
-    const getUser = makeGetUser({ userDb });
     const getPost = makeGetPost({ postDb });
     const createPost = makeCreatePost({ postDb });
     const getPostBookmarkByUserAndPost = makeGetPostBookmarkByUserAndPost({
@@ -79,7 +77,6 @@ describe("createOrDeletePostBookmark", () => {
       createPostBookmark,
       hardDeletePostBookmark,
       getPostBookmarkByUserAndPost,
-      getUser,
       getPost,
       moment,
     });

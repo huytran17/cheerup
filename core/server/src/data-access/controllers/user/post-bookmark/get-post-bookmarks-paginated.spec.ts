@@ -19,7 +19,6 @@ import { PostBookmarkModel, CommentModel, UserModel } from "../../../models";
 import makeGetPostBookmarksPaginated from "../../../../use-cases/post-bookmark/get-post-bookmarks-paginated";
 import makeCountCommentsByPost from "../../../../use-cases/comment/count-comments-by-post";
 import makeCreatePostBookmark from "../../../../use-cases/post-bookmark/create-post-bookmark";
-import makeGetUser from "../../../../use-cases/user/get-user";
 import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeGetPostBookmarksPaginatedController from "./get-post-bookmarks-paginated";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -56,9 +55,6 @@ describe("getPostBookmarksPaginated", () => {
     const countCommentsByPost = makeCountCommentsByPost({
       commentDb,
     });
-    const getUser = makeGetUser({
-      userDb,
-    });
     const createUser = makeCreateUser({
       userDb,
     });
@@ -79,7 +75,6 @@ describe("getPostBookmarksPaginated", () => {
         getPostBookmarksPaginated,
         countCommentsByPost,
         readingTimeAnalyzer,
-        getUser,
       });
 
     const request = {

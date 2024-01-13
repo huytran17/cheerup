@@ -9,7 +9,6 @@ import { logger } from "../../../../../__tests__/jest-logger";
 import { redis } from "../../../../../__tests__/jest-redis";
 import makeUserDb from "../../../make-user-db";
 import { UserModel } from "../../../models";
-import makeGetUser from "../../../../use-cases/user/get-user";
 import makeUpdateUser from "../../../../use-cases/user/update-user";
 import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeUpdatePasswordController from "./update-password";
@@ -36,9 +35,6 @@ describe("updatePassword", () => {
 
     const createUser = makeCreateUser({ userDb });
     const updateUser = makeUpdateUser({ userDb });
-    const getUser = makeGetUser({
-      userDb,
-    });
 
     const mock_user_data = fakeUser();
 
@@ -52,7 +48,6 @@ describe("updatePassword", () => {
     });
 
     const updatePasswordController = makeUpdatePasswordController({
-      getUser,
       updateUser,
       hashPassword,
       verifyPassword,

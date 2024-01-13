@@ -11,7 +11,6 @@ import { CreateTwoFactorAuthentication } from "../../../../use-cases/two-factor-
 import { GetTwoFactorAuthenticationByEmailAndCode } from "../../../../use-cases/two-factor-authentication/get-two-factor-authentication-by-email-and-code";
 import { GetTwoFactorAuthenticationByEmail } from "../../../../use-cases/two-factor-authentication/get-two-factor-authentication-by-email";
 import { HardDeleteTwoFactorAuthentication } from "../../../../use-cases/two-factor-authentication/hard-delete-two-factor-authentication";
-import { GetUser } from "../../../../use-cases/user/get-user";
 import { isEmpty } from "../../../../utils/is-empty";
 import { Logger } from "winston";
 import IUser from "../../../../database/interfaces/user";
@@ -21,7 +20,6 @@ export default function makeEnable2FAConfirmationController({
   getTwoFactorAuthenticationByEmail,
   hardDeleteTwoFactorAuthentication,
   getTwoFactorAuthenticationByEmailAndCode,
-  getUser,
   getEmailContent,
   renderEmailContent,
   sendEmail,
@@ -32,7 +30,6 @@ export default function makeEnable2FAConfirmationController({
   getTwoFactorAuthenticationByEmail: GetTwoFactorAuthenticationByEmail;
   hardDeleteTwoFactorAuthentication: HardDeleteTwoFactorAuthentication;
   getTwoFactorAuthenticationByEmailAndCode: GetTwoFactorAuthenticationByEmailAndCode;
-  getUser: GetUser;
   getEmailContent: GetEmailContent;
   renderEmailContent: RenderEmailContent;
   sendEmail: SendEmail;
@@ -47,16 +44,10 @@ export default function makeEnable2FAConfirmationController({
     };
 
     try {
-      const { _id } = <IUser>get(httpRequest, "context.user", {});
-
-      const user_exists = await getUser({ _id });
-
-      if (isEmpty(user_exists)) {
-        throw new Error(`User by ${_id} does not exist`);
-      }
+      const { email } = <IUser>get(httpRequest, "context.user", {});
 
       const existed = await getTwoFactorAuthenticationByEmail({
-        email: user_exists.email,
+        email,
         type: TwoFAType.ENABLE,
       });
 
@@ -76,7 +67,7 @@ export default function makeEnable2FAConfirmationController({
       const get2FAByEmailAndCode = async () =>
         await getTwoFactorAuthenticationByEmailAndCode({
           code,
-          email: user_exists.email,
+          email,
           type: TwoFAType.ENABLE,
         });
 
@@ -93,7 +84,7 @@ export default function makeEnable2FAConfirmationController({
       const twoFactorAuthenticationDetails = {
         code,
         expire_at,
-        email: user_exists.email,
+        email,
         type: TwoFAType.ENABLE,
       };
 
@@ -102,7 +93,7 @@ export default function makeEnable2FAConfirmationController({
       });
 
       const email_content = await getEmailContent({
-        to: user_exists.email,
+        to: email,
         type: "enable-2fa-confirmation",
       });
 
@@ -113,11 +104,11 @@ export default function makeEnable2FAConfirmationController({
         },
       });
 
-      logger.verbose(`Sending email to ${user_exists.email}...`);
+      logger.verbose(`Sending email to ${email}...`);
 
       await sendEmail(rendered_email_content);
 
-      logger.verbose(`Sent email to ${user_exists.email}...`);
+      logger.verbose(`Sent email to ${email}...`);
 
       return {
         headers,

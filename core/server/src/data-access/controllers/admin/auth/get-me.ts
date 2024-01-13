@@ -1,17 +1,9 @@
 import { Request } from "express";
-import {
-  GetAdmin,
-  IGetAdminPayload,
-} from "../../../../use-cases/admin/get-admin";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { isEmpty } from "../../../../utils/is-empty";
+import IAdmin from "../../../../database/interfaces/admin";
 
-export default function makeGetMeController({
-  getAdmin,
-}: {
-  getAdmin: GetAdmin;
-}) {
+export default function makeGetMeController() {
   return async function getMeController(
     httpRequest: Request & { context: {} }
   ) {
@@ -20,12 +12,7 @@ export default function makeGetMeController({
     };
 
     try {
-      const { _id } = <IGetAdminPayload>get(httpRequest, "context.user", {});
-
-      const exists = await getAdmin({ _id });
-      if (isEmpty(exists)) {
-        throw new Error(`Admin ${_id} does not exist`);
-      }
+      const exists = <IAdmin>get(httpRequest, "context.user", {});
 
       return {
         headers,

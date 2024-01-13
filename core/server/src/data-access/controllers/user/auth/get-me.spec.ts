@@ -1,19 +1,18 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
 import { fakeUser } from "../../../../../__tests__/__mock__";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeUserDb from "../../../make-user-db";
-import makeSubscriptionDb from "../../../make-subscription-db";
-import { UserModel, SubscriptionModel } from "../../../models";
-import makeCreateUser from "../../../../use-cases/user/create-user";
-import makeGetUser from "../../../../use-cases/user/get-user";
-import makeGetSubscriptionByEmail from "../../../../use-cases/subscription/get-subscription-by-email";
-import makeUpdateUser from "../../../../use-cases/user/update-user";
-import makeGetMeController from "./get-me";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import makeGetSubscriptionByEmail from "../../../../use-cases/subscription/get-subscription-by-email";
+import makeCreateUser from "../../../../use-cases/user/create-user";
+import makeUpdateUser from "../../../../use-cases/user/update-user";
+import makeSubscriptionDb from "../../../make-subscription-db";
+import makeUserDb from "../../../make-user-db";
+import { SubscriptionModel, UserModel } from "../../../models";
+import makeGetMeController from "./get-me";
 
 describe("getMe", () => {
   beforeAll(async () => await connectDatabase());
@@ -34,7 +33,6 @@ describe("getMe", () => {
     });
 
     const createUser = makeCreateUser({ userDb });
-    const getUser = makeGetUser({ userDb });
     const updateUser = makeUpdateUser({ userDb });
     const getSubscriptionByEmail = makeGetSubscriptionByEmail({
       subscriptionDb,
@@ -44,7 +42,6 @@ describe("getMe", () => {
     const created_user = await createUser({ userDetails: mock_user_data });
 
     const getMeController = makeGetMeController({
-      getUser,
       updateUser,
       getSubscriptionByEmail,
     });

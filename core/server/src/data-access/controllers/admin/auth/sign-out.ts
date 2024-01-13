@@ -1,17 +1,10 @@
-import {
-  GetAdminByEmail,
-  IGetAdminByEmailPayload,
-} from "../../../../use-cases/admin/get-admin-by-email";
 import { Request } from "express";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
+import IAdmin from "../../../../database/interfaces/admin";
 
-export default function makeSignOutController({
-  getAdminByEmail,
-}: {
-  getAdminByEmail: GetAdminByEmail;
-}) {
+export default function makeSignOutController() {
   return async function signOutController(
     httpRequest: Request & { context: {} }
   ) {
@@ -20,13 +13,11 @@ export default function makeSignOutController({
     };
 
     try {
-      const { email } = <IGetAdminByEmailPayload>(
-        get(httpRequest, "context.user", {})
-      );
+      //TODO: remove cookies
+      const exists = <IAdmin>get(httpRequest, "context.user", {});
 
-      const exists = await getAdminByEmail({ email });
       if (isEmpty(exists)) {
-        throw new Error(`Admin by ${email} does not exist`);
+        throw new Error(`Admin does not exist`);
       }
 
       return {

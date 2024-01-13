@@ -1,23 +1,21 @@
+import moment from "moment";
+import { readingTimeAnalyzer } from "../../../../config/reading-time";
+import { countCommentsByPost } from "../../../../use-cases/comment";
+import { getPost } from "../../../../use-cases/post";
 import {
-  hardDeletePostBookmark,
-  getPostBookmarksPaginated,
+  countPostBookmarks,
   createPostBookmark,
   getPostBookmarkByUserAndPost,
-  countPostBookmarks,
+  getPostBookmarksPaginated,
+  hardDeletePostBookmark,
 } from "../../../../use-cases/post-bookmark";
-import { countCommentsByPost } from "../../../../use-cases/comment";
-import { getUser } from "../../../../use-cases/user";
-import { getPost } from "../../../../use-cases/post";
-import { readingTimeAnalyzer } from "../../../../config/reading-time";
-import moment from "moment";
 
-import makeGetPostBookmarksPaginatedController from "./get-post-bookmarks-paginated";
-import makeCreateOrDeletePostBookmarkController from "./create-or-delete-post-bookmark";
 import makeCountPostBookmarkController from "./count-post-bookmarks";
+import makeCreateOrDeletePostBookmarkController from "./create-or-delete-post-bookmark";
+import makeGetPostBookmarksPaginatedController from "./get-post-bookmarks-paginated";
 
 const countPostBookmarkController = makeCountPostBookmarkController({
   countPostBookmarks,
-  getUser,
 });
 
 const createOrDeletePostBookmarkController =
@@ -26,7 +24,6 @@ const createOrDeletePostBookmarkController =
     hardDeletePostBookmark,
     getPostBookmarkByUserAndPost,
     getPost,
-    getUser,
     moment,
   });
 
@@ -35,7 +32,6 @@ const getPostBookmarksPaginatedController =
     getPostBookmarksPaginated,
     countCommentsByPost,
     readingTimeAnalyzer,
-    getUser,
   });
 
 export default Object.freeze({
@@ -45,7 +41,7 @@ export default Object.freeze({
 });
 
 export {
-  getPostBookmarksPaginatedController,
-  createOrDeletePostBookmarkController,
   countPostBookmarkController,
+  createOrDeletePostBookmarkController,
+  getPostBookmarksPaginatedController,
 };

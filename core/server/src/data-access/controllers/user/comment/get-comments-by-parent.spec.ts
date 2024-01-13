@@ -1,24 +1,24 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
 import { fakeComment, fakeUser } from "../../../../../__tests__/__mock__";
+import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeUserDb from "../../../make-user-db";
-import makeCommentDb from "../../../make-comment-db";
-import IComment from "../../../../database/interfaces/comment";
-import { CommentModel, CommentLikeModel, UserModel } from "../../../models";
-import makeCreateUser from "../../../../use-cases/user/create-user";
-import makeCreateComment from "../../../../use-cases/comment/create-comment";
-import makeGetComment from "../../../../use-cases/comment/get-comment";
-import makeGetCommentsByParentController from "./get-comments-by-parent";
-import makeGetCommentsByParent from "../../../../use-cases/comment/get-comments-by-parent";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import IComment from "../../../../database/interfaces/comment";
 import makeCountCommentLikeByCommentAndType from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
 import makeGetCommentLikeByUserAndComment from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
+import makeCreateComment from "../../../../use-cases/comment/create-comment";
+import makeGetComment from "../../../../use-cases/comment/get-comment";
+import makeGetCommentsByParent from "../../../../use-cases/comment/get-comments-by-parent";
+import makeCreateUser from "../../../../use-cases/user/create-user";
+import makeCommentDb from "../../../make-comment-db";
 import makeCommentLikeDb from "../../../make-comment-like-db";
+import makeUserDb from "../../../make-user-db";
+import { CommentLikeModel, CommentModel, UserModel } from "../../../models";
+import makeGetCommentsByParentController from "./get-comments-by-parent";
 
 describe("getCommentsByParent", () => {
   beforeAll(async () => await connectDatabase());

@@ -1,9 +1,5 @@
-import moment from "moment";
 import { merge } from "lodash";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
+import moment from "moment";
 import {
   fakeComment,
   fakePost,
@@ -11,27 +7,31 @@ import {
   fakeUser,
 } from "../../../../../__tests__/__mock__";
 import { ExpectPaginatedResult } from "../../../../../__tests__/__types__/expect-types";
-import IComment from "../../../../database/interfaces/comment";
-import { redis } from "../../../../../__tests__/jest-redis";
-import makeCommentDb from "../../../make-comment-db";
-import makePostDb from "../../../make-post-db";
-import makeUserDb from "../../../make-user-db";
-import makeCommentLikeDb from "../../../make-comment-like-db";
 import {
-  CommentModel,
-  PostModel,
-  CommentLikeModel,
-  UserModel,
-} from "../../../models";
-import makeGetPost from "../../../../use-cases/post/get-post";
-import makeCreateUser from "../../../../use-cases/user/create-user";
-import makeCreatePost from "../../../../use-cases/post/create-post";
-import makeCreateComment from "../../../../use-cases/comment/create-comment";
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
+import { redis } from "../../../../../__tests__/jest-redis";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import IComment from "../../../../database/interfaces/comment";
 import makeCountCommentLikeByCommentAndType from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
 import makeGetCommentLikeByUserAndComment from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
+import makeCreateComment from "../../../../use-cases/comment/create-comment";
 import makeGetCommentsByPostPaginated from "../../../../use-cases/comment/get-comments-by-post-paginated";
+import makeCreatePost from "../../../../use-cases/post/create-post";
+import makeGetPost from "../../../../use-cases/post/get-post";
+import makeCreateUser from "../../../../use-cases/user/create-user";
+import makeCommentDb from "../../../make-comment-db";
+import makeCommentLikeDb from "../../../make-comment-like-db";
+import makePostDb from "../../../make-post-db";
+import makeUserDb from "../../../make-user-db";
+import {
+  CommentLikeModel,
+  CommentModel,
+  PostModel,
+  UserModel,
+} from "../../../models";
 import makeGetCommentsByPostPaginatedController from "./get-comments-by-post-paginated";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 describe("getCommentsByPostPaginated", () => {
   beforeAll(async () => await connectDatabase());

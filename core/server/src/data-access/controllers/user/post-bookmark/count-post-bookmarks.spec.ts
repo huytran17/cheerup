@@ -11,7 +11,6 @@ import makePostBookmarkDb from "../../../make-post-bookmark-db";
 import { PostBookmarkModel, UserModel } from "../../../models";
 import makeCountPostBookmarks from "../../../../use-cases/post-bookmark/count-post-bookmarks";
 import makeCreatePostBookmark from "../../../../use-cases/post-bookmark/create-post-bookmark";
-import makeGetUser from "../../../../use-cases/user/get-user";
 import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeCountPostBookmarksController from "./count-post-bookmarks";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -39,7 +38,6 @@ describe("countPostBookmarks", () => {
     const createPostBookmark = makeCreatePostBookmark({
       postBookmarkDb,
     });
-    const getUser = makeGetUser({ userDb });
     const createUser = makeCreateUser({ userDb });
     const countPostBookmarks = makeCountPostBookmarks({
       postBookmarkDb,
@@ -61,7 +59,6 @@ describe("countPostBookmarks", () => {
 
     const countPostBookmarksController = makeCountPostBookmarksController({
       countPostBookmarks,
-      getUser,
     });
 
     const request = {

@@ -36,13 +36,13 @@ export default function makeGetCommentsByPostPaginatedController({
         IGetCommentsByPostPaginatedPayload
       >get(httpRequest, "context.validated", {});
 
-      const { _id: user_id } = <IUser>get(httpRequest, "context.user") || {};
-
       const post_exists = await getPost({ _id: post_id });
 
       if (isEmpty(post_exists)) {
         throw new Error(`Post by ${post_id} does not exist`);
       }
+
+      const { _id: user_id } = <IUser>get(httpRequest, "context.user") || {};
 
       const paginated_data = await getCommentsByPostPaginated({
         post_id,

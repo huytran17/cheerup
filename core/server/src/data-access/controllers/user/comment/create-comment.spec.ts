@@ -1,36 +1,35 @@
-import moment from "moment";
 import { merge } from "lodash";
+import moment from "moment";
 import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import {
+  fakeComment,
   fakePost,
   fakeUser,
-  fakeComment,
 } from "../../../../../__tests__/__mock__";
 import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import IComment from "../../../../database/interfaces/comment";
+import makeCountCommentLikeByCommentAndType from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
+import makeGetCommentLikeByUserAndComment from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
+import makeCreateComment from "../../../../use-cases/comment/create-comment";
+import makeCreatePost from "../../../../use-cases/post/create-post";
+import makeGetPost from "../../../../use-cases/post/get-post";
+import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeCommentDb from "../../../make-comment-db";
+import makeCommentLikeDb from "../../../make-comment-like-db";
 import makePostDb from "../../../make-post-db";
 import makeUserDb from "../../../make-user-db";
 import {
+  CommentLikeModel,
   CommentModel,
   PostModel,
   UserModel,
-  CommentLikeModel,
 } from "../../../models";
-import makeGetPost from "../../../../use-cases/post/get-post";
-import makeGetUser from "../../../../use-cases/user/get-user";
-import makeCreateUser from "../../../../use-cases/user/create-user";
-import makeCreatePost from "../../../../use-cases/post/create-post";
-import makeCreateComment from "../../../../use-cases/comment/create-comment";
 import makeCreateCommentController from "./create-comment";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
-import makeCountCommentLikeByCommentAndType from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
-import makeGetCommentLikeByUserAndComment from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
-import makeCommentLikeDb from "../../../make-comment-like-db";
-import IComment from "../../../../database/interfaces/comment";
 
 describe("createComment", () => {
   beforeAll(async () => await connectDatabase());
@@ -63,7 +62,6 @@ describe("createComment", () => {
     const createPost = makeCreatePost({ postDb });
     const createComment = makeCreateComment({ commentDb });
     const createUser = makeCreateUser({ userDb });
-    const getUser = makeGetUser({ userDb });
     const countCommentLikeByCommentAndType =
       makeCountCommentLikeByCommentAndType({ commentLikeDb });
     const getCommentLikeByUserAndComment = makeGetCommentLikeByUserAndComment({
@@ -84,7 +82,6 @@ describe("createComment", () => {
     const createCommentController = makeCreateCommentController({
       createComment,
       getPost,
-      getUser,
       countCommentLikeByCommentAndType,
       getCommentLikeByUserAndComment,
     });
