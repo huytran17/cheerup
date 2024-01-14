@@ -251,7 +251,7 @@ export default function makeUserDb({
       const exists = await userDbModel
         .findOne(query_conditions)
         .select(
-          "-__v -hash_password -tfa_secret -socialite.access_token -socialite.refresh_token"
+          "-__v -tfa_secret -socialite.access_token -socialite.refresh_token"
         )
         .lean({ virtuals: true });
 
@@ -306,6 +306,7 @@ export default function makeUserDb({
       if (created) {
         return new User(created);
       }
+
       return null;
     }
 
