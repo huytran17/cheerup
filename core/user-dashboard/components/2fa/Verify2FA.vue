@@ -67,7 +67,6 @@ export default {
         };
 
         await this.VERIFY_2FA({ data: payload });
-
         await this.GET_ME();
 
         this.$router.push(this.localePath("/"));

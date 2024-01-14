@@ -23,23 +23,19 @@ const actions: ActionTree<AuthState, RootState> = {
   },
 
   async [ActionTypes.SIGN_UP]({ commit }, { data }: { data: any }) {
-    const { data: user } = await this.$axios.$post("/auth/sign-up", data);
-    return user;
+    return await this.$axios.$post("/auth/sign-up", data);
   },
 
   async [ActionTypes.VERIFY_2FA]({ commit }, { data }: { data: any }) {
-    const { data: user } = await this.$axios.$post("/auth/verify-2fa", data);
-    return user;
+    return await this.$axios.$post("/auth/verify-2fa", data);
   },
 
   async [ActionTypes.ENABLE_2FA]({ commit }, { data }: { data: any }) {
-    const { data: two_fa } = await this.$axios.$post("/auth/enable-2fa", data);
-    return two_fa;
+    return await this.$axios.$post("/auth/enable-2fa", data);
   },
 
   async [ActionTypes.DISABLE_2FA]({ commit }, { data }: { data: any }) {
-    const { data: two_fa } = await this.$axios.$post("/auth/disable-2fa", data);
-    return two_fa;
+    return await this.$axios.$post("/auth/disable-2fa", data);
   },
 
   async [ActionTypes.ENABLE_2FA_CONFIRMATION]() {
