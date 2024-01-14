@@ -37,10 +37,9 @@ export default function makeSignInController({
         throw new Error(`Admin by ${email} does not exist`);
       }
 
-      const hash_password = exists.hash_password;
       const valid_password = await verifyPassword({
         password,
-        hash_password,
+        hash_password: exists.hash_password,
       });
 
       const valid_authentication = exists && valid_password;
@@ -49,7 +48,7 @@ export default function makeSignInController({
       }
 
       const access_token = await generateAccessToken(
-        { email, hash_password },
+        { email, hash_password: exists.hash_password },
         { expiresIn: "1y" }
       );
 

@@ -321,6 +321,7 @@ export default function makeAdminDb({
       if (exists) {
         return new Admin(exists);
       }
+
       return null;
     }
 
@@ -345,12 +346,13 @@ export default function makeAdminDb({
 
       const exists = await adminDbModel
         .findOne(query_conditions)
-        .select("-__v -hash_password")
+        .select("-__v")
         .lean({ virtuals: true });
 
       if (exists) {
         return new Admin(exists);
       }
+
       return null;
     }
 
@@ -385,6 +387,7 @@ export default function makeAdminDb({
       if (deleted) {
         return new Admin(deleted);
       }
+
       return null;
     }
 

@@ -48,7 +48,6 @@ export default function makeUpdatePasswordController({
       const is_valid_password = await verifyPassword({
         password,
         hash_password: exists.hash_password,
-        exists,
       });
 
       if (!is_valid_password) {
