@@ -32,9 +32,7 @@ export default function makeRestoreUserController({
         throw new Error(`User by id ${_id} does not exist`);
       }
 
-      const updated_user = await restoreUser({
-        _id,
-      });
+      const restored_user = await restoreUser({ _id });
 
       logger.verbose(`Restored user ${exists.email} successfully`);
 
@@ -42,7 +40,7 @@ export default function makeRestoreUserController({
         headers,
         statusCode: HttpStatusCode.OK,
         body: {
-          data: updated_user,
+          data: restored_user,
         },
       };
     } catch (error) {

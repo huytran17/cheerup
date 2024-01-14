@@ -25,7 +25,7 @@ export default function makeUpdatePasswordController({
   logger: Logger;
 }) {
   return async function updatePasswordController(
-    httpRequest: Request & { context: { validated: {} } }
+    httpRequest: Request & { context: {} }
   ) {
     const headers = {
       "Content-Type": "application/json",

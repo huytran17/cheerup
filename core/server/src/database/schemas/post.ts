@@ -72,7 +72,7 @@ postSchema.pre("save", async function (next) {
   next();
 });
 
-postSchema.pre("deleteOne", { document: true }, async function (next) {
+postSchema.pre("findOneAndDelete", { document: true }, async function (next) {
   const post_id = get(this, "_id");
   const comments = (await CommentModel.find({ post: post_id })) || [];
   const delete_comment_promises = map(

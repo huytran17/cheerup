@@ -40,7 +40,7 @@ export default function makeAdminDb({
         : moment();
 
       const formatted_dates = [];
-      const existing_dates = [];
+      const exists_dates = [];
       const total_post_created_counts = [];
       const total_created_counts = [];
       const total_deleted_counts = [];
@@ -68,11 +68,11 @@ export default function makeAdminDb({
         }
 
         formatted_dates.push(formatted_date);
-        existing_dates.push(JSON.parse(JSON.stringify(from_date)));
+        exists_dates.push(JSON.parse(JSON.stringify(from_date)));
         from_date.add(1, unit);
       }
 
-      const analysis_promises = existing_dates.map(async (date, index) => {
+      const analysis_promises = exists_dates.map(async (date, index) => {
         const start_of = new Date(moment(date, "yyyy-MM-DD").startOf(unit));
         const end_of = new Date(moment(date, "yyyy-MM-DD").endOf(unit));
 
@@ -236,12 +236,13 @@ export default function makeAdminDb({
     }
 
     async findAll(): Promise<IAdmin[]> {
-      const existing = await adminDbModel
+      const exists = await adminDbModel
         .find()
-        .select("-__v")
+        .select("-__v -hash_password")
         .lean({ virtuals: true });
-      if (existing) {
-        return map(existing, (admin) => new Admin(admin));
+
+      if (exists) {
+        return map(exists, (admin) => new Admin(admin));
       }
 
       return null;
@@ -268,9 +269,9 @@ export default function makeAdminDb({
         ];
       }
 
-      const existing = await adminDbModel
+      const exists = await adminDbModel
         .find(query_conditions)
-        .select("-__v")
+        .select("-__v -hash_password")
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)
         .sort({
@@ -280,12 +281,12 @@ export default function makeAdminDb({
 
       const total_count = await adminDbModel.countDocuments(query_conditions);
 
-      if (existing) {
-        const data = map(existing, (admin) => new Admin(admin));
+      if (exists) {
+        const data = map(exists, (admin) => new Admin(admin));
 
         const from = page - 1 > 0 ? page - 1 : null;
         const has_more_entries =
-          existing.length === entries_per_page &&
+          exists.length === entries_per_page &&
           page * entries_per_page !== total_count;
         const to = has_more_entries ? page + 1 : null;
         const total_pages = Math.ceil(total_count / entries_per_page);
@@ -307,37 +308,30 @@ export default function makeAdminDb({
     }
 
     async findById({ _id }: { _id: string }): Promise<IAdmin> {
-      const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
-      const is_mongo_id = mongo_id_regex.test(_id);
-      if (!is_mongo_id || !_id) {
-        return null;
-      }
-
       const query_conditions = {
+        _id,
         deleted_at: { $in: [null, undefined] },
       };
 
-      _id && (query_conditions["_id"] = _id);
-
-      const existing = await adminDbModel
+      const exists = await adminDbModel
         .findOne(query_conditions)
-        .select("-__v")
+        .select("-__v -hash_password")
         .lean({ virtuals: true });
 
-      if (existing) {
-        return new Admin(existing);
+      if (exists) {
+        return new Admin(exists);
       }
       return null;
     }
 
     async findOne(): Promise<IAdmin> {
-      const existing = await adminDbModel
+      const exists = await adminDbModel
         .findOne()
-        .select("-__v")
+        .select("-__v -hash_password")
         .lean({ virtuals: true });
 
-      if (existing) {
-        return new Admin(existing);
+      if (exists) {
+        return new Admin(exists);
       }
 
       return null;
@@ -348,66 +342,56 @@ export default function makeAdminDb({
         email,
         deleted_at: { $in: [null, undefined] },
       };
-      const existing = await adminDbModel
-        .findOne(query_conditions)
-        .select("-__v");
 
-      if (existing) {
-        return new Admin(existing);
+      const exists = await adminDbModel
+        .findOne(query_conditions)
+        .select("-__v -hash_password")
+        .lean({ virtuals: true });
+
+      if (exists) {
+        return new Admin(exists);
       }
       return null;
     }
 
     async insert(payload: Partial<IAdmin>): Promise<IAdmin> {
-      const updated_payload = payload;
+      const created = await adminDbModel.create(payload);
 
-      const result = await adminDbModel.create([updated_payload]);
-      const updated = await adminDbModel
-        .findOne({ _id: result[0]?._id })
-        .select("-__v")
-        .lean({ virtuals: true });
-
-      if (updated) {
-        return new Admin(updated);
+      if (created) {
+        return new Admin(created);
       }
 
       return null;
     }
 
     async delete({ _id }: { _id: string }): Promise<IAdmin> {
-      await adminDbModel.findOneAndUpdate({ _id }, { deleted_at: new Date() });
-      const updated = await adminDbModel
-        .findOne({ _id })
-        .select("-__v")
+      const deleted = await adminDbModel
+        .findOneAndUpdate({ _id }, { deleted_at: new Date() })
+        .select("_id")
         .lean({ virtuals: true });
 
-      if (updated) {
-        return new Admin(updated);
+      if (deleted) {
+        return new Admin(deleted);
       }
       return null;
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<IAdmin> {
-      await adminDbModel.deleteOne({ _id });
-      const updated = await adminDbModel
-        .findOne({ _id })
-        .select("-__v")
+      const deleted = await adminDbModel
+        .findByIdAndDelete({ _id })
+        .select("_id")
         .lean({ virtuals: true });
 
-      if (updated) {
-        return new Admin(updated);
+      if (deleted) {
+        return new Admin(deleted);
       }
       return null;
     }
 
     async update(payload: Partial<IAdmin>): Promise<IAdmin> {
-      const result = await adminDbModel
-        .findOneAndUpdate({ _id: payload._id }, payload)
-        .lean({ virtuals: true });
-
       const updated = await adminDbModel
-        .findOne({ _id: result?._id })
-        .select("-__v")
+        .findOneAndUpdate({ _id: payload._id }, payload)
+        .select("-__v -hash_password")
         .lean({ virtuals: true });
 
       if (updated) {

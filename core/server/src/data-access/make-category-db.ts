@@ -40,7 +40,7 @@ export default function makeCategoryDb({
         : moment();
 
       const formatted_dates = [];
-      const existing_dates = [];
+      const exists_dates = [];
 
       const total_count = await categoryDbModel.countDocuments({
         created_at: {
@@ -62,11 +62,11 @@ export default function makeCategoryDb({
         }
 
         formatted_dates.push(formatted_date);
-        existing_dates.push(JSON.parse(JSON.stringify(from_date)));
+        exists_dates.push(JSON.parse(JSON.stringify(from_date)));
         from_date.add(1, unit);
       }
 
-      const analysis_promises = existing_dates.map(async (date, index) => {
+      const analysis_promises = exists_dates.map(async (date, index) => {
         const start_of = new Date(moment(date, "yyyy-MM-DD").startOf(unit));
         const end_of = new Date(moment(date, "yyyy-MM-DD").endOf(unit));
 
@@ -136,10 +136,8 @@ export default function makeCategoryDb({
     }
 
     async findAll(): Promise<ICategory[]> {
-      let query_conditions = {};
-
-      const existing = await categoryDbModel
-        .find(query_conditions)
+      const exists = await categoryDbModel
+        .find()
         .populate({
           path: "created_by",
           select: "_id full_name",
@@ -149,8 +147,8 @@ export default function makeCategoryDb({
         })
         .lean({ virtuals: true });
 
-      if (existing) {
-        return map(existing, (category) => new Category(category));
+      if (exists) {
+        return map(exists, (category) => new Category(category));
       }
 
       return null;
@@ -161,7 +159,7 @@ export default function makeCategoryDb({
         deleted_at: { $in: [null, undefined] },
       };
 
-      const existing = await categoryDbModel
+      const exists = await categoryDbModel
         .find(query_conditions)
         .select("_id seo thumbnail_url slug")
         .sort({
@@ -169,8 +167,8 @@ export default function makeCategoryDb({
         })
         .lean({ virtuals: true });
 
-      if (existing) {
-        return map(existing, (category) => new Category(category));
+      if (exists) {
+        return map(exists, (category) => new Category(category));
       }
 
       return null;
@@ -197,8 +195,9 @@ export default function makeCategoryDb({
         ];
       }
 
-      const existing = await categoryDbModel
+      const exists = await categoryDbModel
         .find(query_conditions)
+        .select("-__v")
         .populate({
           path: "created_by",
           select: "_id full_name",
@@ -214,12 +213,12 @@ export default function makeCategoryDb({
         query_conditions
       );
 
-      if (existing) {
-        const data = map(existing, (category) => new Category(category));
+      if (exists) {
+        const data = map(exists, (category) => new Category(category));
 
         const from = page - 1 > 0 ? page - 1 : null;
         const has_more_entries =
-          existing.length === entries_per_page &&
+          exists.length === entries_per_page &&
           page * entries_per_page !== total_count;
         const to = has_more_entries ? page + 1 : null;
         const total_pages = Math.ceil(total_count / entries_per_page);
@@ -241,27 +240,22 @@ export default function makeCategoryDb({
     }
 
     async findById({ _id }: { _id: string }): Promise<ICategory> {
-      const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
-      const is_mongo_id = mongo_id_regex.test(_id);
-      if (!is_mongo_id || !_id) {
-        return null;
-      }
-
       const query_conditions = {
         _id,
         deleted_at: { $in: [null, undefined] },
       };
 
-      const existing = await categoryDbModel
+      const exists = await categoryDbModel
         .findOne(query_conditions)
+        .select("-__v")
         .populate({
           path: "created_by",
           select: "_id full_name",
         })
         .lean({ virtuals: true });
 
-      if (existing) {
-        return new Category(existing);
+      if (exists) {
+        return new Category(exists);
       }
 
       return null;
@@ -273,12 +267,13 @@ export default function makeCategoryDb({
         deleted_at: { $in: [null, undefined] },
       };
 
-      const existing = await categoryDbModel
+      const exists = await categoryDbModel
         .findOne(query_conditions)
+        .select("-__v")
         .lean({ virtuals: true });
 
-      if (existing) {
-        return new Category(existing);
+      if (exists) {
+        return new Category(exists);
       }
 
       return null;
@@ -286,17 +281,17 @@ export default function makeCategoryDb({
 
     async findBySlug({ slug }: { slug: string }): Promise<ICategory> {
       const query_conditions = {
+        slug,
         deleted_at: { $in: [null, undefined] },
       };
 
-      slug && (query_conditions["slug"] = slug);
-
-      const existing = await categoryDbModel
+      const exists = await categoryDbModel
         .findOne(query_conditions)
+        .select("-__v")
         .lean({ virtuals: true });
 
-      if (existing) {
-        return new Category(existing);
+      if (exists) {
+        return new Category(exists);
       }
 
       return null;
@@ -307,16 +302,17 @@ export default function makeCategoryDb({
         deleted_at: { $in: [null, undefined] },
       };
 
-      const existing = await categoryDbModel
+      const exists = await categoryDbModel
         .findOne(query_conditions)
+        .select("-__v")
         .populate({
           path: "created_by",
           select: "_id full_name",
         })
         .lean({ virtuals: true });
 
-      if (existing) {
-        return new Category(existing);
+      if (exists) {
+        return new Category(exists);
       }
 
       return null;
@@ -325,32 +321,29 @@ export default function makeCategoryDb({
     async findAllCategoryTitles(): Promise<
       { _id: string; title: string; slug: string }[]
     > {
-      const existing = await categoryDbModel
+      const exists = await categoryDbModel
         .find()
         .select("_id title slug")
         .lean({ virtuals: true });
 
-      if (existing) {
-        return map(existing, (category) => ({
-          _id: category._id,
-          title: category.title,
-          slug: category.slug,
-        }));
+      const return_data = (category: ICategory) => ({
+        _id: category._id,
+        title: category.title,
+        slug: category.slug,
+      });
+
+      if (exists) {
+        return map(exists, (category) => return_data(category));
       }
 
       return null;
     }
 
     async insert(payload: Partial<ICategory>): Promise<ICategory> {
-      const updated_payload = payload;
+      const created = await categoryDbModel.create(payload);
 
-      const result = await categoryDbModel.create([updated_payload]);
-      const updated = await categoryDbModel
-        .findOne({ _id: result[0]?._id })
-        .lean({ virtuals: true });
-
-      if (updated) {
-        return new Category(updated);
+      if (created) {
+        return new Category(created);
       }
 
       return null;
@@ -361,40 +354,40 @@ export default function makeCategoryDb({
         { _id },
         { deleted_at: new Date() }
       );
+
       const updated = await categoryDbModel
         .findOne({ _id })
+        .select("_id")
         .lean({ virtuals: true });
 
       if (updated) {
         return new Category(updated);
       }
+
       return null;
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<ICategory> {
-      await categoryDbModel.deleteOne({ _id });
-      const updated = await categoryDbModel
-        .findOne({ _id })
+      const deleted = await categoryDbModel
+        .findByIdAndDelete({ _id })
+        .select("_id")
         .lean({ virtuals: true });
 
-      if (updated) {
-        return new Category(updated);
+      if (deleted) {
+        return new Category(deleted);
       }
 
       return null;
     }
 
     async update(payload: Partial<ICategory>): Promise<ICategory> {
-      const result = await categoryDbModel
+      const updated = await categoryDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)
+        .select("-__v")
         .populate({
           path: "created_by",
           select: "_id full_name",
         })
-        .lean({ virtuals: true });
-
-      const updated = await categoryDbModel
-        .findOne({ _id: result?._id })
         .lean({ virtuals: true });
 
       if (updated) {

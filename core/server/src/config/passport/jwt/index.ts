@@ -25,7 +25,9 @@ export default function initializeJWT(
         email,
         hash_password,
         deleted_at: { $in: [null, undefined] },
-      });
+      })
+        .select("-__v")
+        .lean({ virtual: true });
 
       if (!exists) {
         return done(null, null);

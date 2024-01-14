@@ -42,9 +42,10 @@ export default function makeGalleryDb({
         ];
       }
 
-      const existing = await galleryDbModel
+      const exists = await galleryDbModel
         .find(query_conditions)
         .populate("created_by", "_id full_name")
+        .select("-__v")
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)
         .sort({
@@ -54,12 +55,12 @@ export default function makeGalleryDb({
 
       const total_count = await galleryDbModel.countDocuments(query_conditions);
 
-      if (existing) {
-        const data = map(existing, (post) => new Gallery(post));
+      if (exists) {
+        const data = map(exists, (post) => new Gallery(post));
 
         const from = page - 1 > 0 ? page - 1 : null;
         const has_more_entries =
-          existing.length === entries_per_page &&
+          exists.length === entries_per_page &&
           page * entries_per_page !== total_count;
         const to = has_more_entries ? page + 1 : null;
         const total_pages = Math.ceil(total_count / entries_per_page);
@@ -81,60 +82,52 @@ export default function makeGalleryDb({
     }
 
     async findById({ _id }: { _id: string }): Promise<IGallery> {
-      const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
-      const is_mongo_id = mongo_id_regex.test(_id);
-      if (!is_mongo_id || !_id) {
-        return null;
-      }
-
       const query_conditions = {
+        _id,
         deleted_at: { $in: [null, undefined] },
       };
 
-      _id && (query_conditions["_id"] = _id);
-
-      const existing = await galleryDbModel
+      const exists = await galleryDbModel
         .findOne(query_conditions)
+        .select("-__v")
         .lean({ virtuals: true });
 
-      if (existing) {
-        return new Gallery(existing);
+      if (exists) {
+        return new Gallery(exists);
       }
+
       return null;
     }
 
     async findOneByPost({ post_id }: { post_id: string }): Promise<IGallery> {
-      const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
-      const is_mongo_id = mongo_id_regex.test(post_id);
-      if (!is_mongo_id || !post_id) {
-        return null;
-      }
+      const query_conditions = {
+        post: post_id,
+      };
 
-      const query_conditions = {};
-
-      post_id && (query_conditions["post"] = post_id);
-
-      const existing = await galleryDbModel
+      const exists = await galleryDbModel
         .findOne(query_conditions)
+        .select("-__v")
         .lean({ virtuals: true });
 
-      if (existing) {
-        return new Gallery(existing);
+      if (exists) {
+        return new Gallery(exists);
       }
+
       return null;
     }
 
     async findByPost({ post_id }: { post_id: string }): Promise<IGallery[]> {
-      const query_conditions = {};
+      const query_conditions = {
+        post: post_id,
+      };
 
-      post_id && (query_conditions["post"] = post_id);
-
-      const existing = await galleryDbModel
+      const exists = await galleryDbModel
         .find(query_conditions)
+        .select("-__v")
         .lean({ virtuals: true });
 
-      if (existing) {
-        return map(existing, (gallery) => new Gallery(gallery));
+      if (exists) {
+        return map(exists, (gallery) => new Gallery(gallery));
       }
 
       return null;
@@ -145,66 +138,55 @@ export default function makeGalleryDb({
     }: {
       parent_id: string;
     }): Promise<IGallery[]> {
-      const query_conditions = {};
+      const query_conditions = {
+        parent: parent_id,
+      };
 
-      parent_id && (query_conditions["parent"] = parent_id);
-
-      const existing = await galleryDbModel
+      const exists = await galleryDbModel
         .find(query_conditions)
+        .select("-__v")
         .lean({ virtuals: true });
 
-      if (existing) {
-        return map(existing, (gallery) => new Gallery(gallery));
+      if (exists) {
+        return map(exists, (gallery) => new Gallery(gallery));
       }
 
       return null;
     }
 
     async findOne(): Promise<IGallery> {
-      const existing = await galleryDbModel.findOne().lean({ virtuals: true });
+      const exists = await galleryDbModel.findOne().lean({ virtuals: true });
 
-      if (existing) {
-        return new Gallery(existing);
+      if (exists) {
+        return new Gallery(exists);
       }
 
       return null;
     }
 
     async insert(payload: Partial<IGallery>): Promise<IGallery> {
-      const updated_payload = payload;
+      const created = await galleryDbModel.create(payload);
 
-      const result = await galleryDbModel.create([updated_payload]);
-      const updated = await galleryDbModel
-        .findOne({ _id: result[0]?._id })
-        .lean({ virtuals: true });
-
-      if (updated) {
-        return new Gallery(updated);
+      if (created) {
+        return new Gallery(created);
       }
       return null;
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<IGallery> {
-      const existing = await galleryDbModel.findOne({ _id });
-      await existing.deleteOne();
+      const deleted = await galleryDbModel.findByIdAndDelete({ _id });
 
-      const updated = await galleryDbModel
-        .findOne({ _id })
-        .lean({ virtuals: true });
-
-      if (updated) {
-        return new Gallery(updated);
+      if (deleted) {
+        return new Gallery(deleted);
       }
+
       return null;
     }
 
     async update(payload: Partial<IGallery>): Promise<IGallery> {
-      const result = await galleryDbModel
-        .findOneAndUpdate({ _id: payload._id }, payload)
-        .lean({ virtuals: true });
-
       const updated = await galleryDbModel
-        .findOne({ _id: result?._id })
+        .findOneAndUpdate({ _id: payload._id }, payload)
+        .select("-__v")
         .lean({ virtuals: true });
 
       if (updated) {

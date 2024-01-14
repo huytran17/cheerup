@@ -32,10 +32,7 @@ export default function makeCommentLikeDb({
     }
 
     async insert(payload: Partial<ICommentLike>): Promise<ICommentLike> {
-      const result = await commentLikeDbModel.create([payload]);
-      const created = await commentLikeDbModel
-        .findOne({ _id: result[0]?._id })
-        .lean({ virtuals: true });
+      const created = await commentLikeDbModel.create(payload);
 
       if (created) {
         return new CommentLike(created);
@@ -45,9 +42,9 @@ export default function makeCommentLikeDb({
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<ICommentLike> {
-      await commentLikeDbModel.deleteOne({ _id: _id });
       const deleted = await commentLikeDbModel
-        .findOne({ _id })
+        .findByIdAndDelete({ _id: _id })
+        .select("_id")
         .lean({ virtuals: true });
 
       if (deleted) {
@@ -69,24 +66,21 @@ export default function makeCommentLikeDb({
         comment: comment_id,
       };
 
-      const existing = await commentLikeDbModel
+      const exists = await commentLikeDbModel
         .findOne(query_conditions)
         .lean({ virtuals: true });
 
-      if (existing) {
-        return new CommentLike(existing);
+      if (exists) {
+        return new CommentLike(exists);
       }
 
       return null;
     }
 
     async update(payload: Partial<ICommentLike>): Promise<ICommentLike> {
-      await commentLikeDbModel
-        .findOneAndUpdate({ _id: payload._id }, payload)
-        .lean({ virtuals: true });
-
       const updated = await commentLikeDbModel
-        .findOne({ _id: payload._id })
+        .findOneAndUpdate({ _id: payload._id }, payload)
+        .select("-__v")
         .lean({ virtuals: true });
 
       if (updated) {

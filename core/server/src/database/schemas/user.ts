@@ -40,7 +40,7 @@ userSchema.virtual("avatar_url").get(function () {
   return get(this, "avatar.location");
 });
 
-userSchema.pre("deleteOne", { document: true }, async function (next) {
+userSchema.pre("findOneAndDelete", { document: true }, async function (next) {
   const user_id = get(this, "_id");
   const comments = (await CommentModel.find({ user: user_id })) || [];
   const delete_comment_promises = map(

@@ -34,27 +34,31 @@ commentSchema.virtual("has_children").get(function () {
   return !isEmpty(get(this, "children"));
 });
 
-commentSchema.pre("deleteOne", { document: true }, async function (next) {
-  const children = get(this, "children", []);
-  const delete_children_promises = map(
-    children,
-    async (comment: mongoose.ObjectId) => {
-      const comment_document = await CommentModel.findOne({
-        _id: comment,
-      });
+commentSchema.pre(
+  "findOneAndDelete",
+  { document: true },
+  async function (next) {
+    const children = get(this, "children", []);
+    const delete_children_promises = map(
+      children,
+      async (comment: mongoose.ObjectId) => {
+        const comment_document = await CommentModel.findOne({
+          _id: comment,
+        });
 
-      return await comment_document?.deleteOne();
-    }
-  );
+        return await comment_document?.deleteOne();
+      }
+    );
 
-  const delete_comment_like_promises = await CommentLikeModel.deleteMany({
-    comment: get(this, "_id"),
-  });
+    const delete_comment_like_promises = await CommentLikeModel.deleteMany({
+      comment: get(this, "_id"),
+    });
 
-  await Promise.all([delete_children_promises, delete_comment_like_promises]);
+    await Promise.all([delete_children_promises, delete_comment_like_promises]);
 
-  next();
-});
+    next();
+  }
+);
 
 commentSchema.plugin(mongoose_lean_virtuals);
 

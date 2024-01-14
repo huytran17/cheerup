@@ -18,14 +18,16 @@ export default function makeCommentDb({
         parent: { $in: [null, undefined] },
       };
 
-      const existing = await commentDbModel
+      const exists = await commentDbModel
         .find(query_conditions)
+        .select("-__v")
         .populate("children", "-_v")
         .populate("user", "_id full_name avatar_url")
         .populate("post", "-_v")
         .lean({ virtuals: true });
-      if (existing) {
-        return map(existing, (comment) => new Comment(comment));
+
+      if (exists) {
+        return map(exists, (comment) => new Comment(comment));
       }
 
       return null;
@@ -50,12 +52,11 @@ export default function makeCommentDb({
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = {
+        post: post_id,
         parent: { $in: [null, undefined] },
       };
 
-      post_id && (query_conditions["post"] = post_id);
-
-      const existing = await commentDbModel
+      const exists = await commentDbModel
         .find(query_conditions)
         .select("_id children parent content user post created_at updated_at")
         .populate({
@@ -75,12 +76,12 @@ export default function makeCommentDb({
 
       const total_count = await commentDbModel.countDocuments(query_conditions);
 
-      if (existing) {
-        const data = existing.map((comment) => new Comment(comment));
+      if (exists) {
+        const data = exists.map((comment) => new Comment(comment));
 
         const from = page - 1 > 0 ? page - 1 : null;
         const has_more_entries =
-          existing.length === entries_per_page &&
+          exists.length === entries_per_page &&
           page * entries_per_page !== total_count;
         const to = has_more_entries ? page + 1 : null;
         const total_pages = Math.ceil(total_count / entries_per_page);
@@ -106,7 +107,7 @@ export default function makeCommentDb({
         parent: _id,
       };
 
-      const existing = await commentDbModel
+      const exists = await commentDbModel
         .find(query_conditions)
         .select("_id parent content user post created_at updated_at")
         .populate({
@@ -119,8 +120,8 @@ export default function makeCommentDb({
         })
         .lean({ virtuals: true });
 
-      if (existing) {
-        return map(existing, (comment) => new Comment(comment));
+      if (exists) {
+        return map(exists, (comment) => new Comment(comment));
       }
 
       return null;
@@ -149,8 +150,9 @@ export default function makeCommentDb({
         ];
       }
 
-      const existing = await commentDbModel
+      const exists = await commentDbModel
         .find(query_conditions)
+        .select("-__v")
         .populate("children", "-_v")
         .populate("user", "_id full_name avatar_url avatar")
         .populate("post", "-_v")
@@ -163,12 +165,12 @@ export default function makeCommentDb({
 
       const total_count = await commentDbModel.countDocuments(query_conditions);
 
-      if (existing) {
-        const data = map(existing, (comment) => new Comment(comment));
+      if (exists) {
+        const data = map(exists, (comment) => new Comment(comment));
 
         const from = page - 1 > 0 ? page - 1 : null;
         const has_more_entries =
-          existing.length === entries_per_page &&
+          exists.length === entries_per_page &&
           page * entries_per_page !== total_count;
         const to = has_more_entries ? page + 1 : null;
         const total_pages = Math.ceil(total_count / entries_per_page);
@@ -198,12 +200,6 @@ export default function makeCommentDb({
       is_only_parent?: boolean;
       is_show_children?: boolean;
     }): Promise<IComment> {
-      const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
-      const is_mongo_id = mongo_id_regex.test(_id);
-      if (!is_mongo_id || !_id) {
-        return null;
-      }
-
       const query_conditions = {
         _id,
       };
@@ -211,18 +207,18 @@ export default function makeCommentDb({
       is_only_parent &&
         (query_conditions["parent"] = { $in: [null, undefined] });
 
-      const existing = is_show_children
+      const exists = is_show_children
         ? await this.findOneByIdWithChildren(query_conditions)
         : await this.findOneById(query_conditions);
 
-      if (existing) {
-        return new Comment(existing);
+      if (exists) {
+        return new Comment(exists);
       }
       return null;
     }
 
-    async findOneById(query_conditions) {
-      const existing = await commentDbModel
+    async findOneById(query_conditions: { [key: string]: any }) {
+      const exists = await commentDbModel
         .findOne(query_conditions)
         .select("_id children parent content user post created_at updated_at")
         .populate({
@@ -235,11 +231,11 @@ export default function makeCommentDb({
         })
         .lean({ virtuals: true });
 
-      return existing;
+      return exists;
     }
 
-    async findOneByIdWithChildren(query_conditions) {
-      const existing = await commentDbModel
+    async findOneByIdWithChildren(query_conditions: { [key: string]: any }) {
+      const exists = await commentDbModel
         .findOne(query_conditions)
         .select("_id children parent content user post created_at updated_at")
         .populate({
@@ -266,16 +262,10 @@ export default function makeCommentDb({
         })
         .lean({ virtuals: true });
 
-      return existing;
+      return exists;
     }
 
     async countByPost({ post_id }: { post_id: string }): Promise<number> {
-      const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
-      const is_mongo_id = mongo_id_regex.test(post_id);
-      if (!is_mongo_id || !post_id) {
-        return null;
-      }
-
       const query_conditions = {
         post: post_id,
       };
@@ -288,45 +278,35 @@ export default function makeCommentDb({
     }
 
     async findOne(): Promise<IComment> {
-      const existing = await commentDbModel
+      const exists = await commentDbModel
         .findOne()
+        .select("-__v")
         .populate("children", "-_v")
         .populate("user", "_id full_name avatar_url")
         .populate("post", "-_v")
         .lean({ virtuals: true });
 
-      if (existing) {
-        return new Comment(existing);
+      if (exists) {
+        return new Comment(exists);
       }
 
       return null;
     }
 
     async insert(payload: Partial<IComment>): Promise<IComment> {
-      const updated_payload = payload;
+      const created = await commentDbModel.create(payload);
 
-      const result = await commentDbModel.create([updated_payload]);
-      const updated = await commentDbModel
-        .findOne({ _id: result[0]?._id })
-        .populate({
-          path: "user",
-          select: "_id avatar full_name",
-        })
-        .lean({ virtuals: true });
-
-      if (updated) {
-        return new Comment(updated);
+      if (created) {
+        return new Comment(created);
       }
 
       return null;
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<IComment> {
-      const existing = await commentDbModel.findOne({ _id });
-      await existing?.deleteOne();
-
       const updated = await commentDbModel
-        .findOne({ _id })
+        .findByIdAndDelete({ _id })
+        .select("_id")
         .lean({ virtuals: true });
 
       if (updated) {
@@ -337,15 +317,12 @@ export default function makeCommentDb({
     }
 
     async update(payload: Partial<IComment>): Promise<IComment> {
-      const result = await commentDbModel
+      const updated = await commentDbModel
         .findOneAndUpdate({ _id: payload._id }, payload)
+        .select("-__v")
         .populate("children", "-_v")
         .populate("user", "_id full_name avatar_url")
         .populate("post", "-_v")
-        .lean({ virtuals: true });
-
-      const updated = await commentDbModel
-        .findOne({ _id: result?._id })
         .lean({ virtuals: true });
 
       if (updated) {

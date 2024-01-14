@@ -21,13 +21,15 @@ export default function makePasswordResetDb({
         security_code,
       };
 
-      const existing = await passwordResetDbModel
+      const exists = await passwordResetDbModel
         .findOne(query_conditions)
+        .select("-__v")
         .lean({ virtuals: true });
 
-      if (existing) {
-        return new PasswordReset(existing);
+      if (exists) {
+        return new PasswordReset(exists);
       }
+
       return null;
     }
 
@@ -36,61 +38,53 @@ export default function makePasswordResetDb({
         email,
       };
 
-      const existing = await passwordResetDbModel
+      const exists = await passwordResetDbModel
         .findOne(query_conditions)
+        .select("-__v")
         .lean({ virtuals: true });
 
-      if (existing) {
-        return new PasswordReset(existing);
+      if (exists) {
+        return new PasswordReset(exists);
       }
+
       return null;
     }
 
     async insert(payload: Partial<IPasswordReset>): Promise<IPasswordReset> {
-      const updated_payload = payload;
+      const created = await passwordResetDbModel.create(payload);
 
-      const result = await passwordResetDbModel.create([updated_payload]);
-      const updated = await passwordResetDbModel
-        .findOne({ _id: result[0]?._id })
-        .lean({ virtuals: true });
-
-      if (updated) {
-        return new PasswordReset(updated);
+      if (created) {
+        return new PasswordReset(created);
       }
+
       return null;
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<IPasswordReset> {
-      const existing = await passwordResetDbModel.findOne({ _id });
-      await existing.deleteOne();
-
-      const updated = await passwordResetDbModel
-        .findOne({ _id })
+      const deleted = await passwordResetDbModel
+        .findByIdAndDelete({ _id })
+        .select("-__v")
         .lean({ virtuals: true });
 
-      if (updated) {
-        return new PasswordReset(updated);
+      if (deleted) {
+        return new PasswordReset(deleted);
       }
+
       return null;
     }
 
     async findById({ _id }: { _id: string }): Promise<IPasswordReset> {
-      const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
-      const is_mongo_id = mongo_id_regex.test(_id);
-      if (!is_mongo_id || !_id) {
-        return null;
-      }
-
       const query_conditions = {
         _id,
       };
 
-      const existing = await passwordResetDbModel
+      const exists = await passwordResetDbModel
         .findOne(query_conditions)
+        .select("-__v")
         .lean({ virtuals: true });
 
-      if (existing) {
-        return new PasswordReset(existing);
+      if (exists) {
+        return new PasswordReset(exists);
       }
 
       return null;

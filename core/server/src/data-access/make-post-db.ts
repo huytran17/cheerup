@@ -241,10 +241,9 @@ export default function makePostDb({
     }
 
     async findAll(): Promise<IPost[]> {
-      let query_conditions = {};
-
       const existing = await postDbModel
-        .find(query_conditions)
+        .find()
+        .select("-__v")
         .populate("author", "_id full_name")
         .populate("categories", "-_v")
         .sort({
@@ -260,7 +259,7 @@ export default function makePostDb({
     }
 
     async findAllForSEO(): Promise<IPost[]> {
-      let query_conditions = {
+      const query_conditions = {
         deleted_at: { $in: [null, undefined] },
       };
 
@@ -326,6 +325,7 @@ export default function makePostDb({
 
       const existing = await postDbModel
         .find(query_conditions)
+        .select("-__v")
         .populate("author", "_id full_name")
         .populate("categories", "-_v")
         .skip(number_of_entries_to_skip)
@@ -362,12 +362,6 @@ export default function makePostDb({
     }
 
     async findById({ _id }: { _id: string }): Promise<IPost> {
-      const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
-      const is_mongo_id = mongo_id_regex.test(_id);
-      if (!is_mongo_id || !_id) {
-        return null;
-      }
-
       const query_conditions = {
         _id,
         deleted_at: { $in: [null, undefined] },
@@ -375,6 +369,7 @@ export default function makePostDb({
 
       const existing = await postDbModel
         .findOne(query_conditions)
+        .select("-__v")
         .populate("author", "_id full_name")
         .populate("categories", "-_v")
         .lean({ virtuals: true });
@@ -388,13 +383,13 @@ export default function makePostDb({
 
     async findBySlug({ slug }: { slug: string }): Promise<IPost> {
       const query_conditions = {
+        slug,
         deleted_at: { $in: [null, undefined] },
       };
 
-      slug && (query_conditions["slug"] = slug);
-
       const existing = await postDbModel
         .findOne(query_conditions)
+        .select("-__v")
         .populate("author", "_id full_name")
         .populate("categories", "-_v")
         .lean({ virtuals: true });
@@ -411,12 +406,6 @@ export default function makePostDb({
     }: {
       category_id: string;
     }): Promise<number> {
-      const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
-      const is_mongo_id = mongo_id_regex.test(category_id);
-      if (!is_mongo_id || !category_id) {
-        return null;
-      }
-
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
         categories: category_id,
@@ -448,6 +437,7 @@ export default function makePostDb({
 
       const existing = await postDbModel
         .find(query_conditions)
+        .select("-__v")
         .limit(amount)
         .populate("author", "_id full_name")
         .populate("categories", "-_v")
@@ -470,6 +460,7 @@ export default function makePostDb({
 
       const existing = await postDbModel
         .findOne(query_conditions)
+        .select("-__v")
         .populate("author", "_id full_name")
         .populate("categories", "-_v")
         .lean({ virtuals: true });
@@ -482,60 +473,45 @@ export default function makePostDb({
     }
 
     async insert(payload: Partial<IPost>): Promise<IPost> {
-      const updated_payload = payload;
+      const created = await postDbModel.create(payload);
 
-      const result = await postDbModel.create([updated_payload]);
-      const updated = await postDbModel
-        .findOne({ _id: result[0]?._id })
-        .populate({
-          path: "author",
-          select: "full_name",
-        })
-        .populate({
-          path: "categories",
-          select: "_id title",
-        })
-        .lean({ virtuals: true });
-
-      if (updated) {
-        return new Post(updated);
+      if (created) {
+        return new Post(created);
       }
 
       return null;
     }
 
     async delete({ _id }: { _id: string }): Promise<IPost> {
-      await postDbModel.findOneAndUpdate({ _id }, { deleted_at: new Date() });
-      const updated = await postDbModel
-        .findOne({ _id })
+      const deleted = await postDbModel
+        .findOneAndUpdate({ _id }, { deleted_at: new Date() })
+        .select("-__v")
         .lean({ virtuals: true });
 
-      if (updated) {
-        return new Post(updated);
+      if (deleted) {
+        return new Post(deleted);
       }
+
       return null;
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<IPost> {
-      await postDbModel.deleteOne({ _id });
-      const updated = await postDbModel
-        .findOne({ _id })
+      const deleted = await postDbModel
+        .findByIdAndDelete({ _id })
+        .select("-__v")
         .lean({ virtuals: true });
 
-      if (updated) {
-        return new Post(updated);
+      if (deleted) {
+        return new Post(deleted);
       }
 
       return null;
     }
 
     async update(payload: Partial<IPost>): Promise<IPost> {
-      const result = await postDbModel
-        .findOneAndUpdate({ _id: payload._id }, payload)
-        .lean({ virtuals: true });
-
       const updated = await postDbModel
-        .findOne({ _id: result?._id })
+        .findOneAndUpdate({ _id: payload._id }, payload)
+        .select("-__v")
         .populate("author", "full_name")
         .populate("categories", "title")
         .lean({ virtuals: true });

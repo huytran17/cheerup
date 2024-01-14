@@ -18,7 +18,7 @@ export default function makeVerifyPassword(
     }
 
     if (!hash_password) {
-      throw new Error("confirm password is needed.");
+      throw new Error("Password confirmation is needed.");
     }
 
     const is_same = await compareHash({ password, hash_password });

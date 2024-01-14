@@ -38,7 +38,7 @@ export default function makeSubscriptionDb({
         : moment();
 
       const formatted_dates = [];
-      const existing_dates = [];
+      const exists_dates = [];
       const total_created_counts = [];
       const total_active_counts = [];
 
@@ -62,11 +62,11 @@ export default function makeSubscriptionDb({
         }
 
         formatted_dates.push(formatted_date);
-        existing_dates.push(JSON.parse(JSON.stringify(from_date)));
+        exists_dates.push(JSON.parse(JSON.stringify(from_date)));
         from_date.add(1, unit);
       }
 
-      const analysis_promises = existing_dates.map(async (date, index) => {
+      const analysis_promises = exists_dates.map(async (date, index) => {
         const start_of = new Date(moment(date, "yyyy-MM-DD").startOf(unit));
         const end_of = new Date(moment(date, "yyyy-MM-DD").endOf(unit));
 
@@ -126,12 +126,13 @@ export default function makeSubscriptionDb({
     }
 
     async findAll(): Promise<ISubscription[]> {
-      const existing = await subscriptionDbModel
+      const exists = await subscriptionDbModel
         .find()
+        .select("-__v")
         .lean({ virtuals: true });
 
-      if (existing) {
-        return map(existing, (subscription) => new Subscription(subscription));
+      if (exists) {
+        return map(exists, (subscription) => new Subscription(subscription));
       }
 
       return null;
@@ -141,12 +142,13 @@ export default function makeSubscriptionDb({
         is_active: true,
       };
 
-      const existing = await subscriptionDbModel
+      const exists = await subscriptionDbModel
         .find(query_conditions)
+        .select("-__v")
         .lean({ virtuals: true });
 
-      if (existing) {
-        return map(existing, (subscription) => new Subscription(subscription));
+      if (exists) {
+        return map(exists, (subscription) => new Subscription(subscription));
       }
 
       return null;
@@ -173,8 +175,9 @@ export default function makeSubscriptionDb({
         ];
       }
 
-      const existing = await subscriptionDbModel
+      const exists = await subscriptionDbModel
         .find(query_conditions)
+        .select("-__v")
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)
         .sort({
@@ -186,15 +189,15 @@ export default function makeSubscriptionDb({
         query_conditions
       );
 
-      if (existing) {
+      if (exists) {
         const data = map(
-          existing,
+          exists,
           (subscription) => new Subscription(subscription)
         );
 
         const from = page - 1 > 0 ? page - 1 : null;
         const has_more_entries =
-          existing.length === entries_per_page &&
+          exists.length === entries_per_page &&
           page * entries_per_page !== total_count;
         const to = has_more_entries ? page + 1 : null;
         const total_pages = Math.ceil(total_count / entries_per_page);
@@ -216,108 +219,94 @@ export default function makeSubscriptionDb({
     }
 
     async findById({ _id }: { _id: string }): Promise<ISubscription> {
-      const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
-      const is_mongo_id = mongo_id_regex.test(_id);
-      if (!is_mongo_id || !_id) {
-        return null;
-      }
-
       const query_conditions = {
+        _id,
         deleted_at: { $in: [null, undefined] },
       };
 
-      _id && (query_conditions["_id"] = _id);
-
-      const existing = await subscriptionDbModel
+      const exists = await subscriptionDbModel
         .findOne(query_conditions)
+        .select("-__v")
         .lean({ virtuals: true });
 
-      if (existing) {
-        return new Subscription(existing);
+      if (exists) {
+        return new Subscription(exists);
       }
+
       return null;
     }
 
     async findByEmail({ email }: { email: string }): Promise<ISubscription> {
       const query_conditions = {
+        email,
         deleted_at: { $in: [null, undefined] },
       };
 
-      email && (query_conditions["email"] = email);
-
-      const existing = await subscriptionDbModel
+      const exists = await subscriptionDbModel
         .findOne(query_conditions)
+        .select("-__v")
         .lean({ virtuals: true });
 
-      if (existing) {
-        return new Subscription(existing);
+      if (exists) {
+        return new Subscription(exists);
       }
+
       return null;
     }
 
     async findOne(): Promise<ISubscription> {
-      const existing = await subscriptionDbModel
+      const exists = await subscriptionDbModel
         .findOne()
+        .select("-__v")
         .lean({ virtuals: true });
 
-      if (existing) {
-        return new Subscription(existing);
+      if (exists) {
+        return new Subscription(exists);
       }
 
       return null;
     }
 
     async insert(payload: Partial<ISubscription>): Promise<ISubscription> {
-      const updated_payload = payload;
+      const created = await subscriptionDbModel.create(payload);
 
-      const result = await subscriptionDbModel.create([updated_payload]);
-      const updated = await subscriptionDbModel
-        .findOne({ _id: result[0]?._id })
-        .lean({ virtuals: true });
-
-      if (updated) {
-        return new Subscription(updated);
+      if (created) {
+        return new Subscription(created);
       }
 
       return null;
     }
 
     async delete({ _id }: { _id: string }): Promise<ISubscription> {
-      const existing = await subscriptionDbModel.findOneAndUpdate(
-        { _id },
-        { deleted_at: new Date() }
-      );
-      const updated = await subscriptionDbModel
-        .findOne({ _id })
+      const deleted = await subscriptionDbModel
+        .findOneAndUpdate({ _id }, { deleted_at: new Date() })
+        .select("-__v")
         .lean({ virtuals: true });
 
-      if (updated) {
-        return new Subscription(updated);
+      if (deleted) {
+        return new Subscription(deleted);
       }
 
       return null;
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<ISubscription> {
-      const existing = await subscriptionDbModel.deleteOne({ _id: _id });
-      const updated = await subscriptionDbModel
-        .findOne({ _id })
+      const deleted = await subscriptionDbModel
+        .findByIdAndDelete({ _id })
+        .select("-__v")
         .lean({ virtuals: true });
 
-      if (updated) {
-        return new Subscription(updated);
+      if (deleted) {
+        return new Subscription(deleted);
       }
 
       return null;
     }
 
     async update(payload: Partial<ISubscription>): Promise<ISubscription> {
-      const result = await subscriptionDbModel
-        .findOneAndUpdate({ _id: payload._id }, payload)
-        .lean({ virtuals: true });
-
       const updated = await subscriptionDbModel
-        .findOne({ _id: result?._id })
+        .findOneAndUpdate({ _id: payload._id }, payload)
+        .select("-__v")
         .lean({ virtuals: true });
 
       if (updated) {

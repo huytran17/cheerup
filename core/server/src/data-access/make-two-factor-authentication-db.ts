@@ -27,13 +27,15 @@ export default function makeTwoFactorAuthenticationDb({
         type,
       };
 
-      const existing = await twoFactorAuthenticationDbModel
+      const exists = await twoFactorAuthenticationDbModel
         .findOne(query_conditions)
+        .select("-__v")
         .lean({ virtuals: true });
 
-      if (existing) {
-        return new TwoFactorAuthentication(existing);
+      if (exists) {
+        return new TwoFactorAuthentication(exists);
       }
+
       return null;
     }
 
@@ -49,13 +51,15 @@ export default function makeTwoFactorAuthenticationDb({
         type,
       };
 
-      const existing = await twoFactorAuthenticationDbModel
+      const exists = await twoFactorAuthenticationDbModel
         .find(query_conditions)
+        .select("-__v")
         .lean({ virtuals: true });
 
-      if (existing) {
-        return map(existing, (tfa) => new TwoFactorAuthentication(tfa));
+      if (exists) {
+        return map(exists, (tfa) => new TwoFactorAuthentication(tfa));
       }
+
       return null;
     }
 
@@ -74,31 +78,27 @@ export default function makeTwoFactorAuthenticationDb({
         type,
       };
 
-      const existing = await twoFactorAuthenticationDbModel
+      const exists = await twoFactorAuthenticationDbModel
         .findOne(query_conditions)
+        .select("-__v")
         .lean({ virtuals: true });
 
-      if (existing) {
-        return new TwoFactorAuthentication(existing);
+      if (exists) {
+        return new TwoFactorAuthentication(exists);
       }
+
       return null;
     }
 
     async insert(
       payload: Partial<ITwoFactorAuthentication>
     ): Promise<ITwoFactorAuthentication> {
-      const updated_payload = payload;
+      const created = await twoFactorAuthenticationDbModel.create(payload);
 
-      const result = await twoFactorAuthenticationDbModel.create([
-        updated_payload,
-      ]);
-      const updated = await twoFactorAuthenticationDbModel
-        .findOne({ _id: result[0]?._id })
-        .lean({ virtuals: true });
-
-      if (updated) {
-        return new TwoFactorAuthentication(updated);
+      if (created) {
+        return new TwoFactorAuthentication(created);
       }
+
       return null;
     }
 
@@ -107,16 +107,17 @@ export default function makeTwoFactorAuthenticationDb({
     }: {
       _id: string;
     }): Promise<ITwoFactorAuthentication> {
-      const existing = await twoFactorAuthenticationDbModel.findOne({ _id });
-      await existing.deleteOne();
-
-      const updated = await twoFactorAuthenticationDbModel
-        .findOne({ _id })
+      const deleted = await twoFactorAuthenticationDbModel
+        .findByIdAndDelete({
+          _id,
+        })
+        .select("-__v")
         .lean({ virtuals: true });
 
-      if (updated) {
-        return new TwoFactorAuthentication(updated);
+      if (deleted) {
+        return new TwoFactorAuthentication(deleted);
       }
+
       return null;
     }
 
@@ -125,22 +126,13 @@ export default function makeTwoFactorAuthenticationDb({
     }: {
       _id: string;
     }): Promise<ITwoFactorAuthentication> {
-      const mongo_id_regex = new RegExp(/^[0-9a-fA-F]{24}$/i);
-      const is_mongo_id = mongo_id_regex.test(_id);
-      if (!is_mongo_id || !_id) {
-        return null;
-      }
-
-      const query_conditions = {
-        _id,
-      };
-
-      const existing = await twoFactorAuthenticationDbModel
-        .findOne(query_conditions)
+      const exists = await twoFactorAuthenticationDbModel
+        .findById({ _id })
+        .select("-__v")
         .lean({ virtuals: true });
 
-      if (existing) {
-        return new TwoFactorAuthentication(existing);
+      if (exists) {
+        return new TwoFactorAuthentication(exists);
       }
 
       return null;

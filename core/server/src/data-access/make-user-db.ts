@@ -38,7 +38,7 @@ export default function makeUserDb({
         : moment();
 
       const formatted_dates = [];
-      const existing_dates = [];
+      const exists_dates = [];
       const total_created_counts = [];
       const total_deleted_counts = [];
       const total_blocked_comment_counts = [];
@@ -63,11 +63,11 @@ export default function makeUserDb({
         }
 
         formatted_dates.push(formatted_date);
-        existing_dates.push(JSON.parse(JSON.stringify(from_date)));
+        exists_dates.push(JSON.parse(JSON.stringify(from_date)));
         from_date.add(1, unit);
       }
 
-      const analysis_promises = existing_dates.map(async (date, index) => {
+      const analysis_promises = exists_dates.map(async (date, index) => {
         const start_of = new Date(moment(date, "yyyy-MM-DD").startOf(unit));
         const end_of = new Date(moment(date, "yyyy-MM-DD").endOf(unit));
 
@@ -167,13 +167,15 @@ export default function makeUserDb({
     }
 
     async findAll(): Promise<IUser[]> {
-      const existing = await userDbModel
+      const exists = await userDbModel
         .find()
-        .select("-__v -hash_password -tfa_secret")
+        .select(
+          "-__v -hash_password -tfa_secret -socialite.access_token -socialite.refresh_token"
+        )
         .lean({ virtuals: true });
 
-      if (existing) {
-        return map(existing, (user) => new User(user));
+      if (exists) {
+        return map(exists, (user) => new User(user));
       }
 
       return null;
@@ -200,9 +202,11 @@ export default function makeUserDb({
         ];
       }
 
-      const existing = await userDbModel
+      const exists = await userDbModel
         .find(query_conditions)
-        .select("-__v -hash_password -tfa_secret")
+        .select(
+          "-__v -hash_password -tfa_secret -socialite.access_token -socialite.refresh_token"
+        )
         .skip(number_of_entries_to_skip)
         .limit(entries_per_page)
         .sort({
@@ -212,12 +216,12 @@ export default function makeUserDb({
 
       const total_count = await userDbModel.countDocuments(query_conditions);
 
-      if (existing) {
-        const data = map(existing, (user) => new User(user));
+      if (exists) {
+        const data = map(exists, (user) => new User(user));
 
         const from = page - 1 > 0 ? page - 1 : null;
         const has_more_entries =
-          existing.length === entries_per_page &&
+          exists.length === entries_per_page &&
           page * entries_per_page !== total_count;
         const to = has_more_entries ? page + 1 : null;
         const total_pages = Math.ceil(total_count / entries_per_page);
@@ -244,12 +248,15 @@ export default function makeUserDb({
         deleted_at: { $in: [null, undefined] },
       };
 
-      const existing = await userDbModel
+      const exists = await userDbModel
         .findOne(query_conditions)
-        .select("-__v")
+        .select(
+          "-__v -hash_password -tfa_secret -socialite.access_token -socialite.refresh_token"
+        )
         .lean({ virtuals: true });
-      if (existing) {
-        return new User(existing);
+
+      if (exists) {
+        return new User(exists);
       }
       return null;
     }
@@ -259,13 +266,15 @@ export default function makeUserDb({
         deleted_at: { $in: [null, undefined] },
       };
 
-      const existing = await userDbModel
+      const exists = await userDbModel
         .findOne(query_conditions)
-        .select("-__v -hash_password -tfa_secret")
+        .select(
+          "-__v -hash_password -tfa_secret -socialite.access_token -socialite.refresh_token"
+        )
         .lean({ virtuals: true });
 
-      if (existing) {
-        return new User(existing);
+      if (exists) {
+        return new User(exists);
       }
 
       return null;
@@ -277,68 +286,59 @@ export default function makeUserDb({
         deleted_at: { $in: [undefined, null] },
       };
 
-      const existing = await userDbModel
+      const exists = await userDbModel
         .findOne(query_conditions)
-        .select("-__v")
+        .select(
+          "-__v -hash_password -tfa_secret -socialite.access_token -socialite.refresh_token"
+        )
         .lean({ virtuals: true });
 
-      if (existing) {
-        return new User(existing);
+      if (exists) {
+        return new User(exists);
       }
+
       return null;
     }
 
     async insert(payload: Partial<IUser>): Promise<IUser> {
-      const updated_payload = payload;
+      const created = await userDbModel.create(payload);
 
-      const result = await userDbModel.create([updated_payload]);
-      const updated = await userDbModel
-        .findOne({ _id: result[0]?._id })
-        .select("-__v -hash_password -tfa_secret")
-        .lean({ virtuals: true });
-
-      if (updated) {
-        return new User(updated);
+      if (created) {
+        return new User(created);
       }
       return null;
     }
 
     async delete({ _id }: { _id: string }): Promise<IUser> {
-      await userDbModel.findOneAndUpdate({ _id }, { deleted_at: new Date() });
-      const updated = await userDbModel
-        .findOne({ _id })
-        .select("-__v -hash_password -tfa_secret")
+      const deleted = await userDbModel
+        .findOneAndUpdate({ _id }, { deleted_at: new Date() })
+        .select("_id")
         .lean({ virtuals: true });
 
-      if (updated) {
-        return new User(updated);
+      if (deleted) {
+        return new User(deleted);
       }
 
       return null;
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<IUser> {
-      await userDbModel.deleteOne({ _id });
-      const updated = await userDbModel
-        .findOne({ _id })
-        .select("-__v -hash_password -tfa_secret")
+      const deleted = await userDbModel
+        .findByIdAndDelete({ _id })
+        .select("_id")
         .lean({ virtuals: true });
 
-      if (updated) {
-        return new User(updated);
+      if (deleted) {
+        return new User(deleted);
       }
 
       return null;
     }
 
     async update(payload: Partial<IUser>): Promise<IUser> {
-      const result = await userDbModel
-        .findOneAndUpdate({ _id: payload._id }, payload)
-        .lean({ virtuals: true });
-
       const updated = await userDbModel
-        .findOne({ _id: result?._id })
-        .select("-__v -hash_password -tfa_secret")
+        .findOneAndUpdate({ _id: payload._id }, payload)
+        .select("_id")
         .lean({ virtuals: true });
 
       if (updated) {
@@ -349,15 +349,13 @@ export default function makeUserDb({
     }
 
     async restore({ _id }: { _id: string }): Promise<IUser> {
-      await userDbModel.findOneAndUpdate({ _id }, { deleted_at: null });
-
-      const updated = await userDbModel
-        .findOne({ _id })
-        .select("-__v -hash_password -tfa_secret")
+      const restored = await userDbModel
+        .findOneAndUpdate({ _id }, { deleted_at: null })
+        .select("_id")
         .lean({ virtuals: true });
 
-      if (updated) {
-        return new User(updated);
+      if (restored) {
+        return new User(restored);
       }
 
       return null;

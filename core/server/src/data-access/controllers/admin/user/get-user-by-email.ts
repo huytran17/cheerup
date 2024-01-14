@@ -3,7 +3,7 @@ import {
   GetUserByEmail,
   IGetUserByEmailPayload,
 } from "../../../../use-cases/user/get-user-by-email";
-import { get, omit } from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -33,7 +33,7 @@ export default function makeGetUserByEmailController({
         headers,
         statusCode: HttpStatusCode.OK,
         body: {
-          data: omit(exists, ["hash_password", "tfa_secret"]),
+          data: exists,
         },
       };
     } catch (error) {

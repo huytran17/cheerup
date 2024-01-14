@@ -4,7 +4,7 @@ import passport_google_oauth2, {
   VerifyCallback,
 } from "passport-google-oauth2";
 import { PassportStatic } from "passport";
-import { UserDb } from "../../../data-access";
+import { UserModel } from "../../../data-access/models";
 
 export default function initializeGoogle(
   passport: PassportStatic,
@@ -31,9 +31,11 @@ export default function initializeGoogle(
       profile: any,
       done: VerifyCallback
     ) {
-      const exist = await UserDb.findByEmail({
+      const exist = await UserModel.findOne({
         email: profile.email,
-      });
+      })
+        .select("-__v")
+        .lean({ virtual: true });
 
       const deleted_user = exist && exist.deleted_at;
       if (deleted_user) {
@@ -55,7 +57,7 @@ export default function initializeGoogle(
         },
       };
 
-      const created_user = await UserDb.insert(userDetails);
+      const created_user = await UserModel.create(userDetails);
 
       return done(null, created_user);
     })
