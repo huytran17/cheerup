@@ -25,7 +25,7 @@ export default function makeUpdatePasswordController({
   logger: Logger;
 }) {
   return async function updatePasswordController(
-    httpRequest: Request & { context: {} }
+    httpRequest: Request & { context: { validated: {} } }
   ) {
     const headers = {
       "Content-Type": "application/json",
@@ -45,10 +45,9 @@ export default function makeUpdatePasswordController({
         );
       }
 
-      const current_password = get(exists, "hash_password");
       const is_valid_password = await verifyPassword({
         password,
-        hash_password: current_password,
+        hash_password: exists.hash_password,
       });
 
       if (!is_valid_password) {

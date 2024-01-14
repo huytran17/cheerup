@@ -16,11 +16,11 @@ export default function makeHashPassword(hash: HashFunction): HashPassword {
     }
 
     if (!password_confirmation) {
-      throw new Error("Confirm password is needed.");
+      throw new Error("Password confirmation is needed.");
     }
 
     if (password !== password_confirmation) {
-      throw new Error("Password and confirm password does not match.");
+      throw new Error("Password and password confirmation does not match.");
     }
 
     const hashed_password = await hash(password);
