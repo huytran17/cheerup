@@ -53,7 +53,7 @@
             depressed
             tile
             small
-            :disabled="!has_user || is_loading"
+            :disabled="!has_user || is_app_loading"
             color="brick"
             class="white--text"
             @click="createComment"
@@ -113,7 +113,7 @@
 
 <script>
 import { get, isEmpty, cloneDeep, merge } from "lodash";
-import { mapMutations } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 import commentMixins from "@/mixins/comment";
 import postMixins from "@/mixins/post";
 import authMixins from "@/mixins/auth";
@@ -134,10 +134,13 @@ export default {
   data() {
     return {
       refresh_comment_editor_key: 0,
-      is_loading: false,
     };
   },
   computed: {
+    ...mapGetters({
+      is_app_loading: "is_app_loading",
+    }),
+
     has_more_comments() {
       return (
         this.comment_pagination.total_pages &&
@@ -206,7 +209,6 @@ export default {
           return;
         }
 
-        this.is_loading = true;
         const post_id = get(this.post, "_id");
         const final_comment_data = merge({}, this.new_comment, {
           post: post_id,
@@ -232,8 +234,6 @@ export default {
         });
       } catch (error) {
         console.error(error);
-      } finally {
-        this.is_loading = false;
       }
     },
 

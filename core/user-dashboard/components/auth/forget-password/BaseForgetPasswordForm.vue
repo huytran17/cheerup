@@ -93,6 +93,10 @@ export default {
   methods: {
     async getVerificationCode() {
       try {
+        if (!this.form_valid) {
+          return;
+        }
+
         const data = {
           email: this.password_reset?.email,
         };

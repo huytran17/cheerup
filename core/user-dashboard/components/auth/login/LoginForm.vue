@@ -129,16 +129,17 @@ export default {
   methods: {
     async signIn() {
       try {
-        const { user, access_token } = await this.SIGN_IN({ data: this.me });
-
-        const is_enabled_2fa = get(user, "is_enabled_2fa", false);
-        if (is_enabled_2fa) {
-          this.SET_ACCESS_TOKEN({ data: access_token });
-          return this.$router.push(this.localePath("/auth/tfa-verification"));
+        if (!this.form_valid) {
+          return;
         }
 
-        this.SET_ME({ data: user });
-        this.SET_HAS_USER({ data: true });
+        await this.SIGN_IN({ data: this.me });
+        await this.GET_ME();
+
+        const is_enabled_2fa = get(this.me, "is_enabled_2fa", false);
+        if (is_enabled_2fa) {
+          return this.$router.push(this.localePath("/auth/tfa-verification"));
+        }
 
         this.$router.push(this.localePath("/"));
       } catch (error) {

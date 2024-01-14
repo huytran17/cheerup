@@ -1,5 +1,4 @@
 import { capitalize as _capitalize } from "lodash";
-import { mapGetters, mapMutations } from "vuex";
 
 export default {
   computed: {

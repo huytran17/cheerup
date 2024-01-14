@@ -51,7 +51,7 @@
           class="white--text"
           tile
           depressed
-          :disabled="loading || !valid_form"
+          :disabled="is_app_loading || !valid_form"
           @click="resetPassword"
         >
           <span class="app-body" v-html="$t('Submit')"></span>
@@ -63,6 +63,7 @@
 
 <script>
 import passwordResetMixins from "@/mixins/password-reset";
+import { mapGetters } from "vuex";
 
 export default {
   name: "BaseResetPasswordForm",
@@ -70,11 +71,16 @@ export default {
   data() {
     return {
       valid_form: false,
-      loading: false,
       show_password: false,
       show_password_confirmation: false,
     };
   },
+  computed: {
+    ...mapGetters({
+      is_app_loading: "is_app_loading",
+    }),
+  },
+
   methods: {
     async resetPassword() {
       try {
@@ -82,7 +88,6 @@ export default {
           return;
         }
 
-        this.loading = true;
         const payload = {
           password: this.password_reset?.password,
           password_confirmation: this.password_reset?.password_confirmation,
@@ -99,7 +104,6 @@ export default {
           this.$t("Encountered error while updating your password")
         );
       } finally {
-        this.loading = false;
         localStorage.removeItem("verification_token");
       }
     },

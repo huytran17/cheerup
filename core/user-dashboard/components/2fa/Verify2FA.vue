@@ -68,8 +68,6 @@ export default {
 
         await this.VERIFY_2FA({ data: payload });
 
-        localStorage.setItem("access_token", this.access_token);
-
         await this.GET_ME();
 
         this.$router.push(this.localePath("/"));

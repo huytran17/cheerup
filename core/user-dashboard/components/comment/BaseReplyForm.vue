@@ -33,7 +33,7 @@
             color="brick"
             tile
             class="white--text"
-            :disabled="is_loading"
+            :disabled="is_app_loading"
             @click="replyComment"
           >
             <span class="app-body" v-html="$t('Send')"></span>
@@ -58,12 +58,12 @@ export default {
   data() {
     return {
       refresh_comment_reply_editor_key: 0,
-      is_loading: false,
     };
   },
   computed: {
     ...mapGetters({
       post: "post/post",
+      is_app_loading: "is_app_loading",
     }),
   },
   methods: {
@@ -78,7 +78,6 @@ export default {
           return;
         }
 
-        this.is_loading = true;
         const post_id = get(this.post, "_id");
 
         const final_reply_comment_data = merge({}, this.new_reply_comment, {
@@ -113,7 +112,6 @@ export default {
       } catch (error) {
         console.error(error);
       } finally {
-        this.is_loading = false;
         this.SET_IS_OPEN_REPLY_COMMENT({ data: false });
       }
     },

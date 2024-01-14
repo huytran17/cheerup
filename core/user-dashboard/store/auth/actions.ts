@@ -15,25 +15,11 @@ const actions: ActionTree<AuthState, RootState> = {
   },
 
   async [ActionTypes.SIGN_IN]({ commit }, { data }: { data: any }) {
-    const returned_data = await this.$axios.$post(
-      "/auth/sign-in",
-      data
-    );
-
-    return returned_data;
+    return await this.$axios.$post("/auth/sign-in", data);
   },
 
   async [ActionTypes.SIGN_OUT]() {
-    const { data } = await this.$axios.$post("/auth/sign-out");
-
-    const { valid_signout } = data;
-
-    if (valid_signout) {
-      localStorage.removeItem("access_token");
-      window.location.href = "/";
-    }
-
-    return valid_signout;
+    return await this.$axios.$post("/auth/sign-out");
   },
 
   async [ActionTypes.SIGN_UP]({ commit }, { data }: { data: any }) {
@@ -57,13 +43,11 @@ const actions: ActionTree<AuthState, RootState> = {
   },
 
   async [ActionTypes.ENABLE_2FA_CONFIRMATION]() {
-    const data = await this.$axios.$get("/auth/enable-2fa-confirmation");
-    return data;
+    return await this.$axios.$get("/auth/enable-2fa-confirmation");
   },
 
   async [ActionTypes.DISABLE_2FA_CONFIRMATION]() {
-    const data = await this.$axios.$get("/auth/disable-2fa-confirmation");
-    return data;
+    return await this.$axios.$get("/auth/disable-2fa-confirmation");
   },
 };
 

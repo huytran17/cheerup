@@ -9,18 +9,22 @@ declare module "@nuxt/types" {
   }
 }
 
-const plugin: Plugin = ({ $axios }: Context, inject) => {
+const plugin: Plugin = ({ $axios, store }: Context, inject) => {
   $axios.onRequest((config) => {
+    store.dispatch("SET_IS_APP_LOADING", true);
     console.log("Making request to " + config.url);
   });
 
   $axios.onResponse((response) => {
+    store.dispatch("SET_IS_APP_LOADING", false);
     console.log(
       `Got response with status code ${response.status} from ${response.config.url}`
     );
   });
 
   $axios.onError((error) => {
+    store.dispatch("SET_IS_APP_LOADING", false);
+
     const code = get(error, "response.status", HTTP_STATUS_CODE.NOT_FOUND);
     if (code === HTTP_STATUS_CODE.BAD_REQUEST) {
       return;

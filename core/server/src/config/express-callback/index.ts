@@ -43,6 +43,8 @@ export default function makeExpressCallback(controller: IController) {
             httpOnly: true,
             maxAge: one_year_in_ms,
           });
+
+          delete body.data.access_token;
         }
 
         res.status(httpResponse.statusCode).send(body);

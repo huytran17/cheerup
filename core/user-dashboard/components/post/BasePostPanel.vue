@@ -108,7 +108,7 @@
       <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.PINTEREST })">
         <v-icon color="pinterest">mdi-pinterest</v-icon>
       </v-btn>
-      <v-btn icon @click="exportPdf" :disabled="is_loading">
+      <v-btn icon @click="exportPdf" :disabled="is_app_loading">
         <v-icon color="brick">mdi-download</v-icon>
       </v-btn>
       <v-btn icon @click="copyLinkToClipboard">
@@ -130,13 +130,13 @@ export default {
     return {
       SOCIAL_MEDIA_TYPES: SOCIAL_MEDIA_TYPES,
       is_bookmarked: false,
-      is_loading: false,
     };
   },
   computed: {
     ...mapGetters({
       has_user: "auth/has_user",
       post: "post/post",
+      is_app_loading: "is_app_loading",
     }),
 
     reading_time() {
@@ -165,8 +165,6 @@ export default {
 
     async exportPdf() {
       try {
-        this.is_loading = true;
-
         const pdf_data = await this.EXPORT_POST_PDF({ _id: this.post._id });
 
         const url = window.URL.createObjectURL(
@@ -182,8 +180,6 @@ export default {
         document.body.removeChild(link);
       } catch (error) {
         console.error(error);
-      } finally {
-        this.is_loading = false;
       }
     },
 

@@ -33,7 +33,7 @@
             color="brick"
             tile
             class="white--text"
-            :disabled="is_loading"
+            :disabled="is_app_loading"
             @click="updateComment"
           >
             <span class="app-body" v-html="$t('Save')"></span>
@@ -58,12 +58,12 @@ export default {
   data() {
     return {
       refresh_edit_comment_editor_key: 0,
-      is_loading: false,
     };
   },
   computed: {
     ...mapGetters({
       post: "post/post",
+      is_app_loading: "is_app_loading",
     }),
   },
   methods: {
@@ -74,7 +74,6 @@ export default {
           return;
         }
 
-        this.is_loading = true;
         const final_comment_data = merge({}, this.comment, {
           content: new_comment_content,
         });
@@ -93,7 +92,6 @@ export default {
       } catch (error) {
         console.error(error);
       } finally {
-        this.is_loading = false;
         this.SET_IS_OPEN_EDIT_COMMENT({ data: false });
       }
     },
