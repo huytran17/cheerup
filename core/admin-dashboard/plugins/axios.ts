@@ -9,7 +9,10 @@ declare module "@nuxt/types" {
   }
 }
 
-const plugin: Plugin = ({ $axios, redirect, store, app }: Context, inject) => {
+const plugin: Plugin = (
+  { $axios, redirect, store, app, $toast }: Context,
+  inject
+) => {
   $axios.onRequest((config) => {
     console.log(`Making request to ${config.url}`);
     store.commit("SET_APP_LOADING", { data: true });
@@ -21,10 +24,12 @@ const plugin: Plugin = ({ $axios, redirect, store, app }: Context, inject) => {
     );
 
     store.commit("SET_APP_LOADING", { data: false });
+    $toast.success(app.i18n.$t("Action performed successfully"));
   });
 
   $axios.onError((error) => {
     store.commit("SET_APP_LOADING", { data: false });
+    $toast.error(app.i18n.$t("Encountered error occurred"));
 
     const code = get(error, "response.status", HTTP_STATUS_CODE.NOT_FOUND);
     if (code === HTTP_STATUS_CODE.BAD_REQUEST) {
