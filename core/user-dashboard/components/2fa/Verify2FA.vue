@@ -36,7 +36,7 @@
           small
           class="mr-1 white--text"
           color="brick"
-          :disabled="!tfa_code"
+          :disabled="!two_fa_code"
           @click="verify2FA"
         >
           <span class="app-body" v-html="$t('Submit')"></span>
@@ -55,14 +55,14 @@ export default {
   mixins: [authMixins],
   data() {
     return {
-      tfa_code: null,
+      two_fa_code: null,
     };
   },
   methods: {
     async verify2FA() {
       try {
         const payload = {
-          code: this.tfa_code,
+          code: this.two_fa_code,
           email: this.me.email,
         };
 
@@ -77,12 +77,12 @@ export default {
 
     onChangeOtp(code) {
       const invalid_code = !isNumber(Number(code)) || Number(code) < 1e5;
-      invalid_code && (this.tfa_code = null);
+      invalid_code && (this.two_fa_code = null);
     },
 
     onCompleteOtp(code) {
       const invalid_code = !isNumber(Number(code)) || Number(code) < 1e5;
-      !invalid_code && (this.tfa_code = code);
+      !invalid_code && (this.two_fa_code = code);
     },
   },
 };

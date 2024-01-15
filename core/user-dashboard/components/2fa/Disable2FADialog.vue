@@ -19,7 +19,7 @@ export default {
     async disable2FA() {
       try {
         const payload = {
-          code: this.$refs.enable2FADialog.tfa_code,
+          code: this.$refs.enable2FADialog.two_fa_code,
         };
 
         await this.DISABLE_2FA({ data: payload });

@@ -88,7 +88,7 @@ export default function makeEnable2FAConfirmationController({
         type: TwoFAType.ENABLE,
       };
 
-      const tfa = await createTwoFactorAuthentication({
+      const two_fa = await createTwoFactorAuthentication({
         twoFactorAuthenticationDetails,
       });
 
@@ -114,7 +114,7 @@ export default function makeEnable2FAConfirmationController({
         headers,
         statusCode: HttpStatusCode.OK,
         body: {
-          data: omit(tfa, "code"),
+          data: omit(two_fa, "code"),
         },
       };
     } catch (error) {

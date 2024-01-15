@@ -31,7 +31,7 @@
           tile
           depressed
           small
-          :disabled="!tfa_code"
+          :disabled="!two_fa_code"
           @click="submit_function"
         >
           <span class="app-body" v-html="$t('Submit')"></span>
@@ -68,24 +68,24 @@ export default {
   },
   data() {
     return {
-      tfa_code: null,
+      two_fa_code: null,
     };
   },
 
   methods: {
     closeModal() {
-      this.tfa_code = null;
+      this.two_fa_code = null;
       this.SET_IS_OPEN_2FA_MODAL({ data: false });
     },
 
     onChangeOtp(code) {
       const invalid_code = !isNumber(Number(code)) || Number(code) < 1e5;
-      invalid_code && (this.tfa_code = null);
+      invalid_code && (this.two_fa_code = null);
     },
 
     onCompleteOtp(code) {
       const invalid_code = !isNumber(Number(code)) || Number(code) < 1e5;
-      !invalid_code && (this.tfa_code = code);
+      !invalid_code && (this.two_fa_code = code);
     },
   },
 };
