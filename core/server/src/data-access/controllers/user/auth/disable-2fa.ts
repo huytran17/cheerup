@@ -36,19 +36,19 @@ export default function makeDisable2FAController({
 
       const { code } = <IPayload>get(httpRequest, "context.validated", {});
 
-      const two_fa = await getTwoFactorAuthenticationByEmailAndCode({
+      const tfa = await getTwoFactorAuthenticationByEmailAndCode({
         email: exists.email,
         code,
         type: TwoFAType.DISABLE,
       });
 
-      if (isEmpty(two_fa)) {
+      if (isEmpty(tfa)) {
         throw new Error(`Invalid two-factor authentication code ${code}`);
       }
 
-      const is_expired = moment().isAfter(moment(two_fa.expire_at));
+      const is_expired = moment().isAfter(moment(tfa.expire_at));
       if (is_expired) {
-        await hardDeleteTwoFactorAuthentication({ _id: two_fa._id });
+        await hardDeleteTwoFactorAuthentication({ _id: tfa._id });
         throw new Error(`Two-factor authentication code is expired ${code}`);
       }
 
@@ -59,7 +59,7 @@ export default function makeDisable2FAController({
 
       const [updated_user] = await Promise.all([
         updateUser({ userDetails }),
-        hardDeleteTwoFactorAuthentication({ _id: two_fa._id }),
+        hardDeleteTwoFactorAuthentication({ _id: tfa._id }),
       ]);
 
       return {
