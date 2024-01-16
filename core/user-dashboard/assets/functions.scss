@@ -1,0 +1,4 @@
+@function toRem($pixel) {
+  $rem: calc($pixel / 16) + rem;
+  @return $rem;
+}

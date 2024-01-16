@@ -264,7 +264,7 @@ export default {
     port: 8082,
   },
 
-  css: ["~/assets/style", "~/assets/variables"],
+  css: ["~/assets/style", "~/assets/main"],
 
   plugins: [
     "~/plugins/vuetify",
