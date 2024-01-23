@@ -1,17 +1,15 @@
-import colors from "vuetify/es5/util/colors";
 import axios from "axios";
-import { get, findIndex, map, flattenDeep, concat, filter } from "lodash";
-
+import { concat, filter, findIndex, flattenDeep, get, map } from "lodash";
+import colors from "vuetify/es5/util/colors";
 import { SEO_TYPE } from "./constants";
-import {
-  seo_home_schema,
-  seo_category_schema,
-  seo_post_schema,
-  exclude_pages,
-} from "./seo";
-
-import vi from "./locales/vi.json";
 import en from "./locales/en.json";
+import vi from "./locales/vi.json";
+import {
+  exclude_pages,
+  seo_category_schema,
+  seo_home_schema,
+  seo_post_schema,
+} from "./seo";
 
 export default {
   ssr: false,
@@ -306,13 +304,18 @@ export default {
     "nuxt-helmet",
     "@nuxtjs/axios",
     "@nuxtjs/i18n",
-    "nuxt-speedkit",
     "@nuxtjs/robots",
     "@nuxtjs/sitemap",
-    "nuxt-purgecss",
     "@nuxtjs/imagemin",
     "@nuxtjs/toast",
+    "@nuxtjs/style-resources",
+    "nuxt-speedkit",
+    "nuxt-purgecss",
   ],
+
+  styleResources: {
+    scss: ["~/assets/main.scss"],
+  },
 
   toast: {
     position: "top-center",
