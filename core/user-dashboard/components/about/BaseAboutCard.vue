@@ -81,9 +81,9 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .quote__description {
-  top: -15px;
-  left: -10px;
+  top: toRem(-15);
+  left: toRem(-10);
 }
 </style>

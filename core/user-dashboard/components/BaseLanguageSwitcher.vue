@@ -91,10 +91,10 @@ export default {
 </script>
 
 <style scoped>
-:deep(.v-list) {
-  padding: 0 !important;
+.v-list {
+  padding: 0;
 }
 .v-menu__content {
-  box-shadow: none !important;
+  box-shadow: none;
 }
 </style>

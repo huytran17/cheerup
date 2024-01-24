@@ -119,10 +119,10 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .button__close {
-  top: 4px !important;
-  right: 4px !important;
+  top: toRem(4) !important;
+  right: toRem(4) !important;
   z-index: 999 !important;
 }
 </style>

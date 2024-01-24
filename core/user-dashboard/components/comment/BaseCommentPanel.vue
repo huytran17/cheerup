@@ -265,14 +265,14 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .comment__header::before {
   position: absolute;
   content: "";
-  bottom: 32px;
+  bottom: toRem(32);
   left: 0;
-  width: 70px;
-  height: 2px;
-  border-bottom: 1px solid var(--color-header-baseline-border);
+  width: toRem(70);
+  height: toRem(2);
+  border-bottom: toRem(1) solid var(--color-header-baseline-border);
 }
 </style>

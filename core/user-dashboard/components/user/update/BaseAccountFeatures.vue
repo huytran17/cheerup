@@ -100,7 +100,7 @@ export default {
 </script>
 
 <style scoped>
-:deep(.v-input--switch) {
+.v-input--switch {
   margin-top: 0 !important;
 }
 </style>

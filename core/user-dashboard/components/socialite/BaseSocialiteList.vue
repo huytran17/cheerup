@@ -84,7 +84,7 @@ export default {
 </script>
 
 <style scoped>
-:deep(.mdi-instagram) {
+.mdi-instagram {
   background: radial-gradient(
     circle at 30% 107%,
     #fdf497 0%,

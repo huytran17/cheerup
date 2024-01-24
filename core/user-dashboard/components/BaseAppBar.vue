@@ -34,13 +34,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-:deep(.v-toolbar__content) {
-  padding: 4px 0 !important;
-}
-
-:deep(.mdi-magnify) {
-  cursor: pointer;
-}
-</style>

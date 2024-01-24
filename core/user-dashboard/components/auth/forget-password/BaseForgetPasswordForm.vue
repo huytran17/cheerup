@@ -166,9 +166,9 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .forget-password-form {
-  max-width: 516px;
-  margin-bottom: 50px;
+  max-width: toRem(516);
+  margin-bottom: toRem(50);
 }
 </style>

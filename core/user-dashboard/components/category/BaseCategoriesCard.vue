@@ -45,18 +45,18 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .card-item__wrapper {
-  border-bottom: 1px solid var(--color-article-baseline);
+  border-bottom: toRem(1) solid var(--color-article-baseline);
 }
 .card-item__title {
   transition: all 0.2s linear;
 }
 .card-item__title:hover {
-  padding-left: 15px;
+  padding-left: toRem(15);
 }
 .category__list {
-  max-height: 210px;
+  max-height: toRem(210);
   overflow-y: auto;
 }
 </style>

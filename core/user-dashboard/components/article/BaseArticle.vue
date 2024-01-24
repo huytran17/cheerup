@@ -205,10 +205,10 @@ export default {
 </script>
 
 <style scoped>
-:deep(.v-chip--label) {
+.v-chip--label {
   border-radius: 0 !important;
 }
-:deep(button.v-icon::after) {
+button.v-icon::after {
   background: transparent !important;
 }
 </style>

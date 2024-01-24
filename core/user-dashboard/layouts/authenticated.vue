@@ -118,25 +118,26 @@ export default {
 };
 </script>
 
-<style scoped>
-:deep(.container) {
-  max-width: 1100px !important;
+<style lang="scss" scoped>
+.container {
+  max-width: toRem(1100);
 }
 
-@media only screen and (min-width: 961px) and (max-width: 1080px) {
-  :deep(.container) {
-    max-width: 990px !important;
+@include media-minmax-width(toRem(961), toRem(1080)) {
+  .container {
+    max-width: toRem(990);
   }
 }
 
-@media only screen and (min-width: 768px) and (max-width: 960px) {
-  :deep(.container) {
-    width: 726px !important;
+@include media-minmax-width(toRem(768), toRem(960)) {
+  .container {
+    max-width: toRem(726);
   }
 }
-@media only screen and (max-width: 767px) {
-  :deep(.container) {
-    width: 100% !important;
+
+@include media-max-width(toRem(767)) {
+  .container {
+    width: 100%;
   }
 }
 </style>

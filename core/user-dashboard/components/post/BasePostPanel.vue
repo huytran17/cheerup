@@ -242,10 +242,10 @@ export default {
 </script>
 
 <style scoped>
-:deep(.v-chip--label) {
+.v-chip--label {
   border-radius: 0 !important;
 }
-:deep(.post__source *) {
+.post__source {
   display: inline !important;
   text-decoration: none !important;
 }

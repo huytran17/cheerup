@@ -67,8 +67,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .card__article {
-  border-bottom: 1px solid var(--color-article-baseline);
+  border-bottom: toRem(1) solid var(--color-article-baseline);
 }
 </style>

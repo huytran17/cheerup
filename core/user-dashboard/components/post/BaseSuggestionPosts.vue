@@ -72,25 +72,25 @@ export default {
 };
 </script>
 
-<style scoped>
-:deep(.slick-track) {
+<style lang="scss" scoped>
+.slick-track {
   display: flex !important;
 }
-:deep(.slick-slide) {
-  margin: 0 5px !important;
-  width: 182px !important;
+.slick-slide {
+  margin: 0 toRem(5) !important;
+  width: toRem(182) !important;
 }
-:deep(.v-icon::after) {
+.v-icon::after {
   background: transparent !important;
 }
 .suggestion__header::before {
   position: absolute;
   content: "";
-  bottom: 32px;
+  bottom: toRem(32);
   left: 0;
-  width: 70px;
-  height: 2px;
-  border-bottom: 1px solid var(--color-header-baseline-border);
+  width: toRem(70);
+  height: toRem(2);
+  border-bottom: toRem(1) solid var(--color-header-baseline-border);
 }
 .text--ellipsis {
   overflow: hidden;
@@ -99,13 +99,13 @@ export default {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
-:deep(.slick-list) {
-  margin: 0 -5px !important;
-  max-height: 250px !important;
+.slick-list {
+  margin: 0 toRem(-5) !important;
+  max-height: toRem(250) !important;
 }
 .post__card {
   border: 1px solid var(--color-article-baseline);
-  max-height: 250px;
-  min-height: 250px;
+  max-height: toRem(250);
+  min-height: toRem(250);
 }
 </style>

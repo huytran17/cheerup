@@ -196,7 +196,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .login-linear-background {
   background: linear-gradient(
     135deg,
@@ -205,7 +205,7 @@ export default {
   );
 }
 .login-box-shadow {
-  box-shadow: var(--color-register-form-shadow-bg) 0px 7px 29px 0px;
+  box-shadow: var(--color-register-form-shadow-bg) 0 toRem(7) toRem(29) 0;
 }
 .login-form-background {
   background: var(--color-register-form-bg);
@@ -216,7 +216,7 @@ export default {
 .rounded-icon * {
   color: var(--color-white) !important;
 }
-:deep(.v-btn--disabled) {
+.v-btn--disabled {
   background: var(--color-button-disabled-bg);
 }
 </style>
