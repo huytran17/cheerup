@@ -51,12 +51,17 @@ export default {
   modules: [
     "@nuxtjs/axios",
     "@nuxtjs/i18n",
-    "nuxt-purgecss",
-    "nuxt-speedkit",
     "nuxt-helmet",
     "@nuxtjs/imagemin",
     "@nuxtjs/toast",
+    "@nuxtjs/style-resources",
+    "nuxt-purgecss",
+    "nuxt-speedkit",
   ],
+
+  styleResources: {
+    scss: ["~/assets/main.scss"],
+  },
 
   toast: {
     position: "top-center",
