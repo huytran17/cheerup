@@ -1,46 +1,8 @@
 <template>
   <v-app>
     <v-main>
-      <v-container>
-        <v-row class="pb-5 pb-md-12">
-          <v-col cols="12" class="py-0">
-            <BaseAppBar />
-          </v-col>
-          <v-col cols="12" class="pt-0">
-            <BaseLanguageSwitcher />
-          </v-col>
-        </v-row>
-        <v-row class="flex-column flex-md-row flex-column-reverse">
-          <v-col cols="12" md="8">
-            <nuxt />
-          </v-col>
-          <v-col cols="12" md="4">
-            <v-row>
-              <v-col cols="12">
-                <BaseAboutCard />
-              </v-col>
-              <v-col cols="12" class="mt-3">
-                <BaseSocialiteList />
-              </v-col>
-              <v-col cols="12" class="mt-3">
-                <BaseProfileCard />
-              </v-col>
-              <v-col cols="12" class="mt-3">
-                <BaseCategoriesCard />
-              </v-col>
-              <v-col cols="12" class="mt-3">
-                <BaseQuickAccessCard />
-              </v-col>
-              <v-col cols="12" class="mt-3">
-                <BaseSearchCard />
-              </v-col>
-              <v-col cols="12" class="mt-3">
-                <BaseQuoteCard />
-              </v-col>
-            </v-row>
-          </v-col>
-        </v-row>
-      </v-container>
+      <MobileLayout v-if="is_mobile" />
+      <DesktopLayout v-else />
       <v-scroll-to-top></v-scroll-to-top>
     </v-main>
   </v-app>
@@ -50,15 +12,8 @@
 import { mapGetters, mapActions } from "vuex";
 import systemMixins from "@/mixins/system";
 import authMixins from "@/mixins/auth";
-import BaseAppBar from "@/components/BaseAppBar";
-import BaseAboutCard from "@/components/about/BaseAboutCard";
-import BaseSocialiteList from "@/components/socialite/BaseSocialiteList";
-import BaseProfileCard from "@/components/user/BaseProfileCard";
-import BaseCategoriesCard from "@/components/category/BaseCategoriesCard";
-import BaseSearchCard from "@/components/searching/BaseSearchCard";
-import BaseQuickAccessCard from "@/components/quick-access/BaseQuickAccessCard";
-import BaseQuoteCard from "@/components/quote/BaseQuoteCard";
-import BaseLanguageSwitcher from "@/components/BaseLanguageSwitcher";
+import DesktopLayout from "@/components/DesktopLayout";
+import MobileLayout from "@/components/MobileLayout";
 
 export default {
   name: "DefaultLayout",
@@ -83,15 +38,8 @@ export default {
     };
   },
   components: {
-    BaseAppBar,
-    BaseAboutCard,
-    BaseSocialiteList,
-    BaseProfileCard,
-    BaseCategoriesCard,
-    BaseSearchCard,
-    BaseQuickAccessCard,
-    BaseQuoteCard,
-    BaseLanguageSwitcher,
+    DesktopLayout,
+    MobileLayout,
   },
   computed: {
     ...mapGetters({
