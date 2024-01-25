@@ -5,7 +5,7 @@
       :lazy-src="logo_url"
       alt="logo"
       contain
-      max-width="320px"
+      :max-width="is_mobile ? '220px' : '320px'"
       width="inherit"
       class="mx-auto clickable"
       @click="goToHomePage"
@@ -15,8 +15,10 @@
 
 <script>
 import { mapMutations } from "vuex";
+import systemMixins from "@/mixins/system";
 export default {
   name: "BaseAppBar",
+  mixins: [systemMixins],
   data() {
     return {
       logo_url: `${process.env.BASE_URL}/logo.png`,

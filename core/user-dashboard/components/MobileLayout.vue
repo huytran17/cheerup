@@ -133,7 +133,6 @@ export default {
 .mdi-close,
 .mdi-menu {
   color: var(--color-black) !important;
-  font-size: toRem(28) !important;
 }
 
 .btn-menu--close {
