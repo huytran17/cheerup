@@ -1,13 +1,13 @@
 export type RandomCacheTime = ({
   second,
-  extra,
+  extra_minutes,
 }: {
   second: number;
-  extra: number;
+  extra_minutes: number;
 }) => number;
 
 export default function makeRandomCacheTime(): RandomCacheTime {
-  return function randomCacheTime({ second, extra }) {
-    return second + Math.random() * (extra * 60);
+  return function randomCacheTime({ second, extra_minutes }) {
+    return second + Math.random() * (extra_minutes * 60);
   };
 }
