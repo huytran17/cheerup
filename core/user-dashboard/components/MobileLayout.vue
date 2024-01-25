@@ -25,7 +25,7 @@
       absolute
       temporary
       mobile-breakpoint="xs"
-      width="90%"
+      width="94%"
       class="pb-5"
     >
       <v-row class="pt-5">
