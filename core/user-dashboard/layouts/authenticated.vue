@@ -3,6 +3,7 @@
     <v-main>
       <MobileLayout v-if="is_mobile" />
       <DesktopLayout v-else />
+      <BaseAppLoading />
       <v-scroll-to-top></v-scroll-to-top>
     </v-main>
   </v-app>
@@ -14,6 +15,7 @@ import systemMixins from "@/mixins/system";
 import authMixins from "@/mixins/auth";
 import DesktopLayout from "@/components/DesktopLayout";
 import MobileLayout from "@/components/MobileLayout";
+import BaseAppLoading from "@/components/BaseAppLoading";
 
 export default {
   name: "DefaultLayout",
@@ -40,6 +42,7 @@ export default {
   components: {
     DesktopLayout,
     MobileLayout,
+    BaseAppLoading,
   },
   computed: {
     ...mapGetters({
