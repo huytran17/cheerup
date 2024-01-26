@@ -53,7 +53,7 @@ export default class Redis {
     }
 
     const random_cache_time = randomCacheTime({
-      second: duration_in_seconds,
+      seconds: duration_in_seconds,
       extra_minutes: 30,
     });
 
@@ -62,7 +62,9 @@ export default class Redis {
         EX: random_cache_time,
       })
       .then(() => logger.verbose(`Redis Client: Cached data for key: ${key}`))
-      .catch(logger.error);
+      .catch((error) =>
+        logger.error(`Redis client failed to set data with error: ${error}`)
+      );
 
     return;
   }

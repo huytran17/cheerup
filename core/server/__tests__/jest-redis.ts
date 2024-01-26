@@ -50,7 +50,9 @@ export default class Redis {
         EX: duration_in_seconds,
       })
       .then(() => logger.verbose(`Redis Client: Cached data for key: ${key}`))
-      .catch((error) => logger.error(error));
+      .catch((error) =>
+        logger.error(`Redis client failed to set data with error: ${error}`)
+      );
   }
 
   async getData({ key }: { key: string }): Promise<any> {
