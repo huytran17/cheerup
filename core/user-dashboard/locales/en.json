@@ -101,5 +101,6 @@
   "Redirecting...": "Redirecting...",
   "Enter your email and press the submit button to receive the verification code.": "Enter your email and press the submit button to receive the verification code.",
   "Then enter the confirmation code in the form below to authenticate.": "Then enter the confirmation code in the form below to authenticate.",
-  "Login is required": "Login is required"
+  "Login is required": "Login is required",
+  "Encountered error while registering, please try again.": "Encountered error while registering, please try again."
 }

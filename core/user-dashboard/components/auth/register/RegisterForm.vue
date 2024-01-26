@@ -190,6 +190,9 @@ export default {
         this.$router.push(this.localePath("/login"));
       } catch (error) {
         console.error(error);
+        this.$toast.error(
+          "Encountered error while registering, please try again."
+        );
       }
     },
   },
