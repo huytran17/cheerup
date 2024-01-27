@@ -1,4 +1,4 @@
-import { get, omit } from "lodash";
+import { get } from "lodash";
 import { Request } from "express";
 import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { GenerateAccessToken } from "../../../../config/accessTokenManager/generate-access-token";
@@ -49,7 +49,7 @@ export default function makeSignInController({
       }
 
       const access_token = await generateAccessToken(
-        { email, hash_password },
+        { _id: exists._id },
         { expiresIn: "1y" }
       );
 

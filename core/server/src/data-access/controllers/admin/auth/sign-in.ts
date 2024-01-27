@@ -48,7 +48,7 @@ export default function makeSignInController({
       }
 
       const access_token = await generateAccessToken(
-        { email, hash_password: exists.hash_password },
+        { _id: exists._id },
         { expiresIn: "1y" }
       );
 

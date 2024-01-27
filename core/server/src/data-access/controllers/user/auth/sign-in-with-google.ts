@@ -17,10 +17,10 @@ export default function makeSignInWithGoogleController({
     };
 
     try {
-      const { email } = <IUser>get(httpRequest, "context.user", {});
+      const { _id } = <IUser>get(httpRequest, "context.user", {});
 
       const access_token = await generateAccessToken(
-        { email },
+        { _id },
         { expiresIn: "1y" }
       );
 
