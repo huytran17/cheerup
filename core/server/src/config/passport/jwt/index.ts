@@ -19,11 +19,10 @@ export default function initializeJWT(
   passport.use(
     "user-jwt",
     new JwtStrategy(opts, async (jwt_payload, done) => {
-      const { email, hash_password } = jwt_payload;
+      const { _id } = jwt_payload;
 
       const exists = await UserModel.findOne({
-        email,
-        hash_password,
+        _id,
         deleted_at: { $in: [null, undefined] },
       })
         .select("-__v")
@@ -40,11 +39,10 @@ export default function initializeJWT(
   passport.use(
     "admin-jwt",
     new JwtStrategy(opts, async (jwt_payload, done) => {
-      const { email, hash_password } = jwt_payload;
+      const { _id } = jwt_payload;
 
       const exists = await AdminModel.findOne({
-        email,
-        hash_password,
+        _id,
         deleted_at: { $in: [null, undefined] },
       });
 
