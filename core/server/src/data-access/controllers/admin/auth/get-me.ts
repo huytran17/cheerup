@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { get } from "lodash";
+import { get, omit } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IAdmin from "../../../../database/interfaces/admin";
 
@@ -18,7 +18,7 @@ export default function makeGetMeController() {
         headers,
         statusCode: HttpStatusCode.OK,
         body: {
-          data: exists,
+          data: omit(exists, "hash_password"),
         },
       };
     } catch (error) {
