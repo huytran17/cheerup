@@ -8,6 +8,7 @@ import compression from "compression";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import requestIp from "request-ip";
+import responseTime from "response-time";
 import { expressRateLimit } from "./config/express-rate-limit";
 import { cors } from "./config/middlewares/access-control";
 import { upload } from "./config/middlewares/file-upload";
@@ -30,6 +31,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(compression());
+app.use(responseTime());
 app.use(appRouter);
 
 app.listen(process.env.SERVER_PORT, () =>

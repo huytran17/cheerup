@@ -1870,6 +1870,14 @@
   dependencies:
     "@types/node" "*"
 
+"@types/response-time@^2.3.8":
+  version "2.3.8"
+  resolved "https://registry.yarnpkg.com/@types/response-time/-/response-time-2.3.8.tgz#cd8618080eeec73a7f3386fc2a9f6ea5c46f36be"
+  integrity sha512-7qGaNYvdxc0zRab8oHpYx7AW17qj+G0xuag1eCrw3M2VWPJQ/HyKaaghWygiaOUl0y9x7QGQwppDpqLJ5V9pzw==
+  dependencies:
+    "@types/express" "*"
+    "@types/node" "*"
+
 "@types/send@*":
   version "0.17.4"
   resolved "https://registry.yarnpkg.com/@types/send/-/send-0.17.4.tgz#6619cd24e7270793702e4e6a4b958a9010cfc57a"
@@ -3363,6 +3371,11 @@ depd@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/depd/-/depd-2.0.0.tgz#b696163cc757560d09cf22cc8fad1571b79e76df"
   integrity sha512-g7nH6P6dyDioJogAAGprGpCtVImJhpPk/roCzdb3fIh61/s/nPsfR6onyMwkCAR/OlC3yBC0lESvUoQEAssIrw==
+
+depd@~1.1.0:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/depd/-/depd-1.1.2.tgz#9bcd52e14c097763e749b274c4346ed2e560b5a9"
+  integrity sha512-7emPTl6Dpo6JRXOXjLRxck+FlLRX5847cLKEn00PLAgc3g2hTZZgr+e4c2v6QpSmLeFP3n5yUo7ft6avBK/5jQ==
 
 destroy@1.2.0:
   version "1.2.0"
@@ -6762,7 +6775,7 @@ on-finished@2.4.1, on-finished@^2.3.0:
   dependencies:
     ee-first "1.1.1"
 
-on-headers@~1.0.2:
+on-headers@~1.0.1, on-headers@~1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/on-headers/-/on-headers-1.0.2.tgz#772b0ae6aaa525c399e489adfad90c403eb3c28f"
   integrity sha512-pZAE+FJLoyITytdqK0U5s+FIpjN0JP3OzFi/u8Rx+EV5/W+JTWGXG8xFzevE7AjBfDqHv/8vL8qQsIhHnqRkrA==
@@ -7643,6 +7656,14 @@ resolve@^1.1.6, resolve@^1.1.7, resolve@^1.10.0, resolve@^1.20.0, resolve@^1.4.0
     is-core-module "^2.13.0"
     path-parse "^1.0.7"
     supports-preserve-symlinks-flag "^1.0.0"
+
+response-time@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/response-time/-/response-time-2.3.2.tgz#ffa71bab952d62f7c1d49b7434355fbc68dffc5a"
+  integrity sha512-MUIDaDQf+CVqflfTdQ5yam+aYCkXj1PY8fjlPDQ6ppxJlmgZb864pHtA750mayywNg8tx4rS7qH9JXd/OF+3gw==
+  dependencies:
+    depd "~1.1.0"
+    on-headers "~1.0.1"
 
 responselike@^1.0.2:
   version "1.0.2"
