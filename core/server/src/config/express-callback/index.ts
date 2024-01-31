@@ -31,7 +31,14 @@ export default function makeExpressCallback(controller: IController) {
 
         const body = httpResponse.body || {};
         const body_data = body.data || {};
-        const { sign_out, sign_in, access_token } = body_data;
+        const {
+          sign_out,
+          sign_in,
+          access_token,
+          is_verifying_reset_pwd,
+          is_verified_reset_pwd,
+          verification_token,
+        } = body_data;
 
         sign_out && res.clearCookie("access_token", { path: "/" });
 
@@ -45,6 +52,22 @@ export default function makeExpressCallback(controller: IController) {
           });
 
           delete body.data.access_token;
+        }
+
+        if (is_verifying_reset_pwd) {
+          const fifteen_minute_in_ms = 15 * 60;
+
+          res.cookie("verification_token", verification_token, {
+            path: "/",
+            httpOnly: true,
+            maxAge: fifteen_minute_in_ms,
+          });
+
+          delete body.data.verification_token;
+        }
+
+        if (is_verified_reset_pwd) {
+          res.clearCookie("verification_token", { path: "/" });
         }
 
         res.status(httpResponse.statusCode).send(body);
