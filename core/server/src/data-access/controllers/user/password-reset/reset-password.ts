@@ -16,6 +16,10 @@ interface IPayload {
   password_confirmation: string;
 }
 
+interface IVerifycationTokenPayload {
+  verification_token: string;
+}
+
 export default function makeResetPasswordController({
   getPasswordReset,
   hardDeletePasswordReset,
@@ -39,9 +43,13 @@ export default function makeResetPasswordController({
     };
 
     try {
-      const { verification_token, password, password_confirmation } = <
-        IPayload
-      >get(httpRequest, "context.validated", {});
+      const { verification_token } = <IVerifycationTokenPayload>(
+        get(httpRequest, "cookies")
+      );
+
+      const { password, password_confirmation } = <IPayload>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const decoded = <JwtPayload>verifyAccessToken(verification_token);
 
@@ -78,7 +86,10 @@ export default function makeResetPasswordController({
         headers,
         statusCode: HttpStatusCode.OK,
         body: {
-          data: updated_user,
+          data: {
+            ...updated_user,
+            is_verified_reset_pwd: true,
+          },
         },
       };
     } catch (error) {

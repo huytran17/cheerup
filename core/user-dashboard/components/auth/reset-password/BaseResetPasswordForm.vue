@@ -91,7 +91,6 @@ export default {
         const payload = {
           password: this.password_reset?.password,
           password_confirmation: this.password_reset?.password_confirmation,
-          verification_token: localStorage.getItem("verification_token"),
         };
 
         await this.RESET_PASSWORD({ data: payload });
@@ -103,8 +102,6 @@ export default {
         this.$toast.error(
           this.$t("Encountered error while updating your password")
         );
-      } finally {
-        localStorage.removeItem("verification_token");
       }
     },
   },

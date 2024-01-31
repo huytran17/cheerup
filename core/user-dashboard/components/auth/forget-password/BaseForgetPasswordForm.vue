@@ -101,8 +101,9 @@ export default {
           email: this.password_reset?.email,
         };
 
-        this.password_reset?.email &&
-          (await this.CREATE_PASSWORD_RESET({ data }));
+        if (this.password_reset?.email) {
+          await this.CREATE_PASSWORD_RESET({ data });
+        }
 
         this.$toast.success(
           this.$t("The security code was sent to your email")
@@ -125,10 +126,9 @@ export default {
           security_code: this.password_reset?.security_code,
         });
 
-        localStorage.setItem(
-          "verification_token",
-          password_reset.verification_token
-        );
+        if (!password_reset) {
+          return this.$t("Encountered error while verifying the security code");
+        }
 
         this.$router.push(this.localePath("/reset-password"));
       } catch (error) {

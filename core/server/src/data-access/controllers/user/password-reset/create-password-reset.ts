@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { get, omit } from "lodash";
 import Moment from "moment";
-import randomString from "randomstring";
+import { randomString } from "../../../../config/randomstring";
 import { Logger } from "winston";
 import { GetEmailContent } from "../../../../config/emailManager/get-email-content";
 import { RenderEmailContent } from "../../../../config/emailManager/render-email-content";
@@ -59,14 +59,15 @@ export default function makeCreatePasswordResetController({
 
       const password_reset = await getPasswordResetByEmail({ email });
 
-      !isEmpty(password_reset) &&
-        (await hardDeletePasswordReset({ _id: password_reset._id }));
+      if (!isEmpty(password_reset)) {
+        await hardDeletePasswordReset({ _id: password_reset._id });
+      }
 
-      let security_code = randomString.generate(6);
+      let security_code = randomString();
       let existed = await getPasswordResetByCode({ security_code });
 
       while (!isEmpty(existed)) {
-        security_code = randomString.generate(6);
+        security_code = randomString();
         existed = await getPasswordResetByCode({ security_code });
       }
 

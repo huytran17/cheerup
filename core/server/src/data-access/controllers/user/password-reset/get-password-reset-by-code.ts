@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { get } from "lodash";
+import { get, omit } from "lodash";
 import Moment from "moment";
 import { GenerateAccessToken } from "../../../../config/accessTokenManager/generate-access-token";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -55,7 +55,11 @@ export default function makeGetPasswordResetByEmailAndCodeController({
         headers,
         statusCode: HttpStatusCode.OK,
         body: {
-          data: { ...exists, verification_token },
+          data: {
+            ...omit(exists, ["security_code", "email"]),
+            verification_token,
+            is_verifying_reset_pwd: true,
+          },
         },
       };
     } catch (error) {

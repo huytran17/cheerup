@@ -69,7 +69,7 @@
               <span
                 class="app-body clickable card-item__title"
                 v-html="$t('Logout')"
-                @click="SIGN_OUT"
+                @click="signOut"
               ></span>
             </div>
           </div>
@@ -117,6 +117,15 @@ export default {
   methods: {
     redirectToLoginPage() {
       this.$router.push(this.localePath("/login"));
+    },
+
+    async signOut() {
+      try {
+        await this.SIGN_OUT();
+        window.location.reload();
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
   async fetch() {
