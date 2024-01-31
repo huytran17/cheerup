@@ -57,7 +57,9 @@ describe("getPasswordResetByCode", () => {
 
     const result = await getPasswordResetByCodeController(request as any);
 
-    const expected: ExpectSingleResult<IPasswordReset> = {
+    const expected: ExpectSingleResult<
+      Omit<IPasswordReset, "email|security_code">
+    > = {
       headers,
       statusCode: HttpStatusCode.OK,
       body: result?.body,
