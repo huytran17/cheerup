@@ -1,7 +1,6 @@
 const resetPasswordRules = {
-  verification_token: ["required", "string"],
-  password: ["required", "string"],
-  password_confirmation: ["required", "string"],
+  password: "required|string|min:8|max:255|confirmed",
+  password_confirmation: "required|min:8|max:255|string",
 };
 
 export default resetPasswordRules;
