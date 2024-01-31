@@ -40,7 +40,11 @@ export default function makeExpressCallback(controller: IController) {
           verification_token,
         } = body_data;
 
-        sign_out && res.clearCookie("access_token", { path: "/" });
+        if (sign_out) {
+          res.clearCookie("access_token", { path: "/" });
+
+          delete body.data.sign_out;
+        }
 
         if (sign_in) {
           const one_year_in_ms = 365 * 24 * 60 * 60 * 1000;
@@ -51,11 +55,12 @@ export default function makeExpressCallback(controller: IController) {
             maxAge: one_year_in_ms,
           });
 
+          delete body.data.sign_in;
           delete body.data.access_token;
         }
 
         if (is_verifying_reset_pwd) {
-          const fifteen_minute_in_ms = 15 * 60;
+          const fifteen_minute_in_ms = 15 * 60 * 1000;
 
           res.cookie("verification_token", verification_token, {
             path: "/",
@@ -63,11 +68,14 @@ export default function makeExpressCallback(controller: IController) {
             maxAge: fifteen_minute_in_ms,
           });
 
+          delete body.data.is_verifying_reset_pwd;
           delete body.data.verification_token;
         }
 
         if (is_verified_reset_pwd) {
           res.clearCookie("verification_token", { path: "/" });
+
+          delete body.data.is_verified_reset_pwd;
         }
 
         res.status(httpResponse.statusCode).send(body);
