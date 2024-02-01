@@ -86,7 +86,6 @@ describe("resetPassword", () => {
         validated: {
           password: "qwer1234",
           password_confirmation: "qwer1234",
-          verification_token,
         },
       },
       cookies: {

@@ -11,7 +11,6 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 interface IPayload {
-  verification_token: string;
   password: string;
   password_confirmation: string;
 }
