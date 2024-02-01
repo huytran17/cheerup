@@ -89,6 +89,9 @@ describe("resetPassword", () => {
           verification_token,
         },
       },
+      cookies: {
+        verification_token,
+      },
     };
 
     const result = await resetPasswordController(request as any);
