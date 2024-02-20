@@ -34,7 +34,7 @@ const userSchema = new Schema<IUser, Model<IUser>>(
   }
 );
 
-userSchema.index({ created_at: -1 });
+userSchema.index({ created_at: -1, email: 1 });
 
 userSchema.virtual("avatar_url").get(function () {
   return get(this, "avatar.location");

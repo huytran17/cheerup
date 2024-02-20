@@ -32,7 +32,7 @@ const postSchema = new Schema<IPost, Model<IPost>>(
   }
 );
 
-postSchema.index({ created_at: -1, views: -1 });
+postSchema.index({ created_at: -1, views: 1, slug: 1 });
 
 postSchema.virtual("thumbnail_url").get(function () {
   return get(this, "thumbnail.location");

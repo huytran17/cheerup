@@ -19,7 +19,7 @@ const subscriptionSchema = new Schema<ISubscription, Model<ISubscription>>(
   }
 );
 
-subscriptionSchema.index({ created_at: -1 });
+subscriptionSchema.index({ created_at: -1, email: 1 });
 
 subscriptionSchema.plugin(mongoose_lean_virtuals);
 

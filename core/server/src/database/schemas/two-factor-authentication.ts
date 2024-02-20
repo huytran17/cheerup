@@ -29,7 +29,7 @@ const twoFactorAuthenticationSchema = new Schema<
   }
 );
 
-twoFactorAuthenticationSchema.index({ created_at: -1 });
+twoFactorAuthenticationSchema.index({ created_at: -1, email: 1, code: 1 });
 
 twoFactorAuthenticationSchema.plugin(mongoose_lean_virtuals);
 
