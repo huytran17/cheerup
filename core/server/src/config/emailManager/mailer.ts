@@ -31,7 +31,7 @@ export function initializeMailer(): Transporter {
     return mailer;
   }
 
-  const transport = nodemailer.createTransport({
+  mailer = nodemailer.createTransport({
     host: "smtp.mailtrap.io",
     port: 2525,
     auth: {
@@ -40,13 +40,14 @@ export function initializeMailer(): Transporter {
     },
   });
 
-  transport.verify((error: any, success: any) =>
-    error
-      ? console.error(error)
-      : console.log("SMTP Server is ready to take your email")
+  mailer.verify(
+    (error: any, success: any) =>
+      error
+        ? console.error(error)
+        : console.log("SMTP Server is ready to take your email") //TODO: need to check why its running again when sending email
   );
 
-  return transport;
+  return mailer;
 }
 
 export type Mailer = {
