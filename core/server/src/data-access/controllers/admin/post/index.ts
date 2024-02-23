@@ -73,6 +73,7 @@ const getPostsController = makeGetPostsController({
 
 const createPostController = makeCreatePostController({
   createPost,
+  getPost,
   getActivatingSubscriptions,
   getEmailContent,
   renderEmailContent,

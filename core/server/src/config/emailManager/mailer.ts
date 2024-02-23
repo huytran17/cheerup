@@ -40,11 +40,10 @@ export function initializeMailer(): Transporter {
     },
   });
 
-  mailer.verify(
-    (error: any, success: any) =>
-      error
-        ? console.error(error)
-        : console.log("SMTP Server is ready to take your email") //TODO: need to check why its running again when sending email
+  mailer.verify((error: any, success: any) =>
+    error
+      ? console.error(error)
+      : console.log("SMTP Server is ready to take your email")
   );
 
   return mailer;

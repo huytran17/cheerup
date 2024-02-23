@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { convert } from "html-to-text";
-import { get, map, filter, join, merge } from "lodash";
+import { get, map, join, merge } from "lodash";
 import { Logger } from "winston";
 import { GetEmailContent } from "../../../../config/emailManager/get-email-content";
 import { RenderEmailContent } from "../../../../config/emailManager/render-email-content";
@@ -13,9 +13,11 @@ import {
 import { UpdatePost } from "../../../../use-cases/post/update-post";
 import { GetActivatingSubscriptions } from "../../../../use-cases/subscription/get-activating-subscriptions";
 import IAdmin from "../../../../database/interfaces/admin";
+import { GetPost } from "../../../../use-cases/post/get-post";
 
 export default function makeCreatePostController({
   createPost,
+  getPost,
   getActivatingSubscriptions,
   getEmailContent,
   renderEmailContent,
@@ -24,6 +26,7 @@ export default function makeCreatePostController({
   logger,
 }: {
   createPost: CreatePost;
+  getPost: GetPost;
   getActivatingSubscriptions: GetActivatingSubscriptions;
   getEmailContent: GetEmailContent;
   renderEmailContent: RenderEmailContent;
@@ -53,7 +56,9 @@ export default function makeCreatePostController({
         postDetails: post_details,
       });
 
-      const { title, description, categories, author, tags } = created_post;
+      const post = await getPost({ _id: created_post._id });
+
+      const { title, description, categories, author, tags } = post;
 
       logger.verbose(`Created post ${created_post.title}`);
 
@@ -91,9 +96,9 @@ export default function makeCreatePostController({
       logger.verbose(
         `Sending notifications email for new post to subscribers...`
       );
-      await Promise.all(
-        filter(send_notification_promises, (promise) => promise)
-      );
+
+      await Promise.all(send_notification_promises);
+
       logger.verbose(`Sent notifications email for new post to subscribers!!!`);
 
       const final_post_details = merge({}, created_post, {
