@@ -1,7 +1,7 @@
 const emailTemplateData = {
-  website_url: "http://localhost:8082",
-  product_name: "HuyTranBlog",
-  copyright_year: "2022",
+  website_url: process.env.USER_DASHBOARD_URL || "http://localhost:8082",
+  product_name: process.env.APP_NAME || "Cheerup",
+  copyright_year: "2024",
   first_address: "Ha Noi, Vietnam",
   support_email: "huytran@gmail.com",
   sender_name: "Huy Tran Blog",
