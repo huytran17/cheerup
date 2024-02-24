@@ -30,7 +30,7 @@ export default {
         total: get(this.admin_analys_data, "total_count", 0),
         average: financialAverage(total_created_counts),
         text: "Admins",
-        icon: "mdi-account-heart-outline",
+        icon: "mdi-shield-crown-outline",
       };
     },
   },

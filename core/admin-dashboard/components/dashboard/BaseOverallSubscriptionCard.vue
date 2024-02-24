@@ -30,7 +30,7 @@ export default {
         total: get(this.subscription_analys_data, "total_count", 0),
         average: financialAverage(total_created_counts),
         text: "Subscriptions",
-        icon: "mdi-book-open-outline",
+        icon: "mdi-email-heart-outline",
       };
     },
   },
