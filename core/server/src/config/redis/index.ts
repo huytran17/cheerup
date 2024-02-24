@@ -135,8 +135,10 @@ export default class Redis {
         continue;
       }
 
-      final_key += `${key}=${params[key]}`;
+      final_key += `${key}=${params[key]};`;
     }
+
+    final_key = final_key.slice(0, final_key.length - 1);
 
     return final_key;
   }
