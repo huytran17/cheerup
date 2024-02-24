@@ -15,8 +15,16 @@ export default {
       return {
         series: [
           {
-            name: this.$t("Posts Created"),
+            name: this.$t("Total Posts Created"),
             data: get(this.admin_analys_data, "total_post_created_counts", []),
+          },
+          {
+            name: this.$t("Total Author"),
+            data: get(this.admin_analys_data, "total_author_counts", []),
+          },
+          {
+            name: this.$t("Total Author Deleted"),
+            data: get(this.admin_analys_data, "total_deleted_counts", []),
           },
         ],
         options: {
