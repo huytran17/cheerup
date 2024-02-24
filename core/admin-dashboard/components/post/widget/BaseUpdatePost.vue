@@ -174,7 +174,7 @@
                     <v-row>
                       <v-col cols="12" md="6">
                         <v-text-field
-                          :value="post.seo && post.seo.title"
+                          :value="post_seo_title"
                           :label="$t('Title')"
                           @input="
                             updatePostObject({
@@ -186,7 +186,7 @@
                       </v-col>
                       <v-col cols="12" md="6">
                         <v-text-field
-                          :value="post.seo && post.seo.description"
+                          :value="post_seo_description"
                           :label="$t('Description')"
                           @input="
                             updatePostObject({
@@ -200,7 +200,7 @@
                     <v-row>
                       <v-col cols="12" md="6">
                         <v-text-field
-                          :value="post.seo && post.seo.keywords"
+                          :value="post_seo_keywords"
                           :label="$t('Keywords')"
                           @input="
                             updatePostObject({
@@ -212,7 +212,7 @@
                       </v-col>
                       <v-col cols="12" md="6">
                         <v-text-field
-                          :value="category.seo && category.seo.author"
+                          :value="post_seo_author"
                           :label="$t('Author')"
                           @input="
                             updatePostObject({
@@ -251,16 +251,17 @@
 </template>
 
 <script>
-import { merge } from "lodash";
+import { merge, get } from "lodash";
 import categoryMixins from "@/mixins/category";
 import postMixins from "@/mixins/post";
+import systemMixins from "@/mixins/system";
 import dropzoneMixins from "@/mixins/dropzone";
 import TiptapEditor from "@/components/TiptapEditor";
 import BasePreviewPostDialog from "@/components/post/widget/BasePreviewPostDialog";
 
 export default {
   name: "BaseUpdatePost",
-  mixins: [postMixins, dropzoneMixins, categoryMixins],
+  mixins: [postMixins, dropzoneMixins, categoryMixins, systemMixins],
   components: {
     BasePreviewPostDialog,
     TiptapEditor,
@@ -270,6 +271,23 @@ export default {
       form_valid: false,
       is_open_preview_dialog: false,
     };
+  },
+  computed: {
+    post_seo_title() {
+      return get(this.post, "seo.title");
+    },
+
+    post_seo_description() {
+      return this.replaceHTMLTag(get(this.post, "seo.description"));
+    },
+
+    post_seo_keywords() {
+      return get(this.post, "seo.keywords");
+    },
+
+    post_seo_author() {
+      return get(this.post, "seo.author");
+    },
   },
   methods: {
     async updatePost() {

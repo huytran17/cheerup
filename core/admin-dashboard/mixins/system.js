@@ -26,6 +26,14 @@ export default {
 
       return this.$moment(date).fromNow();
     },
+
+    replaceHTMLTag(string) {
+      if (!string) {
+        return;
+      }
+
+      return string.replaceAll(/(<([^>]+)>)/gi, "");
+    },
   },
   filters: {
     capitalize: function (value) {
