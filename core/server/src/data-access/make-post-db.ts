@@ -54,36 +54,27 @@ export default function makePostDb({
         },
       };
 
-      const [all_results, limited_results] = await Promise.all([
-        postDbModel
-          .find(query_conditions)
-          .select("_id title categories")
-          .populate({
-            path: "categories",
-            select: "_id title",
-          })
-          .lean({ virtual: true }),
-        postDbModel
-          .find(query_conditions)
-          .select("_id categories author title views created_at deleted_at")
-          .populate({
-            path: "categories",
-            select: "_id title badge_color",
-          })
-          .populate({
-            path: "author",
-            select: "_id full_name",
-          })
-          .limit(limit)
-          .sort({ views: -1 })
-          .lean({ virtual: true }),
-      ]);
+      const results = await postDbModel
+        .find(query_conditions)
+        .select("_id categories author title views created_at deleted_at")
+        .populate({
+          path: "categories",
+          select: "_id title badge_color",
+        })
+        .populate({
+          path: "author",
+          select: "_id full_name",
+        })
+        .sort({ views: -1 })
+        .lean({ virtual: true });
 
-      if (!limited_results) {
+      if (isEmpty(results)) {
         return null;
       }
 
-      const data = map(all_results, (post) => new Post(post));
+      const limited_results = results.slice(0, limit);
+
+      const data = map(results, (post) => new Post(post));
       const categories = flattenDeep(data.map((post) => post.categories));
       const category_ratio = countBy(categories, "title");
 
@@ -484,7 +475,11 @@ export default function makePostDb({
 
     async delete({ _id }: { _id: string }): Promise<IPost> {
       const deleted = await postDbModel
-        .findOneAndUpdate({ _id }, { deleted_at: new Date() })
+        .findOneAndUpdate(
+          { _id },
+          { deleted_at: new Date() },
+          { returnDocument: "after" }
+        )
         .select("-__v")
         .lean({ virtuals: true });
 
@@ -510,7 +505,9 @@ export default function makePostDb({
 
     async update(payload: Partial<IPost>): Promise<IPost> {
       const updated = await postDbModel
-        .findOneAndUpdate({ _id: payload._id }, payload)
+        .findOneAndUpdate({ _id: payload._id }, payload, {
+          returnDocument: "after",
+        })
         .select("-__v")
         .populate("author", "full_name")
         .populate("categories", "title")

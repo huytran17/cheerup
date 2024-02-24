@@ -79,7 +79,9 @@ export default function makeCommentLikeDb({
 
     async update(payload: Partial<ICommentLike>): Promise<ICommentLike> {
       const updated = await commentLikeDbModel
-        .findOneAndUpdate({ _id: payload._id }, payload)
+        .findOneAndUpdate({ _id: payload._id }, payload, {
+          returnDocument: "after",
+        })
         .select("-__v")
         .lean({ virtuals: true });
 

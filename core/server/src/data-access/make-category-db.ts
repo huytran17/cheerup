@@ -352,7 +352,8 @@ export default function makeCategoryDb({
     async delete({ _id }: { _id: string }): Promise<ICategory> {
       await categoryDbModel.findOneAndUpdate(
         { _id },
-        { deleted_at: new Date() }
+        { deleted_at: new Date() },
+        { returnDocument: "after" }
       );
 
       const updated = await categoryDbModel
@@ -382,7 +383,9 @@ export default function makeCategoryDb({
 
     async update(payload: Partial<ICategory>): Promise<ICategory> {
       const updated = await categoryDbModel
-        .findOneAndUpdate({ _id: payload._id }, payload)
+        .findOneAndUpdate({ _id: payload._id }, payload, {
+          returnDocument: "after",
+        })
         .select("-__v")
         .populate({
           path: "created_by",

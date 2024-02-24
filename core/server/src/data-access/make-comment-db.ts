@@ -318,7 +318,9 @@ export default function makeCommentDb({
 
     async update(payload: Partial<IComment>): Promise<IComment> {
       const updated = await commentDbModel
-        .findOneAndUpdate({ _id: payload._id }, payload)
+        .findOneAndUpdate({ _id: payload._id }, payload, {
+          returnDocument: "after",
+        })
         .select("-__v")
         .populate("children", "-_v")
         .populate("user", "_id full_name avatar_url")

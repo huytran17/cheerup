@@ -312,7 +312,11 @@ export default function makeUserDb({
 
     async delete({ _id }: { _id: string }): Promise<IUser> {
       const deleted = await userDbModel
-        .findOneAndUpdate({ _id }, { deleted_at: new Date() })
+        .findOneAndUpdate(
+          { _id },
+          { deleted_at: new Date() },
+          { returnDocument: "after" }
+        )
         .select("_id")
         .lean({ virtuals: true });
 
@@ -338,7 +342,9 @@ export default function makeUserDb({
 
     async update(payload: Partial<IUser>): Promise<IUser> {
       const updated = await userDbModel
-        .findOneAndUpdate({ _id: payload._id }, payload)
+        .findOneAndUpdate({ _id: payload._id }, payload, {
+          returnDocument: "after",
+        })
         .select("_id")
         .lean({ virtuals: true });
 
@@ -351,7 +357,11 @@ export default function makeUserDb({
 
     async restore({ _id }: { _id: string }): Promise<IUser> {
       const restored = await userDbModel
-        .findOneAndUpdate({ _id }, { deleted_at: null })
+        .findOneAndUpdate(
+          { _id },
+          { deleted_at: null },
+          { returnDocument: "after" }
+        )
         .select("_id")
         .lean({ virtuals: true });
 

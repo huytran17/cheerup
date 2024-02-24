@@ -190,7 +190,11 @@ export default function makePostBookmarkDb({
 
     async delete({ _id }: { _id: string }): Promise<IPostBookmark> {
       const deleted = await postBookmarkDbModel
-        .findOneAndUpdate({ _id }, { deleted_at: new Date() })
+        .findOneAndUpdate(
+          { _id },
+          { deleted_at: new Date() },
+          { returnDocument: "after" }
+        )
         .select("-__v")
         .lean({ virtuals: true });
 
@@ -216,7 +220,9 @@ export default function makePostBookmarkDb({
 
     async update(payload: Partial<IPostBookmark>): Promise<IPostBookmark> {
       const updated = await postBookmarkDbModel
-        .findOneAndUpdate({ _id: payload._id }, payload)
+        .findOneAndUpdate({ _id: payload._id }, payload, {
+          returnDocument: "after",
+        })
         .select("-__v")
         .lean({ virtuals: true });
 

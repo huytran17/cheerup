@@ -56,7 +56,9 @@ export default function makeSystemConfigurationDb({
       payload: Partial<ISystemConfiguration>
     ): Promise<ISystemConfiguration> {
       const updated = await systemConfigurationDbModel
-        .findOneAndUpdate({ _id: payload._id }, payload)
+        .findOneAndUpdate({ _id: payload._id }, payload, {
+          returnDocument: "after",
+        })
         .select("-__v")
         .lean({ virtuals: true });
 

@@ -279,7 +279,11 @@ export default function makeSubscriptionDb({
 
     async delete({ _id }: { _id: string }): Promise<ISubscription> {
       const deleted = await subscriptionDbModel
-        .findOneAndUpdate({ _id }, { deleted_at: new Date() })
+        .findOneAndUpdate(
+          { _id },
+          { deleted_at: new Date() },
+          { returnDocument: "after" }
+        )
         .select("-__v")
         .lean({ virtuals: true });
 
@@ -305,7 +309,9 @@ export default function makeSubscriptionDb({
 
     async update(payload: Partial<ISubscription>): Promise<ISubscription> {
       const updated = await subscriptionDbModel
-        .findOneAndUpdate({ _id: payload._id }, payload)
+        .findOneAndUpdate({ _id: payload._id }, payload, {
+          returnDocument: "after",
+        })
         .select("-__v")
         .lean({ virtuals: true });
 

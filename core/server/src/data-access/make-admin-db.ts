@@ -368,7 +368,11 @@ export default function makeAdminDb({
 
     async delete({ _id }: { _id: string }): Promise<IAdmin> {
       const deleted = await adminDbModel
-        .findOneAndUpdate({ _id }, { deleted_at: new Date() })
+        .findOneAndUpdate(
+          { _id },
+          { deleted_at: new Date() },
+          { returnDocument: "after" }
+        )
         .select("_id")
         .lean({ virtuals: true });
 
@@ -393,7 +397,9 @@ export default function makeAdminDb({
 
     async update(payload: Partial<IAdmin>): Promise<IAdmin> {
       const updated = await adminDbModel
-        .findOneAndUpdate({ _id: payload._id }, payload)
+        .findOneAndUpdate({ _id: payload._id }, payload, {
+          returnDocument: "after",
+        })
         .select("-__v -hash_password")
         .lean({ virtuals: true });
 

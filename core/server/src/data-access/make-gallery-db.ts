@@ -185,7 +185,9 @@ export default function makeGalleryDb({
 
     async update(payload: Partial<IGallery>): Promise<IGallery> {
       const updated = await galleryDbModel
-        .findOneAndUpdate({ _id: payload._id }, payload)
+        .findOneAndUpdate({ _id: payload._id }, payload, {
+          returnDocument: "after",
+        })
         .select("-__v")
         .lean({ virtuals: true });
 
