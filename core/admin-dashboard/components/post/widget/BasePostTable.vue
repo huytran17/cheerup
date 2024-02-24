@@ -26,6 +26,12 @@
             </div>
           </template>
 
+          <template v-slot:item.source="{ item }">
+            <div v-if="item.source" class="text-body-2">
+              <span class="app-body" v-html="item.source"></span>
+            </div>
+          </template>
+
           <template v-slot:item.category="{ item }">
             <ul
               v-if="item.categories.length"
