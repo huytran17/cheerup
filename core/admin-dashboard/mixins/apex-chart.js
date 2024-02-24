@@ -7,6 +7,7 @@ export default {
       user_analys_data: "user/user_analys_data",
       admin_analys_data: "admin/admin_analys_data",
       post_analys_data: "post/post_analys_data",
+      most_popular_posts_analys_data: "post/most_popular_posts_analys_data",
       subscription_analys_data: "subscription/subscription_analys_data",
       category_analys_data: "category/category_analys_data",
     }),
@@ -180,6 +181,46 @@ export default {
     },
 
     post_chart() {
+      return {
+        series: [
+          {
+            name: this.$t("Total Created"),
+            data: get(this.post_analys_data, "total_created_counts", []),
+          },
+          {
+            name: this.$t("Total Blocked Comment"),
+            data: get(
+              this.post_analys_data,
+              "total_blocked_comment_counts",
+              []
+            ),
+          },
+          {
+            name: this.$t("Total Deleted"),
+            data: get(this.post_analys_data, "total_deleted_counts", []),
+          },
+        ],
+        options: {
+          chart: {
+            id: "post-analytics",
+            type: "area",
+            width: "100%",
+          },
+          dataLabels: {
+            enabled: false,
+          },
+          stroke: {
+            curve: "smooth",
+            width: 1,
+          },
+          xaxis: {
+            categories: get(this.post_analys_data, "formatted_dates", []),
+          },
+        },
+      };
+    },
+
+    most_popular_post_chart() {
       const post_views = get(
         this.most_popular_posts_analys_data,
         "post_views",

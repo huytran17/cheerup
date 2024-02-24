@@ -1,10 +1,10 @@
 <template>
-  <apex-chart :height="300" :options="options" :series="series" />
+  <apex-chart :height="200" :options="options" :series="series" />
 </template>
 
 <script>
 export default {
-  name: "BasePostAnalysisChart",
+  name: "BaseMostPopularPostAnalysisChart",
 
   props: {
     options: {

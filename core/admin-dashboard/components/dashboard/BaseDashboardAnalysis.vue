@@ -41,7 +41,7 @@
     <v-row>
       <v-col cols="12" sm="6" md="4">
         <v-row>
-          <v-col cols="12"> <BaseStatisticPost /></v-col>
+          <v-col cols="12"> <BaseStatisticMostPopularPost /></v-col>
           <v-col cols="12"> <BaseStatisticSubscription /></v-col>
         </v-row>
       </v-col>
@@ -52,6 +52,9 @@
           </v-col>
           <v-col cols="12">
             <BaseStatisticCategory />
+          </v-col>
+          <v-col cols="12">
+            <BaseStatisticPost />
           </v-col>
         </v-row>
       </v-col>
@@ -68,10 +71,11 @@ import BaseOverallSubscriptionCard from "@/components/dashboard/BaseOverallSubsc
 import BaseOverallPostCard from "@/components/dashboard/BaseOverallPostCard";
 import BaseUserGrowthChart from "@/components/dashboard/BaseUserGrowthChart";
 import BaseUserOverviewChart from "@/components/dashboard/BaseUserOverviewChart";
-import BaseStatisticPost from "@/components/dashboard/BaseStatisticPost";
+import BaseStatisticMostPopularPost from "@/components/dashboard/BaseStatisticMostPopularPost";
 import BaseStatisticAdmin from "@/components/dashboard/BaseStatisticAdmin";
 import BaseStatisticCategory from "@/components/dashboard/BaseStatisticCategory";
 import BaseStatisticSubscription from "@/components/dashboard/BaseStatisticSubscription";
+import BaseStatisticPost from "@/components/dashboard/BaseStatisticPost";
 
 export default {
   name: "BaseDashboardAnalysis",
@@ -84,10 +88,11 @@ export default {
     BaseOverallPostCard,
     BaseUserGrowthChart,
     BaseUserOverviewChart,
-    BaseStatisticPost,
+    BaseStatisticMostPopularPost,
     BaseStatisticAdmin,
     BaseStatisticCategory,
     BaseStatisticSubscription,
+    BaseStatisticPost,
   },
 };
 </script>

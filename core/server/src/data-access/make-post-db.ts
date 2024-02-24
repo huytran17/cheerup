@@ -109,7 +109,6 @@ export default function makePostDb({
       const existing_dates = [];
       const total_created_counts = [];
       const total_deleted_counts = [];
-      const total_published_counts = [];
       const total_blocked_comment_counts = [];
 
       const total_count = await postDbModel.countDocuments({
@@ -156,26 +155,12 @@ export default function makePostDb({
               total_deleted: [
                 {
                   $match: {
-                    deleted_at: { $gte: start_of, $lte: end_of },
+                    created_at: { $gte: start_of, $lte: end_of },
+                    deleted_at: { $nin: [null, undefined] },
                   },
                 },
                 {
                   $count: "total_deleted_count",
-                },
-              ],
-              total_published: [
-                {
-                  $match: {
-                    $and: [
-                      {
-                        created_at: { $gte: start_of, $lte: end_of },
-                      },
-                      { deleted_at: { $in: [null, undefined] } },
-                    ],
-                  },
-                },
-                {
-                  $count: "total_published_count",
                 },
               ],
               total_blocked_comment: [
@@ -218,10 +203,6 @@ export default function makePostDb({
         const total_blocked_comment_count =
           result[0]?.total_blocked_comment[0]?.total_blocked_comment_count || 0;
         total_blocked_comment_counts.push(total_blocked_comment_count);
-
-        const total_published_count =
-          result[0]?.total_published[0]?.total_published_count || 0;
-        total_published_counts.push(total_published_count);
       }
 
       return {
@@ -230,7 +211,6 @@ export default function makePostDb({
         formatted_dates,
         total_count,
         total_blocked_comment_counts,
-        total_published_counts,
       };
     }
 

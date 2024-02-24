@@ -78,7 +78,6 @@ export interface IPostAnalytics {
   total_deleted_counts: number[];
   total_blocked_comment_counts: number[];
   total_count: number;
-  total_published_counts: number[];
   formatted_dates: string[];
 }
 
