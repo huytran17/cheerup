@@ -180,23 +180,25 @@ export default {
     },
 
     post_chart() {
-      const category_ratio = get(
+      const post_views = get(
         this.most_popular_posts_analys_data,
-        "category_ratio",
-        {}
+        "post_views",
+        []
+      );
+      const post_titles = get(
+        this.most_popular_posts_analys_data,
+        "post_titles",
+        []
       );
 
-      const category_titles = keys(category_ratio);
-      const category_ratio_data = values(category_ratio);
-
       return {
-        series: category_ratio_data,
+        series: post_views,
         options: {
           chart: {
             width: 380,
             type: "pie",
           },
-          labels: category_titles,
+          labels: post_titles,
           dataLabels: {
             enabled: false,
           },

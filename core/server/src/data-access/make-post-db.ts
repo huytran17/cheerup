@@ -1,4 +1,4 @@
-import { map, flattenDeep, countBy, sortBy, isEmpty } from "lodash";
+import { map, each, sortBy, isEmpty } from "lodash";
 import mongoose, { SortOrder } from "mongoose";
 import IPostDb, {
   IPaginatedPostResult,
@@ -31,6 +31,7 @@ export default function makePostDb({
     }): Promise<IMostPopularPostsAnalytics> {
       const FROM_INDEX = 0;
       const END_INDEX = 1;
+      const ROOT_LIMIT = 10;
 
       const from_date = range[FROM_INDEX]
         ? moment(range[FROM_INDEX])
@@ -59,28 +60,30 @@ export default function makePostDb({
         .select("_id categories author title views created_at deleted_at")
         .populate({
           path: "categories",
-          select: "_id title badge_color",
+          select: "_id title",
         })
         .populate({
           path: "author",
           select: "_id full_name",
         })
         .sort({ views: -1 })
+        .limit(ROOT_LIMIT)
         .lean({ virtual: true });
 
       if (isEmpty(results)) {
         return null;
       }
 
-      const limited_results = results.slice(0, limit);
-
       const data = map(results, (post) => new Post(post));
-      const categories = flattenDeep(data.map((post) => post.categories));
-      const category_ratio = countBy(categories, "title");
+
+      const limited_results = data.slice(0, limit);
+      const post_views = data.map((post) => post.views);
+      const post_titles = data.map((post) => post.title);
 
       return {
         posts: limited_results,
-        category_ratio,
+        post_views,
+        post_titles,
       };
     }
 
