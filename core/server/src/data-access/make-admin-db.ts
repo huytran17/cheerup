@@ -42,11 +42,8 @@ export default function makeAdminDb({
       const formatted_dates = [];
       const exists_dates = [];
       const total_post_created_counts = [];
-      const total_created_counts = [];
+      const total_author_counts = [];
       const total_deleted_counts = [];
-      const total_editor_counts = [];
-      const total_owner_counts = [];
-      const total_collaborator_counts = [];
 
       const total_count = await adminDbModel.countDocuments({
         created_at: {
@@ -89,100 +86,57 @@ export default function makeAdminDb({
                 {
                   $lookup: {
                     from: "posts",
-                    localField: "_id",
-                    foreignField: "author",
-                    as: "posts",
-                    pipeline: [{ $project: { _id: 1, created_at: 1 } }],
-                  },
-                },
-                {
-                  $project: {
-                    _id: 1,
-                    total_post_created_count: {
-                      $size: {
-                        $filter: {
-                          input: "$posts",
-                          as: "post",
-                          cond: {
+                    as: "post",
+                    let: { author_id: "$_id" },
+                    pipeline: [
+                      {
+                        $match: {
+                          $expr: {
                             $and: [
-                              {
-                                $gte: [
-                                  "$$post.created_at",
-                                  new Date(from_date.startOf(unit)),
-                                ],
-                              },
-                              {
-                                $lte: [
-                                  "$$post.created_at",
-                                  new Date(to_date.endOf(unit)),
-                                ],
-                              },
+                              { $gte: ["$created_at", start_of] },
+                              { $lte: ["$created_at", end_of] },
+                              { $eq: ["$author", "$$author_id"] },
                             ],
                           },
                         },
                       },
+                      {
+                        $count: "total_post_created_count",
+                      },
+                    ],
+                  },
+                },
+                {
+                  $project: {
+                    _id: 0,
+                    total_post_created_count: {
+                      $sum: "$post.total_post_created_count",
                     },
                   },
                 },
               ],
-              total_created: [
+              total_author: [
                 {
                   $match: {
                     created_at: { $gte: start_of, $lte: end_of },
+                    type: author_type,
                   },
                 },
                 {
-                  $count: "total_created_count",
+                  $count: "total_author_count",
                 },
               ],
 
               total_deleted: [
                 {
                   $match: {
-                    deleted_at: { $gte: start_of, $lte: end_of },
+                    created_at: { $gte: start_of, $lte: end_of },
+                    deleted_at: { $nin: [null, undefined] },
+                    type: author_type,
                   },
                 },
                 {
                   $count: "total_deleted_count",
-                },
-              ],
-
-              total_owner: [
-                {
-                  $match: {
-                    type: AdminType.Owner,
-                    deleted_at: { $in: [null, undefined] },
-                    created_at: { $gte: start_of, $lte: end_of },
-                  },
-                },
-                {
-                  $count: "total_owner_count",
-                },
-              ],
-
-              total_collaborator: [
-                {
-                  $match: {
-                    type: AdminType.Collaborator,
-                    deleted_at: { $in: [null, undefined] },
-                    created_at: { $gte: start_of, $lte: end_of },
-                  },
-                },
-                {
-                  $count: "total_collaborator_count",
-                },
-              ],
-
-              total_editor: [
-                {
-                  $match: {
-                    type: AdminType.Editor,
-                    deleted_at: { $in: [null, undefined] },
-                    created_at: { $gte: start_of, $lte: end_of },
-                  },
-                },
-                {
-                  $count: "total_editor_count",
                 },
               ],
             },
@@ -198,38 +152,26 @@ export default function makeAdminDb({
       const sorted_results = sortBy(results, ["order"]);
 
       for (const result of sorted_results) {
-        const total_post_created_count =
-          result[0]?.total_post_created[0]?.total_post_created_count || 0;
+        const total_post_created_count = result[0]?.total_post_created?.reduce(
+          (accumulator: number, current_item: any) =>
+            accumulator + current_item.total_post_created_count,
+          0
+        );
         total_post_created_counts.push(total_post_created_count);
 
-        const total_created_count =
-          result[0]?.total_created[0]?.total_created_count || 0;
-        total_created_counts.push(total_created_count);
+        const total_author_count =
+          result[0]?.total_author[0]?.total_author_count || 0;
+        total_author_counts.push(total_author_count);
 
         const total_deleted_count =
-          result[0]?.total_created[0]?.total_deleted_count || 0;
+          result[0]?.total_deleted[0]?.total_deleted_count || 0;
         total_deleted_counts.push(total_deleted_count);
-
-        const total_owner_count =
-          result[0]?.total_created[0]?.total_owner_count || 0;
-        total_owner_counts.push(total_owner_count);
-
-        const total_collaborator_count =
-          result[0]?.total_created[0]?.total_collaborator_count || 0;
-        total_collaborator_counts.push(total_collaborator_count);
-
-        const total_editor_count =
-          result[0]?.total_created[0]?.total_editor_count || 0;
-        total_editor_counts.push(total_editor_count);
       }
 
       return {
         total_post_created_counts,
-        total_created_counts,
+        total_author_counts,
         total_deleted_counts,
-        total_owner_counts,
-        total_collaborator_counts,
-        total_editor_counts,
         formatted_dates,
         total_count,
       };

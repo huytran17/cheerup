@@ -42,11 +42,8 @@ export interface IPaginatedAdminResult {
 
 export interface IAdminAnalyticsData {
   total_post_created_counts: number[];
-  total_created_counts: number[];
+  total_author_counts: number[];
   total_deleted_counts: number[];
-  total_owner_counts: number[];
-  total_collaborator_counts: number[];
-  total_editor_counts: number[];
   total_count: number;
   formatted_dates: string[];
 }
