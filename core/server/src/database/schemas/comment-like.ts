@@ -23,7 +23,7 @@ const commentLikeSchema = new Schema<ICommentLike, Model<ICommentLike>>(
   }
 );
 
-commentLikeSchema.index({ created_at: -1, comment: 1 });
+commentLikeSchema.index({ created_at: -1 });
 
 commentLikeSchema.plugin(mongoose_lean_virtuals);
 
