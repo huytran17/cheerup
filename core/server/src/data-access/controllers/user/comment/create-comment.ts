@@ -69,20 +69,21 @@ export default function makeCreateCommentController({
       });
 
       const map_meta_data = async (comment: IComment) => {
-        const likes_count = await countCommentLikeByCommentAndType({
-          comment_id: comment._id,
-          type: CommentLikeType.Like,
-        });
-
-        const dislikes_count = await countCommentLikeByCommentAndType({
-          comment_id: comment._id,
-          type: CommentLikeType.Dislike,
-        });
-
-        const comment_liked_by_user = await getCommentLikeByUserAndComment({
-          user_id: _id,
-          comment_id: comment._id,
-        });
+        const [likes_count, dislikes_count, comment_liked_by_user] =
+          await Promise.all([
+            countCommentLikeByCommentAndType({
+              comment_id: comment._id,
+              type: CommentLikeType.Like,
+            }),
+            countCommentLikeByCommentAndType({
+              comment_id: comment._id,
+              type: CommentLikeType.Dislike,
+            }),
+            getCommentLikeByUserAndComment({
+              user_id: _id,
+              comment_id: comment._id,
+            }),
+          ]);
 
         const is_liked =
           !isEmpty(comment_liked_by_user) &&
