@@ -125,13 +125,10 @@ export default function makeCategoryDb({
       );
 
       return {
-        created_categories: sorted_results,
         created_category_titles,
         created_category_colors,
         related_post_counts,
         most_popular_categories,
-        formatted_dates,
-        total_count,
       };
     }
 

@@ -46,10 +46,7 @@ export interface IPaginatedCategoryResult {
 }
 
 export interface ICategoryAnalyticsData {
-  created_categories: ICategory[];
   most_popular_categories: ICategory[];
-  total_count: number;
-  formatted_dates: string[];
   created_category_titles: string[];
   created_category_colors: string[];
   related_post_counts: number[];
