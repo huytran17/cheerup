@@ -40,7 +40,7 @@
           "
           @input="
             updateUserObject({
-              variable_path: 'password_confirmation',
+              variable_path: 'new_password_confirmation',
               data: $event,
             })
           "

@@ -10,7 +10,7 @@ import IUser from "../../../../database/interfaces/user";
 interface IPayload {
   password: string;
   new_password: string;
-  password_confirmation: string;
+  new_password_confirmation: string;
 }
 
 export default function makeUpdatePasswordController({
@@ -32,7 +32,7 @@ export default function makeUpdatePasswordController({
     };
 
     try {
-      const { password, new_password, password_confirmation } = <IPayload>(
+      const { password, new_password, new_password_confirmation } = <IPayload>(
         get(httpRequest, "context.validated", {})
       );
 
@@ -56,7 +56,7 @@ export default function makeUpdatePasswordController({
 
       const hashed_password = await hashPassword({
         password: new_password,
-        password_confirmation,
+        password_confirmation: new_password_confirmation,
       });
 
       const user_details = merge({}, exists, {
@@ -73,7 +73,10 @@ export default function makeUpdatePasswordController({
         headers,
         statusCode: HttpStatusCode.OK,
         body: {
-          data: updated_user,
+          data: {
+            ...updated_user,
+            sign_out: true,
+          },
         },
       };
     } catch (error) {
