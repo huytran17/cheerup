@@ -3,7 +3,6 @@ import authenticateUserGoogle from "../../config/middlewares/authenticate-user-g
 import makeValidator from "../../config/middlewares/validator";
 import express from "express";
 import makeExpressCallback from "../../config/express-callback";
-import makeExpressViewCallback from "../../config/express-view-callback";
 import {
   signInRules,
   signUpRules,
@@ -53,39 +52,39 @@ authRouter.get("/google", authenticateUserGoogle());
 authRouter.get(
   "/google/callback",
   authenticateUserGoogle(),
-  makeExpressViewCallback(signInWithGoogleController)
+  makeExpressCallback(signInWithGoogleController)
 );
 
 authRouter.get(
   "/enable-2fa-confirmation",
   authenticateUserJWT(),
-  makeExpressViewCallback(enable2FAConfirmationController)
+  makeExpressCallback(enable2FAConfirmationController)
 );
 
 authRouter.get(
   "/disable-2fa-confirmation",
   authenticateUserJWT(),
-  makeExpressViewCallback(disable2FAConfirmationController)
+  makeExpressCallback(disable2FAConfirmationController)
 );
 
 authRouter.post(
   "/enable-2fa",
   authenticateUserJWT(),
   makeValidator(enable2FARules),
-  makeExpressViewCallback(enable2FAController)
+  makeExpressCallback(enable2FAController)
 );
 
 authRouter.post(
   "/disable-2fa",
   authenticateUserJWT(),
   makeValidator(disable2FARules),
-  makeExpressViewCallback(disable2FAController)
+  makeExpressCallback(disable2FAController)
 );
 
 authRouter.post(
   "/verify-2fa",
   makeValidator(verify2FARules),
-  makeExpressViewCallback(verify2FAController)
+  makeExpressCallback(verify2FAController)
 );
 
 export default authRouter;

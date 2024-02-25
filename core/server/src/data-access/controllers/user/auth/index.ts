@@ -19,6 +19,7 @@ import {
   createUser,
   getUserByEmail,
   updateUser,
+  getUserTfaSecretByEmail,
 } from "../../../../use-cases/user";
 import makeDisable2FAController from "./disable-2fa";
 import makeDisable2FAConfirmationController from "./disable-2fa-confirmation";
@@ -33,6 +34,8 @@ import makeVerify2FAController from "./verify-2fa";
 
 const verify2FAController = makeVerify2FAController({
   getUserByEmail,
+  getUserTfaSecretByEmail,
+  generateAccessToken,
 });
 
 const disable2FAController = makeDisable2FAController({

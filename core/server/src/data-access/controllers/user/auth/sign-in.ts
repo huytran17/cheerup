@@ -1,4 +1,4 @@
-import { get } from "lodash";
+import { get, pick } from "lodash";
 import { Request } from "express";
 import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { GenerateAccessToken } from "../../../../config/accessTokenManager/generate-access-token";
@@ -27,6 +27,14 @@ export default function makeSignInController({
       "Content-Type": "application/json",
     };
 
+    const return_ok = (data: any) => {
+      return {
+        headers,
+        statusCode: HttpStatusCode.OK,
+        body: { ...data },
+      };
+    };
+
     try {
       const { email, password } = <IPayload>(
         get(httpRequest, "context.validated", {})
@@ -43,9 +51,12 @@ export default function makeSignInController({
         hash_password,
       });
 
-      const valid_authentication = exists && valid_password;
-      if (!valid_authentication) {
+      if (!valid_password) {
         throw new Error(`Email or password mismatch`);
+      }
+
+      if (exists.is_enabled_2fa) {
+        return return_ok(pick(exists, ["email", "is_enabled_2fa"]));
       }
 
       const access_token = await generateAccessToken(
@@ -53,16 +64,10 @@ export default function makeSignInController({
         { expiresIn: "1y" }
       );
 
-      return {
-        headers,
-        statusCode: HttpStatusCode.OK,
-        body: {
-          data: {
-            access_token,
-            sign_in: true,
-          },
-        },
-      };
+      return return_ok({
+        access_token,
+        sign_in: true,
+      });
     } catch (error) {
       throw {
         headers,

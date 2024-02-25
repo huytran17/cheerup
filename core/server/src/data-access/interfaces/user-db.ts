@@ -25,6 +25,7 @@ export default interface IUserDb {
     range?: string[];
     unit?: string;
   }) => Promise<IUserAnalyticsData>;
+  findTfaSecretByEmail: ({ email }: { email: string }) => Promise<IUser>;
 }
 
 export interface IPaginatedUserResult {

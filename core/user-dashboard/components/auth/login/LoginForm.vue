@@ -133,14 +133,16 @@ export default {
           return;
         }
 
-        await this.SIGN_IN({ data: this.me });
-        await this.GET_ME();
+        const user = await this.SIGN_IN({ data: this.me });
 
-        const is_enabled_2fa = get(this.me, "is_enabled_2fa", false);
+        const is_enabled_2fa = get(user, "is_enabled_2fa", false);
         if (is_enabled_2fa) {
-          return this.$router.push(this.localePath("/auth/tfa-verification"));
+          return this.$router.push(
+            this.localePath(`/auth/tfa-verification?email=${user.email}`)
+          );
         }
 
+        await this.GET_ME();
         this.$router.push(this.localePath("/"));
       } catch (error) {
         console.error(error);

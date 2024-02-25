@@ -38,12 +38,17 @@ const SEO_TYPE = {
   CATEGORY: "category",
 };
 
+const TFA_VERIFICATION = {
+  CODE_LENGTH: 6,
+};
+
 export default Object.freeze({
   SOCIAL_MEDIA_TYPES,
   SOCIALITE_URL,
   HTTP_STATUS_CODE,
   COMMENT_LIKE_TYPE,
   SEO_TYPE,
+  TFA_VERIFICATION,
 });
 
 export {
@@ -52,4 +57,5 @@ export {
   HTTP_STATUS_CODE,
   COMMENT_LIKE_TYPE,
   SEO_TYPE,
+  TFA_VERIFICATION,
 };

@@ -49,6 +49,7 @@
 <script>
 import { isNumber } from "lodash";
 import authMixins from "@/mixins/auth";
+import { TFA_VERIFICATION } from "@/constants";
 
 export default {
   name: "Verify2FA",
@@ -61,9 +62,11 @@ export default {
   methods: {
     async verify2FA() {
       try {
+        const email = this.$route.query?.email;
+
         const payload = {
           code: this.two_fa_code,
-          email: this.me.email,
+          email,
         };
 
         await this.VERIFY_2FA({ data: payload });
@@ -76,13 +79,17 @@ export default {
     },
 
     onChangeOtp(code) {
-      const invalid_code = !isNumber(Number(code)) || Number(code) < 1e5;
+      const invalid_code =
+        !isNumber(Number(code)) || code.length !== TFA_VERIFICATION.CODE_LENGTH;
+
       invalid_code && (this.two_fa_code = null);
     },
 
     onCompleteOtp(code) {
-      const invalid_code = !isNumber(Number(code)) || Number(code) < 1e5;
-      !invalid_code && (this.two_fa_code = code);
+      const valid_code =
+        isNumber(Number(code)) || code.length === TFA_VERIFICATION.CODE_LENGTH;
+
+      valid_code && (this.two_fa_code = code);
     },
   },
 };

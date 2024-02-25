@@ -13,6 +13,11 @@ import makeGetUserAnalystics from "./get-user-analystics";
 import makeCreateUser from "./create-user";
 import makeGetOneUser from "./get-one-user";
 import makeRestoreUser from "./restore-user";
+import makeGetUserTfaSecretByEmail from "./get-user-tfa-secret-by-email";
+
+const getUserTfaSecretByEmail = makeGetUserTfaSecretByEmail({
+  userDb: UserDb,
+});
 
 const restoreUser = makeRestoreUser({
   userDb: UserDb,
@@ -67,6 +72,7 @@ const userServices = Object.freeze({
   createUser,
   getOneUser,
   restoreUser,
+  getUserTfaSecretByEmail,
 });
 
 export default userServices;
@@ -82,4 +88,5 @@ export {
   createUser,
   getOneUser,
   restoreUser,
+  getUserTfaSecretByEmail,
 };

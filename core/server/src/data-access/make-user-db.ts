@@ -261,6 +261,26 @@ export default function makeUserDb({
       return null;
     }
 
+    async findTfaSecretByEmail({ email }: { email: string }): Promise<IUser> {
+      const query_conditions = {
+        deleted_at: { $in: [null, undefined] },
+        email,
+      };
+
+      const exists = await userDbModel
+        .findOne(query_conditions)
+        .select(
+          "_id full_name email tfa_secret created_at updated_at deleted_at"
+        )
+        .lean({ virtuals: true });
+
+      if (exists) {
+        return new User(exists);
+      }
+
+      return null;
+    }
+
     async findOne(): Promise<IUser> {
       const query_conditions = {
         deleted_at: { $in: [null, undefined] },
