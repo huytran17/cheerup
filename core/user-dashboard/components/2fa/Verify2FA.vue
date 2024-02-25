@@ -80,14 +80,16 @@ export default {
 
     onChangeOtp(code) {
       const invalid_code =
-        !isNumber(Number(code)) || code.length !== TFA_VERIFICATION.CODE_LENGTH;
+        !isNumber(Number(code)) ||
+        code.trim().length !== TFA_VERIFICATION.CODE_LENGTH;
 
       invalid_code && (this.two_fa_code = null);
     },
 
     onCompleteOtp(code) {
       const valid_code =
-        isNumber(Number(code)) || code.length === TFA_VERIFICATION.CODE_LENGTH;
+        isNumber(Number(code)) &&
+        code.trim().length === TFA_VERIFICATION.CODE_LENGTH;
 
       valid_code && (this.two_fa_code = code);
     },
