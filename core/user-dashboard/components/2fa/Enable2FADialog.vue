@@ -24,7 +24,7 @@ export default {
           code: this.$refs.enable2FADialog.two_fa_code,
         };
 
-        const tfa_data = await this.ENABLE_2FA({ data: payload });
+        const { data: tfa_data } = await this.ENABLE_2FA({ data: payload });
         await this.GET_ME();
 
         this.$toast.success(this.$t(`Enabled 2FA successfully`));
