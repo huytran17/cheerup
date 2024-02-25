@@ -31,7 +31,12 @@ const actions: ActionTree<AuthState, RootState> = {
   },
 
   async [ActionTypes.ENABLE_2FA]({ commit }, { data }: { data: any }) {
-    return await this.$axios.$post("/auth/enable-2fa", data);
+    const { data: tfa_data } = await this.$axios.$post(
+      "/auth/enable-2fa",
+      data
+    );
+
+    return tfa_data;
   },
 
   async [ActionTypes.DISABLE_2FA]({ commit }, { data }: { data: any }) {
