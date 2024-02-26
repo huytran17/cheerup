@@ -164,7 +164,7 @@ export default {
     try {
       const payload = {
         ...this.post,
-        views: this.post?.views + 1 || 0,
+        views: this.post?.views + 1 || 0, //TODO: use $inc to increase the view
       };
 
       const duration_in_milliseconds = Math.round(
