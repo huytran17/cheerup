@@ -59,7 +59,7 @@ describe("updatePassword", () => {
         validated: {
           password: "password",
           new_password: "new_password",
-          password_confirmation: "new_password",
+          new_password_confirmation: "new_password",
         },
         user: created_user,
       },

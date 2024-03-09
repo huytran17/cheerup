@@ -16,6 +16,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IPost from "../../../../database/interfaces/post";
 import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
 import makeCreatePost from "../../../../use-cases/post/create-post";
+import makeGetPost from "../../../../use-cases/post/get-post";
 import makeUpdatePost from "../../../../use-cases/post/update-post";
 import makeGetActivatingSubscriptions from "../../../../use-cases/subscription/get-activating-subscriptions";
 import makeAdminDb from "../../../make-admin-db";
@@ -52,6 +53,7 @@ describe("createPost", () => {
     const createAdmin = makeCreateAdmin({ adminDb });
     const createPost = makeCreatePost({ postDb });
     const updatePost = makeUpdatePost({ postDb });
+    const getPost = makeGetPost({ postDb });
     const getActivatingSubscriptions = makeGetActivatingSubscriptions({
       subscriptionDb,
     });
@@ -63,6 +65,7 @@ describe("createPost", () => {
 
     const createPostController = makeCreatePostController({
       createPost,
+      getPost,
       getActivatingSubscriptions,
       getEmailContent,
       renderEmailContent,
