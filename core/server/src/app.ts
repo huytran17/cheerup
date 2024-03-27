@@ -32,6 +32,12 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(compression());
 app.use(responseTime());
+app.use(
+  express.static("public", {
+    maxAge: "1d",
+    extensions: ["image/*"],
+  })
+);
 app.use(appRouter);
 
 app.listen(process.env.SERVER_PORT, () =>

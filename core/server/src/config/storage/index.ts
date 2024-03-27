@@ -8,14 +8,14 @@ export default class Storage {
   }
 
   static makeS3() {
-    // AWS.config.update({
-    //   secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-    //   accessKeyId: process.env.S3_ACCESS_KEY_ID,
-    //   region: "ap-southeast-1",
-    //   s3ForcePathStyle: true,
-    //   sslEnabled: false,
-    //   signatureVersion: "v4",
-    // });
+    AWS.config.update({
+      secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+      accessKeyId: process.env.S3_ACCESS_KEY_ID,
+      region: "ap-southeast-1",
+      s3ForcePathStyle: true,
+      sslEnabled: false,
+      signatureVersion: "v4",
+    });
 
     const s3 = new AWS.S3();
     console.log("Successfully connected to S3");
