@@ -84,3 +84,5 @@ sw.*
 *.swp
 
 .jest-cache
+
+public/
