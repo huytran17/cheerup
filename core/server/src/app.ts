@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import compression from "compression";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
+import { join } from "path";
 import requestIp from "request-ip";
 import responseTime from "response-time";
 import { expressRateLimit } from "./config/express-rate-limit";
@@ -31,7 +32,7 @@ app.use(passport.initialize());
 app.use(compression());
 app.use(responseTime());
 app.use(
-  express.static("public", {
+  express.static(join(__dirname, "public"), {
     maxAge: "1d",
     extensions: ["image/*"],
   })
