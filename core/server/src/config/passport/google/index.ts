@@ -35,7 +35,7 @@ export default function initializeGoogle(
         email: profile.email,
       })
         .select("-__v")
-        .lean({ virtual: true });
+        .lean({ virtuals: true });
 
       const deleted_user = exist && exist.deleted_at;
       if (deleted_user) {

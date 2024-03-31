@@ -2,6 +2,8 @@ import { Request } from "express";
 import { PassportStatic } from "passport";
 import password_jwt from "passport-jwt";
 import { AdminModel, UserModel } from "../../../data-access/models";
+import User from "../../../database/entities/user";
+import Admin from "../../../database/entities/admin";
 
 const cookieExtractor = (req: Request) => req.cookies?.access_token;
 
@@ -26,13 +28,13 @@ export default function initializeJWT(
         deleted_at: { $in: [null, undefined] },
       })
         .select("-__v")
-        .lean({ virtual: true });
+        .lean({ virtuals: true });
 
       if (!exists) {
         return done(null, null);
       }
 
-      return done(null, exists);
+      return done(null, new User(exists));
     })
   );
 
@@ -44,13 +46,15 @@ export default function initializeJWT(
       const exists = await AdminModel.findOne({
         _id,
         deleted_at: { $in: [null, undefined] },
-      });
+      })
+        .select("-__v")
+        .lean({ virtuals: true });
 
       if (!exists) {
         return done(null, null);
       }
 
-      return done(null, exists);
+      return done(null, new Admin(exists));
     })
   );
 
