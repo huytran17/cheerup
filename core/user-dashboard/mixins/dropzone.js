@@ -1,13 +1,7 @@
 export default {
-  computed: {
-    access_token() {
-      return `Bearer ${localStorage.getItem("access_token")}`;
-    },
-  },
-
   methods: {
     uploadUserAvatarOptions({ id }) {
-      const upload_url = `${process.env.SERVER_URL}/api/user/upload-avatar/${id}`;
+      const upload_url = `${process.env.SERVER_URL}/api/v2/user/upload-avatar/${id}`;
       return this.getDropzoneOptions({ upload_url });
     },
 
@@ -18,9 +12,7 @@ export default {
         maxFilesize: 5,
         addRemoveLinks: true,
         maxFiles: 1,
-        headers: {
-          Authorization: this.access_token,
-        },
+        withCredentials: true,
       };
     },
   },
