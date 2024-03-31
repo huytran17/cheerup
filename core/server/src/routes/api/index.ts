@@ -3,17 +3,17 @@ import authenticateUserJWT from "../../config/middlewares/authenticate-user-jwt"
 
 const apiRouter = express.Router();
 
-import userRouter from "./user";
 import authRouter from "./auth";
 import categoryRouter from "./category";
 import commentRouter from "./comment";
-import postRouter from "./post";
-import systemConfigurationRouter from "./system-configuration";
-import subscriptionRouter from "./subscription";
-import postBookmarkRouter from "./post-bookmark";
 import commentLikeRouter from "./comment-like";
 import passwordResetRouter from "./password-reset";
+import postRouter from "./post";
+import postBookmarkRouter from "./post-bookmark";
 import seoRouter from "./seo";
+import subscriptionRouter from "./subscription";
+import systemConfigurationRouter from "./system-configuration";
+import userRouter from "./user";
 
 apiRouter.use("/user", authenticateUserJWT(), userRouter);
 apiRouter.use("/post-bookmark", authenticateUserJWT(), postBookmarkRouter);
