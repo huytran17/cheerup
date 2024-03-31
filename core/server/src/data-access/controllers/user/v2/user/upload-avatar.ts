@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { get, merge, omit } from "lodash";
+import { get, merge } from "lodash";
 import {
   GetUser,
   IGetUserPayload,

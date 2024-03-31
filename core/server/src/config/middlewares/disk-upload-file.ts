@@ -39,7 +39,21 @@ export default function makeDiskUploadFileMiddleware() {
     },
   });
 
-  const upload = multer({ storage });
+  const fileFilter = (req, file, cb) => {
+    if (file.mimetype.includes("image")) {
+      return cb(null, true);
+    }
+
+    cb(new Error("Invalid file format."));
+  };
+
+  const upload = multer({
+    storage,
+    limits: {
+      fileSize: 1e6,
+    },
+    fileFilter,
+  });
 
   return upload;
 }
