@@ -22,7 +22,7 @@ export default function makeDiskUploadFileMiddleware() {
         return;
       }
 
-      const file_path = resolve("src", "public", "upload", user._id);
+      const file_path = resolve("src", "upload", user._id.toString());
 
       !existsSync(file_path) && mkdirSync(file_path);
 

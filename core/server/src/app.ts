@@ -25,6 +25,7 @@ process.env.NODE_ENV === "production" && app.use(expressRateLimit());
 app.use(requestIp.mw());
 app.use(cors);
 app.use(helmet());
+app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -32,7 +33,8 @@ app.use(passport.initialize());
 app.use(compression());
 app.use(responseTime());
 app.use(
-  express.static(join(__dirname, "public"), {
+  "/upload",
+  express.static(join(__dirname, "upload"), {
     maxAge: "1d",
     extensions: ["image/*"],
   })
