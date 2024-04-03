@@ -8,7 +8,7 @@ export default class Redis {
   public static redis_instance: Redis;
   redis_client: undefined | RedisClientType;
 
-  constructor() {
+  private constructor() {
     if (Redis.redis_instance) {
       return Redis.redis_instance;
     }
