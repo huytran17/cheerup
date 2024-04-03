@@ -1,7 +1,8 @@
-import multer from "multer";
+import multer, { FileFilterCallback } from "multer";
 import { resolve } from "path";
 import { existsSync, mkdirSync } from "fs";
 import IUser from "../../database/interfaces/user";
+import { Request } from "express";
 
 export interface IDiskUploadedFile {
   filename: string;
@@ -39,7 +40,11 @@ export default function makeDiskUploadFileMiddleware() {
     },
   });
 
-  const fileFilter = (req, file, cb) => {
+  const fileFilter = (
+    req: Request,
+    file: Express.Multer.File,
+    cb: FileFilterCallback
+  ) => {
     if (file.mimetype.includes("image")) {
       return cb(null, true);
     }
