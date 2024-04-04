@@ -1,10 +1,15 @@
+import { access, constants } from "fs";
 import { unlink } from "fs/promises";
-import { existsSync } from "fs";
+import getFileLocalPath from "./get-file-local-path";
 
 export default function deleteUploadedFile(path: string): void {
-  if (!existsSync(path)) {
-    return;
-  }
+  const local_path = getFileLocalPath(path);
 
-  unlink(path).catch(console.error);
+  access(local_path, constants.F_OK, (error) => {
+    if (error) {
+      return console.error(`Failed to delete ${path}: ${error.message}`);
+    }
+
+    unlink(local_path).catch(console.error);
+  });
 }
