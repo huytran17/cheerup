@@ -17,25 +17,13 @@ export interface IDiskUploadedFile {
 export default function makeDiskUploadFileMiddleware() {
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      const user = <IUser>req.user;
-
-      if (!user) {
-        return;
-      }
-
-      const file_path = resolve("src", "upload", user._id.toString());
+      const file_path = resolve("src", "upload");
 
       !existsSync(file_path) && mkdirSync(file_path);
 
       cb(null, file_path);
     },
     filename: (req, file, cb) => {
-      const user = <IUser>req.user;
-
-      if (!user) {
-        return;
-      }
-
       cb(null, `${Date.now()}-${file.originalname}`);
     },
   });
@@ -45,6 +33,12 @@ export default function makeDiskUploadFileMiddleware() {
     file: Express.Multer.File,
     cb: FileFilterCallback
   ) => {
+    const user = <IUser>req.user;
+
+    if (!user) {
+      return cb(new Error("Unauthorized."));
+    }
+
     if (file.mimetype.includes("image")) {
       return cb(null, true);
     }
