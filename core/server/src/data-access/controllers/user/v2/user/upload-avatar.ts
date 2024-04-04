@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { get, merge } from "lodash";
+import { get } from "lodash";
 import {
   GetUser,
   IGetUserPayload,
@@ -9,6 +9,7 @@ import { HttpStatusCode } from "../../../../../constants/http-status-code";
 import { isEmpty } from "../../../../../utils/is-empty";
 import getFIleUploadedPath from "../../../../../utils/get-file-uploaded-path";
 import { IDiskUploadedFile } from "../../../../../config/middlewares/disk-upload-file";
+import deleteUploadedFile from "../../../../../utils/delete-uploaded-file";
 
 export default function makeUploadUserAvatarController({
   getUser,
@@ -41,18 +42,19 @@ export default function makeUploadUserAvatarController({
         throw new Error(`File does not exist`);
       }
 
+      deleteUploadedFile(exists.avatar_url);
+
       const avatar = {
         ...file,
         path: getFIleUploadedPath(file.path),
         destination: getFIleUploadedPath(file.destination),
       };
 
-      const user_details = merge({}, exists, {
-        avatar,
-      });
-
       const updated_user = await updateUser({
-        userDetails: user_details,
+        userDetails: {
+          ...exists,
+          avatar,
+        },
       });
 
       return {
