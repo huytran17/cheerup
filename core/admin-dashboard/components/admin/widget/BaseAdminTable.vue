@@ -128,6 +128,7 @@ import { get } from "lodash";
 import { ADMIN_TYPES } from "@/constants";
 
 import adminMixins from "@/mixins/admin";
+import authMixins from "@/mixins/auth";
 import systemMixins from "@/mixins/system";
 
 import Avatar from "vue-avatar";
@@ -135,7 +136,7 @@ import BaseHardDeleteDialog from "@/components/BaseHardDeleteDialog";
 
 export default {
   name: "BaseAdminTable",
-  mixins: [adminMixins, systemMixins],
+  mixins: [adminMixins, systemMixins, authMixins],
   components: {
     Avatar,
     BaseHardDeleteDialog,
@@ -240,7 +241,13 @@ export default {
 
   async fetch() {
     try {
-      await this.GET_ADMINS();
+      const admins = await this.GET_ADMINS();
+
+      const filtered_admins = admins.filter(
+        (admin) => admin._id !== this.me._id
+      );
+
+      this.SET_ADMINS({ data: filtered_admins });
     } catch (error) {
       console.error(error);
     }
