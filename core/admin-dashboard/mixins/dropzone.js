@@ -1,15 +1,9 @@
 import _ from "lodash";
 
 export default {
-  computed: {
-    access_token() {
-      return `Bearer ${localStorage.getItem("admin_access_token")}`;
-    },
-  },
-
   methods: {
     uploadAdminAvatarOptions({ id }) {
-      const upload_url = `${process.env.SERVER_URL}/admin/admin/upload-avatar/${id}`;
+      const upload_url = `${process.env.SERVER_URL}/admin/v2/admin/upload-avatar/${id}`;
       return this.getDropzoneOptions({ upload_url });
     },
 
@@ -60,9 +54,7 @@ export default {
         maxFilesize: 5,
         addRemoveLinks: true,
         maxFiles: 1,
-        headers: {
-          Authorization: this.access_token,
-        },
+        withCredentials: true,
       };
     },
   },
