@@ -32,7 +32,7 @@ const adminSchema = new Schema<IAdmin, Model<IAdmin>>(
 adminSchema.index({ created_at: -1, email: 1 });
 
 adminSchema.virtual("avatar_url").get(function () {
-  return get(this, "avatar.location");
+  return get(this, "avatar.path");
 });
 
 adminSchema.plugin(mongoose_lean_virtuals);
