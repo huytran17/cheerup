@@ -40,7 +40,6 @@ adminRouter.get(
 
 adminRouter.post(
   "/upload-avatar/:_id",
-  makeAuthorization(AuthorizationRole.ONLY_OWNER),
   makeValidator(uploadAvatarRules),
   makeExpressCallback(uploadAvatarController)
 );
