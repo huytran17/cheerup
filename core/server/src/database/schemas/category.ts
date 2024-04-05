@@ -31,7 +31,7 @@ const categorySchema = new Schema<ICategory, Model<ICategory>>(
 categorySchema.index({ created_at: -1, title: -1 });
 
 categorySchema.virtual("thumbnail_url").get(function () {
-  return get(this, "thumbnail.location");
+  return get(this, "thumbnail.path");
 });
 
 categorySchema.pre("findOneAndUpdate", async function (next) {
