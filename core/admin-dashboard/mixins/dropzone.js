@@ -13,7 +13,7 @@ export default {
     },
 
     uploadCategoryThumbnailOptions({ id }) {
-      const upload_url = `${process.env.SERVER_URL}/admin/category/upload-thumbnail/${id}`;
+      const upload_url = `${process.env.SERVER_URL}/admin/v2/category/upload-thumbnail/${id}`;
       return this.getDropzoneOptions({ upload_url });
     },
 
