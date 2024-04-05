@@ -9,7 +9,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 import deleteS3Object from "../../../../utils/delete-s3-object";
 
-export default function makeUploadAdminAvatarController({
+export default function makeUploadAvatarController({
   getAdmin,
   updateAdmin,
 }: {

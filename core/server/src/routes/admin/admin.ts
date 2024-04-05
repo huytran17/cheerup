@@ -12,7 +12,7 @@ import {
   restoreAdminRules,
   hardDeleteAdminRules,
   updateAdminPasswordRules,
-  uploadAdminAvatarRules,
+  uploadAvatarRules,
   updateAdminPersonalPasswordRules,
   getAdminAnalysticsRules,
 } from "../../data-access/controllers/admin/admin/validators";
@@ -25,7 +25,7 @@ import {
   restoreAdminController,
   hardDeleteAdminController,
   updateAdminPasswordController,
-  uploadAdminAvatarController,
+  uploadAvatarController,
   getAdminAnalysticsController,
   updateAdminPersonalPasswordController,
 } from "../../data-access/controllers/admin/admin";
@@ -41,8 +41,8 @@ adminRouter.get(
 adminRouter.post(
   "/upload-avatar/:_id",
   makeAuthorization(AuthorizationRole.ONLY_OWNER),
-  makeValidator(uploadAdminAvatarRules),
-  makeExpressCallback(uploadAdminAvatarController)
+  makeValidator(uploadAvatarRules),
+  makeExpressCallback(uploadAvatarController)
 );
 
 adminRouter.put(
