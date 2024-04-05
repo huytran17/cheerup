@@ -64,18 +64,6 @@
             </div>
           </v-col>
           <v-col cols="12" sm="6">
-            <v-dropzone
-              ref="avatar_dropzone"
-              id="avatar"
-              :options="uploadAdminAvatarOptions({ id: admin._id })"
-              :destroyDropzone="true"
-              @vdropzone-success="
-                (file, response) => onUploadAvatarSuccsess({ file, response })
-              "
-            ></v-dropzone>
-          </v-col>
-
-          <v-col cols="12" sm="6">
             <v-img
               :src="admin.avatar_url"
               :alt="admin.full_name"
@@ -220,19 +208,6 @@ export default {
           this.$t("Encountered error while updating admin password")
         );
       }
-    },
-
-    onUploadAvatarSuccsess({ file, response }) {
-      this.$refs.avatar_dropzone.removeFile(file);
-
-      const { data: updated_admin } = response;
-      const updated_admin_data = merge({}, this.admin, {
-        avatar: updated_admin.avatar,
-        avatar_url: updated_admin.avatar_url,
-      });
-
-      this.SET_ADMIN({ data: updated_admin_data });
-      this.$toast.success(this.$t("Updated admin avatar successfully"));
     },
   },
   async fetch() {
