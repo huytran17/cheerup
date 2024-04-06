@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { get, merge } from "lodash";
+import { get } from "lodash";
 import authMixins from "@/mixins/auth";
 import userMixins from "@/mixins/user";
 import dropzoneMixins from "@/mixins/dropzone";
@@ -90,12 +90,17 @@ export default {
   methods: {
     async updateUserSecurity() {
       try {
-        const { _id } = this.me;
-        const final_user_data = merge({}, this.user, {
-          _id,
+        if (!this.form_valid) {
+          return;
+        }
+
+        await this.UPDATE_USER_PASSWORD({
+          data: {
+            ...this.user,
+            _id: this.me?._id,
+          },
         });
 
-        await this.UPDATE_USER_PASSWORD({ data: final_user_data });
         this.$toast.success(this.$t("Updated password successfully"));
         this.$router.push(this.localePath("/login"));
       } catch (error) {

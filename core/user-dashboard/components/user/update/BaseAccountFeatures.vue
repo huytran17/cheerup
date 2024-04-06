@@ -37,7 +37,6 @@
 import { get } from "lodash";
 import authMixins from "@/mixins/auth";
 import subscriptionMixins from "@/mixins/subscription";
-
 import Enable2FADialog from "@/components/2fa/Enable2FADialog";
 import Disable2FADialog from "@/components/2fa/Disable2FADialog";
 import QRCodeDialog from "@/components/2fa/QRCodeDialog";

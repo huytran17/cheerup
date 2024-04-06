@@ -41,14 +41,7 @@
               id="admin_logo"
               :options="uploadUserAvatarOptions({ id: me._id })"
               :destroyDropzone="true"
-              @vdropzone-success="
-                (file, response) =>
-                  onUploadSuccsess({
-                    file,
-                    response,
-                    update_paths: ['avatar', 'avatar_url'],
-                  })
-              "
+              @vdropzone-success="(file) => onUploadSuccsess({ file })"
             ></v-dropzone>
           </v-col>
 
@@ -81,7 +74,6 @@
 </template>
 
 <script>
-import { merge } from "lodash";
 import authMixins from "@/mixins/auth";
 import userMixins from "@/mixins/user";
 import dropzoneMixins from "@/mixins/dropzone";
@@ -97,28 +89,28 @@ export default {
   methods: {
     async updateUser() {
       try {
+        if (!this.form_valid) {
+          return;
+        }
+
         await this.UPDATE_USER({ data: this.me });
+
         this.$toast.success(this.$t("Updated profile successfully"));
       } catch (error) {
         console.error(error);
       }
     },
 
-    onUploadSuccsess({ file, response, update_paths }) {
-      this.$refs.user_avatar_dropzone.removeFile(file);
+    async onUploadSuccsess({ file }) {
+      try {
+        this.$refs.user_avatar_dropzone.removeFile(file);
 
-      const { data: updated_user } = response;
+        this.$toast.success(this.$t("Updated profile successfully"));
 
-      let updated_thumbnail_data = merge({}, this.me);
-
-      update_paths.forEach((update_path) => {
-        updated_thumbnail_data = merge({}, this.me, {
-          [update_path]: updated_user[update_path],
-        });
-      });
-
-      this.SET_ME({ data: updated_thumbnail_data });
-      this.$toast.success(this.$t("Updated profile successfully"));
+        await this.GET_ME();
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 };
