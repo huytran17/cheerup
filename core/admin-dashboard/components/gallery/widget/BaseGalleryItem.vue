@@ -1,6 +1,6 @@
 <template>
   <v-hover v-slot="{ hover }">
-    <v-img :src="data.location" contain class="position-relative">
+    <v-img :src="data.path" contain class="position-relative">
       <template v-slot:default>
         <div
           class="position-absolute image__feat pr-2 pt-2"
@@ -13,7 +13,7 @@
             small
             icon
             class="white"
-            @click="$emit('open-delete-item-dialog', data)"
+            @click="$emit('open-delete-item-dialog')"
           >
             <v-icon small>mdi-trash-can-outline</v-icon>
           </v-btn>
@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     copyImageUrl(item) {
-      navigator.clipboard.writeText(item.location);
+      navigator.clipboard.writeText(item.path);
       this.$toast.success(this.$t("Copied to clipboard"));
     },
   },

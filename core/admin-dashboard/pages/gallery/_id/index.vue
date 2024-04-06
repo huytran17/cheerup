@@ -30,7 +30,7 @@
         <v-dropzone
           ref="upload_item_dropzone"
           id="thumbnail"
-          :options="uploadGalleryItemOptions({ id: gallery._id })"
+          :options="uploadGalleryItemOptions({ id: $route.params.id })"
           :destroyDropzone="true"
           @vdropzone-success="
             (file, response) => onUploadItemSuccsess({ file, response })

@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import { get } from "lodash";
 import galleryMixins from "@/mixins/gallery";
 import BaseGalleryItem from "@/components/gallery/widget/BaseGalleryItem";
 import BaseHardDeleteDialog from "@/components/BaseHardDeleteDialog";
@@ -64,13 +63,10 @@ export default {
       try {
         const gallery_id = this.$route.params.id;
 
-        const payload = {
+        await this.DELETE_GALLERY_ITEM({
           _id: gallery_id,
-          bucket: get(this.selected_item, "bucket"),
-          key: get(this.selected_item, "key"),
-        };
-
-        await this.DELETE_GALLERY_ITEM({ data: payload });
+          item_id: this.selected_item._id,
+        });
 
         this.is_open_delete_dialog = false;
 
