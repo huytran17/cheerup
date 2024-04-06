@@ -8,6 +8,7 @@ import adminRouter from "./admin";
 import categoryRouter from "./category";
 import galleryRouter from "./gallery";
 import postRouter from "./post";
+import systemConfigurationRouter from "./system-configuration";
 
 adminV2Router.use("/admin", authenticateAdminJWT(), disk_upload, adminRouter);
 adminV2Router.use("/post", authenticateAdminJWT(), disk_upload, postRouter);
@@ -22,6 +23,12 @@ adminV2Router.use(
   authenticateAdminJWT(),
   disk_upload,
   galleryRouter
+);
+adminV2Router.use(
+  "/system-configuration",
+  authenticateAdminJWT(),
+  disk_upload,
+  systemConfigurationRouter
 );
 
 export default adminV2Router;

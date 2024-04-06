@@ -28,17 +28,17 @@ export default {
     },
 
     uploadThumbnailOptions({ id }) {
-      const upload_url = `${process.env.SERVER_URL}/admin/system-configuration/upload-thumbnail/${id}`;
+      const upload_url = `${process.env.SERVER_URL}/admin/v2/system-configuration/upload-thumbnail/${id}`;
       return this.getDropzoneOptions({ upload_url });
     },
 
     uploadOwnerAvatarOptions({ id }) {
-      const upload_url = `${process.env.SERVER_URL}/admin/system-configuration/upload-owner-avatar/${id}`;
+      const upload_url = `${process.env.SERVER_URL}/admin/v2/system-configuration/upload-owner-avatar/${id}`;
       return this.getDropzoneOptions({ upload_url });
     },
 
     uploadFolderIconOptions({ id }) {
-      const upload_url = `${process.env.SERVER_URL}/admin/system-configuration/upload-folder-icon/${id}`;
+      const upload_url = `${process.env.SERVER_URL}/admin/v2/system-configuration/upload-folder-icon/${id}`;
       return this.getDropzoneOptions({ upload_url });
     },
 

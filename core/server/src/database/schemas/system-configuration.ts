@@ -27,15 +27,15 @@ const systemConfigurationSchema = new Schema<
 systemConfigurationSchema.index({ created_at: -1 });
 
 systemConfigurationSchema.virtual("owner_avatar_url").get(function () {
-  return get(this, "owner.avatar.location");
+  return get(this, "owner.avatar.path");
 });
 
 systemConfigurationSchema.virtual("thumbnail_url").get(function () {
-  return get(this, "thumbnail.location");
+  return get(this, "thumbnail.path");
 });
 
 systemConfigurationSchema.virtual("folder_icon_url").get(function () {
-  return get(this, "folder_icon.location");
+  return get(this, "folder_icon.path");
 });
 
 systemConfigurationSchema.plugin(mongoose_lean_virtuals);
