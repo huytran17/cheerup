@@ -1,11 +1,6 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-icon color="black" @click="$router.go(-1)"
-        >mdi-keyboard-backspace</v-icon
-      >
-    </v-col>
-    <v-col cols="12">
       <v-form v-model="form_valid">
         <v-row>
           <v-col cols="12" sm="12">
@@ -54,10 +49,7 @@
                 uploadCategoryThumbnailOptions({ id: $route.params.id })
               "
               :destroyDropzone="true"
-              @vdropzone-success="
-                (file, response) =>
-                  onUploadThumbnailSuccsess({ file, response })
-              "
+              @vdropzone-success="(file) => onUploadThumbnailSuccsess({ file })"
             ></v-dropzone>
           </v-col>
 
@@ -104,7 +96,7 @@
                   <v-row>
                     <v-col cols="12" md="6">
                       <v-text-field
-                        :value="category.seo && category.seo.title"
+                        :value="seo_title"
                         :label="$t('Title')"
                         @input="
                           updateCategoryObject({
@@ -116,7 +108,7 @@
                     </v-col>
                     <v-col cols="12" md="6">
                       <v-text-field
-                        :value="category.seo && category.seo.description"
+                        :value="seo_description"
                         :label="$t('Description')"
                         @input="
                           updateCategoryObject({
@@ -130,7 +122,7 @@
                   <v-row>
                     <v-col cols="12" md="6">
                       <v-text-field
-                        :value="category.seo && category.seo.keywords"
+                        :value="seo_keywords"
                         :label="$t('Keywords')"
                         @input="
                           updateCategoryObject({
@@ -142,7 +134,7 @@
                     </v-col>
                     <v-col cols="12" md="6">
                       <v-text-field
-                        :value="category.seo && category.seo.author"
+                        :value="seo_author"
                         :label="$t('Author')"
                         @input="
                           updateCategoryObject({
@@ -175,19 +167,35 @@
 </template>
 
 <script>
-import { get, isObject, merge } from "lodash";
-
+import { get, isObject } from "lodash";
 import categoryMixins from "@/mixins/category";
 import dropzoneMixins from "@/mixins/dropzone";
+import systemMixins from "@/mixins/system";
 
 export default {
   name: "BaseUpdateCategory",
-  mixins: [categoryMixins, dropzoneMixins],
+  mixins: [systemMixins, categoryMixins, dropzoneMixins],
   data() {
     return {
       form_valid: false,
-      color_picked: null,
     };
+  },
+  computed: {
+    seo_title() {
+      return this.category.seo?.title || "";
+    },
+
+    seo_description() {
+      return replaceHTMLTag(this.category.seo?.description) || "";
+    },
+
+    seo_keywords() {
+      return this.category.seo?.keywords || "";
+    },
+
+    seo_author() {
+      return this.category.seo?.author || "";
+    },
   },
   methods: {
     getBadgeColor(event) {
@@ -202,24 +210,26 @@ export default {
         await this.UPDATE_CATEGORY({
           data: this.category,
         });
+
         this.$toast.success(this.$t("Updated category successfully"));
+
+        await this.$fetch();
       } catch (error) {
         console.error(error);
         this.$toast.error(this.$t("Encountered error while updating category"));
       }
     },
 
-    onUploadThumbnailSuccsess({ file, response }) {
-      this.$refs.thumbnail_dropzone.removeFile(file);
+    async onUploadThumbnailSuccsess({ file }) {
+      try {
+        this.$refs.thumbnail_dropzone.removeFile(file);
 
-      const { data: updated_category } = response;
-      const updated_thumbnail_data = merge({}, this.category, {
-        thumbnail: updated_category.thumbnail,
-        thumbnail_url: updated_category.thumbnail_url,
-      });
+        this.$toast.success(this.$t("Updated category successfully"));
 
-      this.SET_CATEGORY({ data: updated_thumbnail_data });
-      this.$toast.success(this.$t("Updated category successfully"));
+        await this.$fetch();
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 

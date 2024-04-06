@@ -1,11 +1,6 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-icon color="black" @click="$router.go(-1)"
-        >mdi-keyboard-backspace</v-icon
-      >
-    </v-col>
-    <v-col cols="12">
       <v-form v-model="form_valid" class="soft-box-shadow rounded-lg px-4 py-5">
         <v-row>
           <v-col cols="12" class="pb-0">
@@ -67,9 +62,7 @@
               id="avatar"
               :options="uploadUserAvatarOptions({ id: $route.params.id })"
               :destroyDropzone="true"
-              @vdropzone-success="
-                (file, response) => onUploadAvatarSuccsess({ file, response })
-              "
+              @vdropzone-success="(file) => onUploadAvatarSuccsess({ file })"
             ></v-dropzone>
           </v-col>
 
@@ -161,7 +154,7 @@
 </template>
 
 <script>
-import { get, omit, pick, merge } from "lodash";
+import { get, omit, pick } from "lodash";
 import userMixins from "@/mixins/user";
 import dropzoneMixins from "@/mixins/dropzone";
 
@@ -190,13 +183,13 @@ export default {
           "hash_password",
         ]);
 
-        const updated_user = await this.UPDATE_USER({
+        await this.UPDATE_USER({
           data: final_user_details,
         });
 
-        this.SET_USER({ data: updated_user });
         this.$toast.success(this.$t("Updated user successfully"));
-        this.$router.push(this.localePath(`/user/${updated_user._id}`));
+
+        await this.$fetch();
       } catch (error) {
         console.error(error);
         this.$toast.error(this.$t("Encountered error while updating user"));
@@ -211,13 +204,13 @@ export default {
           "password_confirmation",
         ]);
 
-        const updated_user = await this.UPDATE_USER_PASSWORD({
+        await this.UPDATE_USER_PASSWORD({
           data: final_user_details,
         });
 
-        this.SET_USER({ data: updated_user });
         this.$toast.success(this.$t("Updated user password successfully"));
-        this.$router.push(this.localePath(`/user/${updated_user._id}`));
+
+        await this.$fetch();
       } catch (error) {
         console.error(error);
         this.$toast.error(
@@ -226,17 +219,16 @@ export default {
       }
     },
 
-    onUploadAvatarSuccsess({ file, response }) {
-      this.$refs.avatar_dropzone.removeFile(file);
+    async onUploadAvatarSuccsess({ file }) {
+      try {
+        this.$refs.avatar_dropzone.removeFile(file);
 
-      const { data: updated_user } = response;
-      const updated_user_data = merge({}, this.user, {
-        avatar: updated_user.avatar,
-        avatar_url: updated_user.avatar_url,
-      });
+        this.$toast.success(this.$t("Updated user avatar successfully"));
 
-      this.SET_USER({ data: updated_user_data });
-      this.$toast.success(this.$t("Updated user avatar successfully"));
+        await this.$fetch();
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
   async fetch() {

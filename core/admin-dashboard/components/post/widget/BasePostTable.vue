@@ -168,7 +168,6 @@
 
 <script>
 import { get } from "lodash";
-import { mapMutations } from "vuex";
 import postMixins from "@/mixins/post";
 import systemMixins from "@/mixins/system";
 
@@ -233,17 +232,16 @@ export default {
   },
 
   methods: {
-    ...mapMutations({
-      SET_POST: "post/SET_POST",
-    }),
     async blockComment(post) {
       try {
         const { id, title } = post;
 
         await this.BLOCK_POST_COMMENT({ id });
+
         this.$toast.success(
           this.$t(`Blocked comment for post ${title} successfully`)
         );
+
         await this.$fetch();
       } catch (error) {
         console.error(error);
@@ -258,9 +256,11 @@ export default {
         const { id, title } = post;
 
         await this.UNBLOCK_POST_COMMENT({ id });
+
         this.$toast.success(
           this.$t(`Un-blocked comment for post ${title} successfully`)
         );
+
         await this.$fetch();
       } catch (error) {
         console.error(error);
@@ -272,10 +272,12 @@ export default {
 
     async deletePost(post) {
       try {
-        const { id, title } = post;
+        const { _id, title } = post;
 
-        await this.DELETE_POST({ id });
+        await this.DELETE_POST({ id: _id });
+
         this.$toast.success(this.$t(`Deleted post ${title} successfully`));
+
         await this.$fetch();
       } catch (error) {
         console.error(error);
@@ -285,12 +287,14 @@ export default {
 
     async hardDeletePost() {
       try {
-        const { id, title } = this.post;
+        const { _id, title } = this.post;
 
-        await this.HARD_DELETE_POST({ id });
+        await this.HARD_DELETE_POST({ id: _id });
+
         this.$toast.success(
           this.$t(`Forever deleted post ${title} successfully`)
         );
+
         await this.$fetch();
       } catch (error) {
         console.error(error);
@@ -304,11 +308,12 @@ export default {
 
     async restoreDeletePost(post) {
       try {
-        const id = get(post, "_id");
-        const title = get(post, "title");
+        const { _id, title } = post;
 
-        await this.RESTORE_POST({ id });
+        await this.RESTORE_POST({ id: _id });
+
         this.$toast.success(this.$t(`Restored post ${title} successfully`));
+
         await this.$fetch();
       } catch (error) {
         console.error(error);

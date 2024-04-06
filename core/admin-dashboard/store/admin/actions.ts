@@ -98,8 +98,6 @@ const actions: ActionTree<AdminState, RootState> = {
 
   async [ActionTypes.UPDATE_ADMIN]({ commit }, { data }: { data: any }) {
     const { data: admin } = await this.$axios.$put(`/admin`, data);
-
-    commit(MutationTypes.SET_ADMIN, { data: admin });
     return admin;
   },
 

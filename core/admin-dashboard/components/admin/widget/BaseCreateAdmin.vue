@@ -1,11 +1,6 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-icon color="black" @click="$router.go(-1)"
-        >mdi-keyboard-backspace</v-icon
-      >
-    </v-col>
-    <v-col cols="12">
       <v-form v-model="form_valid">
         <v-row>
           <v-col cols="12" md="6">
@@ -111,10 +106,14 @@ export default {
   methods: {
     async createAdmin() {
       try {
+        if (!this.form_valid) {
+          return;
+        }
+
         const created_admin = await this.CREATE_ADMIN({
           data: this.admin,
         });
-        this.SET_ADMIN({ data: created_admin });
+
         this.$toast.success(this.$t("Created admin successfully"));
         this.$router.push(this.localePath(`/admin/${created_admin._id}`));
       } catch (error) {

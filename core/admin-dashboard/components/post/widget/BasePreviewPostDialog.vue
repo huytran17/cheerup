@@ -134,7 +134,7 @@ export default {
     },
 
     has_tags() {
-      return this.post?.tags?.lenght;
+      return this.post?.tags?.length;
     },
   },
   methods: {

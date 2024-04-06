@@ -126,11 +126,9 @@
 <script>
 import { get } from "lodash";
 import { ADMIN_TYPES } from "@/constants";
-
 import adminMixins from "@/mixins/admin";
 import authMixins from "@/mixins/auth";
 import systemMixins from "@/mixins/system";
-
 import Avatar from "vue-avatar";
 import BaseHardDeleteDialog from "@/components/BaseHardDeleteDialog";
 
@@ -192,11 +190,14 @@ export default {
   methods: {
     async restoreDeletedAdmin(admin) {
       try {
-        const id = get(admin, "_id");
-        const title = get(admin, "title");
+        const { _id, full_name } = admin;
 
-        await this.RESTORE_ADMIN({ id });
-        this.$toast.success(this.$t(`Restored admin ${title} successfully`));
+        await this.RESTORE_ADMIN({ id: _id });
+
+        this.$toast.success(
+          this.$t(`Restored admin ${full_name} successfully`)
+        );
+
         await this.$fetch();
       } catch (error) {
         console.error(error);
@@ -206,11 +207,12 @@ export default {
 
     async deleteAdmin(admin) {
       try {
-        const id = get(admin, "_id");
-        const title = get(admin, "title");
+        const { _id, full_name } = admin;
 
-        await this.DELETE_ADMIN({ id });
-        this.$toast.success(this.$t(`Deleted admin ${title} successfully`));
+        await this.DELETE_ADMIN({ id: _id });
+
+        this.$toast.success(this.$t(`Deleted admin ${full_name} successfully`));
+
         await this.$fetch();
       } catch (error) {
         console.error(error);
@@ -220,13 +222,14 @@ export default {
 
     async hardDeleteAdmin() {
       try {
-        const id = get(this.admin, "_id");
-        const title = get(this.admin, "title");
+        const { _id, full_name } = this.admin;
 
-        await this.HARD_DELETE_ADMIN({ id });
+        await this.HARD_DELETE_ADMIN({ id: _id });
+
         this.$toast.success(
-          this.$t(`Forever deleted admin ${title} successfully`)
+          this.$t(`Forever deleted admin ${full_name} successfully`)
         );
+
         await this.$fetch();
       } catch (error) {
         console.error(error);

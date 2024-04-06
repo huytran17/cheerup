@@ -50,7 +50,6 @@
 </template>
 
 <script>
-import { get } from "lodash";
 import subscriptionMixins from "@/mixins/subscription";
 import systemMixins from "@/mixins/system";
 
@@ -90,28 +89,6 @@ export default {
     return {
       search: "",
     };
-  },
-
-  methods: {
-    async hardDeleteSubscription() {
-      try {
-        const id = get(this.subscription, "_id");
-        const content = get(this.subscription, "content");
-
-        await this.HARD_DELETE_SUBSCRIPTION({ id });
-        this.$toast.success(
-          this.$t(`Forever deleted subscription ${content} successfully`)
-        );
-        await this.$fetch();
-      } catch (error) {
-        console.error(error);
-        this.$toast.error(
-          this.$t("Encountered error while deleting subscription")
-        );
-      } finally {
-        this.is_open_hard_delete_dialog = false;
-      }
-    },
   },
 
   async fetch() {

@@ -1,11 +1,6 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-icon color="black" @click="$router.go(-1)"
-        >mdi-keyboard-backspace</v-icon
-      >
-    </v-col>
-    <v-col cols="12">
       <v-form v-model="form_valid">
         <v-row>
           <v-col cols="12" sm="12">
@@ -97,10 +92,14 @@ export default {
 
     async createCategory() {
       try {
+        if (!this.form_valid) {
+          return;
+        }
+
         const created_category = await this.CREATE_CATEGORY({
           data: this.category,
         });
-        this.SET_CATEGORY({ data: created_category });
+
         this.$toast.success(this.$t("Created category successfully"));
         this.$router.push(this.localePath(`/category/${created_category._id}`));
       } catch (error) {

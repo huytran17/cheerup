@@ -87,10 +87,8 @@
 <script>
 import { get } from "lodash";
 import { ADMIN_TYPES } from "@/constants";
-
 import commentMixins from "@/mixins/comment";
 import systemMixins from "@/mixins/system";
-
 import BaseHardDeleteDialog from "@/components/BaseHardDeleteDialog";
 
 export default {
@@ -151,6 +149,7 @@ export default {
       const url = new URL(`${process.env.USER_DASHBOARD_URL}/post/${post._id}`);
       window.open(url, "__blank");
     },
+
     async hardDeleteComment() {
       try {
         const id = get(this.comment, "_id");
@@ -160,6 +159,7 @@ export default {
         this.$toast.success(
           this.$t(`Forever deleted comment ${content} successfully`)
         );
+
         await this.$fetch();
       } catch (error) {
         console.error(error);

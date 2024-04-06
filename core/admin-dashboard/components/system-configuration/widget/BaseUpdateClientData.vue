@@ -55,12 +55,10 @@
             "
             :destroyDropzone="true"
             @vdropzone-success="
-              (file, response) =>
+              (file) =>
                 onUploadSuccsess({
                   ref: 'owner_avatar_dropzone',
                   file,
-                  response,
-                  update_paths: ['owner.avatar', 'owner_avatar_url'],
                 })
             "
           ></v-dropzone>
@@ -92,12 +90,10 @@
             :options="uploadThumbnailOptions({ id: system_configuration._id })"
             :destroyDropzone="true"
             @vdropzone-success="
-              (file, response) =>
+              (file) =>
                 onUploadSuccsess({
                   ref: 'thumbnail_dropzone',
                   file,
-                  response,
-                  update_paths: ['thumbnail', 'thumbnail_url'],
                 })
             "
           ></v-dropzone>
@@ -129,12 +125,10 @@
             :options="uploadFolderIconOptions({ id: system_configuration._id })"
             :destroyDropzone="true"
             @vdropzone-success="
-              (file, response) =>
+              (file) =>
                 onUploadSuccsess({
                   ref: 'folder_icon_dropzone',
                   file,
-                  response,
-                  update_paths: ['folder_icon', 'folder_icon_url'],
                 })
             "
           ></v-dropzone>
@@ -153,7 +147,7 @@
 </template>
 
 <script>
-import { get, isEmpty, isNil, cloneDeep, update } from "lodash";
+import { isEmpty, isNil } from "lodash";
 import systemConfigurationMixins from "@/mixins/system-configuration";
 import dropzoneMixins from "@/mixins/dropzone";
 
@@ -168,23 +162,18 @@ export default {
     },
   },
   methods: {
-    onUploadSuccsess({ ref, file, response, update_paths }) {
-      this.$refs[ref].removeFile(file);
+    async onUploadSuccsess({ ref, file }) {
+      try {
+        this.$refs[ref].removeFile(file);
 
-      const { data: updated_system_configuration } = response;
-
-      let updated_thumbnail_data = cloneDeep(this.system_configuration);
-
-      update_paths.forEach((update_path) => {
-        updated_thumbnail_data = update(
-          updated_thumbnail_data,
-          update_path,
-          (data) => get(updated_system_configuration, update_path)
+        this.$toast.success(
+          this.$t("Updated system configuration successfully")
         );
-      });
 
-      this.SET_SYSTEM_CONFIGURATION({ data: updated_thumbnail_data });
-      this.$toast.success(this.$t("Updated system configuration successfully"));
+        await this.GET_LATEST_SYSTEM_CONFIGURATION();
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 };

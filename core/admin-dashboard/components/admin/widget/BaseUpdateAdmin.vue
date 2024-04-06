@@ -1,11 +1,6 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-icon color="black" @click="$router.go(-1)"
-        >mdi-keyboard-backspace</v-icon
-      >
-    </v-col>
-    <v-col cols="12">
       <v-form v-model="form_valid" class="soft-box-shadow rounded-lg px-4 py-5">
         <v-row>
           <v-col cols="12" class="pb-0">
@@ -149,8 +144,7 @@
 </template>
 
 <script>
-import { omit, pick, merge } from "lodash";
-
+import { omit, pick } from "lodash";
 import adminMixins from "@/mixins/admin";
 import dropzoneMixins from "@/mixins/dropzone";
 
@@ -168,19 +162,23 @@ export default {
   methods: {
     async updateAdmin() {
       try {
+        if (!this.form_valid) {
+          return;
+        }
+
         const final_admin_details = omit(this.admin, [
           "password",
           "password_confirmation",
           "hash_password",
         ]);
 
-        const updated_admin = await this.UPDATE_ADMIN({
+        await this.UPDATE_ADMIN({
           data: final_admin_details,
         });
 
-        this.SET_ADMIN({ data: updated_admin });
+        await this.$fetch();
+
         this.$toast.success(this.$t("Updated admin successfully"));
-        this.$router.push(this.localePath(`/admin/${updated_admin._id}`));
       } catch (error) {
         console.error(error);
         this.$toast.error(this.$t("Encountered error while updating admin"));
@@ -189,19 +187,23 @@ export default {
 
     async updateAdminSecurity() {
       try {
+        if (!this.security_form_valid) {
+          return;
+        }
+
         const final_admin_details = pick(this.admin, [
           "_id",
           "password",
           "password_confirmation",
         ]);
 
-        const updated_admin = await this.UPDATE_ADMIN_PASSWORD({
+        await this.UPDATE_ADMIN_PASSWORD({
           data: final_admin_details,
         });
 
-        this.SET_ADMIN({ data: updated_admin });
         this.$toast.success(this.$t("Updated admin password successfully"));
-        this.$router.push(this.localePath(`/admin/${updated_admin._id}`));
+
+        await this.$fetch();
       } catch (error) {
         console.error(error);
         this.$toast.error(

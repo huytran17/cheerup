@@ -51,7 +51,6 @@ const actions: ActionTree<CategoryState, RootState> = {
 
   async [ActionTypes.CREATE_CATEGORY]({ commit }, { data }: { data: any }) {
     const { data: category } = await this.$axios.$post(`/category`, data);
-
     return category;
   },
 

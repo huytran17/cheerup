@@ -4,7 +4,6 @@
 
 <script>
 import { get } from "lodash";
-
 import { mapGetters } from "vuex";
 import BaseOverallCard from "@/components/dashboard/BaseOverallCard";
 import { financialAverage } from "@/utils";

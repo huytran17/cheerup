@@ -1,10 +1,5 @@
 <template>
   <v-row>
-    <v-col cols="12" class="pl-0">
-      <v-icon color="black" @click="$router.go(-1)"
-        >mdi-keyboard-backspace</v-icon
-      >
-    </v-col>
     <v-col cols="12">
       <v-form>
         <BaseUpdateClientData />
@@ -43,6 +38,7 @@ export default {
         await this.UPDATE_SYSTEM_CONFIGURATION({
           data: this.system_configuration,
         });
+
         this.$toast.success(
           this.$t("Updated system configuration successfully")
         );

@@ -3,7 +3,7 @@
     <v-main class="background">
       <TheSideNav />
       <v-container fluid>
-        <v-row>
+        <v-row class="pt-2 pb-4">
           <v-col cols="12">
             <v-icon color="black" @click="$router.back()"
               >mdi-keyboard-backspace</v-icon

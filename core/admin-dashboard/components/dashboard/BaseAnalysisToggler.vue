@@ -123,9 +123,6 @@ export default {
       },
     },
   },
-  fetch() {
-    this.date_range = this.analysis?.range || [];
-  },
   methods: {
     ...mapMutations({
       UPDATE_ANALYSIS_DATA: "UPDATE_ANALYSIS_DATA",
@@ -151,6 +148,9 @@ export default {
       this.updateAnalysisUnit();
       this.$emit("refresh");
     },
+  },
+  fetch() {
+    this.date_range = this.analysis?.range || [];
   },
 };
 </script>

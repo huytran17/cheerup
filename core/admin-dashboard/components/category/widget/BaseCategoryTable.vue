@@ -133,10 +133,8 @@
 <script>
 import { get } from "lodash";
 import { ADMIN_TYPES } from "@/constants";
-
 import categoryMixins from "@/mixins/category";
 import systemMixins from "@/mixins/system";
-
 import BaseHardDeleteDialog from "@/components/BaseHardDeleteDialog";
 import TiptapEditor from "@/components/TiptapEditor";
 
@@ -196,12 +194,13 @@ export default {
   methods: {
     async deleteCategory(category) {
       try {
-        const id = get(category, "_id");
-        const title = get(category, "title");
+        const { _id, title } = category;
 
-        await this.DELETE_CATEGORY({ id });
+        await this.DELETE_CATEGORY({ id: _id });
+
         this.$toast.success(this.$t(`Deleted category ${title} successfully`));
-        this.$fetch();
+
+        await this.$fetch();
       } catch (error) {
         console.error(error);
         this.$toast.error(this.$t("Encountered error while deleting category"));
@@ -210,13 +209,14 @@ export default {
 
     async hardDeleteCategory() {
       try {
-        const id = get(this.category, "_id");
-        const title = get(this.category, "title");
+        const { _id, title } = this.category;
 
-        await this.HARD_DELETE_CATEGORY({ id });
+        await this.HARD_DELETE_CATEGORY({ id: _id });
+
         this.$toast.success(
           this.$t(`Forever deleted category ${title} successfully`)
         );
+
         await this.$fetch();
       } catch (error) {
         console.error(error);
@@ -230,11 +230,12 @@ export default {
 
     async restoreDeletedCategory(category) {
       try {
-        const id = get(category, "_id");
-        const title = get(category, "title");
+        const { _id, title } = category;
 
-        await this.RESTORE_CATEGORY({ id });
+        await this.RESTORE_CATEGORY({ id: _id });
+
         this.$toast.success(this.$t(`Restored category ${title} successfully`));
+
         await this.$fetch();
       } catch (error) {
         console.error(error);

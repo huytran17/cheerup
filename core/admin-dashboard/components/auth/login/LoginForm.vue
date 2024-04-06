@@ -87,7 +87,12 @@ export default {
   methods: {
     async signIn() {
       try {
+        if (!this.form_valid) {
+          return;
+        }
+
         await this.SIGN_IN({ data: this.me });
+
         this.$router.push(this.localePath("/"));
       } catch (error) {
         console.error(error);

@@ -1,11 +1,6 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="12" sm="6">
-        <v-icon color="black" @click="$router.go(-1)"
-          >mdi-keyboard-backspace</v-icon
-        >
-      </v-col>
       <v-col cols="12" sm="6" class="d-flex justify-end">
         <v-btn text @click="is_open_preview_dialog = true">
           <span v-html="$t('Preview')"></span>
@@ -151,7 +146,6 @@
 <script>
 import postMixins from "@/mixins/post";
 import categoryMixins from "@/mixins/category";
-
 import TiptapEditor from "@/components/TiptapEditor";
 import BasePreviewPostDialog from "@/components/post/widget/BasePreviewPostDialog";
 
@@ -171,10 +165,14 @@ export default {
   methods: {
     async createPost() {
       try {
+        if (!this.form_valid) {
+          return;
+        }
+
         const created_post = await this.CREATE_POST({
           data: this.post,
         });
-        this.SET_POST({ data: created_post });
+
         this.$toast.success(this.$t("Created post successfully"));
         this.$router.push(this.localePath(`/post/${created_post._id}`));
       } catch (error) {
@@ -186,6 +184,7 @@ export default {
   async fetch() {
     try {
       await this.GET_CATEGORIES();
+
       this.SET_POST({ data: {} });
     } catch (error) {
       console.error(error);

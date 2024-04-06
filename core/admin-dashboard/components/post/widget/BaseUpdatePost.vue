@@ -1,11 +1,6 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="12" sm="6">
-        <v-icon color="black" @click="$router.go(-1)"
-          >mdi-keyboard-backspace</v-icon
-        >
-      </v-col>
       <v-col cols="12" sm="6" class="d-flex justify-end">
         <v-btn text @click="is_open_preview_dialog = true">
           <span v-html="$t('Preview')"></span>
@@ -129,8 +124,7 @@
                 :options="uploadPostThumbnailOptions({ id: $route.params.id })"
                 :destroyDropzone="true"
                 @vdropzone-success="
-                  (file, response) =>
-                    onUploadThumbnailSuccsess({ file, response })
+                  (file) => onUploadThumbnailSuccsess({ file })
                 "
               ></v-dropzone>
             </v-col>
@@ -174,7 +168,7 @@
                     <v-row>
                       <v-col cols="12" md="6">
                         <v-text-field
-                          :value="post_seo_title"
+                          :value="seo_title"
                           :label="$t('Title')"
                           @input="
                             updatePostObject({
@@ -186,7 +180,7 @@
                       </v-col>
                       <v-col cols="12" md="6">
                         <v-text-field
-                          :value="post_seo_description"
+                          :value="seo_description"
                           :label="$t('Description')"
                           @input="
                             updatePostObject({
@@ -200,7 +194,7 @@
                     <v-row>
                       <v-col cols="12" md="6">
                         <v-text-field
-                          :value="post_seo_keywords"
+                          :value="seo_keywords"
                           :label="$t('Keywords')"
                           @input="
                             updatePostObject({
@@ -212,7 +206,7 @@
                       </v-col>
                       <v-col cols="12" md="6">
                         <v-text-field
-                          :value="post_seo_author"
+                          :value="seo_author"
                           :label="$t('Author')"
                           @input="
                             updatePostObject({
@@ -273,28 +267,37 @@ export default {
     };
   },
   computed: {
-    post_seo_title() {
+    post_id() {
+      return this.$route.params.id;
+    },
+
+    seo_title() {
       return get(this.post, "seo.title");
     },
 
-    post_seo_description() {
+    seo_description() {
       return this.replaceHTMLTag(get(this.post, "seo.description"));
     },
 
-    post_seo_keywords() {
+    seo_keywords() {
       return get(this.post, "seo.keywords");
     },
 
-    post_seo_author() {
+    seo_author() {
       return get(this.post, "seo.author");
     },
   },
   methods: {
     async updatePost() {
       try {
+        if (!this.form_valid) {
+          return;
+        }
+
         await this.UPDATE_POST({
           data: this.post,
         });
+
         this.$toast.success(this.$t("Updated post successfully"));
       } catch (error) {
         console.error(error);
@@ -302,26 +305,24 @@ export default {
       }
     },
 
-    onUploadThumbnailSuccsess({ file, response }) {
-      this.$refs.thumbnail_dropzone.removeFile(file);
+    async onUploadThumbnailSuccsess({ file }) {
+      try {
+        this.$refs.thumbnail_dropzone.removeFile(file);
 
-      const { data: updated_post } = response;
-      const updated_thumbnail_data = merge({}, this.post, {
-        thumbnail: updated_post.thumbnail,
-        thumbnail_url: updated_post.thumbnail_url,
-      });
+        this.$toast.success("Updated post successfully");
 
-      this.SET_POST({ data: updated_thumbnail_data });
-      this.$toast.success("Updated post successfully");
+        await this.GET_POST({ id: this.post_id });
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 
   async fetch() {
     try {
-      const post_id = this.$route.params.id;
       await Promise.all([
-        this.GET_POST({ id: post_id }),
-        this.GET_CATEGORIES({ id: post_id }),
+        this.GET_POST({ id: this.post_id }),
+        this.GET_CATEGORIES({ id: this.post_id }),
       ]);
     } catch (error) {
       console.error(error);

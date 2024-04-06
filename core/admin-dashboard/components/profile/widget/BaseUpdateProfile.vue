@@ -1,11 +1,6 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-icon color="black" @click="$router.go(-1)"
-        >mdi-keyboard-backspace</v-icon
-      >
-    </v-col>
-    <v-col cols="12">
       <v-form v-model="form_valid" class="soft-box-shadow rounded-lg px-4 py-5">
         <v-row>
           <v-col cols="12" class="pb-0">
@@ -68,9 +63,7 @@
               id="avatar"
               :options="uploadAdminAvatarOptions({ id: me._id })"
               :destroyDropzone="true"
-              @vdropzone-success="
-                (file, response) => onUploadAvatarSuccsess({ file, response })
-              "
+              @vdropzone-success="(file) => onUploadAvatarSuccsess({ file })"
             ></v-dropzone>
           </v-col>
 
@@ -90,7 +83,7 @@
               depressed
               color="primary"
               :disabled="!form_valid"
-              @click="updateAdmin"
+              @click="updateInfo"
             >
               <span v-html="$t('Update')"></span>
             </v-btn>
@@ -160,7 +153,7 @@
               depressed
               color="primary"
               :disabled="!security_form_valid"
-              @click="updateAdminSecurity"
+              @click="updateSecurity"
             >
               <span v-html="$t('Update')"></span>
             </v-btn>
@@ -172,8 +165,7 @@
 </template>
 
 <script>
-import { omit, pick, merge } from "lodash";
-import { mapActions } from "vuex";
+import { omit, pick } from "lodash";
 import authMixins from "@/mixins/auth";
 import adminMixins from "@/mixins/admin";
 import dropzoneMixins from "@/mixins/dropzone";
@@ -191,11 +183,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions({
-      UPDATE_ADMIN: "admin/UPDATE_ADMIN",
-    }),
-
-    async updateAdmin() {
+    async updateInfo() {
       try {
         const final_admin_details = omit(this.me, [
           "password",
@@ -205,11 +193,12 @@ export default {
           "new_password_confirmation",
         ]);
 
-        const updated_admin = await this.UPDATE_ADMIN({
+        await this.UPDATE_ADMIN({
           data: final_admin_details,
         });
 
-        this.SET_ME({ data: updated_admin });
+        await this.GET_ME();
+
         this.$toast.success(this.$t("Updated successfully"));
       } catch (error) {
         console.error(error);
@@ -219,7 +208,7 @@ export default {
       }
     },
 
-    async updateAdminSecurity() {
+    async updateSecurity() {
       try {
         const final_admin_details = pick(this.me, [
           "_id",
@@ -228,11 +217,12 @@ export default {
           "new_password_confirmation",
         ]);
 
-        const updated_admin = await this.UPDATE_ADMIN_PERSONAL_PASSWORD({
+        await this.UPDATE_ADMIN_PERSONAL_PASSWORD({
           data: final_admin_details,
         });
 
-        this.SET_ME({ data: updated_admin });
+        await this.GET_ME();
+
         this.$toast.success(this.$t("Updated password successfully"));
       } catch (error) {
         console.error(error);
@@ -242,17 +232,16 @@ export default {
       }
     },
 
-    onUploadAvatarSuccsess({ file, response }) {
-      this.$refs.avatar_dropzone.removeFile(file);
+    async onUploadAvatarSuccsess({ file }) {
+      try {
+        this.$refs.avatar_dropzone.removeFile(file);
 
-      const { data: updated_admin } = response;
-      const updated_admin_data = merge({}, this.me, {
-        avatar: updated_admin.avatar,
-        avatar_url: updated_admin.avatar_url,
-      });
+        this.$toast.success(this.$t("Updated avatar successfully"));
 
-      this.SET_ME({ data: updated_admin_data });
-      this.$toast.success(this.$t("Updated avatar successfully"));
+        await this.GET_ME();
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 };
