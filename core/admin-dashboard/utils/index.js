@@ -12,9 +12,14 @@ const kFormatter = (number) => {
     : Math.sign(number) * Math.abs(number);
 };
 
+const stripHTML = (text = "") => {
+  return text.replace(/<\/?[^>]+(>|$)/g, "");
+};
+
 export default Object.freeze({
   financialAverage,
   kFormatter,
+  stripHTML,
 });
 
-export { financialAverage, kFormatter };
+export { financialAverage, kFormatter, stripHTML };
