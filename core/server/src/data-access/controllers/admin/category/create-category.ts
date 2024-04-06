@@ -1,15 +1,15 @@
+import { Request } from "express";
+import { get } from "lodash";
+import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import IAdmin from "../../../../database/interfaces/admin";
 import {
   CreateCategory,
   ICreateCategoryPayload,
 } from "../../../../use-cases/category/create-category";
-import { UpdateCategory } from "../../../../use-cases/category/update-category";
 import { GetCategoryByTitle } from "../../../../use-cases/category/get-category-by-title";
-import { Logger } from "winston";
-import { Request } from "express";
-import { get, merge } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { UpdateCategory } from "../../../../use-cases/category/update-category";
 import { isEmpty } from "../../../../utils/is-empty";
-import IAdmin from "../../../../database/interfaces/admin";
 
 export default function makeCreateCategoryController({
   createCategory,
@@ -44,26 +44,25 @@ export default function makeCreateCategoryController({
         throw new Error(`Category ${title} already exists`);
       }
 
-      const { _id: admin_id } = <IAdmin>get(httpRequest, "context.user", {});
-
-      const final_category_data = <ICreateCategoryPayload>(
-        merge({}, categoryDetails, {
-          created_by: admin_id,
-        })
-      );
+      const admin = <IAdmin>get(httpRequest, "context.user", {});
 
       const created_category = await createCategory({
-        categoryDetails: final_category_data,
+        categoryDetails: {
+          ...categoryDetails,
+          created_by: admin,
+        },
       });
 
       const updated_category = await updateCategory({
         categoryDetails: {
           ...created_category,
           seo: {
-            date_modified: created_category?.updated_at,
-            date_published: created_category?.created_at,
-            publisher: created_category?.created_by,
-            author: created_category?.created_by,
+            date_modified: created_category.updated_at,
+            date_published: created_category.created_at,
+            publisher: admin.full_name,
+            author: admin.full_name,
+            title: created_category.title,
+            description: created_category.description,
           },
         },
       });

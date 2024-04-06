@@ -1,4 +1,3 @@
-import Admin from "../entities/admin";
 import IAdmin from "./admin";
 
 export default interface ICategory {
