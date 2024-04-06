@@ -11,7 +11,7 @@ export default function deleteUploadedFile(path: string): void {
 
   access(local_path, constants.F_OK, (error) => {
     if (error) {
-      return console.error(`Failed to delete ${path}: ${error.message}`);
+      return console.error(`Failed to delete: ${error.message}`);
     }
 
     unlink(local_path).catch(console.error);
