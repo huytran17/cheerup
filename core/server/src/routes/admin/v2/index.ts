@@ -9,9 +9,11 @@ import categoryRouter from "./category";
 import galleryRouter from "./gallery";
 import postRouter from "./post";
 import systemConfigurationRouter from "./system-configuration";
+import userRouter from "./user";
 
 adminV2Router.use("/admin", authenticateAdminJWT(), disk_upload, adminRouter);
 adminV2Router.use("/post", authenticateAdminJWT(), disk_upload, postRouter);
+adminV2Router.use("/user", authenticateAdminJWT(), disk_upload, userRouter);
 adminV2Router.use(
   "/category",
   authenticateAdminJWT(),

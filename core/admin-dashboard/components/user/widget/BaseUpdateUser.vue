@@ -65,7 +65,7 @@
             <v-dropzone
               ref="avatar_dropzone"
               id="avatar"
-              :options="uploadUserAvatarOptions({ id: user._id })"
+              :options="uploadUserAvatarOptions({ id: $route.params.id })"
               :destroyDropzone="true"
               @vdropzone-success="
                 (file, response) => onUploadAvatarSuccsess({ file, response })

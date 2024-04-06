@@ -8,7 +8,7 @@ export default {
     },
 
     uploadUserAvatarOptions({ id }) {
-      const upload_url = `${process.env.SERVER_URL}/admin/user/upload-avatar/${id}`;
+      const upload_url = `${process.env.SERVER_URL}/admin/v2/user/upload-avatar/${id}`;
       return this.getDropzoneOptions({ upload_url });
     },
 
