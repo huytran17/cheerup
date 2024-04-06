@@ -4,6 +4,7 @@ import { GalleryModel } from "../../data-access/models";
 import { map, get } from "lodash";
 import deleteS3Object from "../../utils/delete-s3-object";
 import IGallery from "../interfaces/gallery";
+import localFileSchema from "./local-file";
 
 const Schema = mongoose.Schema;
 
@@ -11,7 +12,7 @@ const gallerySchema = new Schema<IGallery, Model<IGallery>>(
   {
     name: { type: String, trim: true, required: true },
     parent: { type: Schema.Types.ObjectId, ref: "Gallery" },
-    items: [{ type: Schema.Types.Mixed }],
+    items: [localFileSchema],
     created_by: { type: Schema.Types.ObjectId, ref: "Admin" },
   },
   {
