@@ -49,11 +49,12 @@ const actions: ActionTree<GalleryState, RootState> = {
     return data;
   },
 
-  async [ActionTypes.DELETE_GALLERY_ITEM]({ commit }, { data }: { data: any }) {
-    const { _id } = data;
+  async [ActionTypes.DELETE_GALLERY_ITEM](
+    { commit },
+    { _id, item_id }: { _id: string; item_id: string }
+  ) {
     const { data: updated_gallery } = await this.$axios.$put(
-      `/gallery/delete-gallery-item/${_id}`,
-      data
+      `/v2/gallery/delete-gallery-item/${_id}/${item_id}`
     );
 
     return updated_gallery;

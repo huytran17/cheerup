@@ -43,7 +43,8 @@ export default {
     },
 
     uploadGalleryItemOptions({ id }) {
-      const upload_url = `${process.env.SERVER_URL}/admin/gallery/upload-gallery-item/${id}`;
+      console.log("-----------id", id);
+      const upload_url = `${process.env.SERVER_URL}/admin/v2/gallery/upload-gallery-item/${id}`;
       return this.getDropzoneOptions({ upload_url });
     },
 
