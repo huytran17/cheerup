@@ -3,6 +3,13 @@
     <v-main class="background">
       <TheSideNav />
       <v-container fluid>
+        <v-row>
+          <v-col cols="12">
+            <v-icon color="black" @click="$router.back()"
+              >mdi-keyboard-backspace</v-icon
+            >
+          </v-col>
+        </v-row>
         <nuxt />
       </v-container>
       <v-scroll-to-top></v-scroll-to-top>
