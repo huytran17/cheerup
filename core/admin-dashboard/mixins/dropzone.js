@@ -18,7 +18,7 @@ export default {
     },
 
     uploadPostThumbnailOptions({ id }) {
-      const upload_url = `${process.env.SERVER_URL}/admin/post/upload-thumbnail/${id}`;
+      const upload_url = `${process.env.SERVER_URL}/admin/v2/post/upload-thumbnail/${id}`;
       return this.getDropzoneOptions({ upload_url });
     },
 
@@ -43,7 +43,6 @@ export default {
     },
 
     uploadGalleryItemOptions({ id }) {
-      console.log("-----------id", id);
       const upload_url = `${process.env.SERVER_URL}/admin/v2/gallery/upload-gallery-item/${id}`;
       return this.getDropzoneOptions({ upload_url });
     },

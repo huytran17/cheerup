@@ -5,6 +5,7 @@ import { get, map } from "lodash";
 import { PostModel, CommentModel } from "../../data-access/models";
 import { textToSlug } from "../../config/text-to-slug";
 import { isEmpty } from "../../utils/is-empty";
+import localFileSchema from "./local-file";
 
 const Schema = mongoose.Schema;
 
@@ -35,7 +36,7 @@ const postSchema = new Schema<IPost, Model<IPost>>(
 postSchema.index({ created_at: -1, views: 1, slug: 1 });
 
 postSchema.virtual("thumbnail_url").get(function () {
-  return get(this, "thumbnail.location");
+  return get(this, "thumbnail.path");
 });
 
 postSchema.pre("findOneAndUpdate", async function (next) {

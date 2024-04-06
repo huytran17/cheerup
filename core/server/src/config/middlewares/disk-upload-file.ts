@@ -4,7 +4,7 @@ import { existsSync, mkdirSync } from "fs";
 import IUser from "../../database/interfaces/user";
 import { Request } from "express";
 
-export interface IDiskUploadedFile {
+export interface IDiskUploadFile {
   filename: string;
   originalname: string;
   encoding: string;

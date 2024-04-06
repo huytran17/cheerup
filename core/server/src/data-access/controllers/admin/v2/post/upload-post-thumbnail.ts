@@ -1,24 +1,24 @@
 import { Request } from "express";
 import { get } from "lodash";
-import {
-  GetCategory,
-  IGetCategoryPayload,
-} from "../../../../../use-cases/category/get-category";
-import { UpdateCategory } from "../../../../../use-cases/category/update-category";
-import { HttpStatusCode } from "../../../../../constants/http-status-code";
-import { isEmpty } from "../../../../../utils/is-empty";
 import { IDiskUploadFile } from "../../../../../config/middlewares/disk-upload-file";
+import { HttpStatusCode } from "../../../../../constants/http-status-code";
+import {
+  GetPost,
+  IGetPostPayload,
+} from "../../../../../use-cases/post/get-post";
+import { UpdatePost } from "../../../../../use-cases/post/update-post";
 import deleteUploadedFile from "../../../../../utils/delete-uploaded-file";
 import getFIleUploadedPath from "../../../../../utils/get-file-uploaded-path";
+import { isEmpty } from "../../../../../utils/is-empty";
 
-export default function makeUploadCategoryThumbnailController({
-  getCategory,
-  updateCategory,
+export default function makeUploadPostThumbnailController({
+  getPost,
+  updatePost,
 }: {
-  getCategory: GetCategory;
-  updateCategory: UpdateCategory;
+  getPost: GetPost;
+  updatePost: UpdatePost;
 }) {
-  return async function uploadCategoryThumbnailController(
+  return async function uploadPostThumbnailController(
     httpRequest: Request & { context: {} }
   ) {
     const headers = {
@@ -26,14 +26,14 @@ export default function makeUploadCategoryThumbnailController({
     };
 
     try {
-      const { _id } = <IGetCategoryPayload>(
+      const { _id } = <IGetPostPayload>(
         get(httpRequest, "context.validated", {})
       );
 
-      const exists = await getCategory({ _id });
+      const exists = await getPost({ _id });
 
       if (isEmpty(exists)) {
-        throw new Error(`Categiry by ${_id} does not exist`);
+        throw new Error(`Post by ${_id} does not exist`);
       }
 
       const file = <IDiskUploadFile>get(httpRequest, "context.file", {});
@@ -45,7 +45,7 @@ export default function makeUploadCategoryThumbnailController({
       deleteUploadedFile(exists.thumbnail_url);
 
       const file_path = getFIleUploadedPath(file.path);
-      const category_details = {
+      const post_details = {
         ...exists,
         thumbnail: {
           ...file,
@@ -58,15 +58,15 @@ export default function makeUploadCategoryThumbnailController({
         },
       };
 
-      const updated_category = await updateCategory({
-        categoryDetails: category_details,
+      const updated_post = await updatePost({
+        postDetails: post_details,
       });
 
       return {
         headers,
         statusCode: HttpStatusCode.OK,
         body: {
-          data: updated_category,
+          data: updated_post,
         },
       };
     } catch (error) {

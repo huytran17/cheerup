@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { concat, get } from "lodash";
 import { Logger } from "winston";
-import { IDiskUploadedFile } from "../../../../../config/middlewares/disk-upload-file";
+import { IDiskUploadFile } from "../../../../../config/middlewares/disk-upload-file";
 import { HttpStatusCode } from "../../../../../constants/http-status-code";
 import {
   GetGallery,
@@ -31,7 +31,7 @@ export default function makeUploadGalleryItemController({
       const { _id } = <IGetGalleryPayload>(
         get(httpRequest, "context.validated", {})
       );
-      const file = <IDiskUploadedFile>get(httpRequest, "context.file", {});
+      const file = <IDiskUploadFile>get(httpRequest, "context.file", {});
 
       if (isEmpty(file)) {
         throw new Error(`File does not exist`);

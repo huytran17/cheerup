@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { get } from "lodash";
-import { IDiskUploadedFile } from "../../../../../config/middlewares/disk-upload-file";
+import { IDiskUploadFile } from "../../../../../config/middlewares/disk-upload-file";
 import { HttpStatusCode } from "../../../../../constants/http-status-code";
 import {
   GetAdmin,
@@ -36,7 +36,7 @@ export default function makeUploadAdminAvatarController({
         throw new Error(`Admin by ${_id} does not exist`);
       }
 
-      const file = <IDiskUploadedFile>get(httpRequest, "context.file", {});
+      const file = <IDiskUploadFile>get(httpRequest, "context.file", {});
 
       if (isEmpty(file)) {
         throw new Error(`File does not exist`);

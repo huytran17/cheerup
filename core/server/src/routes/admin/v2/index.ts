@@ -7,8 +7,10 @@ const adminV2Router = express.Router();
 import adminRouter from "./admin";
 import categoryRouter from "./category";
 import galleryRouter from "./gallery";
+import postRouter from "./post";
 
 adminV2Router.use("/admin", authenticateAdminJWT(), disk_upload, adminRouter);
+adminV2Router.use("/post", authenticateAdminJWT(), disk_upload, postRouter);
 adminV2Router.use(
   "/category",
   authenticateAdminJWT(),
