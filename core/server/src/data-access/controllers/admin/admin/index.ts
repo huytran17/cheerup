@@ -1,27 +1,27 @@
-import {
-  getAdmin,
-  deleteAdmin,
-  updateAdmin,
-  getAdmins,
-  createAdmin,
-  getAdminByEmail,
-  hardDeleteAdmin,
-  getAdminAnalystics,
-} from "../../../../use-cases/admin";
 import { logger } from "../../../../config/logs/logger";
 import { hashPassword, verifyPassword } from "../../../../config/password";
-
-import makeGetAdminController from "./get-admin";
-import makeDeleteAdminController from "./delete-admin";
-import makeUpdateAdminController from "./update-admin";
-import makeGetAdminsController from "./get-admins";
+import {
+  createAdmin,
+  deleteAdmin,
+  getAdmin,
+  getAdminAnalystics,
+  getAdminByEmail,
+  getAdmins,
+  getSoftDeletedAdmin,
+  hardDeleteAdmin,
+  updateAdmin,
+} from "../../../../use-cases/admin";
 import makeCreateAdminController from "./create-admin";
-import makeRestoreAdminController from "./restore-admin";
-import makeHardDeleteAdminController from "./hard-delete-admin";
-import makeUpdateAdminPasswordController from "./update-admin-password";
-import makeUploadAvatarController from "./upload-avatar";
+import makeDeleteAdminController from "./delete-admin";
+import makeGetAdminController from "./get-admin";
 import makeGetAdminAnalysticsController from "./get-admin-analystics";
+import makeGetAdminsController from "./get-admins";
+import makeHardDeleteAdminController from "./hard-delete-admin";
+import makeRestoreAdminController from "./restore-admin";
+import makeUpdateAdminController from "./update-admin";
+import makeUpdateAdminPasswordController from "./update-admin-password";
 import makeUpdateAdminPersonalPasswordController from "./update-admin-personal-password";
+import makeUploadAvatarController from "./upload-avatar";
 
 const updateAdminPersonalPasswordController =
   makeUpdateAdminPersonalPasswordController({
@@ -55,7 +55,7 @@ const hardDeleteAdminController = makeHardDeleteAdminController({
 });
 
 const restoreAdminController = makeRestoreAdminController({
-  getAdmin,
+  getSoftDeletedAdmin,
   updateAdmin,
   logger,
 });
@@ -102,15 +102,15 @@ export default Object.freeze({
 });
 
 export {
-  getAdminController,
-  deleteAdminController,
-  updateAdminController,
-  getAdminsController,
   createAdminController,
-  restoreAdminController,
-  hardDeleteAdminController,
-  updateAdminPasswordController,
-  uploadAvatarController,
+  deleteAdminController,
   getAdminAnalysticsController,
+  getAdminController,
+  getAdminsController,
+  hardDeleteAdminController,
+  restoreAdminController,
+  updateAdminController,
+  updateAdminPasswordController,
   updateAdminPersonalPasswordController,
+  uploadAvatarController,
 };

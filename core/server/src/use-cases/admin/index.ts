@@ -3,15 +3,20 @@ import { redis } from "../../config/redis";
 
 import { AdminDb } from "../../data-access";
 
-import makeGetAdmin from "./get-admin";
-import makeGetAdminByEmail from "./get-admin-by-email";
-import makeDeleteAdmin from "./delete-admin";
-import makeUpdateAdmin from "./update-admin";
-import makeGetAdmins from "./get-admins";
 import makeCreateAdmin from "./create-admin";
-import makeHardDeleteAdmin from "./hard-delete-admin";
+import makeDeleteAdmin from "./delete-admin";
+import makeGetAdmin from "./get-admin";
 import makeGetAdminAnalystics from "./get-admin-analystics";
+import makeGetAdminByEmail from "./get-admin-by-email";
+import makeGetAdmins from "./get-admins";
 import makeGetOneAdmin from "./get-one-admin";
+import makeGetSoftDeletedAdmin from "./get-soft-deleted-admin";
+import makeHardDeleteAdmin from "./hard-delete-admin";
+import makeUpdateAdmin from "./update-admin";
+
+const getSoftDeletedAdmin = makeGetSoftDeletedAdmin({
+  adminDb: AdminDb,
+});
 
 const getOneAdmin = makeGetOneAdmin({
   adminDb: AdminDb,
@@ -61,18 +66,20 @@ const adminServices = Object.freeze({
   hardDeleteAdmin,
   getAdminAnalystics,
   getOneAdmin,
+  getSoftDeletedAdmin,
 });
 
 export default adminServices;
 
 export {
-  getAdmin,
-  getAdminByEmail,
-  deleteAdmin,
-  updateAdmin,
-  getAdmins,
   createAdmin,
-  hardDeleteAdmin,
+  deleteAdmin,
+  getAdmin,
   getAdminAnalystics,
+  getAdminByEmail,
+  getAdmins,
   getOneAdmin,
+  getSoftDeletedAdmin,
+  hardDeleteAdmin,
+  updateAdmin,
 };

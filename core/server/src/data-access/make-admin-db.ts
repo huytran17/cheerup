@@ -267,6 +267,23 @@ export default function makeAdminDb({
       return null;
     }
 
+    async findSoftDeletedById({ _id }: { _id: string }): Promise<IAdmin> {
+      const query_conditions = {
+        _id,
+      };
+
+      const exists = await adminDbModel
+        .findOne(query_conditions)
+        .select("-__v")
+        .lean({ virtuals: true });
+
+      if (exists) {
+        return new Admin(exists);
+      }
+
+      return null;
+    }
+
     async findOne(): Promise<IAdmin> {
       const exists = await adminDbModel
         .findOne()

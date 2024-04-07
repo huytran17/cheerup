@@ -1,20 +1,20 @@
-import {
-  GetAdmin,
-  IGetAdminPayload,
-} from "../../../../use-cases/admin/get-admin";
-import { UpdateAdmin } from "../../../../use-cases/admin/update-admin";
-import { Logger } from "winston";
 import { Request } from "express";
-import { get, merge } from "lodash";
+import { get } from "lodash";
+import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import {
+  GetSoftDeletedAdmin,
+  IGetSoftDeletedAdminPayload,
+} from "../../../../use-cases/admin/get-soft-deleted-admin";
+import { UpdateAdmin } from "../../../../use-cases/admin/update-admin";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeRestoreAdminController({
-  getAdmin,
+  getSoftDeletedAdmin,
   updateAdmin,
   logger,
 }: {
-  getAdmin: GetAdmin;
+  getSoftDeletedAdmin: GetSoftDeletedAdmin;
   updateAdmin: UpdateAdmin;
   logger: Logger;
 }) {
@@ -26,21 +26,20 @@ export default function makeRestoreAdminController({
     };
 
     try {
-      const { _id } = <IGetAdminPayload>(
+      const { _id } = <IGetSoftDeletedAdminPayload>(
         get(httpRequest, "context.validated", {})
       );
 
-      const exists = await getAdmin({ _id });
+      const exists = await getSoftDeletedAdmin({ _id });
       if (isEmpty(exists)) {
         throw new Error(`Admin by id ${_id} does not exist`);
       }
 
-      const updated_admin_data = merge({}, exists, {
-        deleted_at: null,
-      });
-
       const updated_admin = await updateAdmin({
-        adminDetails: updated_admin_data,
+        adminDetails: {
+          ...exists,
+          deleted_at: null,
+        },
       });
 
       logger.verbose(`Restored admin ${exists.email} successfully`);

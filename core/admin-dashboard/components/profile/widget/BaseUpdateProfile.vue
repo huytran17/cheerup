@@ -165,7 +165,6 @@
 </template>
 
 <script>
-import { omit, pick } from "lodash";
 import authMixins from "@/mixins/auth";
 import adminMixins from "@/mixins/admin";
 import dropzoneMixins from "@/mixins/dropzone";
@@ -185,16 +184,8 @@ export default {
   methods: {
     async updateInfo() {
       try {
-        const final_admin_details = omit(this.me, [
-          "password",
-          "password_confirmation",
-          "hash_password",
-          "new_password",
-          "new_password_confirmation",
-        ]);
-
         await this.UPDATE_ADMIN({
-          data: final_admin_details,
+          data: this.me,
         });
 
         await this.GET_ME();
@@ -210,15 +201,8 @@ export default {
 
     async updateSecurity() {
       try {
-        const final_admin_details = pick(this.me, [
-          "_id",
-          "password",
-          "new_password",
-          "new_password_confirmation",
-        ]);
-
         await this.UPDATE_ADMIN_PERSONAL_PASSWORD({
-          data: final_admin_details,
+          data: this.me,
         });
 
         await this.GET_ME();

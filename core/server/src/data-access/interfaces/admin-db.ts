@@ -12,6 +12,7 @@ export default interface IAdminDb {
   }) => Promise<IPaginatedAdminResult>;
   findOne: () => Promise<IAdmin>;
   findById: ({ _id }: { _id: string }) => Promise<IAdmin>;
+  findSoftDeletedById: ({ _id }: { _id: string }) => Promise<IAdmin>;
   findByEmail: ({ email }: { email: string }) => Promise<IAdmin>;
   insert: (payload: Partial<IAdmin>) => Promise<IAdmin>;
   delete: ({ _id }: { _id: string }) => Promise<IAdmin>;
