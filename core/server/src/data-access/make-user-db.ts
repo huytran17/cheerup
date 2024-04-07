@@ -269,7 +269,7 @@ export default function makeUserDb({
 
       const exists = await userDbModel
         .findOne(query_conditions)
-        .select("_id")
+        .select("-__v")
         .lean({ virtuals: true });
 
       if (exists) {
