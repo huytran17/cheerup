@@ -174,11 +174,9 @@ export default function makeGalleryDb({
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<IGallery> {
-      const deleted = await galleryDbModel.findByIdAndDelete({ _id });
+      const exists = await galleryDbModel.findById({ _id });
 
-      if (deleted) {
-        return new Gallery(deleted);
-      }
+      exists && (await exists.deleteOne());
 
       return null;
     }

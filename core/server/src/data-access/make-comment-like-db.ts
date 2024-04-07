@@ -42,14 +42,9 @@ export default function makeCommentLikeDb({
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<ICommentLike> {
-      const deleted = await commentLikeDbModel
-        .findByIdAndDelete({ _id: _id })
-        .select("_id")
-        .lean({ virtuals: true });
+      const exists = await commentLikeDbModel.findById({ _id });
 
-      if (deleted) {
-        return new CommentLike(deleted);
-      }
+      exists && (await exists.deleteOne());
 
       return null;
     }

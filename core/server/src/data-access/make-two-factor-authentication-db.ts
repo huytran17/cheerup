@@ -107,16 +107,9 @@ export default function makeTwoFactorAuthenticationDb({
     }: {
       _id: string;
     }): Promise<ITwoFactorAuthentication> {
-      const deleted = await twoFactorAuthenticationDbModel
-        .findByIdAndDelete({
-          _id,
-        })
-        .select("-__v")
-        .lean({ virtuals: true });
+      const exists = await twoFactorAuthenticationDbModel.findById({ _id });
 
-      if (deleted) {
-        return new TwoFactorAuthentication(deleted);
-      }
+      exists && (await exists.deleteOne());
 
       return null;
     }

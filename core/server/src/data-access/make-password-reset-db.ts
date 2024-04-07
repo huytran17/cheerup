@@ -61,14 +61,9 @@ export default function makePasswordResetDb({
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<IPasswordReset> {
-      const deleted = await passwordResetDbModel
-        .findByIdAndDelete({ _id })
-        .select("-__v")
-        .lean({ virtuals: true });
+      const exists = await passwordResetDbModel.findById({ _id });
 
-      if (deleted) {
-        return new PasswordReset(deleted);
-      }
+      exists && (await exists.deleteOne());
 
       return null;
     }

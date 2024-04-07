@@ -387,14 +387,9 @@ export default function makeCategoryDb({
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<ICategory> {
-      const deleted = await categoryDbModel
-        .findByIdAndDelete({ _id })
-        .select("_id")
-        .lean({ virtuals: true });
+      const exists = await categoryDbModel.findById({ _id });
 
-      if (deleted) {
-        return new Category(deleted);
-      }
+      exists && (await exists.deleteOne());
 
       return null;
     }

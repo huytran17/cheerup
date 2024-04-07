@@ -366,14 +366,9 @@ export default function makeUserDb({
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<IUser> {
-      const deleted = await userDbModel
-        .findByIdAndDelete({ _id })
-        .select("_id")
-        .lean({ virtuals: true });
+      const exists = await userDbModel.findById({ _id });
 
-      if (deleted) {
-        return new User(deleted);
-      }
+      exists && (await exists.deleteOne());
 
       return null;
     }

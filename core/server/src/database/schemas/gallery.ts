@@ -28,26 +28,22 @@ gallerySchema.index({ created_at: -1 });
 
 gallerySchema.plugin(mongoose_lean_virtuals);
 
-gallerySchema.pre(
-  "findOneAndDelete",
-  { document: true },
-  async function (next) {
-    const items = <{ [key: string]: string }[]>get(this, "items", []);
+gallerySchema.pre("deleteOne", { document: true }, async function (next) {
+  const items = <{ [key: string]: string }[]>get(this, "items", []);
 
-    for (const item of items) {
-      deleteS3Object({ bucket: item.bucket, key: item.key });
-    }
-
-    const galleries = await GalleryModel.find({ parent: get(this, "_id") });
-    const delete_gallery_promises = map(
-      galleries,
-      async (doc) => await doc.deleteOne()
-    );
-
-    await Promise.all(delete_gallery_promises);
-
-    next();
+  for (const item of items) {
+    deleteS3Object({ bucket: item.bucket, key: item.key });
   }
-);
+
+  const galleries = await GalleryModel.find({ parent: get(this, "_id") });
+  const delete_gallery_promises = map(
+    galleries,
+    async (doc) => await doc.deleteOne()
+  );
+
+  await Promise.all(delete_gallery_promises);
+
+  next();
+});
 
 export default gallerySchema;

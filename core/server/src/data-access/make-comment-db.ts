@@ -300,14 +300,9 @@ export default function makeCommentDb({
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<IComment> {
-      const updated = await commentDbModel
-        .findByIdAndDelete({ _id })
-        .select("_id")
-        .lean({ virtuals: true });
+      const exists = await commentDbModel.findById({ _id });
 
-      if (updated) {
-        return new Comment(updated);
-      }
+      exists && (await exists.deleteOne());
 
       return null;
     }

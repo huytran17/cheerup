@@ -295,14 +295,9 @@ export default function makeSubscriptionDb({
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<ISubscription> {
-      const deleted = await subscriptionDbModel
-        .findByIdAndDelete({ _id })
-        .select("-__v")
-        .lean({ virtuals: true });
+      const exists = await subscriptionDbModel.findById({ _id });
 
-      if (deleted) {
-        return new Subscription(deleted);
-      }
+      exists && (await exists.deleteOne());
 
       return null;
     }

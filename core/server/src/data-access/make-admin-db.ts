@@ -342,14 +342,9 @@ export default function makeAdminDb({
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<IAdmin> {
-      const deleted = await adminDbModel
-        .findByIdAndDelete({ _id })
-        .select("_id")
-        .lean({ virtuals: true });
+      const exists = await adminDbModel.findById({ _id });
 
-      if (deleted) {
-        return new Admin(deleted);
-      }
+      exists && (await exists.deleteOne());
 
       return null;
     }

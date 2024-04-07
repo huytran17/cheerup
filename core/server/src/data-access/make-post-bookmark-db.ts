@@ -206,14 +206,9 @@ export default function makePostBookmarkDb({
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<IPostBookmark> {
-      const deleted = await postBookmarkDbModel
-        .findByIdAndDelete({ _id })
-        .select("-__v")
-        .lean({ virtuals: true });
+      const exists = await postBookmarkDbModel.findById({ _id });
 
-      if (deleted) {
-        return new PostBookmark(deleted);
-      }
+      exists && (await exists.deleteOne());
 
       return null;
     }
