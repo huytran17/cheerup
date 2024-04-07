@@ -21,7 +21,7 @@
                 <span v-html="$t('Active')"></span>
               </v-chip>
             </div>
-            <div v-if="item.is_active" class="text-body-2">
+            <div v-else class="text-body-2">
               <v-chip color="red" text-color="white">
                 <span v-html="$t('Non Active')"></span>
               </v-chip>
