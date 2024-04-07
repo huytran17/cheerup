@@ -41,7 +41,7 @@ export default {
     return {
       pageNotFound: this.$t("404 Not Found"),
       otherError: this.$t("An error occurred"),
-      image: require("@/assets/images/app/student-girl.png"),
+      image: require("@/assets/images/app/student-girl.webp"),
     };
   },
   head() {

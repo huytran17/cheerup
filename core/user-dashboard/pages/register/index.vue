@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      login_background_image: require("@/assets/images/auth/login-bg.jpg"),
+      login_background_image: require("@/assets/images/auth/login-bg.webp"),
     };
   },
 };

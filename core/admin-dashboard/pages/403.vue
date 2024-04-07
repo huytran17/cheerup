@@ -28,7 +28,7 @@ export default {
   },
   data() {
     return {
-      image: require("@/assets/images/app/wonder-guy.png"),
+      image: require("@/assets/images/app/wonder-guy.webp"),
     };
   },
 };

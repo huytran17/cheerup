@@ -50,7 +50,7 @@ export default {
   },
   data() {
     return {
-      welcome_image: require("@/assets/images/app/admin-welcome.png"),
+      welcome_image: require("@/assets/images/app/admin-welcome.webp"),
     };
   },
 };

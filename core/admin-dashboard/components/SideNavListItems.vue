@@ -113,7 +113,7 @@ export default {
     admin_avatar() {
       return (
         get(this.me, "avatar_url") ||
-        require("@/assets/images/app/admin-avatar.jpg")
+        require("@/assets/images/app/admin-avatar.webp")
       );
     },
 

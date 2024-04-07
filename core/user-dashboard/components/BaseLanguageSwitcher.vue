@@ -51,12 +51,12 @@ export default {
         {
           text: "English",
           code: "en",
-          icon: require("@/assets/images/icon/us-flag.png"),
+          icon: require("@/assets/images/icon/us-flag.webp"),
         },
         {
           text: "Vietnamese",
           code: "vi",
-          icon: require("@/assets/images/icon/vn-flag.png"),
+          icon: require("@/assets/images/icon/vn-flag.webp"),
         },
       ],
     },

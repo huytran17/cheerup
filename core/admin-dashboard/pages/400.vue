@@ -28,7 +28,7 @@ export default {
   },
   data() {
     return {
-      image: require("@/assets/images/app/thinking-man.png"),
+      image: require("@/assets/images/app/thinking-man.webp"),
     };
   },
 };
