@@ -71,7 +71,6 @@
 
 <script>
 import { get, isObject } from "lodash";
-
 import categoryMixins from "@/mixins/category";
 
 export default {

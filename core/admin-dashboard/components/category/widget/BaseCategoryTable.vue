@@ -131,7 +131,6 @@
 </template>
 
 <script>
-import { get } from "lodash";
 import { ADMIN_TYPES } from "@/constants";
 import categoryMixins from "@/mixins/category";
 import systemMixins from "@/mixins/system";

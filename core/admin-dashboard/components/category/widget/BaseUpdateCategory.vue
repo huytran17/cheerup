@@ -167,10 +167,10 @@
 </template>
 
 <script>
-import { get, isObject } from "lodash";
 import categoryMixins from "@/mixins/category";
 import dropzoneMixins from "@/mixins/dropzone";
 import systemMixins from "@/mixins/system";
+import { get, isObject } from "lodash";
 
 export default {
   name: "BaseUpdateCategory",
