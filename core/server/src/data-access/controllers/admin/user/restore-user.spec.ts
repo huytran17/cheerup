@@ -1,20 +1,20 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakeUser } from "../../../../../__tests__/__mock__";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { logger } from "../../../../../__tests__/jest-logger";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeUserDb from "../../../make-user-db";
-import { UserModel } from "../../../models";
-import makeCreateUser from "../../../../use-cases/user/create-user";
-import makeGetUser from "../../../../use-cases/user/get-user";
-import makeRestoreUser from "../../../../use-cases/user/restore-user";
-import makeRestoreUserController from "./restore-user";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IUser from "../../../../database/interfaces/user";
+import makeCreateUser from "../../../../use-cases/user/create-user";
+import makeGetSoftDeletedUser from "../../../../use-cases/user/get-soft-deleted-user";
+import makeRestoreUser from "../../../../use-cases/user/restore-user";
+import makeUserDb from "../../../make-user-db";
+import { UserModel } from "../../../models";
+import makeRestoreUserController from "./restore-user";
 
 describe("restoreUser", () => {
   beforeAll(async () => await connectDatabase());
@@ -34,7 +34,7 @@ describe("restoreUser", () => {
     });
 
     const createUser = makeCreateUser({ userDb });
-    const getUser = makeGetUser({ userDb });
+    const getSoftDeletedUser = makeGetSoftDeletedUser({ userDb });
     const restoreUser = makeRestoreUser({ userDb });
 
     const mock_user_data = fakeUser();
@@ -44,7 +44,7 @@ describe("restoreUser", () => {
     });
 
     const restoreUserController = makeRestoreUserController({
-      getUser,
+      getSoftDeletedUser,
       restoreUser,
       logger,
     });
