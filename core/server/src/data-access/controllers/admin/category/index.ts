@@ -1,24 +1,24 @@
-import {
-  getCategory,
-  deleteCategory,
-  updateCategory,
-  createCategory,
-  getCategories,
-  hardDeleteCategory,
-  getCategoryByTitle,
-  getCategoryAnalystics,
-} from "../../../../use-cases/category";
 import { logger } from "../../../../config/logs/logger";
-
-import makeGetCategoryController from "./get-category";
-import makeDeleteCategoryController from "./delete-category";
-import makeUpdateCategoryController from "./update-category";
+import {
+  createCategory,
+  deleteCategory,
+  getCategories,
+  getCategory,
+  getCategoryAnalystics,
+  getCategoryByTitle,
+  getSoftDeletedCategory,
+  hardDeleteCategory,
+  updateCategory,
+} from "../../../../use-cases/category";
 import makeCreateCategoryController from "./create-category";
+import makeDeleteCategoryController from "./delete-category";
 import makeGetCategoriesController from "./get-categories";
-import makeRestoreCategoryController from "./restore-category";
-import makeHardDeleteCategoryController from "./hard-delete-category";
-import makeUploadCategoryThumbnailController from "./upload-category-thumbnail";
+import makeGetCategoryController from "./get-category";
 import makeGetCategoryAnalysticsController from "./get-category-analystics";
+import makeHardDeleteCategoryController from "./hard-delete-category";
+import makeRestoreCategoryController from "./restore-category";
+import makeUpdateCategoryController from "./update-category";
+import makeUploadCategoryThumbnailController from "./upload-category-thumbnail";
 
 const getCategoryAnalysticsController = makeGetCategoryAnalysticsController({
   getCategoryAnalystics,
@@ -38,7 +38,7 @@ const hardDeleteCategoryController = makeHardDeleteCategoryController({
 });
 
 const restoreCategoryController = makeRestoreCategoryController({
-  getCategory,
+  getSoftDeletedCategory,
   updateCategory,
   logger,
 });
@@ -84,13 +84,13 @@ export default Object.freeze({
 });
 
 export {
-  getCategoryController,
-  deleteCategoryController,
-  updateCategoryController,
   createCategoryController,
+  deleteCategoryController,
   getCategoriesController,
-  restoreCategoryController,
-  hardDeleteCategoryController,
-  uploadCategoryThumbnailController,
   getCategoryAnalysticsController,
+  getCategoryController,
+  hardDeleteCategoryController,
+  restoreCategoryController,
+  updateCategoryController,
+  uploadCategoryThumbnailController,
 };

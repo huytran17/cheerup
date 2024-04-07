@@ -1,20 +1,20 @@
-import {
-  GetCategory,
-  IGetCategoryPayload,
-} from "../../../../use-cases/category/get-category";
-import { UpdateCategory } from "../../../../use-cases/category/update-category";
-import { Logger } from "winston";
 import { Request } from "express";
 import { get, merge } from "lodash";
+import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import {
+  GetSoftDeletedCategory,
+  IGetSoftDeletedCategoryPayload,
+} from "../../../../use-cases/category/get-soft-deleted-category";
+import { UpdateCategory } from "../../../../use-cases/category/update-category";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeRestoreCategoryController({
-  getCategory,
+  getSoftDeletedCategory,
   updateCategory,
   logger,
 }: {
-  getCategory: GetCategory;
+  getSoftDeletedCategory: GetSoftDeletedCategory;
   updateCategory: UpdateCategory;
   logger: Logger;
 }) {
@@ -26,11 +26,11 @@ export default function makeRestoreCategoryController({
     };
 
     try {
-      const { _id } = <IGetCategoryPayload>(
+      const { _id } = <IGetSoftDeletedCategoryPayload>(
         get(httpRequest, "context.validated", {})
       );
 
-      const exists = await getCategory({ _id });
+      const exists = await getSoftDeletedCategory({ _id });
       if (isEmpty(exists)) {
         throw new Error(`Category by id ${_id} does not exist`);
       }

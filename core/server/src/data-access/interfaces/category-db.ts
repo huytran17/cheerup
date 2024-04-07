@@ -16,6 +16,7 @@ export default interface ICategoryDb {
     { _id: string; title: string; slug: string }[]
   >;
   findById: ({ _id }: { _id: string }) => Promise<ICategory>;
+  findSoftDeletedById: ({ _id }: { _id: string }) => Promise<ICategory>;
   findByTitle: ({ title }: { title: string }) => Promise<ICategory>;
   findBySlug: ({ slug }: { slug: string }) => Promise<ICategory>;
   insert: (payload: Partial<ICategory>) => Promise<ICategory>;

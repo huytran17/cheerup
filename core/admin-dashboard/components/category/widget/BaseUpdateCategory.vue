@@ -186,7 +186,7 @@ export default {
     },
 
     seo_description() {
-      return replaceHTMLTag(this.category.seo?.description) || "";
+      return this.replaceHTMLTag(this.category.seo?.description) || "";
     },
 
     seo_keywords() {

@@ -258,6 +258,27 @@ export default function makeCategoryDb({
       return null;
     }
 
+    async findSoftDeletedById({ _id }: { _id: string }): Promise<ICategory> {
+      const query_conditions = {
+        _id,
+      };
+
+      const exists = await categoryDbModel
+        .findOne(query_conditions)
+        .select("-__v")
+        .populate({
+          path: "created_by",
+          select: "_id full_name",
+        })
+        .lean({ virtuals: true });
+
+      if (exists) {
+        return new Category(exists);
+      }
+
+      return null;
+    }
+
     async findByTitle({ title }: { title: string }): Promise<ICategory> {
       const query_conditions = {
         title,

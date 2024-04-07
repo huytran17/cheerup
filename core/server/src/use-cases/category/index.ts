@@ -1,20 +1,23 @@
 import { logger } from "../../config/logs/logger";
 import { redis } from "../../config/redis";
-
 import { CategoryDb } from "../../data-access";
-
-import makeGetCategory from "./get-category";
-import makeDeleteCategory from "./delete-category";
-import makeUpdateCategory from "./update-category";
-import makeGetCategories from "./get-categories";
 import makeCreateCategory from "./create-category";
-import makeGetCategoryTitles from "./get-category-titles";
-import makeHardDeleteCategory from "./hard-delete-category";
-import makeGetCategoryByTitle from "./get-category-by-title";
-import makeGetCategoryAnalystics from "./get-category-analystics";
+import makeDeleteCategory from "./delete-category";
+import makeGetCategories from "./get-categories";
 import makeGetCategoriesForSEO from "./get-categories-for-seo";
 import makeGetCategoriesPaginated from "./get-categories-paginated";
+import makeGetCategory from "./get-category";
+import makeGetCategoryAnalystics from "./get-category-analystics";
 import makeGetCategoryBySlug from "./get-category-by-slug";
+import makeGetCategoryByTitle from "./get-category-by-title";
+import makeGetCategoryTitles from "./get-category-titles";
+import makeGetSoftDeletedCategory from "./get-soft-deleted-category";
+import makeHardDeleteCategory from "./hard-delete-category";
+import makeUpdateCategory from "./update-category";
+
+const getSoftDeletedCategory = makeGetSoftDeletedCategory({
+  categoryDb: CategoryDb,
+});
 
 const getCategoryBySlug = makeGetCategoryBySlug({
   categoryDb: CategoryDb,
@@ -79,21 +82,23 @@ const categoryServices = Object.freeze({
   getCategoriesForSEO,
   getCategoriesPaginated,
   getCategoryBySlug,
+  getSoftDeletedCategory,
 });
 
 export default categoryServices;
 
 export {
-  getCategory,
-  deleteCategory,
-  updateCategory,
-  getCategories,
   createCategory,
-  hardDeleteCategory,
-  getCategoryTitles,
-  getCategoryByTitle,
-  getCategoryAnalystics,
+  deleteCategory,
+  getCategories,
   getCategoriesForSEO,
   getCategoriesPaginated,
+  getCategory,
+  getCategoryAnalystics,
   getCategoryBySlug,
+  getCategoryByTitle,
+  getCategoryTitles,
+  getSoftDeletedCategory,
+  hardDeleteCategory,
+  updateCategory,
 };
