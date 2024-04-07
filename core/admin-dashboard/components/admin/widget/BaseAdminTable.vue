@@ -89,25 +89,6 @@
                 </template>
                 <span v-html="$t('Delete')"></span>
               </v-tooltip>
-              <v-tooltip left>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    icon
-                    v-bind="attrs"
-                    v-on="on"
-                    small
-                    @click="
-                      () => {
-                        SET_ADMIN({ data: item });
-                        is_open_hard_delete_dialog = true;
-                      }
-                    "
-                  >
-                    <v-icon small color="error">mdi-delete-off-outline</v-icon>
-                  </v-btn>
-                </template>
-                <span v-html="$t('Delete Forever')"></span>
-              </v-tooltip>
             </div>
           </template>
         </v-data-table>
