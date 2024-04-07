@@ -274,7 +274,7 @@ export default function makeAdminDb({
 
       const exists = await adminDbModel
         .findOne(query_conditions)
-        .select("-__v")
+        .select("_id")
         .lean({ virtuals: true });
 
       if (exists) {

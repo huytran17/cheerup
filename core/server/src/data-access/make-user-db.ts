@@ -258,6 +258,24 @@ export default function makeUserDb({
       if (exists) {
         return new User(exists);
       }
+
+      return null;
+    }
+
+    async findSoftDeletedById({ _id }: { _id: string }): Promise<IUser> {
+      const query_conditions = {
+        _id,
+      };
+
+      const exists = await userDbModel
+        .findOne(query_conditions)
+        .select("_id")
+        .lean({ virtuals: true });
+
+      if (exists) {
+        return new User(exists);
+      }
+
       return null;
     }
 

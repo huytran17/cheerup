@@ -12,6 +12,7 @@ export default interface IUserDb {
   }) => Promise<IPaginatedUserResult>;
   findOne: () => Promise<IUser>;
   findById: ({ _id }: { _id: string }) => Promise<IUser>;
+  findSoftDeletedById: ({ _id }: { _id: string }) => Promise<IUser>;
   findByEmail: ({ email }: { email: string }) => Promise<IUser>;
   insert: (payload: Partial<IUser>) => Promise<IUser>;
   delete: ({ _id }: { _id: string }) => Promise<IUser>;

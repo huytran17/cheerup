@@ -1,30 +1,30 @@
-import {
-  getUser,
-  deleteUser,
-  updateUser,
-  getUsers,
-  getUserByEmail,
-  hardDeleteUser,
-  getUserAnalystics,
-  createUser,
-  restoreUser,
-} from "../../../../use-cases/user";
 import { logger } from "../../../../config/logs/logger";
 import { hashPassword } from "../../../../config/password";
-
-import makeGetUserController from "./get-user";
-import makeDeleteUserController from "./delete-user";
-import makeUpdateUserController from "./update-user";
+import {
+  createUser,
+  deleteUser,
+  getSoftDeletedUser,
+  getUser,
+  getUserAnalystics,
+  getUserByEmail,
+  getUsers,
+  hardDeleteUser,
+  restoreUser,
+  updateUser,
+} from "../../../../use-cases/user";
+import makeBlockUserCommentController from "./block-user-comment";
 import makeCreateUserController from "./create-user";
+import makeDeleteUserController from "./delete-user";
+import makeGetUserController from "./get-user";
+import makeGetUserAnalysticsController from "./get-user-analystics";
 import makeGetUserByEmailController from "./get-user-by-email";
 import makeGetUsersController from "./get-users";
-import makeBlockUserCommentController from "./block-user-comment";
-import makeUnBlockUserCommentController from "./un-block-user-comment";
-import makeUploadUserAvatarController from "./upload-avatar";
-import makeUpdateUserPasswordController from "./update-user-password";
-import makeRestoreUserController from "./restore-user";
 import makeHardDeleteUserController from "./hard-delete-user";
-import makeGetUserAnalysticsController from "./get-user-analystics";
+import makeRestoreUserController from "./restore-user";
+import makeUnBlockUserCommentController from "./un-block-user-comment";
+import makeUpdateUserController from "./update-user";
+import makeUpdateUserPasswordController from "./update-user-password";
+import makeUploadUserAvatarController from "./upload-avatar";
 
 const getUserAnalysticsController = makeGetUserAnalysticsController({
   getUserAnalystics,
@@ -37,7 +37,7 @@ const hardDeleteUserController = makeHardDeleteUserController({
 });
 
 const restoreUserController = makeRestoreUserController({
-  getUser,
+  getSoftDeletedUser,
   restoreUser,
   logger,
 });
@@ -114,17 +114,17 @@ export default Object.freeze({
 });
 
 export {
-  getUserController,
-  deleteUserController,
-  updateUserController,
-  getUserByEmailController,
-  getUsersController,
-  createUserController,
   blockUserCommentController,
-  unblockUserCommentController,
-  uploadUserAvatarController,
-  updateUserPasswordController,
-  restoreUserController,
-  hardDeleteUserController,
+  createUserController,
+  deleteUserController,
   getUserAnalysticsController,
+  getUserByEmailController,
+  getUserController,
+  getUsersController,
+  hardDeleteUserController,
+  restoreUserController,
+  unblockUserCommentController,
+  updateUserController,
+  updateUserPasswordController,
+  uploadUserAvatarController,
 };

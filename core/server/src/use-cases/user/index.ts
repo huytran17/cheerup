@@ -14,6 +14,11 @@ import makeCreateUser from "./create-user";
 import makeGetOneUser from "./get-one-user";
 import makeRestoreUser from "./restore-user";
 import makeGetUserTfaSecretByEmail from "./get-user-tfa-secret-by-email";
+import makeGetSoftDeletedUser from "./get-soft-deleted-user";
+
+const getSoftDeletedUser = makeGetSoftDeletedUser({
+  userDb: UserDb,
+});
 
 const getUserTfaSecretByEmail = makeGetUserTfaSecretByEmail({
   userDb: UserDb,
@@ -73,6 +78,7 @@ const userServices = Object.freeze({
   getOneUser,
   restoreUser,
   getUserTfaSecretByEmail,
+  getSoftDeletedUser,
 });
 
 export default userServices;
@@ -89,4 +95,5 @@ export {
   getOneUser,
   restoreUser,
   getUserTfaSecretByEmail,
+  getSoftDeletedUser,
 };

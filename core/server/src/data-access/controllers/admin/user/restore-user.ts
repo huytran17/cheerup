@@ -1,17 +1,20 @@
-import { GetUser, IGetUserPayload } from "../../../../use-cases/user/get-user";
-import { RestoreUser } from "../../../../use-cases/user/restore-user";
-import { Logger } from "winston";
 import { Request } from "express";
 import { get } from "lodash";
+import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import {
+  GetSoftDeletedUser,
+  IGetSoftDeletedUserPayload,
+} from "../../../../use-cases/user/get-soft-deleted-user";
+import { RestoreUser } from "../../../../use-cases/user/restore-user";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeRestoreUserController({
-  getUser,
+  getSoftDeletedUser,
   restoreUser,
   logger,
 }: {
-  getUser: GetUser;
+  getSoftDeletedUser: GetSoftDeletedUser;
   restoreUser: RestoreUser;
   logger: Logger;
 }) {
@@ -23,11 +26,11 @@ export default function makeRestoreUserController({
     };
 
     try {
-      const { _id } = <IGetUserPayload>(
+      const { _id } = <IGetSoftDeletedUserPayload>(
         get(httpRequest, "context.validated", {})
       );
 
-      const exists = await getUser({ _id });
+      const exists = await getSoftDeletedUser({ _id });
       if (isEmpty(exists)) {
         throw new Error(`User by id ${_id} does not exist`);
       }
