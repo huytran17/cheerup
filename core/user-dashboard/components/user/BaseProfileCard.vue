@@ -106,7 +106,7 @@ export default {
   mixins: [authMixins, postBookmarkMixins],
   data() {
     return {
-      default_user_avatar: require("@/assets/images/default/user-avatar.png"),
+      default_user_avatar: require("@/assets/images/default/user-avatar.webp"),
     };
   },
   computed: {

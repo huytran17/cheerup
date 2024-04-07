@@ -175,7 +175,7 @@ export default {
     user_avatar() {
       return (
         get(this.comment_data, "user.avatar_url") ||
-        require("@/assets/images/default/user-avatar.png")
+        require("@/assets/images/default/user-avatar.webp")
       );
     },
 
@@ -252,10 +252,9 @@ export default {
 
     async deleteComment() {
       try {
-        const post_id = get(this.post, "_id");
         const comment_id = get(this.comment_data, "_id");
 
-        await this.HARD_DELETE_COMMENT({ id: comment_id });
+        await this.HARD_DELETE_COMMENT({ id: this.post?._id });
         await this.COUNT_COMMENT_BY_POST({ post_id });
 
         this.deleteCommentData({ _id: comment_id });

@@ -112,7 +112,7 @@
 </template>
 
 <script>
-import { get, isEmpty, cloneDeep, merge } from "lodash";
+import { get, isEmpty, cloneDeep } from "lodash";
 import { mapMutations, mapGetters } from "vuex";
 import commentMixins from "@/mixins/comment";
 import postMixins from "@/mixins/post";
@@ -164,9 +164,7 @@ export default {
     },
 
     is_user_blocked_comment() {
-      const is_user_blocked_comment = get(this.me, "is_blocked_comment", false);
-
-      return is_user_blocked_comment;
+      return get(this.me, "is_blocked_comment", false);
     },
 
     has_comments() {
@@ -204,18 +202,17 @@ export default {
 
     async createComment() {
       try {
-        const new_comment_content = get(this.new_comment, "content", "");
-        if (!new_comment_content) {
+        if (!this.new_comment?.content) {
           return;
         }
 
         const post_id = get(this.post, "_id");
-        const final_comment_data = merge({}, this.new_comment, {
-          post: post_id,
-        });
 
         const new_comment_data = await this.CREATE_COMMENT({
-          data: final_comment_data,
+          data: {
+            ...this.new_comment,
+            post: post_id,
+          },
         });
 
         await this.COUNT_COMMENT_BY_POST({ post_id });
@@ -229,6 +226,7 @@ export default {
 
         const cloned_comments_data = cloneDeep(this.comments);
         cloned_comments_data.unshift(new_comment_data);
+
         this.UPDATE_COMMENTS_DATA({
           data: cloned_comments_data,
         });

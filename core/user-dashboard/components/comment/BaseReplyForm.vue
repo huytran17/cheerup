@@ -69,23 +69,19 @@ export default {
   methods: {
     async replyComment() {
       try {
-        const new_reply_comment_content = get(
-          this.new_reply_comment,
-          "content",
-          ""
-        );
-        if (!new_reply_comment_content) {
+        if (!this.new_reply_comment?.content) {
           return;
         }
 
         const post_id = get(this.post, "_id");
 
-        const final_reply_comment_data = merge({}, this.new_reply_comment, {
-          post: post_id,
-          parent: get(this.comment, "_id"),
+        await this.REPLY_COMMENT({
+          data: {
+            ...this.new_reply_comment,
+            post: post_id,
+            parent: get(this.comment, "_id"),
+          },
         });
-
-        await this.REPLY_COMMENT({ data: final_reply_comment_data });
 
         this.updateNewReplyCommentObject({
           variable_path: "content",

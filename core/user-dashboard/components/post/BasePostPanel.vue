@@ -196,11 +196,11 @@ export default {
           return;
         }
 
-        const post_bookmark_data = {
-          post: get(this.post, "_id"),
-        };
-
-        await this.CREATE_OR_DELETE_POST_BOOKMARK({ data: post_bookmark_data });
+        await this.CREATE_OR_DELETE_POST_BOOKMARK({
+          data: {
+            post: this.post?._id,
+          },
+        });
 
         this.is_bookmarked = !this.is_bookmarked;
 

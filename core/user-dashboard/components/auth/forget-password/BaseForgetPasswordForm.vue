@@ -101,7 +101,7 @@ export default {
           email: this.password_reset?.email,
         };
 
-        if (this.password_reset?.email) {
+        if (data.email) {
           await this.CREATE_PASSWORD_RESET({ data });
         }
 
@@ -127,7 +127,9 @@ export default {
         });
 
         if (!password_reset) {
-          return this.$t("Encountered error while verifying the security code");
+          return this.$toast.error(
+            this.$t("Encountered error while verifying the security code")
+          );
         }
 
         this.$router.push(this.localePath("/reset-password"));

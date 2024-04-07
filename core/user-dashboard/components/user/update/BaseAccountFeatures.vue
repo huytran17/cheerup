@@ -78,13 +78,15 @@ export default {
   methods: {
     async toggleSubscription({ data }) {
       try {
-        const is_subscribing = !!data;
+        const is_subscribed = !!data;
 
-        is_subscribing
-          ? await this.CREATE_SUBSCRIPTION({
-              data: { is_active: true },
-            })
-          : await this.CANCEL_SUBSCRIPTION();
+        if (is_subscribed) {
+          await this.CREATE_SUBSCRIPTION({
+            data: { is_active: true },
+          });
+        } else {
+          await this.CANCEL_SUBSCRIPTION();
+        }
 
         await this.GET_ME();
       } catch (error) {

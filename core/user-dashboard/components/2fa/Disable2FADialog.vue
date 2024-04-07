@@ -23,9 +23,10 @@ export default {
         };
 
         await this.DISABLE_2FA({ data: payload });
-        await this.GET_ME();
 
         this.$toast.success(this.$t(`Disabled 2FA successfully`));
+
+        await this.GET_ME();
       } catch (error) {
         console.error(error);
         this.$toast.error(this.$t(`Invalid or expired code`));
