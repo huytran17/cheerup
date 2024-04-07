@@ -7,7 +7,7 @@
     >
       <div class="folder__symbol rounded-lg">
         <v-img
-          :src="system_configuration.folder_icon_url"
+          :src="folder_icon_url"
           contain
           :max-width="is_mobile ? '50' : '70'"
           :max-height="is_mobile ? '50' : '70'"
@@ -67,6 +67,13 @@ export default {
     ...mapGetters({
       system_configuration: "system-configuration/system_configuration",
     }),
+
+    folder_icon_url() {
+      return (
+        this.system_configuration.folder_icon_url ||
+        require("@/assets/images/icon/folder-icon.webp")
+      );
+    },
   },
   methods: {
     ...mapMutations({
