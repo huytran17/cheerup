@@ -15,7 +15,6 @@ const adminSchema = new Schema<IAdmin, Model<IAdmin>>(
       emum: AdminType,
       default: AdminType.Editor,
     },
-    is_blocked: { type: Boolean, default: false },
     avatar: { type: Object },
     email: { type: String, trim: true, lowercase: true },
     deleted_at: { type: Date, default: null },

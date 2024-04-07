@@ -6,7 +6,6 @@ export default interface IAdmin {
   avatar?: Record<string, unknown>;
   email: string;
   type: AdminType;
-  is_blocked?: boolean;
   created_at: Date;
   updated_at: Date;
   deleted_at: Date;
