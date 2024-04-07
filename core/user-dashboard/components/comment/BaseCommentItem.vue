@@ -5,10 +5,8 @@
         :src="user_avatar"
         :lazy-src="user_avatar"
         :alt="user_fullname"
-        max-height="45px"
-        max-width="45px"
         cover
-        class="rounded-circle"
+        class="rounded-circle avatar"
       ></v-img>
     </div>
     <div class="d-flex flex-column pl-4">
@@ -266,8 +264,14 @@ export default {
 };
 </script>
 
-<style scoped>
-:deep(button.v-icon::after) {
-  background: transparent !important;
+<style lang="scss" scoped>
+button.v-icon::after {
+  background: transparent;
+}
+
+.v-image.avatar {
+  max-width: toRem(45);
+  max-height: toRem(45);
+  aspect-ratio: 1;
 }
 </style>

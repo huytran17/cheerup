@@ -18,10 +18,6 @@
                 :lazy-src="user_avatar"
                 :alt="me.full_name"
                 cover
-                :width="100"
-                :height="100"
-                :max-width="100"
-                :max-height="100"
                 class="rounded-circle clickable"
                 @click="$router.push(localePath(`/profile`))"
               ></v-img>
@@ -81,9 +77,9 @@
           <v-btn
             depressed
             tile
+            small
             color="brick"
             class="white--text"
-            small
             @click="redirectToLoginPage"
           >
             <span class="app-body" v-html="$t('Login')"></span>
@@ -151,5 +147,12 @@ export default {
 .profile__list {
   max-height: toRem(210);
   overflow-y: auto;
+}
+.sidebar__card {
+  .v-image {
+    max-width: toRem(90);
+    max-height: toRem(90);
+    aspect-ratio: 1;
+  }
 }
 </style>

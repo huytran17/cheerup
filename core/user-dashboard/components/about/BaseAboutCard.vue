@@ -14,8 +14,6 @@
           :lazy-src="owner_avatar_url"
           :alt="owner_name"
           cover
-          max-width="110px"
-          max-height="110px"
           class="rounded-circle"
         ></v-img>
         <avatar
@@ -85,5 +83,13 @@ export default {
 .quote__description {
   top: toRem(-15);
   left: toRem(-10);
+}
+
+.sidebar__card {
+  .v-image {
+    max-width: toRem(90);
+    max-height: toRem(90);
+    aspect-ratio: 1;
+  }
 }
 </style>

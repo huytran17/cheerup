@@ -69,7 +69,7 @@
     </div>
 
     <div v-if="post.source" class="text-body-2 mt-2">
-      <span class="app-body">
+      <span class="app-body post-source">
         <span v-html="$t('Source: ')"></span>
         <span class="post__source" v-html="post.source"></span>
       </span>
@@ -241,12 +241,16 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .v-chip--label {
   border-radius: 0 !important;
 }
 .post__source {
   display: inline !important;
   text-decoration: none !important;
+}
+.post-source {
+  display: flex;
+  gap: toRem(4);
 }
 </style>
