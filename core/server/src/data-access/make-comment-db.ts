@@ -14,12 +14,8 @@ export default function makeCommentDb({
 }): ICommentDb {
   return new (class MongooseCommentDb implements ICommentDb {
     async findAll(): Promise<IComment[]> {
-      const query_conditions = {
-        parent: { $in: [null, undefined] },
-      };
-
       const exists = await commentDbModel
-        .find(query_conditions)
+        .find()
         .select("-__v")
         .populate("children", "-_v")
         .populate("user", "_id full_name avatar_url")

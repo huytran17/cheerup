@@ -31,7 +31,9 @@ export default function makeSignInController({
       return {
         headers,
         statusCode: HttpStatusCode.OK,
-        body: { ...data },
+        body: {
+          data: { ...data },
+        },
       };
     };
 

@@ -493,10 +493,13 @@ export default function makePostDb({
     }
 
     async hardDelete({ _id }: { _id: string }): Promise<IPost> {
-      const deleted = await postDbModel
-        .findByIdAndDelete({ _id })
-        .select("-__v")
-        .lean({ virtuals: true });
+      const exists = await postDbModel.findById({ _id });
+
+      if (!exists) {
+        return null;
+      }
+
+      const deleted = await exists.deleteOne();
 
       if (deleted) {
         return new Post(deleted);
