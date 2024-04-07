@@ -9,13 +9,13 @@
     :profileImg="admin_avatar"
     :profileName="admin_name"
     :profileRole="admin_type"
-    @button-exit-clicked="signOut"
     bgColor="#ffffff"
     menuItemsTextColor="#000000"
-    menuItemsHoverColor="#e7e7ff"
+    menuItemsHoverColor="#ff2e55"
     logoTitleColor="#000000"
     iconsColor="#000000"
     menuFooterTextColor="#ffffff"
+    @button-exit-clicked="signOut"
   />
 </template>
 
