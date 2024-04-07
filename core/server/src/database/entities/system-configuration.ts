@@ -13,6 +13,8 @@ export default class SystemConfiguration implements ISystemConfiguration {
     description: string;
     avatar: Record<string, unknown>;
   };
+  public readonly created_at: Date;
+  public readonly updated_at: Date;
 
   constructor({
     _id,
@@ -23,6 +25,8 @@ export default class SystemConfiguration implements ISystemConfiguration {
     thumbnail,
     folder_icon,
     folder_icon_url,
+    created_at,
+    updated_at,
   }: ISystemConfiguration) {
     this._id = _id;
     this.is_blocked_comment = is_blocked_comment;
@@ -32,5 +36,7 @@ export default class SystemConfiguration implements ISystemConfiguration {
     this.owner_avatar_url = owner_avatar_url;
     this.folder_icon = folder_icon;
     this.folder_icon_url = folder_icon_url;
+    this.created_at = created_at;
+    this.updated_at = updated_at;
   }
 }

@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="12" sm="6" class="d-flex justify-end">
-        <v-btn text @click="is_open_preview_dialog = true">
+      <v-col cols="12" class="d-flex justify-center">
+        <v-btn text @click="is_open_preview_dialog = true" outlined>
           <span v-html="$t('Preview')"></span>
         </v-btn>
       </v-col>
@@ -245,7 +245,7 @@
 </template>
 
 <script>
-import { merge, get } from "lodash";
+import { get } from "lodash";
 import categoryMixins from "@/mixins/category";
 import postMixins from "@/mixins/post";
 import systemMixins from "@/mixins/system";
@@ -299,6 +299,8 @@ export default {
         });
 
         this.$toast.success(this.$t("Updated post successfully"));
+
+        await this.$fetch();
       } catch (error) {
         console.error(error);
         this.$toast.error(this.$t("Encountered error while updating post"));
@@ -311,7 +313,7 @@ export default {
 
         this.$toast.success("Updated post successfully");
 
-        await this.GET_POST({ id: this.post_id });
+        await this.$fetch();
       } catch (error) {
         console.error(error);
       }

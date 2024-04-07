@@ -1,13 +1,13 @@
+import { Request } from "express";
+import { get } from "lodash";
+import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetCategory } from "../../../../use-cases/category/get-category";
+import { GetCategoryByTitle } from "../../../../use-cases/category/get-category-by-title";
 import {
   IUpdateCategoryPayload,
   UpdateCategory,
 } from "../../../../use-cases/category/update-category";
-import { GetCategoryByTitle } from "../../../../use-cases/category/get-category-by-title";
-import { Logger } from "winston";
-import { Request } from "express";
-import { get } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeUpdateCategoryController({
@@ -52,16 +52,14 @@ export default function makeUpdateCategoryController({
         throw new Error(`Category ${title} already exists`);
       }
 
-      const final_category_details = {
-        ...categoryDetails,
-        seo: {
-          ...categoryDetails?.seo,
-          date_modified: exists?.updated_at,
-        },
-      };
-
       const updated_category = await updateCategory({
-        categoryDetails: final_category_details,
+        categoryDetails: {
+          ...categoryDetails,
+          seo: {
+            ...categoryDetails?.seo,
+            date_modified: new Date(),
+          },
+        },
       });
 
       logger.verbose(`Updated category ${exists.title}`);

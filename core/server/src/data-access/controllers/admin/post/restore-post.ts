@@ -1,17 +1,20 @@
-import { GetPost, IGetPostPayload } from "../../../../use-cases/post/get-post";
-import { UpdatePost } from "../../../../use-cases/post/update-post";
-import { Logger } from "winston";
 import { Request } from "express";
-import { get, merge } from "lodash";
+import { get } from "lodash";
+import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import {
+  GetSoftDeletedPost,
+  IGetSoftDeletedPostPayload,
+} from "../../../../use-cases/post/get-soft-deleted-post";
+import { UpdatePost } from "../../../../use-cases/post/update-post";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeRestorePostController({
-  getPost,
+  getSoftDeletedPost,
   updatePost,
   logger,
 }: {
-  getPost: GetPost;
+  getSoftDeletedPost: GetSoftDeletedPost;
   updatePost: UpdatePost;
   logger: Logger;
 }) {
@@ -23,21 +26,20 @@ export default function makeRestorePostController({
     };
 
     try {
-      const { _id } = <IGetPostPayload>(
+      const { _id } = <IGetSoftDeletedPostPayload>(
         get(httpRequest, "context.validated", {})
       );
 
-      const exists = await getPost({ _id });
+      const exists = await getSoftDeletedPost({ _id });
       if (isEmpty(exists)) {
         throw new Error(`Post by id ${_id} does not exist`);
       }
 
-      const updated_post_data = merge({}, exists, {
-        deleted_at: null,
-      });
-
       const updated_post = await updatePost({
-        postDetails: updated_post_data,
+        postDetails: {
+          ...exists,
+          deleted_at: null,
+        },
       });
 
       logger.verbose(`Restored post ${exists.title} successfully`);

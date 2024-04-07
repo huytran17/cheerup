@@ -1,19 +1,19 @@
 import { Request } from "express";
 import { convert } from "html-to-text";
-import { get, map, join, merge } from "lodash";
+import { get, join, map } from "lodash";
 import { Logger } from "winston";
 import { GetEmailContent } from "../../../../config/emailManager/get-email-content";
 import { RenderEmailContent } from "../../../../config/emailManager/render-email-content";
 import { SendEmail } from "../../../../config/emailManager/send-email";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import IAdmin from "../../../../database/interfaces/admin";
 import {
   CreatePost,
   ICreatePostPayload,
 } from "../../../../use-cases/post/create-post";
+import { GetPost } from "../../../../use-cases/post/get-post";
 import { UpdatePost } from "../../../../use-cases/post/update-post";
 import { GetActivatingSubscriptions } from "../../../../use-cases/subscription/get-activating-subscriptions";
-import IAdmin from "../../../../database/interfaces/admin";
-import { GetPost } from "../../../../use-cases/post/get-post";
 
 export default function makeCreatePostController({
   createPost,
@@ -42,18 +42,17 @@ export default function makeCreatePostController({
     };
 
     try {
-      const { _id, full_name } = <IAdmin>get(httpRequest, "context.user", {});
+      const admin = <IAdmin>get(httpRequest, "context.user", {});
 
       const postDetails = <ICreatePostPayload>(
         get(httpRequest, "context.validated", {})
       );
 
-      const post_details = merge({}, postDetails, {
-        author: _id,
-      });
-
       const created_post = await createPost({
-        postDetails: post_details,
+        postDetails: {
+          ...postDetails,
+          author: admin,
+        },
       });
 
       const post = await getPost({ _id: created_post._id });
@@ -101,18 +100,19 @@ export default function makeCreatePostController({
 
       logger.verbose(`Sent notifications email for new post to subscribers!!!`);
 
-      const final_post_details = merge({}, created_post, {
-        is_notified_to_user: true,
-        seo: {
-          title: created_post?.title,
-          description: created_post?.description,
-          date_modified: created_post?.updated_at,
-          author: full_name,
-        },
-      });
-
       const updated_post = await updatePost({
-        postDetails: final_post_details,
+        postDetails: {
+          ...created_post,
+          is_notified_to_user: true,
+          seo: {
+            title: title,
+            description: description,
+            date_modified: post.created_at,
+            date_published: post.created_at,
+            author: admin.full_name,
+            publisher: admin.full_name,
+          },
+        },
       });
 
       return {

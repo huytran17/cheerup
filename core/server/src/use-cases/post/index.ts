@@ -16,6 +16,11 @@ import makeGetMostPopularPostsAnalystics from "./get-most-popular-posts-analysti
 import makeGetPostsForSEO from "./get-posts-for-seo";
 import makeCountPostByCategory from "./count-post-by-category";
 import makeGetPostBySlug from "./get-post-by-slug";
+import makeGetSoftDeletedPost from "./get-soft-deleted-post";
+
+const getSoftDeletedPost = makeGetSoftDeletedPost({
+  postDb: PostDb,
+});
 
 const getPostBySlug = makeGetPostBySlug({
   postDb: PostDb,
@@ -87,6 +92,7 @@ const postServices = Object.freeze({
   getPostsForSEO,
   countPostByCategory,
   getPostBySlug,
+  getSoftDeletedPost,
 });
 
 export default postServices;
@@ -105,4 +111,5 @@ export {
   getPostsForSEO,
   countPostByCategory,
   getPostBySlug,
+  getSoftDeletedPost,
 };

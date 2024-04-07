@@ -1,20 +1,20 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakePost } from "../../../../../__tests__/__mock__";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { logger } from "../../../../../__tests__/jest-logger";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makePostDb from "../../../make-post-db";
-import { PostModel } from "../../../models";
-import makeCreatePost from "../../../../use-cases/post/create-post";
-import makeGetPost from "../../../../use-cases/post/get-post";
-import makeUpdatePost from "../../../../use-cases/post/update-post";
-import makeRestorePostController from "./restore-post";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import Post from "../../../../database/entities/post";
+import makeCreatePost from "../../../../use-cases/post/create-post";
+import makeGetSoftDeletedPost from "../../../../use-cases/post/get-soft-deleted-post";
+import makeUpdatePost from "../../../../use-cases/post/update-post";
+import makePostDb from "../../../make-post-db";
+import { PostModel } from "../../../models";
+import makeRestorePostController from "./restore-post";
 
 describe("restorePost", () => {
   beforeAll(async () => await connectDatabase());
@@ -34,7 +34,7 @@ describe("restorePost", () => {
     });
 
     const createPost = makeCreatePost({ postDb });
-    const getPost = makeGetPost({ postDb });
+    const getSoftDeletedPost = makeGetSoftDeletedPost({ postDb });
     const updatePost = makeUpdatePost({ postDb });
 
     const mock_post_data = fakePost();
@@ -44,7 +44,7 @@ describe("restorePost", () => {
     });
 
     const restorePostController = makeRestorePostController({
-      getPost,
+      getSoftDeletedPost,
       updatePost,
       logger,
     });

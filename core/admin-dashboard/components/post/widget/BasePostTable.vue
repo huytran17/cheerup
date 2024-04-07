@@ -234,9 +234,9 @@ export default {
   methods: {
     async blockComment(post) {
       try {
-        const { id, title } = post;
+        const { _id, title } = post;
 
-        await this.BLOCK_POST_COMMENT({ id });
+        await this.BLOCK_POST_COMMENT({ id: _id });
 
         this.$toast.success(
           this.$t(`Blocked comment for post ${title} successfully`)
@@ -253,9 +253,9 @@ export default {
 
     async unblockComment(post) {
       try {
-        const { id, title } = post;
+        const { _id, title } = post;
 
-        await this.UNBLOCK_POST_COMMENT({ id });
+        await this.UNBLOCK_POST_COMMENT({ id: _id });
 
         this.$toast.success(
           this.$t(`Un-blocked comment for post ${title} successfully`)

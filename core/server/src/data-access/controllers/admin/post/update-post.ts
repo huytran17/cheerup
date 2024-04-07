@@ -1,12 +1,12 @@
+import { Request } from "express";
+import { get } from "lodash";
+import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetPost } from "../../../../use-cases/post/get-post";
 import {
   IUpdatePostPayload,
   UpdatePost,
 } from "../../../../use-cases/post/update-post";
-import { Logger } from "winston";
-import { Request } from "express";
-import { get } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeUpdatePostController({
@@ -36,19 +36,14 @@ export default function makeUpdatePostController({
         throw new Error(`Post by ${_id} does not exist`);
       }
 
-      const final_post_details = {
-        ...postDetails,
-        seo: {
-          ...postDetails?.seo,
-          title: exists?.title,
-          description: exists?.description,
-          author: exists?.author?.full_name,
-          date_modified: exists?.updated_at,
-        },
-      };
-
       const updated_post = await updatePost({
-        postDetails: final_post_details,
+        postDetails: {
+          ...postDetails,
+          seo: {
+            ...postDetails?.seo,
+            date_modified: new Date(),
+          },
+        },
       });
 
       logger.verbose(`Updated post ${exists.title} successfully`);

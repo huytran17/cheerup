@@ -13,6 +13,7 @@ import {
   hardDeletePost,
   updatePost,
   getMostPopularPostsAnalystics,
+  getSoftDeletedPost,
 } from "../../../../use-cases/post";
 import { getActivatingSubscriptions } from "../../../../use-cases/subscription";
 
@@ -57,7 +58,7 @@ const blockPostCommentController = makeBlockPostCommentController({
 });
 
 const restorePostController = makeRestorePostController({
-  getPost,
+  getSoftDeletedPost,
   updatePost,
   logger,
 });

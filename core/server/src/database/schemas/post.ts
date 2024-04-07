@@ -24,11 +24,15 @@ const postSchema = new Schema<IPost, Model<IPost>>(
     author: { type: Schema.Types.ObjectId, ref: "Admin" },
     categories: [{ type: Schema.Types.ObjectId, ref: "Category" }],
     views: { type: Number, default: 0 },
-    created_at: { type: Date, default: Date.now },
+    deleted_at: { type: Date, default: null },
   },
   {
     toJSON: {
       virtuals: true,
+    },
+    timestamps: {
+      createdAt: "created_at",
+      updatedAt: "updated_at",
     },
   }
 );

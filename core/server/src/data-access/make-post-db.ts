@@ -355,6 +355,25 @@ export default function makePostDb({
       return null;
     }
 
+    async findSoftDeletedById({ _id }: { _id: string }): Promise<IPost> {
+      const query_conditions = {
+        _id,
+      };
+
+      const existing = await postDbModel
+        .findOne(query_conditions)
+        .select("-__v")
+        .populate("author", "_id full_name")
+        .populate("categories", "-_v")
+        .lean({ virtuals: true });
+
+      if (existing) {
+        return new Post(existing);
+      }
+
+      return null;
+    }
+
     async findBySlug({ slug }: { slug: string }): Promise<IPost> {
       const query_conditions = {
         slug,

@@ -57,7 +57,7 @@ export default function makeCreateCategoryController({
         categoryDetails: {
           ...created_category,
           seo: {
-            date_modified: created_category.updated_at,
+            date_modified: created_category.created_at,
             date_published: created_category.created_at,
             publisher: admin.full_name,
             author: admin.full_name,
