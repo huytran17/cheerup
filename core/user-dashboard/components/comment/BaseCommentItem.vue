@@ -252,8 +252,8 @@ export default {
       try {
         const comment_id = get(this.comment_data, "_id");
 
-        await this.HARD_DELETE_COMMENT({ id: this.post?._id });
-        await this.COUNT_COMMENT_BY_POST({ post_id });
+        await this.HARD_DELETE_COMMENT({ id: comment_id });
+        await this.COUNT_COMMENT_BY_POST({ post_id: this.post?._id });
 
         this.deleteCommentData({ _id: comment_id });
       } catch (error) {
