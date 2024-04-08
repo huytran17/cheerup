@@ -4,6 +4,7 @@ import getSuggestionPostsRules from "./get-sugesstion-posts";
 import updatePostRules from "./update-post";
 import exportPostPdfRules from "./export-post-pdf";
 import getPostBySlugRules from "./get-post-by-slug";
+import increasePostViewsRules from "./increase-post-views";
 
 export default Object.freeze({
   getPostRules,
@@ -12,6 +13,7 @@ export default Object.freeze({
   updatePostRules,
   exportPostPdfRules,
   getPostBySlugRules,
+  increasePostViewsRules,
 });
 
 export {
@@ -21,4 +23,5 @@ export {
   updatePostRules,
   exportPostPdfRules,
   getPostBySlugRules,
+  increasePostViewsRules,
 };

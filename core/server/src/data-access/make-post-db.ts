@@ -355,6 +355,26 @@ export default function makePostDb({
       return null;
     }
 
+    async increaseViews({ _id }: { _id: string }): Promise<IPost> {
+      const query_conditions = {
+        _id,
+        deleted_at: { $in: [null, undefined] },
+      };
+
+      const existing = await postDbModel
+        .findOneAndUpdate(query_conditions, { $inc: { views: 1 } })
+        .select("-__v")
+        .populate("author", "full_name")
+        .populate("categories", "title")
+        .lean({ virtuals: true });
+
+      if (existing) {
+        return new Post(existing);
+      }
+
+      return null;
+    }
+
     async findSoftDeletedById({ _id }: { _id: string }): Promise<IPost> {
       const query_conditions = {
         _id,

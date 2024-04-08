@@ -9,6 +9,7 @@ import {
   updatePostRules,
   exportPostPdfRules,
   getPostBySlugRules,
+  increasePostViewsRules,
 } from "../../data-access/controllers/user/post/validators";
 import {
   getPostsController,
@@ -18,9 +19,16 @@ import {
   updatePostController,
   exportPostPdfController,
   getPostBySlugController,
+  increasePostViewsController,
 } from "../../data-access/controllers/user/post";
 
 const postRouter = express.Router();
+
+postRouter.put(
+  "/increase-post-views/:_id",
+  makeValidator(increasePostViewsRules),
+  makeExpressCallback(increasePostViewsController)
+);
 
 postRouter.get(
   "/by-slug/:slug",

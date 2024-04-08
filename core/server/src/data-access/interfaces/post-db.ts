@@ -38,6 +38,7 @@ export default interface IPostDb {
     exclude_ids?: string[];
   }) => Promise<IPost[]>;
   findById: ({ _id }: { _id: string }) => Promise<IPost>;
+  increaseViews: ({ _id }: { _id: string }) => Promise<IPost>;
   findSoftDeletedById: ({ _id }: { _id: string }) => Promise<IPost>;
   findBySlug: ({ slug }: { slug: string }) => Promise<IPost>;
   insert: (payload: Partial<IPost>) => Promise<IPost>;
