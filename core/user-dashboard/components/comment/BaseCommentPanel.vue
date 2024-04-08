@@ -256,7 +256,7 @@ export default {
   async fetch() {
     try {
       await this.COUNT_COMMENT_BY_POST({
-        post_id: get(this.post, "_id"),
+        post_id: this.post?._id,
       });
     } catch (error) {
       console.error(error);
