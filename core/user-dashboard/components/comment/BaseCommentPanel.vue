@@ -215,6 +215,8 @@ export default {
           },
         });
 
+        const comment = await this.GET_COMMENT({ id: new_comment_data._id });
+
         await this.COUNT_COMMENT_BY_POST({ post_id });
 
         this.updateNewCommentObject({
@@ -225,7 +227,7 @@ export default {
         ++this.refresh_comment_editor_key;
 
         const cloned_comments_data = cloneDeep(this.comments);
-        cloned_comments_data.unshift(new_comment_data);
+        cloned_comments_data.unshift(comment);
 
         this.UPDATE_COMMENTS_DATA({
           data: cloned_comments_data,
