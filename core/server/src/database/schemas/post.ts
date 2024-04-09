@@ -44,41 +44,61 @@ postSchema.virtual("thumbnail_url").get(function () {
 });
 
 postSchema.pre("findOneAndUpdate", async function (next) {
-  const update_details = <IPost>this.getUpdate();
+  try {
+    const update_details = <IPost>this.getUpdate();
 
-  const title = get(update_details, "title", "");
-  let slug = textToSlug({ text: title });
+    const title = get(update_details, "title", "");
+    if (!title) {
+      return next();
+    }
 
-  const slug_existed = await PostModel.findOne({
-    _id: { $ne: update_details._id },
-    slug,
-  });
+    let slug = textToSlug({ text: title });
 
-  !isEmpty(slug_existed) && (slug = `${slug}-${Date.now()}`);
+    const slug_existed = await PostModel.findOne({
+      _id: { $ne: update_details._id },
+      slug,
+    });
 
-  update_details.slug = slug;
+    !isEmpty(slug_existed) && (slug = `${slug}-${Date.now()}`);
 
-  next();
+    update_details.slug = slug;
+
+    next();
+  } catch (error) {
+    throw new Error(error);
+  }
 });
 
 postSchema.pre("save", async function (next) {
-  const title = get(this, "title");
-  let slug = textToSlug({ text: title });
+  try {
+    const title = get(this, "title");
+    if (!title) {
+      return next();
+    }
 
-  const slug_existed = await PostModel.findOne({
-    _id: { $ne: this._id },
-    slug,
-  });
+    let slug = textToSlug({ text: title });
 
-  !isEmpty(slug_existed) && (slug = `${slug}-${Date.now()}`);
+    const slug_existed = await PostModel.findOne({
+      _id: { $ne: this._id },
+      slug,
+    });
 
-  this.slug = slug;
+    !isEmpty(slug_existed) && (slug = `${slug}-${Date.now()}`);
 
-  next();
+    this.slug = slug;
+
+    next();
+  } catch (error) {
+    throw new Error(error);
+  }
 });
 
 postSchema.pre("deleteOne", { document: true }, async function (next) {
   const post_id = get(this, "_id");
+  if (!post_id) {
+    return next();
+  }
+
   const comments = (await CommentModel.find({ post: post_id })) || [];
 
   const delete_comment_promises = map(

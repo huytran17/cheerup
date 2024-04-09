@@ -42,6 +42,10 @@ userSchema.virtual("avatar_url").get(function () {
 
 userSchema.pre("deleteOne", { document: true }, async function (next) {
   const user_id = get(this, "_id");
+  if (!user_id) {
+    return next();
+  }
+
   const comments = (await CommentModel.find({ user: user_id })) || [];
   const delete_comment_promises = map(
     comments,

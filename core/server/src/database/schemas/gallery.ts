@@ -31,6 +31,10 @@ gallerySchema.plugin(mongoose_lean_virtuals);
 gallerySchema.pre("deleteOne", { document: true }, async function (next) {
   const items = <{ [key: string]: string }[]>get(this, "items", []);
 
+  if (!items.length) {
+    return next();
+  }
+
   for (const item of items) {
     deleteS3Object({ bucket: item.bucket, key: item.key });
   }

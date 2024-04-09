@@ -36,6 +36,10 @@ commentSchema.virtual("has_children").get(function () {
 
 commentSchema.pre("deleteOne", { document: true }, async function (next) {
   const children = get(this, "children", []);
+  if (!children.length) {
+    return next();
+  }
+
   const delete_children_promises = map(
     children,
     async (comment: mongoose.ObjectId) => {

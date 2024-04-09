@@ -38,6 +38,10 @@ categorySchema.pre("findOneAndUpdate", async function (next) {
   const update_details = <ICategory>this.getUpdate();
 
   const title = get(update_details, "title", "");
+  if (!title) {
+    return next();
+  }
+
   let slug = textToSlug({ text: title });
 
   const slug_existed = await CategoryModel.findOne({
@@ -54,6 +58,10 @@ categorySchema.pre("findOneAndUpdate", async function (next) {
 
 categorySchema.pre("save", async function (next) {
   const title = get(this, "title");
+  if (!title) {
+    return next();
+  }
+
   let slug = textToSlug({ text: title });
 
   const slug_existed = await CategoryModel.findOne({
@@ -70,6 +78,10 @@ categorySchema.pre("save", async function (next) {
 
 categorySchema.pre("deleteOne", { document: true }, async function (next) {
   const category_id = get(this, "_id");
+  if (!category_id) {
+    return next();
+  }
+
   const posts = (await PostModel.find({ categories: category_id })) || [];
   const delete_post_promises = map(
     posts,
