@@ -19,6 +19,7 @@ export default {
       GET_POST: "post/GET_POST",
       GET_SUGGESTION_POSTS: "post/GET_SUGGESTION_POSTS",
       GET_POSTS_PAGINATED: "post/GET_POSTS_PAGINATED",
+      INCREASE_POST_VIEWS: "post/INCREASE_POST_VIEWS",
     }),
 
     ...mapMutations({

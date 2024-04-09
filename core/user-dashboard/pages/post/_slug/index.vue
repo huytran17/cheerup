@@ -156,23 +156,18 @@ export default {
   },
   methods: {
     ...mapActions({
-      UPDATE_POST: "post/UPDATE_POST",
+      INCREASE_POST_VIEWS: "post/INCREASE_POST_VIEWS",
     }),
   },
 
   async mounted() {
     try {
-      const payload = {
-        ...this.post,
-        views: this.post?.views + 1 || 0, //TODO: use $inc to increase the view
-      };
-
       const duration_in_milliseconds = Math.round(
-        ((this.post?.reading_time?.time || 0) * 30) / 100
+        (this.post?.reading_time?.time || 0) * 60 * 0.3
       );
 
       this.timeout = setTimeout(
-        async () => await this.UPDATE_POST({ data: payload }),
+        async () => await this.INCREASE_POST_VIEWS({ _id: this.post?._id }),
         duration_in_milliseconds
       );
     } catch (error) {

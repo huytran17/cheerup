@@ -6,6 +6,14 @@ import { RootState } from "..";
 import { get, isEmpty, join } from "lodash";
 
 const actions: ActionTree<PostState, RootState> = {
+  async [ActionTypes.INCREASE_POST_VIEWS](
+    { commit },
+    { _id }: { _id: string }
+  ) {
+    const data = await this.$axios.$put(`/post/increase-post-views/${_id}`);
+    return data;
+  },
+
   async [ActionTypes.UPDATE_POST]({ commit }, { data }: { data: any }) {
     const { _id } = data;
     const { data: post } = await this.$axios.$put(`/post/${_id}`, data);
