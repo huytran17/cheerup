@@ -14,6 +14,8 @@ export default function makeFakeSystemConfiguration({
       owner_avatar_url: faker.internet.url(),
       thumbnail_url: faker.internet.url(),
       folder_icon_url: faker.internet.url(),
+      created_at: faker.date.recent(),
+      updated_at: faker.date.recent(),
     };
   };
 }
