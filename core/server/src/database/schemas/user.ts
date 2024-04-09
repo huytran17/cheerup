@@ -41,20 +41,24 @@ userSchema.virtual("avatar_url").get(function () {
 });
 
 userSchema.pre("deleteOne", { document: true }, async function (next) {
-  const user_id = get(this, "_id");
-  if (!user_id) {
-    return next();
+  try {
+    const user_id = get(this, "_id");
+    if (!user_id) {
+      return next();
+    }
+
+    const comments = (await CommentModel.find({ user: user_id })) || [];
+    const delete_comment_promises = map(
+      comments,
+      async (comment) => comment && (await comment.deleteOne())
+    );
+
+    await Promise.all(delete_comment_promises);
+
+    next();
+  } catch (error) {
+    throw new Error(error);
   }
-
-  const comments = (await CommentModel.find({ user: user_id })) || [];
-  const delete_comment_promises = map(
-    comments,
-    async (comment) => comment && (await comment.deleteOne())
-  );
-
-  await Promise.all(delete_comment_promises);
-
-  next();
 });
 
 userSchema.plugin(mongoose_lean_virtuals);

@@ -35,62 +35,74 @@ categorySchema.virtual("thumbnail_url").get(function () {
 });
 
 categorySchema.pre("findOneAndUpdate", async function (next) {
-  const update_details = <ICategory>this.getUpdate();
+  try {
+    const update_details = <ICategory>this.getUpdate();
 
-  const title = get(update_details, "title", "");
-  if (!title) {
-    return next();
+    const title = get(update_details, "title", "");
+    if (!title) {
+      return next();
+    }
+
+    let slug = textToSlug({ text: title });
+
+    const slug_existed = await CategoryModel.findOne({
+      _id: { $ne: update_details._id },
+      slug,
+    });
+
+    !isEmpty(slug_existed) && (slug = `${slug}-${Date.now()}`);
+
+    update_details.slug = slug;
+
+    next();
+  } catch (error) {
+    throw new Error(error);
   }
-
-  let slug = textToSlug({ text: title });
-
-  const slug_existed = await CategoryModel.findOne({
-    _id: { $ne: update_details._id },
-    slug,
-  });
-
-  !isEmpty(slug_existed) && (slug = `${slug}-${Date.now()}`);
-
-  update_details.slug = slug;
-
-  next();
 });
 
 categorySchema.pre("save", async function (next) {
-  const title = get(this, "title");
-  if (!title) {
-    return next();
+  try {
+    const title = get(this, "title");
+    if (!title) {
+      return next();
+    }
+
+    let slug = textToSlug({ text: title });
+
+    const slug_existed = await CategoryModel.findOne({
+      _id: { $ne: this._id },
+      slug,
+    });
+
+    !isEmpty(slug_existed) && (slug = `${slug}-${Date.now()}`);
+
+    this.slug = slug;
+
+    next();
+  } catch (error) {
+    throw new Error(error);
   }
-
-  let slug = textToSlug({ text: title });
-
-  const slug_existed = await CategoryModel.findOne({
-    _id: { $ne: this._id },
-    slug,
-  });
-
-  !isEmpty(slug_existed) && (slug = `${slug}-${Date.now()}`);
-
-  this.slug = slug;
-
-  next();
 });
 
 categorySchema.pre("deleteOne", { document: true }, async function (next) {
-  const category_id = get(this, "_id");
-  if (!category_id) {
-    return next();
+  try {
+    const category_id = get(this, "_id");
+    if (!category_id) {
+      return next();
+    }
+
+    const posts = (await PostModel.find({ categories: category_id })) || [];
+    const delete_post_promises = map(
+      posts,
+      async (post) => post && (await post.deleteOne())
+    );
+
+    await Promise.all(delete_post_promises);
+
+    next();
+  } catch (error) {
+    throw new Error(error);
   }
-
-  const posts = (await PostModel.find({ categories: category_id })) || [];
-  const delete_post_promises = map(
-    posts,
-    async (post) => post && (await post.deleteOne())
-  );
-
-  await Promise.all(delete_post_promises);
-
-  next();
 });
 
 categorySchema.plugin(mongoose_lean_virtuals);
