@@ -22,7 +22,7 @@ export default function makeIncreasePostViewsController({
 
     try {
       const { _id } = <IIncreasePostViewsPayload>(
-        get(httpRequest, "context.validated._id", {})
+        get(httpRequest, "context.validated", {})
       );
 
       const exists = await getPost({ _id });
