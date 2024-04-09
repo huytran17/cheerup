@@ -363,9 +363,7 @@ export default function makePostDb({
 
       const existing = await postDbModel
         .findOneAndUpdate(query_conditions, { $inc: { views: 1 } })
-        .select("-__v")
-        .populate("author", "full_name")
-        .populate("categories", "title")
+        .select("_id")
         .lean({ virtuals: true });
 
       if (existing) {
