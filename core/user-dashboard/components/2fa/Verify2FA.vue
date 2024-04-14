@@ -19,79 +19,44 @@
           ></span>
         </div>
       </v-col>
-      <v-col cols="12">
-        <OtpInput
-          v-otp-auto-focus
-          class="mx-auto"
-          type="number"
-          inputClasses="otp-input"
-          @change="onChangeOtp"
-          @complete="onCompleteOtp"
-        />
-      </v-col>
-      <v-col cols="12" class="text-right">
-        <v-btn
-          tile
-          depressed
-          small
-          class="mr-1 white--text"
-          color="brick"
-          :disabled="!two_fa_code"
-          @click="verify2FA"
-        >
-          <span class="app-body" v-html="$t('Submit')"></span>
-        </v-btn>
+      <v-col cols="12" class="otp">
+        <v-otp-input
+          :disabled="is_app_loading"
+          @finish="verify2FA"
+        ></v-otp-input>
       </v-col>
     </v-row>
   </v-form>
 </template>
 
 <script>
-import { isNumber } from "lodash";
+import { mapGetters } from "vuex";
 import authMixins from "@/mixins/auth";
-import { TFA_VERIFICATION } from "@/constants";
 
 export default {
   name: "Verify2FA",
   mixins: [authMixins],
-  data() {
-    return {
-      two_fa_code: null,
-    };
+  computed: {
+    ...mapGetters({
+      is_app_loading: "is_app_loading",
+    }),
   },
   methods: {
-    async verify2FA() {
+    async verify2FA(otp) {
       try {
-        const email = this.$route.query?.email;
+        await this.VERIFY_2FA({
+          data: {
+            code: otp,
+            email: this.$route.query?.email,
+          },
+        });
 
-        const payload = {
-          code: this.two_fa_code,
-          email,
-        };
-
-        await this.VERIFY_2FA({ data: payload });
         await this.GET_ME();
 
         this.$router.push(this.localePath("/"));
       } catch (error) {
         console.error(error);
       }
-    },
-
-    onChangeOtp(code) {
-      const invalid_code =
-        !isNumber(Number(code)) ||
-        code.trim().length !== TFA_VERIFICATION.CODE_LENGTH;
-
-      invalid_code && (this.two_fa_code = null);
-    },
-
-    onCompleteOtp(code) {
-      const valid_code =
-        isNumber(Number(code)) &&
-        code.trim().length === TFA_VERIFICATION.CODE_LENGTH;
-
-      valid_code && (this.two_fa_code = code);
     },
   },
 };

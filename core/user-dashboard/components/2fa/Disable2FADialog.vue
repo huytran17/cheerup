@@ -16,13 +16,13 @@ export default {
   mixins: [authMixins],
   components: { Switch2FADialog },
   methods: {
-    async disable2FA() {
+    async disable2FA(otp) {
       try {
-        const payload = {
-          code: this.$refs.enable2FADialog.two_fa_code,
-        };
-
-        await this.DISABLE_2FA({ data: payload });
+        await this.DISABLE_2FA({
+          data: {
+            code: otp,
+          },
+        });
 
         this.$toast.success(this.$t(`Disabled 2FA successfully`));
 
@@ -42,10 +42,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.two-fa-confirmation-dialog {
-  background: var(--color-white);
-  margin: 0;
-}
-</style>

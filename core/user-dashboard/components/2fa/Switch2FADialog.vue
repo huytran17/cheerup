@@ -9,32 +9,15 @@
           <span class="app-body" v-html="$t(message)"></span>
         </div>
       </v-col>
-      <v-col cols="12">
-        <v-form>
-          <OtpInput
-            v-otp-auto-focus
-            class="mx-auto"
-            type="number"
-            inputClasses="otp-input"
-            @change="onChangeOtp"
-            @complete="onCompleteOtp"
-          />
-        </v-form>
+      <v-col cols="12" class="otp">
+        <v-otp-input
+          :disabled="is_app_loading"
+          @finish="submit_function"
+        ></v-otp-input>
       </v-col>
       <v-col cols="12" class="text-right">
         <v-btn text tile depressed class="mr-1" @click="closeModal">
           <span class="app-body" v-html="$t('Cancel')"></span>
-        </v-btn>
-        <v-btn
-          color="brick"
-          class="white--text"
-          tile
-          depressed
-          small
-          :disabled="!two_fa_code"
-          @click="submit_function"
-        >
-          <span class="app-body" v-html="$t('Submit')"></span>
         </v-btn>
       </v-col>
     </v-row>
@@ -42,7 +25,7 @@
 </template>
 
 <script>
-import { isNumber } from "lodash";
+import { mapGetters } from "vuex";
 import authMixins from "@/mixins/auth";
 
 export default {
@@ -71,29 +54,16 @@ export default {
       two_fa_code: null,
     };
   },
-
+  computed: {
+    ...mapGetters({
+      is_app_loading: "is_app_loading",
+    }),
+  },
   methods: {
     closeModal() {
       this.two_fa_code = null;
       this.SET_IS_OPEN_2FA_MODAL({ data: false });
     },
-
-    onChangeOtp(code) {
-      const invalid_code = !isNumber(Number(code)) || Number(code) < 1e5;
-      invalid_code && (this.two_fa_code = null);
-    },
-
-    onCompleteOtp(code) {
-      const invalid_code = !isNumber(Number(code)) || Number(code) < 1e5;
-      !invalid_code && (this.two_fa_code = code);
-    },
   },
 };
 </script>
-
-<style scoped>
-.two-fa-confirmation-dialog {
-  background: var(--color-white);
-  margin: 0;
-}
-</style>

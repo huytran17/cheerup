@@ -18,16 +18,17 @@ export default {
   mixins: [authMixins],
   components: { Switch2FADialog },
   methods: {
-    async enable2FA() {
+    async enable2FA(otp) {
       try {
-        const payload = {
-          code: this.$refs.enable2FADialog.two_fa_code,
-        };
-
-        const tfa_data = await this.ENABLE_2FA({ data: payload });
-        await this.GET_ME();
+        const tfa_data = await this.ENABLE_2FA({
+          data: {
+            code: otp,
+          },
+        });
 
         this.$toast.success(this.$t(`Enabled 2FA successfully`));
+
+        await this.GET_ME();
 
         const qr_payload = {
           qr_uri: tfa_data.qr_uri,
@@ -52,10 +53,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.two-fa-confirmation-dialog {
-  background: var(--color-white);
-  margin: 0;
-}
-</style>

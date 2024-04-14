@@ -52,26 +52,11 @@
             ></span>
           </div>
         </v-col>
-        <v-col cols="12">
-          <OtpInput
-            class="mx-auto"
-            type="number"
-            inputClasses="otp-input"
-            @change="onChangeOtp"
-            @complete="onCompleteOtp"
-          />
-        </v-col>
-        <v-col cols="12" class="d-flex justify-end pt-0">
-          <v-btn
-            color="brick"
-            class="white--text"
-            tile
-            depressed
-            :disabled="!password_reset.security_code"
-            @click="verifySecurityCode"
-          >
-            <span class="app-body" v-html="$t('Submit')"></span>
-          </v-btn>
+        <v-col cols="12" class="otp">
+          <v-otp-input
+            :disabled="is_app_loading"
+            @finish="verifySecurityCode"
+          ></v-otp-input>
         </v-col>
       </v-row>
     </v-form>
@@ -79,7 +64,7 @@
 </template>
 
 <script>
-import { isNumber } from "lodash";
+import { mapGetters } from "vuex";
 import passwordResetMixins from "@/mixins/password-reset";
 
 export default {
@@ -89,6 +74,11 @@ export default {
     return {
       form_valid: false,
     };
+  },
+  computed: {
+    ...mapGetters({
+      is_app_loading: "is_app_loading",
+    }),
   },
   methods: {
     async getVerificationCode() {
@@ -116,14 +106,10 @@ export default {
       }
     },
 
-    async verifySecurityCode() {
+    async verifySecurityCode(otp) {
       try {
-        if (!this.password_reset?.security_code) {
-          return;
-        }
-
         const password_reset = await this.GET_PASSWORD_RESET_BY_CODE({
-          security_code: this.password_reset?.security_code,
+          security_code: otp,
         });
 
         if (!password_reset) {
@@ -139,30 +125,6 @@ export default {
           this.$t("The security code is invalid or has been expired")
         );
       }
-    },
-
-    onChangeOtp(code) {
-      const invalid_code = !isNumber(Number(code)) || Number(code) < 1e5;
-
-      invalid_code &&
-        this.updatePasswordResetObject({
-          variable_path: "security_code",
-          data: null,
-        });
-
-      this.$forceUpdate();
-    },
-
-    onCompleteOtp(code) {
-      const invalid_code = !isNumber(Number(code)) || Number(code) < 1e5;
-
-      !invalid_code &&
-        this.updatePasswordResetObject({
-          variable_path: "security_code",
-          data: Number(code),
-        });
-
-      this.$forceUpdate();
     },
   },
 };

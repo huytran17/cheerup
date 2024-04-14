@@ -267,7 +267,6 @@ export default {
   plugins: [
     "~/plugins/vuetify",
     "~/directives/private",
-    "~/directives/otp-auto-focus",
     "~/plugins/router",
     { src: "~/plugins/axios", ssr: false },
     { src: "~/plugins/vue-infinite-loading", mode: "client" },
@@ -276,7 +275,6 @@ export default {
     { src: "~/plugins/vue-avatar", mode: "client" },
     { src: "~/plugins/vue-line-clamp", mode: "client" },
     { src: "~/plugins/vue-slick-carousel", mode: "client" },
-    { src: "~/plugins/vue-simple-otp-input", mode: "client" },
   ],
 
   components: true,
