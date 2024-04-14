@@ -87,13 +87,11 @@ export default {
           return;
         }
 
-        const data = {
-          email: this.password_reset?.email,
-        };
-
-        if (data.email) {
-          await this.CREATE_PASSWORD_RESET({ data });
-        }
+        await this.CREATE_PASSWORD_RESET({
+          data: {
+            email: this.password_reset?.email,
+          },
+        });
 
         this.$toast.success(
           this.$t("The security code was sent to your email")

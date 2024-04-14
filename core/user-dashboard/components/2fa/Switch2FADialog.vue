@@ -49,11 +49,6 @@ export default {
       default: () => () => {},
     },
   },
-  data() {
-    return {
-      two_fa_code: null,
-    };
-  },
   computed: {
     ...mapGetters({
       is_app_loading: "is_app_loading",
@@ -61,7 +56,6 @@ export default {
   },
   methods: {
     closeModal() {
-      this.two_fa_code = null;
       this.SET_IS_OPEN_2FA_MODAL({ data: false });
     },
   },
