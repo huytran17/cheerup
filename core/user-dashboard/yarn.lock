@@ -11261,11 +11261,6 @@ vue-server-renderer@^2.6.14, vue-server-renderer@^2.7.15:
     serialize-javascript "^6.0.0"
     source-map "0.5.6"
 
-vue-simple-otp-input@^1.9.0:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/vue-simple-otp-input/-/vue-simple-otp-input-1.9.0.tgz#74920ddc2abb0f0086d49864da154d21e2344b60"
-  integrity sha512-7KMCtkGVlWe1BhVCKPRBuKXhhRqee3rx9O671D6JZPXRb1R3fP70NFIesLaObPpbGiLfdNfIzPgDiYfSDaU7Ag==
-
 vue-slick-carousel@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/vue-slick-carousel/-/vue-slick-carousel-1.0.6.tgz#8fbfe59a233b0fb7777e4934b60bbdf0a6a24f96"
