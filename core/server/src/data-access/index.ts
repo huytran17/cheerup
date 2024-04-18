@@ -6,6 +6,7 @@ import makeCommentDb from "./make-comment-db";
 import makeCommentLikeDb from "./make-comment-like-db";
 import makeConnectDb from "./make-connect-db";
 import makeGalleryDb from "./make-gallery-db";
+import makeLoginFailedDb from "./make-login-failed-db";
 import makePasswordResetDb from "./make-password-reset-db";
 import makePostBookmarkDb from "./make-post-bookmark-db";
 import makePostDb from "./make-post-db";
@@ -20,6 +21,7 @@ import {
   CommentLikeModel,
   CommentModel,
   GalleryModel,
+  LoginFailedModel,
   PasswordResetModel,
   PostBookmarkModel,
   PostModel,
@@ -73,6 +75,10 @@ const CategoryDb = makeCategoryDb({
   moment,
 });
 
+const LoginFailedDb = makeLoginFailedDb({
+  loginFailedDbModel: LoginFailedModel,
+});
+
 export default Object.freeze({
   UserDb,
   AdminDb,
@@ -87,6 +93,7 @@ export default Object.freeze({
   PasswordResetDb,
   TwoFactorAuthenticationDb,
   connectDb,
+  LoginFailedDb,
 });
 
 export {
@@ -95,6 +102,7 @@ export {
   CommentDb,
   CommentLikeDb,
   GalleryDb,
+  LoginFailedDb,
   PasswordResetDb,
   PostBookmarkDb,
   PostDb,
