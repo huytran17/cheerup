@@ -33,11 +33,7 @@ export default function makeLoginFailedDb({
       return null;
     }
 
-    async insert({
-      payload,
-    }: {
-      payload: Partial<ILoginFailed>;
-    }): Promise<ILoginFailed> {
+    async insert(payload: Partial<ILoginFailed>): Promise<ILoginFailed> {
       const created = await loginFailedDbModel.create(payload);
 
       if (created) {
@@ -47,11 +43,7 @@ export default function makeLoginFailedDb({
       return null;
     }
 
-    async update({
-      payload,
-    }: {
-      payload: Partial<ILoginFailed>;
-    }): Promise<ILoginFailed> {
+    async update(payload: Partial<ILoginFailed>): Promise<ILoginFailed> {
       const updated = await loginFailedDbModel
         .findOneAndUpdate({ _id: payload._id }, payload, {
           returnDocument: "after",
