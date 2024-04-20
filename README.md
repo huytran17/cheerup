@@ -33,9 +33,9 @@ Backend logs => Winston
 
 Unit testing => Jest
 
-Dashboard => Nuxtjs
+Dashboard => NuxtJS
 
-UX/UI => Vuetify
+UI/UX => Vuetify
 
 2FA => Google Authenticator
 
