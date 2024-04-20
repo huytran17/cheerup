@@ -21,15 +21,15 @@ Cache management => Redis
 
 Virtual platform => Docker
 
-JWT issuer => jsonwebtoken npm
+JWT issuer => JWT
 
 Authentication => passport.js
 
 API validator => validatorjs
 
-Backend server => nodejs, expressjs
+Backend server => NodeJS, ExpressJS
 
-Backend logs => winston
+Backend logs => Winston
 
 Unit testing => Jest
 
@@ -39,7 +39,7 @@ UX/UI => Vuetify
 
 2FA => Google Authenticator
 
-Optimizer => Gulp
+Optimizer => Gulp, Webpack
 
 ---
 
