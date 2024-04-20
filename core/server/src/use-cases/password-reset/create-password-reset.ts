@@ -6,20 +6,16 @@ export interface ICreatePasswordResetDataPayload
   [key: string]: any;
 }
 
-export interface ICreatePasswordReset {
-  passwordResetDetails: ICreatePasswordResetDataPayload;
-}
-
-export type CreatePasswordReset = ({
-  passwordResetDetails,
-}: ICreatePasswordReset) => Promise<IPasswordReset>;
+export type CreatePasswordReset = (
+  payload: ICreatePasswordResetDataPayload
+) => Promise<IPasswordReset>;
 
 export default function makeCreatePasswordReset({
   passwordResetDb,
 }: {
   passwordResetDb: IPasswordResetDb;
 }): CreatePasswordReset {
-  return async function createPasswordReset({ passwordResetDetails }) {
-    return await passwordResetDb.insert(passwordResetDetails);
+  return async function createPasswordReset(payload) {
+    return await passwordResetDb.insert(payload);
   };
 }

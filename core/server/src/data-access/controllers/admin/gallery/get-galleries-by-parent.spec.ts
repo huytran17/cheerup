@@ -43,15 +43,11 @@ describe("getGalleriesByParent", () => {
       getGalleriesByParent,
     });
 
-    const parent_gallery = await createGallery({
-      galleryDetails: mock_gallery_data,
-    });
+    const parent_gallery = await createGallery(mock_gallery_data);
 
     await createGallery({
-      galleryDetails: {
-        ...fakeGallery(),
-        parent: parent_gallery,
-      },
+      ...fakeGallery(),
+      parent: parent_gallery,
     });
 
     const request = {

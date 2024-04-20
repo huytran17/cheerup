@@ -1,7 +1,6 @@
 import nodemailer, { Transporter } from "nodemailer";
 import handlebars from "handlebars";
 import { IEmailData } from "../src/config/emailManager/get-email-content";
-import { merge } from "lodash";
 
 let mailer: undefined | Transporter | any = undefined;
 export function initializeMailer(): Transporter {
@@ -67,11 +66,7 @@ export default Object.freeze({
     email_data: { [key: string]: string };
     object_data?: { [key: string]: any };
   }) => {
-    const final_email_data = merge(
-      {},
-      { ...email_data, ...object_data }
-    );
     const template = handlebars.compile(email_content);
-    return template(final_email_data);
+    return template({ ...email_data, ...object_data });
   },
 });

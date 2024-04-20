@@ -72,12 +72,10 @@ describe("createOrUpdateCommentLike", () => {
     const mock_user_data = fakeUser();
     const mock_comment_data = fakeComment();
 
-    const created_user = await createUser({
-      userDetails: mock_user_data,
-    });
-    const created_comment = await createComment({
-      commentDetails: mock_comment_data,
-    });
+    const [created_user, created_comment] = await Promise.all([
+      createUser(mock_user_data),
+      createComment(mock_comment_data),
+    ]);
 
     const countCommentLikesController = makeCreateOrUpdateCommentLikeController(
       {

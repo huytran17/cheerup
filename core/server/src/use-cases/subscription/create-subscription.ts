@@ -3,20 +3,16 @@ import ISubscription from "../../database/interfaces/subscription";
 
 export interface ICreateSubscriptionPayload extends Partial<ISubscription> {}
 
-interface ICreateSubscription {
-  subscriptionDetails: ICreateSubscriptionPayload;
-}
-
-export type CreateSubscription = ({
-  subscriptionDetails,
-}: ICreateSubscription) => Promise<ISubscription>;
+export type CreateSubscription = (
+  payload: ICreateSubscriptionPayload
+) => Promise<ISubscription>;
 
 export default function makeCreateSubscription({
   subscriptionDb,
 }: {
   subscriptionDb: ISubscriptionDb;
 }): CreateSubscription {
-  return async function createSubscription({ subscriptionDetails }) {
-    return await subscriptionDb.insert(subscriptionDetails);
+  return async function createSubscription(payload) {
+    return await subscriptionDb.insert(payload);
   };
 }

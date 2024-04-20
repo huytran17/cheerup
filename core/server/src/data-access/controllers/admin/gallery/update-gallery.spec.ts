@@ -37,9 +37,7 @@ describe("updateGallery", () => {
 
     const mock_gallery_data = fakeGallery();
 
-    const created_gallery = await createGallery({
-      galleryDetails: mock_gallery_data,
-    });
+    const created_gallery = await createGallery(mock_gallery_data);
 
     const updateGalleryController = makeUpdateGalleryController({
       getGallery,

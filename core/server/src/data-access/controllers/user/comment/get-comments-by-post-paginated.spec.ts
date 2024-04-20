@@ -1,4 +1,3 @@
-import { merge } from "lodash";
 import moment from "moment";
 import {
   fakeComment,
@@ -77,18 +76,14 @@ describe("getCommentsByPostPaginated", () => {
     const mock_post_data = fakePost();
     const mock_user_data = fakeUser();
 
-    const created_post = await createPost({
-      postDetails: mock_post_data,
-    });
-
-    const created_user = await createUser({
-      userDetails: mock_user_data,
-    });
+    const [created_post, created_user] = await Promise.all([
+      createPost(mock_post_data),
+      createUser(mock_user_data),
+    ]);
 
     await createComment({
-      commentDetails: merge(mock_comment_data, {
-        post: created_post._id,
-      }),
+      ...mock_comment_data,
+      post: created_post._id,
     });
 
     const getCommentsByPostPaginatedController =

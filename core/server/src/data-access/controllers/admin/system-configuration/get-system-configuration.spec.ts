@@ -38,9 +38,9 @@ describe("getSystemConfiguration", () => {
 
     const mock_system_configuration_data = fakeSystemConfiguration();
 
-    const created_system_configuration = await createSystemConfiguration({
-      systemConfigurationDetails: mock_system_configuration_data,
-    });
+    const created_system_configuration = await createSystemConfiguration(
+      mock_system_configuration_data
+    );
 
     const getSystemConfigurationController =
       makeGetSystemConfigurationController({

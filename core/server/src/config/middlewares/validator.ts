@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { get, merge } from "lodash";
+import { get } from "lodash";
 
 import Validator, { Rules } from "validatorjs";
 import { HttpStatusCode } from "../../constants/http-status-code";
@@ -15,7 +15,7 @@ export default function makeValidatorMiddleware(rules: Rules) {
     const params = get(req, "params");
     const query = get(req, "query");
 
-    const request_body = merge({}, user, body, params, query);
+    const request_body = { ...user, ...body, ...params, ...query };
     const validation = new Validator(request_body, rules);
     const passed = validation.passes();
     if (passed) {

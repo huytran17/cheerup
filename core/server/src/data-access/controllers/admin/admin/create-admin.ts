@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { Logger } from "winston";
-import { get, merge } from "lodash";
+import { get } from "lodash";
 import {
   CreateAdmin,
   ICreateAdminPayload,
@@ -45,13 +45,12 @@ export default function makeCreateAdminController({
         password_confirmation,
       });
 
-      const admin_details = merge({}, admin, {
+      const admin_details = {
+        ...admin,
         hash_password: hashed_password,
-      });
+      };
 
-      const created_admin = await createAdmin({
-        adminDetails: admin_details,
-      });
+      const created_admin = await createAdmin(admin_details);
 
       logger.verbose(`Created admin: ${created_admin.email}`);
 

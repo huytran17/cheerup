@@ -38,9 +38,9 @@ describe("getPasswordResetByCode", () => {
 
     const mock_password_reset_data = fakePasswordReset();
 
-    const created_password_reset = await createPasswordReset({
-      passwordResetDetails: mock_password_reset_data,
-    });
+    const created_password_reset = await createPasswordReset(
+      mock_password_reset_data
+    );
 
     const getPasswordResetByCodeController =
       makeGetPasswordResetByCodeController({

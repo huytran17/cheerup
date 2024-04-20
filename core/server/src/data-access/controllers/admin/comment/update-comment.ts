@@ -23,17 +23,17 @@ export default function makeUpdateCommentController({
     };
 
     try {
-      const commentDetails = <IUpdateCommentData>(
+      const comment_details = <IUpdateCommentData>(
         get(httpRequest, "context.validated", {})
       );
-      const { _id } = commentDetails;
+      const { _id } = comment_details;
 
       const exists = await getComment({ _id });
       if (isEmpty(exists)) {
         throw new Error(`Comment by ${_id} does not exist`);
       }
 
-      const updated_comment = await updateComment({ commentDetails });
+      const updated_comment = await updateComment(comment_details);
 
       return {
         headers,

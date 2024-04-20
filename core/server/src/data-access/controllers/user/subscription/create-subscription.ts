@@ -4,7 +4,7 @@ import {
 } from "../../../../use-cases/subscription/create-subscription";
 import { UpdateSubscription } from "../../../../use-cases/subscription/update-subscription";
 import { Request } from "express";
-import { get, merge } from "lodash";
+import { get } from "lodash";
 import { GetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -37,22 +37,24 @@ export default function makeCreateSubscriptionController({
       let subscription_data = {};
 
       if (!isEmpty(exists)) {
-        const update_subscription_details = merge({}, exists, {
+        const update_subscription_details = {
+          ...exists,
           is_active,
-        });
+        };
 
-        subscription_data = await updateSubscription({
-          subscriptionDetails: update_subscription_details,
-        });
+        subscription_data = await updateSubscription(
+          update_subscription_details
+        );
       } else {
-        const create_subscription_details = merge({}, exists, {
+        const create_subscription_details = {
+          ...exists,
           is_active,
           email,
-        });
+        };
 
-        subscription_data = await createSubscription({
-          subscriptionDetails: create_subscription_details,
-        });
+        subscription_data = await createSubscription(
+          create_subscription_details
+        );
       }
 
       return {

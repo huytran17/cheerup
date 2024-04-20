@@ -51,10 +51,8 @@ export default function makeUploadAdminAvatarController({
       };
 
       const updated_admin = await updateAdmin({
-        adminDetails: {
-          ...exists,
-          avatar,
-        },
+        ...exists,
+        avatar,
       });
 
       return {

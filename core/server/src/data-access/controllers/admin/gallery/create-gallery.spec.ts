@@ -42,7 +42,7 @@ describe("createGallery", () => {
     const mock_gallery_data = fakeGallery();
     const mock_user_data = fakeUser();
 
-    const created_user = await createUser({ userDetails: mock_user_data });
+    const created_user = await createUser(mock_user_data);
 
     const createGalleryController = makeCreateGalleryController({
       createGallery,

@@ -5,7 +5,7 @@ import {
 } from "../../../../use-cases/admin/update-admin";
 import { Logger } from "winston";
 import { Request } from "express";
-import { get, merge } from "lodash";
+import { get } from "lodash";
 import { HashPassword } from "../../../../config/password/hash-password";
 import { VerifyPassword } from "../../../../config/password/verify-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -55,13 +55,12 @@ export default function makeUpdateAdminPersonalPasswordController({
         password_confirmation: new_password_confirmation,
       });
 
-      const admin_details = merge({}, exists, {
+      const admin_details = {
+        ...exists,
         hash_password: hashed_password,
-      });
+      };
 
-      const updated_admin = await updateAdmin({
-        adminDetails: admin_details,
-      });
+      const updated_admin = await updateAdmin(admin_details);
 
       logger.verbose(`Updated password for admin ${exists.email}`);
 

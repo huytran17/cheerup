@@ -40,7 +40,7 @@ describe("getGalleriesPaginated", () => {
     const mock_gallery_data = fakeGallery();
     const mock_query_params_data = fakeQueryParams();
 
-    await createGallery({ galleryDetails: mock_gallery_data });
+    await createGallery(mock_gallery_data);
 
     const getGalleriesPaginatedController = makeGetGalleriesPaginatedController(
       {

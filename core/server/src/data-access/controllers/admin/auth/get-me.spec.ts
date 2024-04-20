@@ -34,9 +34,7 @@ describe("getMe", () => {
 
     const mock_admin_data = fakeAdmin();
 
-    const created_admin = await createAdmin({
-      adminDetails: mock_admin_data,
-    });
+    const created_admin = await createAdmin(mock_admin_data);
 
     const getMeController = makeGetMeController();
 

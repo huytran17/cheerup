@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { get, merge } from "lodash";
+import { get } from "lodash";
 import {
   GetCategory,
   IGetCategoryPayload,
@@ -47,17 +47,16 @@ export default function makeUploadCategoryThumbnailController({
 
       deleteS3Object({ bucket, key });
 
-      const category_details = merge({}, exists, {
+      const category_details = {
+        ...exists,
         thumbnail: file,
         seo: {
           ...exists.seo,
           thumbnail: file.location,
         },
-      });
+      };
 
-      const updated_category = await updateCategory({
-        categoryDetails: category_details,
-      });
+      const updated_category = await updateCategory(category_details);
 
       return {
         headers,

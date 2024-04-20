@@ -2,7 +2,7 @@ import { GetUser, IGetUserPayload } from "../../../../use-cases/user/get-user";
 import { UpdateUser } from "../../../../use-cases/user/update-user";
 import { Logger } from "winston";
 import { Request } from "express";
-import { get, merge } from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -32,13 +32,12 @@ export default function makeUnBlockUserCommentController({
         throw new Error(`User by ${_id} does not exist`);
       }
 
-      const final_user_details = merge({}, exists, {
+      const final_user_details = {
+        ...exists,
         is_blocked_comment: false,
-      });
+      };
 
-      const updated_user = await updateUser({
-        userDetails: final_user_details,
-      });
+      const updated_user = await updateUser(final_user_details);
 
       logger.verbose(`Un-blocked comment for user ${exists.email}`);
 

@@ -44,9 +44,9 @@ describe("cancelSubscription", () => {
 
     const mock_subscription_data = fakeSubscription();
 
-    const created_subscription = await createSubscription({
-      subscriptionDetails: mock_subscription_data,
-    });
+    const created_subscription = await createSubscription(
+      mock_subscription_data
+    );
 
     const cancelSubscriptionController = makeCancelSubscriptionController({
       getSubscriptionByEmail,

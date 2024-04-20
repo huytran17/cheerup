@@ -5,18 +5,14 @@ export interface IUpdateAdminPayload extends Partial<IAdmin> {
   [key: string]: any;
 }
 
-interface IUpdateAdmin {
-  adminDetails: IUpdateAdminPayload;
-}
-
-export type UpdateAdmin = ({ adminDetails }: IUpdateAdmin) => Promise<IAdmin>;
+export type UpdateAdmin = (payload: IUpdateAdminPayload) => Promise<IAdmin>;
 
 export default function makeUpdateAdmin({
   adminDb,
 }: {
   adminDb: IAdminDb;
 }): UpdateAdmin {
-  return async function updateAdmin({ adminDetails }) {
-    return await adminDb.update(adminDetails);
+  return async function updateAdmin(payload) {
+    return await adminDb.update(payload);
   };
 }

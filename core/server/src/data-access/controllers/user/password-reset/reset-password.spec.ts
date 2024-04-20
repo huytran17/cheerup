@@ -58,13 +58,10 @@ describe("resetPassword", () => {
     const mock_password_reset_data = fakePasswordReset();
     const mock_user_data = fakeUser();
 
-    const created_user = await createUser({ userDetails: mock_user_data });
-
+    const created_user = await createUser(mock_user_data);
     const created_password_reset = await createPasswordReset({
-      passwordResetDetails: {
-        ...mock_password_reset_data,
-        email: created_user.email,
-      },
+      ...mock_password_reset_data,
+      email: created_user.email,
     });
 
     const verification_token = await generateAccessToken(

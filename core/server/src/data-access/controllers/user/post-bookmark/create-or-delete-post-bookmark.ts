@@ -3,7 +3,7 @@ import { HardDeletePostBookmark } from "../../../../use-cases/post-bookmark/hard
 import { GetPost } from "../../../../use-cases/post/get-post";
 import { GetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
 import { Request } from "express";
-import { get, merge } from "lodash";
+import { get } from "lodash";
 import Moment from "moment";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -54,18 +54,13 @@ export default function makeCreateOrDeletePostBookmarkController({
       let post_bookmark_data = {};
 
       if (isEmpty(post_bookmark_exists)) {
-        const post_bookmark_details = merge(
-          {},
-          {
-            user: exists,
-            post: post_exists,
-            timeline_date: moment(new Date()).format("YYYY-MM-DD"),
-          }
-        );
+        const post_bookmark_details = {
+          user: exists,
+          post: post_exists,
+          timeline_date: moment(new Date()).format("YYYY-MM-DD"),
+        };
 
-        post_bookmark_data = await createPostBookmark({
-          postBookmarkDetails: post_bookmark_details,
-        });
+        post_bookmark_data = await createPostBookmark(post_bookmark_details);
       } else {
         post_bookmark_data = await hardDeletePostBookmark({
           _id: post_bookmark_exists._id,

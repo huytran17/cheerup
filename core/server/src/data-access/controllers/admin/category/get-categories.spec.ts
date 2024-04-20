@@ -40,9 +40,7 @@ describe("getCategories", () => {
       getCategories,
     });
 
-    await createCategory({
-      categoryDetails: mock_category_data,
-    });
+    await createCategory(mock_category_data);
 
     const request = {
       context: {},

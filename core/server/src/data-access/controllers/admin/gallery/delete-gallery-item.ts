@@ -1,11 +1,10 @@
 import { Request } from "express";
 import { UpdateGallery } from "../../../../use-cases/gallery/update-gallery";
 import { GetGallery } from "../../../../use-cases/gallery/get-gallery";
-import { get, filter, merge } from "lodash";
+import { get, filter } from "lodash";
 import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
-import deleteS3Object from "../../../../utils/delete-s3-object";
 
 interface IPayload {
   _id: string;
@@ -58,13 +57,12 @@ export default function makeDeleteGalleryItemController({
         (item) => item.key !== key
       );
 
-      const final_gallery_details = merge({}, gallery_exists, {
+      const final_gallery_details = {
+        ...gallery_exists,
         items: updated_gallery_items,
-      });
+      };
 
-      const updated_data = await updateGallery({
-        galleryDetails: final_gallery_details,
-      });
+      const updated_data = await updateGallery(final_gallery_details);
 
       logger.verbose(`Deleted gallery item ${gallery_exists.name}`);
 

@@ -5,18 +5,14 @@ export interface ICreateAdminPayload extends Partial<IAdmin> {
   [key: string]: any;
 }
 
-interface ICreateAdmin {
-  adminDetails: ICreateAdminPayload;
-}
-
-export type CreateAdmin = ({ adminDetails }: ICreateAdmin) => Promise<IAdmin>;
+export type CreateAdmin = (payload: ICreateAdminPayload) => Promise<IAdmin>;
 
 export default function makeCreateAdmin({
   adminDb,
 }: {
   adminDb: IAdminDb;
 }): CreateAdmin {
-  return async function createAdmin({ adminDetails }) {
-    return await adminDb.insert(adminDetails);
+  return async function createAdmin(payload) {
+    return await adminDb.insert(payload);
   };
 }

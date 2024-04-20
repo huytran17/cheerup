@@ -44,7 +44,8 @@ describe("updatePassword", () => {
     });
 
     const created_user = await createUser({
-      userDetails: { ...mock_user_data, hash_password: hashed_password },
+      ...mock_user_data,
+      hash_password: hashed_password,
     });
 
     const updatePasswordController = makeUpdatePasswordController({

@@ -56,9 +56,7 @@ export default function makeUploadGalleryItemController({
         ]),
       };
 
-      const updated_data = await updateGallery({
-        galleryDetails: final_gallery_data,
-      });
+      const updated_data = await updateGallery(final_gallery_data);
 
       logger.verbose(`Updated gallery ${exists.name} successfully`);
 

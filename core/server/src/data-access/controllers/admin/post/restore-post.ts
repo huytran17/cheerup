@@ -36,10 +36,8 @@ export default function makeRestorePostController({
       }
 
       const updated_post = await updatePost({
-        postDetails: {
-          ...exists,
-          deleted_at: null,
-        },
+        ...exists,
+        deleted_at: null,
       });
 
       logger.verbose(`Restored post ${exists.title} successfully`);

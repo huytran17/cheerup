@@ -44,7 +44,7 @@ export default interface IPostDb {
   insert: (payload: Partial<IPost>) => Promise<IPost>;
   delete: ({ _id }: { _id: string }) => Promise<IPost>;
   hardDelete: ({ _id }: { _id: string }) => Promise<IPost>;
-  update: (updatePayload: Partial<IPost>) => Promise<IPost>;
+  update: (payload: Partial<IPost>) => Promise<IPost>;
   getPostAnalystics: ({
     range,
     unit,

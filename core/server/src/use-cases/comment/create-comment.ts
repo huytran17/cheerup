@@ -6,20 +6,16 @@ export interface ICreateCommentPayload
   [key: string]: any;
 }
 
-interface ICreateComment {
-  commentDetails: ICreateCommentPayload;
-}
-
-export type CreateComment = ({
-  commentDetails,
-}: ICreateComment) => Promise<IComment>;
+export type CreateComment = (
+  payload: ICreateCommentPayload
+) => Promise<IComment>;
 
 export default function makeCreateComment({
   commentDb,
 }: {
   commentDb: ICommentDb;
 }): CreateComment {
-  return async function createComment({ commentDetails }) {
-    return await commentDb.insert(commentDetails);
+  return async function createComment(payload) {
+    return await commentDb.insert(payload);
   };
 }

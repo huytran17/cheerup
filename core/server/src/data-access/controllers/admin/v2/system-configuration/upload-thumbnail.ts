@@ -38,13 +38,11 @@ export default function makeUploadThumbnaiilController({
       deleteUploadedFile(exists.thumbnail_url);
 
       const updated_system_configuration = await updateSystemConfiguration({
-        systemConfigurationDetails: {
-          ...exists,
-          thumbnail: {
-            ...file,
-            path: getFIleUploadedPath(file.path),
-            destination: getFIleUploadedPath(file.destination),
-          },
+        ...exists,
+        thumbnail: {
+          ...file,
+          path: getFIleUploadedPath(file.path),
+          destination: getFIleUploadedPath(file.destination),
         },
       });
 

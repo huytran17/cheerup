@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { get, merge } from "lodash";
+import { get } from "lodash";
 import Moment from "moment";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { TwoFAType } from "../../../../database/interfaces/two-factor-authentication";
@@ -52,13 +52,14 @@ export default function makeDisable2FAController({
         throw new Error(`Two-factor authentication code is expired ${code}`);
       }
 
-      const userDetails = merge({}, exists, {
+      const user_details = {
+        ...exists,
         is_enabled_2fa: false,
         tfa_secret: null,
-      });
+      };
 
       const [updated_user] = await Promise.all([
-        updateUser({ userDetails }),
+        updateUser(user_details),
         hardDeleteTwoFactorAuthentication({ _id: two_fa._id }),
       ]);
 

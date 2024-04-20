@@ -5,7 +5,7 @@ import {
 } from "../../../../use-cases/admin/update-admin";
 import { Logger } from "winston";
 import { Request } from "express";
-import { get, merge } from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -26,19 +26,19 @@ export default function makeUpdateAdminController({
     };
 
     try {
-      const adminDetails = <IUpdateAdminPayload>(
+      const admin_details = <IUpdateAdminPayload>(
         get(httpRequest, "context.validated", {})
       );
-      const { _id } = adminDetails;
+      const { _id } = admin_details;
 
       const exists = await getAdmin({ _id });
       if (isEmpty(exists)) {
         throw new Error(`Admin by ${_id} does not exist`);
       }
 
-      const final_admin_details = merge({}, exists, adminDetails);
       const updated_admin = await updateAdmin({
-        adminDetails: final_admin_details,
+        ...exists,
+        ...admin_details,
       });
 
       logger.verbose(`Updated admin ${exists.email}`);

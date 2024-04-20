@@ -29,10 +29,10 @@ export default function makeUpdateCategoryController({
     };
 
     try {
-      const categoryDetails = <IUpdateCategoryPayload>(
+      const category_details = <IUpdateCategoryPayload>(
         get(httpRequest, "context.validated", {})
       );
-      const { _id, title } = categoryDetails;
+      const { _id, title } = category_details;
 
       const exists = await getCategory({ _id });
       if (isEmpty(exists)) {
@@ -53,12 +53,10 @@ export default function makeUpdateCategoryController({
       }
 
       const updated_category = await updateCategory({
-        categoryDetails: {
-          ...categoryDetails,
-          seo: {
-            ...categoryDetails?.seo,
-            date_modified: new Date(),
-          },
+        ...category_details,
+        seo: {
+          ...category_details?.seo,
+          date_modified: new Date(),
         },
       });
 

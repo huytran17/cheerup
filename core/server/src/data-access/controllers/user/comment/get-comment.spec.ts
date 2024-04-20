@@ -54,12 +54,10 @@ describe("getComment", () => {
     const mock_comment_data = fakeComment();
     const mock_user_data = fakeUser();
 
-    const created_comment = await createComment({
-      commentDetails: mock_comment_data,
-    });
-    const created_user = await createUser({
-      userDetails: mock_user_data,
-    });
+    const [created_comment, created_user] = await Promise.all([
+      createComment(mock_comment_data),
+      createUser(mock_user_data),
+    ]);
 
     const getCommentController = makeGetCommentController({
       getComment,

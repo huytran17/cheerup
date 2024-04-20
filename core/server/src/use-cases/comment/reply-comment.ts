@@ -6,20 +6,14 @@ export interface IReplyCommentPayload
   [kay: string]: any;
 }
 
-export interface IReplyComment {
-  commentDetails: IReplyCommentPayload;
-}
-
-export type ReplyComment = ({
-  commentDetails,
-}: IReplyComment) => Promise<IComment>;
+export type ReplyComment = (payload: IReplyCommentPayload) => Promise<IComment>;
 
 export default function makeReplyComment({
   commentDb,
 }: {
   commentDb: ICommentDb;
 }): ReplyComment {
-  return async function replyComment({ commentDetails }) {
-    return await commentDb.insert(commentDetails);
+  return async function replyComment(payload) {
+    return await commentDb.insert(payload);
   };
 }

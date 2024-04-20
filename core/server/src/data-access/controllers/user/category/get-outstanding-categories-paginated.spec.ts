@@ -49,15 +49,11 @@ describe("getOutstandingCategoriesPaginated", () => {
     const mock_post_data = fakePost();
     const query_params = fakeQueryParams();
 
-    const created_category = await createCategory({
-      categoryDetails: mock_category_data,
-    });
+    const created_category = await createCategory(mock_category_data);
 
     await createPost({
-      postDetails: {
-        ...mock_post_data,
-        categories: [created_category],
-      },
+      ...mock_post_data,
+      categories: [created_category],
     });
 
     const getOutstandingCategoriesPaginatedController =

@@ -55,7 +55,7 @@ describe("createCategory", () => {
       logger,
     });
 
-    const created_admin = await createAdmin({ adminDetails: mock_admin_data });
+    const created_admin = await createAdmin(mock_admin_data);
 
     const request = {
       context: {

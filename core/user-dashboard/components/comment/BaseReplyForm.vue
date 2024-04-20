@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { get, merge } from "lodash";
+import { get } from "lodash";
 import { mapGetters } from "vuex";
 import commentMixins from "@/mixins/comment";
 import systemMixins from "@/mixins/system";

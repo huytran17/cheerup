@@ -46,9 +46,7 @@ describe("createUser", () => {
     const mock_user_data = fakeUser();
     const mock_admin_data = fakeAdmin();
 
-    const created_admin = await createAdmin({
-      adminDetails: mock_admin_data,
-    });
+    const created_admin = await createAdmin(mock_admin_data);
 
     const createUserController = makeCreateUserController({
       createUser,

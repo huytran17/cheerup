@@ -58,9 +58,7 @@ export default function makeUploadPostThumbnailController({
         },
       };
 
-      const updated_post = await updatePost({
-        postDetails: post_details,
-      });
+      const updated_post = await updatePost(post_details);
 
       return {
         headers,

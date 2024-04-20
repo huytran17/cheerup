@@ -1,4 +1,4 @@
-import { get, concat, merge } from "lodash";
+import { get, concat } from "lodash";
 import { Request } from "express";
 import { UpdateGallery } from "../../../../use-cases/gallery/update-gallery";
 import {
@@ -42,13 +42,12 @@ export default function makeUploadGalleryItemController({
       }
 
       const current_gallery_items = get(gallery_exists, "items", []);
-      const final_gallery_data = merge({}, gallery_exists, {
+      const final_gallery_data = {
+        ...gallery_exists,
         items: concat(current_gallery_items, [file]),
-      });
+      };
 
-      const updated_data = await updateGallery({
-        galleryDetails: final_gallery_data,
-      });
+      const updated_data = await updateGallery(final_gallery_data);
 
       logger.verbose(`Updated gallery ${gallery_exists.name} successfully`);
 

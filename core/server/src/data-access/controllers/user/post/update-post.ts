@@ -26,17 +26,17 @@ export default function makeUpdatePostController({
     };
 
     try {
-      const postDetails = <IUpdatePostPayload>(
+      const post_details = <IUpdatePostPayload>(
         get(httpRequest, "context.validated", {})
       );
-      const { _id } = postDetails;
+      const { _id } = post_details;
 
       const exists = await getPost({ _id });
       if (isEmpty(exists)) {
         throw new Error(`Post by ${_id} does not exist`);
       }
 
-      const updated_post = await updatePost({ postDetails });
+      const updated_post = await updatePost(post_details);
 
       logger.verbose(`Updated post ${exists.title} successfully`);
 

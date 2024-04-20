@@ -45,9 +45,7 @@ describe("restoreCategory", () => {
       logger,
     });
 
-    const created_category = await createCategory({
-      categoryDetails: mock_category_data,
-    });
+    const created_category = await createCategory(mock_category_data);
 
     const request = {
       context: {

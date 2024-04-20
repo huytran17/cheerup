@@ -17,7 +17,7 @@ export default interface ISubscriptionDb {
   insert: (payload: Partial<ISubscription>) => Promise<ISubscription>;
   delete: ({ _id }: { _id: string }) => Promise<ISubscription>;
   hardDelete: ({ _id }: { _id: string }) => Promise<ISubscription>;
-  update: (updatePayload: Partial<ISubscription>) => Promise<ISubscription>;
+  update: (payload: Partial<ISubscription>) => Promise<ISubscription>;
   getSubscriptionAnalystics: ({
     range,
     unit,

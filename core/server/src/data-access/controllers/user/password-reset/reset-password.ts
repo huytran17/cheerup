@@ -77,7 +77,7 @@ export default function makeResetPasswordController({
 
       const user_details = { ...user_exists, hash_password };
 
-      const updated_user = await updateUser({ userDetails: user_details });
+      const updated_user = await updateUser(user_details);
 
       await hardDeletePasswordReset({ _id: decoded._id });
 

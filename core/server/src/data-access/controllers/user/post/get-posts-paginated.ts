@@ -6,7 +6,7 @@ import {
 import { ReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import { CountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
 import { GetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
-import { get, map, replace, split, merge, filter } from "lodash";
+import { get, map, replace, split, filter } from "lodash";
 import Post from "../../../../database/entities/post";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -78,11 +78,12 @@ export default function makeGetPostsPaginatedController({
           );
           const reading_time = readingTimeAnalyzer({ text: analyzing_text });
 
-          return merge({}, post, {
+          return {
+            ...post,
             comments_count,
             is_bookmarked: !isEmpty(post_bookmarked),
             reading_time,
-          });
+          };
         }
       );
 

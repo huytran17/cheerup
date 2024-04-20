@@ -43,9 +43,7 @@ describe("getSubscriptionAnalystics", () => {
 
     const mock_subscription_data = fakeSubscription();
 
-    await createSubscription({
-      subscriptionDetails: mock_subscription_data,
-    });
+    await createSubscription(mock_subscription_data);
 
     const getSubscriptionAnalysticsController =
       makeGetSubscriptionAnalysticsController({

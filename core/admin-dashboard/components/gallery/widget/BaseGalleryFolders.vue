@@ -45,7 +45,6 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { merge } from "lodash";
 import galleryMixins from "@/mixins/gallery";
 import BaseFolderItem from "@/components/gallery/widget/BaseFolderItem";
 import BaseHardDeleteDialog from "@/components/BaseHardDeleteDialog";
@@ -93,9 +92,10 @@ export default {
     async updateFolder() {
       try {
         await this.UPDATE_GALLERY({
-          data: merge({}, this.selected_item, {
+          data: {
+            ...this.selected_item,
             name: this.$refs.modalUpdateGallery.folder_name,
-          }),
+          },
         });
 
         this.is_open_update_dialog = false;

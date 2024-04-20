@@ -1,4 +1,3 @@
-import { merge } from "lodash";
 import handlebars from "handlebars";
 import { pdfTemplate, template_data } from "./template";
 
@@ -18,9 +17,7 @@ export default function makeRenderPdfContent(): PdfContent {
       throw new Error(`Invalid template type: ${type}`);
     }
 
-    const final_template_data = merge({}, data, template_data);
-
     const template = handlebars.compile(export_template);
-    return template(final_template_data);
+    return template({ ...data, ...template_data });
   };
 }

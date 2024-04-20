@@ -1,7 +1,7 @@
 import { GetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
 import { UpdateSubscription } from "../../../../use-cases/subscription/update-subscription";
 import { Request } from "express";
-import { get, merge } from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 import IUser from "../../../../database/interfaces/user";
@@ -29,13 +29,14 @@ export default function makeCancelSubscriptionController({
         throw new Error(`Subscription by ${email} does not exist`);
       }
 
-      const final_updated_data = merge({}, exists, {
+      const final_updated_data = {
+        ...exists,
         is_active: false,
-      });
+      };
 
-      const canceled_subscription = await updateSubscription({
-        subscriptionDetails: final_updated_data,
-      });
+      const canceled_subscription = await updateSubscription(
+        final_updated_data
+      );
 
       return {
         headers,

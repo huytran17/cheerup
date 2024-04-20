@@ -27,7 +27,7 @@ export default interface IGalleryDb {
   findOneByPost: ({ post_id }: { post_id: string }) => Promise<IGallery>;
   insert: (payload: Partial<IGallery>) => Promise<IGallery>;
   hardDelete: ({ _id }: { _id: string }) => Promise<IGallery>;
-  update: (updatePayload: Partial<IGallery>) => Promise<IGallery>;
+  update: (payload: Partial<IGallery>) => Promise<IGallery>;
 }
 
 export interface IPaginatedGalleryResult {

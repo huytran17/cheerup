@@ -16,5 +16,5 @@ export default interface ICommentLikeDb {
     user_id: string;
     comment_id: string;
   }) => Promise<ICommentLike>;
-  update: (updatePayload: Partial<ICommentLike>) => Promise<ICommentLike>;
+  update: (payload: Partial<ICommentLike>) => Promise<ICommentLike>;
 }

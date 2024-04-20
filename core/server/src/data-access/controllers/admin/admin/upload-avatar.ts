@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { get, merge } from "lodash";
+import { get } from "lodash";
 import {
   GetAdmin,
   IGetAdminPayload,
@@ -45,13 +45,12 @@ export default function makeUploadAvatarController({
 
       deleteS3Object({ bucket, key });
 
-      const admin_details = merge({}, exists, {
+      const admin_details = {
+        ...exists,
         avatar: file,
-      });
+      };
 
-      const updated_admin = await updateAdmin({
-        adminDetails: admin_details,
-      });
+      const updated_admin = await updateAdmin(admin_details);
 
       return {
         headers,

@@ -34,9 +34,7 @@ describe("getCategoryTitles", () => {
 
     const mock_category_data = fakeCategory();
 
-    await createCategory({
-      categoryDetails: mock_category_data,
-    });
+    await createCategory(mock_category_data);
 
     const getCategoryTitlesController = makeGetCategoryTitlesController({
       getCategoryTitles,

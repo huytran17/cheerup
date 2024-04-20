@@ -41,9 +41,7 @@ describe("updateComment", () => {
       updateComment,
     });
 
-    const created_comment = await createComment({
-      commentDetails: mock_comment_data,
-    });
+    const created_comment = await createComment(mock_comment_data);
 
     const request = {
       context: {

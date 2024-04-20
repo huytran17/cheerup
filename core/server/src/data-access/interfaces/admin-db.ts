@@ -17,7 +17,7 @@ export default interface IAdminDb {
   insert: (payload: Partial<IAdmin>) => Promise<IAdmin>;
   delete: ({ _id }: { _id: string }) => Promise<IAdmin>;
   hardDelete: ({ _id }: { _id: string }) => Promise<IAdmin>;
-  update: (updatePayload: Partial<IAdmin>) => Promise<IAdmin>;
+  update: (payload: Partial<IAdmin>) => Promise<IAdmin>;
   getAdminAnalystics: ({
     author_type,
     range,

@@ -44,12 +44,10 @@ describe("getSuggestionPosts", () => {
     const mock_post_data = fakePost();
     const mock_category_data = fakeCategory();
 
-    const created_category = await createCategory({
-      categoryDetails: mock_category_data,
-    });
-
+    const created_category = await createCategory(mock_category_data);
     const created_post = await createPost({
-      postDetails: { ...mock_post_data, categories: [created_category] },
+      ...mock_post_data,
+      categories: [created_category],
     });
 
     const getSuggestionPostsController = makeGetSuggestionPostsController({

@@ -1,4 +1,3 @@
-import { merge } from "lodash";
 import moment from "moment";
 import {
   fakeComment,
@@ -60,22 +59,18 @@ describe("updateComment", () => {
     const mock_post_data = fakePost();
     const mock_user_data = fakeUser();
 
-    const created_post = await createPost({
-      postDetails: mock_post_data,
-    });
+    const [created_user, created_post] = await Promise.all([
+      createUser(mock_user_data),
+      createPost(mock_post_data),
+    ]);
 
-    const created_user = await createUser({
-      userDetails: mock_user_data,
-    });
+    const final_mock_comment_data = {
+      ...mock_comment_data,
+      post: created_post,
+      user: created_user,
+    };
 
-    const final_mock_comment_data = merge({}, mock_comment_data, {
-      post: created_post._id,
-      user: created_user._id,
-    });
-
-    const created_comment = await createComment({
-      commentDetails: final_mock_comment_data,
-    });
+    const created_comment = await createComment(final_mock_comment_data);
 
     const updateCommentController = makeUpdateCommentController({
       getComment,

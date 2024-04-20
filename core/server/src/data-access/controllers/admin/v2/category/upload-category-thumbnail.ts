@@ -58,9 +58,7 @@ export default function makeUploadCategoryThumbnailController({
         },
       };
 
-      const updated_category = await updateCategory({
-        categoryDetails: category_details,
-      });
+      const updated_category = await updateCategory(category_details);
 
       return {
         headers,

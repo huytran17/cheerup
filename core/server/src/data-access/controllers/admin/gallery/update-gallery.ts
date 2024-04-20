@@ -26,17 +26,17 @@ export default function makeUpdateGalleryController({
     };
 
     try {
-      const galleryDetails = <IUpdateGalleryPayload>(
+      const gallery_details = <IUpdateGalleryPayload>(
         get(httpRequest, "context.validated", {})
       );
-      const { _id } = galleryDetails;
+      const { _id } = gallery_details;
 
       const exists = await getGallery({ _id });
       if (isEmpty(exists)) {
         throw new Error(`Gallery by ${_id} does not exist`);
       }
 
-      const updated_post = await updateGallery({ galleryDetails });
+      const updated_post = await updateGallery(gallery_details);
 
       logger.verbose(`Updated gallery ${exists.name} successfully`);
 

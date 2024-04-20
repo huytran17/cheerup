@@ -38,15 +38,13 @@ export default function makeUploadOwnerAvatarController({
       deleteUploadedFile(exists.owner_avatar_url);
 
       const updated_system_configuration = await updateSystemConfiguration({
-        systemConfigurationDetails: {
-          ...exists,
-          owner: {
-            ...exists?.owner,
-            avatar: {
-              ...file,
-              path: getFIleUploadedPath(file.path),
-              destination: getFIleUploadedPath(file.destination),
-            },
+        ...exists,
+        owner: {
+          ...exists?.owner,
+          avatar: {
+            ...file,
+            path: getFIleUploadedPath(file.path),
+            destination: getFIleUploadedPath(file.destination),
           },
         },
       });

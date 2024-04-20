@@ -55,7 +55,7 @@ export default function makeGetPostController({
         );
       const reading_time = readingTimeAnalyzer({ text: analyzing_text });
 
-      const final_data = merge({}, exists, { reading_time });
+      const final_data = { ...exists, reading_time };
 
       return {
         headers,

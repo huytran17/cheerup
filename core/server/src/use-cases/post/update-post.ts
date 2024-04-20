@@ -3,18 +3,14 @@ import IPost from "../../database/interfaces/post";
 
 export interface IUpdatePostPayload extends Partial<IPost> {}
 
-interface IUpdatePost {
-  postDetails: IUpdatePostPayload;
-}
-
-export type UpdatePost = ({ postDetails }: IUpdatePost) => Promise<IPost>;
+export type UpdatePost = (payload: IUpdatePostPayload) => Promise<IPost>;
 
 export default function makeUpdatePost({
   postDb,
 }: {
   postDb: IPostDb;
 }): UpdatePost {
-  return async function updatePost({ postDetails }) {
-    return await postDb.update(postDetails);
+  return async function updatePost(payload) {
+    return await postDb.update(payload);
   };
 }

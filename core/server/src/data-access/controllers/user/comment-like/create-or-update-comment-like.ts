@@ -43,10 +43,10 @@ export default function makeCreateOrUpdateCommentLikeController({
     };
 
     try {
-      const commentLikeDetails = <ICreateCommentLikePayload>(
+      const comment_like_details = <ICreateCommentLikePayload>(
         get(httpRequest, "context.validated", {})
       );
-      const { comment_id } = commentLikeDetails;
+      const { comment_id } = comment_like_details;
 
       const comment_exists = await getComment({
         _id: comment_id,
@@ -66,7 +66,7 @@ export default function makeCreateOrUpdateCommentLikeController({
 
       const shouldDeleteCommentLike =
         !isEmpty(comment_like_exists) &&
-        comment_like_exists.type === commentLikeDetails.type;
+        comment_like_exists.type === comment_like_details.type;
 
       if (shouldDeleteCommentLike) {
         await hardDeleteCommentLike({ _id: comment_like_exists._id });
@@ -76,22 +76,18 @@ export default function makeCreateOrUpdateCommentLikeController({
       const final_comment_like_details = {
         user: exists,
         comment: comment_exists,
-        type: commentLikeDetails.type,
+        type: comment_like_details.type,
       };
 
       if (isEmpty(comment_like_exists)) {
-        await createCommentLike({
-          commentLikeDetails: final_comment_like_details,
-        });
+        await createCommentLike(final_comment_like_details);
 
         return return_function();
       }
 
       await updateCommentLike({
-        commentLikeDetails: {
-          ...final_comment_like_details,
-          _id: comment_like_exists._id,
-        },
+        ...final_comment_like_details,
+        _id: comment_like_exists._id,
       });
 
       return return_function();

@@ -22,11 +22,11 @@ export default function makeUpdateUserController({
     };
 
     try {
-      const userDetails = <IUpdateUserPayload>(
+      const user_details = <IUpdateUserPayload>(
         get(httpRequest, "context.validated", {})
       );
 
-      const updated_user = await updateUser({ userDetails });
+      const updated_user = await updateUser(user_details);
 
       logger.verbose(`Updated user ${updated_user.email}`);
 

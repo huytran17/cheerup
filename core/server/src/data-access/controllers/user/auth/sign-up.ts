@@ -56,9 +56,7 @@ export default function makeSignUpController({
         }
       );
 
-      const created_user = await createUser({
-        userDetails: user_details,
-      });
+      const created_user = await createUser(user_details);
 
       logger.verbose(`Created user: ${created_user.email}`);
 

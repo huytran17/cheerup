@@ -1,5 +1,4 @@
 import handlebars from "handlebars";
-import { merge } from "lodash";
 import { templates, template_data } from "./templates";
 
 export type RenderPageContent = ({
@@ -18,10 +17,8 @@ export default function makeRenderPageContent(): RenderPageContent {
       throw new Error(`Invalid template type: ${type}`);
     }
 
-    const final_template_data = merge({}, template_data, data);
-
     const template = handlebars.compile(page_template);
 
-    return template(final_template_data);
+    return template({ ...template_data, ...data });
   };
 }

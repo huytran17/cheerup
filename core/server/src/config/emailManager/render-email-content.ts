@@ -1,4 +1,3 @@
-import { merge } from "lodash";
 import { IEmailData } from "./get-email-content";
 import { Mailer } from "./mailer";
 
@@ -26,21 +25,22 @@ export default function makeRenderEmailContent({
     user_template_data,
     object_data,
   }) {
-    let final_email_content = merge({}, email_content);
+    let final_email_content = email_content;
 
-    const has_no_subject = !final_email_content.subject;
+    const has_no_subject = !email_content.subject;
     if (has_no_subject) {
-      final_email_content = merge({}, final_email_content, {
+      final_email_content = {
+        ...final_email_content,
         subject: "",
-      });
+      };
     }
 
     const has_no_content = !final_email_content.html;
     if (has_no_content) {
-      final_email_content = merge({}, final_email_content, { html: "" });
+      final_email_content = { ...final_email_content, html: "" };
     }
 
-    const email_data = merge({}, defaultTemplateData, user_template_data);
+    const email_data = { ...defaultTemplateData, ...user_template_data };
 
     const rendered_subject = mailer.render({
       email_content: final_email_content.subject,
@@ -54,10 +54,11 @@ export default function makeRenderEmailContent({
       object_data,
     });
 
-    const rendered_mail_content: IEmailData = merge({}, final_email_content, {
+    const rendered_mail_content: IEmailData = {
+      ...final_email_content,
       subject: rendered_subject,
       html: rendered_html,
-    });
+    };
 
     return rendered_mail_content;
   };

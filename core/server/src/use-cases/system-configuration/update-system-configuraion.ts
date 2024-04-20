@@ -4,22 +4,16 @@ import ISystemConfiguration from "../../database/interfaces/system-configuration
 export interface IUpdateSystemConfigurationPayload
   extends Partial<ISystemConfiguration> {}
 
-interface IUpdateSystemConfiguration {
-  systemConfigurationDetails: IUpdateSystemConfigurationPayload;
-}
-
-export type UpdateSystemConfiguration = ({
-  systemConfigurationDetails,
-}: IUpdateSystemConfiguration) => Promise<ISystemConfiguration>;
+export type UpdateSystemConfiguration = (
+  payload: IUpdateSystemConfigurationPayload
+) => Promise<ISystemConfiguration>;
 
 export default function makeUpdateSystemConfiguration({
   systemConfigurationDb,
 }: {
   systemConfigurationDb: ISystemConfigurationDb;
 }): UpdateSystemConfiguration {
-  return async function updateSystemConfiguration({
-    systemConfigurationDetails,
-  }) {
-    return await systemConfigurationDb.update(systemConfigurationDetails);
+  return async function updateSystemConfiguration(payload) {
+    return await systemConfigurationDb.update(payload);
   };
 }

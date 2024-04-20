@@ -53,13 +53,10 @@ describe("getPost", () => {
     const mock_post_data = fakePost();
     const mock_user_data = fakeUser();
 
-    const created_post = await createPost({
-      postDetails: mock_post_data,
-    });
-
-    const created_User = await createUser({
-      userDetails: mock_user_data,
-    });
+    const [created_post, created_User] = await Promise.all([
+      createPost(mock_post_data),
+      createUser(mock_user_data),
+    ]);
 
     const getPostController = makeGetPostController({
       getPost,

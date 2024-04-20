@@ -69,13 +69,10 @@ describe("getPostsPaginated", () => {
     const mock_user_data = fakeUser();
     const query_params = fakeQueryParams();
 
-    await createPost({
-      postDetails: mock_post_data,
-    });
-
-    const created_User = await createUser({
-      userDetails: mock_user_data,
-    });
+    const [created_user] = await Promise.all([
+      createUser(mock_user_data),
+      createPost(mock_post_data),
+    ]);
 
     const getPostsPaginatedController = makeGetPostsPaginatedController({
       getPostsPaginated,
@@ -88,7 +85,7 @@ describe("getPostsPaginated", () => {
       context: {
         validated: {
           ...query_params,
-          user_id: created_User._id,
+          user_id: created_user._id,
         },
       },
     };

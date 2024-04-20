@@ -31,15 +31,15 @@ export default function makeCreateDefaultAdmin({
       password_confirmation: process.env.DEFAULT_ADMIN_PASSWORD,
     });
 
-    const adminDetails = {
+    const admin_details = {
       full_name: process.env.DEFAULT_ADMIN_FULLNAME || "Huy Tran",
       email: process.env.DEFAULT_ADMIN_EMAIL || "huytran.13022k@gmail.com",
       type: AdminType.Owner,
       hash_password,
     };
 
-    await createAdmin({ adminDetails });
+    await createAdmin(admin_details);
 
-    logger.verbose(`Created default admin: ${adminDetails.email}`);
+    logger.verbose(`Created default admin: ${admin_details.email}`);
   };
 }

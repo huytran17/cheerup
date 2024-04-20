@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { GetPosts } from "../../../../use-cases/post/get-posts";
 import { CountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
-import { map, merge } from "lodash";
+import { map } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetPostsController({
@@ -23,9 +23,10 @@ export default function makeGetPostsController({
 
       const map_count_comments_promises = map(posts, async (post) => {
         const comments_count = await countCommentsByPost({ post_id: post._id });
-        return merge({}, post, {
+        return {
+          ...post,
           comments_count,
-        });
+        };
       });
 
       const final_data = await Promise.all(map_count_comments_promises);

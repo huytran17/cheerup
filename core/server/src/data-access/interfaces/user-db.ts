@@ -18,7 +18,7 @@ export default interface IUserDb {
   delete: ({ _id }: { _id: string }) => Promise<IUser>;
   restore: ({ _id }: { _id: string }) => Promise<IUser>;
   hardDelete: ({ _id }: { _id: string }) => Promise<IUser>;
-  update: (updatePayload: Partial<IUser>) => Promise<IUser>;
+  update: (payload: Partial<IUser>) => Promise<IUser>;
   getUserAnalystics: ({
     range,
     unit,

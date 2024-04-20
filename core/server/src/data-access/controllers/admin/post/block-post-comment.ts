@@ -2,7 +2,7 @@ import { GetPost, IGetPostPayload } from "../../../../use-cases/post/get-post";
 import { UpdatePost } from "../../../../use-cases/post/update-post";
 import { Logger } from "winston";
 import { Request } from "express";
-import { get, merge } from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -32,13 +32,12 @@ export default function makeBlockPostCommentController({
         throw new Error(`Post by ${_id} does not exist`);
       }
 
-      const final_post_details = merge({}, exists, {
+      const final_post_details = {
+        ...exists,
         is_blocked_comment: true,
-      });
+      };
 
-      const updated_post = await updatePost({
-        postDetails: final_post_details,
-      });
+      const updated_post = await updatePost(final_post_details);
 
       logger.verbose(`Blocked comment for post ${exists.title}`);
 

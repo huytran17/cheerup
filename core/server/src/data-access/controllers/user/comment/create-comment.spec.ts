@@ -1,4 +1,3 @@
-import { merge } from "lodash";
 import moment from "moment";
 import {
   fakeComment,
@@ -72,12 +71,10 @@ describe("createComment", () => {
     const mock_user_data = fakeUser();
     const mock_comment_data = fakeComment();
 
-    const created_post = await createPost({
-      postDetails: mock_post_data,
-    });
-    const created_user = await createUser({
-      userDetails: mock_user_data,
-    });
+    const [created_post, created_user] = await Promise.all([
+      createPost(mock_post_data),
+      createUser(mock_user_data),
+    ]);
 
     const createCommentController = makeCreateCommentController({
       createComment,
@@ -88,9 +85,10 @@ describe("createComment", () => {
 
     const request = {
       context: {
-        validated: merge({}, mock_comment_data, {
+        validated: {
+          ...mock_comment_data,
           post: created_post._id,
-        }),
+        },
         user: created_user,
       },
     };

@@ -4,7 +4,7 @@ import { TwoFAType } from "../../../../database/interfaces/two-factor-authentica
 import { GetTwoFactorAuthenticationByEmailAndCode } from "../../../../use-cases/two-factor-authentication/get-two-factor-authentication-by-email-and-code";
 import { HardDeleteTwoFactorAuthentication } from "../../../../use-cases/two-factor-authentication/hard-delete-two-factor-authentication";
 import { UpdateUser } from "../../../../use-cases/user/update-user";
-import { get, merge } from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { tfa } from "../../../../config/tfa";
 import { GenerateQRCode } from "../../../../config/qrcode/make-generate-qr-code";
@@ -69,23 +69,22 @@ export default function makeEnable2FAController({
 
       const qr_uri = await generateQRCode({ otp_auth: otp_token });
 
-      const userDetails = merge({}, exists, {
+      const user_details = {
+        ...exists,
         is_enabled_2fa: true,
         tfa_secret,
-      });
+      };
 
       const [updated_user] = await Promise.all([
-        updateUser({
-          userDetails,
-        }),
-
+        updateUser(user_details),
         hardDeleteTwoFactorAuthentication({ _id: two_fa._id }),
       ]);
 
-      const final_user_data = merge({}, updated_user, {
+      const final_user_data = {
+        ...updated_user,
         qr_uri,
         tfa_secret,
-      });
+      };
 
       return {
         headers,

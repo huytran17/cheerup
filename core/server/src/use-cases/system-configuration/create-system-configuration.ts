@@ -6,22 +6,16 @@ export interface ICreateSystemConfigurationPayload
   [key: string]: any;
 }
 
-interface ICreateSystemConfiguration {
-  systemConfigurationDetails: ICreateSystemConfigurationPayload;
-}
-
-export type CreateSystemConfiguration = ({
-  systemConfigurationDetails,
-}: ICreateSystemConfiguration) => Promise<ISystemConfiguration>;
+export type CreateSystemConfiguration = (
+  payload: ICreateSystemConfigurationPayload
+) => Promise<ISystemConfiguration>;
 
 export default function makeCreateSystemConfiguration({
   systemConfigurationDb,
 }: {
   systemConfigurationDb: SystemConfigurationDb;
 }): CreateSystemConfiguration {
-  return async function createSystemConfiguration({
-    systemConfigurationDetails,
-  }) {
-    return await systemConfigurationDb.insert(systemConfigurationDetails);
+  return async function createSystemConfiguration(payload) {
+    return await systemConfigurationDb.insert(payload);
   };
 }

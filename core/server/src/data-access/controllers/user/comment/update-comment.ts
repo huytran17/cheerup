@@ -27,11 +27,11 @@ export default function makeUpdateCommentController({
     };
 
     try {
-      const commentDetails = <IUpdateCommentData>(
+      const comment_details = <IUpdateCommentData>(
         get(httpRequest, "context.validated", {})
       );
 
-      const { _id: comment_id } = commentDetails;
+      const { _id: comment_id } = comment_details;
 
       const exists = await getComment({
         _id: comment_id,
@@ -74,7 +74,7 @@ export default function makeUpdateCommentController({
         throw new Error(`User by ${_id} has been blocked from comments`);
       }
 
-      const updated_comment = await updateComment({ commentDetails });
+      const updated_comment = await updateComment(comment_details);
 
       return {
         headers,

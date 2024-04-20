@@ -42,9 +42,7 @@ describe("getPosts", () => {
 
     const mock_post_data = fakePost();
 
-    await createPost({
-      postDetails: mock_post_data,
-    });
+    await createPost(mock_post_data);
 
     const getPostsController = makeGetPostsController({
       getPosts,

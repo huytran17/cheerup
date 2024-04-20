@@ -39,9 +39,7 @@ describe("blockPostComment", () => {
 
     const mock_post_data = fakePost();
 
-    const created_post = await createPost({
-      postDetails: mock_post_data,
-    });
+    const created_post = await createPost(mock_post_data);
 
     const blockPostCommentController = makeBlockPostCommentController({
       getPost,

@@ -5,7 +5,7 @@ import {
 } from "../../../../use-cases/user/update-user";
 import { Logger } from "winston";
 import { Request } from "express";
-import { get, merge } from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -26,11 +26,11 @@ export default function makeUpdateUserController({
     };
 
     try {
-      const userDetails = <IUpdateUserPayload>(
+      const user_details = <IUpdateUserPayload>(
         get(httpRequest, "context.validated", {})
       );
 
-      const { _id, is_blocked_comment } = userDetails;
+      const { _id, is_blocked_comment } = user_details;
 
       const exists = await getUser({ _id });
       if (isEmpty(exists)) {
@@ -42,14 +42,13 @@ export default function makeUpdateUserController({
         throw new Error(`Can not update password for socialite account ${_id}`);
       }
 
-      const final_user_details = merge({}, exists, {
-        ...userDetails,
+      const final_user_details = {
+        ...exists,
+        ...user_details,
         blocked_comment_at: is_blocked_comment ? new Date() : null,
-      });
+      };
 
-      const updated_user = await updateUser({
-        userDetails: final_user_details,
-      });
+      const updated_user = await updateUser(final_user_details);
 
       logger.verbose(`Updated user ${exists.email} successfully`);
 

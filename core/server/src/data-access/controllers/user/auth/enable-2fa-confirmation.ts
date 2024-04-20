@@ -81,15 +81,11 @@ export default function makeEnable2FAConfirmationController({
 
       const expire_at = moment().add(5, "minutes").toDate();
 
-      const twoFactorAuthenticationDetails = {
+      const two_fa = await createTwoFactorAuthentication({
         code,
         expire_at,
         email,
         type: TwoFAType.ENABLE,
-      };
-
-      const two_fa = await createTwoFactorAuthentication({
-        twoFactorAuthenticationDetails,
       });
 
       const email_content = await getEmailContent({

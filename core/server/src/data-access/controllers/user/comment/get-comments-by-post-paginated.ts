@@ -5,7 +5,7 @@ import {
 } from "../../../../use-cases/comment/get-comments-by-post-paginated";
 import { CountCommentLikeByCommentAndType } from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
 import { GetPost } from "../../../../use-cases/post/get-post";
-import { get, map, merge } from "lodash";
+import { get, map } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { CommentLikeType } from "../../../../database/interfaces/comment-like";
 import IComment from "../../../../database/interfaces/comment";

@@ -34,9 +34,7 @@ describe("getComments", () => {
 
     const mock_comment_data = fakeComment();
 
-    await createComment({
-      commentDetails: mock_comment_data,
-    });
+    await createComment(mock_comment_data);
 
     const getCommentsController = makeGetCommentsController({
       getComments,

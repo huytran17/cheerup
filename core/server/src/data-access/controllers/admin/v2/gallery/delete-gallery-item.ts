@@ -50,10 +50,8 @@ export default function makeDeleteGalleryItemController({
       );
 
       const updated_data = await updateGallery({
-        galleryDetails: {
-          ...exists,
-          items: updated_gallery_items,
-        },
+        ...exists,
+        items: updated_gallery_items,
       });
 
       return {

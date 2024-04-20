@@ -23,13 +23,11 @@ export default function makeCreateDefaultSystemConfiguration({
       return;
     }
 
-    const systemConfigurationDetails = {
+    const system_configuration_details = {
       is_blocked_comment: false,
     };
 
-    await createSystemConfiguration({
-      systemConfigurationDetails,
-    });
+    await createSystemConfiguration(system_configuration_details);
 
     logger.verbose(`Created default system configuration.`);
   };

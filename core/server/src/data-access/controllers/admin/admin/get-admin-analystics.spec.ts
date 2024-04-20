@@ -41,9 +41,7 @@ describe("getAdminAnalystics", () => {
 
     const mock_admin_data = fakeAdmin();
 
-    await createAdmin({
-      adminDetails: mock_admin_data,
-    });
+    await createAdmin(mock_admin_data);
 
     const getAdminAnalysticsController = makeGetAdminAnalysticsController({
       getAdminAnalystics,

@@ -38,13 +38,11 @@ export default function makeUploadFolderIconController({
       deleteUploadedFile(exists.folder_icon_url);
 
       const updated_system_configuration = await updateSystemConfiguration({
-        systemConfigurationDetails: {
-          ...exists,
-          folder_icon: {
-            ...file,
-            path: getFIleUploadedPath(file.path),
-            destination: getFIleUploadedPath(file.destination),
-          },
+        ...exists,
+        folder_icon: {
+          ...file,
+          path: getFIleUploadedPath(file.path),
+          destination: getFIleUploadedPath(file.destination),
         },
       });
 

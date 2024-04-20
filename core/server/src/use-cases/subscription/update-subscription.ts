@@ -5,20 +5,16 @@ export interface IUpdateSubscriptionPayload extends Partial<ISubscription> {
   [key: string]: any;
 }
 
-export interface IUpdateSubscription {
-  subscriptionDetails: IUpdateSubscriptionPayload;
-}
-
-export type UpdateSubscription = ({
-  subscriptionDetails,
-}: IUpdateSubscription) => Promise<ISubscription>;
+export type UpdateSubscription = (
+  payload: IUpdateSubscriptionPayload
+) => Promise<ISubscription>;
 
 export default function makeUpdateSubscription({
   subscriptionDb,
 }: {
   subscriptionDb: ISubscriptionDb;
 }): UpdateSubscription {
-  return async function updateSubscription({ subscriptionDetails }) {
-    return await subscriptionDb.update(subscriptionDetails);
+  return async function updateSubscription(payload) {
+    return await subscriptionDb.update(payload);
   };
 }

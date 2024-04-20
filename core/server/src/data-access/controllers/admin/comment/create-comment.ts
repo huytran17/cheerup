@@ -19,11 +19,11 @@ export default function makeCreateCommentController({
     };
 
     try {
-      const commentDetails = <ICreateCommentPayload>(
+      const comment_details = <ICreateCommentPayload>(
         get(httpRequest, "context.validated", {})
       );
 
-      const created_comment = await createComment({ commentDetails });
+      const created_comment = await createComment(comment_details);
 
       return {
         headers,

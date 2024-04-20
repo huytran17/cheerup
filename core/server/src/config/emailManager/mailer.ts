@@ -1,7 +1,6 @@
 import nodemailer, { Transporter } from "nodemailer";
 import handlebars from "handlebars";
 import { IEmailData } from "./get-email-content";
-import { merge } from "lodash";
 
 interface RenderEmailContent {
   email_content: string;
@@ -69,8 +68,7 @@ export default Object.freeze({
     return payload;
   },
   render: ({ email_content, email_data, object_data }: RenderEmailContent) => {
-    const final_email_data = merge({}, email_data, object_data);
     const template = handlebars.compile(email_content);
-    return template(final_email_data);
+    return template({ ...email_data, ...object_data });
   },
 });

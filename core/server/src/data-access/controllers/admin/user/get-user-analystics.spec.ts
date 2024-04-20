@@ -36,10 +36,7 @@ describe("getUserAnalystics", () => {
     const getUserAnalystics = makeGetUserAnalystics({ userDb, logger, redis });
 
     const mock_user_data = fakeUser();
-
-    await createUser({
-      userDetails: mock_user_data,
-    });
+    await createUser(mock_user_data);
 
     const getUserAnalysticsController = makeGetUserAnalysticsController({
       getUserAnalystics,

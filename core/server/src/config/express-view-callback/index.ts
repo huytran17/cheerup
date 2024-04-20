@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import { merge } from "lodash";
 
 type IController = (httpRequest: any) => any;
 
@@ -7,7 +6,7 @@ export default function makeExpressViewCallback(controller: IController) {
   return (req: Request, res: Response, next: NextFunction) => {
     const httpRequest = {
       context: {
-        validated: merge({}, req.body, req.params, req.query),
+        validated: { ...req.body, ...req.params, ...req.query },
         user: req.user,
         file: req.file,
         ip: req.clientIp,

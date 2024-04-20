@@ -51,10 +51,8 @@ export default function makeUploadUserAvatarController({
       };
 
       const updated_user = await updateUser({
-        userDetails: {
-          ...exists,
-          avatar,
-        },
+        ...exists,
+        avatar,
       });
 
       return {

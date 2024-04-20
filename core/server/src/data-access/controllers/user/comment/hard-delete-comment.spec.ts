@@ -1,4 +1,3 @@
-import { merge } from "lodash";
 import moment from "moment";
 import {
   fakeComment,
@@ -60,19 +59,15 @@ describe("hardDeleteComment", () => {
     const mock_user_data = fakeUser();
     const mock_post_data = fakePost();
 
-    const created_user = await createUser({
-      userDetails: mock_user_data,
-    });
-
-    const created_post = await createPost({
-      postDetails: mock_post_data,
-    });
+    const [created_user, created_post] = await Promise.all([
+      createUser(mock_user_data),
+      createPost(mock_post_data),
+    ]);
 
     const created_comment = await createComment({
-      commentDetails: merge({}, mock_comment_data, {
-        user: created_user._id,
-        post: created_post._id,
-      }),
+      ...mock_comment_data,
+      user: created_user,
+      post: created_post,
     });
 
     const hardDeleteCommentController = makeHardDeleteCommentController({

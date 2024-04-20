@@ -5,18 +5,14 @@ export interface IUpdateUserPayload extends Partial<IUser> {
   [key: string]: any;
 }
 
-export interface IUpdateUser {
-  userDetails: IUpdateUserPayload;
-}
-
-export type UpdateUser = ({ userDetails }: IUpdateUser) => Promise<IUser>;
+export type UpdateUser = (payload: IUpdateUserPayload) => Promise<IUser>;
 
 export default function makeUpdateUser({
   userDb,
 }: {
   userDb: IUserDb;
 }): UpdateUser {
-  return async function updateUser({ userDetails }) {
-    return await userDb.update(userDetails);
+  return async function updateUser(payload) {
+    return await userDb.update(payload);
   };
 }

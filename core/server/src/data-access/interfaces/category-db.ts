@@ -22,7 +22,7 @@ export default interface ICategoryDb {
   insert: (payload: Partial<ICategory>) => Promise<ICategory>;
   delete: ({ _id }: { _id: string }) => Promise<ICategory>;
   hardDelete: ({ _id }: { _id: string }) => Promise<ICategory>;
-  update: (updatePayload: Partial<ICategory>) => Promise<ICategory>;
+  update: (payload: Partial<ICategory>) => Promise<ICategory>;
   getCategoryAnalystics: ({
     range,
     unit,

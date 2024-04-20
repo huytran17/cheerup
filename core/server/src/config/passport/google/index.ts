@@ -46,7 +46,7 @@ export default function initializeGoogle(
         return done(null, exist);
       }
 
-      const userDetails = {
+      const user_details = {
         email: profile.email,
         full_name: profile.displayName,
         avatar_url: profile.picture,
@@ -57,7 +57,7 @@ export default function initializeGoogle(
         },
       };
 
-      const created_user = await UserModel.create(userDetails);
+      const created_user = await UserModel.create(user_details);
 
       return done(null, created_user);
     })

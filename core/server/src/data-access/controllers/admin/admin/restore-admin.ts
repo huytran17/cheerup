@@ -36,10 +36,8 @@ export default function makeRestoreAdminController({
       }
 
       const updated_admin = await updateAdmin({
-        adminDetails: {
-          ...exists,
-          deleted_at: null,
-        },
+        ...exists,
+        deleted_at: null,
       });
 
       logger.verbose(`Restored admin ${exists.email} successfully`);

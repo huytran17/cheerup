@@ -45,13 +45,11 @@ export default function makeUploadUserAvatarController({
       deleteUploadedFile(exists.avatar_url);
 
       const updated_user = await updateUser({
-        userDetails: {
-          ...exists,
-          avatar: {
-            ...file,
-            path: getFIleUploadedPath(file.path),
-            destination: getFIleUploadedPath(file.destination),
-          },
+        ...exists,
+        avatar: {
+          ...file,
+          path: getFIleUploadedPath(file.path),
+          destination: getFIleUploadedPath(file.destination),
         },
       });
 

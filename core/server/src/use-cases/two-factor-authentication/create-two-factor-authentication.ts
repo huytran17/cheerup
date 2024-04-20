@@ -6,24 +6,16 @@ export interface ICreateTwoFactorAuthenticationPayload
   [key: string]: any;
 }
 
-interface ICreateTwoFactorAuthentication {
-  twoFactorAuthenticationDetails: ICreateTwoFactorAuthenticationPayload;
-}
-
-export type CreateTwoFactorAuthentication = ({
-  twoFactorAuthenticationDetails,
-}: ICreateTwoFactorAuthentication) => Promise<ITwoFactorAuthentication>;
+export type CreateTwoFactorAuthentication = (
+  payload: ICreateTwoFactorAuthenticationPayload
+) => Promise<ITwoFactorAuthentication>;
 
 export default function makeCreateTwoFactorAuthentication({
   twoFactorAuthenticationDb,
 }: {
   twoFactorAuthenticationDb: ITwoFactorAuthenticationDb;
 }): CreateTwoFactorAuthentication {
-  return async function createTwoFactorAuthentication({
-    twoFactorAuthenticationDetails,
-  }) {
-    return await twoFactorAuthenticationDb.insert(
-      twoFactorAuthenticationDetails
-    );
+  return async function createTwoFactorAuthentication(payload) {
+    return await twoFactorAuthenticationDb.insert(payload);
   };
 }

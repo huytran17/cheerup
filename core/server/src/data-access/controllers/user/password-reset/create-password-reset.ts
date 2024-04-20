@@ -73,14 +73,10 @@ export default function makeCreatePasswordResetController({
 
       const expire_at = moment().add(15, "minutes").toDate();
 
-      const payload = {
+      const created_password_reset = await createPasswordReset({
         email,
         security_code,
         expire_at,
-      };
-
-      const created_password_reset = await createPasswordReset({
-        passwordResetDetails: payload,
       });
 
       const email_content = await getEmailContent({

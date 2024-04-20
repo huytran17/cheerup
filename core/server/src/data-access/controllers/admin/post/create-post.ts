@@ -44,15 +44,13 @@ export default function makeCreatePostController({
     try {
       const admin = <IAdmin>get(httpRequest, "context.user", {});
 
-      const postDetails = <ICreatePostPayload>(
+      const post_details = <ICreatePostPayload>(
         get(httpRequest, "context.validated", {})
       );
 
       const created_post = await createPost({
-        postDetails: {
-          ...postDetails,
-          author: admin,
-        },
+        ...post_details,
+        author: admin,
       });
 
       const post = await getPost({ _id: created_post._id });
@@ -101,17 +99,15 @@ export default function makeCreatePostController({
       logger.verbose(`Sent notifications email for new post to subscribers!!!`);
 
       const updated_post = await updatePost({
-        postDetails: {
-          ...created_post,
-          is_notified_to_user: true,
-          seo: {
-            title: title,
-            description: description,
-            date_modified: post.created_at,
-            date_published: post.created_at,
-            author: admin.full_name,
-            publisher: admin.full_name,
-          },
+        ...created_post,
+        is_notified_to_user: true,
+        seo: {
+          title: title,
+          description: description,
+          date_modified: post.created_at,
+          date_published: post.created_at,
+          author: admin.full_name,
+          publisher: admin.full_name,
         },
       });
 

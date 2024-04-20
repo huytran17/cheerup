@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { get, merge } from "lodash";
+import { get } from "lodash";
 import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
@@ -35,13 +35,12 @@ export default function makeRestoreCategoryController({
         throw new Error(`Category by id ${_id} does not exist`);
       }
 
-      const updated_category_data = merge({}, exists, {
+      const updated_category_data = {
+        ...exists,
         deleted_at: null,
-      });
+      };
 
-      const updated_category = await updateCategory({
-        categoryDetails: updated_category_data,
-      });
+      const updated_category = await updateCategory(updated_category_data);
 
       logger.verbose(`Restored category ${exists.title} successfully`);
 

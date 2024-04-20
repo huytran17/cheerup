@@ -4,7 +4,7 @@ import {
   ICreateCommentPayload,
 } from "../../../../use-cases/comment/create-comment";
 import { Request } from "express";
-import { get, merge } from "lodash";
+import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IComment from "../../../../database/interfaces/comment";
 import { CountCommentLikeByCommentAndType } from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
@@ -32,11 +32,11 @@ export default function makeCreateCommentController({
     };
 
     try {
-      const commentDetails = <ICreateCommentPayload>(
+      const comment_details = <ICreateCommentPayload>(
         get(httpRequest, "context.validated", {})
       );
 
-      const { post: post_id } = commentDetails;
+      const { post: post_id } = comment_details;
       const post_exists = await getPost({ _id: post_id });
 
       if (isEmpty(post_exists)) {
@@ -52,21 +52,18 @@ export default function makeCreateCommentController({
         throw new Error(`Post by ${post_id} has been blocked from comments`);
       }
 
-      const { _id, is_blocked_comment } = <IUser>(
-        get(httpRequest, "context.user", {})
-      );
+      const user = <IUser>get(httpRequest, "context.user", {});
 
-      if (is_blocked_comment) {
-        throw new Error(`User by ${_id} has been blocked from comments`);
+      if (user.is_blocked_comment) {
+        throw new Error(`User by ${user._id} has been blocked from comments`);
       }
 
-      const final_comment_data = merge({}, commentDetails, {
-        user: _id,
-      });
+      const final_comment_data = {
+        ...comment_details,
+        user,
+      };
 
-      const created_comment = await createComment({
-        commentDetails: final_comment_data,
-      });
+      const created_comment = await createComment(final_comment_data);
 
       const map_meta_data = async (comment: IComment) => {
         const [likes_count, dislikes_count, comment_liked_by_user] =
@@ -80,7 +77,7 @@ export default function makeCreateCommentController({
               type: CommentLikeType.Dislike,
             }),
             getCommentLikeByUserAndComment({
-              user_id: _id,
+              user_id: user._id,
               comment_id: comment._id,
             }),
           ]);

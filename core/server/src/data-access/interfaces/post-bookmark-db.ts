@@ -25,7 +25,7 @@ export default interface IPostBookmarkDb {
   insert: (payload: Partial<IPostBookmark>) => Promise<IPostBookmark>;
   delete: ({ _id }: { _id: string }) => Promise<IPostBookmark>;
   hardDelete: ({ _id }: { _id: string }) => Promise<IPostBookmark>;
-  update: (updatePayload: Partial<IPostBookmark>) => Promise<IPostBookmark>;
+  update: (payload: Partial<IPostBookmark>) => Promise<IPostBookmark>;
 }
 
 export interface IPaginatedPostBookmarkResult {

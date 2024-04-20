@@ -43,9 +43,9 @@ export default function makeUploadFolderIconController({
         folder_icon: file,
       };
 
-      const updated_system_configuration = await updateSystemConfiguration({
-        systemConfigurationDetails: system_configuration_details,
-      });
+      const updated_system_configuration = await updateSystemConfiguration(
+        system_configuration_details
+      );
 
       return {
         headers,

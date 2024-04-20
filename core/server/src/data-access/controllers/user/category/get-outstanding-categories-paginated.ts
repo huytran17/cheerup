@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { get, map, sortBy, merge } from "lodash";
+import { get, map, sortBy } from "lodash";
 import { CountPostByCategory } from "../../../../use-cases/post/count-post-by-category";
 import {
   GetCategoriesPaginated,
@@ -41,9 +41,10 @@ export default function makeGetOutstandingCategoriesPaginatedController({
             category_id: category._id,
           });
 
-          return merge({}, category, {
+          return {
+            ...category,
             post_count,
-          });
+          };
         }
       );
 

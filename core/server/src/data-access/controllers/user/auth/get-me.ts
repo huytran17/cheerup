@@ -25,9 +25,8 @@ export default function makeGetMeController({
       const exists = <IUser>get(httpRequest, "context.user", {});
 
       await updateUser({
-        userDetails: merge({}, exists, {
-          ip: client_ip,
-        }),
+        ...exists,
+        ip: client_ip,
       });
 
       const subscription = await getSubscriptionByEmail({
@@ -38,9 +37,7 @@ export default function makeGetMeController({
       const final_user_data = merge(
         {},
         omit(exists, ["tfa_secret", "hash_password"]),
-        {
-          is_subscribed,
-        }
+        { is_subscribed }
       );
 
       return {

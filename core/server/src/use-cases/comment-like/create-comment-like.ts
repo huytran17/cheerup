@@ -5,20 +5,16 @@ export interface ICreateCommentLikePayload extends Partial<ICommentLike> {
   [key: string]: any;
 }
 
-interface ICreateCommentLike {
-  commentLikeDetails: ICreateCommentLikePayload;
-}
-
-export type CreateCommentLike = ({
-  commentLikeDetails,
-}: ICreateCommentLike) => Promise<ICommentLike>;
+export type CreateCommentLike = (
+  payload: ICreateCommentLikePayload
+) => Promise<ICommentLike>;
 
 export default function makeCreateCommentLike({
   commentLikeDb,
 }: {
   commentLikeDb: ICommentLikeDb;
 }): CreateCommentLike {
-  return async function createCommentLike({ commentLikeDetails }) {
-    return await commentLikeDb.insert(commentLikeDetails);
+  return async function createCommentLike(payload) {
+    return await commentLikeDb.insert(payload);
   };
 }

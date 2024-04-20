@@ -63,11 +63,9 @@ describe("getPostBookmarksPaginated", () => {
     const mock_user_data = fakeUser();
     const mock_query_params = fakeQueryParams();
 
-    const [, created_user] = await Promise.all([
-      createPostBookmark({
-        postBookmarkDetails: mock_post_bookmark_data,
-      }),
-      createUser({ userDetails: mock_user_data }),
+    const [created_user] = await Promise.all([
+      createUser(mock_user_data),
+      createPostBookmark(mock_post_bookmark_data),
     ]);
 
     const getPostBookmarksPaginatedController =

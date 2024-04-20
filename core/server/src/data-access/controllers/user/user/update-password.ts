@@ -1,7 +1,7 @@
 import { UpdateUser } from "../../../../use-cases/user/update-user";
 import { Logger } from "winston";
 import { Request } from "express";
-import { get, merge } from "lodash";
+import { get } from "lodash";
 import { HashPassword } from "../../../../config/password/hash-password";
 import { VerifyPassword } from "../../../../config/password/verify-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -59,13 +59,12 @@ export default function makeUpdatePasswordController({
         password_confirmation: new_password_confirmation,
       });
 
-      const user_details = merge({}, exists, {
+      const user_details = {
+        ...exists,
         hash_password: hashed_password,
-      });
+      };
 
-      const updated_user = await updateUser({
-        userDetails: user_details,
-      });
+      const updated_user = await updateUser(user_details);
 
       logger.verbose(`Updated password for user ${exists.email}`);
 

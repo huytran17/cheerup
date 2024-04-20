@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { get, merge } from "lodash";
+import { get } from "lodash";
 import { mapGetters } from "vuex";
 import commentMixins from "@/mixins/comment";
 import systemMixins from "@/mixins/system";
@@ -74,9 +74,10 @@ export default {
           return;
         }
 
-        const final_comment_data = merge({}, this.comment, {
+        const final_comment_data = {
+          ...this.comment,
           content: new_comment_content,
-        });
+        };
 
         await this.UPDATE_COMMENT({ data: final_comment_data });
 

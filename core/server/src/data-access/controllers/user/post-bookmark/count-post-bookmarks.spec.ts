@@ -46,15 +46,10 @@ describe("countPostBookmarks", () => {
     const mock_post_bookmark_data = fakePostBookmark();
     const mock_user_data = fakeUser();
 
-    const created_user = await createUser({
-      userDetails: mock_user_data,
-    });
-
+    const created_user = await createUser(mock_user_data);
     await createPostBookmark({
-      postBookmarkDetails: {
-        ...mock_post_bookmark_data,
-        user: created_user,
-      },
+      ...mock_post_bookmark_data,
+      user: created_user,
     });
 
     const countPostBookmarksController = makeCountPostBookmarksController({

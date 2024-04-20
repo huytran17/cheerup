@@ -30,11 +30,11 @@ export default function makeCreateCategoryController({
     };
 
     try {
-      const categoryDetails = <ICreateCategoryPayload>(
+      const category_details = <ICreateCategoryPayload>(
         get(httpRequest, "context.validated", {})
       );
 
-      const { title } = categoryDetails;
+      const { title } = category_details;
 
       const category = await getCategoryByTitle({
         title,
@@ -47,23 +47,19 @@ export default function makeCreateCategoryController({
       const admin = <IAdmin>get(httpRequest, "context.user", {});
 
       const created_category = await createCategory({
-        categoryDetails: {
-          ...categoryDetails,
-          created_by: admin,
-        },
+        ...category_details,
+        created_by: admin,
       });
 
       const updated_category = await updateCategory({
-        categoryDetails: {
-          ...created_category,
-          seo: {
-            date_modified: created_category.created_at,
-            date_published: created_category.created_at,
-            publisher: admin.full_name,
-            author: admin.full_name,
-            title: created_category.title,
-            description: created_category.description,
-          },
+        ...created_category,
+        seo: {
+          date_modified: created_category.created_at,
+          date_published: created_category.created_at,
+          publisher: admin.full_name,
+          author: admin.full_name,
+          title: created_category.title,
+          description: created_category.description,
         },
       });
 

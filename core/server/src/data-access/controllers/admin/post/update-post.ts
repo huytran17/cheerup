@@ -26,10 +26,10 @@ export default function makeUpdatePostController({
     };
 
     try {
-      const postDetails = <IUpdatePostPayload>(
+      const post_details = <IUpdatePostPayload>(
         get(httpRequest, "context.validated", {})
       );
-      const { _id } = postDetails;
+      const { _id } = post_details;
 
       const exists = await getPost({ _id });
       if (isEmpty(exists)) {
@@ -37,12 +37,10 @@ export default function makeUpdatePostController({
       }
 
       const updated_post = await updatePost({
-        postDetails: {
-          ...postDetails,
-          seo: {
-            ...postDetails?.seo,
-            date_modified: new Date(),
-          },
+        ...post_details,
+        seo: {
+          ...post_details?.seo,
+          date_modified: new Date(),
         },
       });
 

@@ -4,14 +4,12 @@ import {
   clearDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { ExpectExportResult } from "../../../../../__tests__/__types__/expect-types";
-import { fakePost, fakeUser } from "../../../../../__tests__/__mock__";
+import { fakePost } from "../../../../../__tests__/__mock__";
 import { redis } from "../../../../../__tests__/jest-redis";
 import { readingTimeAnalyzer } from "../../../../../__tests__/reading-time";
 import makePostDb from "../../../make-post-db";
-import makeUserDb from "../../../make-user-db";
-import { PostModel, UserModel } from "../../../models";
+import { PostModel } from "../../../models";
 import makeCreatePost from "../../../../use-cases/post/create-post";
-import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeGetPost from "../../../../use-cases/post/get-post";
 import makeExportPostPdfController from "./export-post-pdf";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
@@ -32,25 +30,13 @@ describe("exportPostPdf", () => {
       postDbModel: PostModel,
       moment,
     });
-    const userDb = makeUserDb({
-      userDbModel: UserModel,
-      moment,
-    });
 
     const createPost = makeCreatePost({ postDb });
-    const createUser = makeCreateUser({ userDb });
     const getPost = makeGetPost({ postDb });
 
     const mock_post_data = fakePost();
-    const mock_user_data = fakeUser();
 
-    const created_post = await createPost({
-      postDetails: mock_post_data,
-    });
-
-    const created_User = await createUser({
-      userDetails: mock_user_data,
-    });
+    const created_post = await createPost(mock_post_data);
 
     const exportPostPdfController = makeExportPostPdfController({
       getPost,
