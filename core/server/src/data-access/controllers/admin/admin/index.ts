@@ -10,6 +10,7 @@ import {
   getSoftDeletedAdmin,
   hardDeleteAdmin,
   updateAdmin,
+  resetLoginFailedTimes,
 } from "../../../../use-cases/admin";
 import makeCreateAdminController from "./create-admin";
 import makeDeleteAdminController from "./delete-admin";
@@ -45,6 +46,7 @@ const updateAdminPasswordController = makeUpdateAdminPasswordController({
   getAdmin,
   updateAdmin,
   hashPassword,
+  resetLoginFailedTimes,
   logger,
 });
 

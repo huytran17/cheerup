@@ -404,5 +404,33 @@ export default function makeUserDb({
 
       return null;
     }
+
+    async increaseLoginFailedTimes({ _id }: { _id: string }): Promise<IUser> {
+      const updated = await userDbModel.findOneAndUpdate(
+        { _id },
+        { $inc: { login_failed_times: 1 } },
+        { returnDocument: "after" }
+      );
+
+      if (updated) {
+        return new User(updated);
+      }
+
+      return null;
+    }
+
+    async resetLoginFailedTimes({ _id }: { _id: string }): Promise<IUser> {
+      const updated = await userDbModel.findOneAndUpdate(
+        { _id },
+        { login_failed_times: 0 },
+        { returnDocument: "after" }
+      );
+
+      if (updated) {
+        return new User(updated);
+      }
+
+      return null;
+    }
   })();
 }

@@ -11,6 +11,7 @@ import {
   hardDeleteUser,
   restoreUser,
   updateUser,
+  resetLoginFailedTimes,
 } from "../../../../use-cases/user";
 import makeBlockUserCommentController from "./block-user-comment";
 import makeCreateUserController from "./create-user";
@@ -46,6 +47,7 @@ const updateUserPasswordController = makeUpdateUserPasswordController({
   getUser,
   updateUser,
   hashPassword,
+  resetLoginFailedTimes,
   logger,
 });
 

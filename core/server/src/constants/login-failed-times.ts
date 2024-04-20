@@ -1,9 +1,9 @@
-const LoginFailedTimes = {
+const LoginFailed = {
   MAX: 5,
 };
 
 export default Object.freeze({
-  LoginFailedTimes,
+  LoginFailed,
 });
 
-export { LoginFailedTimes };
+export { LoginFailed };

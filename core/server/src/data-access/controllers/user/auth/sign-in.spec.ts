@@ -1,19 +1,19 @@
 import moment from "moment";
-import { omit } from "lodash";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
 import { fakeUser } from "../../../../../__tests__/__mock__";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeUserDb from "../../../make-user-db";
-import { UserModel } from "../../../models";
+import { generateAccessToken } from "../../../../config/accessTokenManager";
+import { verifyPassword } from "../../../../config/password";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeGetUserByEmail from "../../../../use-cases/user/get-user-by-email";
+import makeIncreaseLoginFailedTimes from "../../../../use-cases/user/increase-login-failed-times";
+import makeUserDb from "../../../make-user-db";
+import { UserModel } from "../../../models";
 import makeSignInController from "./sign-in";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { verifyPassword } from "../../../../config/password";
-import { generateAccessToken } from "../../../../config/accessTokenManager";
 
 describe("signIn", () => {
   beforeAll(async () => await connectDatabase());
@@ -31,6 +31,7 @@ describe("signIn", () => {
 
     const createUser = makeCreateUser({ userDb });
     const getUserByEmail = makeGetUserByEmail({ userDb });
+    const increaseLoginFailedTimes = makeIncreaseLoginFailedTimes({ userDb });
 
     const mock_user_data = fakeUser();
     const created_user = await createUser(mock_user_data);
@@ -39,6 +40,7 @@ describe("signIn", () => {
       getUserByEmail,
       generateAccessToken,
       verifyPassword,
+      increaseLoginFailedTimes,
     });
 
     const request = {

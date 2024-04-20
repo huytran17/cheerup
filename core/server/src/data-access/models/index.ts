@@ -11,7 +11,6 @@ import gallerySchema from "../../database/schemas/gallery";
 import commentLikeSchema from "../../database/schemas/comment-like";
 import passwordResetSchema from "../../database/schemas/password-reset";
 import twoFactorAuthenticationSchema from "../../database/schemas/two-factor-authentication";
-import loginFailedSchema from "../../database/schemas/login-failed";
 
 import ISystemConfiguration from "../../database/interfaces/system-configuration";
 import ISubscription from "../../database/interfaces/subscription";
@@ -25,7 +24,6 @@ import IGallery from "../../database/interfaces/gallery";
 import ICommentLike from "../../database/interfaces/comment-like";
 import IPasswordReset from "../../database/interfaces/password-reset";
 import ITwoFactorAuthentication from "../../database/interfaces/two-factor-authentication";
-import ILoginFailed from "../../database/interfaces/login-failed";
 
 type IPostBookmarkModel = IPostBookmark & mongoose.Document;
 type ISystemConfigurationModel = ISystemConfiguration & mongoose.Document;
@@ -40,7 +38,6 @@ type ICommentLikeModel = ICommentLike & mongoose.Document;
 type IPasswordResetModel = IPasswordReset & mongoose.Document;
 type ITwoFactorAuthenticationModel = ITwoFactorAuthentication &
   mongoose.Document;
-type ILoginFailedModel = ILoginFailed & mongoose.Document;
 
 const TwoFactorAuthenticationModel =
   mongoose.model<ITwoFactorAuthenticationModel>(
@@ -76,10 +73,6 @@ const CategoryModel = mongoose.model<ICategoryModel>(
   categorySchema
 );
 const CommentModel = mongoose.model<ICommentModel>("Comment", commentSchema);
-const LoginFailedModel = mongoose.model<ILoginFailedModel>(
-  "LoginFailed",
-  loginFailedSchema
-);
 
 export default Object.freeze({
   UserModel,
@@ -94,7 +87,6 @@ export default Object.freeze({
   CommentLikeModel,
   PasswordResetModel,
   TwoFactorAuthenticationModel,
-  LoginFailedModel,
 });
 
 export {
@@ -110,5 +102,4 @@ export {
   CommentLikeModel,
   PasswordResetModel,
   TwoFactorAuthenticationModel,
-  LoginFailedModel,
 };

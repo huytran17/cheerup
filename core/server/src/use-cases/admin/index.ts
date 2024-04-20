@@ -12,7 +12,17 @@ import makeGetAdmins from "./get-admins";
 import makeGetOneAdmin from "./get-one-admin";
 import makeGetSoftDeletedAdmin from "./get-soft-deleted-admin";
 import makeHardDeleteAdmin from "./hard-delete-admin";
+import makeIncreaseLoginFailedTimes from "./increase-login-failed-times";
+import makeResetLoginFailedTimes from "./reset-login-failed-times";
 import makeUpdateAdmin from "./update-admin";
+
+const increaseLoginFailedTimes = makeIncreaseLoginFailedTimes({
+  adminDb: AdminDb,
+});
+
+const resetLoginFailedTimes = makeResetLoginFailedTimes({
+  adminDb: AdminDb,
+});
 
 const getSoftDeletedAdmin = makeGetSoftDeletedAdmin({
   adminDb: AdminDb,
@@ -67,6 +77,8 @@ const adminServices = Object.freeze({
   getAdminAnalystics,
   getOneAdmin,
   getSoftDeletedAdmin,
+  increaseLoginFailedTimes,
+  resetLoginFailedTimes,
 });
 
 export default adminServices;
@@ -81,5 +93,7 @@ export {
   getOneAdmin,
   getSoftDeletedAdmin,
   hardDeleteAdmin,
+  increaseLoginFailedTimes,
+  resetLoginFailedTimes,
   updateAdmin,
 };

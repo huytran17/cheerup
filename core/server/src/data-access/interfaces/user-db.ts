@@ -27,6 +27,8 @@ export default interface IUserDb {
     unit?: string;
   }) => Promise<IUserAnalyticsData>;
   findTfaSecretByEmail: ({ email }: { email: string }) => Promise<IUser>;
+  increaseLoginFailedTimes: ({ _id }: { _id: string }) => Promise<IUser>;
+  resetLoginFailedTimes: ({ _id }: { _id: string }) => Promise<IUser>;
 }
 
 export interface IPaginatedUserResult {

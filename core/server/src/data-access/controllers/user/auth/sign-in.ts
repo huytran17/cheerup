@@ -1,9 +1,11 @@
-import { get, pick } from "lodash";
 import { Request } from "express";
-import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
+import { get, pick } from "lodash";
 import { GenerateAccessToken } from "../../../../config/accessTokenManager/generate-access-token";
 import { VerifyPassword } from "../../../../config/password/verify-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { LoginFailed } from "../../../../constants/login-failed-times";
+import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
+import { IncreaseLoginFailedTimes } from "../../../../use-cases/user/increase-login-failed-times";
 import { isEmpty } from "../../../../utils/is-empty";
 
 interface IPayload {
@@ -15,10 +17,12 @@ export default function makeSignInController({
   getUserByEmail,
   generateAccessToken,
   verifyPassword,
+  increaseLoginFailedTimes,
 }: {
   getUserByEmail: GetUserByEmail;
   generateAccessToken: GenerateAccessToken;
   verifyPassword: VerifyPassword;
+  increaseLoginFailedTimes: IncreaseLoginFailedTimes;
 }) {
   return async function signInController(
     httpRequest: Request & { context: {} }
@@ -47,14 +51,22 @@ export default function makeSignInController({
         throw new Error(`User by ${email} does not exist`);
       }
 
-      const hash_password = exists.hash_password;
+      const login_failed_times = exists.login_failed_times || 0;
+
+      if (login_failed_times >= LoginFailed.MAX) {
+        throw new Error(
+          "Too many failed login attempts, please reset your password or contact the administrator"
+        );
+      }
+
       const valid_password = await verifyPassword({
         password,
-        hash_password,
+        hash_password: exists.hash_password,
       });
 
       if (!valid_password) {
-        throw new Error(`Email or password mismatch`);
+        await increaseLoginFailedTimes({ _id: exists._id });
+        throw new Error("Invalid credentials");
       }
 
       if (exists.is_enabled_2fa) {

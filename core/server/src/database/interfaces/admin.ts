@@ -5,6 +5,7 @@ export default interface IAdmin {
   avatar_url?: string;
   avatar?: Record<string, unknown>;
   email: string;
+  login_failed_times: number;
   type: AdminType;
   created_at: Date;
   updated_at: Date;

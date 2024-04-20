@@ -145,8 +145,7 @@ export default {
         await this.GET_ME();
         this.$router.push(this.localePath("/"));
       } catch (error) {
-        console.error(error);
-        this.$toast.error("Email address or password is incorrect");
+        this.$toast.error(this.$t(error));
       }
     },
   },

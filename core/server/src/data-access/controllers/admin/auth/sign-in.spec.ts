@@ -1,18 +1,19 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
 import { fakeAdmin } from "../../../../../__tests__/__mock__";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeAdminDb from "../../../make-admin-db";
-import { AdminModel } from "../../../models";
-import makeGetAdminByEmail from "../../../../use-cases/admin/get-admin-by-email";
-import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
-import makeSignInController from "./sign-in";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { generateAccessToken } from "../../../../config/accessTokenManager";
 import { hashPassword, verifyPassword } from "../../../../config/password";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
+import makeGetAdminByEmail from "../../../../use-cases/admin/get-admin-by-email";
+import makeIncreaseLoginFailedTimes from "../../../../use-cases/admin/increase-login-failed-times";
+import makeAdminDb from "../../../make-admin-db";
+import { AdminModel } from "../../../models";
+import makeSignInController from "./sign-in";
 
 describe("signIn", () => {
   beforeAll(async () => await connectDatabase());
@@ -31,6 +32,7 @@ describe("signIn", () => {
       moment,
     });
 
+    const increaseLoginFailedTimes = makeIncreaseLoginFailedTimes({ adminDb });
     const createAdmin = makeCreateAdmin({ adminDb });
     const getAdminByEmail = makeGetAdminByEmail({
       adminDb,
@@ -52,6 +54,7 @@ describe("signIn", () => {
       getAdminByEmail,
       generateAccessToken,
       verifyPassword,
+      increaseLoginFailedTimes,
     });
 
     const request = {

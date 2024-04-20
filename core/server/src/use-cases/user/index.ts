@@ -3,18 +3,28 @@ import { redis } from "../../config/redis";
 
 import { UserDb } from "../../data-access";
 
-import makeGetUser from "./get-user";
-import makeGetUserByEmail from "./get-user-by-email";
+import makeCreateUser from "./create-user";
 import makeDeleteUser from "./delete-user";
-import makeUpdateUser from "./update-user";
+import makeGetOneUser from "./get-one-user";
+import makeGetSoftDeletedUser from "./get-soft-deleted-user";
+import makeGetUser from "./get-user";
+import makeGetUserAnalystics from "./get-user-analystics";
+import makeGetUserByEmail from "./get-user-by-email";
+import makeGetUserTfaSecretByEmail from "./get-user-tfa-secret-by-email";
 import makeGetUsers from "./get-users";
 import makeHardDeleteUser from "./hard-delete-user";
-import makeGetUserAnalystics from "./get-user-analystics";
-import makeCreateUser from "./create-user";
-import makeGetOneUser from "./get-one-user";
+import makeIncreaseLoginFailedTimes from "./increase-login-failed-times";
+import makeResetLoginFailedTimes from "./reset-login-failed-times";
 import makeRestoreUser from "./restore-user";
-import makeGetUserTfaSecretByEmail from "./get-user-tfa-secret-by-email";
-import makeGetSoftDeletedUser from "./get-soft-deleted-user";
+import makeUpdateUser from "./update-user";
+
+const increaseLoginFailedTimes = makeIncreaseLoginFailedTimes({
+  userDb: UserDb,
+});
+
+const resetLoginFailedTimes = makeResetLoginFailedTimes({
+  userDb: UserDb,
+});
 
 const getSoftDeletedUser = makeGetSoftDeletedUser({
   userDb: UserDb,
@@ -79,21 +89,25 @@ const userServices = Object.freeze({
   restoreUser,
   getUserTfaSecretByEmail,
   getSoftDeletedUser,
+  increaseLoginFailedTimes,
+  resetLoginFailedTimes,
 });
 
 export default userServices;
 
 export {
-  getUser,
-  getUserByEmail,
+  createUser,
   deleteUser,
-  updateUser,
+  getOneUser,
+  getSoftDeletedUser,
+  getUser,
+  getUserAnalystics,
+  getUserByEmail,
+  getUserTfaSecretByEmail,
   getUsers,
   hardDeleteUser,
-  getUserAnalystics,
-  createUser,
-  getOneUser,
+  increaseLoginFailedTimes,
+  resetLoginFailedTimes,
   restoreUser,
-  getUserTfaSecretByEmail,
-  getSoftDeletedUser,
+  updateUser,
 };

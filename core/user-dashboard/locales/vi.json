@@ -102,5 +102,7 @@
   "Enter your email and press the submit button to receive the verification code.": "Nhập email của bạn và nhấn nút bên dưới để nhận mã xác thực.",
   "Then enter the confirmation code in the form below to authenticate.": "Nhập mã xác thực vào ô bên dưới và nhấn nút xác nhận.",
   "Login is required": "Vui lòng đăng nhập",
-  "Encountered error while registering, please try again.": "Có lỗi xảy ra, vui lòng thử lại."
+  "Encountered error while registering, please try again.": "Có lỗi xảy ra, vui lòng thử lại.",
+  "Too many failed login attempts, please reset your password or contact the administrator": "Quá nhiều lần đăng nhập thất bại, vui lòng đặt lại mật khẩu hoặc liên hệ với quản trị viên",
+  "Invalid credentials": "Thông tin xác thực không hợp lệ"
 }

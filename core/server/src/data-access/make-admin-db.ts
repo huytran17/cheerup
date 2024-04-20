@@ -1,12 +1,12 @@
-import { sortBy, map } from "lodash";
+import { map, sortBy } from "lodash";
 import mongoose from "mongoose";
-import IAdminDb, {
-  IPaginatedAdminResult,
-  IAdminAnalyticsData,
-} from "./interfaces/admin-db";
+import { AnalyssisUnit } from "../constants/analysis-unit";
 import Admin from "../database/entities/admin";
 import IAdmin, { AdminType } from "../database/interfaces/admin";
-import { AnalyssisUnit } from "../constants/analysis-unit";
+import IAdminDb, {
+  IAdminAnalyticsData,
+  IPaginatedAdminResult,
+} from "./interfaces/admin-db";
 
 export default function makeAdminDb({
   adminDbModel,
@@ -356,6 +356,34 @@ export default function makeAdminDb({
         })
         .select("-__v -hash_password")
         .lean({ virtuals: true });
+
+      if (updated) {
+        return new Admin(updated);
+      }
+
+      return null;
+    }
+
+    async increaseLoginFailedTimes({ _id }: { _id: string }): Promise<IAdmin> {
+      const updated = await adminDbModel.findOneAndUpdate(
+        { _id },
+        { $inc: { login_failed_times: 1 } },
+        { returnDocument: "after" }
+      );
+
+      if (updated) {
+        return new Admin(updated);
+      }
+
+      return null;
+    }
+
+    async resetLoginFailedTimes({ _id }: { _id: string }): Promise<IAdmin> {
+      const updated = await adminDbModel.findOneAndUpdate(
+        { _id },
+        { login_failed_times: 0 },
+        { returnDocument: "after" }
+      );
 
       if (updated) {
         return new Admin(updated);

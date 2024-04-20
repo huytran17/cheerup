@@ -19,6 +19,7 @@ export default class User implements IUser {
     access_token?: string;
     refresh_token?: string;
   };
+  public readonly login_failed_times: number;
   public readonly created_by?: IAdmin;
   public readonly created_at: Date;
   public readonly updated_at: Date;
@@ -41,6 +42,7 @@ export default class User implements IUser {
     blocked_comment_at,
     socialite,
     tfa_secret,
+    login_failed_times,
   }: IUser) {
     this._id = _id;
     this.ip = ip;
@@ -58,5 +60,6 @@ export default class User implements IUser {
     this.blocked_comment_at = blocked_comment_at;
     this.socialite = socialite;
     this.tfa_secret = tfa_secret;
+    this.login_failed_times = login_failed_times;
   }
 }

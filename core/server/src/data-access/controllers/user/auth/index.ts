@@ -18,8 +18,9 @@ import {
 import {
   createUser,
   getUserByEmail,
-  updateUser,
   getUserTfaSecretByEmail,
+  increaseLoginFailedTimes,
+  updateUser,
 } from "../../../../use-cases/user";
 import makeDisable2FAController from "./disable-2fa";
 import makeDisable2FAConfirmationController from "./disable-2fa-confirmation";
@@ -90,6 +91,7 @@ const signInController = makeSignInController({
   getUserByEmail,
   generateAccessToken,
   verifyPassword,
+  increaseLoginFailedTimes,
 });
 
 const signOutController = makeSignOutController();

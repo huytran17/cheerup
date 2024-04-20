@@ -1,9 +1,11 @@
-import { get } from "lodash";
 import { Request } from "express";
-import { GetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email";
+import { get } from "lodash";
 import { GenerateAccessToken } from "../../../../config/accessTokenManager/generate-access-token";
 import { VerifyPassword } from "../../../../config/password/verify-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { LoginFailed } from "../../../../constants/login-failed-times";
+import { GetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email";
+import { IncreaseLoginFailedTimes } from "../../../../use-cases/admin/increase-login-failed-times";
 import { isEmpty } from "../../../../utils/is-empty";
 
 interface IPayload {
@@ -15,10 +17,12 @@ export default function makeSignInController({
   getAdminByEmail,
   generateAccessToken,
   verifyPassword,
+  increaseLoginFailedTimes,
 }: {
   getAdminByEmail: GetAdminByEmail;
   generateAccessToken: GenerateAccessToken;
   verifyPassword: VerifyPassword;
+  increaseLoginFailedTimes: IncreaseLoginFailedTimes;
 }) {
   return async function signInController(
     httpRequest: Request & { context: {} }
@@ -37,13 +41,19 @@ export default function makeSignInController({
         throw new Error(`Admin by ${email} does not exist`);
       }
 
+      const login_failed_times = exists.login_failed_times || 0;
+
+      if (login_failed_times >= LoginFailed.MAX) {
+        throw new Error("Too many login failures");
+      }
+
       const valid_password = await verifyPassword({
         password,
         hash_password: exists.hash_password,
       });
 
-      const valid_authentication = exists && valid_password;
-      if (!valid_authentication) {
+      if (!valid_password) {
+        await increaseLoginFailedTimes({ _id: exists._id });
         throw new Error(`Email or password mismatch`);
       }
 

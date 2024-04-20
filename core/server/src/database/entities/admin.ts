@@ -8,6 +8,7 @@ export default class Admin implements IAdmin {
   public readonly email: string;
   public readonly type: AdminType;
   public readonly full_name: string;
+  public readonly login_failed_times: number;
   public readonly created_at: Date;
   public readonly updated_at: Date;
   public readonly deleted_at: Date;
@@ -20,6 +21,7 @@ export default class Admin implements IAdmin {
     full_name,
     type,
     avatar_url,
+    login_failed_times,
     created_at,
     updated_at,
     deleted_at,
@@ -31,6 +33,7 @@ export default class Admin implements IAdmin {
     this.full_name = full_name;
     this.email = email;
     this.type = type;
+    this.login_failed_times = login_failed_times;
     this.created_at = created_at;
     this.updated_at = updated_at;
     this.deleted_at = deleted_at;

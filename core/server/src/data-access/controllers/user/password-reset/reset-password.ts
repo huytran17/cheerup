@@ -1,13 +1,14 @@
 import { Request } from "express";
 import { JwtPayload } from "jsonwebtoken";
+import { get } from "lodash";
+import { VerifyAccessToken } from "../../../../config/accessTokenManager/verify-access-token";
+import { HashPassword } from "../../../../config/password/hash-password";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetPasswordReset } from "../../../../use-cases/password-reset/get-password-reset";
 import { HardDeletePasswordReset } from "../../../../use-cases/password-reset/hard-delete-password-reset";
 import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
+import { ResetLoginFailedTimes } from "../../../../use-cases/user/reset-login-failed-times";
 import { UpdateUser } from "../../../../use-cases/user/update-user";
-import { VerifyAccessToken } from "../../../../config/accessTokenManager/verify-access-token";
-import { HashPassword } from "../../../../config/password/hash-password";
-import { get } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 interface IPayload {
@@ -26,6 +27,7 @@ export default function makeResetPasswordController({
   updateUser,
   verifyAccessToken,
   hashPassword,
+  resetLoginFailedTimes,
 }: {
   getPasswordReset: GetPasswordReset;
   hardDeletePasswordReset: HardDeletePasswordReset;
@@ -33,6 +35,7 @@ export default function makeResetPasswordController({
   updateUser: UpdateUser;
   verifyAccessToken: VerifyAccessToken;
   hashPassword: HashPassword;
+  resetLoginFailedTimes: ResetLoginFailedTimes;
 }) {
   return async function resetPasswordController(
     httpRequest: Request & { context: {} }
@@ -75,11 +78,12 @@ export default function makeResetPasswordController({
         password_confirmation,
       });
 
-      const user_details = { ...user_exists, hash_password };
+      const updated_user = await updateUser({ ...user_exists, hash_password });
 
-      const updated_user = await updateUser(user_details);
-
-      await hardDeletePasswordReset({ _id: decoded._id });
+      await Promise.all([
+        hardDeletePasswordReset({ _id: decoded._id }),
+        resetLoginFailedTimes({ _id: user_exists._id }),
+      ]);
 
       return {
         headers,

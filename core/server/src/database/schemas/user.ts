@@ -23,6 +23,7 @@ const userSchema = new Schema<IUser, Model<IUser>>(
     email: { type: String, trim: true, lowercase: true, required: true },
     tfa_secret: { type: String, trim: true },
     deleted_at: { type: Date, default: null },
+    login_failed_times: { type: Number, default: 0 },
     created_by: { type: Schema.Types.ObjectId, ref: "Admin" },
   },
   {

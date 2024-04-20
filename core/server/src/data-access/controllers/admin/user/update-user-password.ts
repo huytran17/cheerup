@@ -9,16 +9,19 @@ import { get } from "lodash";
 import { HashPassword } from "../../../../config/password/hash-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
+import { ResetLoginFailedTimes } from "../../../../use-cases/user/reset-login-failed-times";
 
 export default function makeUpdateUserPasswordController({
   getUser,
   updateUser,
   hashPassword,
+  resetLoginFailedTimes,
   logger,
 }: {
   getUser: GetUser;
   updateUser: UpdateUser;
   hashPassword: HashPassword;
+  resetLoginFailedTimes: ResetLoginFailedTimes;
   logger: Logger;
 }) {
   return async function updateUserPasswordController(
@@ -51,6 +54,8 @@ export default function makeUpdateUserPasswordController({
       const updated_user = await updateUser(user_details);
 
       logger.verbose(`Updated password for user ${exists.email}`);
+
+      await resetLoginFailedTimes({ _id: exists._id });
 
       return {
         headers,

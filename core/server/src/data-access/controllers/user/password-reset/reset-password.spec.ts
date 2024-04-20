@@ -1,28 +1,29 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakePasswordReset, fakeUser } from "../../../../../__tests__/__mock__";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makePasswordResetDb from "../../../make-password-reset-db";
-import makeUserDb from "../../../make-user-db";
-import { PasswordResetModel, UserModel } from "../../../models";
-import makeGetUserByEmail from "../../../../use-cases/user/get-user-by-email";
-import makeUpdateUser from "../../../../use-cases/user/update-user";
-import makeCreateUser from "../../../../use-cases/user/create-user";
+import {
+  generateAccessToken,
+  verifyAccessToken,
+} from "../../../../config/accessTokenManager";
+import { hashPassword } from "../../../../config/password";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import IUser from "../../../../database/interfaces/user";
 import makeCreatePasswordReset from "../../../../use-cases/password-reset/create-password-reset";
 import makeGetPasswordReset from "../../../../use-cases/password-reset/get-password-reset";
 import makeHardDeletePasswordReset from "../../../../use-cases/password-reset/hard-delete-password-reset";
+import makeCreateUser from "../../../../use-cases/user/create-user";
+import makeGetUserByEmail from "../../../../use-cases/user/get-user-by-email";
+import makeResetLoginFailedTimes from "../../../../use-cases/user/reset-login-failed-times";
+import makeUpdateUser from "../../../../use-cases/user/update-user";
+import makePasswordResetDb from "../../../make-password-reset-db";
+import makeUserDb from "../../../make-user-db";
+import { PasswordResetModel, UserModel } from "../../../models";
 import makeResetPasswordController from "./reset-password";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
-import {
-  verifyAccessToken,
-  generateAccessToken,
-} from "../../../../config/accessTokenManager";
-import { hashPassword } from "../../../../config/password";
-import IUser from "../../../../database/interfaces/user";
 
 describe("resetPassword", () => {
   beforeAll(async () => await connectDatabase());
@@ -47,6 +48,7 @@ describe("resetPassword", () => {
     const getUserByEmail = makeGetUserByEmail({ userDb });
     const createUser = makeCreateUser({ userDb });
     const updateUser = makeUpdateUser({ userDb });
+    const resetLoginFailedTimes = makeResetLoginFailedTimes({ userDb });
     const createPasswordReset = makeCreatePasswordReset({ passwordResetDb });
     const getPasswordReset = makeGetPasswordReset({
       passwordResetDb,
@@ -76,6 +78,7 @@ describe("resetPassword", () => {
       updateUser,
       verifyAccessToken,
       hashPassword,
+      resetLoginFailedTimes,
     });
 
     const request = {

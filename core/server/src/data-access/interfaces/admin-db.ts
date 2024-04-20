@@ -27,6 +27,8 @@ export default interface IAdminDb {
     range?: string[];
     unit?: string;
   }) => Promise<IAdminAnalyticsData>;
+  increaseLoginFailedTimes: ({ _id }: { _id: string }) => Promise<IAdmin>;
+  resetLoginFailedTimes: ({ _id }: { _id: string }) => Promise<IAdmin>;
 }
 
 export interface IPaginatedAdminResult {

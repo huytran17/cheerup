@@ -13,6 +13,7 @@ import { UserModel } from "../../../models";
 import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeUpdateUser from "../../../../use-cases/user/update-user";
 import makeGetUser from "../../../../use-cases/user/get-user";
+import makeResetLoginFailedTimes from "../../../../use-cases/user/reset-login-failed-times";
 import makeUpdateUserPasswordController from "./update-user-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IUser from "../../../../database/interfaces/user";
@@ -37,6 +38,7 @@ describe("updateUserPassword", () => {
     const createUser = makeCreateUser({ userDb });
     const getUser = makeGetUser({ userDb });
     const updateUser = makeUpdateUser({ userDb });
+    const resetLoginFailedTimes = makeResetLoginFailedTimes({ userDb });
 
     const mock_user_data = fakeUser();
     const created_user = await createUser(mock_user_data);
@@ -45,6 +47,7 @@ describe("updateUserPassword", () => {
       getUser,
       updateUser,
       hashPassword,
+      resetLoginFailedTimes,
       logger,
     });
 

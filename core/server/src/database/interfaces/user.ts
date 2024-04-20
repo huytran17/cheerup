@@ -17,6 +17,7 @@ export default interface IUser {
     access_token?: string;
     refresh_token?: string;
   };
+  login_failed_times: number;
   created_by?: IAdmin;
   created_at: Date;
   updated_at: Date;
