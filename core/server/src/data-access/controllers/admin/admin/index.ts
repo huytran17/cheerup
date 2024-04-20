@@ -9,8 +9,8 @@ import {
   getAdmins,
   getSoftDeletedAdmin,
   hardDeleteAdmin,
-  updateAdmin,
   resetLoginFailedTimes,
+  updateAdmin,
 } from "../../../../use-cases/admin";
 import makeCreateAdminController from "./create-admin";
 import makeDeleteAdminController from "./delete-admin";
