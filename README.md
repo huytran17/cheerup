@@ -15,7 +15,7 @@ http://cheerup.blog/
 
 Database => mongoose
 
-File storage => AWS S3
+File storage => FS, AWS S3
 
 Cache management => Redis
 
@@ -27,19 +27,19 @@ Authentication => passport.js
 
 API validator => validatorjs
 
-Backend server => nodejs, expressjs
+Backend server => NodeJS, ExpressJS
 
-Backend logs => winston
+Backend logs => Winston
 
 Unit testing => Jest
 
-Dashboard => Nuxtjs
+Dashboard => NuxtJS
 
-UX/UI => Vuetify
+UI/UX => Vuetify
 
 2FA => Google Authenticator
 
-Optimizer => Gulp
+Optimizer => Gulp, Webpack
 
 ---
 
