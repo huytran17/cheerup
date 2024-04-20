@@ -15,7 +15,7 @@ http://cheerup.blog/
 
 Database => mongoose
 
-File storage => FS,AWS S3
+File storage => FS, AWS S3
 
 Cache management => Redis
 
