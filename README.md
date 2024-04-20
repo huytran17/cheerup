@@ -21,7 +21,7 @@ Cache management => Redis
 
 Virtual platform => Docker
 
-JWT issuer => JWT
+JWT issuer => jsonwebtoken npm
 
 Authentication => passport.js
 
