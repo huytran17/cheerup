@@ -7,6 +7,7 @@ import { verifyPassword } from "../../../../config/password";
 import {
   getAdminByEmail,
   increaseLoginFailedTimes,
+  resetLoginFailedTimes,
 } from "../../../../use-cases/admin";
 
 const getMeController = makeGetMeController();
@@ -16,6 +17,7 @@ const signInController = makeSignInController({
   generateAccessToken,
   verifyPassword,
   increaseLoginFailedTimes,
+  resetLoginFailedTimes,
 });
 
 const signOutController = makeSignOutController();

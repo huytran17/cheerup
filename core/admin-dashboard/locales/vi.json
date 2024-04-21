@@ -251,5 +251,7 @@
   "Users": "Người dùng",
   "Create new user": "Tạo người dùng mới",
   "Bad request": "Bad request",
-  "Unauthorized": "Unauthorized"
+  "Unauthorized": "Unauthorized",
+  "Too many failed login attempts, please reset your password or contact the administrator": "Quá nhiều lần đăng nhập thất bại, vui lòng đặt lại mật khẩu hoặc liên hệ với quản trị viên",
+  "Invalid credentials": "Thông tin xác thực không hợp lệ"
 }

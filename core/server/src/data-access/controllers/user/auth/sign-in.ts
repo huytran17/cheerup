@@ -7,6 +7,7 @@ import { LoginFailed } from "../../../../constants/login-failed-times";
 import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { IncreaseLoginFailedTimes } from "../../../../use-cases/user/increase-login-failed-times";
 import { isEmpty } from "../../../../utils/is-empty";
+import { ResetLoginFailedTimes } from "../../../../use-cases/user/reset-login-failed-times";
 
 interface IPayload {
   email: string;
@@ -18,11 +19,13 @@ export default function makeSignInController({
   generateAccessToken,
   verifyPassword,
   increaseLoginFailedTimes,
+  resetLoginFailedTimes,
 }: {
   getUserByEmail: GetUserByEmail;
   generateAccessToken: GenerateAccessToken;
   verifyPassword: VerifyPassword;
   increaseLoginFailedTimes: IncreaseLoginFailedTimes;
+  resetLoginFailedTimes: ResetLoginFailedTimes;
 }) {
   return async function signInController(
     httpRequest: Request & { context: {} }
@@ -73,10 +76,10 @@ export default function makeSignInController({
         return return_ok(pick(exists, ["email", "is_enabled_2fa"]));
       }
 
-      const access_token = await generateAccessToken(
-        { _id: exists._id },
-        { expiresIn: "1y" }
-      );
+      const [access_token] = await Promise.all([
+        generateAccessToken({ _id: exists._id }, { expiresIn: "1y" }),
+        resetLoginFailedTimes({ _id: exists._id }),
+      ]);
 
       return return_ok({
         access_token,

@@ -251,5 +251,7 @@
   "Users": "Users",
   "Create new user": "Create new user",
   "Bad request": "Bad request",
-  "Unauthorized": "Unauthorized"
+  "Unauthorized": "Unauthorized",
+  "Too many failed login attempts, please reset your password or contact the administrator": "Too many failed login attempts, please reset your password or contact the administrator",
+  "Invalid credentials": "Invalid credentials"
 }

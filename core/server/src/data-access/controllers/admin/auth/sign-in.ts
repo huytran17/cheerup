@@ -7,6 +7,7 @@ import { LoginFailed } from "../../../../constants/login-failed-times";
 import { GetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email";
 import { IncreaseLoginFailedTimes } from "../../../../use-cases/admin/increase-login-failed-times";
 import { isEmpty } from "../../../../utils/is-empty";
+import { ResetLoginFailedTimes } from "../../../../use-cases/admin/reset-login-failed-times";
 
 interface IPayload {
   email: string;
@@ -18,11 +19,13 @@ export default function makeSignInController({
   generateAccessToken,
   verifyPassword,
   increaseLoginFailedTimes,
+  resetLoginFailedTimes,
 }: {
   getAdminByEmail: GetAdminByEmail;
   generateAccessToken: GenerateAccessToken;
   verifyPassword: VerifyPassword;
   increaseLoginFailedTimes: IncreaseLoginFailedTimes;
+  resetLoginFailedTimes: ResetLoginFailedTimes;
 }) {
   return async function signInController(
     httpRequest: Request & { context: {} }
@@ -44,7 +47,9 @@ export default function makeSignInController({
       const login_failed_times = exists.login_failed_times || 0;
 
       if (login_failed_times >= LoginFailed.MAX) {
-        throw new Error("Too many login failures");
+        throw new Error(
+          "Too many failed login attempts, please reset your password or contact the administrator"
+        );
       }
 
       const valid_password = await verifyPassword({
@@ -54,13 +59,13 @@ export default function makeSignInController({
 
       if (!valid_password) {
         await increaseLoginFailedTimes({ _id: exists._id });
-        throw new Error(`Email or password mismatch`);
+        throw new Error("Invalid credentials");
       }
 
-      const access_token = await generateAccessToken(
-        { _id: exists._id },
-        { expiresIn: "1y" }
-      );
+      const [access_token] = await Promise.all([
+        generateAccessToken({ _id: exists._id }, { expiresIn: "1y" }),
+        resetLoginFailedTimes({ _id: exists._id }),
+      ]);
 
       return {
         headers,
