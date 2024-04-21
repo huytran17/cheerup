@@ -255,5 +255,8 @@
   "Too many failed login attempts, please reset your password or contact the administrator": "Too many failed login attempts, please reset your password or contact the administrator",
   "Invalid credentials": "Invalid credentials",
   "Successfully reset the number of failed login attempts": "Successfully reset the number of failed login attempts",
-  "Encountered error while resetting the number of failed login attempts": "Encountered error while reseting the number of failed login attempts"
+  "Encountered error while resetting the number of failed login attempts": "Encountered error while reseting the number of failed login attempts",
+  "owner": "owner",
+  "collaborator": "collaborator",
+  "editor": "editor"
 }

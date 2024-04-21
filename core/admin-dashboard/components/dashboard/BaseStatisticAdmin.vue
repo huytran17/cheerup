@@ -25,7 +25,7 @@
                   >mdi-account-star</v-icon
                 >
               </template>
-              <span v-html="ADMIN_TYPES.OWNER"></span>
+              <span v-html="$t(ADMIN_TYPES.OWNER)"></span>
             </v-tooltip>
           </v-btn>
           <v-btn
@@ -41,7 +41,23 @@
                   >mdi-account-check</v-icon
                 >
               </template>
-              <span v-html="ADMIN_TYPES.COLLABORATOR"></span>
+              <span v-html="$t(ADMIN_TYPES.COLLABORATOR)"></span>
+            </v-tooltip>
+          </v-btn>
+          <v-btn
+            @click="
+              refreshAdminAnalysticData({
+                author_type: ADMIN_TYPES.EDITOR,
+              })
+            "
+          >
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-icon v-bind="attrs" v-on="on" color="brick"
+                  >mdi-account-details-outline</v-icon
+                >
+              </template>
+              <span v-html="$t(ADMIN_TYPES.EDITOR)"></span>
             </v-tooltip>
           </v-btn>
         </v-btn-toggle>
