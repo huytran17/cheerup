@@ -112,6 +112,17 @@ const actions: ActionTree<AdminState, RootState> = {
     );
     return admin;
   },
+
+  async [ActionTypes.RESET_ADMIN_LOGIN_FAILED_TIMES](
+    { commit },
+    { id }: { id: string }
+  ) {
+    const { data: admin } = await this.$axios.$put(
+      `/admin/reset-admin-login-failed-times/${id}`
+    );
+
+    return admin;
+  },
 };
 
 export default actions;

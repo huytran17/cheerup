@@ -54,10 +54,7 @@
             </div>
           </template>
 
-          <template
-            v-slot:item.actions="{ item }"
-            v-component-roles="[ADMIN_TYPES.OWNER]"
-          >
+          <template v-slot:item.actions="{ item }">
             <div v-if="item.deleted_at">
               <v-tooltip left>
                 <template v-slot:activator="{ on, attrs }">
@@ -90,6 +87,24 @@
                 <span v-html="$t('Delete')"></span>
               </v-tooltip>
             </div>
+            <div v-if="item.login_failed_times >= LOGIN_FAILED.MAX">
+              <v-tooltip left>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    icon
+                    v-bind="attrs"
+                    v-on="on"
+                    small
+                    @click="resetLoginFailedTimes(item)"
+                  >
+                    <v-icon small color="error">mdi-restore-alert</v-icon>
+                  </v-btn>
+                </template>
+                <span
+                  v-html="$t('Reset the number of failed login attempts')"
+                ></span>
+              </v-tooltip>
+            </div>
           </template>
         </v-data-table>
       </v-col>
@@ -105,8 +120,7 @@
 </template>
 
 <script>
-import { get } from "lodash";
-import { ADMIN_TYPES } from "@/constants";
+import { ADMIN_TYPES, LOGIN_FAILED } from "@/constants";
 import adminMixins from "@/mixins/admin";
 import authMixins from "@/mixins/auth";
 import systemMixins from "@/mixins/system";
@@ -165,10 +179,30 @@ export default {
       search: "",
       is_open_hard_delete_dialog: false,
       ADMIN_TYPES,
+      LOGIN_FAILED,
     };
   },
 
   methods: {
+    async resetLoginFailedTimes(admin) {
+      try {
+        await this.RESET_ADMIN_LOGIN_FAILED_TIMES({ id: admin._id });
+
+        this.$toast.success(
+          this.$t(`Successfully reset the number of failed login attempts`)
+        );
+
+        await this.$fetch();
+      } catch (error) {
+        console.error(error);
+        this.$toast.error(
+          this.$t(
+            `Encountered error while reseting the number of failed login attempts`
+          )
+        );
+      }
+    },
+
     async restoreDeletedAdmin(admin) {
       try {
         const { _id, full_name } = admin;

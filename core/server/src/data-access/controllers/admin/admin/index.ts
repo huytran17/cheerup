@@ -18,11 +18,18 @@ import makeGetAdminController from "./get-admin";
 import makeGetAdminAnalysticsController from "./get-admin-analystics";
 import makeGetAdminsController from "./get-admins";
 import makeHardDeleteAdminController from "./hard-delete-admin";
+import makeResetAdminLoginFailedTimesController from "./reset-admin-login-failed-times";
 import makeRestoreAdminController from "./restore-admin";
 import makeUpdateAdminController from "./update-admin";
 import makeUpdateAdminPasswordController from "./update-admin-password";
 import makeUpdateAdminPersonalPasswordController from "./update-admin-personal-password";
 import makeUploadAvatarController from "./upload-avatar";
+
+const resetAdminLoginFailedTimesController =
+  makeResetAdminLoginFailedTimesController({
+    getAdmin,
+    resetLoginFailedTimes,
+  });
 
 const updateAdminPersonalPasswordController =
   makeUpdateAdminPersonalPasswordController({
@@ -101,6 +108,7 @@ export default Object.freeze({
   uploadAvatarController,
   getAdminAnalysticsController,
   updateAdminPersonalPasswordController,
+  resetAdminLoginFailedTimesController,
 });
 
 export {
@@ -110,6 +118,7 @@ export {
   getAdminController,
   getAdminsController,
   hardDeleteAdminController,
+  resetAdminLoginFailedTimesController,
   restoreAdminController,
   updateAdminController,
   updateAdminPasswordController,

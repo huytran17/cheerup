@@ -15,6 +15,7 @@ import {
   updateUserPasswordRules,
   restoreUserRules,
   hardDeleteUserRules,
+  resetUserLoginFailedTimesRules,
 } from "../../data-access/controllers/admin/user/validators";
 import {
   getUserController,
@@ -29,9 +30,17 @@ import {
   restoreUserController,
   hardDeleteUserController,
   getUserAnalysticsController,
+  resetUserLoginFailedTimesController,
 } from "../../data-access/controllers/admin/user";
 
 const userRouter = express.Router();
+
+userRouter.put(
+  "/reset-user-login-failed-times/:_id",
+  makeAuthorization(AuthorizationRole.OWNER_AND_COLLABORATOR),
+  makeValidator(resetUserLoginFailedTimesRules),
+  makeExpressCallback(resetUserLoginFailedTimesController)
+);
 
 userRouter.get("/analystics", makeExpressCallback(getUserAnalysticsController));
 

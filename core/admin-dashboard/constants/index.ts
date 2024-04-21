@@ -15,9 +15,14 @@ const HTTP_STATUS_CODE = {
   INTERNAL_SERVER_ERROR: 500,
 };
 
+const LOGIN_FAILED = {
+  MAX: 5,
+};
+
 export default Object.freeze({
   ADMIN_TYPES,
   HTTP_STATUS_CODE,
+  LOGIN_FAILED,
 });
 
-export { ADMIN_TYPES, HTTP_STATUS_CODE };
+export { ADMIN_TYPES, HTTP_STATUS_CODE, LOGIN_FAILED };

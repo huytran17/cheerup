@@ -47,10 +47,7 @@
             </div>
           </template>
 
-          <template
-            v-slot:item.actions="{ item }"
-            v-component-roles="[ADMIN_TYPES.OWNER, ADMIN_TYPES.COLLABORATOR]"
-          >
+          <template v-slot:item.actions="{ item }">
             <v-tooltip left>
               <template v-slot:activator="{ on, attrs }">
                 <v-btn

@@ -89,6 +89,17 @@ const actions: ActionTree<UserState, RootState> = {
     const { data: user } = await this.$axios.$put(`/user/restore/${id}`);
     return user;
   },
+
+  async [ActionTypes.RESET_USER_LOGIN_FAILED_TIMES](
+    { commit },
+    { id }: { id: string }
+  ) {
+    const { data: user } = await this.$axios.$put(
+      `/user/reset-user-login-failed-times/${id}`
+    );
+
+    return user;
+  },
 };
 
 export default actions;

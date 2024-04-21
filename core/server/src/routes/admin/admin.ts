@@ -15,6 +15,7 @@ import {
   uploadAvatarRules,
   updateAdminPersonalPasswordRules,
   getAdminAnalysticsRules,
+  resetAdminLoginFailedTimesRules,
 } from "../../data-access/controllers/admin/admin/validators";
 import {
   getAdminController,
@@ -28,9 +29,17 @@ import {
   uploadAvatarController,
   getAdminAnalysticsController,
   updateAdminPersonalPasswordController,
+  resetAdminLoginFailedTimesController,
 } from "../../data-access/controllers/admin/admin";
 
 const adminRouter = express.Router();
+
+adminRouter.put(
+  "/reset-admin-login-failed-times/:_id",
+  makeAuthorization(AuthorizationRole.OWNER_AND_COLLABORATOR),
+  makeValidator(resetAdminLoginFailedTimesRules),
+  makeExpressCallback(resetAdminLoginFailedTimesController)
+);
 
 adminRouter.get(
   "/analystics",

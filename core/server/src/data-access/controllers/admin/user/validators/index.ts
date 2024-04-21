@@ -9,6 +9,7 @@ import uploadUserAvatarRules from "./upload-user-avatar";
 import updateUserPasswordRules from "./update-user-password";
 import restoreUserRules from "./restore-user";
 import hardDeleteUserRules from "./hard-delete-user";
+import resetUserLoginFailedTimesRules from "./reset-user-login-failed-times";
 
 export default Object.freeze({
   getUserRules,
@@ -22,6 +23,7 @@ export default Object.freeze({
   updateUserPasswordRules,
   restoreUserRules,
   hardDeleteUserRules,
+  resetUserLoginFailedTimesRules,
 });
 
 export {
@@ -36,4 +38,5 @@ export {
   updateUserPasswordRules,
   restoreUserRules,
   hardDeleteUserRules,
+  resetUserLoginFailedTimesRules,
 };

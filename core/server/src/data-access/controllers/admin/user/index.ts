@@ -26,6 +26,13 @@ import makeUnBlockUserCommentController from "./un-block-user-comment";
 import makeUpdateUserController from "./update-user";
 import makeUpdateUserPasswordController from "./update-user-password";
 import makeUploadUserAvatarController from "./upload-avatar";
+import makeResetUserLoginFailedTimesController from "./reset-user-login-failed-times";
+
+const resetUserLoginFailedTimesController =
+  makeResetUserLoginFailedTimesController({
+    getUser,
+    resetLoginFailedTimes,
+  });
 
 const getUserAnalysticsController = makeGetUserAnalysticsController({
   getUserAnalystics,
@@ -113,6 +120,7 @@ export default Object.freeze({
   restoreUserController,
   hardDeleteUserController,
   getUserAnalysticsController,
+  resetUserLoginFailedTimesController,
 });
 
 export {
@@ -129,4 +137,5 @@ export {
   updateUserController,
   updateUserPasswordController,
   uploadUserAvatarController,
+  resetUserLoginFailedTimesController,
 };

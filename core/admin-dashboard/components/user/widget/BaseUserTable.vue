@@ -37,10 +37,7 @@
           </template>
 
           <template v-slot:item.actions="{ item }">
-            <div
-              v-if="item.deleted_at"
-              v-component-roles="[ADMIN_TYPES.OWNER, ADMIN_TYPES.COLLABORATOR]"
-            >
+            <div v-if="item.deleted_at">
               <v-tooltip left>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
@@ -91,10 +88,7 @@
                 <span v-html="$t('Delete Forever')"></span>
               </v-tooltip>
             </div>
-            <div
-              v-if="item.is_blocked_comment"
-              v-component-roles="[ADMIN_TYPES.OWNER, ADMIN_TYPES.COLLABORATOR]"
-            >
+            <div v-if="item.is_blocked_comment">
               <v-tooltip left>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
@@ -112,10 +106,7 @@
                 <span v-html="$t('Un-block comment')"></span>
               </v-tooltip>
             </div>
-            <div
-              v-else
-              v-component-roles="[ADMIN_TYPES.OWNER, ADMIN_TYPES.COLLABORATOR]"
-            >
+            <div v-else>
               <v-tooltip left>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
@@ -129,6 +120,24 @@
                   </v-btn>
                 </template>
                 <span v-html="$t('Block comment')"></span>
+              </v-tooltip>
+            </div>
+            <div v-if="item.login_failed_times >= LOGIN_FAILED.MAX">
+              <v-tooltip left>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    icon
+                    v-bind="attrs"
+                    v-on="on"
+                    small
+                    @click="resetLoginFailedTimes(item)"
+                  >
+                    <v-icon small color="error">mdi-restore-alert</v-icon>
+                  </v-btn>
+                </template>
+                <span
+                  v-html="$t('Reset the number of failed login attempts')"
+                ></span>
               </v-tooltip>
             </div>
           </template>
@@ -147,7 +156,7 @@
 
 <script>
 import { get } from "lodash";
-import { ADMIN_TYPES } from "@/constants";
+import { ADMIN_TYPES, LOGIN_FAILED } from "@/constants";
 import userMixins from "@/mixins/user";
 import systemMixins from "@/mixins/system";
 
@@ -198,10 +207,30 @@ export default {
       search: "",
       is_open_hard_delete_dialog: false,
       ADMIN_TYPES,
+      LOGIN_FAILED,
     };
   },
 
   methods: {
+    async resetLoginFailedTimes(user) {
+      try {
+        await this.RESET_USER_LOGIN_FAILED_TIMES({ id: user._id });
+
+        this.$toast.success(
+          this.$t(`Successfully reset the number of failed login attempts`)
+        );
+
+        await this.$fetch();
+      } catch (error) {
+        console.error(error);
+        this.$toast.error(
+          this.$t(
+            `Encountered error while reseting the number of failed login attempts`
+          )
+        );
+      }
+    },
+
     async restoreDeletedUser(user) {
       try {
         const id = get(user, "_id");

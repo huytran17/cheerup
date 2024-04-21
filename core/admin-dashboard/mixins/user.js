@@ -49,6 +49,7 @@ export default {
       UPDATE_USER_PASSWORD: "user/UPDATE_USER_PASSWORD",
       RESTORE_USER: "user/RESTORE_USER",
       GET_USER_ANALYTICS: "user/GET_USER_ANALYTICS",
+      RESET_USER_LOGIN_FAILED_TIMES: "user/RESET_USER_LOGIN_FAILED_TIMES",
     }),
     ...mapMutations({
       SET_USER: "user/SET_USER",

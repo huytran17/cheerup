@@ -62,10 +62,7 @@
           </div>
         </template>
 
-        <template
-          v-slot:item.actions="{ item }"
-          v-component-roles="[ADMIN_TYPES.OWNER, ADMIN_TYPES.COLLABORATOR]"
-        >
+        <template v-slot:item.actions="{ item }">
           <div v-if="item.deleted_at">
             <v-tooltip left>
               <template v-slot:activator="{ on, attrs }">
