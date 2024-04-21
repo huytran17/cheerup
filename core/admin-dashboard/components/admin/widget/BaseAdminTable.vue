@@ -189,7 +189,7 @@ export default {
         await this.RESET_ADMIN_LOGIN_FAILED_TIMES({ id: admin._id });
 
         this.$toast.success(
-          this.$t(`Successfully reset the number of failed login attempts`)
+          this.$t("Successfully reset the number of failed login attempts")
         );
 
         await this.$fetch();
@@ -197,7 +197,7 @@ export default {
         console.error(error);
         this.$toast.error(
           this.$t(
-            `Encountered error while reseting the number of failed login attempts`
+            "Encountered error while resetting the number of failed login attempts"
           )
         );
       }
