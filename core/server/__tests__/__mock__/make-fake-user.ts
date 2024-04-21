@@ -12,6 +12,7 @@ export default function makeFakeUser({ faker }: { faker: any }): FakeUser {
       full_name: faker.name.fullName(),
       is_blocked_comment: false,
       email: faker.internet.email(),
+      login_failed_times: 0,
       created_at: faker.date.recent(),
       updated_at: faker.date.recent(),
       deleted_at: null,

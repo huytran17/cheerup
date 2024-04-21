@@ -11,6 +11,7 @@ export default function makeFakeAdmin({ faker }: { faker: any }): FakeAdmin {
       full_name: faker.name.fullName(),
       email: faker.internet.email(),
       type: AdminType.Owner,
+      login_failed_times: 0,
       created_at: faker.date.recent(),
       updated_at: faker.date.recent(),
       deleted_at: null,
