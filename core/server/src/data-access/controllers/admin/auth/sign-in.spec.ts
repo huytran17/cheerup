@@ -10,6 +10,7 @@ import { hashPassword, verifyPassword } from "../../../../config/password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
 import makeGetAdminByEmail from "../../../../use-cases/admin/get-admin-by-email";
+import makeResetLoginFailedTimes from "../../../../use-cases/admin/reset-login-failed-times";
 import makeIncreaseLoginFailedTimes from "../../../../use-cases/admin/increase-login-failed-times";
 import makeAdminDb from "../../../make-admin-db";
 import { AdminModel } from "../../../models";
@@ -34,6 +35,7 @@ describe("signIn", () => {
 
     const increaseLoginFailedTimes = makeIncreaseLoginFailedTimes({ adminDb });
     const createAdmin = makeCreateAdmin({ adminDb });
+    const resetLoginFailedTimes = makeResetLoginFailedTimes({ adminDb });
     const getAdminByEmail = makeGetAdminByEmail({
       adminDb,
     });
@@ -55,6 +57,7 @@ describe("signIn", () => {
       generateAccessToken,
       verifyPassword,
       increaseLoginFailedTimes,
+      resetLoginFailedTimes,
     });
 
     const request = {

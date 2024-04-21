@@ -9,6 +9,7 @@ import { generateAccessToken } from "../../../../config/accessTokenManager";
 import { verifyPassword } from "../../../../config/password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import makeCreateUser from "../../../../use-cases/user/create-user";
+import makeResetLoginFailedTimes from "../../../../use-cases/user/reset-login-failed-times";
 import makeGetUserByEmail from "../../../../use-cases/user/get-user-by-email";
 import makeIncreaseLoginFailedTimes from "../../../../use-cases/user/increase-login-failed-times";
 import makeUserDb from "../../../make-user-db";
@@ -29,6 +30,7 @@ describe("signIn", () => {
 
     const userDb = makeUserDb({ userDbModel: UserModel, moment });
 
+    const resetLoginFailedTimes = makeResetLoginFailedTimes({ userDb });
     const createUser = makeCreateUser({ userDb });
     const getUserByEmail = makeGetUserByEmail({ userDb });
     const increaseLoginFailedTimes = makeIncreaseLoginFailedTimes({ userDb });
@@ -41,6 +43,7 @@ describe("signIn", () => {
       generateAccessToken,
       verifyPassword,
       increaseLoginFailedTimes,
+      resetLoginFailedTimes,
     });
 
     const request = {
