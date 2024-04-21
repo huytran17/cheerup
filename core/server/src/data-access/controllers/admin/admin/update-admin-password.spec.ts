@@ -12,6 +12,7 @@ import { AdminModel } from "../../../models";
 import makeGetAdmin from "../../../../use-cases/admin/get-admin";
 import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
 import makeUpdateAdmin from "../../../../use-cases/admin/update-admin";
+import makeResetLoginFailedTimes from "../../../../use-cases/admin/reset-login-failed-times";
 import makeUpdateAdminPasswordController from "./update-admin-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IAdmin from "../../../../database/interfaces/admin";
@@ -34,6 +35,7 @@ describe("updateAdminPassword", () => {
       moment,
     });
 
+    const resetLoginFailedTimes = makeResetLoginFailedTimes({ adminDb });
     const createAdmin = makeCreateAdmin({ adminDb });
     const updateAdmin = makeUpdateAdmin({ adminDb });
     const getAdmin = makeGetAdmin({
@@ -48,6 +50,7 @@ describe("updateAdminPassword", () => {
       getAdmin,
       updateAdmin,
       hashPassword,
+      resetLoginFailedTimes,
       logger,
     });
 
