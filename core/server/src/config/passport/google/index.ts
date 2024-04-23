@@ -5,6 +5,13 @@ import passport_google_oauth2, {
 } from "passport-google-oauth2";
 import { PassportStatic } from "passport";
 import { UserModel } from "../../../data-access/models";
+import { randomString } from "../../randomstring";
+import { hashPassword } from "../../password";
+import {
+  sendEmail,
+  renderEmailContent,
+  getEmailContent,
+} from "../../emailManager";
 
 export default function initializeGoogle(
   passport: PassportStatic,
@@ -31,8 +38,11 @@ export default function initializeGoogle(
       profile: any,
       done: VerifyCallback
     ) {
+      const email = profile.email;
+      const full_name = profile.displayName;
+
       const exist = await UserModel.findOne({
-        email: profile.email,
+        email,
       })
         .select("-__v")
         .lean({ virtuals: true });
@@ -46,10 +56,21 @@ export default function initializeGoogle(
         return done(null, exist);
       }
 
+      const random_password = randomString({
+        length: 12,
+        charset: "alphanumeric",
+      });
+
+      const hashed_password = await hashPassword({
+        password: random_password,
+        password_confirmation: random_password,
+      });
+
       const user_details = {
-        email: profile.email,
-        full_name: profile.displayName,
+        email,
+        full_name,
         avatar_url: profile.picture,
+        hash_password: hashed_password,
         socialite: {
           provider: "google",
           access_token: accessToken,
@@ -58,6 +79,21 @@ export default function initializeGoogle(
       };
 
       const created_user = await UserModel.create(user_details);
+
+      const email_content = await getEmailContent({
+        to: email,
+        type: "signed-in-with-google",
+      });
+
+      const rendered_email_content = await renderEmailContent({
+        email_content,
+        user_template_data: {
+          full_name,
+          password: hashed_password,
+        },
+      });
+
+      await sendEmail(rendered_email_content);
 
       return done(null, created_user);
     })

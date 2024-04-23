@@ -18,12 +18,17 @@ const emailTextTemplate = {
     `${__dirname}/disable-2fa-confirmation.html`,
     "utf8"
   ),
+  "signed-in-with-google": fs.readFileSync(
+    `${__dirname}/signed-in-with-google.html`,
+    "utf-8"
+  ),
 };
 const subjectTemplate = {
   "forget-password-verification-code": `{{product_name}}`,
   "new-post-notification": `{{product_name}}`,
   "enable-2fa-confirmation": `{{product_name}}`,
   "disable-2fa-confirmation": `{{product_name}}`,
+  "signed-in-with-google": `{{product_name}} - Security Message`,
 };
 
 export default Object.freeze({
