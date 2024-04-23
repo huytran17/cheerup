@@ -8,6 +8,6 @@ export default function makeRandomString({
   randomstring: typeof Randomstring;
 }) {
   return function randomString(options?: object) {
-    return randomstring.generate({ ...options, ...default_options });
+    return randomstring.generate({ ...default_options, ...options });
   };
 }
