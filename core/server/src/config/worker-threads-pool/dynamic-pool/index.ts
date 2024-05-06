@@ -2,7 +2,7 @@ import { DynamicPool as WorkerDynamicPool } from "node-worker-threads-pool";
 
 export default class DynamicPool {
   private static pool_instance: DynamicPool;
-  private dynamic_pool_client: WorkerDynamicPool;
+  private pool: WorkerDynamicPool;
   private worker_size: number = 1;
 
   constructor() {
@@ -10,7 +10,7 @@ export default class DynamicPool {
       return DynamicPool.pool_instance;
     }
 
-    this.dynamic_pool_client = new WorkerDynamicPool(this.worker_size);
+    this.pool = new WorkerDynamicPool(this.worker_size);
 
     DynamicPool.pool_instance = this;
     return this;
@@ -26,7 +26,7 @@ export default class DynamicPool {
 
   exec({ task, param }) {
     return new Promise<any>((resolve) => {
-      const result = this.dynamic_pool_client.exec({ task, param });
+      const result = this.pool.exec({ task, param });
 
       resolve(result);
     });
@@ -34,7 +34,7 @@ export default class DynamicPool {
 
   destroy() {
     return new Promise<void>((resolve) => {
-      this.dynamic_pool_client.destroy();
+      this.pool.destroy();
 
       resolve();
     });
