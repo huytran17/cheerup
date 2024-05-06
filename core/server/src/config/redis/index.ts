@@ -116,11 +116,10 @@ export default class Redis {
   }
 
   static getRedisInstance() {
-    if (Redis.redis_instance) {
-      return Redis.redis_instance;
+    if (!Redis.redis_instance) {
+      new Redis();
     }
 
-    new Redis();
     return Redis.redis_instance;
   }
 

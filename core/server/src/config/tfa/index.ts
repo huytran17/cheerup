@@ -12,11 +12,10 @@ export default class TFA {
   }
 
   static getInstance(): TFA {
-    if (TFA.tfa_instance) {
-      return TFA.tfa_instance;
+    if (!TFA.tfa_instance) {
+      new TFA();
     }
 
-    new TFA();
     return TFA.tfa_instance;
   }
 
