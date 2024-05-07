@@ -13,7 +13,8 @@ export default class DynamicPool {
     this.pool = new WorkerDynamicPool(this.worker_size);
 
     DynamicPool.pool_instance = this;
-    return this;
+
+    console.log("Dynamic worker threads pool initialized");
   }
 
   static getInstance() {
