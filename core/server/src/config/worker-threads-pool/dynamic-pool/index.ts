@@ -19,7 +19,7 @@ export default class DynamicPool {
 
   static getInstance() {
     if (!DynamicPool.pool_instance) {
-      new DynamicPool();
+      return new DynamicPool();
     }
 
     return DynamicPool.pool_instance;
@@ -43,5 +43,4 @@ export default class DynamicPool {
 }
 
 const dynamic_pool = DynamicPool.getInstance();
-
 export { dynamic_pool };

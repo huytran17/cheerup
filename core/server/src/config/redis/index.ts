@@ -5,8 +5,8 @@ import { randomCacheTime } from "../random-cache-time";
 export type RedisClientType = ReturnType<typeof createClient>;
 
 export default class Redis {
-  public static redis_instance: Redis;
-  redis_client: undefined | RedisClientType;
+  private static redis_instance: Redis;
+  private redis_client: undefined | RedisClientType;
 
   constructor() {
     if (Redis.redis_instance) {
@@ -27,10 +27,11 @@ export default class Redis {
         .then(() => console.log("Successfully connected to Redis server"));
 
       this.redis_client = client;
-      Redis.redis_instance = this;
     } catch (error) {
       console.error(error);
     }
+
+    Redis.redis_instance = this;
   }
 
   setData({
@@ -117,7 +118,7 @@ export default class Redis {
 
   static getRedisInstance() {
     if (!Redis.redis_instance) {
-      new Redis();
+      return new Redis();
     }
 
     return Redis.redis_instance;
