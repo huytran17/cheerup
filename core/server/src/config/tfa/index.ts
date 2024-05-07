@@ -9,6 +9,8 @@ export default class TFA {
     }
 
     TFA.tfa_instance = this;
+
+    console.log("Two-factor authentication service initialized");
   }
 
   static getInstance(): TFA {
