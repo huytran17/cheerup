@@ -1,7 +1,7 @@
 import { authenticator } from "otplib";
 
 export default class TFA {
-  private static tfa_instance: TFA;
+  public static tfa_instance: TFA;
 
   constructor() {
     if (TFA.tfa_instance) {

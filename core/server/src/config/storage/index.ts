@@ -1,7 +1,7 @@
 import AWS from "aws-sdk";
 
 export default class Storage {
-  private static s3: AWS.S3;
+  public static s3: AWS.S3;
 
   constructor() {
     !Storage.s3 && (Storage.s3 = Storage.makeS3());

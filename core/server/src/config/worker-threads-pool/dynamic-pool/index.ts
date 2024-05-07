@@ -1,9 +1,9 @@
 import { DynamicPool as WorkerDynamicPool } from "node-worker-threads-pool";
 
 export default class DynamicPool {
-  private static pool_instance: DynamicPool;
-  private pool: WorkerDynamicPool;
-  private worker_size: number = 1;
+  public static pool_instance: DynamicPool;
+  pool: WorkerDynamicPool;
+  worker_size: number = 1;
 
   constructor() {
     if (DynamicPool.pool_instance) {
