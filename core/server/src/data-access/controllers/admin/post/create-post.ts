@@ -85,8 +85,7 @@ export default function makeCreatePostController({
               title,
               description: convert(description, { wordwrap: 10 }),
               categories: join(categories_titles, ", "),
-              author: get(author, "full_name", ""),
-              tags: join(tags, ", "),
+              url: `${process.env.USER_DASHBOARD_URL}/post/${post.slug}`,
             },
           });
 
