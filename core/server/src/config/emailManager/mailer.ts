@@ -37,6 +37,10 @@ export function initializeMailer(): Transporter {
       user: process.env.MAIL_TRAP_USER,
       pass: process.env.MAIL_TRAP_PASS,
     },
+    pool: true,
+    maxConnections: 1,
+    rateDelta: 20000,
+    rateLimit: 5,
   });
 
   mailer.verify((error: any, success: any) =>
@@ -59,9 +63,9 @@ export type Mailer = {
 
 export default Object.freeze({
   sendMail: async (payload: IEmailData) => {
-    const transport = initializeMailer();
+    const mailer = initializeMailer();
 
-    transport.sendMail(payload).catch((error) => {
+    mailer.sendMail(payload).catch((error) => {
       console.error(error);
     });
 

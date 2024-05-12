@@ -65,6 +65,10 @@ export default function makeCreatePostController({
         async (subscription) => {
           const user_email = get(subscription, "email", "");
 
+          if (!user_email) {
+            return;
+          }
+
           const email_content = await getEmailContent({
             to: user_email,
             type: "new-post-notification",
@@ -94,7 +98,7 @@ export default function makeCreatePostController({
         `Sending notifications email for new post to subscribers...`
       );
 
-      await Promise.all(send_notification_promises);
+      await Promise.all(send_notification_promises.filter(Boolean));
 
       logger.verbose(`Sent notifications email for new post to subscribers!!!`);
 
