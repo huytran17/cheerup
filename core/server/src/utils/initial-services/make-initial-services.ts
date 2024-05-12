@@ -1,6 +1,6 @@
 import { Transporter } from "nodemailer";
 import Redis from "../../config/redis";
-import Storage from "../../config/storage";
+// import Storage from "../../config/storage";
 import TFA from "../../config/tfa";
 import { IMakeConnectDb } from "../../data-access/make-connect-db";
 import { DefaultAdmin } from "../initial-data/make-default-admin";
@@ -14,7 +14,7 @@ export default function makeInitialServices({
   createDefaultSystemConfiguration,
   initializeMailer,
   redis,
-  storage,
+  // storage,
   tfa,
 }: {
   connectDb: IMakeConnectDb;
@@ -22,7 +22,7 @@ export default function makeInitialServices({
   createDefaultSystemConfiguration: DefaultSystemConfiguration;
   initializeMailer: () => Transporter;
   redis: typeof Redis;
-  storage: typeof Storage;
+  // storage: typeof Storage;
   tfa: typeof TFA;
 }): InitializeServices {
   return async function initializeServices() {
@@ -32,7 +32,7 @@ export default function makeInitialServices({
       );
 
       initializeMailer();
-      new storage();
+      // new storage();
       new redis();
       new tfa();
     } catch (error) {

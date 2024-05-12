@@ -1,6 +1,6 @@
 import { initializeMailer } from "../../config/emailManager/mailer";
 import Redis from "../../config/redis";
-import Storage from "../../config/storage";
+// import Storage from "../../config/storage";
 import TFA from "../../config/tfa";
 import { connectDb } from "../../data-access";
 import {
@@ -15,7 +15,7 @@ const initialServices = makeInitialServices({
   createDefaultSystemConfiguration,
   initializeMailer,
   redis: Redis,
-  storage: Storage,
+  // storage: Storage,
   tfa: TFA,
 });
 
