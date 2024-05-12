@@ -1,6 +1,5 @@
 import IAdmin from "../interfaces/admin";
 import IUser from "../interfaces/user";
-import Admin from "./admin";
 
 export default class User implements IUser {
   public readonly _id: string;
