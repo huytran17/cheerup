@@ -20,6 +20,7 @@
     "nuxt-helmet": "^2.1.1",
     "nuxt-speedkit": "^2.2.0",
     "save": "^2.5.0",
+    "socket.io-client": "^4.7.5",
     "tiptap-vuetify": "^2.24.0",
     "v-scroll-to-top": "^1.0.2",
     "vue": "^2.6.14",
