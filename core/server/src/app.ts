@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import compression from "compression";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
+import { createServer } from "http";
 import { join } from "path";
 import requestIp from "request-ip";
 import responseTime from "response-time";
@@ -15,6 +16,7 @@ import { cors } from "./config/middlewares/access-control";
 import passport from "./config/passport";
 import appRouter from "./routes";
 import { initialServices } from "./utils/initial-services";
+import { TServerInstance } from "./config/socket.io";
 
 const app = express();
 
@@ -41,8 +43,9 @@ app.use(
 );
 app.use(appRouter);
 
-app.listen(process.env.SERVER_PORT, () =>
-  console.log(`Server is listening on port ${process.env.SERVER_PORT}`)
-);
+const server: TServerInstance = createServer(app);
 
-initialServices();
+server.listen(process.env.SERVER_PORT, () => {
+  console.log(`Server is listening on port ${process.env.SERVER_PORT}`);
+  initialServices(server);
+});
