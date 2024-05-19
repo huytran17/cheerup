@@ -1,12 +1,13 @@
 import { Transporter } from "nodemailer";
 import Redis from "../../config/redis";
-// import Storage from "../../config/storage";
+import SocketIO, { TServerInstance } from "../../config/socket.io";
+import Storage from "../../config/storage";
 import TFA from "../../config/tfa";
 import { IMakeConnectDb } from "../../data-access/make-connect-db";
 import { DefaultAdmin } from "../initial-data/make-default-admin";
 import { DefaultSystemConfiguration } from "../initial-data/make-default-system-configuration";
 
-export type InitializeServices = () => Promise<void>;
+export type InitializeServices = (http_server: TServerInstance) => void;
 
 export default function makeInitialServices({
   connectDb,
@@ -14,18 +15,20 @@ export default function makeInitialServices({
   createDefaultSystemConfiguration,
   initializeMailer,
   redis,
-  // storage,
+  storage,
   tfa,
+  socketIO,
 }: {
   connectDb: IMakeConnectDb;
   createDefaultAdmin: DefaultAdmin;
   createDefaultSystemConfiguration: DefaultSystemConfiguration;
   initializeMailer: () => Transporter;
   redis: typeof Redis;
-  // storage: typeof Storage;
+  storage: typeof Storage;
   tfa: typeof TFA;
+  socketIO: typeof SocketIO;
 }): InitializeServices {
-  return async function initializeServices() {
+  return function initializeServices(http_server) {
     try {
       connectDb().then(() =>
         Promise.all([createDefaultAdmin(), createDefaultSystemConfiguration()])
@@ -35,6 +38,7 @@ export default function makeInitialServices({
       // new storage();
       new redis();
       new tfa();
+      new socketIO(http_server);
     } catch (error) {
       console.error(error);
       process.exit(7);
