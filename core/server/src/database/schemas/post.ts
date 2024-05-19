@@ -2,10 +2,13 @@ import mongoose, { Model } from "mongoose";
 import mongoose_lean_virtuals from "mongoose-lean-virtuals";
 import IPost from "../interfaces/post";
 import { get, map } from "lodash";
-import { PostModel, CommentModel } from "../../data-access/models";
+import {
+  PostModel,
+  CommentModel,
+  PostBookmarkModel,
+} from "../../data-access/models";
 import { textToSlug } from "../../config/text-to-slug";
 import { isEmpty } from "../../utils/is-empty";
-import localFileSchema from "./local-file";
 
 const Schema = mongoose.Schema;
 
@@ -106,7 +109,19 @@ postSchema.pre("deleteOne", { document: true }, async function (next) {
       comments,
       async (comment) => comment && (await comment.deleteOne())
     );
-    await Promise.all(delete_comment_promises);
+
+    const post_bookmarks =
+      (await PostBookmarkModel.find({ post: post_id })) || [];
+
+    const delete_bookmark_promises = map(
+      post_bookmarks,
+      async (bookmark) => bookmark && (await bookmark.deleteOne())
+    );
+
+    await Promise.all([
+      ...delete_comment_promises,
+      ...delete_bookmark_promises,
+    ]);
 
     next();
   } catch (error) {
