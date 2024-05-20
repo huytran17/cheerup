@@ -10,6 +10,7 @@ import { isEmpty } from "../../../../../utils/is-empty";
 import getFIleUploadedPath from "../../../../../utils/get-file-uploaded-path";
 import { IDiskUploadFile } from "../../../../../config/middlewares/disk-upload-file";
 import deleteUploadedFile from "../../../../../utils/delete-uploaded-file";
+import IUser from "../../../../../database/interfaces/user";
 
 export default function makeUploadUserAvatarController({
   getUser,
@@ -26,9 +27,15 @@ export default function makeUploadUserAvatarController({
     };
 
     try {
+      const { _id: user_id } = <IUser>get(httpRequest, "context.user", {});
+
       const { _id } = <IGetUserPayload>(
         get(httpRequest, "context.validated", {})
       );
+
+      if (user_id !== _id) {
+        throw new Error("Access denied");
+      }
 
       const exists = await getUser({ _id });
 

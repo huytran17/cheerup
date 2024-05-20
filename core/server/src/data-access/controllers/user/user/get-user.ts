@@ -3,6 +3,7 @@ import { GetUser, IGetUserPayload } from "../../../../use-cases/user/get-user";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
+import IUser from "../../../../database/interfaces/user";
 
 export default function makeGetUserController({
   getUser,
@@ -17,9 +18,15 @@ export default function makeGetUserController({
     };
 
     try {
+      const { _id: user_id } = <IUser>get(httpRequest, "context.user", {});
+
       const { _id } = <IGetUserPayload>(
         get(httpRequest, "context.validated", {})
       );
+
+      if (user_id !== _id) {
+        throw new Error("Access denied");
+      }
 
       const exists = await getUser({ _id });
 

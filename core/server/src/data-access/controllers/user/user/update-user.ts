@@ -6,6 +6,7 @@ import { Logger } from "winston";
 import { Request } from "express";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import IUser from "../../../../database/interfaces/user";
 
 export default function makeUpdateUserController({
   updateUser,
@@ -22,9 +23,15 @@ export default function makeUpdateUserController({
     };
 
     try {
+      const { _id } = <IUser>get(httpRequest, "context.user", {});
+
       const user_details = <IUpdateUserPayload>(
         get(httpRequest, "context.validated", {})
       );
+
+      if (_id !== user_details._id) {
+        throw new Error("Access denied");
+      }
 
       const updated_user = await updateUser(user_details);
 

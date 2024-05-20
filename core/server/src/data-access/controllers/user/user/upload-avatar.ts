@@ -5,6 +5,7 @@ import { UpdateUser } from "../../../../use-cases/user/update-user";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 import deleteS3Object from "../../../../utils/delete-s3-object";
+import IUser from "../../../../database/interfaces/user";
 
 export default function makeUploadUserAvatarController({
   getUser,
@@ -21,9 +22,15 @@ export default function makeUploadUserAvatarController({
     };
 
     try {
+      const { _id: user_id } = <IUser>get(httpRequest, "context.user", {});
+
       const { _id } = <IGetUserPayload>(
         get(httpRequest, "context.validated", {})
       );
+
+      if (user_id !== _id) {
+        throw new Error("Access denied");
+      }
 
       const exists = await getUser({ _id });
 
