@@ -1,5 +1,10 @@
 import { Namespace, Server } from "socket.io";
-import { SocketEvents, SocketIONsp } from "../../../constants/socket.io";
+import {
+  ClientEvents,
+  ServerEvents,
+  SocketEvents,
+  SocketIONsp,
+} from "../../../constants/socket.io";
 import IUserDb from "../../../data-access/interfaces/user-db";
 
 interface IUserPayload {
@@ -7,11 +12,11 @@ interface IUserPayload {
 }
 
 interface ClientToServerEvents {
-  online: ({ user_id }: IUserPayload) => void;
+  [ClientEvents.ONLINE]: ({ user_id }: IUserPayload) => void;
 }
 
 interface ServerToClientEvents {
-  offline: ({ user_id }: IUserPayload) => void;
+  [ServerEvents.OFFLINE]: ({ user_id }: IUserPayload) => void;
 }
 
 export default function makeInitialClientNsp({ userDb }: { userDb: IUserDb }) {
@@ -23,7 +28,7 @@ export default function makeInitialClientNsp({ userDb }: { userDb: IUserDb }) {
 
     client_nsp.on(SocketEvents.CONNECT, (socket) => {
       socket.on(
-        "online",
+        ClientEvents.ONLINE,
         ({ user_id }: IUserPayload) => (online_users[socket.id] = user_id)
       );
 
@@ -39,7 +44,7 @@ export default function makeInitialClientNsp({ userDb }: { userDb: IUserDb }) {
           return;
         }
 
-        client_nsp.emit("offline", { user_id: offline_user_id });
+        client_nsp.emit(ServerEvents.OFFLINE, { user_id: offline_user_id });
 
         await userDb.update({
           _id: offline_user_id,
