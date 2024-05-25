@@ -1,17 +1,17 @@
 import { io, Socket } from "socket.io-client";
 import { SOCKETIO_EMIT_EVENT, SOCKETIO_NSP } from "~/constants";
 
+interface IUserPayload {
+  user_id: string;
+}
+
 interface ServerToClientEvents {}
 
 interface ClientToServerEvents {
-  online: ({ user_id }: { user_id: string }) => void;
+  online: ({ user_id }: IUserPayload) => void;
 }
 
-export default function initialPrivateSocketIO({
-  user_id,
-}: {
-  user_id: string;
-}) {
+export default function initialPrivateSocketIO({ user_id }: IUserPayload) {
   try {
     if (!user_id) {
       return;
