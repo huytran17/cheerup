@@ -1,7 +1,6 @@
 import { Namespace, Server } from "socket.io";
 import {
   ClientEvents,
-  ServerEvents,
   SocketEvents,
   SocketIONsp,
 } from "../../../constants/socket.io";
@@ -16,9 +15,7 @@ interface ClientToServerEvents {
   [ClientEvents.ONLINE]: ({ user_id }: IUserPayload) => void;
 }
 
-interface ServerToClientEvents {
-  [ServerEvents.OFFLINE]: ({ user_id }: IUserPayload) => void;
-}
+interface ServerToClientEvents {}
 
 export default function makeInitialClientNsp({ userDb }: { userDb: IUserDb }) {
   return function initialClientNsp({ io }: { io: Server }) {
@@ -27,7 +24,7 @@ export default function makeInitialClientNsp({ userDb }: { userDb: IUserDb }) {
     const online_users = {};
 
     const client_nsp: Namespace<ClientToServerEvents, ServerToClientEvents> =
-      io.of(SocketIONsp.CLIENT_PRIVATE);
+      io.of(SocketIONsp.PRIVATE_CLIENT);
 
     client_nsp.on(SocketEvents.CONNECT, (socket) => {
       socket.on(

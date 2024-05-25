@@ -38,12 +38,22 @@ const SEO_TYPE = {
   CATEGORY: "category",
 };
 
+const SOCKETIO_NSP = {
+  PRIVATE_CLIENT: "private-client",
+};
+
+enum SOCKETIO_EMIT_EVENT {
+  ONLINE = "online",
+}
+
 export default Object.freeze({
   SOCIAL_MEDIA_TYPES,
   SOCIALITE_URL,
   HTTP_STATUS_CODE,
   COMMENT_LIKE_TYPE,
   SEO_TYPE,
+  SOCKETIO_NSP,
+  SOCKETIO_EMIT_EVENT,
 });
 
 export {
@@ -52,4 +62,6 @@ export {
   HTTP_STATUS_CODE,
   COMMENT_LIKE_TYPE,
   SEO_TYPE,
+  SOCKETIO_NSP,
+  SOCKETIO_EMIT_EVENT,
 };

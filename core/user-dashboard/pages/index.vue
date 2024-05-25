@@ -6,6 +6,8 @@
 import { get } from "lodash";
 import { mapGetters, mapActions } from "vuex";
 import BaseArticles from "@/components/article/BaseArticles";
+import initialPrivateSocketIO from "@/config/socket.io/private-client";
+
 export default {
   name: "IndexPage",
   async asyncData({ store, route }) {
@@ -47,6 +49,10 @@ export default {
     ...mapActions({
       GET_POSTS_PAGINATED: "post/GET_POSTS_PAGINATED",
     }),
+  },
+
+  fetch() {
+    initialPrivateSocketIO({user_id: this.me._id});
   },
 };
 </script>

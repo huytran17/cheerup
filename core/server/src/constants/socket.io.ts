@@ -1,6 +1,6 @@
 const SocketIONsp = {
-  ADMIN_PRIVATE: "/admin-private",
-  CLIENT_PRIVATE: "/client-private",
+  PRIVATE_ADMIN: "/private-admin",
+  PRIVATE_CLIENT: "/private-client",
 };
 
 const SocketEvents = {
@@ -12,15 +12,10 @@ enum ClientEvents {
   ONLINE = "online",
 }
 
-enum ServerEvents {
-  OFFLINE = "offline",
-}
-
 export default Object.freeze({
   SocketIONsp,
   SocketEvents,
   ClientEvents,
-  ServerEvents,
 });
 
-export { SocketIONsp, SocketEvents, ClientEvents, ServerEvents };
+export { SocketIONsp, SocketEvents, ClientEvents };
