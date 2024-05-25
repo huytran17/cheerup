@@ -33,7 +33,7 @@ export default function makeInitialClientNsp({ userDb }: { userDb: IUserDb }) {
       );
 
       socket.on(SocketEvents.DISCONNECT, async () => {
-        const offline_user_id = online_users[socket.id]?.toString();
+        const offline_user_id = online_users[socket.id];
 
         delete online_users[socket.id];
 
