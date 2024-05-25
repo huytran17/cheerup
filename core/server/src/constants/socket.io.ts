@@ -1,6 +1,6 @@
 const SocketIONsp = {
-  ADMIN: "/admin",
-  CLIENT: "/client",
+  ADMIN_PRIVATE: "/admin-private",
+  CLIENT_PRIVATE: "/client-private",
 };
 
 const SocketEvents = {
