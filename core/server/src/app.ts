@@ -43,9 +43,13 @@ app.use(
 );
 app.use(appRouter);
 
-const server: TServerInstance = createServer(app);
+const http_srv: TServerInstance = createServer(app);
 
-server.listen(process.env.SERVER_PORT, () => {
+http_srv.listen(process.env.SERVER_PORT, () => {
   console.log(`Server is listening on port ${process.env.SERVER_PORT}`);
-  initialServices(server);
+  initialServices({ http_srv, helmet, cookieParser, compression });
 });
+
+export type Helmet = typeof helmet;
+export type CookieParser = typeof cookieParser;
+export type Compression = typeof compression;
