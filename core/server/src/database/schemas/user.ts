@@ -13,8 +13,6 @@ const userSchema = new Schema<IUser, Model<IUser>>(
     full_name: { type: String, trim: true },
     socialite: {
       provider: { type: String, trim: true },
-      access_token: { type: String, trim: true },
-      refresh_token: { type: String, trim: true },
     },
     is_blocked_comment: { type: Boolean, default: false },
     is_enabled_2fa: { type: Boolean, default: false },
@@ -23,6 +21,7 @@ const userSchema = new Schema<IUser, Model<IUser>>(
     email: { type: String, trim: true, lowercase: true, required: true },
     tfa_secret: { type: String, trim: true },
     deleted_at: { type: Date, default: null },
+    last_online_at: { type: Date, default: null },
     login_failed_times: { type: Number, default: 0 },
     created_by: { type: Schema.Types.ObjectId, ref: "Admin" },
   },

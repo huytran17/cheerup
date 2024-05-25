@@ -15,11 +15,10 @@ export default class User implements IUser {
   public readonly tfa_secret?: string;
   public readonly socialite?: {
     provider?: string;
-    access_token?: string;
-    refresh_token?: string;
   };
   public readonly login_failed_times: number;
   public readonly created_by?: IAdmin;
+  public readonly last_online_at: Date;
   public readonly created_at: Date;
   public readonly updated_at: Date;
   public readonly deleted_at: Date;
@@ -42,6 +41,7 @@ export default class User implements IUser {
     socialite,
     tfa_secret,
     login_failed_times,
+    last_online_at,
   }: IUser) {
     this._id = _id;
     this.ip = ip;
@@ -60,5 +60,6 @@ export default class User implements IUser {
     this.socialite = socialite;
     this.tfa_secret = tfa_secret;
     this.login_failed_times = login_failed_times;
+    this.last_online_at = last_online_at;
   }
 }

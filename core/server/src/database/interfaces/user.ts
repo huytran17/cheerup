@@ -14,11 +14,10 @@ export default interface IUser {
   tfa_secret?: string;
   socialite?: {
     provider?: string;
-    access_token?: string;
-    refresh_token?: string;
   };
   login_failed_times: number;
   created_by?: IAdmin;
+  last_online_at: Date;
   created_at: Date;
   updated_at: Date;
   deleted_at: Date;

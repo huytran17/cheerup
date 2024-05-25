@@ -47,8 +47,6 @@ export default function makeInitialClientNsp({ userDb }: { userDb: IUserDb }) {
           return;
         }
 
-        client_nsp.emit(ServerEvents.OFFLINE, { user_id: offline_user_id });
-
         await userDb.update({
           _id: offline_user_id,
           last_online_at: new Date(),
