@@ -6,6 +6,7 @@ import {
   SocketIONsp,
 } from "../../../constants/socket.io";
 import IUserDb from "../../../data-access/interfaces/user-db";
+import { verifyClient } from "../middlewares";
 
 interface IUserPayload {
   user_id: string;
@@ -20,11 +21,13 @@ interface ServerToClientEvents {
 }
 
 export default function makeInitialClientNsp({ userDb }: { userDb: IUserDb }) {
-  return function initialClientNsp(io: Server) {
+  return function initialClientNsp({ io }: { io: Server }) {
+    io.engine.use(verifyClient);
+
     const online_users = {};
 
     const client_nsp: Namespace<ClientToServerEvents, ServerToClientEvents> =
-      io.of(SocketIONsp.CLIENT);
+      io.of(SocketIONsp.CLIENT_PRIVATE);
 
     client_nsp.on(SocketEvents.CONNECT, (socket) => {
       socket.on(
