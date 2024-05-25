@@ -25,7 +25,7 @@ export default class Storage {
 
   static getS3() {
     if (!Storage.s3) {
-      return new Storage();
+      new Storage();
     }
 
     return Storage.s3;
