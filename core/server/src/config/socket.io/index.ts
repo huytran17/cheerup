@@ -2,6 +2,7 @@ import type { Server as HTTPServer } from "http";
 import { Http2SecureServer, Http2Server } from "http2";
 import type { Server as HTTPSServer } from "https";
 import { Server } from "socket.io";
+import { Compression, CookieParser, Helmet } from "../../app";
 import { initialAdminNsp, initialClientNsp } from "./nsp";
 
 export type TServerInstance =
@@ -14,7 +15,17 @@ export default class SocketIO {
   public static socket_instance: SocketIO;
   io_client: Server;
 
-  constructor(http_srv: TServerInstance) {
+  constructor({
+    http_srv,
+    helmet,
+    compression,
+    cookieParser,
+  }: {
+    http_srv: TServerInstance;
+    helmet: Helmet;
+    compression: Compression;
+    cookieParser: CookieParser;
+  }) {
     if (SocketIO.socket_instance) {
       return SocketIO.socket_instance;
     }
@@ -25,12 +36,17 @@ export default class SocketIO {
           process.env.USER_DASHBOARD_URL,
           process.env.ADMIN_DASHBOARD_URL,
         ],
+        credentials: true,
         methods: "*",
       },
     });
 
-    initialAdminNsp(this.io_client);
-    initialClientNsp(this.io_client);
+    this.io_client.engine.use(compression());
+    this.io_client.engine.use(helmet());
+    this.io_client.engine.use(cookieParser());
+
+    initialAdminNsp({ io: this.io_client });
+    initialClientNsp({ io: this.io_client });
 
     SocketIO.socket_instance = this;
 
