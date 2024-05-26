@@ -27,10 +27,17 @@ export default function makeInitialClientNsp({ userDb }: { userDb: IUserDb }) {
       io.of(SocketIONsp.PRIVATE_CLIENT);
 
     client_nsp.on(SocketEvents.CONNECT, (socket) => {
-      socket.on(
-        ClientEvents.ONLINE,
-        ({ user_id }: IUserPayload) => (online_users[socket.id] = user_id)
-      );
+      socket.on(ClientEvents.ONLINE, async ({ user_id }: IUserPayload) => {
+        const user_ids = Array.from(new Set(Object.values(online_users)));
+        if (!user_ids.includes(user_id)) {
+          await userDb.update({
+            _id: user_id,
+            is_online: true,
+          });
+        }
+
+        online_users[socket.id] = user_id;
+      });
 
       socket.on(SocketEvents.DISCONNECT, async () => {
         const offline_user_id = online_users[socket.id];
@@ -47,6 +54,7 @@ export default function makeInitialClientNsp({ userDb }: { userDb: IUserDb }) {
         await userDb.update({
           _id: offline_user_id,
           last_online_at: new Date(),
+          is_online: false,
         });
       });
     });

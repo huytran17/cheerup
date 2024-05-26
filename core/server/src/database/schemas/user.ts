@@ -16,6 +16,7 @@ const userSchema = new Schema<IUser, Model<IUser>>(
     },
     is_blocked_comment: { type: Boolean, default: false },
     is_enabled_2fa: { type: Boolean, default: false },
+    is_online: { type: Boolean, default: false },
     blocked_comment_at: { type: Date },
     avatar: { type: Object },
     email: { type: String, trim: true, lowercase: true, required: true },

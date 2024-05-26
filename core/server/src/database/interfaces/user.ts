@@ -8,6 +8,7 @@ export default interface IUser {
   avatar?: Record<string, unknown>;
   blocked_comment_at?: Date;
   is_blocked_comment?: boolean;
+  is_online?: boolean;
   is_enabled_2fa?: boolean;
   avatar_url?: string;
   email: string;
