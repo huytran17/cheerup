@@ -20,6 +20,21 @@
             </div>
           </template>
 
+          <template v-slot:item.status="{ item }">
+            <div v-if="item.is_online" class="text-body-2">
+              <v-chip color="green" text-color="white">
+                <span v-html="$t('Online')"></span>
+              </v-chip>
+            </div>
+            <div v-else-if="item.last_online_at" class="text-body-2">
+              <v-chip color="red" text-color="white">
+                <span>{{
+                  formatDate(item.last_online_at, "DD-MM-YYYY HH:mm")
+                }}</span>
+              </v-chip>
+            </div>
+          </template>
+
           <template v-slot:item.created_at="{ item }">
             <div class="text-body-2">
               <span class="app-body">{{
@@ -182,6 +197,11 @@ export default {
             text: "Email",
             align: "start",
             value: "email",
+          },
+          {
+            text: "Status",
+            align: "start",
+            value: "status",
           },
           {
             text: "Joined At",
