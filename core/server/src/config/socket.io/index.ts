@@ -3,7 +3,7 @@ import { Http2SecureServer, Http2Server } from "http2";
 import type { Server as HTTPSServer } from "https";
 import { Server } from "socket.io";
 import { Compression, CookieParser, Helmet } from "../../app";
-import { initialAdminNsp, initialClientNsp } from "./nsp";
+import { privateClientHandler } from "./handlers";
 
 export type TServerInstance =
   | HTTPServer
@@ -45,8 +45,7 @@ export default class SocketIO {
     this.io_client.engine.use(helmet());
     this.io_client.engine.use(cookieParser());
 
-    initialAdminNsp({ io: this.io_client });
-    initialClientNsp({ io: this.io_client });
+    privateClientHandler({ io: this.io_client });
 
     SocketIO.socket_instance = this;
 
