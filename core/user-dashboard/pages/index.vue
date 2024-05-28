@@ -52,7 +52,7 @@ export default {
   },
 
   fetch() {
-    initialPrivateSocketIO({user_id: this.me._id});
+    initialPrivateSocketIO({ user_id: this.me._id });
   },
 };
 </script>
