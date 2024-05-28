@@ -12,10 +12,16 @@ enum ClientEvents {
   ONLINE = "online",
 }
 
+enum ServerEvents {
+  ONLINE = "online",
+  OFFLINE = "offline",
+}
+
 export default Object.freeze({
   SocketIONsp,
   SocketEvents,
   ClientEvents,
+  ServerEvents,
 });
 
-export { SocketIONsp, SocketEvents, ClientEvents };
+export { SocketIONsp, SocketEvents, ClientEvents, ServerEvents };
