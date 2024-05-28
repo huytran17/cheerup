@@ -3,10 +3,11 @@
 </template>
 
 <script>
-import { get } from "lodash";
-import { mapGetters, mapActions } from "vuex";
 import BaseArticles from "@/components/article/BaseArticles";
 import initialPrivateSocketIO from "@/config/socket.io/private-client";
+import { get } from "lodash";
+import { mapActions, mapGetters } from "vuex";
+import { SOCKETIO_EMIT_EVENT } from "~/constants";
 
 export default {
   name: "IndexPage",
@@ -52,7 +53,14 @@ export default {
   },
 
   fetch() {
-    initialPrivateSocketIO({ user_id: this.me._id });
+    const user_id = this.me._id;
+
+    if (!user_id) {
+      return;
+    }
+
+    const socket = initialPrivateSocketIO();
+    socket.emit(SOCKETIO_EMIT_EVENT.ONLINE, { user_id });
   },
 };
 </script>
