@@ -53,7 +53,7 @@ export default {
   },
 
   fetch() {
-    const user_id = this.me._id;
+    const user_id = this.me?._id;
 
     if (!user_id) {
       return;
