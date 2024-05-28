@@ -19,7 +19,7 @@ export default class User implements IUser {
   };
   public readonly login_failed_times: number;
   public readonly created_by?: IAdmin;
-  public readonly last_online_at: Date;
+  public readonly last_online_at?: Date;
   public readonly created_at: Date;
   public readonly updated_at: Date;
   public readonly deleted_at: Date;

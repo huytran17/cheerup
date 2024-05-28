@@ -18,7 +18,7 @@ export default interface IUser {
   };
   login_failed_times: number;
   created_by?: IAdmin;
-  last_online_at: Date;
+  last_online_at?: Date;
   created_at: Date;
   updated_at: Date;
   deleted_at: Date;
