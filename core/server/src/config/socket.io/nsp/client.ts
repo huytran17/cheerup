@@ -1,13 +1,10 @@
 import { Namespace, Server } from "socket.io";
-import {
-  ClientEvents,
-  SocketEvents,
-  SocketIONsp,
-} from "../../../constants/socket.io";
-import IUserDb from "../../../data-access/interfaces/user-db";
+import { ClientEvents, SocketIONsp } from "../../../constants/socket.io";
 import { verifyClient } from "../middlewares";
 
-interface IUserPayload {
+export type InitialClientNsp = ({ io }: { io: Server }) => Namespace;
+
+export interface IUserPayload {
   user_id: string;
 }
 
@@ -17,46 +14,13 @@ interface ClientToServerEvents {
 
 interface ServerToClientEvents {}
 
-export default function makeInitialClientNsp({ userDb }: { userDb: IUserDb }) {
-  return function initialClientNsp({ io }: { io: Server }) {
-    io.engine.use(verifyClient);
-
-    const online_users = {};
-
+export default function makeInitialClientNsp(): InitialClientNsp {
+  return function initialClientNsp({ io }) {
     const client_nsp: Namespace<ClientToServerEvents, ServerToClientEvents> =
       io.of(SocketIONsp.PRIVATE_CLIENT);
 
-    client_nsp.on(SocketEvents.CONNECT, (socket) => {
-      socket.on(ClientEvents.ONLINE, async ({ user_id }: IUserPayload) => {
-        const user_ids = Array.from(new Set(Object.values(online_users)));
-        if (!user_ids.includes(user_id)) {
-          await userDb.update({
-            _id: user_id,
-            is_online: true,
-          });
-        }
+    client_nsp.use(verifyClient);
 
-        online_users[socket.id] = user_id;
-      });
-
-      socket.on(SocketEvents.DISCONNECT, async () => {
-        const offline_user_id = online_users[socket.id];
-
-        delete online_users[socket.id];
-
-        const user_ids = Array.from(new Set(Object.values(online_users)));
-
-        const is_user_still_online = user_ids.includes(offline_user_id);
-        if (is_user_still_online) {
-          return;
-        }
-
-        await userDb.update({
-          _id: offline_user_id,
-          last_online_at: new Date(),
-          is_online: false,
-        });
-      });
-    });
+    return client_nsp;
   };
 }
