@@ -6,9 +6,11 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import BaseDashboardAnalysis from "@/components/dashboard/BaseDashboardAnalysis";
 import BaseAnalysisToggler from "@/components/dashboard/BaseAnalysisToggler";
+import BaseDashboardAnalysis from "@/components/dashboard/BaseDashboardAnalysis";
+import initialPrivateSocketIO from "@/config/socket.io/private-admin";
+import { mapActions, mapGetters } from "vuex";
+import { SOCKETIO_EMIT_EVENT } from "~/constants";
 
 export default {
   name: "AdminDashboard",
@@ -20,6 +22,7 @@ export default {
   computed: {
     ...mapGetters({
       analysis: "analysis",
+      me: "auth/me",
     }),
   },
 
@@ -44,6 +47,15 @@ export default {
         this.GET_MOST_POPULAR_POSTS_ANALYTICS({ ...this.analysis }),
         this.GET_CATEGORY_ANALYTICS({ ...this.analysis }),
       ]);
+
+      const user_id = this.me?._id;
+
+      if (!user_id) {
+        return;
+      }
+
+      const socket = initialPrivateSocketIO();
+      socket.emit(SOCKETIO_EMIT_EVENT.ONLINE, { user_id });
     } catch (error) {
       console.error(error);
     }

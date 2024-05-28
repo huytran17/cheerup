@@ -19,10 +19,33 @@ const LOGIN_FAILED = {
   MAX: 5,
 };
 
+const SOCKETIO_NSP = {
+  PRIVATE_ADMIN: "private-admin",
+};
+
+enum SOCKETIO_EMIT_EVENT {
+  ONLINE = "online",
+}
+
+enum SOCKET_LISTEN_EVENT {
+  ONLINE = "online",
+  OFFLINE = "offline",
+}
+
 export default Object.freeze({
   ADMIN_TYPES,
   HTTP_STATUS_CODE,
   LOGIN_FAILED,
+  SOCKETIO_NSP,
+  SOCKETIO_EMIT_EVENT,
+  SOCKET_LISTEN_EVENT,
 });
 
-export { ADMIN_TYPES, HTTP_STATUS_CODE, LOGIN_FAILED };
+export {
+  ADMIN_TYPES,
+  HTTP_STATUS_CODE,
+  LOGIN_FAILED,
+  SOCKETIO_NSP,
+  SOCKETIO_EMIT_EVENT,
+  SOCKET_LISTEN_EVENT,
+};
