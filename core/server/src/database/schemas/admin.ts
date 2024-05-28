@@ -18,6 +18,8 @@ const adminSchema = new Schema<IAdmin, Model<IAdmin>>(
     avatar: { type: Object },
     email: { type: String, trim: true, lowercase: true },
     login_failed_times: { type: Number, default: 0 },
+    is_online: { type: Boolean, default: false },
+    last_online_at: { type: Date, default: null },
     deleted_at: { type: Date, default: null },
   },
   {

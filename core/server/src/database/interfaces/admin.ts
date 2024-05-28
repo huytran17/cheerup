@@ -6,10 +6,12 @@ export default interface IAdmin {
   avatar?: Record<string, unknown>;
   email: string;
   login_failed_times: number;
+  is_online?: boolean;
   type: AdminType;
   created_at: Date;
   updated_at: Date;
   deleted_at: Date;
+  last_online_at?: Date;
 }
 
 export enum AdminType {

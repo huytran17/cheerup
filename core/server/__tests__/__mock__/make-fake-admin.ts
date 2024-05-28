@@ -12,8 +12,10 @@ export default function makeFakeAdmin({ faker }: { faker: any }): FakeAdmin {
       email: faker.internet.email(),
       type: AdminType.Owner,
       login_failed_times: 0,
+      is_online: false,
       created_at: faker.date.recent(),
       updated_at: faker.date.recent(),
+      last_online_at: faker.date.recent(),
       deleted_at: null,
     };
   };

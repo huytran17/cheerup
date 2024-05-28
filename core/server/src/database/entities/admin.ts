@@ -8,10 +8,12 @@ export default class Admin implements IAdmin {
   public readonly email: string;
   public readonly type: AdminType;
   public readonly full_name: string;
+  public readonly is_online?: boolean;
   public readonly login_failed_times: number;
   public readonly created_at: Date;
   public readonly updated_at: Date;
   public readonly deleted_at: Date;
+  public readonly last_online_at?: Date;
 
   constructor({
     _id,
@@ -25,6 +27,8 @@ export default class Admin implements IAdmin {
     created_at,
     updated_at,
     deleted_at,
+    is_online,
+    last_online_at,
   }: IAdmin) {
     this._id = _id;
     this.avatar = avatar;
@@ -34,8 +38,10 @@ export default class Admin implements IAdmin {
     this.email = email;
     this.type = type;
     this.login_failed_times = login_failed_times;
+    this.is_online = is_online;
     this.created_at = created_at;
     this.updated_at = updated_at;
     this.deleted_at = deleted_at;
+    this.last_online_at = last_online_at;
   }
 }
