@@ -1,4 +1,5 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction } from "express";
+import { Socket } from "socket.io";
 import { VerifyAccessToken } from "../../accessTokenManager/verify-access-token";
 
 export default function makeVerifyClient({
@@ -6,19 +7,15 @@ export default function makeVerifyClient({
 }: {
   verifyAccessToken: VerifyAccessToken;
 }) {
-  return async function verifyClient(
-    req: Request & { _query: { sid: string | undefined } },
-    res: Response,
-    next: NextFunction
-  ) {
+  return async function verifyClient(socket: Socket, next: NextFunction) {
     try {
-      const isHandshake = req._query.sid === undefined;
-      if (!isHandshake) {
-        return next();
-      }
+      const cookies = socket.handshake?.headers?.cookie?.split(";") || [];
+      const access_token = cookies
+        .filter((cookie) => cookie.includes("access_token"))
+        ?.join()
+        ?.replace("access_token=", "");
 
-      const access_token = req.cookies?.access_token;
-      verifyAccessToken(access_token);
+      verifyAccessToken(access_token.trim());
 
       next();
     } catch (error) {
