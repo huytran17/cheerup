@@ -41,6 +41,8 @@ UI/UX => Vuetify
 
 Optimizer => Gulp, Webpack
 
+Web socket => socket.io
+
 ---
 
 ## Clean Architecture
