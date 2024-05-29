@@ -67,7 +67,6 @@
     "request-ip": "^3.3.0",
     "response-time": "^2.3.2",
     "socket.io": "^4.7.5",
-    "timeago.js": "^4.0.2",
     "ts-node": "^10.8.1",
     "validatorjs": "^3.22.1",
     "winston": "^3.7.2"
