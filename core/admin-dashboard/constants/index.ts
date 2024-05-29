@@ -27,7 +27,7 @@ enum SOCKETIO_EMIT_EVENT {
   ONLINE = "online",
 }
 
-enum SOCKET_LISTEN_EVENT {
+enum SOCKETIO_LISTEN_EVENT {
   ONLINE = "online",
   OFFLINE = "offline",
 }
@@ -38,7 +38,7 @@ export default Object.freeze({
   LOGIN_FAILED,
   SOCKETIO_NSP,
   SOCKETIO_EMIT_EVENT,
-  SOCKET_LISTEN_EVENT,
+  SOCKETIO_LISTEN_EVENT,
 });
 
 export {
@@ -47,5 +47,5 @@ export {
   LOGIN_FAILED,
   SOCKETIO_NSP,
   SOCKETIO_EMIT_EVENT,
-  SOCKET_LISTEN_EVENT,
+  SOCKETIO_LISTEN_EVENT,
 };
