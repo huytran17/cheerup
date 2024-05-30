@@ -1,18 +1,11 @@
 import { io, Socket } from "socket.io-client";
-import {
-  SOCKETIO_LISTEN_EVENT,
-  SOCKETIO_EMIT_EVENT,
-  SOCKETIO_NSP,
-} from "~/constants";
+import { SOCKETIO_EMIT_EVENT, SOCKETIO_NSP } from "~/constants";
 
 interface IUserPayload {
   user_id: string;
 }
 
-interface ServerToClientEvents {
-  [SOCKETIO_LISTEN_EVENT.ONLINE]: ({ user_id }: IUserPayload) => void;
-  [SOCKETIO_LISTEN_EVENT.OFFLINE]: ({ user_id }: IUserPayload) => void;
-}
+interface ServerToClientEvents {}
 
 interface ClientToServerEvents {
   [SOCKETIO_EMIT_EVENT.ONLINE]: ({ user_id }: IUserPayload) => void;
