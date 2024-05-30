@@ -106,16 +106,22 @@
         </v-row>
       </v-col>
     </v-row>
+
+    <Verify2FADialog />
   </v-form>
 </template>
 
 <script>
 import { get } from "lodash";
 import authMixins from "@/mixins/auth";
+import Verify2FADialog from "@/components/2fa/Verify2FADialog";
 
 export default {
   name: "LoginForm",
   mixins: [authMixins],
+  components: {
+    Verify2FADialog,
+  },
   data() {
     return {
       form_valid: false,
@@ -137,9 +143,12 @@ export default {
 
         const is_enabled_2fa = get(user, "is_enabled_2fa", false);
         if (is_enabled_2fa) {
-          return this.$router.push(
-            this.localePath(`/auth/tfa-verification?email=${user.email}`)
-          );
+          this.SET_IS_OPEN_2FA_VERIFY_MODAL({ data: true });
+
+          return this.$router.push({
+            path: this.localePath("/login"),
+            query: { email: user.email, is_enabled_2fa: true },
+          });
         }
 
         await this.GET_ME();

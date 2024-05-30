@@ -20,6 +20,13 @@ const mutations: MutationTree<AuthState> = {
     state.is_open_2fa_modal = data;
   },
 
+  [MutationTypes.SET_IS_OPEN_2FA_VERIFY_MODAL](
+    state,
+    { data }: { data: boolean }
+  ) {
+    state.is_open_2fa_verify_modal = data;
+  },
+
   [MutationTypes.SET_HAS_USER](state, { data }: { data: boolean }) {
     state.has_user = data;
   },

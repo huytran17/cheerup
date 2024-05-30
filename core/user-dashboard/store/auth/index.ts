@@ -3,6 +3,7 @@ export const state = () => ({
   has_user: false,
   is_open_2fa_modal: false,
   is_open_2fa_qr_modal: false,
+  is_open_2fa_verify_modal: false,
   qr_data: {} as any,
   access_token: "",
 });
