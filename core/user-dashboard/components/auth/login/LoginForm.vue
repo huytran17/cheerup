@@ -147,7 +147,7 @@ export default {
 
           return this.$router.push({
             path: this.localePath("/login"),
-            query: { email: user.email, is_enabled_2fa: true },
+            query: { email: user.email },
           });
         }
 
@@ -157,6 +157,12 @@ export default {
         this.$toast.error(this.$t(error));
       }
     },
+  },
+
+  fetch() {
+    const query = this.$route.query;
+
+    query.email && this.SET_IS_OPEN_2FA_VERIFY_MODAL({ data: true });
   },
 };
 </script>
