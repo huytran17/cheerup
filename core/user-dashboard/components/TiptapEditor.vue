@@ -17,6 +17,7 @@
 <script>
 import {
   TiptapVuetify,
+  Heading,
   Bold,
   Italic,
   Strike,
@@ -69,6 +70,14 @@ export default {
         HorizontalRule,
         Paragraph,
         HardBreak,
+        [
+          Heading,
+          {
+            options: {
+              levels: [1, 2, 3, 4, 5, 6],
+            },
+          },
+        ],
       ],
     };
   },

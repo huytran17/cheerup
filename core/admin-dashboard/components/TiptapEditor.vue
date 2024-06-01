@@ -74,6 +74,14 @@ export default {
         Paragraph,
         HardBreak,
         Image,
+        [
+          Heading,
+          {
+            options: {
+              levels: [1, 2, 3, 4, 5, 6],
+            },
+          },
+        ],
       ],
     };
   },
