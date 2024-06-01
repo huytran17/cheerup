@@ -17,7 +17,6 @@
 <script>
 import {
   TiptapVuetify,
-  Heading,
   Bold,
   Italic,
   Strike,
@@ -27,7 +26,6 @@ import {
   BulletList,
   OrderedList,
   ListItem,
-  Link,
   Blockquote,
   HardBreak,
   HorizontalRule,
@@ -60,7 +58,6 @@ export default {
       extensions: [
         History,
         Blockquote,
-        Link,
         Underline,
         Strike,
         Italic,
