@@ -41,7 +41,7 @@
           <template v-slot:item.created_at="{ item }">
             <div class="text-body-2">
               <span class="app-body">{{
-                formatDate(item.created_at, "DD-MM-YYYY HH:mm")
+                formatLocaleDate(item.created_at)
               }}</span>
             </div>
           </template>
@@ -49,7 +49,7 @@
           <template v-slot:item.updated_at="{ item }">
             <div class="text-body-2">
               <span class="app-body">{{
-                formatDate(item.updated_at, "DD-MM-YYYY HH:mm")
+                formatLocaleDate(item.updated_at)
               }}</span>
             </div>
           </template>
@@ -62,9 +62,7 @@
             </div>
             <div v-else-if="item.last_online_at" class="text-body-2">
               <v-chip color="red" text-color="white">
-                <span>{{
-                  formatDate(item.last_online_at, "DD-MM-YYYY HH:mm")
-                }}</span>
+                <span>{{ formatLocaleDate(item.last_online_at) }}</span>
               </v-chip>
             </div>
           </template>

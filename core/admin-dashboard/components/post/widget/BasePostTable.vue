@@ -56,7 +56,7 @@
           <template v-slot:item.created_at="{ item }">
             <div class="text-body-2">
               <span class="app-body">{{
-                formatDate(item.created_at, "DD-MM-YYYY HH:mm")
+                formatLocaleDate(item.created_at)
               }}</span>
             </div>
           </template>
@@ -64,7 +64,7 @@
           <template v-slot:item.updated_at="{ item }">
             <div class="text-body-2">
               <span class="app-body">{{
-                formatDate(item.updated_at, "DD-MM-YYYY HH:mm")
+                formatLocaleDate(item.updated_at)
               }}</span>
             </div>
           </template>
@@ -167,10 +167,8 @@
 </template>
 
 <script>
-import { get } from "lodash";
 import postMixins from "@/mixins/post";
 import systemMixins from "@/mixins/system";
-
 import BaseHardDeleteDialog from "@/components/BaseHardDeleteDialog";
 
 export default {

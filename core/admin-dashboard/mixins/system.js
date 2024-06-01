@@ -27,6 +27,10 @@ export default {
       return this.$moment(date).fromNow();
     },
 
+    formatLocaleDate(date) {
+      this.formatDate(date, "DD-MM-YYYY HH:mm");
+    },
+
     replaceHTMLTag(string) {
       if (!string) {
         return;
