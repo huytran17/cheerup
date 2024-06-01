@@ -15,20 +15,7 @@
         v-if="!!post_pagination.to"
         identifier="posts"
         spinner="spiral"
-        @infinite="
-          ($state) => {
-            getMorePosts({
-              page: post_pagination.current_page + 1,
-              query: post_search_query,
-              categories: categories_filters,
-              tags: tags_filters,
-            }).then((posts) => {
-              !posts || (posts && posts.length === 0)
-                ? $state.complete()
-                : $state.loaded();
-            });
-          }
-        "
+        @infinite="fetchMorePosts"
       >
         <div slot="no-more">{{ $t("No more data") }}</div>
       </infinite-loading>
@@ -42,7 +29,7 @@
 </template>
 
 <script>
-import { get, isEmpty } from "lodash";
+import { get, isEmpty, throttle } from "lodash";
 import { mapGetters } from "vuex";
 import postMixins from "@/mixins/post";
 import BaseArticle from "@/components/article/BaseArticle";
@@ -62,6 +49,26 @@ export default {
 
     has_posts() {
       return !isEmpty(this.posts);
+    },
+  },
+  methods: {
+    fetchMorePosts(state) {
+      const throttled = throttle(
+        (state) =>
+          this.getMorePosts({
+            page: this.post_pagination.current_page + 1,
+            query: this.post_search_query,
+            categories: this.categories_filters,
+            tags: this.tags_filters,
+          }).then((posts) => {
+            !posts || (posts && posts.length === 0)
+              ? state.complete()
+              : state.loaded();
+          }),
+        5000
+      );
+
+      throttled(state);
     },
   },
 };
