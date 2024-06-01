@@ -30,7 +30,6 @@ import {
   Link,
   Blockquote,
   HardBreak,
-  HorizontalRule,
   History,
   Image,
 } from "tiptap-vuetify";
@@ -70,7 +69,6 @@ export default {
         OrderedList,
         Bold,
         Code,
-        HorizontalRule,
         Paragraph,
         HardBreak,
         Image,

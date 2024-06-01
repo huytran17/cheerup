@@ -29,7 +29,6 @@ import {
   ListItem,
   Blockquote,
   HardBreak,
-  HorizontalRule,
   History,
 } from "tiptap-vuetify";
 
@@ -67,7 +66,6 @@ export default {
         OrderedList,
         Bold,
         Code,
-        HorizontalRule,
         Paragraph,
         HardBreak,
         [
