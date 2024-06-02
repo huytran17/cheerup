@@ -1,8 +1,8 @@
 import multer from "multer";
-import os from "os";
+import { tmpdir } from "os";
 
 export default function makeTempUploadFile() {
-  const upload = multer({ dest: os.tmpdir() });
+  const upload = multer({ dest: tmpdir() });
 
   return upload;
 }
