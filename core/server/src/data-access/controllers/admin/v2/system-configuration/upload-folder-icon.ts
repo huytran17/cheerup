@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { get } from "lodash";
-import { IDiskUploadFile } from "../../../../../config/middlewares/disk-upload-file";
+import { IDiskUpload } from "../../../../../config/middlewares/disk-upload-file";
 import { HttpStatusCode } from "../../../../../constants/http-status-code";
 import { GetLatestSystemConfiguration } from "../../../../../use-cases/system-configuration/get-latest-system-configuration";
 import { UpdateSystemConfiguration } from "../../../../../use-cases/system-configuration/update-system-configuraion";
@@ -29,7 +29,7 @@ export default function makeUploadFolderIconController({
         throw new Error(`System configuration by ${exists._id} does not exist`);
       }
 
-      const file = <IDiskUploadFile>get(httpRequest, "context.file", {});
+      const file = <IDiskUpload>get(httpRequest, "context.file", {});
 
       if (isEmpty(file)) {
         throw new Error(`File does not exist`);

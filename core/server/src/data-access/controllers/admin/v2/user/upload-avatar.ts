@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { get } from "lodash";
-import { IDiskUploadFile } from "../../../../../config/middlewares/disk-upload-file";
+import { IDiskUpload } from "../../../../../config/middlewares/disk-upload-file";
 import { HttpStatusCode } from "../../../../../constants/http-status-code";
 import {
   GetUser,
@@ -36,7 +36,7 @@ export default function makeUploadUserAvatarController({
         throw new Error(`User by ${_id} does not exist`);
       }
 
-      const file = <IDiskUploadFile>get(httpRequest, "context.file", {});
+      const file = <IDiskUpload>get(httpRequest, "context.file", {});
 
       if (isEmpty(file)) {
         throw new Error(`File does not exist`);

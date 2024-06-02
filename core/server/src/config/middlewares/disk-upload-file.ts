@@ -4,7 +4,7 @@ import multer, { FileFilterCallback } from "multer";
 import { resolve } from "path";
 import IUser from "../../database/interfaces/user";
 
-export interface IDiskUploadFile {
+export interface IDiskUpload {
   filename: string;
   originalname: string;
   encoding: string;

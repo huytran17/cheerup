@@ -7,7 +7,7 @@ import {
 import { UpdateCategory } from "../../../../../use-cases/category/update-category";
 import { HttpStatusCode } from "../../../../../constants/http-status-code";
 import { isEmpty } from "../../../../../utils/is-empty";
-import { IDiskUploadFile } from "../../../../../config/middlewares/disk-upload-file";
+import { IDiskUpload } from "../../../../../config/middlewares/disk-upload-file";
 import deleteUploadedFile from "../../../../../utils/delete-uploaded-file";
 import getFIleUploadedPath from "../../../../../utils/get-file-uploaded-path";
 
@@ -36,7 +36,7 @@ export default function makeUploadCategoryThumbnailController({
         throw new Error(`Categiry by ${_id} does not exist`);
       }
 
-      const file = <IDiskUploadFile>get(httpRequest, "context.file", {});
+      const file = <IDiskUpload>get(httpRequest, "context.file", {});
 
       if (isEmpty(file)) {
         throw new Error(`File does not exist`);
