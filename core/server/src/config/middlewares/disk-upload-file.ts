@@ -28,7 +28,7 @@ export default function makeDiskUploadFileMiddleware() {
     },
   });
 
-  const fileFilter = (
+  const file_filter = (
     req: Request,
     file: Express.Multer.File,
     cb: FileFilterCallback
@@ -48,10 +48,10 @@ export default function makeDiskUploadFileMiddleware() {
 
   const upload = multer({
     storage,
+    fileFilter: file_filter,
     limits: {
       fileSize: 1e6,
     },
-    fileFilter,
   });
 
   return upload;
