@@ -30,5 +30,5 @@ export default function makeTempUploadFile() {
   return upload;
 }
 
-const temp_load = makeTempUploadFile();
-export { temp_load };
+const temp_upload = makeTempUploadFile();
+export { temp_upload };
