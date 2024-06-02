@@ -7,13 +7,13 @@ export interface IXlsxToJSON {
 
 export type XlsxToJSON = ({ source, options }: IXlsxToJSON) => object;
 
-export default function makeConvertXlsxToJSON({
-  xlsxToJson,
+export default function makeXlsxToJSON({
+  convertXlsxToJson,
 }: {
-  xlsxToJson: typeof ConvertXlsxToJson;
+  convertXlsxToJson: typeof ConvertXlsxToJson;
 }): XlsxToJSON {
-  return function convertXlsxToJSON({ source, options = {} }) {
-    const converted = xlsxToJson({
+  return function xlsxToJSON({ source, options = {} }) {
+    const converted = convertXlsxToJson({
       sourceFile: source,
       header: {
         rows: 1,
