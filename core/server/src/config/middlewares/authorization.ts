@@ -1,7 +1,7 @@
-import { Request, Response, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 import { get } from "lodash";
-import IAdmin from "../../database/interfaces/admin";
 import { HttpStatusCode } from "../../constants/http-status-code";
+import IAdmin from "../../database/interfaces/admin";
 
 export default function makeAuthorizationMiddleware(roles: string[]) {
   return function authorizationMiddleware(

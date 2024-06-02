@@ -1,8 +1,8 @@
+import { Request } from "express";
+import { existsSync, mkdirSync } from "fs";
 import multer, { FileFilterCallback } from "multer";
 import { resolve } from "path";
-import { existsSync, mkdirSync } from "fs";
 import IUser from "../../database/interfaces/user";
-import { Request } from "express";
 
 export interface IDiskUploadFile {
   filename: string;
