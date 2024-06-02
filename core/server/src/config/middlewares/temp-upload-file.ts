@@ -30,5 +30,5 @@ export default function makeTempUploadFile() {
   return upload;
 }
 
-const temp_upload = makeTempUploadFile();
+const temp_upload = makeTempUploadFile().single("file");
 export { temp_upload };
