@@ -18,6 +18,9 @@ export default function makeXlsxToJSON({
       header: {
         rows: 1,
       },
+      columnToKey: {
+        "*": "{{columnHeader}}",
+      },
       ...options,
     });
 
