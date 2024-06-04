@@ -19,7 +19,7 @@ const twoFactorAuthenticationSchema = new Schema<
       trim: true,
       required: true,
     },
-    expire_at: { type: Date, default: Date.now },
+    expire_at: { type: Date, default: Date.now() },
   },
   {
     toJSON: {
