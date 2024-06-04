@@ -30,7 +30,7 @@ const compileTS = () => {
   const ts_project = gulpTS.createProject("tsconfig.json");
 
   return gulp
-    .src(["./src/**/*", "!./src/**/*.html"])
+    .src(["./src/**/*", "!./src/**/*.html", "!./src/upload/**/*"])
     .pipe(ts_project())
     .on("error", () =>
       console.error("Despite TsProject errors found, proceeding with gulp")
