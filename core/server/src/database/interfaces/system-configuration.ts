@@ -20,7 +20,15 @@ export default interface ISystemConfiguration {
     uploaded_by: IAdmin;
     mimetype: string;
     size: number;
+    type: ExcelTemplateType;
   }[];
   created_at: Date;
   updated_at: Date;
+}
+
+export enum ExcelTemplateType {
+  ADMIN = "admin",
+  USER = "user",
+  POST = "post",
+  CATEGORY = "category",
 }

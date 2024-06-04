@@ -1,7 +1,9 @@
 import mongoose, { Model } from "mongoose";
 import { get } from "lodash";
 import mongoose_lean_virtuals from "mongoose-lean-virtuals";
-import ISystemConfiguration from "../interfaces/system-configuration";
+import ISystemConfiguration, {
+  ExcelTemplateType,
+} from "../interfaces/system-configuration";
 
 const Schema = mongoose.Schema;
 
@@ -26,6 +28,7 @@ const systemConfigurationSchema = new Schema<
         uploaded_by: { type: Schema.Types.ObjectId, ref: "Admin" },
         mimetype: { type: String, default: "" },
         size: { type: Number, default: 0 },
+        type: { type: String, enum: ExcelTemplateType, default: "" },
       },
     ],
   },

@@ -1,5 +1,7 @@
 import IAdmin from "../interfaces/admin";
-import ISystemConfiguration from "../interfaces/system-configuration";
+import ISystemConfiguration, {
+  ExcelTemplateType,
+} from "../interfaces/system-configuration";
 
 export default class SystemConfiguration implements ISystemConfiguration {
   public readonly _id: string;
@@ -21,6 +23,7 @@ export default class SystemConfiguration implements ISystemConfiguration {
     uploaded_by: IAdmin;
     mimetype: string;
     size: number;
+    type: ExcelTemplateType;
   }[];
   public readonly created_at: Date;
   public readonly updated_at: Date;
