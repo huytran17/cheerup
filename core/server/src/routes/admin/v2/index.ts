@@ -11,7 +11,7 @@ import userRouter from "./user";
 
 const adminV2Router = express.Router();
 
-const disk_upload = diskUpload({ mimetypes: MimeTypes.image }).single("file");
+const disk_upload = diskUpload({ mimetypes: MimeTypes.IMAGE }).single("file");
 
 adminV2Router.use("/admin", authenticateAdminJWT(), disk_upload, adminRouter);
 adminV2Router.use("/post", authenticateAdminJWT(), disk_upload, postRouter);

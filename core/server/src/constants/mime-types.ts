@@ -1,5 +1,5 @@
 const MimeTypes = {
-  image: [
+  IMAGE: [
     "image/apng",
     "image/avif",
     "image/bmp",
@@ -11,7 +11,7 @@ const MimeTypes = {
     "image/tiff",
     "image/webp",
   ],
-  excel: [
+  EXCEL: [
     "application/vnd.ms-excel",
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
   ],
