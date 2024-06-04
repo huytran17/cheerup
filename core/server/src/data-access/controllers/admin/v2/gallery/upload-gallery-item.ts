@@ -30,7 +30,7 @@ export default function makeUploadGalleryItemController({
       const { _id } = <IGetGalleryPayload>(
         get(httpRequest, "context.validated", {})
       );
-      const file = <IFileInfo>get(httpRequest, "context.file", {});
+      const file = <IFileMeta>get(httpRequest, "context.file", {});
 
       if (isEmpty(file)) {
         throw new Error(`File does not exist`);

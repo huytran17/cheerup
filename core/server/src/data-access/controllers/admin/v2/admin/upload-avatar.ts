@@ -35,7 +35,7 @@ export default function makeUploadAdminAvatarController({
         throw new Error(`Admin by ${_id} does not exist`);
       }
 
-      const file = <IFileInfo>get(httpRequest, "context.file", {});
+      const file = <IFileMeta>get(httpRequest, "context.file", {});
 
       if (isEmpty(file)) {
         throw new Error(`File does not exist`);

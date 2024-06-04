@@ -1,7 +1,7 @@
 export {};
 
 declare global {
-  interface IFileInfo {
+  interface IFileMeta {
     filename: string;
     originalname: string;
     encoding: string;

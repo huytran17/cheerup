@@ -28,7 +28,7 @@ export default function makeUploadFolderIconController({
         throw new Error(`System configuration by ${exists._id} does not exist`);
       }
 
-      const file = <IFileInfo>get(httpRequest, "context.file", {});
+      const file = <IFileMeta>get(httpRequest, "context.file", {});
 
       if (isEmpty(file)) {
         throw new Error(`File does not exist`);
