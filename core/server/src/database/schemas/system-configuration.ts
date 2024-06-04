@@ -18,14 +18,16 @@ const systemConfigurationSchema = new Schema<
       description: { type: String, default: "" },
       avatar: { type: Object },
     },
-    excel_template: {
-      name: { type: String, default: "" },
-      path: { type: String, default: "" },
-      uploaded_at: { type: Date, default: Date.now() },
-      uploaded_by: { type: Schema.Types.ObjectId, ref: "Admin" },
-      mimetype: { type: String, default: "" },
-      size: { type: Number, default: 0 },
-    },
+    excel_template: [
+      {
+        name: { type: String, default: "" },
+        path: { type: String, default: "" },
+        uploaded_at: { type: Date, default: Date.now() },
+        uploaded_by: { type: Schema.Types.ObjectId, ref: "Admin" },
+        mimetype: { type: String, default: "" },
+        size: { type: Number, default: 0 },
+      },
+    ],
   },
   {
     toJSON: { virtuals: true },
