@@ -1,11 +1,10 @@
 import express from "express";
-import makeValidator from "../../../config/middlewares/validator";
 import makeExpressCallback from "../../../config/express-callback";
 import makeAuthorization from "../../../config/middlewares/authorization";
+import makeValidator from "../../../config/middlewares/validator";
 import { AuthorizationRole } from "../../../constants/authorization-role";
-
-import { uploadCategoryThumbnailRules } from "../../../data-access/controllers/admin/v2/category/validators";
 import { uploadCategoryThumbnailController } from "../../../data-access/controllers/admin/v2/category";
+import { uploadCategoryThumbnailRules } from "../../../data-access/controllers/admin/v2/category/validators";
 
 const categoryRouter = express.Router();
 

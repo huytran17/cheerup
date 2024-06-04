@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { concat, get } from "lodash";
 import { Logger } from "winston";
-import { IDiskUpload } from "../../../../../config/middlewares/disk-upload-file";
+import { IDiskUpload } from "../../../../../config/multer/make-disk-upload";
 import { HttpStatusCode } from "../../../../../constants/http-status-code";
 import {
   GetGallery,

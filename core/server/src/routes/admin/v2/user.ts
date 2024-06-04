@@ -1,11 +1,10 @@
 import express from "express";
-import makeValidator from "../../../config/middlewares/validator";
 import makeExpressCallback from "../../../config/express-callback";
 import makeAuthorization from "../../../config/middlewares/authorization";
+import makeValidator from "../../../config/middlewares/validator";
 import { AuthorizationRole } from "../../../constants/authorization-role";
-
-import { uploadUserAvatarRules } from "../../../data-access/controllers/admin/v2/user/validators";
 import { uploadUserAvatarController } from "../../../data-access/controllers/admin/v2/user";
+import { uploadUserAvatarRules } from "../../../data-access/controllers/admin/v2/user/validators";
 
 const userRouter = express.Router();
 

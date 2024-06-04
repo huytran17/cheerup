@@ -1,15 +1,15 @@
 import { Request } from "express";
 import { get } from "lodash";
+import { IDiskUpload } from "../../../../../config/multer/make-disk-upload";
+import { HttpStatusCode } from "../../../../../constants/http-status-code";
 import {
   GetCategory,
   IGetCategoryPayload,
 } from "../../../../../use-cases/category/get-category";
 import { UpdateCategory } from "../../../../../use-cases/category/update-category";
-import { HttpStatusCode } from "../../../../../constants/http-status-code";
-import { isEmpty } from "../../../../../utils/is-empty";
-import { IDiskUpload } from "../../../../../config/middlewares/disk-upload-file";
 import deleteUploadedFile from "../../../../../utils/delete-uploaded-file";
 import getFIleUploadedPath from "../../../../../utils/get-file-uploaded-path";
+import { isEmpty } from "../../../../../utils/is-empty";
 
 export default function makeUploadCategoryThumbnailController({
   getCategory,

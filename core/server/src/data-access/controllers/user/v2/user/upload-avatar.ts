@@ -1,16 +1,16 @@
 import { Request } from "express";
 import { get } from "lodash";
+import { IDiskUpload } from "../../../../../config/multer/make-disk-upload";
+import { HttpStatusCode } from "../../../../../constants/http-status-code";
+import IUser from "../../../../../database/interfaces/user";
 import {
   GetUser,
   IGetUserPayload,
 } from "../../../../../use-cases/user/get-user";
 import { UpdateUser } from "../../../../../use-cases/user/update-user";
-import { HttpStatusCode } from "../../../../../constants/http-status-code";
-import { isEmpty } from "../../../../../utils/is-empty";
-import getFIleUploadedPath from "../../../../../utils/get-file-uploaded-path";
-import { IDiskUpload } from "../../../../../config/middlewares/disk-upload-file";
 import deleteUploadedFile from "../../../../../utils/delete-uploaded-file";
-import IUser from "../../../../../database/interfaces/user";
+import getFIleUploadedPath from "../../../../../utils/get-file-uploaded-path";
+import { isEmpty } from "../../../../../utils/is-empty";
 
 export default function makeUploadUserAvatarController({
   getUser,

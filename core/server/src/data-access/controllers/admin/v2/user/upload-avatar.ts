@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { get } from "lodash";
-import { IDiskUpload } from "../../../../../config/middlewares/disk-upload-file";
+import { IDiskUpload } from "../../../../../config/multer/make-disk-upload";
 import { HttpStatusCode } from "../../../../../constants/http-status-code";
 import {
   GetUser,

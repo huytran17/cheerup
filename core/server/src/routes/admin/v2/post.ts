@@ -1,9 +1,8 @@
 import express from "express";
-import makeValidator from "../../../config/middlewares/validator";
 import makeExpressCallback from "../../../config/express-callback";
-
-import { uploadPostThumbnailRules } from "../../../data-access/controllers/admin/v2/post/validators";
+import makeValidator from "../../../config/middlewares/validator";
 import { uploadPostThumbnailController } from "../../../data-access/controllers/admin/v2/post";
+import { uploadPostThumbnailRules } from "../../../data-access/controllers/admin/v2/post/validators";
 
 const postRouter = express.Router();
 

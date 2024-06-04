@@ -1,15 +1,14 @@
 import express from "express";
-import makeValidator from "../../../config/middlewares/validator";
 import makeExpressCallback from "../../../config/express-callback";
-
+import makeValidator from "../../../config/middlewares/validator";
 import {
-  uploadGalleryItemRules,
-  deleteGalleryItemRules,
-} from "../../../data-access/controllers/admin/v2/gallery/validators";
-import {
-  uploadGalleryItemController,
   deleteGalleryItemController,
+  uploadGalleryItemController,
 } from "../../../data-access/controllers/admin/v2/gallery";
+import {
+  deleteGalleryItemRules,
+  uploadGalleryItemRules,
+} from "../../../data-access/controllers/admin/v2/gallery/validators";
 
 const galleryRouter = express.Router();
 
