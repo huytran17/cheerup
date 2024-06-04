@@ -1,7 +1,6 @@
 import { Request } from "express";
 import { concat, get } from "lodash";
 import { Logger } from "winston";
-import { IDiskUpload } from "../../../../../config/multer/make-disk-upload";
 import { HttpStatusCode } from "../../../../../constants/http-status-code";
 import {
   GetGallery,
@@ -31,7 +30,7 @@ export default function makeUploadGalleryItemController({
       const { _id } = <IGetGalleryPayload>(
         get(httpRequest, "context.validated", {})
       );
-      const file = <IDiskUpload>get(httpRequest, "context.file", {});
+      const file = <IFileInfo>get(httpRequest, "context.file", {});
 
       if (isEmpty(file)) {
         throw new Error(`File does not exist`);

@@ -1,6 +1,5 @@
 import { Request } from "express";
 import { get } from "lodash";
-import { IDiskUpload } from "../../../../../config/multer/make-disk-upload";
 import { HttpStatusCode } from "../../../../../constants/http-status-code";
 import {
   GetUser,
@@ -36,7 +35,7 @@ export default function makeUploadUserAvatarController({
         throw new Error(`User by ${_id} does not exist`);
       }
 
-      const file = <IDiskUpload>get(httpRequest, "context.file", {});
+      const file = <IFileInfo>get(httpRequest, "context.file", {});
 
       if (isEmpty(file)) {
         throw new Error(`File does not exist`);

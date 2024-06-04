@@ -4,16 +4,6 @@ import Multer, { FileFilterCallback } from "multer";
 import { resolve } from "path";
 import IUser from "../../database/interfaces/user";
 
-export interface IDiskUpload {
-  filename: string;
-  originalname: string;
-  encoding: string;
-  mimetype: string;
-  destination: string;
-  path: string;
-  size: number;
-}
-
 export interface IOptions {
   path?: string;
   name?: string;
