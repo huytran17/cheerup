@@ -1,3 +1,4 @@
+import IAdmin from "../interfaces/admin";
 import ISystemConfiguration from "../interfaces/system-configuration";
 
 export default class SystemConfiguration implements ISystemConfiguration {
@@ -13,6 +14,14 @@ export default class SystemConfiguration implements ISystemConfiguration {
     description: string;
     avatar: Record<string, unknown>;
   };
+  public readonly excel_template?: {
+    name: string;
+    path: string;
+    uploaded_at: Date;
+    uploaded_by: IAdmin;
+    mimetype: string;
+    size: number;
+  }[];
   public readonly created_at: Date;
   public readonly updated_at: Date;
 
@@ -25,6 +34,7 @@ export default class SystemConfiguration implements ISystemConfiguration {
     thumbnail,
     folder_icon,
     folder_icon_url,
+    excel_template,
     created_at,
     updated_at,
   }: ISystemConfiguration) {
@@ -36,6 +46,7 @@ export default class SystemConfiguration implements ISystemConfiguration {
     this.owner_avatar_url = owner_avatar_url;
     this.folder_icon = folder_icon;
     this.folder_icon_url = folder_icon_url;
+    this.excel_template = excel_template;
     this.created_at = created_at;
     this.updated_at = updated_at;
   }
