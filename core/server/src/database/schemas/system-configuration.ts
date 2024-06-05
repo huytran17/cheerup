@@ -24,6 +24,7 @@ const systemConfigurationSchema = new Schema<
       {
         name: { type: String, default: "" },
         path: { type: String, default: "" },
+        destination: { type: String, default: "" },
         uploaded_at: { type: Date, default: Date.now() },
         uploaded_by: { type: Schema.Types.ObjectId, ref: "Admin" },
         mimetype: { type: String, default: "" },

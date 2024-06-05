@@ -19,6 +19,7 @@ export default class SystemConfiguration implements ISystemConfiguration {
   public readonly excel_template?: {
     name: string;
     path: string;
+    destination: string;
     uploaded_at: Date;
     uploaded_by: IAdmin;
     mimetype: string;
