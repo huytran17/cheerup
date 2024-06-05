@@ -1,19 +1,20 @@
 export default {
   methods: {
     uploadUserAvatarOptions({ id }) {
-      const upload_url = `${process.env.SERVER_URL}/api/v2/user/upload-avatar/${id}`;
-      return this.getDropzoneOptions({ upload_url });
+      const endpoint = `${process.env.SERVER_URL}/api/v2/user/upload-avatar/${id}`;
+      return this.getDropzoneOptions({ endpoint });
     },
 
-    getDropzoneOptions({ upload_url }) {
+    getDropzoneOptions({ endpoint, options = {} }) {
       return {
-        url: `${upload_url}`,
+        url: `${endpoint}`,
         thumbnailWidth: 200,
         maxFilesize: 5,
         addRemoveLinks: true,
         maxFiles: 1,
         withCredentials: true,
         acceptedFiles: ["image/*"],
+        ...options,
       };
     },
   },
