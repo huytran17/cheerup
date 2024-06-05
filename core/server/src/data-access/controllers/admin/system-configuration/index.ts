@@ -1,29 +1,28 @@
+import { logger } from "../../../../config/logs/logger";
 import {
+  getLatestSystemConfiguration,
   getSystemConfiguration,
   updateSystemConfiguration,
-  getLatestSystemConfiguration,
 } from "../../../../use-cases/system-configuration";
-import { logger } from "../../../../config/logs/logger";
-
+import makeGetLatestSystemConfigurationController from "./get-latest-system-configuration";
 import makeGetSystemConfigurationController from "./get-system-configuration";
 import makeUpdateSystemConfigurationController from "./update-system-configuration";
-import makeGetLatestSystemConfigurationController from "./get-latest-system-configuration";
-import makeUploadOwnerAvatarController from "./upload-owner-avatar";
 import makeUploadFolderIconController from "./upload-folder-icon";
+import makeUploadOwnerAvatarController from "./upload-owner-avatar";
 import makeUploadThumbnaiilController from "./upload-thumbnail";
 
 const uploadThumbnaiilController = makeUploadThumbnaiilController({
-  getLatestSystemConfiguration,
+  getSystemConfiguration,
   updateSystemConfiguration,
 });
 
 const uploadFolderIconController = makeUploadFolderIconController({
-  getLatestSystemConfiguration,
+  getSystemConfiguration,
   updateSystemConfiguration,
 });
 
 const uploadClientAvatarController = makeUploadOwnerAvatarController({
-  getLatestSystemConfiguration,
+  getSystemConfiguration,
   updateSystemConfiguration,
 });
 
@@ -53,9 +52,9 @@ export default Object.freeze({
 });
 
 export {
+  getLatestSystemConfigurationController,
   getSystemConfigurationController,
   updateSystemConfigurationController,
-  getLatestSystemConfigurationController,
   uploadClientAvatarController,
   uploadFolderIconController,
   uploadThumbnaiilController,

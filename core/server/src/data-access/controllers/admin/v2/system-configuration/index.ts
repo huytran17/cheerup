@@ -1,26 +1,23 @@
 import {
   getSystemConfiguration,
   updateSystemConfiguration,
-  getLatestSystemConfiguration,
 } from "../../../../../use-cases/system-configuration";
-import { logger } from "../../../../../config/logs/logger";
-
-import makeUploadOwnerAvatarController from "./upload-owner-avatar";
 import makeUploadFolderIconController from "./upload-folder-icon";
+import makeUploadOwnerAvatarController from "./upload-owner-avatar";
 import makeUploadThumbnaiilController from "./upload-thumbnail";
 
 const uploadThumbnaiilController = makeUploadThumbnaiilController({
-  getLatestSystemConfiguration,
+  getSystemConfiguration,
   updateSystemConfiguration,
 });
 
 const uploadFolderIconController = makeUploadFolderIconController({
-  getLatestSystemConfiguration,
+  getSystemConfiguration,
   updateSystemConfiguration,
 });
 
 const uploadClientAvatarController = makeUploadOwnerAvatarController({
-  getLatestSystemConfiguration,
+  getSystemConfiguration,
   updateSystemConfiguration,
 });
 
