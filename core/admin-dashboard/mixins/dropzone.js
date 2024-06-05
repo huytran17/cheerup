@@ -48,6 +48,7 @@ export default {
         addRemoveLinks: true,
         maxFiles: 1,
         withCredentials: true,
+        acceptedFiles: ["image/*"],
       };
     },
   },
