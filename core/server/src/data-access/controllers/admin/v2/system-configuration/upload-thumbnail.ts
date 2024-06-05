@@ -1,17 +1,20 @@
 import { Request } from "express";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../../constants/http-status-code";
-import { GetLatestSystemConfiguration } from "../../../../../use-cases/system-configuration/get-latest-system-configuration";
+import {
+  GetSystemConfiguration,
+  IGetSystemConfigurationPayload,
+} from "../../../../../use-cases/system-configuration/get-system-configuraion";
 import { UpdateSystemConfiguration } from "../../../../../use-cases/system-configuration/update-system-configuraion";
 import deleteUploadedFile from "../../../../../utils/delete-uploaded-file";
 import getFIleUploadedPath from "../../../../../utils/get-file-uploaded-path";
 import { isEmpty } from "../../../../../utils/is-empty";
 
 export default function makeUploadThumbnaiilController({
-  getLatestSystemConfiguration,
+  getSystemConfiguration,
   updateSystemConfiguration,
 }: {
-  getLatestSystemConfiguration: GetLatestSystemConfiguration;
+  getSystemConfiguration: GetSystemConfiguration;
   updateSystemConfiguration: UpdateSystemConfiguration;
 }) {
   return async function uploadThumbnaiilController(
@@ -22,7 +25,11 @@ export default function makeUploadThumbnaiilController({
     };
 
     try {
-      const exists = await getLatestSystemConfiguration();
+      const { _id } = <IGetSystemConfigurationPayload>(
+        get(httpRequest, "context.validated", {})
+      );
+
+      const exists = await getSystemConfiguration({ _id });
 
       if (isEmpty(exists)) {
         throw new Error(`System configuration by ${exists._id} does not exist`);

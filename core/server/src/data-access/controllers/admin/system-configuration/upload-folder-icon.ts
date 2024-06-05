@@ -1,16 +1,19 @@
 import { Request } from "express";
 import { get } from "lodash";
-import { GetLatestSystemConfiguration } from "../../../../use-cases/system-configuration/get-latest-system-configuration";
-import { UpdateSystemConfiguration } from "../../../../use-cases/system-configuration/update-system-configuraion";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { isEmpty } from "../../../../utils/is-empty";
+import {
+  GetSystemConfiguration,
+  IGetSystemConfigurationPayload,
+} from "../../../../use-cases/system-configuration/get-system-configuraion";
+import { UpdateSystemConfiguration } from "../../../../use-cases/system-configuration/update-system-configuraion";
 import deleteS3Object from "../../../../utils/delete-s3-object";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeUploadFolderIconController({
-  getLatestSystemConfiguration,
+  getSystemConfiguration,
   updateSystemConfiguration,
 }: {
-  getLatestSystemConfiguration: GetLatestSystemConfiguration;
+  getSystemConfiguration: GetSystemConfiguration;
   updateSystemConfiguration: UpdateSystemConfiguration;
 }) {
   return async function uploadFolderIconController(
@@ -21,7 +24,11 @@ export default function makeUploadFolderIconController({
     };
 
     try {
-      const exists = await getLatestSystemConfiguration();
+      const { _id } = <IGetSystemConfigurationPayload>(
+        get(httpRequest, "context.validated", {})
+      );
+
+      const exists = await getSystemConfiguration({ _id });
 
       if (isEmpty(exists)) {
         throw new Error(`System configuration by ${exists._id} does not exist`);
