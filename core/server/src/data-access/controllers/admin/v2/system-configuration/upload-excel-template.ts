@@ -45,9 +45,8 @@ export default function makeUploadExcelTemplateController({
       const user = <IAdmin>get(httpRequest, "context.user");
 
       const excel_template = get(exists, "excel_template", []);
-      const template = excel_template.find(
-        (template) => template.type === type
-      );
+      const template =
+        excel_template.find((template) => template.type === type) || {};
 
       deleteUploadedFile(template.path);
 
@@ -60,9 +59,23 @@ export default function makeUploadExcelTemplateController({
       template.size = file.size;
       template.type = type;
 
+      const has_template = excel_template.some(
+        (template) => template.type === type
+      );
+
+      if (!has_template) {
+        excel_template.push(template);
+      }
+
+      let final_excel_template = excel_template;
+
+      if (!excel_template.length) {
+        final_excel_template = [template];
+      }
+
       const updated_system_configuration = await updateSystemConfiguration({
         ...exists,
-        excel_template,
+        excel_template: final_excel_template,
       });
 
       return {
