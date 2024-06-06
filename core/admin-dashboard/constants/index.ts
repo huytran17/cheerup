@@ -27,12 +27,20 @@ enum SOCKETIO_EMIT_EVENT {
   ONLINE = "online",
 }
 
+const EXCEL_TEMPLATE_TYPE = {
+  ADMIN: "admin",
+  USER: "user",
+  POST: "post",
+  CATEGORY: "category",
+};
+
 export default Object.freeze({
   ADMIN_TYPES,
   HTTP_STATUS_CODE,
   LOGIN_FAILED,
   SOCKETIO_NSP,
   SOCKETIO_EMIT_EVENT,
+  EXCEL_TEMPLATE_TYPE,
 });
 
 export {
@@ -41,4 +49,5 @@ export {
   LOGIN_FAILED,
   SOCKETIO_NSP,
   SOCKETIO_EMIT_EVENT,
+  EXCEL_TEMPLATE_TYPE,
 };

@@ -46,6 +46,16 @@ export default {
       });
     },
 
+    uploadExcelTemplateOptions({ id, type }) {
+      return this.getDropzoneOptions({
+        endpoint: `system-configuration-template/upload-excel-template/${type}/${id}`,
+        options: {
+          acceptedFiles:
+            "application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        },
+      });
+    },
+
     getDropzoneOptions({ endpoint, options = {} }) {
       return {
         url: `${process.env.SERVER_URL}/admin/v2/${endpoint}`,
