@@ -56,6 +56,37 @@ systemConfigurationSchema.virtual("folder_icon_url").get(function () {
   return get(this, "folder_icon.path");
 });
 
+systemConfigurationSchema.virtual("admin_excel_template_url").get(function () {
+  return findExcelTemplate({ doc: this, type: ExcelTemplateType.ADMIN });
+});
+
+systemConfigurationSchema.virtual("post_excel_template_url").get(function () {
+  return findExcelTemplate({ doc: this, type: ExcelTemplateType.POST });
+});
+
+systemConfigurationSchema.virtual("user_excel_template_url").get(function () {
+  return findExcelTemplate({ doc: this, type: ExcelTemplateType.USER });
+});
+
+systemConfigurationSchema
+  .virtual("category_excel_template_url")
+  .get(function () {
+    return findExcelTemplate({ doc: this, type: ExcelTemplateType.CATEGORY });
+  });
+
 systemConfigurationSchema.plugin(mongoose_lean_virtuals);
 
 export default systemConfigurationSchema;
+
+function findExcelTemplate({
+  doc,
+  type,
+}: {
+  doc: mongoose.Document;
+  type: string;
+}) {
+  const excel_template = get(doc, "excel_template", []);
+  const template = excel_template.find((template) => template.type === type);
+
+  return template?.path;
+}

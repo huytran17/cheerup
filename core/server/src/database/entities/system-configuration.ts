@@ -11,6 +11,10 @@ export default class SystemConfiguration implements ISystemConfiguration {
   public readonly thumbnail_url?: string;
   public readonly folder_icon?: Record<string, unknown>;
   public readonly folder_icon_url?: string;
+  public readonly admin_excel_template_url?: string;
+  public readonly post_excel_template_url?: string;
+  public readonly user_excel_template_url?: string;
+  public readonly category_excel_template_url?: string;
   public readonly owner?: {
     name: string;
     description: string;
@@ -39,6 +43,10 @@ export default class SystemConfiguration implements ISystemConfiguration {
     folder_icon,
     folder_icon_url,
     excel_template,
+    admin_excel_template_url,
+    post_excel_template_url,
+    user_excel_template_url,
+    category_excel_template_url,
     created_at,
     updated_at,
   }: ISystemConfiguration) {
@@ -51,6 +59,10 @@ export default class SystemConfiguration implements ISystemConfiguration {
     this.folder_icon = folder_icon;
     this.folder_icon_url = folder_icon_url;
     this.excel_template = excel_template;
+    this.admin_excel_template_url = admin_excel_template_url;
+    this.post_excel_template_url = post_excel_template_url;
+    this.user_excel_template_url = user_excel_template_url;
+    this.category_excel_template_url = category_excel_template_url;
     this.created_at = created_at;
     this.updated_at = updated_at;
   }
