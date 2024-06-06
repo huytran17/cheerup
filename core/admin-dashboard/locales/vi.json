@@ -258,5 +258,10 @@
   "Encountered error while resetting the number of failed login attempts": "Đã gặp lỗi khi đặt lại số lần đăng nhập thất bại",
   "owner": "chủ sở hữu",
   "collaborator": "cộng tác viên",
-  "editor": "biên tập viên"
+  "editor": "biên tập viên",
+  "Admin excel template": "Mẫu dữ liệu quản trị viên",
+  "User excel template": "Mẫu dữ liệu người dùng",
+  "Post excel template": "Mẫu dữ liệu bài viết",
+  "Category excel template": "Mẫu dữ liệu chuyên mục",
+  "Online": "Trực tuyến"
 }
