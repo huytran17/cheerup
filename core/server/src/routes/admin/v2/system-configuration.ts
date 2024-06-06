@@ -37,11 +37,4 @@ systemConfigurationRouter.post(
   makeExpressCallback(uploadThumbnaiilController)
 );
 
-systemConfigurationRouter.post(
-  "/upload-excel-template/:type/:_id",
-  makeAuthorization(AuthorizationRole.ONLY_OWNER),
-  makeValidator(uploadThumbnailRules),
-  makeExpressCallback(uploadThumbnaiilController)
-);
-
 export default systemConfigurationRouter;
