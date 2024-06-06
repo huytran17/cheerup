@@ -258,5 +258,10 @@
   "Encountered error while resetting the number of failed login attempts": "Encountered error while reseting the number of failed login attempts",
   "owner": "owner",
   "collaborator": "collaborator",
-  "editor": "editor"
+  "editor": "editor",
+  "Admin excel template": "Admin excel template",
+  "User excel template": "User excel template",
+  "Post excel template": "Post excel template",
+  "Category excel template": "Category excel template",
+  "Online": "Online"
 }
