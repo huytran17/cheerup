@@ -28,7 +28,7 @@ export default {
     },
 
     formatLocaleDate(date) {
-      this.formatDate(date, "DD-MM-YYYY HH:mm");
+      return this.formatDate(date, "DD-MM-YYYY HH:mm");
     },
 
     replaceHTMLTag(string) {
