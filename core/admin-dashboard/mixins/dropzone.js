@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { MIME_TYPES } from "@/constants";
 
 export default {
   methods: {
@@ -48,10 +48,9 @@ export default {
 
     uploadExcelTemplateOptions({ id, type }) {
       return this.getDropzoneOptions({
-        endpoint: `system-configuration-template/upload-excel-template/${type}/${id}`,
+        endpoint: `upload-excel/system-configuration/${type}/${id}`,
         options: {
-          acceptedFiles:
-            "application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          acceptedFiles: MIME_TYPES.EXCEL,
         },
       });
     },

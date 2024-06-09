@@ -34,6 +34,11 @@ const EXCEL_TEMPLATE_TYPE = {
   CATEGORY: "category",
 };
 
+const MIME_TYPES = {
+  EXCEL:
+    "application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+};
+
 export default Object.freeze({
   ADMIN_TYPES,
   HTTP_STATUS_CODE,
@@ -41,6 +46,7 @@ export default Object.freeze({
   SOCKETIO_NSP,
   SOCKETIO_EMIT_EVENT,
   EXCEL_TEMPLATE_TYPE,
+  MIME_TYPES,
 });
 
 export {
@@ -50,4 +56,5 @@ export {
   SOCKETIO_NSP,
   SOCKETIO_EMIT_EVENT,
   EXCEL_TEMPLATE_TYPE,
+  MIME_TYPES,
 };
