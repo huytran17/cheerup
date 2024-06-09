@@ -123,6 +123,19 @@ const actions: ActionTree<AdminState, RootState> = {
 
     return admin;
   },
+
+  async [ActionTypes.BATCH_UPLOAD_ADMIN]({ commit }, params = {}) {
+    const file = get(params, "file");
+    const form_data = new FormData();
+    form_data.append("file", file);
+
+    const data = await this.$axios.post(
+      `/v2/batch/admin/upload-admins`,
+      form_data
+    );
+
+    return data;
+  },
 };
 
 export default actions;
