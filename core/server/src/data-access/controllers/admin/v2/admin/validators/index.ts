@@ -1,4 +1,4 @@
-import uploadAvatarRules from "./upload-admin";
+import uploadAvatarRules from "./upload-avatar";
 
 export default Object.freeze({
   uploadAvatarRules,
