@@ -1,5 +1,11 @@
-import { getAdmin, updateAdmin } from "../../../../../use-cases/admin";
-
+import { hashPassword } from "../../../../../config/password";
+import {
+  batchUploadAdmins,
+  getAdmin,
+  getAdminByEmail,
+  updateAdmin,
+} from "../../../../../use-cases/admin";
+import makeBatchUploadAdminsController from "./batch-upload-admins";
 import makeUploadAvatarController from "./upload-avatar";
 
 const uploadAvatarController = makeUploadAvatarController({
@@ -7,8 +13,15 @@ const uploadAvatarController = makeUploadAvatarController({
   updateAdmin,
 });
 
-export default Object.freeze({
-  uploadAvatarController,
+const batchUploadAdminsController = makeBatchUploadAdminsController({
+  batchUploadAdmins,
+  hashPassword,
+  getAdminByEmail,
 });
 
-export { uploadAvatarController };
+export default Object.freeze({
+  uploadAvatarController,
+  batchUploadAdminsController,
+});
+
+export { batchUploadAdminsController, uploadAvatarController };
