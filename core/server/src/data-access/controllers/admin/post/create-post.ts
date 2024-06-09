@@ -55,7 +55,7 @@ export default function makeCreatePostController({
 
       const post = await getPost({ _id: created_post._id });
 
-      const { title, description, categories, author, tags } = post;
+      const { title, description, categories } = post;
 
       logger.verbose(`Created post ${created_post.title}`);
 
