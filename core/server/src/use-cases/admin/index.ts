@@ -1,8 +1,7 @@
 import { logger } from "../../config/logs/logger";
 import { redis } from "../../config/redis";
-
 import { AdminDb } from "../../data-access";
-
+import makeBatchUploadAdmins from "./batch-upload-admins";
 import makeCreateAdmin from "./create-admin";
 import makeDeleteAdmin from "./delete-admin";
 import makeGetAdmin from "./get-admin";
@@ -15,6 +14,10 @@ import makeHardDeleteAdmin from "./hard-delete-admin";
 import makeIncreaseLoginFailedTimes from "./increase-login-failed-times";
 import makeResetLoginFailedTimes from "./reset-login-failed-times";
 import makeUpdateAdmin from "./update-admin";
+
+const batchUploadAdmins = makeBatchUploadAdmins({
+  adminDb: AdminDb,
+});
 
 const increaseLoginFailedTimes = makeIncreaseLoginFailedTimes({
   adminDb: AdminDb,
@@ -79,11 +82,13 @@ const adminServices = Object.freeze({
   getSoftDeletedAdmin,
   increaseLoginFailedTimes,
   resetLoginFailedTimes,
+  batchUploadAdmins,
 });
 
 export default adminServices;
 
 export {
+  batchUploadAdmins,
   createAdmin,
   deleteAdmin,
   getAdmin,
