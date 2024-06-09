@@ -15,6 +15,7 @@ export default interface IAdminDb {
   findSoftDeletedById: ({ _id }: { _id: string }) => Promise<IAdmin>;
   findByEmail: ({ email }: { email: string }) => Promise<IAdmin>;
   insert: (payload: Partial<IAdmin>) => Promise<IAdmin>;
+  insertMany: (payload: Partial<IAdmin>[]) => Promise<IAdmin[]>;
   delete: ({ _id }: { _id: string }) => Promise<IAdmin>;
   hardDelete: ({ _id }: { _id: string }) => Promise<IAdmin>;
   update: (payload: Partial<IAdmin>) => Promise<IAdmin>;

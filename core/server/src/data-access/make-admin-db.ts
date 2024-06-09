@@ -391,5 +391,15 @@ export default function makeAdminDb({
 
       return null;
     }
+
+    async insertMany(payload: Partial<IAdmin>[]): Promise<IAdmin[]> {
+      const admins = await adminDbModel.insertMany(payload);
+
+      if (admins.length) {
+        return admins.map((admin) => new Admin(admin));
+      }
+
+      return null;
+    }
   })();
 }
