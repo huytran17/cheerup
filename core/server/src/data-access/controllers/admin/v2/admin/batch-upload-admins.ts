@@ -50,11 +50,9 @@ export default function makeBatchUploadAdminsController({
         return { ...admin, hash_password: hashed_password };
       });
 
-      const final_payload = await Promise.all(
-        final_payload_promises.filter(Boolean)
-      );
+      const final_payload = await Promise.all(final_payload_promises);
 
-      const admins = await batchUploadAdmins(final_payload);
+      const admins = await batchUploadAdmins(final_payload.filter(Boolean));
 
       return {
         headers,
