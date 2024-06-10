@@ -2,7 +2,7 @@ const ExcelTemplateSheet = {
   ADMIN: "Admin",
   USER: "User",
   POST: "Post",
-  CATEGORy: "Category",
+  CATEGORY: "Category",
 };
 
 export { ExcelTemplateSheet };
