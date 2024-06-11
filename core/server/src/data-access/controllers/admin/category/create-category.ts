@@ -7,15 +7,12 @@ import {
   CreateCategory,
   ICreateCategoryPayload,
 } from "../../../../use-cases/category/create-category";
-import { UpdateCategory } from "../../../../use-cases/category/update-category";
 
 export default function makeCreateCategoryController({
   createCategory,
-  updateCategory,
   logger,
 }: {
   createCategory: CreateCategory;
-  updateCategory: UpdateCategory;
   logger: Logger;
 }) {
   return async function createCategoryController(
@@ -35,17 +32,13 @@ export default function makeCreateCategoryController({
       const created_category = await createCategory({
         ...category_details,
         created_by: admin,
-      });
-
-      const updated_category = await updateCategory({
-        ...created_category,
         seo: {
-          date_modified: created_category.created_at,
-          date_published: created_category.created_at,
+          date_modified: new Date(),
+          date_published: new Date(),
           publisher: admin.full_name,
           author: admin.full_name,
-          title: created_category.title,
-          description: created_category.description,
+          title: category_details.title,
+          description: category_details.description,
         },
       });
 
@@ -55,7 +48,7 @@ export default function makeCreateCategoryController({
         headers,
         statusCode: HttpStatusCode.CREATED,
         body: {
-          data: updated_category,
+          data: created_category,
         },
       };
     } catch (error) {
