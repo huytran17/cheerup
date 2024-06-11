@@ -7,19 +7,15 @@ import {
   CreateCategory,
   ICreateCategoryPayload,
 } from "../../../../use-cases/category/create-category";
-import { GetCategoryByTitle } from "../../../../use-cases/category/get-category-by-title";
 import { UpdateCategory } from "../../../../use-cases/category/update-category";
-import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeCreateCategoryController({
   createCategory,
   updateCategory,
-  getCategoryByTitle,
   logger,
 }: {
   createCategory: CreateCategory;
   updateCategory: UpdateCategory;
-  getCategoryByTitle: GetCategoryByTitle;
   logger: Logger;
 }) {
   return async function createCategoryController(
@@ -33,16 +29,6 @@ export default function makeCreateCategoryController({
       const category_details = <ICreateCategoryPayload>(
         get(httpRequest, "context.validated", {})
       );
-
-      const { title } = category_details;
-
-      const category = await getCategoryByTitle({
-        title,
-      });
-
-      if (!isEmpty(category)) {
-        throw new Error(`Category ${title} already exists`);
-      }
 
       const admin = <IAdmin>get(httpRequest, "context.user", {});
 
