@@ -1,10 +1,10 @@
+import { get, map } from "lodash";
 import mongoose, { Model } from "mongoose";
 import mongoose_lean_virtuals from "mongoose-lean-virtuals";
-import ICategory from "../interfaces/category";
-import { CategoryModel, PostModel } from "../../data-access/models";
-import { get, map } from "lodash";
 import { textToSlug } from "../../config/text-to-slug";
+import { CategoryModel, PostModel } from "../../data-access/models";
 import { isEmpty } from "../../utils/is-empty";
+import ICategory from "../interfaces/category";
 
 const Schema = mongoose.Schema;
 
