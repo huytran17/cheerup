@@ -8,7 +8,7 @@ const adminRouter = express.Router();
 
 adminRouter.post(
   "/upload-admins",
-  makeAuthorization(AuthorizationRole.OWNER_AND_COLLABORATOR),
+  makeAuthorization(AuthorizationRole.ONLY_OWNER),
   makeExpressCallback(batchUploadAdminsController)
 );
 
