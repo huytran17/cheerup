@@ -34,7 +34,7 @@ export default function makeBatchUploadAdminsController({
         excelToJSON({ source: file.path, sheet: ExcelTemplateSheet.ADMIN })
       );
 
-      const final_payload_promises = payload.map(async (admin) => {
+      const batch_payload_promises = payload.map(async (admin) => {
         const { email, password, password_confirmation } = admin;
 
         const exists = await getAdminByEmail({ email });
@@ -50,7 +50,7 @@ export default function makeBatchUploadAdminsController({
         return { ...admin, hash_password: hashed_password };
       });
 
-      const final_payload = await Promise.all(final_payload_promises);
+      const final_payload = await Promise.all(batch_payload_promises);
 
       const admins = await batchUploadAdmins(final_payload.filter(Boolean));
 
