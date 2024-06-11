@@ -20,6 +20,7 @@ export default interface ICategoryDb {
   findByTitle: ({ title }: { title: string }) => Promise<ICategory>;
   findBySlug: ({ slug }: { slug: string }) => Promise<ICategory>;
   insert: (payload: Partial<ICategory>) => Promise<ICategory>;
+  insertMany: (payload: Partial<ICategory>[]) => Promise<ICategory[]>;
   delete: ({ _id }: { _id: string }) => Promise<ICategory>;
   hardDelete: ({ _id }: { _id: string }) => Promise<ICategory>;
   update: (payload: Partial<ICategory>) => Promise<ICategory>;

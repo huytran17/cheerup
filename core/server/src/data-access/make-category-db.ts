@@ -412,5 +412,15 @@ export default function makeCategoryDb({
 
       return null;
     }
+
+    async insertMany(payload: Partial<ICategory>[]): Promise<ICategory[]> {
+      const categories = await categoryDbModel.insertMany(payload);
+
+      if (categories.length) {
+        return categories.map((category) => new Category(category));
+      }
+
+      return null;
+    }
   })();
 }
