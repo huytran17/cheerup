@@ -93,12 +93,12 @@ export default {
       GET_LATEST_SYSTEM_CONFIGURATION:
         "system-configuration/GET_LATEST_SYSTEM_CONFIGURATION",
       GET_ADMINS: "admin/GET_ADMINS",
-      BATCH_UPLOAD_ADMIN: "admin/BATCH_UPLOAD_ADMIN",
+      BATCH_UPLOAD_ADMINS: "admin/BATCH_UPLOAD_ADMINS",
     }),
 
     async batchUploadAdmin(file) {
       try {
-        await this.BATCH_UPLOAD_ADMIN({ file });
+        await this.BATCH_UPLOAD_ADMINS({ file });
         await this.GET_ADMINS();
       } catch (error) {
         console.error(error);
