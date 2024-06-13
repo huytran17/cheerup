@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import ICommentLikeDb from "./interfaces/comment-like-db";
 import CommentLike from "../database/entities/comment-like";
 import ICommentLike from "../database/interfaces/comment-like";
+import ICommentLikeDb from "./interfaces/comment-like-db";
 
 export default function makeCommentLikeDb({
   commentLikeDbModel,

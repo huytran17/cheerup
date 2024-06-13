@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import ISystemConfigurationDb from "./interfaces/system-configuration-db";
 import SystemConfiguration from "../database/entities/system-configuration";
 import ISystemConfiguration from "../database/interfaces/system-configuration";
+import ISystemConfigurationDb from "./interfaces/system-configuration-db";
 
 export default function makeSystemConfigurationDb({
   systemConfigurationDbModel,

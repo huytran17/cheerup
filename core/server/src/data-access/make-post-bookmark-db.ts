@@ -1,10 +1,10 @@
 import { map } from "lodash";
 import mongoose from "mongoose";
+import PostBookmark from "../database/entities/post-bookmark";
+import IPostBookmark from "../database/interfaces/post-bookmark";
 import IPostBookmarkDb, {
   IPaginatedPostBookmarkResult,
 } from "./interfaces/post-bookmark-db";
-import PostBookmark from "../database/entities/post-bookmark";
-import IPostBookmark from "../database/interfaces/post-bookmark";
 
 export default function makePostBookmarkDb({
   postBookmarkDbModel,

@@ -1,8 +1,8 @@
 import { map } from "lodash";
 import mongoose from "mongoose";
-import IGalleryDb, { IPaginatedGalleryResult } from "./interfaces/gallery-db";
 import Gallery from "../database/entities/gallery";
 import IGallery from "../database/interfaces/gallery";
+import IGalleryDb, { IPaginatedGalleryResult } from "./interfaces/gallery-db";
 
 export default function makeGalleryDb({
   galleryDbModel,

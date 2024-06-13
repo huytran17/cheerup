@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import IPasswordResetDb from "./interfaces/password-reset-db";
 import PasswordReset from "../database/entities/password-reset";
 import IPasswordReset from "../database/interfaces/password-reset";
+import IPasswordResetDb from "./interfaces/password-reset-db";
 
 export default function makePasswordResetDb({
   passwordResetDbModel,

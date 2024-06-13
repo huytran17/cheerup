@@ -1,12 +1,12 @@
-import { sortBy, map } from "lodash";
+import { map, sortBy } from "lodash";
 import mongoose from "mongoose";
+import { AnalyssisUnit } from "../constants/analysis-unit";
 import Subscription from "../database/entities/subscription";
 import ISubscription from "../database/interfaces/subscription";
 import ISubscriptionDb, {
-  ISubscriptionAnalyticsData,
   IPaginatedSubscriptionResult,
+  ISubscriptionAnalyticsData,
 } from "./interfaces/subscription-db";
-import { AnalyssisUnit } from "../constants/analysis-unit";
 
 export default function makeSubscriptionDb({
   subscriptionDbModel,

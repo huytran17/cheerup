@@ -1,12 +1,12 @@
-import { sortBy, map } from "lodash";
+import { map, sortBy } from "lodash";
 import mongoose from "mongoose";
+import { AnalyssisUnit } from "../constants/analysis-unit";
+import User from "../database/entities/user";
+import IUser from "../database/interfaces/user";
 import IUserDb, {
   IPaginatedUserResult,
   IUserAnalyticsData,
 } from "./interfaces/user-db";
-import User from "../database/entities/user";
-import IUser from "../database/interfaces/user";
-import { AnalyssisUnit } from "../constants/analysis-unit";
 
 export default function makeUserDb({
   userDbModel,

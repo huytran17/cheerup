@@ -1,8 +1,8 @@
 import { map } from "lodash";
 import mongoose from "mongoose";
-import ITwoFactorAuthenticationDb from "./interfaces/two-factor-authentication-db";
 import TwoFactorAuthentication from "../database/entities/two-factor-authentication";
 import ITwoFactorAuthentication from "../database/interfaces/two-factor-authentication";
+import ITwoFactorAuthenticationDb from "./interfaces/two-factor-authentication-db";
 
 export default function makeTwoFactorAuthenticationDb({
   twoFactorAuthenticationDbModel,

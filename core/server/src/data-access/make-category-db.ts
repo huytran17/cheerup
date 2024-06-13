@@ -1,12 +1,12 @@
-import { orderBy, flattenDeep, slice, map } from "lodash";
+import { flattenDeep, map, orderBy, slice } from "lodash";
 import mongoose from "mongoose";
-import ICategoryDb, {
-  IPaginatedCategoryResult,
-  ICategoryAnalyticsData,
-} from "./interfaces/category-db";
+import { AnalyssisUnit } from "../constants/analysis-unit";
 import Category from "../database/entities/category";
 import ICategory from "../database/interfaces/category";
-import { AnalyssisUnit } from "../constants/analysis-unit";
+import ICategoryDb, {
+  ICategoryAnalyticsData,
+  IPaginatedCategoryResult,
+} from "./interfaces/category-db";
 
 export default function makeCategoryDb({
   categoryDbModel,

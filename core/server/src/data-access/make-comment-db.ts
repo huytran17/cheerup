@@ -1,8 +1,8 @@
 import { map } from "lodash";
 import mongoose from "mongoose";
-import ICommentDb, { IPaginatedCommentResult } from "./interfaces/comment-db";
 import Comment from "../database/entities/comment";
 import IComment from "../database/interfaces/comment";
+import ICommentDb, { IPaginatedCommentResult } from "./interfaces/comment-db";
 
 export default function makeCommentDb({
   commentDbModel,

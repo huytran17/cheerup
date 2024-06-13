@@ -1,8 +1,6 @@
 import { logger } from "../../config/logs/logger";
 import { redis } from "../../config/redis";
-
 import { PostDb } from "../../data-access";
-
 import makeBatchUploadPosts from "./batch-upload-posts";
 import makeCountPostByCategory from "./count-post-by-category";
 import makeCreatePost from "./create-post";
