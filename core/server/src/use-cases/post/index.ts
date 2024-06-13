@@ -3,6 +3,7 @@ import { redis } from "../../config/redis";
 
 import { PostDb } from "../../data-access";
 
+import makeBatchUploadPosts from "./batch-upload-posts";
 import makeCountPostByCategory from "./count-post-by-category";
 import makeCreatePost from "./create-post";
 import makeDeletePost from "./delete-post";
@@ -18,6 +19,10 @@ import makeGetSuggestionPosts from "./get-suggestion-posts";
 import makeHardDeletePost from "./hard-delete-post";
 import makeIncreasePostViews from "./increase-post-views";
 import makeUpdatePost from "./update-post";
+
+const batchUploadPosts = makeBatchUploadPosts({
+  postDb: PostDb,
+});
 
 const increasePostViews = makeIncreasePostViews({
   postDb: PostDb,
@@ -99,11 +104,13 @@ const postServices = Object.freeze({
   getPostBySlug,
   getSoftDeletedPost,
   increasePostViews,
+  batchUploadPosts,
 });
 
 export default postServices;
 
 export {
+  batchUploadPosts,
   countPostByCategory,
   createPost,
   deletePost,
