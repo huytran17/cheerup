@@ -1,13 +1,13 @@
-import { map, each, sortBy, isEmpty } from "lodash";
+import { isEmpty, map, sortBy } from "lodash";
 import mongoose, { SortOrder } from "mongoose";
-import IPostDb, {
-  IPaginatedPostResult,
-  IPostAnalytics,
-  IMostPopularPostsAnalytics,
-} from "./interfaces/post-db";
+import { AnalyssisUnit } from "../constants/analysis-unit";
 import Post from "../database/entities/post";
 import IPost from "../database/interfaces/post";
-import { AnalyssisUnit } from "../constants/analysis-unit";
+import IPostDb, {
+  IMostPopularPostsAnalytics,
+  IPaginatedPostResult,
+  IPostAnalytics,
+} from "./interfaces/post-db";
 
 export default function makePostDb({
   postDbModel,
@@ -530,6 +530,16 @@ export default function makePostDb({
 
       if (updated) {
         return new Post(updated);
+      }
+
+      return null;
+    }
+
+    async insertMany(payload: Partial<Post[]>): Promise<IPost[]> {
+      const posts = await postDbModel.insertMany(payload);
+
+      if (posts) {
+        return posts.map((post) => new Post(post));
       }
 
       return null;
