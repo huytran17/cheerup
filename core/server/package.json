@@ -18,7 +18,7 @@
     "serve-ts:cls": "cross-env NODE_ENV=production ts-node --log-error -- ./src/index.ts",
     "test": "jest --passWithNoTests --detectOpenHandles",
     "test:ci": "node --max-old-space-size=8192 --expose-gc ./node_modules/.bin/jest --config jest.config.js --silent --cache --noStackTrace --forceExit --ci --logHeapUsage --detectOpenHandles --runInBand --bail",
-    "ts.check": "tsc --project tsconfig.json"
+    "ts:check": "tsc --project tsconfig.json"
   },
   "pre-commit": [
     "ts.check",
