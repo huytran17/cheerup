@@ -21,7 +21,7 @@
     "ts:check": "tsc --project tsconfig.json"
   },
   "pre-commit": [
-    "ts.check",
+    "ts:check",
     "build",
     "add-build"
   ],
