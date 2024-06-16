@@ -1,4 +1,4 @@
-import express from "express";
+import { Router } from "express";
 import makeExpressCallback from "../../../config/express-callback";
 import makeAuthorization from "../../../config/middlewares/authorization";
 import makeValidator from "../../../config/middlewares/validator";
@@ -6,7 +6,7 @@ import { AuthorizationRole } from "../../../constants/authorization-role";
 import { uploadCategoryThumbnailController } from "../../../data-access/controllers/admin/v2/category";
 import { uploadCategoryThumbnailRules } from "../../../data-access/controllers/admin/v2/category/validators";
 
-const categoryRouter = express.Router();
+const categoryRouter = Router();
 
 categoryRouter.post(
   "/upload-thumbnail/:_id",

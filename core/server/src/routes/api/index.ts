@@ -1,8 +1,5 @@
-import express from "express";
+import { Router } from "express";
 import authenticateUserJWT from "../../config/middlewares/authenticate-user-jwt";
-
-const apiRouter = express.Router();
-
 import authRouter from "./auth";
 import categoryRouter from "./category";
 import commentRouter from "./comment";
@@ -14,6 +11,8 @@ import seoRouter from "./seo";
 import subscriptionRouter from "./subscription";
 import systemConfigurationRouter from "./system-configuration";
 import userRouter from "./user";
+
+const apiRouter = Router();
 
 apiRouter.use("/user", authenticateUserJWT(), userRouter);
 apiRouter.use("/post-bookmark", authenticateUserJWT(), postBookmarkRouter);

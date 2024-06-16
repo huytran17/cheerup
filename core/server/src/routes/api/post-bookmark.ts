@@ -1,7 +1,6 @@
-import express from "express";
+import { Router } from "express";
 import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
-
 import {
   getPostBookmarksPaginatedRules,
   createOrDeletePostBookmarkRules,
@@ -12,7 +11,7 @@ import {
   countPostBookmarkController,
 } from "../../data-access/controllers/user/post-bookmark";
 
-const postBookmarkRouter = express.Router();
+const postBookmarkRouter = Router();
 
 postBookmarkRouter.get(
   "/count-post-bookmarks",

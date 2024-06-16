@@ -1,4 +1,4 @@
-import express from "express";
+import { Router } from "express";
 import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
 
@@ -30,7 +30,7 @@ import {
   getMostPopularPostsAnalysticsController,
 } from "../../data-access/controllers/admin/post";
 
-const postRouter = express.Router();
+const postRouter = Router();
 
 postRouter.get(
   "/analystics",

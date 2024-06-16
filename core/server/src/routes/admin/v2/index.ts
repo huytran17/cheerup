@@ -1,4 +1,4 @@
-import express from "express";
+import { Router } from "express";
 import authenticateAdminJWT from "../../../config/middlewares/authenticate-admin-jwt";
 import { diskUpload, tempUpload } from "../../../config/multer";
 import { MimeTypes } from "../../../constants/mime-types";
@@ -11,7 +11,7 @@ import systemConfigurationRouter from "./system-configuration";
 import excelSystemConfigurationRouter from "./upload-excel/system-configuration";
 import userRouter from "./user";
 
-const adminV2Router = express.Router();
+const adminV2Router = Router();
 
 const disk_upload_image = diskUpload({ mimetypes: MimeTypes.IMAGE }).single(
   "file"

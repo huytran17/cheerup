@@ -1,4 +1,4 @@
-import express from "express";
+import { Router } from "express";
 import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
 import makeAuthorization from "../../config/middlewares/authorization";
@@ -10,7 +10,7 @@ import {
   getCommentsController,
 } from "../../data-access/controllers/admin/comment";
 
-const commentRouter = express.Router();
+const commentRouter = Router();
 
 commentRouter.delete(
   "/hard-delete/:_id",

@@ -1,4 +1,4 @@
-import express from "express";
+import { Router } from "express";
 import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
 import makeAuthorization from "../../config/middlewares/authorization";
@@ -14,7 +14,7 @@ import {
   getSubscriptionAnalysticsController,
 } from "../../data-access/controllers/admin/subscription";
 
-const subscriptionRouter = express.Router();
+const subscriptionRouter = Router();
 
 subscriptionRouter.get(
   "/analystics",

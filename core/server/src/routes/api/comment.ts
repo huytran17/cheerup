@@ -1,4 +1,4 @@
-import express from "express";
+import { Router } from "express";
 import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
 import authenticateUserJWT from "../../config/middlewares/authenticate-user-jwt";
@@ -25,7 +25,7 @@ import {
   getCommentsByParentController,
 } from "../../data-access/controllers/user/comment";
 
-const commentRouter = express.Router();
+const commentRouter = Router();
 
 commentRouter.get(
   "/count-by-post",

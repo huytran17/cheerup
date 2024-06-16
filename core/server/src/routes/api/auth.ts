@@ -1,7 +1,7 @@
 import authenticateUserJWT from "../../config/middlewares/authenticate-user-jwt";
 import authenticateUserGoogle from "../../config/middlewares/authenticate-user-google";
 import makeValidator from "../../config/middlewares/validator";
-import express from "express";
+import { Router } from "express";
 import makeExpressCallback from "../../config/express-callback";
 import {
   signInRules,
@@ -23,7 +23,7 @@ import {
   verify2FAController,
 } from "../../data-access/controllers/user/auth";
 
-const authRouter = express.Router();
+const authRouter = Router();
 
 authRouter.get(
   "/me",

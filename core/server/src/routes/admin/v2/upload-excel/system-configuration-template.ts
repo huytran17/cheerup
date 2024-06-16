@@ -9,7 +9,7 @@ import { uploadExcelTemplateRules } from "../../../../data-access/controllers/ad
 const systemConfigurationTemplateRouter = Router();
 
 systemConfigurationTemplateRouter.post(
-  "/:type/:_id",
+  "/upload-excel-template/:type/:_id",
   makeAuthorization(AuthorizationRole.ONLY_OWNER),
   makeValidator(uploadExcelTemplateRules),
   makeExpressCallback(uploadExcelTemplateController)

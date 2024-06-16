@@ -1,4 +1,4 @@
-import express from "express";
+import { Router } from "express";
 import makeExpressCallback from "../../../config/express-callback";
 import makeAuthorization from "../../../config/middlewares/authorization";
 import makeValidator from "../../../config/middlewares/validator";
@@ -6,7 +6,7 @@ import { AuthorizationRole } from "../../../constants/authorization-role";
 import { uploadUserAvatarController } from "../../../data-access/controllers/admin/v2/user";
 import { uploadUserAvatarRules } from "../../../data-access/controllers/admin/v2/user/validators";
 
-const userRouter = express.Router();
+const userRouter = Router();
 
 userRouter.post(
   "/upload-avatar/:_id",

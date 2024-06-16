@@ -1,4 +1,4 @@
-import express from "express";
+import { Router } from "express";
 import makeExpressCallback from "../../../config/express-callback";
 import makeValidator from "../../../config/middlewares/validator";
 import {
@@ -10,7 +10,7 @@ import {
   uploadGalleryItemRules,
 } from "../../../data-access/controllers/admin/v2/gallery/validators";
 
-const galleryRouter = express.Router();
+const galleryRouter = Router();
 
 galleryRouter.post(
   "/upload-gallery-item/:_id",

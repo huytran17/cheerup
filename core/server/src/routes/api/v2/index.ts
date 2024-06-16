@@ -1,10 +1,10 @@
-import express from "express";
+import { Router } from "express";
 import authenticateUserJWT from "../../../config/middlewares/authenticate-user-jwt";
 import { diskUpload } from "../../../config/multer";
 import { MimeTypes } from "../../../constants/mime-types";
 import userRouter from "./user";
 
-const apiV2Router = express.Router();
+const apiV2Router = Router();
 
 const disk_upload = diskUpload({ mimetypes: MimeTypes.IMAGE }).single("file");
 

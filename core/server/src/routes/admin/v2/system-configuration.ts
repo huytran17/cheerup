@@ -1,4 +1,4 @@
-import express from "express";
+import { Router } from "express";
 import makeExpressCallback from "../../../config/express-callback";
 import makeAuthorization from "../../../config/middlewares/authorization";
 import makeValidator from "../../../config/middlewares/validator";
@@ -14,7 +14,7 @@ import {
   uploadThumbnailRules,
 } from "../../../data-access/controllers/admin/v2/system-configuration/validators";
 
-const systemConfigurationRouter = express.Router();
+const systemConfigurationRouter = Router();
 
 systemConfigurationRouter.post(
   "/upload-folder-icon/:_id",

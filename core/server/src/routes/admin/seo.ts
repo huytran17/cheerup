@@ -1,4 +1,4 @@
-import express from "express";
+import { Router } from "express";
 import makeExpressCallback from "../../config/express-callback";
 
 import {
@@ -6,7 +6,7 @@ import {
   getCategoriesForSEOController,
 } from "../../data-access/controllers/admin/seo";
 
-const seoRouter = express.Router();
+const seoRouter = Router();
 
 seoRouter.get("/posts", makeExpressCallback(getPostsForSEOController));
 

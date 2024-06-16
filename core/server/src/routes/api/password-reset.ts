@@ -1,7 +1,6 @@
-import express from "express";
+import { Router } from "express";
 import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
-
 import {
   hardDeletePasswordResetRules,
   createPasswordResetRules,
@@ -15,7 +14,7 @@ import {
   resetPasswordController,
 } from "../../data-access/controllers/user/password-reset";
 
-const passwordResetRouter = express.Router();
+const passwordResetRouter = Router();
 
 passwordResetRouter.post(
   "/",

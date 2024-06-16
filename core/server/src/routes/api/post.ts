@@ -1,7 +1,6 @@
-import express from "express";
+import { Router } from "express";
 import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
-
 import {
   getPostRules,
   getSuggestionPostsRules,
@@ -22,7 +21,7 @@ import {
   increasePostViewsController,
 } from "../../data-access/controllers/user/post";
 
-const postRouter = express.Router();
+const postRouter = Router();
 
 postRouter.put(
   "/increase-post-views/:_id",

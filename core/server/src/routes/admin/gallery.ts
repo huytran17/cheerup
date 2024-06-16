@@ -1,4 +1,4 @@
-import express from "express";
+import { Router } from "express";
 import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
 
@@ -23,7 +23,7 @@ import {
   updateGalleryController,
 } from "../../data-access/controllers/admin/gallery";
 
-const galleryRouter = express.Router();
+const galleryRouter = Router();
 
 galleryRouter.put(
   "/:_id",

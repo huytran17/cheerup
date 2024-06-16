@@ -1,7 +1,7 @@
-import express from "express";
+import { Router } from "express";
 import authenticateAdminJWT from "../../config/middlewares/authenticate-admin-jwt";
 
-const adminRouter = express.Router();
+const adminRouter = Router();
 
 import galleryRouter from "../admin/gallery";
 import seoRouter from "../admin/seo";

@@ -1,4 +1,4 @@
-import express from "express";
+import { Router } from "express";
 import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
 import makeAuthorization from "../../config/middlewares/authorization";
@@ -26,7 +26,7 @@ import {
   getCategoryAnalysticsController,
 } from "../../data-access/controllers/admin/category";
 
-const categoryRouter = express.Router();
+const categoryRouter = Router();
 
 categoryRouter.get(
   "/analystics",

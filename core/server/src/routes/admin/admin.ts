@@ -1,4 +1,4 @@
-import express from "express";
+import { Router } from "express";
 import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
 import makeAuthorization from "../../config/middlewares/authorization";
@@ -32,7 +32,7 @@ import {
   resetAdminLoginFailedTimesController,
 } from "../../data-access/controllers/admin/admin";
 
-const adminRouter = express.Router();
+const adminRouter = Router();
 
 adminRouter.put(
   "/reset-admin-login-failed-times/:_id",

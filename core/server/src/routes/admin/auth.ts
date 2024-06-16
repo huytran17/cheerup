@@ -1,6 +1,6 @@
 import authenticateAdminJWT from "../../config/middlewares/authenticate-admin-jwt";
 import makeValidator from "../../config/middlewares/validator";
-import express from "express";
+import { Router } from "express";
 import makeExpressCallback from "../../config/express-callback";
 import { signInRules } from "../../data-access/controllers/admin/auth/validators";
 import {
@@ -9,7 +9,7 @@ import {
   getMeController,
 } from "../../data-access/controllers/admin/auth";
 
-const authRouter = express.Router();
+const authRouter = Router();
 
 authRouter.get(
   "/me",
