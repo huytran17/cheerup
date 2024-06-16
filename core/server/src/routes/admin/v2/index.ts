@@ -4,7 +4,6 @@ import { diskUpload, tempUpload } from "../../../config/multer";
 import { MimeTypes } from "../../../constants/mime-types";
 import adminRouter from "./admin";
 import batchAdminRouter from "./batch/admin";
-import batchCategoryRouter from "./batch/category";
 import categoryRouter from "./category";
 import galleryRouter from "./gallery";
 import postRouter from "./post";
@@ -20,7 +19,6 @@ const disk_upload_image = diskUpload({ mimetypes: MimeTypes.IMAGE }).single(
 const disk_upload_excel = diskUpload({ mimetypes: MimeTypes.EXCEL }).single(
   "file"
 );
-
 const temp_upload_excel = tempUpload({ mimetypes: MimeTypes.EXCEL }).single(
   "file"
 );
@@ -72,12 +70,6 @@ adminV2Router.use(
   authenticateAdminJWT(),
   temp_upload_excel,
   batchAdminRouter
-);
-adminV2Router.use(
-  "/batch/category",
-  authenticateAdminJWT(),
-  temp_upload_excel,
-  batchCategoryRouter
 );
 
 export default adminV2Router;

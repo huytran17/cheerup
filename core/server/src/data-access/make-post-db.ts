@@ -534,15 +534,5 @@ export default function makePostDb({
 
       return null;
     }
-
-    async insertMany(payload: Partial<Post[]>): Promise<IPost[]> {
-      const posts = await postDbModel.insertMany(payload);
-
-      if (posts) {
-        return posts.map((post) => new Post(post));
-      }
-
-      return null;
-    }
   })();
 }

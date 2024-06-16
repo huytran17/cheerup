@@ -42,7 +42,6 @@ export default interface IPostDb {
   findSoftDeletedById: ({ _id }: { _id: string }) => Promise<IPost>;
   findBySlug: ({ slug }: { slug: string }) => Promise<IPost>;
   insert: (payload: Partial<IPost>) => Promise<IPost>;
-  insertMany: (payload: Partial<IPost>[]) => Promise<IPost[]>;
   delete: ({ _id }: { _id: string }) => Promise<IPost>;
   hardDelete: ({ _id }: { _id: string }) => Promise<IPost>;
   update: (payload: Partial<IPost>) => Promise<IPost>;

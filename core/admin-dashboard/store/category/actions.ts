@@ -81,20 +81,6 @@ const actions: ActionTree<CategoryState, RootState> = {
     );
     return category;
   },
-
-  async [ActionTypes.BATCH_UPLOAD_CATEGORIES]({ commit }, params = {}) {
-    const file = get(params, "file");
-    const form_data = new FormData();
-
-    form_data.append("file", file);
-
-    const data = await this.$axios.post(
-      `/v2/batch/category/upload-categories`,
-      form_data
-    );
-
-    return data;
-  },
 };
 
 export default actions;

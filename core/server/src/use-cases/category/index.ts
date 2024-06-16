@@ -1,7 +1,6 @@
 import { logger } from "../../config/logs/logger";
 import { redis } from "../../config/redis";
 import { CategoryDb } from "../../data-access";
-import makeBatchUploadCategories from "./batch-upload-categories";
 import makeCreateCategory from "./create-category";
 import makeDeleteCategory from "./delete-category";
 import makeGetCategories from "./get-categories";
@@ -15,10 +14,6 @@ import makeGetCategoryTitles from "./get-category-titles";
 import makeGetSoftDeletedCategory from "./get-soft-deleted-category";
 import makeHardDeleteCategory from "./hard-delete-category";
 import makeUpdateCategory from "./update-category";
-
-const batchUploadCategories = makeBatchUploadCategories({
-  categoryDb: CategoryDb,
-});
 
 const getSoftDeletedCategory = makeGetSoftDeletedCategory({
   categoryDb: CategoryDb,
@@ -88,13 +83,11 @@ const categoryServices = Object.freeze({
   getCategoriesPaginated,
   getCategoryBySlug,
   getSoftDeletedCategory,
-  batchUploadCategories,
 });
 
 export default categoryServices;
 
 export {
-  batchUploadCategories,
   createCategory,
   deleteCategory,
   getCategories,
