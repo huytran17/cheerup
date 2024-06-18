@@ -60,19 +60,9 @@ systemConfigurationSchema.virtual("admin_excel_template_url").get(function () {
   return findExcelTemplate({ doc: this, type: ExcelTemplateType.ADMIN });
 });
 
-systemConfigurationSchema.virtual("post_excel_template_url").get(function () {
-  return findExcelTemplate({ doc: this, type: ExcelTemplateType.POST });
-});
-
 systemConfigurationSchema.virtual("user_excel_template_url").get(function () {
   return findExcelTemplate({ doc: this, type: ExcelTemplateType.USER });
 });
-
-systemConfigurationSchema
-  .virtual("category_excel_template_url")
-  .get(function () {
-    return findExcelTemplate({ doc: this, type: ExcelTemplateType.CATEGORY });
-  });
 
 systemConfigurationSchema.plugin(mongoose_lean_virtuals);
 

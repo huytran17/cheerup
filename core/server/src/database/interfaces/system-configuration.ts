@@ -14,9 +14,7 @@ export default interface ISystemConfiguration {
   folder_icon?: Record<string, unknown>;
   folder_icon_url?: string;
   admin_excel_template_url?: string;
-  post_excel_template_url?: string;
   user_excel_template_url?: string;
-  category_excel_template_url?: string;
   excel_template?: {
     name: string;
     path: string;
@@ -34,6 +32,4 @@ export default interface ISystemConfiguration {
 export enum ExcelTemplateType {
   ADMIN = "admin",
   USER = "user",
-  POST = "post",
-  CATEGORY = "category",
 }
