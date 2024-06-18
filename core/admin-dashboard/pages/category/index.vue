@@ -12,7 +12,7 @@
               <v-btn
                 v-bind="attrs"
                 v-on="on"
-                color="primary"
+                color="brick"
                 icon
                 @click="$router.push(localePath('/category/new'))"
               >
