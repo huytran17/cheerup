@@ -1,8 +1,7 @@
 import { logger } from "../../config/logs/logger";
 import { redis } from "../../config/redis";
-
 import { UserDb } from "../../data-access";
-
+import makeBatchUploadUsers from "./batch-upload-users";
 import makeCreateUser from "./create-user";
 import makeDeleteUser from "./delete-user";
 import makeGetOneUser from "./get-one-user";
@@ -17,6 +16,10 @@ import makeIncreaseLoginFailedTimes from "./increase-login-failed-times";
 import makeResetLoginFailedTimes from "./reset-login-failed-times";
 import makeRestoreUser from "./restore-user";
 import makeUpdateUser from "./update-user";
+
+const batchUploadUsers = makeBatchUploadUsers({
+  userDb: UserDb,
+});
 
 const increaseLoginFailedTimes = makeIncreaseLoginFailedTimes({
   userDb: UserDb,
@@ -91,11 +94,13 @@ const userServices = Object.freeze({
   getSoftDeletedUser,
   increaseLoginFailedTimes,
   resetLoginFailedTimes,
+  batchUploadUsers,
 });
 
 export default userServices;
 
 export {
+  batchUploadUsers,
   createUser,
   deleteUser,
   getOneUser,
