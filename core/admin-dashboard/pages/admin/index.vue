@@ -40,9 +40,9 @@
             <template v-slot:activator="{ on, attrs }">
               <v-file-input
                 id="batch_upload_admin"
-                accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                :accept="MIME_TYPES.EXCEL"
                 class="d-none"
-                @change="batchUploadAdmin"
+                @change="batchUploadAdmins"
               ></v-file-input>
               <v-btn v-bind="attrs" v-on="on" color="brick" icon download>
                 <label for="batch_upload_admin">
@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import { ADMIN_TYPES } from "@/constants";
+import { ADMIN_TYPES, MIME_TYPES } from "@/constants";
 import { mapActions, mapGetters } from "vuex";
 import BaseAdminTable from "@/components/admin/widget/BaseAdminTable";
 export default {
@@ -79,6 +79,7 @@ export default {
   data() {
     return {
       ADMIN_TYPES,
+      MIME_TYPES,
     };
   },
 
@@ -96,7 +97,7 @@ export default {
       BATCH_UPLOAD_ADMINS: "admin/BATCH_UPLOAD_ADMINS",
     }),
 
-    async batchUploadAdmin(file) {
+    async batchUploadAdmins(file) {
       try {
         await this.BATCH_UPLOAD_ADMINS({ file });
         await this.GET_ADMINS();
