@@ -15,6 +15,7 @@ export default interface IUserDb {
   findSoftDeletedById: ({ _id }: { _id: string }) => Promise<IUser>;
   findByEmail: ({ email }: { email: string }) => Promise<IUser>;
   insert: (payload: Partial<IUser>) => Promise<IUser>;
+  insertMany: (payload: Partial<IUser>[]) => Promise<IUser[]>;
   delete: ({ _id }: { _id: string }) => Promise<IUser>;
   restore: ({ _id }: { _id: string }) => Promise<IUser>;
   hardDelete: ({ _id }: { _id: string }) => Promise<IUser>;

@@ -432,5 +432,15 @@ export default function makeUserDb({
 
       return null;
     }
+
+    async insertMany(payload: Partial<IUser>[]): Promise<IUser[]> {
+      const users = await userDbModel.insertMany(payload);
+
+      if (users.length) {
+        return users.map((user) => new User(user));
+      }
+
+      return null;
+    }
   })();
 }
