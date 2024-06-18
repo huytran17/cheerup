@@ -1,9 +1,9 @@
-import { ActionTypes } from "./action-types";
-import { MutationTypes } from "./mutation-types";
+import { get, join } from "lodash";
 import { ActionTree } from "vuex";
 import { UserState } from ".";
 import { RootState } from "..";
-import { get, join } from "lodash";
+import { ActionTypes } from "./action-types";
+import { MutationTypes } from "./mutation-types";
 
 const actions: ActionTree<UserState, RootState> = {
   async [ActionTypes.GET_USER_ANALYTICS]({ commit }, params = {}) {
@@ -99,6 +99,20 @@ const actions: ActionTree<UserState, RootState> = {
     );
 
     return user;
+  },
+
+  async [ActionTypes.BATCH_UPLOAD_USERS]({ commit }, params = {}) {
+    const file = get(params, "file", {});
+
+    const form_data = new FormData();
+    form_data.append("file", file);
+
+    const data = await this.$axios.post(
+      `/v2/batch/admin/upload-users`,
+      form_data
+    );
+
+    return data;
   },
 };
 
