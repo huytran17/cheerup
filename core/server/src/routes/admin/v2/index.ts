@@ -4,6 +4,7 @@ import { diskUpload, tempUpload } from "../../../config/multer";
 import { MimeTypes } from "../../../constants/mime-types";
 import adminRouter from "./admin";
 import batchAdminRouter from "./batch/admin";
+import batchUserRouter from "./batch/user";
 import categoryRouter from "./category";
 import galleryRouter from "./gallery";
 import postRouter from "./post";
@@ -70,6 +71,12 @@ adminV2Router.use(
   authenticateAdminJWT(),
   temp_upload_excel,
   batchAdminRouter
+);
+adminV2Router.use(
+  "/batch/user",
+  authenticateAdminJWT(),
+  temp_upload_excel,
+  batchUserRouter
 );
 
 export default adminV2Router;
