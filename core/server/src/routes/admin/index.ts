@@ -1,8 +1,5 @@
 import { Router } from "express";
 import authenticateAdminJWT from "../../config/middlewares/authenticate-admin-jwt";
-
-const adminRouter = Router();
-
 import galleryRouter from "../admin/gallery";
 import seoRouter from "../admin/seo";
 import _adminRouter from "./admin";
@@ -13,6 +10,8 @@ import postRouter from "./post";
 import subscriptionRouter from "./subscription";
 import systemConfigurationRouter from "./system-configuration";
 import userRouter from "./user";
+
+const adminRouter = Router();
 
 adminRouter.use("/auth", authRouter);
 adminRouter.use("/seo", seoRouter);
