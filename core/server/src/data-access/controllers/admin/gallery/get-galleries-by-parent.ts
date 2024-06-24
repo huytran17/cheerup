@@ -1,11 +1,11 @@
 import { Request } from "express";
+import { get } from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { GetGalleriesByParent } from "../../../../use-cases/gallery/get-galleries-by-parent";
 import {
   GetGallery,
   IGetGalleryPayload,
 } from "../../../../use-cases/gallery/get-gallery";
-import { GetGalleriesByParent } from "../../../../use-cases/gallery/get-galleries-by-parent";
-import { get } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetGalleriesByParentController({

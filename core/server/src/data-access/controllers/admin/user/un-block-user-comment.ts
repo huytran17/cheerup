@@ -1,9 +1,9 @@
-import { GetUser, IGetUserPayload } from "../../../../use-cases/user/get-user";
-import { UpdateUser } from "../../../../use-cases/user/update-user";
-import { Logger } from "winston";
 import { Request } from "express";
 import { get } from "lodash";
+import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { GetUser, IGetUserPayload } from "../../../../use-cases/user/get-user";
+import { UpdateUser } from "../../../../use-cases/user/update-user";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeUnBlockUserCommentController({

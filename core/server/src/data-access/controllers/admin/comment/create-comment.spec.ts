@@ -1,16 +1,16 @@
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakeComment } from "../../../../../__tests__/__mock__";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeCommentDb from "../../../make-comment-db";
-import { CommentModel } from "../../../models";
-import makeCreateComment from "../../../../use-cases/comment/create-comment";
-import makeCreateCommentController from "./create-comment";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IComment from "../../../../database/interfaces/comment";
+import makeCreateComment from "../../../../use-cases/comment/create-comment";
+import makeCommentDb from "../../../make-comment-db";
+import { CommentModel } from "../../../models";
+import makeCreateCommentController from "./create-comment";
 
 describe("createComment", () => {
   beforeAll(async () => await connectDatabase());

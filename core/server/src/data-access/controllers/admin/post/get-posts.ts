@@ -1,6 +1,6 @@
 import { Request } from "express";
-import { GetPosts } from "../../../../use-cases/post/get-posts";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { GetPosts } from "../../../../use-cases/post/get-posts";
 
 export default function makeGetPostsController({
   getPosts,

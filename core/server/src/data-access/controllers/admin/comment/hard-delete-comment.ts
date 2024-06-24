@@ -1,11 +1,11 @@
+import { Request } from "express";
+import { get } from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetComment } from "../../../../use-cases/comment/get-comment";
 import {
   HardDeleteComment,
   IHardDeleteCommentPayload,
 } from "../../../../use-cases/comment/hard-delete-comment";
-import { Request } from "express";
-import { get } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeDeleteComment({

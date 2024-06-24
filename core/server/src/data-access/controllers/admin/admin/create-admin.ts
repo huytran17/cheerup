@@ -1,13 +1,13 @@
 import { Request } from "express";
-import { Logger } from "winston";
 import { get } from "lodash";
+import { Logger } from "winston";
+import { HashPassword } from "../../../../config/password/hash-password";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   CreateAdmin,
   ICreateAdminPayload,
 } from "../../../../use-cases/admin/create-admin";
 import { GetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email";
-import { HashPassword } from "../../../../config/password/hash-password";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeCreateAdminController({

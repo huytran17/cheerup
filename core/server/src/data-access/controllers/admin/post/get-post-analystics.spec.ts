@@ -1,19 +1,19 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakePost } from "../../../../../__tests__/__mock__";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { logger } from "../../../../../__tests__/jest-logger";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makePostDb from "../../../make-post-db";
-import { PostModel } from "../../../models";
-import makeCreatePost from "../../../../use-cases/post/create-post";
-import makeGetPostAnalystics from "../../../../use-cases/post/get-post-analystics";
-import makeGetPostAnalysticsController from "./get-post-analystics";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { IPostAnalytics } from "../../../../data-access/interfaces/post-db";
+import makeCreatePost from "../../../../use-cases/post/create-post";
+import makeGetPostAnalystics from "../../../../use-cases/post/get-post-analystics";
+import makePostDb from "../../../make-post-db";
+import { PostModel } from "../../../models";
+import makeGetPostAnalysticsController from "./get-post-analystics";
 
 describe("getPostAnalystics", () => {
   beforeAll(async () => await connectDatabase());

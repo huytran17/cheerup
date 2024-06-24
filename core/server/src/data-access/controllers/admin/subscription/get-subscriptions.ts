@@ -1,6 +1,6 @@
 import { Request } from "express";
-import { GetSubscriptions } from "../../../../use-cases/subscription/get-subscriptions";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { GetSubscriptions } from "../../../../use-cases/subscription/get-subscriptions";
 
 export default function makeGetSubscriptionsController({
   getSubscriptions,

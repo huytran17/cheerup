@@ -1,21 +1,20 @@
-import {
-  getGallery,
-  updateGallery,
-  createGallery,
-  hardDeleteGallery,
-  getGalleriesPaginated,
-  getGalleriesByParent,
-} from "../../../../use-cases/gallery";
 import { logger } from "../../../../config/logs/logger";
-
-import makeDeleteGalleryItemController from "./delete-gallery-item";
-import makeHardDeleteGalleryController from "./hard-delete-gallery";
-import makeGetGalleriesPaginatedController from "./get-galleries-paginated";
-import makeUploadGalleryItemController from "./upload-gallery-item";
-import makeGetGalleryController from "./get-gallery";
+import {
+  createGallery,
+  getGalleriesByParent,
+  getGalleriesPaginated,
+  getGallery,
+  hardDeleteGallery,
+  updateGallery,
+} from "../../../../use-cases/gallery";
 import makeCreateGalleryController from "./create-gallery";
+import makeDeleteGalleryItemController from "./delete-gallery-item";
 import makeGetGalleriesByParentController from "./get-galleries-by-parent";
+import makeGetGalleriesPaginatedController from "./get-galleries-paginated";
+import makeGetGalleryController from "./get-gallery";
+import makeHardDeleteGalleryController from "./hard-delete-gallery";
 import makeUpdateGalleryController from "./update-gallery";
+import makeUploadGalleryItemController from "./upload-gallery-item";
 
 const updateGalleryController = makeUpdateGalleryController({
   getGallery,
@@ -71,12 +70,12 @@ export default Object.freeze({
 });
 
 export {
-  deleteGalleryItemController,
-  getGalleryController,
-  getGalleriesPaginatedController,
-  uploadGalleryItemController,
-  hardDeleteGalleryController,
   createGalleryController,
+  deleteGalleryItemController,
   getGalleriesByParentController,
+  getGalleriesPaginatedController,
+  getGalleryController,
+  hardDeleteGalleryController,
   updateGalleryController,
+  uploadGalleryItemController,
 };

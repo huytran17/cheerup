@@ -1,10 +1,10 @@
 import { Request } from "express";
+import { get } from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetGallery,
   IGetGalleryPayload,
 } from "../../../../use-cases/gallery/get-gallery";
-import { get } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetGalleryController({

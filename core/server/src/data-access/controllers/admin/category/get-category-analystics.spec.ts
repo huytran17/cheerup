@@ -1,19 +1,19 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakeCategory } from "../../../../../__tests__/__mock__";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { logger } from "../../../../../__tests__/jest-logger";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeCategoryDb from "../../../make-category-db";
-import { CategoryModel } from "../../../models";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import makeCreateCategory from "../../../../use-cases/category/create-category";
 import makeGetCategoryAnalystics from "../../../../use-cases/category/get-category-analystics";
-import makeGetCategoryAnalysticsController from "./get-category-analystics";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { ICategoryAnalyticsData } from "../../../interfaces/category-db";
+import makeCategoryDb from "../../../make-category-db";
+import { CategoryModel } from "../../../models";
+import makeGetCategoryAnalysticsController from "./get-category-analystics";
 
 describe("getCategoryAnalystics", () => {
   beforeAll(async () => await connectDatabase());

@@ -1,19 +1,19 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakeAdmin } from "../../../../../__tests__/__mock__";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { logger } from "../../../../../__tests__/jest-logger";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeAdminDb from "../../../make-admin-db";
-import { AdminModel } from "../../../models";
-import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
-import makeGetAdminAnalystics from "../../../../use-cases/admin/get-admin-analystics";
-import makeGetAdminAnalysticsController from "./get-admin-analystics";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { IAdminAnalyticsData } from "../../../../data-access/interfaces/admin-db";
+import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
+import makeGetAdminAnalystics from "../../../../use-cases/admin/get-admin-analystics";
+import makeAdminDb from "../../../make-admin-db";
+import { AdminModel } from "../../../models";
+import makeGetAdminAnalysticsController from "./get-admin-analystics";
 
 describe("getAdminAnalystics", () => {
   beforeAll(async () => await connectDatabase());

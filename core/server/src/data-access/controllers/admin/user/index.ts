@@ -9,9 +9,9 @@ import {
   getUserByEmail,
   getUsers,
   hardDeleteUser,
+  resetLoginFailedTimes,
   restoreUser,
   updateUser,
-  resetLoginFailedTimes,
 } from "../../../../use-cases/user";
 import makeBlockUserCommentController from "./block-user-comment";
 import makeCreateUserController from "./create-user";
@@ -21,12 +21,12 @@ import makeGetUserAnalysticsController from "./get-user-analystics";
 import makeGetUserByEmailController from "./get-user-by-email";
 import makeGetUsersController from "./get-users";
 import makeHardDeleteUserController from "./hard-delete-user";
+import makeResetUserLoginFailedTimesController from "./reset-user-login-failed-times";
 import makeRestoreUserController from "./restore-user";
 import makeUnBlockUserCommentController from "./un-block-user-comment";
 import makeUpdateUserController from "./update-user";
 import makeUpdateUserPasswordController from "./update-user-password";
 import makeUploadUserAvatarController from "./upload-avatar";
-import makeResetUserLoginFailedTimesController from "./reset-user-login-failed-times";
 
 const resetUserLoginFailedTimesController =
   makeResetUserLoginFailedTimesController({
@@ -132,10 +132,10 @@ export {
   getUserController,
   getUsersController,
   hardDeleteUserController,
+  resetUserLoginFailedTimesController,
   restoreUserController,
   unblockUserCommentController,
   updateUserController,
   updateUserPasswordController,
   uploadUserAvatarController,
-  resetUserLoginFailedTimesController,
 };

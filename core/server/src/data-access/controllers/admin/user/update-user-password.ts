@@ -1,15 +1,15 @@
+import { Request } from "express";
+import { get } from "lodash";
+import { Logger } from "winston";
+import { HashPassword } from "../../../../config/password/hash-password";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetUser } from "../../../../use-cases/user/get-user";
+import { ResetLoginFailedTimes } from "../../../../use-cases/user/reset-login-failed-times";
 import {
   IUpdateUserPayload,
   UpdateUser,
 } from "../../../../use-cases/user/update-user";
-import { Logger } from "winston";
-import { Request } from "express";
-import { get } from "lodash";
-import { HashPassword } from "../../../../config/password/hash-password";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
-import { ResetLoginFailedTimes } from "../../../../use-cases/user/reset-login-failed-times";
 
 export default function makeUpdateUserPasswordController({
   getUser,

@@ -1,10 +1,10 @@
+import { Request } from "express";
+import { get } from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   CreateComment,
   ICreateCommentPayload,
 } from "../../../../use-cases/comment/create-comment";
-import { Request } from "express";
-import { get } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeCreateCommentController({
   createComment,

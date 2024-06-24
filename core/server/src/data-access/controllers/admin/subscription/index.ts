@@ -1,12 +1,11 @@
 import {
   getSubscription,
-  getSubscriptions,
   getSubscriptionAnalystics,
+  getSubscriptions,
 } from "../../../../use-cases/subscription";
-
 import makeGetSubscriptionController from "./get-subscription";
-import makeGetSubscriptionsController from "./get-subscriptions";
 import makeGetSubscriptionAnalysticsController from "./get-subscription-analystics";
+import makeGetSubscriptionsController from "./get-subscriptions";
 
 const getSubscriptionAnalysticsController =
   makeGetSubscriptionAnalysticsController({
@@ -28,7 +27,7 @@ export default Object.freeze({
 });
 
 export {
+  getSubscriptionAnalysticsController,
   getSubscriptionController,
   getSubscriptionsController,
-  getSubscriptionAnalysticsController,
 };

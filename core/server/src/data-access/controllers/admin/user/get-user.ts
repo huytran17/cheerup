@@ -1,7 +1,7 @@
 import { Request } from "express";
-import { GetUser, IGetUserPayload } from "../../../../use-cases/user/get-user";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { GetUser, IGetUserPayload } from "../../../../use-cases/user/get-user";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetUserController({

@@ -1,18 +1,18 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakeUser } from "../../../../../__tests__/__mock__";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeUserDb from "../../../make-user-db";
-import { UserModel } from "../../../models";
-import makeCreateUser from "../../../../use-cases/user/create-user";
-import makeGetUser from "../../../../use-cases/user/get-user";
-import makeGetUserController from "./get-user";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IUser from "../../../../database/interfaces/user";
+import makeCreateUser from "../../../../use-cases/user/create-user";
+import makeGetUser from "../../../../use-cases/user/get-user";
+import makeUserDb from "../../../make-user-db";
+import { UserModel } from "../../../models";
+import makeGetUserController from "./get-user";
 
 describe("getUser", () => {
   beforeAll(async () => await connectDatabase());

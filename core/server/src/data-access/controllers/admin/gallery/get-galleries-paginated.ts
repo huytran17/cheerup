@@ -1,10 +1,10 @@
 import { Request } from "express";
+import { get } from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetGalleriesPaginated,
   IGetGalleriesPaginatedPayload,
 } from "../../../../use-cases/gallery/get-galleries-paginated";
-import { get } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeGetGalleriesPaginatedController({
   getGalleriesPaginated,

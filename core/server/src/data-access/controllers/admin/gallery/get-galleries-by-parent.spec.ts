@@ -1,18 +1,18 @@
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
 import { fakeGallery } from "../../../../../__tests__/__mock__";
+import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeGalleryDb from "../../../make-gallery-db";
-import { GalleryModel } from "../../../models";
-import makeCreateGallery from "../../../../use-cases/gallery/create-gallery";
-import makeGetGallery from "../../../../use-cases/gallery/get-gallery";
-import makeGetGalleriesByParent from "../../../../use-cases/gallery/get-galleries-by-parent";
-import makeGetGalleriesByParentController from "./get-galleries-by-parent";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IGallery from "../../../../database/interfaces/gallery";
+import makeCreateGallery from "../../../../use-cases/gallery/create-gallery";
+import makeGetGalleriesByParent from "../../../../use-cases/gallery/get-galleries-by-parent";
+import makeGetGallery from "../../../../use-cases/gallery/get-gallery";
+import makeGalleryDb from "../../../make-gallery-db";
+import { GalleryModel } from "../../../models";
+import makeGetGalleriesByParentController from "./get-galleries-by-parent";
 
 describe("getGalleriesByParent", () => {
   beforeAll(async () => await connectDatabase());

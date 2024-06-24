@@ -1,10 +1,10 @@
 import { Request } from "express";
+import { get } from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetAdminByEmail,
   IGetAdminByEmailPayload,
 } from "../../../../use-cases/admin/get-admin-by-email";
-import { get } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetAdminByEmailController({

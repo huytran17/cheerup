@@ -1,12 +1,12 @@
+import { Request } from "express";
+import { get } from "lodash";
+import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetSystemConfiguration } from "../../../../use-cases/system-configuration/get-system-configuraion";
 import {
   IUpdateSystemConfigurationPayload,
   UpdateSystemConfiguration,
 } from "../../../../use-cases/system-configuration/update-system-configuraion";
-import { Logger } from "winston";
-import { Request } from "express";
-import { get } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeUpdateSystemConfigurationController({

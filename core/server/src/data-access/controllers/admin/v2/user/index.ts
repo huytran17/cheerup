@@ -1,3 +1,4 @@
+import { excelToJSON } from "../../../../../config/excel-to-json";
 import { hashPassword } from "../../../../../config/password";
 import {
   batchUploadUsers,
@@ -12,6 +13,7 @@ const batchUploadUsersController = makeBatchUploadUsersController({
   hashPassword,
   getUserByEmail,
   batchUploadUsers,
+  excelToJSON,
 });
 
 const uploadUserAvatarController = makeUploadUserAvatarController({

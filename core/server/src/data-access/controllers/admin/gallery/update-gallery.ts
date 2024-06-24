@@ -1,12 +1,12 @@
+import { Request } from "express";
+import { get } from "lodash";
+import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetGallery } from "../../../../use-cases/gallery/get-gallery";
 import {
   IUpdateGalleryPayload,
   UpdateGallery,
 } from "../../../../use-cases/gallery/update-gallery";
-import { Logger } from "winston";
-import { Request } from "express";
-import { get } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeUpdateGalleryController({

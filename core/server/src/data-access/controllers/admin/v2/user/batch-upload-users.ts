@@ -1,5 +1,5 @@
 import { get } from "lodash";
-import { excelToJSON } from "../../../../../config/excel-to-json";
+import { ExcelToJSON } from "../../../../../config/excel-to-json/make-excel-to-json";
 import { HashPassword } from "../../../../../config/password/hash-password";
 import { ExcelTemplateSheet } from "../../../../../constants/excel-template-sheet";
 import { HttpStatusCode } from "../../../../../constants/http-status-code";
@@ -13,10 +13,12 @@ export default function makeBatchUploadUsersController({
   hashPassword,
   getUserByEmail,
   batchUploadUsers,
+  excelToJSON,
 }: {
   hashPassword: HashPassword;
   getUserByEmail: GetUserByEmail;
   batchUploadUsers: BatchUploadUsers;
+  excelToJSON: ExcelToJSON;
 }) {
   return async function batchUploadUsersController(
     httpRequest: Request & { context: {} }

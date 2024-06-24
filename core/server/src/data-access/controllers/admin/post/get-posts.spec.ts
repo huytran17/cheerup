@@ -1,18 +1,18 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
 import { fakePost } from "../../../../../__tests__/__mock__";
+import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makePostDb from "../../../make-post-db";
-import { PostModel } from "../../../models";
-import makeCreatePost from "../../../../use-cases/post/create-post";
-import makeGetPosts from "../../../../use-cases/post/get-posts";
-import makeGetPostsController from "./get-posts";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IPost from "../../../../database/interfaces/post";
+import makeCreatePost from "../../../../use-cases/post/create-post";
+import makeGetPosts from "../../../../use-cases/post/get-posts";
+import makePostDb from "../../../make-post-db";
+import { PostModel } from "../../../models";
+import makeGetPostsController from "./get-posts";
 
 describe("getPosts", () => {
   beforeAll(async () => await connectDatabase());

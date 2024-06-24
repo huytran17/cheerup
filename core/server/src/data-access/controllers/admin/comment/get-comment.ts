@@ -1,10 +1,10 @@
 import { Request } from "express";
+import { get } from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetComment,
   IGetCommentPayload,
 } from "../../../../use-cases/comment/get-comment";
-import { get } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetCommentController({

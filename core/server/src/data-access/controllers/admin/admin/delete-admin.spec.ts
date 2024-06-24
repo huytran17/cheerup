@@ -1,20 +1,20 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakeAdmin } from "../../../../../__tests__/__mock__";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { logger } from "../../../../../__tests__/jest-logger";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeAdminDb from "../../../make-admin-db";
-import { AdminModel } from "../../../models";
-import makeGetAdmin from "../../../../use-cases/admin/get-admin";
-import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
-import makeDeleteAdmin from "../../../../use-cases/admin/delete-admin";
-import makeDeleteAdminController from "./delete-admin";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IAdmin from "../../../../database/interfaces/admin";
+import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
+import makeDeleteAdmin from "../../../../use-cases/admin/delete-admin";
+import makeGetAdmin from "../../../../use-cases/admin/get-admin";
+import makeAdminDb from "../../../make-admin-db";
+import { AdminModel } from "../../../models";
+import makeDeleteAdminController from "./delete-admin";
 
 describe("deleteAdmin", () => {
   beforeAll(async () => await connectDatabase());

@@ -1,6 +1,6 @@
 import { Request } from "express";
-import { GetAdmins } from "../../../../use-cases/admin/get-admins";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { GetAdmins } from "../../../../use-cases/admin/get-admins";
 
 export default function makeGetAdminsController({
   getAdmins,

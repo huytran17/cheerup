@@ -1,18 +1,18 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakeAdmin } from "../../../../../__tests__/__mock__";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeAdminDb from "../../../make-admin-db";
-import { AdminModel } from "../../../models";
-import makeGetAdminByEmail from "../../../../use-cases/admin/get-admin-by-email";
-import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
-import makeAdminByEmailController from "./get-admin-by-email";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IAdmin from "../../../../database/interfaces/admin";
+import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
+import makeGetAdminByEmail from "../../../../use-cases/admin/get-admin-by-email";
+import makeAdminDb from "../../../make-admin-db";
+import { AdminModel } from "../../../models";
+import makeAdminByEmailController from "./get-admin-by-email";
 
 describe("getAdminByEmail", () => {
   beforeAll(async () => await connectDatabase());

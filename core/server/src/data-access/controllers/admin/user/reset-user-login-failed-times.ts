@@ -1,8 +1,8 @@
 import { get } from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetUser, IGetUserPayload } from "../../../../use-cases/user/get-user";
 import { ResetLoginFailedTimes } from "../../../../use-cases/user/reset-login-failed-times";
 import { isEmpty } from "../../../../utils/is-empty";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeResetUserLoginFailedTimesController({
   getUser,

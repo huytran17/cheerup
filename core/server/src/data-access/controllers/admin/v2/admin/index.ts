@@ -1,3 +1,4 @@
+import { excelToJSON } from "../../../../../config/excel-to-json";
 import { hashPassword } from "../../../../../config/password";
 import {
   batchUploadAdmins,
@@ -17,6 +18,7 @@ const batchUploadAdminsController = makeBatchUploadAdminsController({
   batchUploadAdmins,
   hashPassword,
   getAdminByEmail,
+  excelToJSON,
 });
 
 export default Object.freeze({

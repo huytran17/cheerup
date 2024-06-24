@@ -1,17 +1,17 @@
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
 import { fakeComment } from "../../../../../__tests__/__mock__";
+import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeCommentDb from "../../../make-comment-db";
-import { CommentModel } from "../../../models";
-import makeCreateComment from "../../../../use-cases/comment/create-comment";
-import makeGetComments from "../../../../use-cases/comment/get-comments";
-import makeGetCommentsController from "./get-comments";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IComment from "../../../../database/interfaces/comment";
+import makeCreateComment from "../../../../use-cases/comment/create-comment";
+import makeGetComments from "../../../../use-cases/comment/get-comments";
+import makeCommentDb from "../../../make-comment-db";
+import { CommentModel } from "../../../models";
+import makeGetCommentsController from "./get-comments";
 
 describe("getComments", () => {
   beforeAll(async () => await connectDatabase());

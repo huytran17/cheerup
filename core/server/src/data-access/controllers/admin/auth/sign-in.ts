@@ -6,8 +6,8 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { LoginFailed } from "../../../../constants/login-failed-times";
 import { GetAdminByEmail } from "../../../../use-cases/admin/get-admin-by-email";
 import { IncreaseLoginFailedTimes } from "../../../../use-cases/admin/increase-login-failed-times";
-import { isEmpty } from "../../../../utils/is-empty";
 import { ResetLoginFailedTimes } from "../../../../use-cases/admin/reset-login-failed-times";
+import { isEmpty } from "../../../../utils/is-empty";
 
 interface IPayload {
   email: string;

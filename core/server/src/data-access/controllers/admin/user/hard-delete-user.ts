@@ -1,12 +1,12 @@
+import { Request } from "express";
+import { get } from "lodash";
+import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetUser } from "../../../../use-cases/user/get-user";
 import {
   HardDeleteUser,
   IHardDeleteUserPayload,
 } from "../../../../use-cases/user/hard-delete-user";
-import { Logger } from "winston";
-import { Request } from "express";
-import { get } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeHardDeleteUserController({

@@ -7,19 +7,19 @@ import { logger } from "../../../../config/logs/logger";
 import {
   createPost,
   deletePost,
+  getMostPopularPostsAnalystics,
   getPost,
   getPostAnalystics,
   getPosts,
+  getSoftDeletedPost,
   hardDeletePost,
   updatePost,
-  getMostPopularPostsAnalystics,
-  getSoftDeletedPost,
 } from "../../../../use-cases/post";
 import { getActivatingSubscriptions } from "../../../../use-cases/subscription";
-
 import makeBlockPostCommentController from "./block-post-comment";
 import makeCreatePostController from "./create-post";
 import makeDeletePostController from "./delete-post";
+import makeGetMostPopularPostsAnalysticsController from "./get-most-popular-posts-analystics";
 import makeGetPostController from "./get-post";
 import makeGetPostAnalysticsController from "./get-post-analystics";
 import makeGetPostsController from "./get-posts";
@@ -28,7 +28,6 @@ import makeRestorePostController from "./restore-post";
 import makeUnblockPostCommentController from "./un-block-post-comment";
 import makeUpdatePostController from "./update-post";
 import makeUploadPostThumbnailController from "./upload-post-thumbnail";
-import makeGetMostPopularPostsAnalysticsController from "./get-most-popular-posts-analystics";
 
 const getMostPopularPostsAnalysticsController =
   makeGetMostPopularPostsAnalysticsController({
@@ -115,16 +114,16 @@ export default Object.freeze({
 });
 
 export {
-  getPostController,
-  deletePostController,
-  updatePostController,
+  blockPostCommentController,
   createPostController,
+  deletePostController,
+  getMostPopularPostsAnalysticsController,
+  getPostAnalysticsController,
+  getPostController,
   getPostsController,
-  uploadPostThumbnailController,
+  hardDeletePostController,
   restorePostController,
   unblockPostCommentController,
-  blockPostCommentController,
-  hardDeletePostController,
-  getPostAnalysticsController,
-  getMostPopularPostsAnalysticsController,
+  updatePostController,
+  uploadPostThumbnailController,
 };

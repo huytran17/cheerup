@@ -1,10 +1,10 @@
 import { Request } from "express";
+import { get } from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetSubscription,
   IGetSubscriptionPayload,
 } from "../../../../use-cases/subscription/get-subscription";
-import { get } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetSubscriptionController({

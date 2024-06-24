@@ -1,13 +1,13 @@
 import { Request } from "express";
 import { get } from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetAdmin,
   IGetAdminPayload,
 } from "../../../../use-cases/admin/get-admin";
 import { UpdateAdmin } from "../../../../use-cases/admin/update-admin";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { isEmpty } from "../../../../utils/is-empty";
 import deleteS3Object from "../../../../utils/delete-s3-object";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeUploadAvatarController({
   getAdmin,

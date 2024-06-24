@@ -1,6 +1,6 @@
 import { Request } from "express";
-import { GetUsers } from "../../../../use-cases/user/get-users";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { GetUsers } from "../../../../use-cases/user/get-users";
 
 export default function makeGetUsersController({
   getUsers,

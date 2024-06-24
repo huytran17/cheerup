@@ -1,22 +1,22 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakeAdmin } from "../../../../../__tests__/__mock__";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { logger } from "../../../../../__tests__/jest-logger";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeAdminDb from "../../../make-admin-db";
-import { AdminModel } from "../../../models";
-import makeGetAdmin from "../../../../use-cases/admin/get-admin";
-import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
-import makeUpdateAdmin from "../../../../use-cases/admin/update-admin";
-import makeResetLoginFailedTimes from "../../../../use-cases/admin/reset-login-failed-times";
-import makeUpdateAdminPasswordController from "./update-admin-password";
+import { hashPassword } from "../../../../config/password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IAdmin from "../../../../database/interfaces/admin";
-import { hashPassword } from "../../../../config/password";
+import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
+import makeGetAdmin from "../../../../use-cases/admin/get-admin";
+import makeResetLoginFailedTimes from "../../../../use-cases/admin/reset-login-failed-times";
+import makeUpdateAdmin from "../../../../use-cases/admin/update-admin";
+import makeAdminDb from "../../../make-admin-db";
+import { AdminModel } from "../../../models";
+import makeUpdateAdminPasswordController from "./update-admin-password";
 
 describe("updateAdminPassword", () => {
   beforeAll(async () => await connectDatabase());

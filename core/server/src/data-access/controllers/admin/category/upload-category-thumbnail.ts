@@ -1,13 +1,13 @@
 import { Request } from "express";
 import { get } from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetCategory,
   IGetCategoryPayload,
 } from "../../../../use-cases/category/get-category";
 import { UpdateCategory } from "../../../../use-cases/category/update-category";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { isEmpty } from "../../../../utils/is-empty";
 import deleteS3Object from "../../../../utils/delete-s3-object";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeUploadCategoryThumbnailController({
   getCategory,

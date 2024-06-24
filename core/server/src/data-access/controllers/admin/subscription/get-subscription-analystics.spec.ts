@@ -1,19 +1,19 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakeSubscription } from "../../../../../__tests__/__mock__";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { logger } from "../../../../../__tests__/jest-logger";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeSubscriptionDb from "../../../make-subscription-db";
-import { SubscriptionModel } from "../../../models";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import makeCreateSubscription from "../../../../use-cases/subscription/create-subscription";
 import makeGetSubscriptionAnalystics from "../../../../use-cases/subscription/get-subscription-analystics";
-import makeGetSubscriptionAnalysticsController from "./get-subscription-analystics";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { ISubscriptionAnalyticsData } from "../../../interfaces/subscription-db";
+import makeSubscriptionDb from "../../../make-subscription-db";
+import { SubscriptionModel } from "../../../models";
+import makeGetSubscriptionAnalysticsController from "./get-subscription-analystics";
 
 describe("getSubscriptionAnalystics", () => {
   beforeAll(async () => await connectDatabase());

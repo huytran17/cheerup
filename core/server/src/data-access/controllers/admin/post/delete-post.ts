@@ -1,12 +1,12 @@
-import { GetPost } from "../../../../use-cases/post/get-post";
+import { Request } from "express";
+import { get } from "lodash";
+import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   DeletePost,
   IDeletePostPayload,
 } from "../../../../use-cases/post/delete-post";
-import { Logger } from "winston";
-import { Request } from "express";
-import { get } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { GetPost } from "../../../../use-cases/post/get-post";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeDeletePostController({

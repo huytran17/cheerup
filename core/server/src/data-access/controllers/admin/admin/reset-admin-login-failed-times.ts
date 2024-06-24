@@ -1,11 +1,11 @@
 import { get } from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetAdmin,
   IGetAdminPayload,
 } from "../../../../use-cases/admin/get-admin";
 import { ResetLoginFailedTimes } from "../../../../use-cases/admin/reset-login-failed-times";
 import { isEmpty } from "../../../../utils/is-empty";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeResetAdminLoginFailedTimesController({
   getAdmin,

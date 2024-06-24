@@ -1,21 +1,21 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakeCategory } from "../../../../../__tests__/__mock__";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { logger } from "../../../../../__tests__/jest-logger";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeCategoryDb from "../../../make-category-db";
-import { CategoryModel } from "../../../models";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import ICategory from "../../../../database/interfaces/category";
 import makeCreateCategory from "../../../../use-cases/category/create-category";
 import makeGetCategory from "../../../../use-cases/category/get-category";
 import makeGetCategoryByTitle from "../../../../use-cases/category/get-category-by-title";
 import makeUpdateCategory from "../../../../use-cases/category/update-category";
+import makeCategoryDb from "../../../make-category-db";
+import { CategoryModel } from "../../../models";
 import makeUpdateCategoryController from "./update-category";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
-import ICategory from "../../../../database/interfaces/category";
 
 describe("updateCategory", () => {
   beforeAll(async () => await connectDatabase());

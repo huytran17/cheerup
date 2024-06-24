@@ -1,9 +1,9 @@
 import { Request } from "express";
-import { UpdateGallery } from "../../../../use-cases/gallery/update-gallery";
-import { GetGallery } from "../../../../use-cases/gallery/get-gallery";
-import { get, filter } from "lodash";
+import { filter, get } from "lodash";
 import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { GetGallery } from "../../../../use-cases/gallery/get-gallery";
+import { UpdateGallery } from "../../../../use-cases/gallery/update-gallery";
 import { isEmpty } from "../../../../utils/is-empty";
 
 interface IPayload {

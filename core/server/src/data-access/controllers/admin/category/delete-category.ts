@@ -1,12 +1,12 @@
-import { GetCategory } from "../../../../use-cases/category/get-category";
+import { Request } from "express";
+import { get } from "lodash";
+import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   DeleteCategory,
   IDeleteCategoryPayload,
 } from "../../../../use-cases/category/delete-category";
-import { Logger } from "winston";
-import { Request } from "express";
-import { get } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { GetCategory } from "../../../../use-cases/category/get-category";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeDeleteCategoryController({

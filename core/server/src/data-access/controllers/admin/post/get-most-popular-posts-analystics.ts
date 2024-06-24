@@ -1,10 +1,10 @@
 import { Request } from "express";
+import { get, sortBy, split } from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetMostPopularPostsAnalystics,
   IGetMostPopularPostsAnalysticsPayload,
 } from "../../../../use-cases/post/get-most-popular-posts-analystics";
-import { get, sortBy, split } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 interface IPayload
   extends Omit<IGetMostPopularPostsAnalysticsPayload, "range"> {

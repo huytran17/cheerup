@@ -1,12 +1,12 @@
+import { Request } from "express";
+import { get } from "lodash";
+import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetCategory } from "../../../../use-cases/category/get-category";
 import {
   HardDeleteCategory,
   IHardDeleteCategoryPayload,
 } from "../../../../use-cases/category/hard-delete-category";
-import { Logger } from "winston";
-import { Request } from "express";
-import { get } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeHardDeleteCategoryController({

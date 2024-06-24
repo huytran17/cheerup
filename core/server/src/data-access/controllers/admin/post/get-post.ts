@@ -1,7 +1,7 @@
 import { Request } from "express";
-import { GetPost, IGetPostPayload } from "../../../../use-cases/post/get-post";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { GetPost, IGetPostPayload } from "../../../../use-cases/post/get-post";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetPostController({

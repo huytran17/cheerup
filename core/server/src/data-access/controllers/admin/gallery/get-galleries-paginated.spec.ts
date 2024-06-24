@@ -1,20 +1,20 @@
 import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
-import {
   fakeGallery,
   fakeQueryParams,
 } from "../../../../../__tests__/__mock__";
+import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeGalleryDb from "../../../make-gallery-db";
-import { GalleryModel } from "../../../models";
-import makeCreateGallery from "../../../../use-cases/gallery/create-gallery";
-import makeGetGalleriesPaginated from "../../../../use-cases/gallery/get-galleries-paginated";
-import makeGetGalleriesPaginatedController from "./get-galleries-paginated";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IGallery from "../../../../database/interfaces/gallery";
+import makeCreateGallery from "../../../../use-cases/gallery/create-gallery";
+import makeGetGalleriesPaginated from "../../../../use-cases/gallery/get-galleries-paginated";
+import makeGalleryDb from "../../../make-gallery-db";
+import { GalleryModel } from "../../../models";
+import makeGetGalleriesPaginatedController from "./get-galleries-paginated";
 
 describe("getGalleriesPaginated", () => {
   beforeAll(async () => await connectDatabase());

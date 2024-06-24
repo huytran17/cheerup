@@ -1,10 +1,10 @@
 import { Request } from "express";
+import { get } from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetSystemConfiguration,
   IGetSystemConfigurationPayload,
 } from "../../../../use-cases/system-configuration/get-system-configuraion";
-import { get } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetSystemConfigurationController({

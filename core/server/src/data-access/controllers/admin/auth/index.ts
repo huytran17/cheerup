@@ -1,7 +1,3 @@
-import makeGetMeController from "./get-me";
-import makeSignInController from "./sign-in";
-import makeSignOutController from "./sign-out";
-
 import { generateAccessToken } from "../../../../config/accessTokenManager";
 import { verifyPassword } from "../../../../config/password";
 import {
@@ -9,6 +5,9 @@ import {
   increaseLoginFailedTimes,
   resetLoginFailedTimes,
 } from "../../../../use-cases/admin";
+import makeGetMeController from "./get-me";
+import makeSignInController from "./sign-in";
+import makeSignOutController from "./sign-out";
 
 const getMeController = makeGetMeController();
 

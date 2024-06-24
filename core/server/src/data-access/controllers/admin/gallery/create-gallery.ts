@@ -1,12 +1,12 @@
+import { Request } from "express";
+import { get } from "lodash";
+import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import IAdmin from "../../../../database/interfaces/admin";
 import {
   CreateGallery,
   ICreateGalleryPayload,
 } from "../../../../use-cases/gallery/create-gallery";
-import { Logger } from "winston";
-import { Request } from "express";
-import { get } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
-import IAdmin from "../../../../database/interfaces/admin";
 
 export default function makeCreateGalleryController({
   createGallery,

@@ -1,10 +1,10 @@
 import { Request } from "express";
+import { get, sortBy, split } from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetAdminAnalystics,
   IGetAdminAnalysticsPayload,
 } from "../../../../use-cases/admin/get-admin-analystics";
-import { get, sortBy, split } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 interface IPayload extends Omit<IGetAdminAnalysticsPayload, "range"> {
   range?: string;

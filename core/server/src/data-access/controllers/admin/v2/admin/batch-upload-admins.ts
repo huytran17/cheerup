@@ -1,7 +1,8 @@
 import { Request } from "express";
 import { get } from "lodash";
-import { excelToJSON } from "../../../../../config/excel-to-json";
+import { ExcelToJSON } from "../../../../../config/excel-to-json/make-excel-to-json";
 import { HashPassword } from "../../../../../config/password/hash-password";
+import { ExcelTemplateSheet } from "../../../../../constants/excel-template-sheet";
 import { HttpStatusCode } from "../../../../../constants/http-status-code";
 import {
   BatchUploadAdmins,
@@ -9,16 +10,17 @@ import {
 } from "../../../../../use-cases/admin/batch-upload-admins";
 import { GetAdminByEmail } from "../../../../../use-cases/admin/get-admin-by-email";
 import { isEmpty } from "../../../../../utils/is-empty";
-import { ExcelTemplateSheet } from "../../../../../constants/excel-template-sheet";
 
 export default function makeBatchUploadAdminsController({
   batchUploadAdmins,
   hashPassword,
   getAdminByEmail,
+  excelToJSON,
 }: {
   batchUploadAdmins: BatchUploadAdmins;
   hashPassword: HashPassword;
   getAdminByEmail: GetAdminByEmail;
+  excelToJSON: ExcelToJSON;
 }) {
   return async function batchUploadAdminsController(
     httpRequest: Request & { context: {} }

@@ -1,16 +1,15 @@
 import {
+  createComment,
   getComment,
+  getComments,
   hardDeleteComment,
   updateComment,
-  createComment,
-  getComments,
 } from "../../../../use-cases/comment";
-
-import makeGetCommentsController from "./get-comments";
+import makeCreateCommentController from "./create-comment";
 import makeGetCommentController from "./get-comment";
+import makeGetCommentsController from "./get-comments";
 import makeHardDeleteCommentController from "./hard-delete-comment";
 import makeUpdateCommentController from "./update-comment";
-import makeCreateCommentController from "./create-comment";
 
 const getCommentsController = makeGetCommentsController({
   getComments,
@@ -43,9 +42,9 @@ export default Object.freeze({
 });
 
 export {
+  createCommentController,
   getCommentController,
+  getCommentsController,
   hardDeleteCommentController,
   updateCommentController,
-  createCommentController,
-  getCommentsController,
 };

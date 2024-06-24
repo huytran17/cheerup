@@ -1,6 +1,6 @@
 import { Request } from "express";
-import { GetCategoriesForSEO } from "../../../../use-cases/category/get-categories-for-seo";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { GetCategoriesForSEO } from "../../../../use-cases/category/get-categories-for-seo";
 
 export default function makeGetCategoriesForSEOController({
   getCategoriesForSEO,
