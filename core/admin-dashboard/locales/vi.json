@@ -263,5 +263,7 @@
   "User excel template": "Mẫu dữ liệu người dùng",
   "Post excel template": "Mẫu dữ liệu bài viết",
   "Category excel template": "Mẫu dữ liệu chuyên mục",
-  "Online": "Trực tuyến"
+  "Online": "Trực tuyến",
+  "Download batch template": "Tải xuống dữ liệu mẫu",
+  "Upload batch data": "Tải lên dữ liệu mẫu"
 }

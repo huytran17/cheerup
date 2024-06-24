@@ -263,5 +263,7 @@
   "User excel template": "User excel template",
   "Post excel template": "Post excel template",
   "Category excel template": "Category excel template",
-  "Online": "Online"
+  "Online": "Online",
+  "Download batch template": "Download batch template",
+  "Upload batch data": "Upload batch data"
 }
