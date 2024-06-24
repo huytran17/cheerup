@@ -17,8 +17,4 @@ const MimeTypes = {
   ],
 };
 
-export default Object.freeze({
-  MimeTypes,
-});
-
 export { MimeTypes };

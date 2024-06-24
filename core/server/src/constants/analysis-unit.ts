@@ -5,8 +5,4 @@ const AnalyssisUnit = {
   YEAR: "year",
 };
 
-export default Object.freeze({
-  AnalyssisUnit,
-});
-
 export { AnalyssisUnit };

@@ -17,11 +17,4 @@ enum ServerEvents {
   OFFLINE = "offline",
 }
 
-export default Object.freeze({
-  SocketIONsp,
-  SocketEvents,
-  ClientEvents,
-  ServerEvents,
-});
-
 export { SocketIONsp, SocketEvents, ClientEvents, ServerEvents };

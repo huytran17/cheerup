@@ -205,68 +205,6 @@
         </v-col>
       </v-row>
     </v-col>
-    <v-col cols="12">
-      <v-row>
-        <v-col cols="12" class="pb-0">
-          <div class="text-body-2">
-            <span class="app-body">
-              <span v-html="$t('Post excel template')"></span>
-            </span>
-          </div>
-        </v-col>
-        <v-col cols="12" md="6">
-          <v-dropzone
-            ref="post_excel_template_dropzone"
-            id="post_excel_template"
-            :options="
-              uploadExcelTemplateOptions({
-                id: system_configuration._id,
-                type: EXCEL_TEMPLATE_TYPE.POST,
-              })
-            "
-            :destroyDropzone="true"
-            @vdropzone-success="
-              (file) =>
-                onUploadSuccsess({
-                  ref: 'post_excel_template_dropzone',
-                  file,
-                })
-            "
-          ></v-dropzone>
-        </v-col>
-      </v-row>
-    </v-col>
-    <v-col cols="12">
-      <v-row>
-        <v-col cols="12" class="pb-0">
-          <div class="text-body-2">
-            <span class="app-body">
-              <span v-html="$t('Category excel template')"></span>
-            </span>
-          </div>
-        </v-col>
-        <v-col cols="12" md="6">
-          <v-dropzone
-            ref="category_excel_template_dropzone"
-            id="category_excel_template"
-            :options="
-              uploadExcelTemplateOptions({
-                id: system_configuration._id,
-                type: EXCEL_TEMPLATE_TYPE.CATEGORY,
-              })
-            "
-            :destroyDropzone="true"
-            @vdropzone-success="
-              (file) =>
-                onUploadSuccsess({
-                  ref: 'category_excel_template_dropzone',
-                  file,
-                })
-            "
-          ></v-dropzone>
-        </v-col>
-      </v-row>
-    </v-col>
   </v-row>
 </template>
 

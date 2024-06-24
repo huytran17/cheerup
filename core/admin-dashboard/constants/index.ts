@@ -30,8 +30,6 @@ enum SOCKETIO_EMIT_EVENT {
 const EXCEL_TEMPLATE_TYPE = {
   ADMIN: "admin",
   USER: "user",
-  POST: "post",
-  CATEGORY: "category",
 };
 
 const MIME_TYPES = {

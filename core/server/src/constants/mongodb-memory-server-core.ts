@@ -4,8 +4,4 @@ const MongoMemoryServerCoreState = {
   RUNNING: "running",
 };
 
-export default Object.freeze({
-  MongoMemoryServerCoreState,
-});
-
 export { MongoMemoryServerCoreState };

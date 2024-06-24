@@ -10,8 +10,4 @@ const HttpStatusCode = {
   UNPROCESSABLE_CONTENT: 422,
 };
 
-export default Object.freeze({
-  HttpStatusCode,
-});
-
 export { HttpStatusCode };

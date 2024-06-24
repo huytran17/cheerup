@@ -5,8 +5,4 @@ const AuthorizationRole = {
   OWNER_AND_COLLABORATOR: [AdminType.Owner, AdminType.Collaborator],
 };
 
-export default Object.freeze({
-  AuthorizationRole,
-});
-
 export { AuthorizationRole };
