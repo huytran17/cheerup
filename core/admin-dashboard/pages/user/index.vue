@@ -90,17 +90,17 @@ export default {
     }),
   },
 
-  ...mapActions({
-    GET_LATEST_SYSTEM_CONFIGURATION:
-      "system-configuration/GET_LATEST_SYSTEM_CONFIGURATION",
-    GET_USERS: "user/GET_USERS",
-    BATCH_UPLOAD_USERS: "user/BATCH_UPLOAD_USERS",
-  }),
-
   methods: {
+    ...mapActions({
+      GET_LATEST_SYSTEM_CONFIGURATION:
+        "system-configuration/GET_LATEST_SYSTEM_CONFIGURATION",
+      GET_USERS: "user/GET_USERS",
+      BATCH_UPLOAD_USERS: "user/BATCH_UPLOAD_USERS",
+    }),
+
     async batchUploadUsers(file) {
       try {
-        await this.BATCH_UPLOAD_USERS(file);
+        await this.BATCH_UPLOAD_USERS({ file });
         await this.GET_USERS();
       } catch (error) {
         console.error(error);

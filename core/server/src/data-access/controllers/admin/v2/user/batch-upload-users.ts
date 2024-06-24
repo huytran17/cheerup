@@ -27,14 +27,17 @@ export default function makeBatchUploadUsersController({
 
     try {
       const file = <IFileMeta>get(httpRequest, "context.file", {});
+      console.log("--------------------file", file);
 
-      const batch_payload = <IBatchUploadUsers[]>excelToJSON({
+      const payload = <IBatchUploadUsers[]>excelToJSON({
         source: file.path,
         sheet: ExcelTemplateSheet.USER,
       });
 
-      const batch_payload_promises = batch_payload.map(async (payload) => {
-        const { email, password, password_confirmation } = payload;
+      console.log("--------------------payload", payload);
+
+      const batch_payload_promises = payload.map(async (user) => {
+        const { email, password, password_confirmation } = user;
 
         const exists = await getUserByEmail({ email });
         if (exists) {
@@ -46,7 +49,7 @@ export default function makeBatchUploadUsersController({
           password_confirmation,
         });
 
-        return { ...payload, hash_password: hashed_password };
+        return { ...user, hash_password: hashed_password };
       });
 
       const final_payload = await Promise.all(batch_payload_promises);

@@ -102,13 +102,13 @@ const actions: ActionTree<UserState, RootState> = {
   },
 
   async [ActionTypes.BATCH_UPLOAD_USERS]({ commit }, params = {}) {
-    const file = get(params, "file", {});
+    const file = get(params, "file");
 
     const form_data = new FormData();
     form_data.append("file", file);
 
     const data = await this.$axios.post(
-      `/v2/batch/admin/upload-users`,
+      `/v2/batch/user/upload-users`,
       form_data
     );
 

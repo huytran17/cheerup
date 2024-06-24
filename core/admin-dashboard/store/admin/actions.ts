@@ -126,6 +126,7 @@ const actions: ActionTree<AdminState, RootState> = {
 
   async [ActionTypes.BATCH_UPLOAD_ADMINS]({ commit }, params = {}) {
     const file = get(params, "file");
+
     const form_data = new FormData();
     form_data.append("file", file);
 
