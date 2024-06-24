@@ -27,14 +27,11 @@ export default function makeBatchUploadUsersController({
 
     try {
       const file = <IFileMeta>get(httpRequest, "context.file", {});
-      console.log("--------------------file", file);
 
       const payload = <IBatchUploadUsers[]>excelToJSON({
         source: file.path,
         sheet: ExcelTemplateSheet.USER,
       });
-
-      console.log("--------------------payload", payload);
 
       const batch_payload_promises = payload.map(async (user) => {
         const { email, password, password_confirmation } = user;
