@@ -3,11 +3,11 @@ import { get } from "lodash";
 import Moment from "moment";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { TwoFAType } from "../../../../database/interfaces/two-factor-authentication";
+import IUser from "../../../../database/interfaces/user";
 import { GetTwoFactorAuthenticationByEmailAndCode } from "../../../../use-cases/two-factor-authentication/get-two-factor-authentication-by-email-and-code";
 import { HardDeleteTwoFactorAuthentication } from "../../../../use-cases/two-factor-authentication/hard-delete-two-factor-authentication";
 import { UpdateUser } from "../../../../use-cases/user/update-user";
 import { isEmpty } from "../../../../utils/is-empty";
-import IUser from "../../../../database/interfaces/user";
 
 interface IPayload {
   code: string;

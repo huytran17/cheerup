@@ -1,19 +1,19 @@
 import { Request } from "express";
+import { get, map, omit } from "lodash";
 import Moment from "moment";
-import randomString from "randomstring";
-import { TwoFAType } from "../../../../database/interfaces/two-factor-authentication";
+import { Logger } from "winston";
 import { GetEmailContent } from "../../../../config/emailManager/get-email-content";
 import { RenderEmailContent } from "../../../../config/emailManager/render-email-content";
 import { SendEmail } from "../../../../config/emailManager/send-email";
-import { get, omit, map } from "lodash";
+import { RandomString } from "../../../../config/randomstring/make-random-string";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { TwoFAType } from "../../../../database/interfaces/two-factor-authentication";
+import IUser from "../../../../database/interfaces/user";
 import { CreateTwoFactorAuthentication } from "../../../../use-cases/two-factor-authentication/create-two-factor-authentication";
-import { GetTwoFactorAuthenticationByEmailAndCode } from "../../../../use-cases/two-factor-authentication/get-two-factor-authentication-by-email-and-code";
 import { GetTwoFactorAuthenticationByEmail } from "../../../../use-cases/two-factor-authentication/get-two-factor-authentication-by-email";
+import { GetTwoFactorAuthenticationByEmailAndCode } from "../../../../use-cases/two-factor-authentication/get-two-factor-authentication-by-email-and-code";
 import { HardDeleteTwoFactorAuthentication } from "../../../../use-cases/two-factor-authentication/hard-delete-two-factor-authentication";
 import { isEmpty } from "../../../../utils/is-empty";
-import { Logger } from "winston";
-import IUser from "../../../../database/interfaces/user";
 
 export default function makeDisable2FAConfirmationController({
   createTwoFactorAuthentication,
@@ -23,6 +23,7 @@ export default function makeDisable2FAConfirmationController({
   getEmailContent,
   renderEmailContent,
   sendEmail,
+  randomString,
   logger,
   moment,
 }: {
@@ -33,6 +34,7 @@ export default function makeDisable2FAConfirmationController({
   getEmailContent: GetEmailContent;
   renderEmailContent: RenderEmailContent;
   sendEmail: SendEmail;
+  randomString: RandomString;
   logger: Logger;
   moment: typeof Moment;
 }) {
@@ -58,11 +60,7 @@ export default function makeDisable2FAConfirmationController({
 
       await Promise.all(delete_existed_promises);
 
-      const generateCode = () =>
-        randomString.generate({
-          length: 6,
-          charset: "numeric",
-        });
+      const generateCode = () => randomString();
 
       const get2FAByEmailAndCode = async () =>
         await getTwoFactorAuthenticationByEmailAndCode({

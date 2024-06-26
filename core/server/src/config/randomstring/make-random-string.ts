@@ -1,13 +1,15 @@
-import Randomstring from "randomstring";
+import Randomstring, { GenerateOptions } from "randomstring";
 
-const default_options = { length: 6, charset: "numeric" };
+export type RandomString = (options?: GenerateOptions) => string;
+
+const default_options: GenerateOptions = { length: 6, charset: "numeric" };
 
 export default function makeRandomString({
   randomstring,
 }: {
   randomstring: typeof Randomstring;
-}) {
-  return function randomString(options?: object) {
+}): RandomString {
+  return function randomString(options = {}) {
     return randomstring.generate({ ...default_options, ...options });
   };
 }

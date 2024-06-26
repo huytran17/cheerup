@@ -1,17 +1,17 @@
 import { Request } from "express";
+import { PassportStatic } from "passport";
 import passport_google_oauth2, {
   StrategyOptionsWithRequest,
   VerifyCallback,
 } from "passport-google-oauth2";
-import { PassportStatic } from "passport";
 import { UserModel } from "../../../data-access/models";
-import { randomString } from "../../randomstring";
-import { hashPassword } from "../../password";
 import {
-  sendEmail,
-  renderEmailContent,
   getEmailContent,
+  renderEmailContent,
+  sendEmail,
 } from "../../emailManager";
+import { hashPassword } from "../../password";
+import { randomString } from "../../randomstring";
 
 export default function initializeGoogle(
   passport: PassportStatic,

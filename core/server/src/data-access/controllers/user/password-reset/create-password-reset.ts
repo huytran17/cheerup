@@ -1,11 +1,11 @@
 import { Request } from "express";
 import { get, omit } from "lodash";
 import Moment from "moment";
-import { randomString } from "../../../../config/randomstring";
 import { Logger } from "winston";
 import { GetEmailContent } from "../../../../config/emailManager/get-email-content";
 import { RenderEmailContent } from "../../../../config/emailManager/render-email-content";
 import { SendEmail } from "../../../../config/emailManager/send-email";
+import { RandomString } from "../../../../config/randomstring/make-random-string";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { CreatePasswordReset } from "../../../../use-cases/password-reset/create-password-reset";
 import { GetPasswordResetByCode } from "../../../../use-cases/password-reset/get-password-reset-by-code";
@@ -26,6 +26,7 @@ export default function makeCreatePasswordResetController({
   getEmailContent,
   renderEmailContent,
   sendEmail,
+  randomString,
   moment,
   logger,
 }: {
@@ -37,6 +38,7 @@ export default function makeCreatePasswordResetController({
   getEmailContent: GetEmailContent;
   renderEmailContent: RenderEmailContent;
   sendEmail: SendEmail;
+  randomString: RandomString;
   moment: typeof Moment;
   logger: Logger;
 }) {

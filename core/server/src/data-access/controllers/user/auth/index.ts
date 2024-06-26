@@ -8,6 +8,7 @@ import {
 import { logger } from "../../../../config/logs/logger";
 import { hashPassword, verifyPassword } from "../../../../config/password";
 import { generateQRCode } from "../../../../config/qrcode";
+import { randomString } from "../../../../config/randomstring";
 import { getSubscriptionByEmail } from "../../../../use-cases/subscription";
 import {
   createTwoFactorAuthentication,
@@ -63,6 +64,7 @@ const disable2FAConfirmationController = makeDisable2FAConfirmationController({
   getEmailContent,
   renderEmailContent,
   sendEmail,
+  randomString,
   logger,
   moment,
 });
@@ -75,6 +77,7 @@ const enable2FAConfirmationController = makeEnable2FAConfirmationController({
   getEmailContent,
   renderEmailContent,
   sendEmail,
+  randomString,
   logger,
   moment,
 });
