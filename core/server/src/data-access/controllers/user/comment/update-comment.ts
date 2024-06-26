@@ -1,14 +1,14 @@
+import { Request } from "express";
+import { get } from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import IUser from "../../../../database/interfaces/user";
 import { GetComment } from "../../../../use-cases/comment/get-comment";
 import {
   IUpdateCommentData,
   UpdateComment,
 } from "../../../../use-cases/comment/update-comment";
 import { GetPost } from "../../../../use-cases/post/get-post";
-import { Request } from "express";
-import { get } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
-import IUser from "../../../../database/interfaces/user";
 
 export default function makeUpdateCommentController({
   getComment,

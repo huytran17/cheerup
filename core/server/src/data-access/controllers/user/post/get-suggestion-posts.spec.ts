@@ -1,20 +1,20 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
+import { fakeCategory, fakePost } from "../../../../../__tests__/__mock__";
 import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
-import { fakePost, fakeCategory } from "../../../../../__tests__/__mock__";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makePostDb from "../../../make-post-db";
-import makeCategoryDb from "../../../make-category-db";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IPost from "../../../../database/interfaces/post";
-import { PostModel, CategoryModel } from "../../../models";
 import makeCreateCategory from "../../../../use-cases/category/create-category";
 import makeCreatePost from "../../../../use-cases/post/create-post";
 import makeGetSuggestionPosts from "../../../../use-cases/post/get-suggestion-posts";
+import makeCategoryDb from "../../../make-category-db";
+import makePostDb from "../../../make-post-db";
+import { CategoryModel, PostModel } from "../../../models";
 import makeGetSuggestionPostsController from "./get-suggestion-posts";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 describe("getSuggestionPosts", () => {
   beforeAll(async () => await connectDatabase());

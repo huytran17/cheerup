@@ -1,14 +1,14 @@
-import Moment from "moment";
 import { Request } from "express";
-import { GetPost, IGetPostPayload } from "../../../../use-cases/post/get-post";
-import { ReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import { get } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { isEmpty } from "../../../../utils/is-empty";
+import Moment from "moment";
 import {
   getPdfContent,
   renderPdfContent,
 } from "../../../../config/pdf-generator";
+import { ReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { GetPost, IGetPostPayload } from "../../../../use-cases/post/get-post";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeExportPostPdfController({
   getPost,

@@ -1,9 +1,8 @@
 import {
+  createSubscription,
   getSubscriptionByEmail,
   updateSubscription,
-  createSubscription,
 } from "../../../../use-cases/subscription";
-
 import makeCancelSubscriptionController from "./cancel-subscription";
 import makeCreateSubscriptionController from "./create-subscription";
 

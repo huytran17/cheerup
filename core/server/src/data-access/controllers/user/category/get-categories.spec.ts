@@ -1,14 +1,14 @@
 import moment from "moment";
 import {
-  connectDatabase,
   clearDatabase,
+  connectDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import makeGetCategories from "../../../../use-cases/category/get-categories";
 import makeCategoryDb from "../../../make-category-db";
 import { CategoryModel } from "../../../models";
-import makeGetCategories from "../../../../use-cases/category/get-categories";
 import makeGetCategoriesController from "./get-categories";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 describe("getCategories", () => {
   beforeAll(async () => await connectDatabase());

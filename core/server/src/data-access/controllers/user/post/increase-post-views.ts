@@ -1,10 +1,10 @@
 import { get } from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetPost } from "../../../../use-cases/post/get-post";
 import {
   IIncreasePostViewsPayload,
   IncreasePostViews,
 } from "../../../../use-cases/post/increase-post-views";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 export default function makeIncreasePostViewsController({
   getPost,

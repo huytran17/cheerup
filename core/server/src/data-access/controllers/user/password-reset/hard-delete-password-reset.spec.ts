@@ -1,18 +1,18 @@
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakePasswordReset } from "../../../../../__tests__/__mock__";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makePasswordResetDb from "../../../make-password-reset-db";
-import { PasswordResetModel } from "../../../models";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import IPasswordReset from "../../../../database/interfaces/password-reset";
 import makeCreatePasswordReset from "../../../../use-cases/password-reset/create-password-reset";
 import makeGetPasswordReset from "../../../../use-cases/password-reset/get-password-reset";
 import makeHardDeletePasswordReset from "../../../../use-cases/password-reset/hard-delete-password-reset";
+import makePasswordResetDb from "../../../make-password-reset-db";
+import { PasswordResetModel } from "../../../models";
 import makeHardDeletePasswordResetController from "./hard-delete-password-reset";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
-import IPasswordReset from "../../../../database/interfaces/password-reset";
 
 describe("hardDeletePasswordReset", () => {
   beforeAll(async () => await connectDatabase());

@@ -1,9 +1,9 @@
 import { Request } from "express";
-import { GetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
-import { UpdateUser } from "../../../../use-cases/user/update-user";
 import { get, merge, omit } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IUser from "../../../../database/interfaces/user";
+import { GetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
+import { UpdateUser } from "../../../../use-cases/user/update-user";
 
 export default function makeGetMeController({
   getSubscriptionByEmail,

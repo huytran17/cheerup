@@ -1,5 +1,4 @@
 import { getLatestSystemConfiguration } from "../../../../use-cases/system-configuration";
-
 import makeGetLatestSystemConfigurationController from "./get-latest-system-configuration";
 
 const getLatestSystemConfigurationController =

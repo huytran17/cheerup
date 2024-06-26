@@ -1,14 +1,14 @@
 import { Request } from "express";
+import { filter, get, map, replace, split } from "lodash";
+import { ReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import Post from "../../../../database/entities/post";
+import { CountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
+import { GetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
 import {
   GetPostsPaginated,
   IGetPostsPaginatedPayload,
 } from "../../../../use-cases/post/get-posts-paginated";
-import { ReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
-import { CountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
-import { GetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
-import { get, map, replace, split, filter } from "lodash";
-import Post from "../../../../database/entities/post";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 interface IPayload

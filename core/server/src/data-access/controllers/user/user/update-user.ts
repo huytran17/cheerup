@@ -1,12 +1,12 @@
+import { Request } from "express";
+import { get } from "lodash";
+import { Logger } from "winston";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import IUser from "../../../../database/interfaces/user";
 import {
   IUpdateUserPayload,
   UpdateUser,
 } from "../../../../use-cases/user/update-user";
-import { Logger } from "winston";
-import { Request } from "express";
-import { get } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
-import IUser from "../../../../database/interfaces/user";
 
 export default function makeUpdateUserController({
   updateUser,

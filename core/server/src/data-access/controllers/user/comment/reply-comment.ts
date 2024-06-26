@@ -1,15 +1,15 @@
+import { Request } from "express";
+import { concat, get, union } from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import IUser from "../../../../database/interfaces/user";
+import { GetComment } from "../../../../use-cases/comment/get-comment";
 import {
   IReplyCommentPayload,
   ReplyComment,
 } from "../../../../use-cases/comment/reply-comment";
 import { UpdateComment } from "../../../../use-cases/comment/update-comment";
-import { GetComment } from "../../../../use-cases/comment/get-comment";
 import { GetPost } from "../../../../use-cases/post/get-post";
-import { Request } from "express";
-import { get, union, concat } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
-import IUser from "../../../../database/interfaces/user";
 
 export default function makeReplyCommentController({
   replyComment,

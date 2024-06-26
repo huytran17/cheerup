@@ -1,11 +1,11 @@
-import { UpdateUser } from "../../../../use-cases/user/update-user";
-import { Logger } from "winston";
 import { Request } from "express";
 import { get } from "lodash";
+import { Logger } from "winston";
 import { HashPassword } from "../../../../config/password/hash-password";
 import { VerifyPassword } from "../../../../config/password/verify-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IUser from "../../../../database/interfaces/user";
+import { UpdateUser } from "../../../../use-cases/user/update-user";
 
 interface IPayload {
   password: string;

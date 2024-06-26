@@ -1,18 +1,18 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectExportResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakePost } from "../../../../../__tests__/__mock__";
+import { ExpectExportResult } from "../../../../../__tests__/__types__/expect-types";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
 import { readingTimeAnalyzer } from "../../../../../__tests__/reading-time";
-import makePostDb from "../../../make-post-db";
-import { PostModel } from "../../../models";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import makeCreatePost from "../../../../use-cases/post/create-post";
 import makeGetPost from "../../../../use-cases/post/get-post";
+import makePostDb from "../../../make-post-db";
+import { PostModel } from "../../../models";
 import makeExportPostPdfController from "./export-post-pdf";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 describe("exportPostPdf", () => {
   beforeAll(async () => await connectDatabase());

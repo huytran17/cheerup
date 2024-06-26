@@ -1,16 +1,16 @@
 import { Request } from "express";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import IUser from "../../../../database/interfaces/user";
 import {
   CreateCommentLike,
   ICreateCommentLikePayload,
 } from "../../../../use-cases/comment-like/create-comment-like";
-import { UpdateCommentLike } from "../../../../use-cases/comment-like/update-comment-like";
-import { HardDeleteCommentLike } from "../../../../use-cases/comment-like/hard-delete-comment-like";
 import { GetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
+import { HardDeleteCommentLike } from "../../../../use-cases/comment-like/hard-delete-comment-like";
+import { UpdateCommentLike } from "../../../../use-cases/comment-like/update-comment-like";
 import { GetComment } from "../../../../use-cases/comment/get-comment";
 import { isEmpty } from "../../../../utils/is-empty";
-import IUser from "../../../../database/interfaces/user";
 
 export default function makeCreateOrUpdateCommentLikeController({
   createCommentLike,

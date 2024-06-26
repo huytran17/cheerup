@@ -1,13 +1,13 @@
 import { Request } from "express";
+import { get, merge, omit } from "lodash";
 import { Logger } from "winston";
-import { get, omit, merge } from "lodash";
+import { HashPassword } from "../../../../config/password/hash-password";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   CreateUser,
   ICreateUserPayload,
 } from "../../../../use-cases/user/create-user";
 import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
-import { HashPassword } from "../../../../config/password/hash-password";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeSignUpController({

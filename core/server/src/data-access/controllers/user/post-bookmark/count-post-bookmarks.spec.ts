@@ -1,19 +1,19 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakePostBookmark, fakeUser } from "../../../../../__tests__/__mock__";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeUserDb from "../../../make-user-db";
-import makePostBookmarkDb from "../../../make-post-bookmark-db";
-import { PostBookmarkModel, UserModel } from "../../../models";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import makeCountPostBookmarks from "../../../../use-cases/post-bookmark/count-post-bookmarks";
 import makeCreatePostBookmark from "../../../../use-cases/post-bookmark/create-post-bookmark";
 import makeCreateUser from "../../../../use-cases/user/create-user";
+import makePostBookmarkDb from "../../../make-post-bookmark-db";
+import makeUserDb from "../../../make-user-db";
+import { PostBookmarkModel, UserModel } from "../../../models";
 import makeCountPostBookmarksController from "./count-post-bookmarks";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 describe("countPostBookmarks", () => {
   beforeAll(async () => await connectDatabase());

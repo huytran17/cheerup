@@ -1,6 +1,6 @@
 import { Request } from "express";
-import { GetPostsForSEO } from "../../../../use-cases/post/get-posts-for-seo";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { GetPostsForSEO } from "../../../../use-cases/post/get-posts-for-seo";
 
 export default function makeGetPostsForSEOController({
   getPostsForSEO,

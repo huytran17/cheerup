@@ -1,15 +1,15 @@
 import moment from "moment";
+import { fakeUser } from "../../../../../__tests__/__mock__";
 import {
-  connectDatabase,
   clearDatabase,
+  connectDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import { fakeUser } from "../../../../../__tests__/__mock__";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeUserDb from "../../../make-user-db";
 import { UserModel } from "../../../models";
-import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeSignOutController from "./sign-out";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 describe("signOut", () => {
   beforeAll(async () => await connectDatabase());

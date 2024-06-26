@@ -1,8 +1,8 @@
 import { Request } from "express";
-import { GetPosts } from "../../../../use-cases/post/get-posts";
-import { CountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
 import { map } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { CountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
+import { GetPosts } from "../../../../use-cases/post/get-posts";
 
 export default function makeGetPostsController({
   getPosts,

@@ -1,6 +1,6 @@
 import { Request } from "express";
-import { GetComments } from "../../../../use-cases/comment/get-comments";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { GetComments } from "../../../../use-cases/comment/get-comments";
 
 export default function makeGetCommentsController({
   getComments,

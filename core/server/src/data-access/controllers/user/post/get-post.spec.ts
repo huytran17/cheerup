@@ -1,23 +1,23 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakePost, fakeUser } from "../../../../../__tests__/__mock__";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
 import { readingTimeAnalyzer } from "../../../../../__tests__/reading-time";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import IPost from "../../../../database/interfaces/post";
+import makeGetPostBookmarkByUserAndPost from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
+import makeCreatePost from "../../../../use-cases/post/create-post";
+import makeGetPost from "../../../../use-cases/post/get-post";
+import makeCreateUser from "../../../../use-cases/user/create-user";
+import makePostBookmarkDb from "../../../make-post-bookmark-db";
 import makePostDb from "../../../make-post-db";
 import makeUserDb from "../../../make-user-db";
-import makePostBookmarkDb from "../../../make-post-bookmark-db";
-import IPost from "../../../../database/interfaces/post";
-import { PostModel, PostBookmarkModel, UserModel } from "../../../models";
-import makeCreatePost from "../../../../use-cases/post/create-post";
-import makeCreateUser from "../../../../use-cases/user/create-user";
-import makeGetPostBookmarkByUserAndPost from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
-import makeGetPost from "../../../../use-cases/post/get-post";
+import { PostBookmarkModel, PostModel, UserModel } from "../../../models";
 import makeGetPostController from "./get-post";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 describe("getPost", () => {
   beforeAll(async () => await connectDatabase());

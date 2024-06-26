@@ -1,28 +1,28 @@
 import moment from "moment";
 import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
-import {
+  fakePost,
   fakePostBookmark,
   fakeUser,
-  fakePost,
 } from "../../../../../__tests__/__mock__";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeUserDb from "../../../make-user-db";
-import makePostDb from "../../../make-post-db";
-import makePostBookmarkDb from "../../../make-post-bookmark-db";
-import { PostBookmarkModel, UserModel, PostModel } from "../../../models";
-import makeHardDeletePostBookmark from "../../../../use-cases/post-bookmark/hard-delete-post-bookmark";
-import makeGetPostBookmarkByUserAndPost from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
-import makeCreatePostBookmark from "../../../../use-cases/post-bookmark/create-post-bookmark";
-import makeCreateUser from "../../../../use-cases/user/create-user";
-import makeGetPost from "../../../../use-cases/post/get-post";
-import makeCreatePost from "../../../../use-cases/post/create-post";
-import makeCreateOrDeletePostBookmark from "./create-or-delete-post-bookmark";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IPostBookmark from "../../../../database/interfaces/post-bookmark";
+import makeCreatePostBookmark from "../../../../use-cases/post-bookmark/create-post-bookmark";
+import makeGetPostBookmarkByUserAndPost from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
+import makeHardDeletePostBookmark from "../../../../use-cases/post-bookmark/hard-delete-post-bookmark";
+import makeCreatePost from "../../../../use-cases/post/create-post";
+import makeGetPost from "../../../../use-cases/post/get-post";
+import makeCreateUser from "../../../../use-cases/user/create-user";
+import makePostBookmarkDb from "../../../make-post-bookmark-db";
+import makePostDb from "../../../make-post-db";
+import makeUserDb from "../../../make-user-db";
+import { PostBookmarkModel, PostModel, UserModel } from "../../../models";
+import makeCreateOrDeletePostBookmark from "./create-or-delete-post-bookmark";
 
 describe("createOrDeletePostBookmark", () => {
   beforeAll(async () => await connectDatabase());

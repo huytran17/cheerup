@@ -1,8 +1,7 @@
-import { getPostsForSEO } from "../../../../use-cases/post";
 import { getCategoriesForSEO } from "../../../../use-cases/category";
-
-import makeGetPostsForSEOController from "./get-posts-for-seo";
+import { getPostsForSEO } from "../../../../use-cases/post";
 import makeGetCategoriesForSEOController from "./get-categories-for-seo";
+import makeGetPostsForSEOController from "./get-posts-for-seo";
 
 const getCategoriesForSEOController = makeGetCategoriesForSEOController({
   getCategoriesForSEO,
@@ -17,4 +16,4 @@ export default Object.freeze({
   getCategoriesForSEOController,
 });
 
-export { getPostsForSEOController, getCategoriesForSEOController };
+export { getCategoriesForSEOController, getPostsForSEOController };

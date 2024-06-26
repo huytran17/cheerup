@@ -1,18 +1,18 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
 import { fakeUser } from "../../../../../__tests__/__mock__";
 import { logger } from "../../../../../__tests__/jest-logger";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeUserDb from "../../../make-user-db";
-import { UserModel } from "../../../models";
+import { hashPassword } from "../../../../config/password";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeGetUserByEmail from "../../../../use-cases/user/get-user-by-email";
+import makeUserDb from "../../../make-user-db";
+import { UserModel } from "../../../models";
 import makeSignUpController from "./sign-up";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { hashPassword } from "../../../../config/password";
 
 describe("signUp", () => {
   beforeAll(async () => await connectDatabase());

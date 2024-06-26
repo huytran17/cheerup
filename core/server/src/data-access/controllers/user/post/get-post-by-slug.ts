@@ -1,13 +1,13 @@
 import { Request } from "express";
-import { ReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
-import { GetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
 import { get, merge } from "lodash";
+import { ReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { isEmpty } from "../../../../utils/is-empty";
+import { GetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
 import {
   GetPostBySlug,
   IGetPostBySlugPayload,
 } from "../../../../use-cases/post/get-post-by-slug";
+import { isEmpty } from "../../../../utils/is-empty";
 
 interface IPayload extends IGetPostBySlugPayload {
   user_id: string;

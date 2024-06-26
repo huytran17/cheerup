@@ -9,6 +9,7 @@ import { logger } from "../../../../config/logs/logger";
 import { hashPassword, verifyPassword } from "../../../../config/password";
 import { generateQRCode } from "../../../../config/qrcode";
 import { randomString } from "../../../../config/randomstring";
+import { tfa } from "../../../../config/tfa";
 import { getSubscriptionByEmail } from "../../../../use-cases/subscription";
 import {
   createTwoFactorAuthentication,
@@ -39,6 +40,7 @@ const verify2FAController = makeVerify2FAController({
   getUserByEmail,
   getUserTfaSecretByEmail,
   generateAccessToken,
+  tfa,
 });
 
 const disable2FAController = makeDisable2FAController({
@@ -53,6 +55,7 @@ const enable2FAController = makeEnable2FAController({
   getTwoFactorAuthenticationByEmailAndCode,
   hardDeleteTwoFactorAuthentication,
   generateQRCode,
+  tfa,
   moment,
 });
 

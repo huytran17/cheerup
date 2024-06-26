@@ -1,10 +1,10 @@
 import { Request } from "express";
+import { filter, get, split } from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetSuggestionPosts,
   IGetSuggestionPostsPayload,
 } from "../../../../use-cases/post/get-suggestion-posts";
-import { get, split, filter } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 interface IPayload
   extends Omit<IGetSuggestionPostsPayload, "categories" | "exclude_ids"> {

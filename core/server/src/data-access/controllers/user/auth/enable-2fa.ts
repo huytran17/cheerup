@@ -1,15 +1,15 @@
 import { Request } from "express";
+import { get } from "lodash";
 import Moment from "moment";
+import { GenerateQRCode } from "../../../../config/qrcode/make-generate-qr-code";
+import TFA from "../../../../config/tfa";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { TwoFAType } from "../../../../database/interfaces/two-factor-authentication";
+import IUser from "../../../../database/interfaces/user";
 import { GetTwoFactorAuthenticationByEmailAndCode } from "../../../../use-cases/two-factor-authentication/get-two-factor-authentication-by-email-and-code";
 import { HardDeleteTwoFactorAuthentication } from "../../../../use-cases/two-factor-authentication/hard-delete-two-factor-authentication";
 import { UpdateUser } from "../../../../use-cases/user/update-user";
-import { get } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { tfa } from "../../../../config/tfa";
-import { GenerateQRCode } from "../../../../config/qrcode/make-generate-qr-code";
 import { isEmpty } from "../../../../utils/is-empty";
-import IUser from "../../../../database/interfaces/user";
 
 interface IPayload {
   code: string;
@@ -20,12 +20,14 @@ export default function makeEnable2FAController({
   getTwoFactorAuthenticationByEmailAndCode,
   hardDeleteTwoFactorAuthentication,
   generateQRCode,
+  tfa,
   moment,
 }: {
   updateUser: UpdateUser;
   getTwoFactorAuthenticationByEmailAndCode: GetTwoFactorAuthenticationByEmailAndCode;
   hardDeleteTwoFactorAuthentication: HardDeleteTwoFactorAuthentication;
   generateQRCode: GenerateQRCode;
+  tfa: TFA;
   moment: typeof Moment;
 }) {
   return async function enable2FAController(

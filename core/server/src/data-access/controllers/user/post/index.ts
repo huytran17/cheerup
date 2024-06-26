@@ -84,6 +84,6 @@ export {
   getPostsController,
   getPostsPaginatedController,
   getSuggestionPostsController,
-  updatePostController,
   increasePostViewsController,
+  updatePostController,
 };

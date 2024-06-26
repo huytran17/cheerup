@@ -1,20 +1,20 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakeUser } from "../../../../../__tests__/__mock__";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { logger } from "../../../../../__tests__/jest-logger";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeUserDb from "../../../make-user-db";
-import { UserModel } from "../../../models";
-import makeUpdateUser from "../../../../use-cases/user/update-user";
-import makeCreateUser from "../../../../use-cases/user/create-user";
-import makeUpdatePasswordController from "./update-password";
+import { hashPassword, verifyPassword } from "../../../../config/password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IUser from "../../../../database/interfaces/user";
-import { hashPassword, verifyPassword } from "../../../../config/password";
+import makeCreateUser from "../../../../use-cases/user/create-user";
+import makeUpdateUser from "../../../../use-cases/user/update-user";
+import makeUserDb from "../../../make-user-db";
+import { UserModel } from "../../../models";
+import makeUpdatePasswordController from "./update-password";
 
 describe("updatePassword", () => {
   beforeAll(async () => await connectDatabase());

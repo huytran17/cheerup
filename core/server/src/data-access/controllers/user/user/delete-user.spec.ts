@@ -1,20 +1,20 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakeUser } from "../../../../../__tests__/__mock__";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { logger } from "../../../../../__tests__/jest-logger";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeUserDb from "../../../make-user-db";
-import { UserModel } from "../../../models";
-import makeGetUser from "../../../../use-cases/user/get-user";
-import makeCreateUser from "../../../../use-cases/user/create-user";
-import makeDeleteUser from "../../../../use-cases/user/delete-user";
-import makeDeleteUserController from "./delete-user";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IUser from "../../../../database/interfaces/user";
+import makeCreateUser from "../../../../use-cases/user/create-user";
+import makeDeleteUser from "../../../../use-cases/user/delete-user";
+import makeGetUser from "../../../../use-cases/user/get-user";
+import makeUserDb from "../../../make-user-db";
+import { UserModel } from "../../../models";
+import makeDeleteUserController from "./delete-user";
 
 describe("deleteUser", () => {
   beforeAll(async () => await connectDatabase());
@@ -52,7 +52,7 @@ describe("deleteUser", () => {
     const request = {
       context: {
         validated: created_user,
-        user: created_user
+        user: created_user,
       },
     };
 

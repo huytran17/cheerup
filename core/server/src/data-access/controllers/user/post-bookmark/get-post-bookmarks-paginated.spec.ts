@@ -1,27 +1,27 @@
 import moment from "moment";
 import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
+  fakePostBookmark,
+  fakeQueryParams,
+  fakeUser,
+} from "../../../../../__tests__/__mock__";
 import { ExpectPaginatedResult } from "../../../../../__tests__/__types__/expect-types";
 import {
-  fakePostBookmark,
-  fakeUser,
-  fakeQueryParams,
-} from "../../../../../__tests__/__mock__";
-import { readingTimeAnalyzer } from "../../../../../__tests__/reading-time";
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeCommentDb from "../../../make-comment-db";
-import makeUserDb from "../../../make-user-db";
-import makePostBookmarkDb from "../../../make-post-bookmark-db";
+import { readingTimeAnalyzer } from "../../../../../__tests__/reading-time";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IPostBookmark from "../../../../database/interfaces/post-bookmark";
-import { PostBookmarkModel, CommentModel, UserModel } from "../../../models";
-import makeGetPostBookmarksPaginated from "../../../../use-cases/post-bookmark/get-post-bookmarks-paginated";
 import makeCountCommentsByPost from "../../../../use-cases/comment/count-comments-by-post";
 import makeCreatePostBookmark from "../../../../use-cases/post-bookmark/create-post-bookmark";
+import makeGetPostBookmarksPaginated from "../../../../use-cases/post-bookmark/get-post-bookmarks-paginated";
 import makeCreateUser from "../../../../use-cases/user/create-user";
+import makeCommentDb from "../../../make-comment-db";
+import makePostBookmarkDb from "../../../make-post-bookmark-db";
+import makeUserDb from "../../../make-user-db";
+import { CommentModel, PostBookmarkModel, UserModel } from "../../../models";
 import makeGetPostBookmarksPaginatedController from "./get-post-bookmarks-paginated";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 describe("getPostBookmarksPaginated", () => {
   beforeAll(async () => await connectDatabase());

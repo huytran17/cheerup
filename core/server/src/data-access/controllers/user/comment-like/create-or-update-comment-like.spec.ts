@@ -1,29 +1,29 @@
 import moment from "moment";
 import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
-import {
+  fakeComment,
   fakeCommentLike,
   fakeUser,
-  fakeComment,
 } from "../../../../../__tests__/__mock__";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import makeUserDb from "../../../make-user-db";
-import makeCommentLikeDb from "../../../make-comment-like-db";
-import makeCommentDb from "../../../make-comment-db";
-import { CommentLikeModel, UserModel, CommentModel } from "../../../models";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import ICommentLike from "../../../../database/interfaces/comment-like";
 import makeCreateCommentLike from "../../../../use-cases/comment-like/create-comment-like";
+import makeGetCommentLikeByUserAndPost from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
 import makeHardDeleteCommentLike from "../../../../use-cases/comment-like/hard-delete-comment-like";
 import makeUpdateCommentLike from "../../../../use-cases/comment-like/update-comment-like";
 import makeCreateComment from "../../../../use-cases/comment/create-comment";
-import makeGetCommentLikeByUserAndPost from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
-import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeGetComment from "../../../../use-cases/comment/get-comment";
+import makeCreateUser from "../../../../use-cases/user/create-user";
+import makeCommentDb from "../../../make-comment-db";
+import makeCommentLikeDb from "../../../make-comment-like-db";
+import makeUserDb from "../../../make-user-db";
+import { CommentLikeModel, CommentModel, UserModel } from "../../../models";
 import makeCreateOrUpdateCommentLikeController from "./create-or-update-comment-like";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
-import ICommentLike from "../../../../database/interfaces/comment-like";
 
 describe("createOrUpdateCommentLike", () => {
   beforeAll(async () => await connectDatabase());

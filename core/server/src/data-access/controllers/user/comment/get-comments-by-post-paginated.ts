@@ -1,17 +1,17 @@
 import { Request } from "express";
+import { get, map } from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import IComment from "../../../../database/interfaces/comment";
+import { CommentLikeType } from "../../../../database/interfaces/comment-like";
+import IUser from "../../../../database/interfaces/user";
+import { CountCommentLikeByCommentAndType } from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
+import { GetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
 import {
   GetCommentsByPostPaginated,
   IGetCommentsByPostPaginatedPayload,
 } from "../../../../use-cases/comment/get-comments-by-post-paginated";
-import { CountCommentLikeByCommentAndType } from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
 import { GetPost } from "../../../../use-cases/post/get-post";
-import { get, map } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { CommentLikeType } from "../../../../database/interfaces/comment-like";
-import IComment from "../../../../database/interfaces/comment";
-import { GetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
 import { isEmpty } from "../../../../utils/is-empty";
-import IUser from "../../../../database/interfaces/user";
 
 export default function makeGetCommentsByPostPaginatedController({
   getCommentsByPostPaginated,

@@ -1,19 +1,19 @@
 import moment from "moment";
-import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
 import { fakePost } from "../../../../../__tests__/__mock__";
+import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import makeCountCommentsByPost from "../../../../use-cases/comment/count-comments-by-post";
+import makeCreatePost from "../../../../use-cases/post/create-post";
+import makeGetPost from "../../../../use-cases/post/get-post";
 import makeCommentDb from "../../../make-comment-db";
 import makePostDb from "../../../make-post-db";
 import { CommentModel, PostModel } from "../../../models";
-import makeCountCommentsByPost from "../../../../use-cases/comment/count-comments-by-post";
-import makeGetPost from "../../../../use-cases/post/get-post";
-import makeCreatePost from "../../../../use-cases/post/create-post";
 import makeCountCommentsByPostController from "./count-comments-by-post";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 describe("countCommentsByPost", () => {
   beforeAll(async () => await connectDatabase());

@@ -1,17 +1,17 @@
 import { Request } from "express";
+import { get, map } from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import IComment from "../../../../database/interfaces/comment";
+import { CommentLikeType } from "../../../../database/interfaces/comment-like";
+import IUser from "../../../../database/interfaces/user";
+import { CountCommentLikeByCommentAndType } from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
+import { GetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
+import { GetComment } from "../../../../use-cases/comment/get-comment";
 import {
   GetCommentsByParent,
   IGetCommentsByParentPayload,
 } from "../../../../use-cases/comment/get-comments-by-parent";
-import { get, map } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { GetComment } from "../../../../use-cases/comment/get-comment";
 import { isEmpty } from "../../../../utils/is-empty";
-import IComment from "../../../../database/interfaces/comment";
-import { CountCommentLikeByCommentAndType } from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
-import { GetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
-import { CommentLikeType } from "../../../../database/interfaces/comment-like";
-import IUser from "../../../../database/interfaces/user";
 
 export default function makeGetCommentsByParentController({
   getCommentsByParent,

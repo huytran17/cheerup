@@ -1,5 +1,4 @@
 import moment from "moment";
-
 import {
   generateAccessToken,
   verifyAccessToken,
@@ -11,6 +10,7 @@ import {
 } from "../../../../config/emailManager";
 import { logger } from "../../../../config/logs/logger";
 import { hashPassword } from "../../../../config/password";
+import { randomString } from "../../../../config/randomstring";
 import {
   createPasswordReset,
   getPasswordReset,
@@ -47,6 +47,7 @@ const createPasswordResetController = makeCreatePasswordResetController({
   getEmailContent,
   renderEmailContent,
   sendEmail,
+  randomString,
   moment,
   logger,
 });

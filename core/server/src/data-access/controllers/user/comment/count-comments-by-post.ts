@@ -1,11 +1,11 @@
 import { Request } from "express";
+import { get } from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   CountCommentsByPost,
   ICountCommentsByPostPayload,
 } from "../../../../use-cases/comment/count-comments-by-post";
 import { GetPost } from "../../../../use-cases/post/get-post";
-import { get } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeCountCommentsByPostController({

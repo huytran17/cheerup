@@ -1,23 +1,23 @@
 import moment from "moment";
 import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
-import {
   fakeCategory,
   fakePost,
   fakeQueryParams,
 } from "../../../../../__tests__/__mock__";
+import {
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import makeCreateCategory from "../../../../use-cases/category/create-category";
+import makeGetCategoriesPaginated from "../../../../use-cases/category/get-categories-paginated";
+import makeCountPostByCategory from "../../../../use-cases/post/count-post-by-category";
+import makeCreatePost from "../../../../use-cases/post/create-post";
 import makeCategoryDb from "../../../make-category-db";
 import makePostDb from "../../../make-post-db";
 import { CategoryModel, PostModel } from "../../../models";
-import makeCountPostByCategory from "../../../../use-cases/post/count-post-by-category";
-import makeCreatePost from "../../../../use-cases/post/create-post";
-import makeCreateCategory from "../../../../use-cases/category/create-category";
-import makeGetCategoriesPaginated from "../../../../use-cases/category/get-categories-paginated";
 import makeGetOutstandingCategoriesPaginatedController from "./get-outstanding-categories-paginated";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 describe("getOutstandingCategoriesPaginated", () => {
   beforeAll(async () => await connectDatabase());

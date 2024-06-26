@@ -1,17 +1,16 @@
 import {
-  getCategory,
   getCategories,
-  getCategoryTitles,
   getCategoriesPaginated,
+  getCategory,
   getCategoryBySlug,
+  getCategoryTitles,
 } from "../../../../use-cases/category";
 import { countPostByCategory } from "../../../../use-cases/post";
-
-import makeGetCategoryController from "./get-category";
 import makeGetCategoriesController from "./get-categories";
+import makeGetCategoryController from "./get-category";
+import makeGetCategoryBySlugController from "./get-category-by-slug";
 import makeGetCategoryTitlesController from "./get-category-titles";
 import makeGetOutstandingCategoriesPaginatedController from "./get-outstanding-categories-paginated";
-import makeGetCategoryBySlugController from "./get-category-by-slug";
 
 const getCategoryBySlugController = makeGetCategoryBySlugController({
   getCategoryBySlug,
@@ -44,9 +43,9 @@ export default Object.freeze({
 });
 
 export {
-  getCategoryController,
   getCategoriesController,
+  getCategoryBySlugController,
+  getCategoryController,
   getCategoryTitlesController,
   getOutstandingCategoriesPaginatedController,
-  getCategoryBySlugController,
 };

@@ -1,6 +1,6 @@
 import { Request } from "express";
-import { GetLatestSystemConfiguration } from "../../../../use-cases/system-configuration/get-latest-system-configuration";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { GetLatestSystemConfiguration } from "../../../../use-cases/system-configuration/get-latest-system-configuration";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetLatestSystemConfigurationController({

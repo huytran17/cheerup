@@ -1,10 +1,10 @@
-import { GetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
-import { UpdateSubscription } from "../../../../use-cases/subscription/update-subscription";
 import { Request } from "express";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { isEmpty } from "../../../../utils/is-empty";
 import IUser from "../../../../database/interfaces/user";
+import { GetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
+import { UpdateSubscription } from "../../../../use-cases/subscription/update-subscription";
+import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeCancelSubscriptionController({
   getSubscriptionByEmail,

@@ -1,14 +1,14 @@
+import { Request } from "express";
+import { get } from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import IUser from "../../../../database/interfaces/user";
 import {
   CreateSubscription,
   ICreateSubscriptionPayload,
 } from "../../../../use-cases/subscription/create-subscription";
-import { UpdateSubscription } from "../../../../use-cases/subscription/update-subscription";
-import { Request } from "express";
-import { get } from "lodash";
 import { GetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { UpdateSubscription } from "../../../../use-cases/subscription/update-subscription";
 import { isEmpty } from "../../../../utils/is-empty";
-import IUser from "../../../../database/interfaces/user";
 
 export default function makeCreateSubscriptionController({
   createSubscription,

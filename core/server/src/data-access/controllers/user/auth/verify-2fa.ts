@@ -1,11 +1,11 @@
 import { Request } from "express";
-import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { get } from "lodash";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { tfa } from "../../../../config/tfa";
-import { isEmpty } from "../../../../utils/is-empty";
-import { GetUserTfaSecretByEmail } from "../../../../use-cases/user/get-user-tfa-secret-by-email";
 import { GenerateAccessToken } from "../../../../config/accessTokenManager/generate-access-token";
+import TFA from "../../../../config/tfa";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
+import { GetUserTfaSecretByEmail } from "../../../../use-cases/user/get-user-tfa-secret-by-email";
+import { isEmpty } from "../../../../utils/is-empty";
 
 interface IPayload {
   code: string;
@@ -16,10 +16,12 @@ export default function makeVerify2FAController({
   getUserByEmail,
   getUserTfaSecretByEmail,
   generateAccessToken,
+  tfa,
 }: {
   getUserByEmail: GetUserByEmail;
   getUserTfaSecretByEmail: GetUserTfaSecretByEmail;
   generateAccessToken: GenerateAccessToken;
+  tfa: TFA;
 }) {
   return async function verify2FAController(
     httpRequest: Request & { context: {} }

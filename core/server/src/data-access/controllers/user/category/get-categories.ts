@@ -1,6 +1,6 @@
 import { Request } from "express";
-import { GetCategories } from "../../../../use-cases/category/get-categories";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { GetCategories } from "../../../../use-cases/category/get-categories";
 
 export default function makeGetCategoriesController({
   getCategories,

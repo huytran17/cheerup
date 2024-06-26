@@ -1,9 +1,9 @@
 import { Request } from "express";
-import { GetPost, IGetPostPayload } from "../../../../use-cases/post/get-post";
-import { ReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
-import { GetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
 import { get, merge } from "lodash";
+import { ReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { GetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
+import { GetPost, IGetPostPayload } from "../../../../use-cases/post/get-post";
 import { isEmpty } from "../../../../utils/is-empty";
 
 interface IPayload extends IGetPostPayload {

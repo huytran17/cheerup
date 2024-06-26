@@ -1,6 +1,6 @@
 import { Request } from "express";
-import { GetCategoryTitles } from "../../../../use-cases/category/get-category-titles";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { GetCategoryTitles } from "../../../../use-cases/category/get-category-titles";
 
 export default function makeGetCategoryTitlesController({
   getCategoryTitles,

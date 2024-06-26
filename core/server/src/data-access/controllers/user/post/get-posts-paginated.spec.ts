@@ -1,34 +1,34 @@
 import moment from "moment";
 import {
-  connectDatabase,
-  clearDatabase,
-} from "../../../../../__tests__/jest-mongo";
+  fakePost,
+  fakeQueryParams,
+  fakeUser,
+} from "../../../../../__tests__/__mock__";
 import { ExpectPaginatedPartialResult } from "../../../../../__tests__/__types__/expect-types";
 import {
-  fakePost,
-  fakeUser,
-  fakeQueryParams,
-} from "../../../../../__tests__/__mock__";
+  clearDatabase,
+  connectDatabase,
+} from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
 import { readingTimeAnalyzer } from "../../../../../__tests__/reading-time";
-import makePostDb from "../../../make-post-db";
-import makeCommentDb from "../../../make-comment-db";
-import makeUserDb from "../../../make-user-db";
-import makePostBookmarkDb from "../../../make-post-bookmark-db";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IPost from "../../../../database/interfaces/post";
-import {
-  PostModel,
-  PostBookmarkModel,
-  UserModel,
-  CommentModel,
-} from "../../../models";
+import makeCountCommentsByPost from "../../../../use-cases/comment/count-comments-by-post";
+import makeGetPostBookmarkByUserAndPost from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
 import makeCreatePost from "../../../../use-cases/post/create-post";
 import makeGetPostsPaginated from "../../../../use-cases/post/get-posts-paginated";
-import makeCountCommentsByPost from "../../../../use-cases/comment/count-comments-by-post";
 import makeCreateUser from "../../../../use-cases/user/create-user";
-import makeGetPostBookmarkByUserAndPost from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
+import makeCommentDb from "../../../make-comment-db";
+import makePostBookmarkDb from "../../../make-post-bookmark-db";
+import makePostDb from "../../../make-post-db";
+import makeUserDb from "../../../make-user-db";
+import {
+  CommentModel,
+  PostBookmarkModel,
+  PostModel,
+  UserModel,
+} from "../../../models";
 import makeGetPostsPaginatedController from "./get-posts-paginated";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
 
 describe("getPostsPaginated", () => {
   beforeAll(async () => await connectDatabase());

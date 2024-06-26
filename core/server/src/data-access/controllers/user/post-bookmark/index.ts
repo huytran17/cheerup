@@ -9,7 +9,6 @@ import {
   getPostBookmarksPaginated,
   hardDeletePostBookmark,
 } from "../../../../use-cases/post-bookmark";
-
 import makeCountPostBookmarkController from "./count-post-bookmarks";
 import makeCreateOrDeletePostBookmarkController from "./create-or-delete-post-bookmark";
 import makeGetPostBookmarksPaginatedController from "./get-post-bookmarks-paginated";

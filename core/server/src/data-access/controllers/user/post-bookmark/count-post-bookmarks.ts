@@ -1,8 +1,8 @@
 import { Request } from "express";
-import { CountPostBookmarks } from "../../../../use-cases/post-bookmark/count-post-bookmarks";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IUser from "../../../../database/interfaces/user";
+import { CountPostBookmarks } from "../../../../use-cases/post-bookmark/count-post-bookmarks";
 
 export default function makeCountPostBookmarkController({
   countPostBookmarks,

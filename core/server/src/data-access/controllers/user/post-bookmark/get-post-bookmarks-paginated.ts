@@ -1,16 +1,16 @@
 import { Request } from "express";
+import { get, map, replace } from "lodash";
+import { ReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { IPaginatedPostBookmarkResult } from "../../../../data-access/interfaces/post-bookmark-db";
+import PostBookmark from "../../../../database/entities/post-bookmark";
+import IPostBookmark from "../../../../database/interfaces/post-bookmark";
+import IUser from "../../../../database/interfaces/user";
+import { CountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
 import {
   GetPostBookmarksPaginated,
   IGetPostBookmarksPaginatedPayload,
 } from "../../../../use-cases/post-bookmark/get-post-bookmarks-paginated";
-import { CountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
-import { ReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
-import { get, map, replace } from "lodash";
-import PostBookmark from "../../../../database/entities/post-bookmark";
-import IPostBookmark from "../../../../database/interfaces/post-bookmark";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { IPaginatedPostBookmarkResult } from "../../../../data-access/interfaces/post-bookmark-db";
-import IUser from "../../../../database/interfaces/user";
 
 export default function makeGetPostBookmarksPaginatedController({
   getPostBookmarksPaginated,

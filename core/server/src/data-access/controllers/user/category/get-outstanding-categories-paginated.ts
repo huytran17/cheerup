@@ -1,12 +1,12 @@
 import { Request } from "express";
 import { get, map, sortBy } from "lodash";
-import { CountPostByCategory } from "../../../../use-cases/post/count-post-by-category";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
+import Category from "../../../../database/entities/category";
 import {
   GetCategoriesPaginated,
   IGetCategoriesPaginatedPayload,
 } from "../../../../use-cases/category/get-categories-paginated";
-import Category from "../../../../database/entities/category";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
+import { CountPostByCategory } from "../../../../use-cases/post/count-post-by-category";
 
 export default function makeGetOutstandingCategoriesPaginatedController({
   countPostByCategory,

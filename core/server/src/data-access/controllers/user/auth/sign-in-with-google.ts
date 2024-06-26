@@ -1,5 +1,5 @@
-import { get } from "lodash";
 import { Request } from "express";
+import { get } from "lodash";
 import { GenerateAccessToken } from "../../../../config/accessTokenManager/generate-access-token";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IUser from "../../../../database/interfaces/user";
