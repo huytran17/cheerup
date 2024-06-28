@@ -3,19 +3,13 @@ import { authenticator } from "otplib";
 export default class TFA {
   public static tfa_instance: TFA;
 
-  constructor() {
-    if (TFA.tfa_instance) {
-      return TFA.tfa_instance;
-    }
-
-    TFA.tfa_instance = this;
-
+  private constructor() {
     console.log("Two-factor authentication service initialized");
   }
 
   static getInstance(): TFA {
     if (!TFA.tfa_instance) {
-      new TFA();
+      TFA.tfa_instance = new TFA();
     }
 
     return TFA.tfa_instance;

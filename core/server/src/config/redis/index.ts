@@ -8,11 +8,7 @@ export default class Redis {
   public static redis_instance: Redis;
   redis_client: undefined | RedisClientType;
 
-  constructor() {
-    if (Redis.redis_instance) {
-      return Redis.redis_instance;
-    }
-
+  private constructor() {
     try {
       const client = createClient({
         socket: {
@@ -30,8 +26,6 @@ export default class Redis {
     } catch (error) {
       console.error(error);
     }
-
-    Redis.redis_instance = this;
   }
 
   setData({
@@ -116,9 +110,9 @@ export default class Redis {
     return;
   }
 
-  static getRedisInstance() {
+  static getInstance() {
     if (!Redis.redis_instance) {
-      new Redis();
+      Redis.redis_instance = new Redis();
     }
 
     return Redis.redis_instance;
@@ -144,6 +138,5 @@ export default class Redis {
   }
 }
 
-const redis = Redis.getRedisInstance();
-
+const redis = Redis.getInstance();
 export { redis };

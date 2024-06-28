@@ -14,9 +14,9 @@ import responseTime from "response-time";
 import { expressRateLimit } from "./config/express-rate-limit";
 import { cors } from "./config/middlewares/access-control";
 import passport from "./config/passport";
+import { TServerInstance } from "./config/socket.io";
 import appRouter from "./routes";
 import { initialServices } from "./utils/initial-services";
-import { TServerInstance } from "./config/socket.io";
 
 const app = express();
 
@@ -47,7 +47,7 @@ const http_srv: TServerInstance = createServer(app);
 
 http_srv.listen(process.env.SERVER_PORT, () => {
   console.log(`Server is listening on port ${process.env.SERVER_PORT}`);
-  initialServices({ http_srv, helmet, cookieParser, compression });
+  initialServices({ compression, cookieParser, helmet, http_srv });
 });
 
 export type Helmet = typeof helmet;

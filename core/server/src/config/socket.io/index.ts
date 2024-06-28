@@ -3,7 +3,7 @@ import { Http2SecureServer, Http2Server } from "http2";
 import type { Server as HTTPSServer } from "https";
 import { Server } from "socket.io";
 import { Compression, CookieParser, Helmet } from "../../app";
-import { privateClientHandler, privateAdminHandler } from "./handlers";
+import { privateAdminHandler, privateClientHandler } from "./handlers";
 
 export type TServerInstance =
   | HTTPServer
@@ -11,25 +11,27 @@ export type TServerInstance =
   | Http2SecureServer
   | Http2Server;
 
+export interface ISocketDependencies {
+  http_srv: TServerInstance;
+  helmet: Helmet;
+  compression: Compression;
+  cookieParser: CookieParser;
+}
+
 export default class SocketIO {
   public static socket_instance: SocketIO;
   io_client: Server;
 
-  constructor({
-    http_srv,
-    helmet,
+  private constructor() {
+    console.log("Initializing Socket IO...");
+  }
+
+  makeSocketIO({
     compression,
     cookieParser,
-  }: {
-    http_srv: TServerInstance;
-    helmet: Helmet;
-    compression: Compression;
-    cookieParser: CookieParser;
-  }) {
-    if (SocketIO.socket_instance) {
-      return SocketIO.socket_instance;
-    }
-
+    helmet,
+    http_srv,
+  }: ISocketDependencies) {
     this.io_client = new Server(http_srv, {
       cors: {
         origin: [
@@ -48,18 +50,14 @@ export default class SocketIO {
     privateClientHandler({ io: this.io_client });
     privateAdminHandler({ io: this.io_client });
 
-    SocketIO.socket_instance = this;
-
     console.log("Socket.io server initialized");
   }
 
   static getInstance() {
-    if (SocketIO.socket_instance) {
-      return SocketIO.socket_instance;
+    if (!SocketIO.socket_instance) {
+      SocketIO.socket_instance = new SocketIO();
     }
+
+    return SocketIO.socket_instance;
   }
 }
-
-const socket = SocketIO.getInstance();
-
-export { socket };

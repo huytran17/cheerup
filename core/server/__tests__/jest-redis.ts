@@ -7,11 +7,7 @@ export default class Redis {
   public static redis_instance: Redis;
   redis_client: undefined | RedisClientType;
 
-  constructor() {
-    if (Redis.redis_instance) {
-      return Redis.redis_instance;
-    }
-
+  private constructor() {
     try {
       const client = createClient();
 
@@ -97,12 +93,12 @@ export default class Redis {
     }
   }
 
-  static getRedisInstance() {
-    if (Redis.redis_instance) {
-      return Redis.redis_instance;
+  static getInstance() {
+    if (!Redis.redis_instance) {
+      Redis.redis_instance = new Redis();
     }
 
-    return new Redis() && Redis.redis_instance;
+    return Redis.redis_instance;
   }
 
   cacheKeyBuilder(params = {}): string {
@@ -132,6 +128,5 @@ export default class Redis {
   }
 }
 
-const redis = Redis.getRedisInstance();
-
+const redis = Redis.getInstance();
 export { redis };

@@ -1,7 +1,6 @@
 import { Transporter } from "nodemailer";
-import { Compression, CookieParser, Helmet } from "../../app";
 import Redis from "../../config/redis";
-import SocketIO, { TServerInstance } from "../../config/socket.io";
+import SocketIO, { ISocketDependencies } from "../../config/socket.io";
 import Storage from "../../config/storage";
 import TFA from "../../config/tfa";
 import { IMakeConnectDb } from "../../data-access/make-connect-db";
@@ -13,12 +12,7 @@ export type InitializeServices = ({
   helmet,
   cookieParser,
   compression,
-}: {
-  http_srv: TServerInstance;
-  helmet: Helmet;
-  cookieParser: CookieParser;
-  compression: Compression;
-}) => void;
+}: ISocketDependencies) => void;
 
 export default function makeInitialServices({
   connectDb,
@@ -40,10 +34,10 @@ export default function makeInitialServices({
   socketIO: typeof SocketIO;
 }): InitializeServices {
   return function initializeServices({
-    http_srv,
-    helmet,
-    cookieParser,
     compression,
+    cookieParser,
+    helmet,
+    http_srv,
   }) {
     try {
       connectDb().then(() =>
@@ -51,10 +45,12 @@ export default function makeInitialServices({
       );
 
       initializeMailer();
-      // new storage();
-      new redis();
-      new tfa();
-      new socketIO({ http_srv, helmet, cookieParser, compression });
+      // storage.getS3();
+      redis.getInstance();
+      tfa.getInstance();
+      socketIO
+        .getInstance()
+        .makeSocketIO({ compression, cookieParser, helmet, http_srv });
     } catch (error) {
       console.error(error);
       process.exit(7);

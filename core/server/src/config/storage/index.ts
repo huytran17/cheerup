@@ -3,8 +3,8 @@ import AWS from "aws-sdk";
 export default class Storage {
   public static s3: AWS.S3;
 
-  constructor() {
-    !Storage.s3 && (Storage.s3 = Storage.makeS3());
+  private constructor() {
+    console.log("Initializing S3 Storage...");
   }
 
   static makeS3() {
@@ -25,7 +25,7 @@ export default class Storage {
 
   static getS3() {
     if (!Storage.s3) {
-      new Storage();
+      Storage.s3 = Storage.makeS3();
     }
 
     return Storage.s3;

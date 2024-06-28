@@ -1,7 +1,7 @@
-import Storage from "./jest-storage";
 import { initializeMailer } from "./jest-mailer";
+import { connectDatabase, initializeMongod } from "./jest-mongo";
 import Redis from "./jest-redis";
-import { initializeMongod, connectDatabase } from "./jest-mongo";
+import Storage from "./jest-storage";
 
 module.exports = async function () {
   const mongo_not_initialized = !(global as any).__MONGOD__;
@@ -11,8 +11,8 @@ module.exports = async function () {
   connectDatabase().then(() => {
     console.log("Successfully connected to Mongo Database");
 
-    new Storage();
-    new Redis();
+    Storage.getS3();
+    Redis.getInstance();
     initializeMailer();
   });
 };
