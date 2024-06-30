@@ -79,7 +79,7 @@
               :disabled="!form_valid"
               @click="createUser"
             >
-              <span v-html="$t('Create')"></span>
+              <span class="app-body">{{ $t("Create") }}</span>
             </v-btn>
           </v-col>
         </v-row>

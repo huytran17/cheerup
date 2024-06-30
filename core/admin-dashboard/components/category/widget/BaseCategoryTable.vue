@@ -28,7 +28,7 @@
             class="text-body-2 tiptap__text-no-margin tiptap__text-no-image"
             v-line-clamp="3"
           >
-            <span class="app-body" v-html="$t(item.description)"></span>
+            <span class="app-body">{{ $t(item.description) }}</span>
           </div>
         </template>
 
@@ -68,7 +68,7 @@
                   <v-icon small color="success">mdi-backup-restore</v-icon>
                 </v-btn>
               </template>
-              <span v-html="$t('Restore')"></span>
+              <span class="app-body">{{ $t("Restore") }}</span>
             </v-tooltip>
           </div>
           <div v-else>
@@ -84,7 +84,7 @@
                   <v-icon small color="error">mdi-trash-can-outline</v-icon>
                 </v-btn>
               </template>
-              <span v-html="$t('Delete')"></span>
+              <span class="app-body">{{ $t("Delete") }}</span>
             </v-tooltip>
             <v-tooltip left>
               <template v-slot:activator="{ on, attrs }">
@@ -103,7 +103,7 @@
                   <v-icon small color="error">mdi-delete-off-outline</v-icon>
                 </v-btn>
               </template>
-              <span v-html="$t('Delete Forever')"></span>
+              <span class="app-body">{{ $t("Delete Forever") }}</span>
             </v-tooltip>
           </div>
         </template>

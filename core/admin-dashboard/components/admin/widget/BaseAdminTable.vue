@@ -48,7 +48,7 @@
         <template v-slot:item.status="{ item }">
           <div v-if="item.is_online" class="text-body-2">
             <v-chip color="green" text-color="white">
-              <span v-html="$t('Online')"></span>
+              <span class="app-body">{{ $t("Online") }}</span>
             </v-chip>
           </div>
           <div v-else-if="item.last_online_at" class="text-body-2">
@@ -72,7 +72,7 @@
                   <v-icon small color="success">mdi-backup-restore</v-icon>
                 </v-btn>
               </template>
-              <span v-html="$t('Restore')"></span>
+              <span class="app-body">{{ $t("Restore") }}</span>
             </v-tooltip>
           </div>
           <div v-else>
@@ -88,7 +88,7 @@
                   <v-icon small color="error">mdi-trash-can-outline</v-icon>
                 </v-btn>
               </template>
-              <span v-html="$t('Delete')"></span>
+              <span class="app-body">{{ $t("Delete") }}</span>
             </v-tooltip>
           </div>
           <div v-if="item.login_failed_times >= LOGIN_FAILED.MAX">
@@ -104,9 +104,9 @@
                   <v-icon small color="error">mdi-restore-alert</v-icon>
                 </v-btn>
               </template>
-              <span
-                v-html="$t('Reset the number of failed login attempts')"
-              ></span>
+              <span class="app-body">{{
+                $t("Reset the number of failed login attempts")
+              }}</span>
             </v-tooltip>
           </div>
         </template>

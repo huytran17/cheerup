@@ -5,7 +5,7 @@
         <v-row>
           <v-col cols="12" class="pb-0">
             <div class="text-body-1 primary--text">
-              <span class="app-title" v-html="$t('User Meta')"></span>
+              <span class="app-title">{{ $t("User Meta") }}</span>
             </div>
           </v-col>
         </v-row>
@@ -52,7 +52,7 @@
           <v-col cols="12" class="pb-0">
             <div class="text-body-2">
               <span class="app-body">
-                <span v-html="$t('Avatar')"></span>
+                {{ $t("Avatar") }}
               </span>
             </div>
           </v-col>
@@ -84,7 +84,7 @@
               :disabled="!form_valid"
               @click="updateUser"
             >
-              <span v-html="$t('Update')"></span>
+              <span class="app-body">{{ $t("Update") }}</span>
             </v-btn>
           </v-col>
         </v-row>
@@ -97,7 +97,7 @@
         <v-row>
           <v-col cols="12" class="pb-0">
             <div class="text-body-1 primary--text">
-              <span class="app-title" v-html="$t('User Security')"></span>
+              <span class="app-title">{{ $t("User Security") }}</span>
             </div>
           </v-col>
         </v-row>
@@ -144,7 +144,7 @@
               :disabled="!security_form_valid"
               @click="updateUserSecurity"
             >
-              <span v-html="$t('Update')"></span>
+              <span class="app-body">{{ $t("Update") }}</span>
             </v-btn>
           </v-col>
         </v-row>
