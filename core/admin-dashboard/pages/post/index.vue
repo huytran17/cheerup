@@ -2,8 +2,8 @@
   <div>
     <v-row>
       <v-col cols="12" class="pb-0">
-        <div class="text-h6 pb-10 brick--text">
-          <h2 class="app-title">{{ $t("Posts Data") }}</h2>
+        <div class="text-h6 pb-10 brick--text text-uppercase">
+          <h3 class="app-title">{{ $t("Posts Data") }}</h3>
         </div>
 
         <div class="toolbar">
