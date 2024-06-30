@@ -1,9 +1,9 @@
 import axios from "axios";
+import { concat, flattenDeep, get, map } from "lodash";
 import colors from "vuetify/es5/util/colors";
-import { get, map, flattenDeep, concat } from "lodash";
-import { seo_home_schema } from "./seo";
-import vi from "./locales/vi.json";
 import en from "./locales/en.json";
+import vi from "./locales/vi.json";
+import { seo_home_schema } from "./seo";
 
 export default {
   ssr: false,
@@ -296,10 +296,9 @@ export default {
   },
 
   env: {
-    APP_NAME: process.env.APP_NAME || "Cheerup",
-    SERVER_URL: process.env.SERVER_URL || "http://localhost:3000",
-    USER_DASHBOARD_URL:
-      process.env.USER_DASHBOARD_URL || "http://localhost:8082",
-    BASE_URL: process.env.BASE_URL || "http://localhost:8080",
+    APP_NAME: process.env.APP_NAME,
+    SERVER_URL: process.env.SERVER_URL,
+    USER_DASHBOARD_URL: process.env.USER_DASHBOARD_URL,
+    BASE_URL: process.env.BASE_URL,
   },
 };
