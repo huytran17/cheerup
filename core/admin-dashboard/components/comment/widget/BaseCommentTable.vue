@@ -1,76 +1,66 @@
 <template>
-  <div class="app-container">
-    <v-row>
-      <v-col cols="12">
-        <v-card-title>
-          <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            label="Search"
-            hide-details
-          ></v-text-field>
-        </v-card-title>
-        <v-data-table :headers="headers" :items="comments" :search="search">
-          <template v-slot:item.content="{ item }">
-            <div class="text-body-2">
-              <span class="app-body" v-html="item.content"></span>
-            </div>
-          </template>
+  <v-row>
+    <v-col cols="12">
+      <v-data-table :headers="headers" :items="comments" :search="search">
+        <template v-slot:item.content="{ item }">
+          <div class="text-body-2">
+            <span class="app-body" v-html="item.content"></span>
+          </div>
+        </template>
 
-          <template v-slot:item.user="{ item }">
-            <div class="text-body-2">
-              <span class="app-body">{{ item.user?.full_name }}</span>
-            </div>
-          </template>
+        <template v-slot:item.user="{ item }">
+          <div class="text-body-2">
+            <span class="app-body">{{ item.user?.full_name }}</span>
+          </div>
+        </template>
 
-          <template v-slot:item.post="{ item }">
-            <div class="text-body-2" @click="goToPost(item)">
-              <span class="app-body primary--text clickable">{{
-                item.post?.title
-              }}</span>
-            </div>
-          </template>
+        <template v-slot:item.post="{ item }">
+          <div class="text-body-2" @click="goToPost(item)">
+            <span class="app-body primary--text clickable">{{
+              item.post?.title
+            }}</span>
+          </div>
+        </template>
 
-          <template v-slot:item.created_at="{ item }">
-            <div class="text-body-2">
-              <span class="app-body">{{
-                formatLocaleDate(item.created_at)
-              }}</span>
-            </div>
-          </template>
+        <template v-slot:item.created_at="{ item }">
+          <div class="text-body-2">
+            <span class="app-body">{{
+              formatLocaleDate(item.created_at)
+            }}</span>
+          </div>
+        </template>
 
-          <template v-slot:item.updated_at="{ item }">
-            <div class="text-body-2">
-              <span class="app-body">{{
-                formatLocaleDate(item.updated_at)
-              }}</span>
-            </div>
-          </template>
+        <template v-slot:item.updated_at="{ item }">
+          <div class="text-body-2">
+            <span class="app-body">{{
+              formatLocaleDate(item.updated_at)
+            }}</span>
+          </div>
+        </template>
 
-          <template v-slot:item.actions="{ item }">
-            <v-tooltip left>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  icon
-                  v-bind="attrs"
-                  v-on="on"
-                  small
-                  @click="
-                    () => {
-                      SET_COMMENT({ data: item });
-                      is_open_hard_delete_dialog = true;
-                    }
-                  "
-                >
-                  <v-icon small color="error">mdi-delete-off-outline</v-icon>
-                </v-btn>
-              </template>
-              <span v-html="$t('Delete Forever')"></span>
-            </v-tooltip>
-          </template>
-        </v-data-table>
-      </v-col>
-    </v-row>
+        <template v-slot:item.actions="{ item }">
+          <v-tooltip left>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                icon
+                v-bind="attrs"
+                v-on="on"
+                small
+                @click="
+                  () => {
+                    SET_COMMENT({ data: item });
+                    is_open_hard_delete_dialog = true;
+                  }
+                "
+              >
+                <v-icon small color="error">mdi-delete-off-outline</v-icon>
+              </v-btn>
+            </template>
+            <span v-html="$t('Delete Forever')"></span>
+          </v-tooltip>
+        </template>
+      </v-data-table>
+    </v-col>
 
     <BaseHardDeleteDialog
       :is_open="is_open_hard_delete_dialog"
@@ -78,7 +68,7 @@
       @confirm-dialog="hardDeleteComment"
       :title="`comment ${comment.content}`"
     />
-  </div>
+  </v-row>
 </template>
 
 <script>
@@ -132,10 +122,13 @@ export default {
         ];
       },
     },
+    search: {
+      type: String,
+      default: () => "",
+    },
   },
   data() {
     return {
-      search: "",
       is_open_hard_delete_dialog: false,
       ADMIN_TYPES,
     };
