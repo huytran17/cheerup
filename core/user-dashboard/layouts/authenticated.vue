@@ -16,6 +16,8 @@ import authMixins from "@/mixins/auth";
 import DesktopLayout from "@/components/DesktopLayout";
 import MobileLayout from "@/components/MobileLayout";
 import BaseAppLoading from "@/components/BaseAppLoading";
+import initialPrivateSocketIO from "@/config/socket.io/private-client";
+import { SOCKETIO_EMIT_EVENT } from "~/constants";
 
 export default {
   name: "DefaultLayout",
@@ -47,6 +49,7 @@ export default {
   computed: {
     ...mapGetters({
       category_titles: "category/category_titles",
+      me: "auth/me",
     }),
   },
   methods: {
@@ -62,6 +65,14 @@ export default {
         this.GET_LATEST_SYSTEM_CONFIGURATION(),
         this.GET_CATEGORY_TITLES(),
       ]);
+
+      const user_id = this.me?._id;
+      if (!user_id) {
+        return;
+      }
+
+      const socket = initialPrivateSocketIO();
+      socket.emit(SOCKETIO_EMIT_EVENT.ONLINE, { user_id });
     } catch (error) {
       console.error(error);
     }

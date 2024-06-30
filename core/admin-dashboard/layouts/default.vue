@@ -15,6 +15,8 @@
 import { mapGetters } from "vuex";
 import TheSideNav from "@/components/TheSideNav";
 import BaseAppOverlay from "@/components/BaseAppOverlay";
+import { SOCKETIO_EMIT_EVENT } from "~/constants";
+import initialPrivateSocketIO from "@/config/socket.io/private-admin";
 
 export default {
   name: "DefaultLayout",
@@ -26,6 +28,7 @@ export default {
   computed: {
     ...mapGetters({
       app_loading: "app_loading",
+      me: "auth/me",
     }),
   },
 
@@ -46,6 +49,20 @@ export default {
       }
 
       item.classList.remove("active");
+    }
+  },
+
+  fetch() {
+    try {
+      const user_id = this.me?._id;
+      if (!user_id) {
+        return;
+      }
+
+      const socket = initialPrivateSocketIO();
+      socket.emit(SOCKETIO_EMIT_EVENT.ONLINE, { user_id });
+    } catch (error) {
+      console.error(error);
     }
   },
 };
