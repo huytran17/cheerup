@@ -36,7 +36,11 @@ export default function makeBatchUploadUsersController({
       });
 
       const batch_payload_promises = payload.map(async (user) => {
-        const { email, password, password_confirmation } = user;
+        const { email, full_name, password, password_confirmation } = user;
+
+        if (!email || !full_name) {
+          return;
+        }
 
         const exists = await getUserByEmail({ email });
         if (exists) {

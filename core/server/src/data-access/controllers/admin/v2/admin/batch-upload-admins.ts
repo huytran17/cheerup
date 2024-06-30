@@ -37,7 +37,11 @@ export default function makeBatchUploadAdminsController({
       );
 
       const batch_payload_promises = payload.map(async (admin) => {
-        const { email, password, password_confirmation } = admin;
+        const { email, full_name, password, password_confirmation } = admin;
+
+        if (!email || !full_name) {
+          return;
+        }
 
         const exists = await getAdminByEmail({ email });
         if (!isEmpty(exists)) {
