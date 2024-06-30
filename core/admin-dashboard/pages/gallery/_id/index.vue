@@ -2,24 +2,28 @@
   <div>
     <v-row>
       <v-col cols="12" class="pb-0">
-        <div class="text-h6 pb-3 text-center cyan--text">
-          <span class="app-title" v-html="$t('Gallery')"></span>
+        <div class="text-h6 pb-10 brick--text">
+          <h2 class="app-title">{{ $t("Gallery") }}</h2>
         </div>
 
-        <div class="d-flex justify-center">
+        <div class="toolbar">
           <v-tooltip left>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
                 v-bind="attrs"
                 v-on="on"
-                color="primary"
-                icon
+                color="brick"
+                height="auto"
+                class="px-2"
+                outlined
+                tile
                 @click="is_open_create_gallery_dialog = true"
               >
-                <v-icon>mdi-view-grid-plus-outline</v-icon>
+                <v-icon small>mdi-plus</v-icon>
+                <span class="app-body">{{ $t("Add") }}</span>
               </v-btn>
             </template>
-            <span v-html="$t('Create a new folder')"></span>
+            <span class="app-body">{{ $t("Create a new folder") }}</span>
           </v-tooltip>
         </div>
       </v-col>
@@ -43,12 +47,12 @@
       <v-col cols="12" sm="6">
         <v-btn text outlined @click="$router.go(-1)">
           <v-icon>mdi-arrow-left-thin</v-icon>
-          <span v-html="$t('Back')"></span>
+          <span class="app-body">{{ $t("Back") }}</span>
         </v-btn>
       </v-col>
       <v-col cols="12" sm="6" class="d-flex justify-end">
         <v-btn text outlined :disabled="!can_go_forward" @click="$router.go(1)">
-          <span v-html="$t('Next')"></span>
+          <span class="app-body">{{ $t("Next") }}</span>
           <v-icon>mdi-arrow-right-thin</v-icon>
         </v-btn>
       </v-col>
@@ -57,7 +61,7 @@
     <v-row>
       <v-col cols="12" class="d-flex flex-column">
         <div class="text-body-1 text-sm-h6">
-          <span class="app-body" v-html="$t('Folders')"></span>
+          <span class="app-body">{{ $t("Folders") }}</span>
         </div>
       </v-col>
     </v-row>
@@ -66,7 +70,7 @@
     <v-row class="mt-4">
       <v-col cols="12" class="d-flex flex-column">
         <div class="text-body-1 text-sm-h6">
-          <span class="app-body" v-html="$t('Items')"></span>
+          <span class="app-body">{{ $t("Items") }}</span>
         </div>
       </v-col>
     </v-row>

@@ -2,24 +2,28 @@
   <div>
     <v-row>
       <v-col cols="12" class="pb-0">
-        <div class="text-h6 pb-3 text-center cyan--text">
-          <span class="app-title" v-html="$t('Gallery')"></span>
+        <div class="text-h6 pb-10 brick--text">
+          <h2 class="app-title">{{ $t("Gallery") }}</h2>
         </div>
 
-        <div class="d-flex justify-center">
+        <div class="toolbar">
           <v-tooltip left>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
                 v-bind="attrs"
                 v-on="on"
                 color="brick"
-                icon
+                height="auto"
+                class="px-2"
+                outlined
+                tile
                 @click="is_open_create_gallery_dialog = true"
               >
-                <v-icon>mdi-view-grid-plus-outline</v-icon>
+                <v-icon small>mdi-plus</v-icon>
+                <span class="app-body">{{ $t("Add") }}</span>
               </v-btn>
             </template>
-            <span v-html="$t('Create a new folder')"></span>
+            <span class="app-body">{{ $t("Create a new folder") }}</span>
           </v-tooltip>
         </div>
       </v-col>
@@ -27,9 +31,9 @@
 
     <div class="d-flex flex-column mt-8">
       <div class="text-body-1 text-sm-h6">
-        <span class="app-body" v-html="$t('Folders')"></span>
+        <span class="app-body">{{ $t("Folders") }}</span>
       </div>
-      <BaseGalleryFolders />
+      <BaseGalleryFolders :search="search" />
     </div>
 
     <BaseModalCreateGallery
@@ -58,6 +62,7 @@ export default {
   data() {
     return {
       is_open_create_gallery_dialog: false,
+      search: "",
     };
   },
   methods: {

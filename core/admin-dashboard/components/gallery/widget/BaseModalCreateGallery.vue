@@ -22,10 +22,10 @@
 
       <div class="d-flex justify-center mt-2">
         <v-btn depressed color="primary" text @click="close">
-          <span v-html="$t('Cancel')"></span>
+          <span class="app-body">{{ $t("Cancel") }}</span>
         </v-btn>
         <v-btn depressed color="error" text @click="confirm">
-          <span v-html="$t('Create')"></span>
+          <span class="app-body">{{ $t("Create") }}</span>
         </v-btn>
       </div>
     </div>

@@ -15,15 +15,18 @@
   padding: toRem(12);
 }
 
-.table-toolbar {
+.toolbar {
   display: flex;
   justify-content: flex-end;
   gap: toRem(10);
   overflow-x: auto;
+  button {
+    min-height: toRem(40);
+  }
 }
 
 @include media-max-width(toRem(1200)) {
-  .table-toolbar {
+  .toolbar {
     justify-content: unset;
   }
 }

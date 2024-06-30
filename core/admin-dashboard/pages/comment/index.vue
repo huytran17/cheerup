@@ -2,8 +2,8 @@
   <div v-page-roles="[ADMIN_TYPES.OWNER, ADMIN_TYPES.COLLABORATOR]">
     <v-row>
       <v-col cols="12" class="pb-0">
-        <div class="text-h6 pb-3 text-center cyan--text">
-          <span class="app-title" v-html="$t('Comments Data')"></span>
+        <div class="text-h6 pb-10 brick--text">
+          <span class="app-title">{{ $t("Comments Data") }}</span>
         </div>
       </v-col>
     </v-row>

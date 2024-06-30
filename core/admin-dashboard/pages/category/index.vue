@@ -6,7 +6,7 @@
           <h2 class="app-title">{{ $t("Categories Data") }}</h2>
         </div>
 
-        <div class="table-toolbar">
+        <div class="toolbar">
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"

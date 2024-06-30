@@ -39,7 +39,7 @@
   </div>
 
   <div v-else class="text-body-2 text-sm-body-1 text-center mt-4">
-    <span class="app-body grey--text" v-html="$t('No folders')"></span>
+    <span class="app-body grey--text">{{ $t("No folders") }}</span>
   </div>
 </template>
 
