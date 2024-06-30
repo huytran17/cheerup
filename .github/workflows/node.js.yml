@@ -4,6 +4,13 @@ run-name: ${{ github.actor }} is running 🚀
 
 on:
   push:
+    paths-ignore:
+      - "README.md"
+      - "./core/admin-dashboard"
+      - "./core/user-dashboard"
+    branches:
+      - main
+  pull_request:
     branches:
       - main
 
