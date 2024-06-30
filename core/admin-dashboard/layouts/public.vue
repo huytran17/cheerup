@@ -11,12 +11,12 @@ export default {
   name: "PublicLayout",
 };
 </script>
-<style scoped>
+<style scoped lang="scss">
 .nav-wrapper {
-  min-width: 270px;
-  max-width: 270px;
+  min-width: toRem(270);
+  max-width: toRem(270);
 }
 .nav-wrapper {
-  min-width: 78px;
+  min-width: toRem(78);
 }
 </style>

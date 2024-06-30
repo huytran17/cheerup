@@ -149,8 +149,11 @@ export default {
 :deep(.v-chip--label) {
   border-radius: 0 !important;
 }
+:deep(.v-chip__content) {
+  line-height: 0;
+}
 :deep(.post__source *) {
-  display: inline !important;
-  text-decoration: none !important;
+  display: inline;
+  text-decoration: none;
 }
 </style>

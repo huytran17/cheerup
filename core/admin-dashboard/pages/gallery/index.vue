@@ -94,19 +94,14 @@ export default {
 };
 </script>
 
-<style scoped>
-.folder__item {
-  max-width: 80px;
-  max-height: 80px;
-  position: relative;
-}
+<style scoped lang="scss">
 .grid-container--fill {
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(toRem(100), 1fr));
 }
 .grid-container {
   display: grid;
 }
 :deep(.v-image) {
-  margin: 0 !important;
+  margin: 0;
 }
 </style>

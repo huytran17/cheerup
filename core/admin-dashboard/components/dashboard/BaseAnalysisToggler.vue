@@ -155,10 +155,10 @@ export default {
 };
 </script>
 
-<style scoped>
-@media only screen and (max-width: 600px) {
+<style scoped lang="scss">
+@include media-max-width(toRem(600)) {
   .analysis-toggler-wrapper {
-    gap: 12px;
+    gap: toRem(12);
   }
 }
 </style>

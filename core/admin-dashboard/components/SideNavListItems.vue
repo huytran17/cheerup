@@ -143,12 +143,9 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 :deep(.nav-list) {
-  padding-left: 0 !important;
-}
-:deep(.sidebar) {
-  min-width: 78px !important;
+  padding-left: 0;
 }
 :deep(.profile) {
   background: var(--color-white) !important;
@@ -165,17 +162,17 @@ export default {
   cursor: pointer;
 }
 :deep(.profile) {
-  border-right: 1px solid var(--color-grey) !important;
+  border-right: toRem(1) solid var(--color-grey) !important;
 }
 :deep(.menu-logo) {
   object-fit: contain !important;
 }
 :deep(.logo_name) {
-  font-size: 22px !important;
+  font-size: toRem(22) !important;
   font-family: "Lato", sans-serif !important;
 }
 .sidebar {
-  border-right: 1px solid var(--color-grey) !important;
+  border-right: toRem(1) solid var(--color-grey) !important;
 }
 .sidebar li a:hover .links_name,
 .sidebar li a:hover i {

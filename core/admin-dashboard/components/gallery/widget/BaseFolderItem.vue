@@ -88,7 +88,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .folder__menu-button {
   position: absolute;
   top: 46%;
@@ -97,28 +97,24 @@ export default {
   z-index: 1;
 }
 .item-wrapper__item {
-  max-width: 70px;
+  max-width: toRem(70);
 }
 .folder__symbol:hover {
   background: rgba(172, 172, 172, 0.5);
-}
-:deep(#folderContextMenu) {
-  top: 100% !important;
-  left: 100% !important;
 }
 :deep(.ctx-menu) {
   padding: 0;
   box-shadow: none;
   border-radius: 0;
-  border: 1px solid var(--color-grey);
+  border: toRem(1) solid var(--color-grey);
 }
-:deep(.ctx-menu__item) {
-  padding: 6px 8px;
+.ctx-menu__item {
+  padding: toRem(6) toRem(8);
 }
-:deep(.ctx-menu__item:hover) {
+.ctx-menu__item:hover {
   background: var(--color-brick);
 }
-:deep(.ctx-menu__item:hover > *) {
+.ctx-menu__item:hover > * {
   color: var(--color-white);
 }
 </style>

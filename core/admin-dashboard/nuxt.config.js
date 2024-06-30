@@ -12,7 +12,7 @@ export default {
 
   head: seo_home_schema,
 
-  css: ["~/assets/style", "~/assets/variables"],
+  css: ["~/assets/style", "~/assets/main"],
 
   server: {
     port: 8080,

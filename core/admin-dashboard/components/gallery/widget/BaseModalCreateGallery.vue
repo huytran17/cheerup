@@ -61,11 +61,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.close-dialog-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-</style>

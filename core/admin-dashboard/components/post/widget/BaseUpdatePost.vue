@@ -334,7 +334,7 @@ export default {
 </script>
 
 <style scoped>
-:deep(.v-expansion-panels) {
-  z-index: 0 !important;
+.v-expansion-panels {
+  z-index: 0;
 }
 </style>

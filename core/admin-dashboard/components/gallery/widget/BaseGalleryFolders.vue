@@ -116,3 +116,9 @@ export default {
   },
 };
 </script>
+<style scoped lang="scss">
+.folder__item {
+  max-width: toRem(80);
+  max-height: toRem(80);
+}
+</style>

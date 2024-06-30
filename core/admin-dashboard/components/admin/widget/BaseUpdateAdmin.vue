@@ -221,9 +221,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.source-input {
-  padding-top: 8.5px !important;
-}
-</style>
