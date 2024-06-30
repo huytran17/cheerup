@@ -1,14 +1,6 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-card-title>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          label="Search"
-          hide-details
-        ></v-text-field>
-      </v-card-title>
       <v-data-table :headers="headers" :items="categories" :search="search">
         <template v-slot:item.title="{ item }">
           <div
@@ -175,6 +167,10 @@ export default {
             sortable: false,
           },
         ];
+      },
+      search: {
+        type: String,
+        default: () => "",
       },
     },
   },

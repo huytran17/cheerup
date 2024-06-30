@@ -35,7 +35,7 @@
                 <span class="app-body">{{ $t("Add") }}</span>
               </v-btn>
             </template>
-            <span>{{ $t("Create a new admin") }}</span>
+            <span class="app-body">{{ $t("Create a new admin") }}</span>
           </v-tooltip>
           <v-tooltip v-if="system_configuration.admin_excel_template_url" left>
             <template v-slot:activator="{ on, attrs }">
@@ -58,7 +58,7 @@
                 }}</span>
               </v-btn>
             </template>
-            <span>{{ $t("Download batch template") }}</span>
+            <span class="app-body">{{ $t("Download batch template") }}</span>
           </v-tooltip>
           <v-tooltip left>
             <template v-slot:activator="{ on, attrs }">
@@ -105,7 +105,7 @@
                 <span class="app-body">{{ $t("Export CSV") }}</span>
               </v-btn>
             </template>
-            <span>{{ $t("Export CSV") }}</span>
+            <span class="app-body">{{ $t("Export CSV") }}</span>
           </v-tooltip>
         </div>
       </v-col>
