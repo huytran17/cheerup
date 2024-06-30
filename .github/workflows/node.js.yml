@@ -6,8 +6,8 @@ on:
   push:
     paths-ignore:
       - "README.md"
-      - "./core/admin-dashboard"
-      - "./core/user-dashboard"
+      - "core/admin-dashboard"
+      - "core/user-dashboard"
     branches:
       - main
   pull_request:
