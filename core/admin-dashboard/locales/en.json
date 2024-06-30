@@ -265,5 +265,8 @@
   "Category excel template": "Category excel template",
   "Online": "Online",
   "Download batch template": "Download batch template",
-  "Upload batch data": "Upload batch data"
+  "Upload batch data": "Upload batch data",
+  "Add": "Add",
+  "Search": "Search",
+  "Export CSV": "Export CSV"
 }

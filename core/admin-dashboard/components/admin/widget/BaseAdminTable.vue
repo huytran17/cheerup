@@ -1,128 +1,118 @@
 <template>
-  <div class="app-container">
-    <v-row>
-      <v-col cols="12">
-        <v-card-title>
-          <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            label="Search"
-            hide-details
-          ></v-text-field>
-        </v-card-title>
-        <v-data-table :headers="headers" :items="admins" :search="search">
-          <template v-slot:item.avatar="{ item }">
-            <v-img
-              v-if="item.avatar_url"
-              :lazy-src="item.avatar_url"
-              :src="item.avatar_url"
-              :alt="item.full_name"
-              :width="35"
-              :height="35"
-              contain
-              class="rounded-circle"
-            ></v-img>
-            <avatar
-              v-else-if="item.full_name"
-              :username="item.full_name"
-              :name="item.full_name"
-              :size="32"
-            ></avatar>
-          </template>
-          <template v-slot:item.full_name="{ item }">
-            <div
-              class="text-body-2 primary--text clickable"
-              @click="$router.push(localePath(`/admin/${item._id}`))"
-            >
-              <span class="app-body">{{ item.full_name }}</span>
-            </div>
-          </template>
+  <v-row>
+    <v-col cols="12">
+      <v-data-table :headers="headers" :items="admins" :search="search">
+        <template v-slot:item.avatar="{ item }">
+          <v-img
+            v-if="item.avatar_url"
+            :lazy-src="item.avatar_url"
+            :src="item.avatar_url"
+            :alt="item.full_name"
+            :width="35"
+            :height="35"
+            contain
+            class="rounded-circle"
+          ></v-img>
+          <avatar
+            v-else-if="item.full_name"
+            :username="item.full_name"
+            :name="item.full_name"
+            :size="32"
+          ></avatar>
+        </template>
+        <template v-slot:item.full_name="{ item }">
+          <div
+            class="text-body-2 primary--text clickable"
+            @click="$router.push(localePath(`/admin/${item._id}`))"
+          >
+            <span class="app-body">{{ item.full_name }}</span>
+          </div>
+        </template>
 
-          <template v-slot:item.created_at="{ item }">
-            <div class="text-body-2">
-              <span class="app-body">{{
-                formatLocaleDate(item.created_at)
-              }}</span>
-            </div>
-          </template>
+        <template v-slot:item.created_at="{ item }">
+          <div class="text-body-2">
+            <span class="app-body">{{
+              formatLocaleDate(item.created_at)
+            }}</span>
+          </div>
+        </template>
 
-          <template v-slot:item.updated_at="{ item }">
-            <div class="text-body-2">
-              <span class="app-body">{{
-                formatLocaleDate(item.updated_at)
-              }}</span>
-            </div>
-          </template>
+        <template v-slot:item.updated_at="{ item }">
+          <div class="text-body-2">
+            <span class="app-body">{{
+              formatLocaleDate(item.updated_at)
+            }}</span>
+          </div>
+        </template>
 
-          <template v-slot:item.status="{ item }">
-            <div v-if="item.is_online" class="text-body-2">
-              <v-chip color="green" text-color="white">
-                <span v-html="$t('Online')"></span>
-              </v-chip>
-            </div>
-            <div v-else-if="item.last_online_at" class="text-body-2">
-              <v-chip color="red" text-color="white">
-                <span>{{ formatLocaleDate(item.last_online_at) }}</span>
-              </v-chip>
-            </div>
-          </template>
+        <template v-slot:item.status="{ item }">
+          <div v-if="item.is_online" class="text-body-2">
+            <v-chip color="green" text-color="white">
+              <span v-html="$t('Online')"></span>
+            </v-chip>
+          </div>
+          <div v-else-if="item.last_online_at" class="text-body-2">
+            <v-chip color="red" text-color="white">
+              <span>{{ formatLocaleDate(item.last_online_at) }}</span>
+            </v-chip>
+          </div>
+        </template>
 
-          <template v-slot:item.actions="{ item }">
-            <div v-if="item.deleted_at">
-              <v-tooltip left>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    icon
-                    v-bind="attrs"
-                    v-on="on"
-                    small
-                    @click="restoreDeletedAdmin(item)"
-                  >
-                    <v-icon small color="success">mdi-backup-restore</v-icon>
-                  </v-btn>
-                </template>
-                <span v-html="$t('Restore')"></span>
-              </v-tooltip>
-            </div>
-            <div v-else>
-              <v-tooltip left>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    icon
-                    v-bind="attrs"
-                    v-on="on"
-                    small
-                    @click="deleteAdmin(item)"
-                  >
-                    <v-icon small color="error">mdi-trash-can-outline</v-icon>
-                  </v-btn>
-                </template>
-                <span v-html="$t('Delete')"></span>
-              </v-tooltip>
-            </div>
-            <div v-if="item.login_failed_times >= LOGIN_FAILED.MAX">
-              <v-tooltip left>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    icon
-                    v-bind="attrs"
-                    v-on="on"
-                    small
-                    @click="resetLoginFailedTimes(item)"
-                  >
-                    <v-icon small color="error">mdi-restore-alert</v-icon>
-                  </v-btn>
-                </template>
-                <span
-                  v-html="$t('Reset the number of failed login attempts')"
-                ></span>
-              </v-tooltip>
-            </div>
-          </template>
-        </v-data-table>
-      </v-col>
-    </v-row>
-  </div>
+        <template v-slot:item.actions="{ item }">
+          <div v-if="item.deleted_at">
+            <v-tooltip left>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  icon
+                  v-bind="attrs"
+                  v-on="on"
+                  small
+                  @click="restoreDeletedAdmin(item)"
+                >
+                  <v-icon small color="success">mdi-backup-restore</v-icon>
+                </v-btn>
+              </template>
+              <span v-html="$t('Restore')"></span>
+            </v-tooltip>
+          </div>
+          <div v-else>
+            <v-tooltip left>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  icon
+                  v-bind="attrs"
+                  v-on="on"
+                  small
+                  @click="deleteAdmin(item)"
+                >
+                  <v-icon small color="error">mdi-trash-can-outline</v-icon>
+                </v-btn>
+              </template>
+              <span v-html="$t('Delete')"></span>
+            </v-tooltip>
+          </div>
+          <div v-if="item.login_failed_times >= LOGIN_FAILED.MAX">
+            <v-tooltip left>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  icon
+                  v-bind="attrs"
+                  v-on="on"
+                  small
+                  @click="resetLoginFailedTimes(item)"
+                >
+                  <v-icon small color="error">mdi-restore-alert</v-icon>
+                </v-btn>
+              </template>
+              <span
+                v-html="$t('Reset the number of failed login attempts')"
+              ></span>
+            </v-tooltip>
+          </div>
+        </template>
+      </v-data-table>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -182,10 +172,13 @@ export default {
         ];
       },
     },
+    search: {
+      type: String,
+      default: () => "",
+    },
   },
   data() {
     return {
-      search: "",
       ADMIN_TYPES,
       LOGIN_FAILED,
     };

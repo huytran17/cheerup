@@ -3,3 +3,27 @@
   top: toRem(10);
   right: toRem(10);
 }
+
+.v-input.table-search-input {
+  padding-top: 0;
+  max-width: toRem(300);
+  min-width: toRem(200);
+  border-radius: 0;
+}
+
+.app-container {
+  padding: toRem(12);
+}
+
+.table-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: toRem(10);
+  overflow-x: auto;
+}
+
+@include media-max-width(toRem(1200)) {
+  .table-toolbar {
+    justify-content: unset;
+  }
+}

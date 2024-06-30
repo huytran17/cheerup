@@ -2,24 +2,40 @@
   <div v-page-roles="[ADMIN_TYPES.OWNER]">
     <v-row>
       <v-col cols="12" class="pb-0">
-        <div class="text-h6 pb-3 text-center cyan--text">
-          <span class="app-title" v-html="$t('Admins Data')"></span>
+        <div class="text-h6 pb-10 brick--text">
+          <h2 class="app-title" v-html="$t('Admins Data')"></h2>
         </div>
 
-        <div class="d-flex justify-center">
+        <div class="table-toolbar">
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            class="table-search-input"
+            color="brick"
+            hide-details
+            outlined
+            single-line
+            dense
+            clearable
+            :label="$t('Search')"
+          ></v-text-field>
           <v-tooltip left>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
                 v-bind="attrs"
                 v-on="on"
                 color="brick"
-                icon
+                height="auto"
+                class="px-2"
+                outlined
+                tile
                 @click="$router.push(localePath('/admin/new'))"
               >
-                <v-icon>mdi-account-plus-outline</v-icon>
+                <v-icon small>mdi-plus</v-icon>
+                <span class="app-body">{{ $t("Add") }}</span>
               </v-btn>
             </template>
-            <span v-html="$t('Create a new admin')"></span>
+            <span>{{ $t("Create a new admin") }}</span>
           </v-tooltip>
           <v-tooltip v-if="system_configuration.admin_excel_template_url" left>
             <template v-slot:activator="{ on, attrs }">
@@ -27,14 +43,22 @@
                 v-bind="attrs"
                 v-on="on"
                 color="brick"
-                icon
-                :href="system_configuration.admin_excel_template_url"
                 target="_blank"
+                height="auto"
+                width="auto"
+                class="px-2"
+                icon
+                outlined
+                tile
+                :href="system_configuration.admin_excel_template_url"
               >
-                <v-icon>mdi-download</v-icon>
+                <v-icon small>mdi-download</v-icon>
+                <span class="app-body">{{
+                  $t("Download batch template")
+                }}</span>
               </v-btn>
             </template>
-            <span v-html="$t('Download batch template')"></span>
+            <span>{{ $t("Download batch template") }}</span>
           </v-tooltip>
           <v-tooltip left>
             <template v-slot:activator="{ on, attrs }">
@@ -44,20 +68,51 @@
                 class="d-none"
                 @change="batchUploadAdmins"
               ></v-file-input>
-              <v-btn v-bind="attrs" v-on="on" color="brick" icon download>
+              <v-btn
+                v-bind="attrs"
+                v-on="on"
+                color="brick"
+                width="auto"
+                height="auto"
+                class="px-2"
+                download
+                outlined
+                tile
+              >
                 <label for="batch_upload_admin">
-                  <v-icon>mdi-upload</v-icon>
+                  <v-icon small>mdi-upload</v-icon>
+                  <span class="app-body">{{ $t("Upload batch data") }}</span>
                 </label>
               </v-btn>
             </template>
-            <span v-html="$t('Upload batch data')"></span>
+            <span>{{ $t("Upload batch data") }}</span>
+          </v-tooltip>
+          <v-tooltip left>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                v-bind="attrs"
+                v-on="on"
+                color="brick"
+                target="_blank"
+                height="auto"
+                width="auto"
+                class="px-2"
+                icon
+                outlined
+                tile
+              >
+                <v-icon small>mdi-export</v-icon>
+                <span class="app-body">{{ $t("Export CSV") }}</span>
+              </v-btn>
+            </template>
+            <span>{{ $t("Export CSV") }}</span>
           </v-tooltip>
         </div>
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="12">
-        <BaseAdminTable />
+        <BaseAdminTable :search="search" />
       </v-col>
     </v-row>
   </div>
@@ -78,6 +133,7 @@ export default {
 
   data() {
     return {
+      search: "",
       ADMIN_TYPES,
       MIME_TYPES,
     };

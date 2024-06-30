@@ -158,10 +158,6 @@ select:-webkit-autofill:focus {
   overflow: hidden;
 }
 
-.app-container {
-  padding: 10px;
-}
-
 .word-break--all {
   word-break: break-all;
 }
