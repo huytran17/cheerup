@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12" class="pb-0">
         <div class="text-h6 pb-10 brick--text">
-          <h2 class="app-title" v-html="$t('Admins Data')"></h2>
+          <h2 class="app-title">{{ $t("Admins Data") }}</h2>
         </div>
 
         <div class="table-toolbar">
