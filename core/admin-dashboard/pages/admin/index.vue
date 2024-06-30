@@ -65,7 +65,7 @@
 
 <script>
 import { ADMIN_TYPES, MIME_TYPES } from "@/constants";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 import BaseAdminTable from "@/components/admin/widget/BaseAdminTable";
 export default {
   name: "AdminIndex",
@@ -86,6 +86,7 @@ export default {
   computed: {
     ...mapGetters({
       system_configuration: "system-configuration/system_configuration",
+      me: "auth/me",
     }),
   },
 
@@ -97,10 +98,20 @@ export default {
       BATCH_UPLOAD_ADMINS: "admin/BATCH_UPLOAD_ADMINS",
     }),
 
+    ...mapMutations({
+      SET_ADMINS: "admin/SET_ADMINS",
+    }),
+
     async batchUploadAdmins(file) {
       try {
         await this.BATCH_UPLOAD_ADMINS({ file });
-        await this.GET_ADMINS();
+        const admins = await this.GET_ADMINS();
+
+        const filtered_admins = admins.filter(
+          (admin) => admin._id !== this.me._id
+        );
+
+        this.SET_ADMINS({ data: filtered_admins });
       } catch (error) {
         console.error(error);
       }

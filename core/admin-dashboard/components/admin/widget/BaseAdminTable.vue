@@ -122,13 +122,6 @@
         </v-data-table>
       </v-col>
     </v-row>
-
-    <BaseHardDeleteDialog
-      :is_open="is_open_hard_delete_dialog"
-      @close-dialog="is_open_hard_delete_dialog = false"
-      @confirm-dialog="hardDeleteAdmin"
-      :title="`admin ${admin.email}`"
-    />
   </div>
 </template>
 
@@ -138,14 +131,12 @@ import adminMixins from "@/mixins/admin";
 import authMixins from "@/mixins/auth";
 import systemMixins from "@/mixins/system";
 import Avatar from "vue-avatar";
-import BaseHardDeleteDialog from "@/components/BaseHardDeleteDialog";
 
 export default {
   name: "BaseAdminTable",
   mixins: [adminMixins, systemMixins, authMixins],
   components: {
     Avatar,
-    BaseHardDeleteDialog,
   },
   props: {
     headers: {
@@ -195,7 +186,6 @@ export default {
   data() {
     return {
       search: "",
-      is_open_hard_delete_dialog: false,
       ADMIN_TYPES,
       LOGIN_FAILED,
     };
@@ -269,8 +259,6 @@ export default {
         this.$toast.error(
           this.$t(`Encountered error while hard deleting admin`)
         );
-      } finally {
-        this.is_open_hard_delete_dialog = false;
       }
     },
   },
