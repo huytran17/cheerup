@@ -1,52 +1,38 @@
 <template>
-  <div class="app-container">
-    <v-row>
-      <v-col cols="12">
-        <v-card-title>
-          <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            label="Search"
-            hide-details
-          ></v-text-field>
-        </v-card-title>
-        <v-data-table
-          :headers="headers"
-          :items="subscriptions"
-          :search="search"
-        >
-          <template v-slot:item.is_active="{ item }">
-            <div v-if="item.is_active" class="text-body-2">
-              <v-chip color="green" text-color="white">
-                <span v-html="$t('Active')"></span>
-              </v-chip>
-            </div>
-            <div v-else class="text-body-2">
-              <v-chip color="red" text-color="white">
-                <span v-html="$t('Non Active')"></span>
-              </v-chip>
-            </div>
-          </template>
+  <v-row>
+    <v-col cols="12">
+      <v-data-table :headers="headers" :items="subscriptions" :search="search">
+        <template v-slot:item.is_active="{ item }">
+          <div v-if="item.is_active" class="text-body-2">
+            <v-chip color="green" text-color="white">
+              <span class="app-body">{{ $t("Active") }}</span>
+            </v-chip>
+          </div>
+          <div v-else class="text-body-2">
+            <v-chip color="red" text-color="white">
+              <span class="app-body">{{ $t("Non Active") }}</span>
+            </v-chip>
+          </div>
+        </template>
 
-          <template v-slot:item.created_at="{ item }">
-            <div class="text-body-2">
-              <span class="app-body">{{
-                formatLocaleDate(item.created_at)
-              }}</span>
-            </div>
-          </template>
+        <template v-slot:item.created_at="{ item }">
+          <div class="text-body-2">
+            <span class="app-body">{{
+              formatLocaleDate(item.created_at)
+            }}</span>
+          </div>
+        </template>
 
-          <template v-slot:item.updated_at="{ item }">
-            <div class="text-body-2">
-              <span class="app-body">{{
-                formatLocaleDate(item.updated_at)
-              }}</span>
-            </div>
-          </template>
-        </v-data-table>
-      </v-col>
-    </v-row>
-  </div>
+        <template v-slot:item.updated_at="{ item }">
+          <div class="text-body-2">
+            <span class="app-body">{{
+              formatLocaleDate(item.updated_at)
+            }}</span>
+          </div>
+        </template>
+      </v-data-table>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -84,11 +70,10 @@ export default {
         ];
       },
     },
-  },
-  data() {
-    return {
-      search: "",
-    };
+    search: {
+      type: String,
+      default: () => "",
+    },
   },
 
   async fetch() {
