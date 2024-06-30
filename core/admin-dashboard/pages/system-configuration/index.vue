@@ -2,11 +2,8 @@
   <div v-page-roles="[ADMIN_TYPES.OWNER]">
     <v-row>
       <v-col cols="12" class="pb-0">
-        <div class="text-h6 pb-3 text-center cyan--text">
-          <span
-            class="app-title"
-            v-html="$t('Update System Configuration')"
-          ></span>
+        <div class="text-h6 pb-10 brick--text">
+          <h2 class="app-title">{{ $t("Update System Configuration") }}</h2>
         </div>
       </v-col>
     </v-row>
