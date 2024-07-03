@@ -3,9 +3,9 @@
     <v-col cols="12">
       <v-form v-model="form_valid" class="soft-box-shadow rounded-lg px-4 py-5">
         <v-row>
-          <v-col cols="12" class="pb-0">
-            <div class="text-body-1 primary--text">
-              <span class="app-title" v-html="$t('Admin Meta')"></span>
+          <v-col cols="12" class="pb-2">
+            <div class="text-body-1 brick--text">
+              <h3 class="app-title">{{ $t("Information") }}</h3>
             </div>
           </v-col>
         </v-row>
@@ -18,6 +18,8 @@
                 updateAdminObject({ variable_path: 'email', data: $event })
               "
               disabled
+              color="brick"
+              outlined
             ></v-text-field>
           </v-col>
 
@@ -29,6 +31,8 @@
                 updateAdminObject({ variable_path: 'full_name', data: $event })
               "
               :rules="fullnameRules"
+              color="brick"
+              outlined
             ></v-text-field>
           </v-col>
         </v-row>
@@ -47,6 +51,8 @@
                 })
               "
               :rules="typeRules"
+              color="brick"
+              outlined
             ></v-autocomplete>
           </v-col>
         </v-row>
@@ -72,11 +78,12 @@
           <v-col cols="12" class="d-flex justify-end">
             <v-btn
               depressed
-              color="primary"
+              color="brick"
+              class="white--text"
               :disabled="!form_valid"
               @click="updateAdmin"
             >
-              <span v-html="$t('Update')"></span>
+              <span class="app-body">{{ $t("Update") }}</span>
             </v-btn>
           </v-col>
         </v-row>
@@ -87,9 +94,9 @@
         class="soft-box-shadow rounded-lg px-4 py-5 mt-6"
       >
         <v-row>
-          <v-col cols="12" class="pb-0">
-            <div class="text-body-1 primary--text">
-              <span class="app-title" v-html="$t('Admin Security')"></span>
+          <v-col cols="12" class="pb-2">
+            <div class="text-body-1 brick--text">
+              <h3 class="app-title">{{ $t("Security") }}</h3>
             </div>
           </v-col>
         </v-row>
@@ -104,6 +111,8 @@
                 updateAdminObject({ variable_path: 'password', data: $event })
               "
               :rules="passwordRules"
+              color="brick"
+              outlined
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="6">
@@ -123,6 +132,8 @@
                 })
               "
               :rules="passwordConfirmationRules"
+              color="brick"
+              outlined
             ></v-text-field>
           </v-col>
         </v-row>
@@ -130,11 +141,13 @@
           <v-col cols="12" class="d-flex justify-end">
             <v-btn
               depressed
-              color="primary"
+              color="brick"
+              class="white--text"
+              tile
               :disabled="!security_form_valid"
               @click="updateAdminSecurity"
             >
-              <span v-html="$t('Update')"></span>
+              <span class="app-body">{{ $t("Update") }}</span>
             </v-btn>
           </v-col>
         </v-row>

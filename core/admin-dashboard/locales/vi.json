@@ -49,7 +49,6 @@
   "Information": "Thông tin",
   "Avatar": "Ảnh đại diện",
   "Update": "Cập nhật",
-  "Admin Security": "Bảo mật cho quản trị viên",
   "New Password": "Mật khẩu mới",
   "New Password Confirmation": "Xác nhận mật khẩu mới",
   "Updated admin successfully": "Cập nhật thành công thông tin quản trị viên",
@@ -158,7 +157,6 @@
   "Created user successfully": "Tạo người dùng thành công",
   "Encountered error while creating user": "Xảy ra lỗi trong khi tạo người dùng",
   "User Meta": "Dữ liệu người dùng",
-  "User Security": "Bảo mật người dùng",
   "Encountered error while updating user": "Xảy ra lỗi trong khi cập nhật người dùng",
   "Updated user successfully": "Cập nhật thông tin người dùng thành công",
   "Updated user password successfully": "Đã cập nhật mật khẩu người dùng",
@@ -268,5 +266,6 @@
   "Upload batch data": "Tải lên dữ liệu mẫu",
   "Add": "Thêm",
   "Search": "Tìm kiếm",
-  "Export CSV": "Xuất CSV"
+  "Export CSV": "Xuất CSV",
+  "Security": "Bảo mật"
 }

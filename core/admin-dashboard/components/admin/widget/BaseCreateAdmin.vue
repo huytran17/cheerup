@@ -10,6 +10,8 @@
                 updateAdminObject({ variable_path: 'email', data: $event })
               "
               :rules="emailRules"
+              outlined
+              color="brick"
             ></v-text-field>
           </v-col>
 
@@ -20,6 +22,8 @@
                 updateAdminObject({ variable_path: 'full_name', data: $event })
               "
               :rules="fullnameRules"
+              outlined
+              color="brick"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -34,6 +38,8 @@
               "
               @click:append="show_password = !show_password"
               :rules="passwordRules"
+              outlined
+              color="brick"
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="6">
@@ -53,6 +59,8 @@
                 })
               "
               :rules="passwordConfirmationRules"
+              outlined
+              color="brick"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -70,6 +78,8 @@
                 })
               "
               :rules="typeRules"
+              outlined
+              color="brick"
             ></v-autocomplete>
           </v-col>
         </v-row>
@@ -77,11 +87,13 @@
           <v-col cols="12" class="d-flex justify-end">
             <v-btn
               depressed
-              color="primary"
+              color="brick"
+              class="white--text"
+              tile
               :disabled="!form_valid"
               @click="createAdmin"
             >
-              <span v-html="$t('Create')"></span>
+              <span class="app-body0">{{ $t("Create") }}</span>
             </v-btn>
           </v-col>
         </v-row>

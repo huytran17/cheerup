@@ -87,7 +87,9 @@
           <v-col cols="12" class="d-flex justify-end">
             <v-btn
               depressed
-              color="primary"
+              color="brick"
+              class="white--text"
+              tile
               :disabled="!form_valid"
               @click="updateInfo"
             >
@@ -104,7 +106,7 @@
         <v-row>
           <v-col cols="12" class="pb-2">
             <div class="text-body-1 brick--text">
-              <h3 class="app-title">{{ $t("Admin Security") }}</h3>
+              <h3 class="app-title">{{ $t("Security") }}</h3>
             </div>
           </v-col>
         </v-row>
@@ -163,7 +165,9 @@
           <v-col cols="12" class="d-flex justify-end">
             <v-btn
               depressed
-              color="primary"
+              color="brick"
+              class="white--text"
+              tile
               :disabled="!security_form_valid"
               @click="updateSecurity"
             >

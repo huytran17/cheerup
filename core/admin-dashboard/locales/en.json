@@ -49,7 +49,6 @@
   "Information": "Information",
   "Avatar": "Avatar",
   "Update": "Update",
-  "Admin Security": "Admin Security",
   "New Password": "New Password",
   "New Password Confirmation": "New Password Confirmation",
   "Updated admin successfully": "Updated admin successfully",
@@ -158,7 +157,6 @@
   "Created user successfully": "Created user successfully",
   "Encountered error while creating user": "Encountered error while creating user",
   "User Meta": "User Meta",
-  "User Security": "User Security",
   "Encountered error while updating user": "Encountered error while updating user",
   "Updated user successfully": "Updated user successfully",
   "Updated user password successfully": "Updated user password successfully",
@@ -268,5 +266,6 @@
   "Upload batch data": "Upload batch data",
   "Add": "Add",
   "Search": "Search",
-  "Export CSV": "Export CSV"
+  "Export CSV": "Export CSV",
+  "Security": "Security"
 }
