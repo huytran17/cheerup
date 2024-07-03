@@ -8,6 +8,8 @@
               :rules="titleRules"
               :value="category.title"
               :label="$t('Title')"
+              outlined
+              color="brick"
               @input="
                 updateCategoryObject({ variable_path: 'title', data: $event })
               "
@@ -18,7 +20,7 @@
           <v-col cols="12">
             <div class="text-body-2 mb-2">
               <span class="app-body">
-                <span v-html="$t('Description')"></span>
+                {{ $t("Description") }}
               </span>
             </div>
             <TiptapEditor
@@ -37,7 +39,7 @@
           <v-col cols="12" class="pb-0">
             <div class="text-body-2">
               <span class="app-body">
-                <span v-html="$t('Thumbnail')"></span>
+                {{ $t("Thumbnail") }}
               </span>
             </div>
           </v-col>
@@ -67,7 +69,7 @@
           <v-col cols="12" sm="12">
             <div class="text-body-2 mb-2">
               <span class="app-body">
-                <span v-html="$t('Badge Color')"></span>
+                {{ $t("Badge Color") }}
               </span>
             </div>
             <v-color-picker
@@ -88,8 +90,8 @@
             <v-expansion-panels flat>
               <v-expansion-panel>
                 <v-expansion-panel-header>
-                  <div class="text-body-2">
-                    <span class="app-body" v-html="$t('SEO')"></span>
+                  <div class="text-body-2 brick--text">
+                    <h3 class="app-body">{{ $t("SEO") }}</h3>
                   </div>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
@@ -98,6 +100,8 @@
                       <v-text-field
                         :value="seo_title"
                         :label="$t('Title')"
+                        outlined
+                        color="brick"
                         @input="
                           updateCategoryObject({
                             variable_path: 'seo.title',
@@ -110,6 +114,8 @@
                       <v-text-field
                         :value="seo_description"
                         :label="$t('Description')"
+                        outlined
+                        color="brick"
                         @input="
                           updateCategoryObject({
                             variable_path: 'seo.description',
@@ -124,6 +130,8 @@
                       <v-text-field
                         :value="seo_keywords"
                         :label="$t('Keywords')"
+                        outlined
+                        color="brick"
                         @input="
                           updateCategoryObject({
                             variable_path: 'seo.keywords',
@@ -136,6 +144,8 @@
                       <v-text-field
                         :value="seo_author"
                         :label="$t('Author')"
+                        outlined
+                        color="brick"
                         @input="
                           updateCategoryObject({
                             variable_path: 'seo.author',
@@ -154,15 +164,18 @@
           <v-col cols="12" class="d-flex justify-end">
             <v-btn
               depressed
-              color="primary"
+              color="brick"
+              class="white--text"
+              tile
               :disabled="!form_valid"
               @click="updateCategory"
             >
-              <span v-html="$t('Update')"></span>
+              <span class="app-body">{{ $t("Update") }}</span>
             </v-btn>
           </v-col>
-        </v-row> </v-form
-    ></v-col>
+        </v-row>
+      </v-form></v-col
+    >
   </v-row>
 </template>
 

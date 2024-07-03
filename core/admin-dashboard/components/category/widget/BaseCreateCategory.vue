@@ -7,6 +7,8 @@
             <v-text-field
               :rules="titleRules"
               :label="$t('Title')"
+              outlined
+              color="brick"
               @input="
                 updateCategoryObject({ variable_path: 'title', data: $event })
               "
@@ -18,7 +20,7 @@
           <v-col cols="12">
             <div class="text-body-2 mb-2">
               <span class="app-body">
-                <span v-html="$t('Description')"></span>
+                {{ $t("Description") }}
               </span>
             </div>
             <TiptapEditor
@@ -37,7 +39,7 @@
           <v-col cols="12" sm="12">
             <div class="text-body-2 mb-2">
               <span class="app-body">
-                <span v-html="$t('Badge Color')"></span>
+                {{ $t("Badge Color") }}
               </span>
             </div>
             <v-color-picker
@@ -56,11 +58,13 @@
           <v-col cols="12" class="d-flex justify-end">
             <v-btn
               depressed
-              color="primary"
+              color="brick"
+              class="white--text"
+              tile
               :disabled="!form_valid"
               @click="createCategory"
             >
-              <span v-html="$t('Create')"></span>
+              <span class="app-body">{{ $t("Create") }}</span>
             </v-btn>
           </v-col>
         </v-row>
