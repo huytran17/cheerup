@@ -3,9 +3,9 @@
     <v-col cols="12">
       <v-form v-model="form_valid" class="soft-box-shadow rounded-lg px-4 py-5">
         <v-row>
-          <v-col cols="12" class="pb-0">
-            <div class="text-body-1 primary--text">
-              <span class="app-title" v-html="$t('Admin Meta')"></span>
+          <v-col cols="12" class="pb-2">
+            <div class="text-body-1 brick--text">
+              <h3 class="app-title">{{ $t("Information") }}</h3>
             </div>
           </v-col>
         </v-row>
@@ -16,6 +16,8 @@
               :label="$t('Email')"
               @input="updateMeObject({ variable_path: 'email', data: $event })"
               disabled
+              outlined
+              color="brick"
             ></v-text-field>
           </v-col>
 
@@ -27,6 +29,8 @@
                 updateMeObject({ variable_path: 'full_name', data: $event })
               "
               :rules="fullnameRules"
+              outlined
+              color="brick"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -46,6 +50,8 @@
                 })
               "
               :rules="typeRules"
+              outlined
+              color="brick"
             ></v-autocomplete>
           </v-col>
         </v-row>
@@ -53,7 +59,7 @@
           <v-col cols="12" class="pb-0">
             <div class="text-body-2">
               <span class="app-body">
-                <span v-html="$t('Avatar')"></span>
+                {{ $t("Avatar") }}
               </span>
             </div>
           </v-col>
@@ -85,7 +91,7 @@
               :disabled="!form_valid"
               @click="updateInfo"
             >
-              <span v-html="$t('Update')"></span>
+              <span class="app-body">{{ $t("Update") }}</span>
             </v-btn>
           </v-col>
         </v-row>
@@ -96,9 +102,9 @@
         class="soft-box-shadow rounded-lg px-4 py-5 mt-6"
       >
         <v-row>
-          <v-col cols="12" class="pb-0">
-            <div class="text-body-1 primary--text">
-              <span class="app-title" v-html="$t('Admin Security')"></span>
+          <v-col cols="12" class="pb-2">
+            <div class="text-body-1 brick--text">
+              <h3 class="app-title">{{ $t("Admin Security") }}</h3>
             </div>
           </v-col>
         </v-row>
@@ -113,6 +119,8 @@
                 updateMeObject({ variable_path: 'password', data: $event })
               "
               :rules="passwordRules"
+              outlined
+              color="brick"
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="6">
@@ -125,6 +133,8 @@
                 updateMeObject({ variable_path: 'new_password', data: $event })
               "
               :rules="newPasswordRules"
+              outlined
+              color="brick"
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="6">
@@ -144,6 +154,8 @@
                 })
               "
               :rules="newPasswordConfirmationRules"
+              outlined
+              color="brick"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -155,7 +167,7 @@
               :disabled="!security_form_valid"
               @click="updateSecurity"
             >
-              <span v-html="$t('Update')"></span>
+              <span class="app-body">{{ $t("Update") }}</span>
             </v-btn>
           </v-col>
         </v-row>
