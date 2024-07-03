@@ -10,6 +10,8 @@
                 updateUserObject({ variable_path: 'email', data: $event })
               "
               :rules="emailRules"
+              outlined
+              color="brick"
             ></v-text-field>
           </v-col>
 
@@ -20,6 +22,8 @@
                 updateUserObject({ variable_path: 'full_name', data: $event })
               "
               :rules="fullnameRules"
+              outlined
+              color="brick"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -34,6 +38,8 @@
               "
               @click:append="show_password = !show_password"
               :rules="passwordRules"
+              outlined
+              color="brick"
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="6">
@@ -53,6 +59,8 @@
                 })
               "
               :rules="passwordConfirmationRules"
+              outlined
+              color="brick"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -68,6 +76,7 @@
               "
               :false-value="false"
               :true-value="true"
+              color="brick"
             ></v-switch>
           </v-col>
         </v-row>
@@ -75,7 +84,9 @@
           <v-col cols="12" class="d-flex justify-end">
             <v-btn
               depressed
-              color="primary"
+              color="brick"
+              class="white--text"
+              tile
               :disabled="!form_valid"
               @click="createUser"
             >

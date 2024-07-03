@@ -3,9 +3,9 @@
     <v-col cols="12">
       <v-form v-model="form_valid" class="soft-box-shadow rounded-lg px-4 py-5">
         <v-row>
-          <v-col cols="12" class="pb-0">
-            <div class="text-body-1 primary--text">
-              <span class="app-title">{{ $t("User Meta") }}</span>
+          <v-col cols="12" class="pb-2">
+            <div class="text-body-1 brick--text">
+              <h3 class="app-title">{{ $t("Information") }}</h3>
             </div>
           </v-col>
         </v-row>
@@ -18,6 +18,8 @@
                 updateUserObject({ variable_path: 'email', data: $event })
               "
               disabled
+              outlined
+              color="brick"
             ></v-text-field>
           </v-col>
 
@@ -29,6 +31,8 @@
                 updateUserObject({ variable_path: 'full_name', data: $event })
               "
               :rules="fullnameRules"
+              outlined
+              color="brick"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -45,6 +49,8 @@
               "
               :false-value="false"
               :true-value="true"
+              outlined
+              color="brick"
             ></v-switch>
           </v-col>
         </v-row>
@@ -80,7 +86,9 @@
           <v-col cols="12" class="d-flex justify-end">
             <v-btn
               depressed
-              color="primary"
+              color="brick"
+              class="white--text"
+              tile
               :disabled="!form_valid"
               @click="updateUser"
             >
@@ -95,9 +103,9 @@
         class="soft-box-shadow rounded-lg px-4 py-5 mt-6"
       >
         <v-row>
-          <v-col cols="12" class="pb-0">
-            <div class="text-body-1 primary--text">
-              <span class="app-title">{{ $t("User Security") }}</span>
+          <v-col cols="12" class="pb-2">
+            <div class="text-body-1 brick--text">
+              <h3 class="app-title">{{ $t("Security") }}</h3>
             </div>
           </v-col>
         </v-row>
@@ -113,6 +121,8 @@
               "
               :rules="passwordRules"
               :disabled="is_socialite_account"
+              outlined
+              color="brick"
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="6">
@@ -133,6 +143,8 @@
               "
               :rules="passwordConfirmationRules"
               :disabled="is_socialite_account"
+              outlined
+              color="brick"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -140,7 +152,9 @@
           <v-col cols="12" class="d-flex justify-end">
             <v-btn
               depressed
-              color="primary"
+              color="brick"
+              class="white--text"
+              tile
               :disabled="!security_form_valid"
               @click="updateUserSecurity"
             >
