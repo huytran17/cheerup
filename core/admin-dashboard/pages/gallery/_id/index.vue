@@ -45,13 +45,19 @@
 
     <v-row>
       <v-col cols="12" sm="6">
-        <v-btn text outlined @click="$router.go(-1)">
+        <v-btn outlined color="brick" tile @click="$router.go(-1)">
           <v-icon>mdi-arrow-left-thin</v-icon>
           <span class="app-body">{{ $t("Back") }}</span>
         </v-btn>
       </v-col>
       <v-col cols="12" sm="6" class="d-flex justify-end">
-        <v-btn text outlined :disabled="!can_go_forward" @click="$router.go(1)">
+        <v-btn
+          outlined
+          color="brick"
+          tile
+          :disabled="!can_go_forward"
+          @click="$router.go(1)"
+        >
           <span class="app-body">{{ $t("Next") }}</span>
           <v-icon>mdi-arrow-right-thin</v-icon>
         </v-btn>

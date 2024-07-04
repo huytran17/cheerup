@@ -4,27 +4,36 @@
       class="d-flex flex-column white soft-box-shadow rounded-lg py-4 px-3 position-relative"
     >
       <v-btn icon class="close-dialog-btn" @click="close">
-        <v-icon color="black">mdi-close</v-icon>
+        <v-icon color="brick">mdi-close</v-icon>
       </v-btn>
 
-      <v-container class="mt-2">
+      <v-container class="mt-6">
         <v-row>
           <v-col cols="12">
             <v-text-field
               v-model="folder_name"
-              :label="$t('Folder Name')"
               required
+              outlined
+              color="brick"
+              :label="$t('Folder Name')"
               :rules="folderNameRules"
             ></v-text-field>
           </v-col>
         </v-row>
       </v-container>
 
-      <div class="d-flex justify-center mt-2">
-        <v-btn depressed color="primary" text @click="close">
+      <div class="d-flex justify-center">
+        <v-btn depressed tile flat color="primary" class="mr-2" @click="close">
           <span class="app-body">{{ $t("Cancel") }}</span>
         </v-btn>
-        <v-btn depressed color="error" text @click="confirm">
+        <v-btn
+          depressed
+          tile
+          flat
+          color="brick"
+          class="white--text"
+          @click="confirm"
+        >
           <span class="app-body">{{ $t("Create") }}</span>
         </v-btn>
       </div>
