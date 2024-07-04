@@ -2,8 +2,14 @@
   <div>
     <v-row>
       <v-col cols="12" sm="6" class="d-flex justify-end">
-        <v-btn text @click="is_open_preview_dialog = true">
-          <span v-html="$t('Preview')"></span>
+        <v-btn
+          outlined
+          color="brick"
+          tile
+          @click="is_open_preview_dialog = true"
+        >
+          <v-icon small class="mr-1">mdi-eye</v-icon>
+          <span class="app-body lh-0">{{ $t("Preview") }}</span>
         </v-btn>
       </v-col>
     </v-row>
@@ -15,6 +21,9 @@
               <v-text-field
                 :rules="titleRules"
                 :label="$t('Title')"
+                tile
+                outlined
+                color="brick"
                 @input="
                   updatePostObject({ variable_path: 'title', data: $event })
                 "
@@ -25,7 +34,7 @@
             <v-col cols="12">
               <div class="text-body-2 mb-2">
                 <span class="app-body">
-                  <span v-html="$t('Description')"></span>
+                  {{ $t("Description") }}
                 </span>
               </div>
               <TiptapEditor
@@ -44,7 +53,7 @@
             <v-col cols="12">
               <div class="text-body-2 mb-2">
                 <span class="app-body">
-                  <span v-html="$t('Content')"></span>
+                  {{ $t("Content") }}
                 </span>
               </div>
               <TiptapEditor
@@ -64,8 +73,10 @@
                 small-chips
                 item-text="title"
                 item-value="_id"
-                :label="$t('Category')"
                 multiple
+                outlined
+                color="brick"
+                :label="$t('Category')"
                 :rules="categoriesRules"
                 @input="
                   updatePostObject({
@@ -78,7 +89,7 @@
             <v-col cols="12" sm="6">
               <div class="text-body-2 mb-2">
                 <span class="app-body">
-                  <span v-html="$t('Source')"></span>
+                  {{ $t("Source") }}
                 </span>
               </div>
               <TiptapEditor
@@ -96,9 +107,11 @@
           <v-row>
             <v-col cols="12" sm="6">
               <v-combobox
-                :label="$t('Tags')"
                 multiple
                 small-chips
+                outlined
+                color="brick"
+                :label="$t('Tags')"
                 @input="
                   updatePostObject({ variable_path: 'tags', data: $event })
                 "
@@ -108,6 +121,7 @@
           <v-row>
             <v-col cols="12">
               <v-switch
+                color="brick"
                 :label="$t('Block Comment')"
                 @change="
                   updatePostObject({
@@ -128,7 +142,7 @@
                 :disabled="!form_valid"
                 @click="createPost"
               >
-                <span v-html="$t('Create')"></span>
+                <span class="app-body">{{ $t("Create") }}</span>
               </v-btn>
             </v-col>
           </v-row>

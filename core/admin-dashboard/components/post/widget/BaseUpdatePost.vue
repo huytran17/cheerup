@@ -2,8 +2,15 @@
   <div>
     <v-row>
       <v-col cols="12" class="d-flex justify-center">
-        <v-btn text @click="is_open_preview_dialog = true" outlined>
-          <span v-html="$t('Preview')"></span>
+        <v-btn
+          text
+          @click="is_open_preview_dialog = true"
+          outlined
+          color="brick"
+          tile
+        >
+          <v-icon small class="mr-1">mdi-eye</v-icon>
+          <span class="app-body lh-0">{{ $t("Preview") }}</span>
         </v-btn>
       </v-col>
     </v-row>
@@ -14,6 +21,8 @@
           <v-row>
             <v-col cols="12" sm="12">
               <v-text-field
+                outlined
+                color="brick"
                 :value="post.title"
                 :rules="titleRules"
                 :label="$t('Title')"
@@ -27,7 +36,7 @@
             <v-col cols="12">
               <div class="text-body-2 mb-2">
                 <span class="app-body">
-                  <span v-html="$t('Description')"></span>
+                  {{ $t("Description") }}
                 </span>
               </div>
               <TiptapEditor
@@ -46,7 +55,7 @@
             <v-col cols="12">
               <div class="text-body-2 mb-2">
                 <span class="app-body">
-                  <span v-html="$t('Content')"></span>
+                  {{ $t("Content") }}
                 </span>
               </div>
               <TiptapEditor
@@ -61,14 +70,16 @@
           <v-row>
             <v-col cols="12" sm="6">
               <v-autocomplete
-                :items="categories"
-                :value="post.categories"
                 chips
                 small-chips
                 item-text="title"
                 item-value="_id"
-                :label="$t('Category')"
+                outlined
                 multiple
+                color="brick"
+                :items="categories"
+                :value="post.categories"
+                :label="$t('Category')"
                 :rules="categoriesRules"
                 @input="
                   updatePostObject({
@@ -81,7 +92,7 @@
             <v-col cols="12" sm="6">
               <div class="text-body-2 mb-2">
                 <span class="app-body">
-                  <span v-html="$t('Source')"></span>
+                  {{ $t("Source") }}
                 </span>
               </div>
               <TiptapEditor
@@ -103,6 +114,8 @@
                 :label="$t('Tags')"
                 multiple
                 small-chips
+                outlined
+                color="brick"
                 @input="
                   updatePostObject({ variable_path: 'tags', data: $event })
                 "
@@ -113,7 +126,7 @@
             <v-col cols="12" class="pb-0">
               <div class="text-body-2">
                 <span class="app-body">
-                  <span v-html="$t('Thumbnail')"></span>
+                  {{ $t("Thumbnail") }}
                 </span>
               </div>
             </v-col>
@@ -142,6 +155,7 @@
           <v-row>
             <v-col cols="12">
               <v-switch
+                color="brick"
                 :input-value="post.is_blocked_comment"
                 :label="$t('Block Comment')"
                 :false-value="false"
@@ -161,13 +175,15 @@
                 <v-expansion-panel>
                   <v-expansion-panel-header>
                     <div class="text-body-2">
-                      <span class="app-body" v-html="$t('SEO')"></span>
+                      <h3 class="app-body">{{ $t("SEO") }}</h3>
                     </div>
                   </v-expansion-panel-header>
                   <v-expansion-panel-content>
                     <v-row>
                       <v-col cols="12" md="6">
                         <v-text-field
+                          outlined
+                          color="brick"
                           :value="seo_title"
                           :label="$t('Title')"
                           @input="
@@ -180,6 +196,8 @@
                       </v-col>
                       <v-col cols="12" md="6">
                         <v-text-field
+                          outlined
+                          color="brick"
                           :value="seo_description"
                           :label="$t('Description')"
                           @input="
@@ -194,6 +212,8 @@
                     <v-row>
                       <v-col cols="12" md="6">
                         <v-text-field
+                          outlined
+                          color="brick"
                           :value="seo_keywords"
                           :label="$t('Keywords')"
                           @input="
@@ -206,6 +226,8 @@
                       </v-col>
                       <v-col cols="12" md="6">
                         <v-text-field
+                          outlined
+                          color="brick"
                           :value="seo_author"
                           :label="$t('Author')"
                           @input="
@@ -230,7 +252,7 @@
                 :disabled="!form_valid"
                 @click="updatePost"
               >
-                <span v-html="$t('Update')"></span>
+                <span class="app-body">{{ $t("Update") }}</span>
               </v-btn>
             </v-col>
           </v-row>

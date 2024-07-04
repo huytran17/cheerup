@@ -13,6 +13,8 @@ import {
 import { GetPost } from "../../../../use-cases/post/get-post";
 import { isEmpty } from "../../../../utils/is-empty";
 
+// TODO: check if sysconfig blocked all comments
+
 export default function makeCreateCommentController({
   createComment,
   getPost,

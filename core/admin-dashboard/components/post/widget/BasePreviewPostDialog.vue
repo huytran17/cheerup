@@ -6,12 +6,12 @@
     transition="dialog-bottom-transition"
   >
     <v-card>
-      <v-toolbar dark color="primary">
+      <v-toolbar dark color="brick">
         <v-btn icon dark @click="close">
           <v-icon>mdi-close</v-icon>
         </v-btn>
         <v-toolbar-title>
-          <span v-html="$t('Preview')"></span>
+          <span class="app-body lh-0">{{ $t("Preview") }}</span>
         </v-toolbar-title>
       </v-toolbar>
 
@@ -28,23 +28,22 @@
                 text-color="white"
                 small
               >
-                <span v-if="category.title" v-html="$t(category.title)"></span>
-                <span
-                  v-else
-                  v-html="
-                    $t('Category {count}', index + 1, { count: index + 1 })
-                  "
-                ></span>
+                <span>
+                  {{
+                    category.title
+                      ? $t(category.title)
+                      : $t("Category {count}", index + 1, { count: index + 1 })
+                  }}
+                </span>
               </v-chip>
             </div>
 
             <div
               class="text-h6 text-sm-h4 text-uppercase text-center pt-2 pb-4"
             >
-              <span
-                class="app-body position-relative"
-                v-html="$t(post.title)"
-              ></span>
+              <span class="app-body position-relative">{{
+                $t(post.title)
+              }}</span>
             </div>
 
             <div class="text-uppercase grey--text text-center text__content">
@@ -69,17 +68,17 @@
           </div>
 
           <div class="text__content matte__black--text font-italic">
-            <span class="app-body" v-html="$t(post.description)"></span>
+            <span class="app-body">{{ $t(post.description) }}</span>
           </div>
 
           <div class="text__content matte__black--text">
-            <span class="app-body" v-html="$t(post.content)"></span>
+            <span class="app-body">{{ $t(post.content) }}</span>
           </div>
 
           <div v-if="has_tags" class="text--small">
             <v-icon small color="black">mdi-tag</v-icon>
             <span class="app-body">
-              <span class="text-uppercase" v-html="$t('Tags: ')"></span>
+              <span class="text-uppercase">{{ $t("Tags: ") }}</span>
               <span v-for="(tag, index) in post.tags" :key="`tag-${index}`"
                 ><v-chip
                   class="px-1 clickable white--text mr-1"
@@ -94,7 +93,7 @@
 
           <div v-if="post.source" class="text-body-2 mt-2">
             <span class="app-body">
-              <span v-html="$t('Source: ')"></span>
+              <span>{{ $t("Source: ") }}</span>
               <span class="post__source" v-html="post.source"></span>
             </span>
           </div>
