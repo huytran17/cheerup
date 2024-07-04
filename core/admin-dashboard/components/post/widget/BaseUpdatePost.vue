@@ -174,7 +174,7 @@
               <v-expansion-panels flat>
                 <v-expansion-panel>
                   <v-expansion-panel-header>
-                    <div class="text-body-2">
+                    <div class="text-body-2 brick--text">
                       <h3 class="app-body">{{ $t("SEO") }}</h3>
                     </div>
                   </v-expansion-panel-header>
