@@ -6,7 +6,22 @@
   word-wrap: break-word;
   font-family: "Segoe UI", sans-serif !important;
 }
+::-webkit-scrollbar {
+  width: toRem(6);
+  height: toRem(4);
+}
 
+::-webkit-scrollbar-track {
+  background: var(--color-scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-scrollbar-thumb);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-scrollbar-thumb-hover);
+}
 .h-0 {
   height: 0% !important;
 }
@@ -125,6 +140,7 @@ select:-webkit-autofill:focus {
   justify-content: flex-end;
   gap: toRem(10);
   overflow-x: auto;
+  padding-bottom: toRem(2);
   button {
     min-height: toRem(40);
   }
