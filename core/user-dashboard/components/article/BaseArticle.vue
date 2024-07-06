@@ -12,7 +12,7 @@
           small
           @click="$router.push(localePath(`/category/${category.slug}`))"
         >
-          <span class="app-body lh-24" v-html="category.title"></span>
+          <span class="lh-24">{{ category.title }}</span>
         </v-chip>
       </div>
 
@@ -20,22 +20,20 @@
         class="text-h6 text-sm-h4 text-uppercase text-center pb-0 pb-sm-3 pt-2"
       >
         <span
-          class="app-body position-relative clickable"
-          v-html="post_data.title"
+          class="position-relative clickable"
           @click="$router.push(localePath(`/post/${post_data.slug}`))"
-        ></span>
+          >{{ post_data.title }}</span
+        >
       </div>
 
       <div
         class="text-uppercase brick--text text-center text-body-3 text-sm-body-2"
       >
-        <span class="app-body">{{
-          formatDate(post_data.created_at, "LL")
-        }}</span>
+        <span>{{ formatDate(post_data.created_at, "LL") }}</span>
         <span>/</span>
-        <span class="app-body">{{ author_name }}</span>
+        <span>{{ author_name }}</span>
         <span>/</span>
-        <span class="app-body">{{ reading_time }}</span>
+        <span>{{ reading_time }}</span>
       </div>
     </div>
 
@@ -53,22 +51,16 @@
       class="post__description text__content matte__black--text"
       v-line-clamp="2"
     >
-      <span
-        class="app-body text--ellipsis"
-        v-html="post_data.description"
-      ></span>
+      <span class="text--ellipsis" v-html="post_data.description"></span>
     </div>
 
     <div class="text-left">
       <div class="text-caption brick--text text-uppercase">
-        <span
-          class="app-body"
-          v-html="
-            $tc(`{count} Comment`, post_data.comments_count, {
-              count: post_data.comments_count,
-            })
-          "
-        ></span>
+        {{
+          $tc(`{count} Comment`, post_data.comments_count, {
+            count: post_data.comments_count,
+          })
+        }}
       </div>
     </div>
 
@@ -88,12 +80,7 @@
           </v-btn>
         </template>
         <div class="text-body-2 d-flex flex-column justify-center">
-          <span
-            class="app-body"
-            v-html="
-              $t(is_bookmarked ? 'Remove from favourite' : 'Add to favourite')
-            "
-          ></span>
+          {{ $t(is_bookmarked ? "Remove from favourite" : "Add to favourite") }}
         </div>
       </v-tooltip>
       <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.FACEBOOK })">

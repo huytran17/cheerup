@@ -20,10 +20,10 @@
                 @click="is_open_create_gallery_dialog = true"
               >
                 <v-icon small>mdi-plus</v-icon>
-                <span class="app-body">{{ $t("Add") }}</span>
+                <span>{{ $t("Add") }}</span>
               </v-btn>
             </template>
-            <span class="app-body">{{ $t("Create a new folder") }}</span>
+            {{ $t("Create a new folder") }}
           </v-tooltip>
         </div>
       </v-col>
@@ -47,7 +47,7 @@
       <v-col cols="12" sm="6">
         <v-btn outlined color="brick" tile @click="$router.go(-1)">
           <v-icon>mdi-arrow-left-thin</v-icon>
-          <span class="app-body">{{ $t("Back") }}</span>
+          <span>{{ $t("Back") }}</span>
         </v-btn>
       </v-col>
       <v-col cols="12" sm="6" class="d-flex justify-end">
@@ -58,7 +58,7 @@
           :disabled="!can_go_forward"
           @click="$router.go(1)"
         >
-          <span class="app-body">{{ $t("Next") }}</span>
+          <span>{{ $t("Next") }}</span>
           <v-icon>mdi-arrow-right-thin</v-icon>
         </v-btn>
       </v-col>
@@ -67,7 +67,7 @@
     <v-row>
       <v-col cols="12" class="d-flex flex-column">
         <div class="text-body-1 text-sm-h6">
-          <span class="app-body">{{ $t("Folders") }}</span>
+          <span>{{ $t("Folders") }}</span>
         </div>
       </v-col>
     </v-row>
@@ -76,7 +76,7 @@
     <v-row class="mt-4">
       <v-col cols="12" class="d-flex flex-column">
         <div class="text-body-1 text-sm-h6">
-          <span class="app-body">{{ $t("Items") }}</span>
+          <span>{{ $t("Items") }}</span>
         </div>
       </v-col>
     </v-row>

@@ -1,10 +1,9 @@
 <template>
   <div class="d-flex flex-column text-center">
     <div class="text-uppercase text-body-2">
-      <span
-        class="sidebar__header position-relative app-body mb-2 d-inline-block"
-        v-html="$t('Follow Me')"
-      ></span>
+      <span class="sidebar__header position-relative mb-2 d-inline-block">{{
+        $t("Follow Me")
+      }}</span>
     </div>
     <div class="sidebar__card py-6 px-6">
       <v-row class="socialite__row justify-center py-3">
@@ -25,11 +24,9 @@
       </v-row>
       <div class="text-body-2 text-uppercase text-left pt-2">
         <div class="py-2 card-item__wrapper">
-          <span
-            class="app-body clickable card-item__title"
-            v-html="$t('Contact me')"
-            @click="openContactWindow"
-          ></span>
+          <span class="clickable card-item__title" @click="openContactWindow">{{
+            $t("Contact me")
+          }}</span>
         </div>
       </div>
     </div>

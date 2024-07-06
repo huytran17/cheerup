@@ -5,29 +5,25 @@
         <template v-slot:item.is_active="{ item }">
           <div v-if="item.is_active" class="text-body-2">
             <v-chip color="green" text-color="white">
-              <span class="app-body">{{ $t("Active") }}</span>
+              {{ $t("Active") }}
             </v-chip>
           </div>
           <div v-else class="text-body-2">
             <v-chip color="red" text-color="white">
-              <span class="app-body">{{ $t("Non Active") }}</span>
+              {{ $t("Non Active") }}
             </v-chip>
           </div>
         </template>
 
         <template v-slot:item.created_at="{ item }">
           <div class="text-body-2">
-            <span class="app-body">{{
-              formatLocaleDate(item.created_at)
-            }}</span>
+            {{ formatLocaleDate(item.created_at) }}
           </div>
         </template>
 
         <template v-slot:item.updated_at="{ item }">
           <div class="text-body-2">
-            <span class="app-body">{{
-              formatLocaleDate(item.updated_at)
-            }}</span>
+            {{ formatLocaleDate(item.updated_at) }}
           </div>
         </template>
       </v-data-table>

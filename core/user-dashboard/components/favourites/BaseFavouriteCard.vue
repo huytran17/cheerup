@@ -23,45 +23,39 @@
             small
             @click="$router.push(localePath(`/category/${category.slug}`))"
           >
-            <span class="app-body" v-html="category.title"></span>
+            {{ category.title }}
           </v-chip>
         </div>
       </div>
 
       <div class="text-body-2 text-sm-body-1 text-uppercase pt-2 pb-1">
         <span
-          class="app-body position-relative clickable"
-          v-html="$t(post_title)"
+          class="position-relative clickable"
           @click="$router.push(localePath(`/post/${post_slug}`))"
-        ></span>
+          >{{ post_title }}</span
+        >
       </div>
       <div class="text-uppercase brick--text text-body-3 text-sm-body-2">
-        <span class="app-body">{{ formatDate(post_created_at, "LL") }}</span>
+        <span>{{ formatDate(post_created_at, "LL") }}</span>
         <span>/</span>
-        <span class="app-body">{{ post_author_name }}</span>
+        <span>{{ post_author_name }}</span>
         <span>/</span>
-        <span class="app-body">{{ reading_time }}</span>
+        <span>{{ reading_time }}</span>
       </div>
       <div class="text-left">
         <div class="text-caption brick--text text-uppercase">
-          <span
-            class="app-body"
-            v-html="
-              $tc(`{count} Comment`, post_comments_count, {
-                count: post_comments_count,
-              })
-            "
-          ></span>
+          {{
+            $tc(`{count} Comment`, post_comments_count, {
+              count: post_comments_count,
+            })
+          }}
         </div>
       </div>
       <div
         class="post__description text__content matte__black--text"
         v-line-clamp="2"
       >
-        <span
-          class="app-body text--ellipsis"
-          v-html="$t(post_description)"
-        ></span>
+        <span class="text--ellipsis" v-html="$t(post_description)"></span>
       </div>
     </div>
   </div>

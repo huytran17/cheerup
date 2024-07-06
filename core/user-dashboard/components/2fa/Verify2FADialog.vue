@@ -4,20 +4,14 @@
       <v-row>
         <v-col cols="12">
           <div class="text-h6">
-            <span
-              class="app-body"
-              v-html="$t('Two-Factor Authentication')"
-            ></span>
+            {{ $t("Two-Factor Authentication") }}
           </div>
           <div class="text-body-2">
-            <span
-              class="app-body"
-              v-html="
-                $t(
-                  'Open your authenticator app and enter the 6 digit code to proceed with the authentication'
-                )
-              "
-            ></span>
+            {{
+              $t(
+                "Open your authenticator app and enter the 6 digit code to proceed with the authentication"
+              )
+            }}
           </div>
         </v-col>
         <v-col cols="12" class="otp">

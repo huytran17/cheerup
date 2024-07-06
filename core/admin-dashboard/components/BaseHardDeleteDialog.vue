@@ -10,20 +10,18 @@
         <v-icon color="warning">mdi-alert</v-icon>
       </div>
       <div class="text-body-1 text-center pt-3 error--text">
-        <span class="app-body word-break--all">{{
+        <span>{{
           $t("Do you want to delete {title} forever?", {
             title,
           })
         }}</span>
       </div>
       <div class="text-body-2 text-center error--text font-weight-bold">
-        <span class="app-body">{{
-          $t("This action can not be restore.")
-        }}</span>
+        <span>{{ $t("This action can not be restore.") }}</span>
       </div>
       <div class="d-flex justify-center mt-4">
         <v-btn depressed tile flat color="primary" class="mr-2" @click="close">
-          <span class="app-body">{{ $t("Cancel") }}</span>
+          {{ $t("Cancel") }}
         </v-btn>
         <v-btn
           depressed
@@ -33,7 +31,7 @@
           class="white--text"
           @click="confirm"
         >
-          <span class="app-body">{{ $t("Confirm") }}</span>
+          {{ $t("Confirm") }}
         </v-btn>
       </div>
     </div>

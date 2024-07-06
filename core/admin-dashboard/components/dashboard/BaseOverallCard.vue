@@ -9,7 +9,7 @@
     </div>
     <div class="d-flex flex-column py-2">
       <div class="text-body-1 primary--text">
-        <span class="app-title" v-html="$t(data.text)"></span>
+        <span class="app-title">{{ $t(data.text) }}</span>
       </div>
       <div class="text-h6 text-sm-h5">
         <span class="app-title">{{ data.total }}</span>
@@ -17,14 +17,11 @@
     </div>
     <div class="d-flex flex-column">
       <div class="text-body-1 green--text">
-        <span
-          class="app-title"
-          v-html="
-            $tc(`+{count} per ${analysis.unit}`, data.average || 0, {
-              count: data.average || 0,
-            })
-          "
-        ></span>
+        <span class="app-title">{{
+          $tc(`+{count} per ${analysis.unit}`, data.average || 0, {
+            count: data.average || 0,
+          })
+        }}</span>
       </div>
     </div>
   </div>

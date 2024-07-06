@@ -6,7 +6,7 @@
       </v-col>
       <v-col cols="12">
         <div class="text-body-2">
-          <span class="app-body" v-html="$t(message)"></span>
+          {{ $t(message) }}
         </div>
       </v-col>
       <v-col cols="12" class="otp">
@@ -17,7 +17,7 @@
       </v-col>
       <v-col cols="12" class="text-right">
         <v-btn text tile depressed class="mr-1" @click="closeModal">
-          <span class="app-body" v-html="$t('Cancel')"></span>
+          {{ $t("Cancel") }}
         </v-btn>
       </v-col>
     </v-row>

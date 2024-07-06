@@ -20,10 +20,10 @@
                 @click="is_open_create_gallery_dialog = true"
               >
                 <v-icon small>mdi-plus</v-icon>
-                <span class="app-body">{{ $t("Add") }}</span>
+                <span>{{ $t("Add") }}</span>
               </v-btn>
             </template>
-            <span class="app-body">{{ $t("Create a new folder") }}</span>
+            {{ $t("Create a new folder") }}
           </v-tooltip>
         </div>
       </v-col>
@@ -31,7 +31,7 @@
 
     <div class="d-flex flex-column mt-8">
       <div class="text-body-1 text-sm-h6">
-        <span class="app-body">{{ $t("Folders") }}</span>
+        <span>{{ $t("Folders") }}</span>
       </div>
       <BaseGalleryFolders :search="search" />
     </div>

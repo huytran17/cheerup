@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <div class="text-body-1 text-sm-h6">
-          <span class="app-title" v-html="$t('Subscription Statistics')"></span>
+          <span class="app-title">{{ $t("Subscription Statistics") }}</span>
         </div>
       </v-col>
       <v-col cols="12" class="d-flex justify-center">

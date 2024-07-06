@@ -11,8 +11,8 @@
       </v-btn>
       <div class="d-flex flex-column justify-center pt-10">
         <div class="text-body-2">
-          <span class="app-title" v-html="$t('Replying to: ')"></span>
-          <span class="app-body" v-html="comment.content"></span>
+          <span class="app-title">{{ $t("Replying to: ") }}</span>
+          <span v-html="comment.content"></span>
         </div>
         <div>
           <TiptapEditor
@@ -36,7 +36,7 @@
             :disabled="is_app_loading"
             @click="replyComment"
           >
-            <span class="app-body" v-html="$t('Send')"></span>
+            {{ $t("Send") }}
           </v-btn>
         </div>
       </div>

@@ -12,20 +12,20 @@
       <div class="text-h6 text-sm-h4 text-uppercase text-center pt-4 pb-3">
         <v-badge :color="data.badge_color" dot>
           <span
-            class="app-body position-relative clickable"
-            v-html="data.title"
+            class="position-relative clickable"
             @click="$router.push(localePath(`/category/${data.slug}`))"
-          ></span>
+            >{{ data.title }}</span
+          >
         </v-badge>
       </div>
       <div class="post__description text__content matte__black--text">
-        <span class="app-body" v-html="data.description"></span>
+        <span v-html="data.description"></span>
       </div>
       <div
         class="text-left text-body-3 text-sm-body-2 brick--text text-uppercase"
       >
-        <span class="app-body" v-html="$t('Total number of posts:')"></span>
-        <span class="app-body">{{ data.post_count }}</span>
+        <span>{{ $t("Total number of posts:") }}</span>
+        <span>{{ data.post_count }}</span>
       </div>
     </div>
   </div>

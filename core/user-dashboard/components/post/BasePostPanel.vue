@@ -12,24 +12,24 @@
           small
           @click="$router.push(localePath(`/category/${category.slug}`))"
         >
-          <span v-html="category.title" class="app-body lh-24"></span>
+          <span class="lh-24">{{ category.title }}</span>
         </v-chip>
       </div>
 
       <div
         class="text-h6 text-sm-h4 text-uppercase text-center pt-2 pb-0 pb-sm-3"
       >
-        <span class="app-body position-relative" v-html="post.title"></span>
+        <span class="position-relative">{{ post.title }}</span>
       </div>
 
       <div
         class="text-uppercase brick--text text-center text-body-3 text-sm-body-2"
       >
-        <span class="app-body">{{ formatDate(post.created_at, "LL") }}</span>
+        <span>{{ formatDate(post.created_at, "LL") }}</span>
         <span>/</span>
-        <span class="app-body">{{ author_name }}</span>
+        <span>{{ author_name }}</span>
         <span>/</span>
-        <span class="app-body">{{ reading_time }}</span>
+        <span>{{ reading_time }}</span>
       </div>
     </div>
 
@@ -44,33 +44,31 @@
     </div>
 
     <div class="text__content matte__black--text font-italic">
-      <span class="app-body" v-html="post.description"></span>
+      <span v-html="post.description"></span>
     </div>
 
     <div class="text__content matte__black--text">
-      <span class="app-body" v-html="post.content"></span>
+      <span v-html="post.content"></span>
     </div>
 
     <div v-if="has_tags" class="text--small">
       <v-icon small color="black">mdi-tag</v-icon>
-      <span class="app-body">
-        <span class="text-uppercase" v-html="$t('Tags: ')"></span>
-        <span v-for="(tag, index) in post.tags" :key="`tag-${index}`"
-          ><v-chip
-            class="px-1 clickable white--text mr-1"
-            color="brick"
-            x-small
-            @click="searchByTag({ tag })"
-          >
-            {{ tag }}
-          </v-chip></span
+      <span class="text-uppercase">{{ $t("Tags: ") }}</span>
+      <span v-for="(tag, index) in post.tags" :key="`tag-${index}`"
+        ><v-chip
+          class="px-1 clickable white--text mr-1"
+          color="brick"
+          x-small
+          @click="searchByTag({ tag })"
         >
-      </span>
+          {{ tag }}
+        </v-chip></span
+      >
     </div>
 
     <div v-if="post.source" class="text-body-2 mt-2">
-      <span class="app-body post-source">
-        <span v-html="$t('Source: ')"></span>
+      <span class="post-source">
+        <span>{{ $t("Source: ") }}</span>
         <span class="post__source" v-html="post.source"></span>
       </span>
     </div>
@@ -91,12 +89,7 @@
           </v-btn>
         </template>
         <div class="text-body-2 d-flex flex-column justify-center">
-          <span
-            class="app-body"
-            v-html="
-              $t(is_bookmarked ? 'Remove from favourite' : 'Add to favourite')
-            "
-          ></span>
+          {{ $t(is_bookmarked ? "Remove from favourite" : "Add to favourite") }}
         </div>
       </v-tooltip>
       <v-btn icon @click="sharePost({ type: SOCIAL_MEDIA_TYPES.FACEBOOK })">

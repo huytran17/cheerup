@@ -1,10 +1,9 @@
 <template>
   <div class="d-flex flex-column text-center">
     <div class="text-uppercase text-body-2">
-      <span
-        class="sidebar__header position-relative app-body mb-2 d-inline-block"
-        v-html="$t('About Me')"
-      ></span>
+      <span class="sidebar__header position-relative mb-2 d-inline-block">{{
+        $t("About Me")
+      }}</span>
     </div>
     <div class="sidebar__card py-6 px-6">
       <div v-if="should_show_avatar" class="d-flex justify-center">
@@ -26,9 +25,7 @@
 
       <div v-if="owner_name" class="position-relative py-4">
         <div class="small--text text-center">
-          <span class="app-body text--ellipsis me__description">{{
-            owner_name
-          }}</span>
+          <span class="text--ellipsis me__description">{{ owner_name }}</span>
         </div>
       </div>
 
@@ -38,7 +35,7 @@
         >
         <div class="small--text text-left" v-line-clamp="5">
           <span
-            class="app-body text--ellipsis me__description"
+            class="text--ellipsis me__description"
             v-html="owner_description"
           ></span>
         </div>

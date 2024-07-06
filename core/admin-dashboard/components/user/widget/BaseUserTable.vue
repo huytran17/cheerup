@@ -7,14 +7,14 @@
             class="text-body-2 primary--text clickable"
             @click="$router.push(localePath(`/user/${item._id}`))"
           >
-            <span class="app-body">{{ item.full_name }}</span>
+            <span>{{ item.full_name }}</span>
           </div>
         </template>
 
         <template v-slot:item.status="{ item }">
           <div v-if="item.is_online" class="text-body-2">
             <v-chip color="green" text-color="white">
-              <span class="app-body">{{ $t("Online") }}</span>
+              {{ $t("Online") }}
             </v-chip>
           </div>
           <div v-else-if="item.last_online_at" class="text-body-2">
@@ -26,17 +26,13 @@
 
         <template v-slot:item.created_at="{ item }">
           <div class="text-body-2">
-            <span class="app-body">{{
-              formatLocaleDate(item.created_at)
-            }}</span>
+            <span>{{ formatLocaleDate(item.created_at) }}</span>
           </div>
         </template>
 
         <template v-slot:item.updated_at="{ item }">
           <div class="text-body-2">
-            <span class="app-body">{{
-              formatLocaleDate(item.updated_at)
-            }}</span>
+            <span>{{ formatLocaleDate(item.updated_at) }}</span>
           </div>
         </template>
 
@@ -54,7 +50,7 @@
                   <v-icon small color="success">mdi-backup-restore</v-icon>
                 </v-btn>
               </template>
-              <span class="app-body">{{ $t("Restore") }}</span>
+              {{ $t("Restore") }}
             </v-tooltip>
           </div>
           <div v-else v-component-roles="[ADMIN_TYPES.OWNER]">
@@ -70,7 +66,7 @@
                   <v-icon small color="error">mdi-trash-can-outline</v-icon>
                 </v-btn>
               </template>
-              <span class="app-body">{{ $t("Delete") }}</span>
+              {{ $t("Delete") }}
             </v-tooltip>
             <v-tooltip left>
               <template v-slot:activator="{ on, attrs }">
@@ -89,7 +85,7 @@
                   <v-icon small color="error">mdi-delete-off-outline</v-icon>
                 </v-btn>
               </template>
-              <span class="app-body">{{ $t("Delete Forever") }}</span>
+              {{ $t("Delete Forever") }}
             </v-tooltip>
           </div>
           <div v-if="item.is_blocked_comment">
@@ -107,7 +103,7 @@
                   >
                 </v-btn>
               </template>
-              <span class="app-body">{{ $t("Un-block comment") }}</span>
+              {{ $t("Un-block comment") }}
             </v-tooltip>
           </div>
           <div v-else>
@@ -123,7 +119,7 @@
                   <v-icon small color="error">mdi-comment-off-outline</v-icon>
                 </v-btn>
               </template>
-              <span class="app-body">{{ $t("Block comment") }}</span>
+              {{ $t("Block comment") }}
             </v-tooltip>
           </div>
           <div v-if="item.login_failed_times >= LOGIN_FAILED.MAX">
@@ -139,9 +135,7 @@
                   <v-icon small color="error">mdi-restore-alert</v-icon>
                 </v-btn>
               </template>
-              <span class="app-body">{{
-                $t("Reset the number of failed login attempts")
-              }}</span>
+              {{ $t("Reset the number of failed login attempts") }}
             </v-tooltip>
           </div>
         </template>

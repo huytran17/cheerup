@@ -14,7 +14,7 @@
               class="white--text"
               @click="updateSystemConfiguration"
             >
-              <span class="app-body">{{ $t("Update") }}</span>
+              {{ $t("Update") }}
             </v-btn>
           </v-col>
         </v-row>

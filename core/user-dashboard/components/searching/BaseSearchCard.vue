@@ -1,10 +1,9 @@
 <template>
   <div class="d-flex flex-column text-center">
     <div class="text-uppercase text-body-2">
-      <span
-        class="sidebar__header position-relative app-body mb-2 d-inline-block"
-        v-html="$t('Search')"
-      ></span>
+      <span class="sidebar__header position-relative mb-2 d-inline-block">{{
+        $t("Search")
+      }}</span>
     </div>
     <div class="sidebar__card pa-6">
       <v-text-field

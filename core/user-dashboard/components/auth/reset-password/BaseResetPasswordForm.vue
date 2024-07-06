@@ -3,10 +3,7 @@
     <v-row class="soft-box-shadow">
       <v-col cols="12">
         <div class="text-body-1">
-          <span
-            class="app-title"
-            v-html="$t('Create your new password')"
-          ></span>
+          <span class="app-title">{{ $t("Create your new password") }}</span>
         </div>
       </v-col>
       <v-col cols="12" class="pb-0">
@@ -54,7 +51,7 @@
           :disabled="is_app_loading || !valid_form"
           @click="resetPassword"
         >
-          <span class="app-body" v-html="$t('Submit')"></span>
+          {{ $t("Submit") }}
         </v-btn>
       </v-col>
     </v-row>

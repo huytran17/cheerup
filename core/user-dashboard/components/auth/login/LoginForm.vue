@@ -18,7 +18,7 @@
         <v-row class="pb-0">
           <v-col cols="12" class="pb-0">
             <div class="text-body-2 black--text">
-              <span class="app-body text-uppercase" v-html="$t('Email')"></span>
+              <span class="text-uppercase">{{ $t("Email") }}</span>
             </div>
           </v-col>
           <v-col cols="12">
@@ -41,10 +41,7 @@
         <v-row>
           <v-col cols="12" class="pb-0">
             <div class="text-body-2 black--text">
-              <span
-                class="app-body text-uppercase"
-                v-html="$t('Password')"
-              ></span>
+              <span class="text-uppercase">{{ $t("Password") }}</span>
             </div>
           </v-col>
           <v-col cols="12">
@@ -75,10 +72,9 @@
               @click="signIn"
             >
               <span class="text-body-1">
-                <span
-                  class="app-body text-capitalize white--text"
-                  v-html="$t('Sign In')"
-                ></span>
+                <span class="text-capitalize white--text">{{
+                  $t("Sign In")
+                }}</span>
               </span>
             </v-btn>
           </v-col>
@@ -90,8 +86,8 @@
               <span
                 @click="$router.push(localePath('/forget-password'))"
                 class="text-decoration-none black--text clickable"
-                v-html="$t('Forgot Password?')"
-              ></span>
+                >{{ $t("Forgot Password?") }}</span
+              >
             </div>
           </v-col>
           <v-col class="pt-0">
@@ -99,8 +95,8 @@
               <span
                 @click="$router.push(localePath('/register'))"
                 class="text-decoration-none black--text clickable"
-                v-html="$t('Sign Up')"
-              ></span>
+                >{{ $t("Sign Up") }}</span
+              >
             </div>
           </v-col>
         </v-row>

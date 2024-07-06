@@ -4,14 +4,11 @@
       <v-row class="soft-box-shadow py-4 px-3 mx-1">
         <v-col cols="12 pb-0">
           <div class="text-body-2 text-md-body-1">
-            <span
-              class="app-body"
-              v-html="
-                $t(
-                  'Enter your email and press the submit button to receive the verification code.'
-                )
-              "
-            ></span>
+            {{
+              $t(
+                "Enter your email and press the submit button to receive the verification code."
+              )
+            }}
           </div>
         </v-col>
         <v-col cols="12">
@@ -36,20 +33,17 @@
             :disabled="!form_valid"
             @click="getVerificationCode"
           >
-            <span class="app-body" v-html="$t('Submit')"></span>
+            {{ $t("Submit") }}
           </v-btn>
         </v-col>
 
         <v-col cols="12 pb-0">
           <div class="text-body-2 text-md-body-1">
-            <span
-              class="app-body"
-              v-html="
-                $t(
-                  'Then enter the confirmation code in the form below to authenticate.'
-                )
-              "
-            ></span>
+            {{
+              $t(
+                "Then enter the confirmation code in the form below to authenticate."
+              )
+            }}
           </div>
         </v-col>
         <v-col cols="12" class="otp">

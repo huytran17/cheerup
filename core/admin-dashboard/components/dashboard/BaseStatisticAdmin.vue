@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <div class="text-body-1 text-sm-h6">
-          <span class="app-title" v-html="$t('Author Statistics')"></span>
+          <span class="app-title">{{ $t("Author Statistics") }}</span>
         </div>
       </v-col>
       <v-col cols="12">
@@ -25,7 +25,7 @@
                   >mdi-account-star</v-icon
                 >
               </template>
-              <span v-html="$t(ADMIN_TYPES.OWNER)"></span>
+              {{ $t(ADMIN_TYPES.OWNER) }}
             </v-tooltip>
           </v-btn>
           <v-btn
@@ -41,7 +41,7 @@
                   >mdi-account-check</v-icon
                 >
               </template>
-              <span v-html="$t(ADMIN_TYPES.COLLABORATOR)"></span>
+              {{ $t(ADMIN_TYPES.COLLABORATOR) }}
             </v-tooltip>
           </v-btn>
           <v-btn
@@ -57,7 +57,7 @@
                   >mdi-account-details-outline</v-icon
                 >
               </template>
-              <span v-html="$t(ADMIN_TYPES.EDITOR)"></span>
+              {{ $t(ADMIN_TYPES.EDITOR) }}
             </v-tooltip>
           </v-btn>
         </v-btn-toggle>

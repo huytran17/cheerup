@@ -10,7 +10,7 @@
           tile
         >
           <v-icon small class="mr-1">mdi-eye</v-icon>
-          <span class="app-body lh-0">{{ $t("Preview") }}</span>
+          <span class="lh-0">{{ $t("Preview") }}</span>
         </v-btn>
       </v-col>
     </v-row>
@@ -35,7 +35,7 @@
           <v-row>
             <v-col cols="12">
               <div class="text-body-2 mb-2">
-                <span class="app-body">
+                <span>
                   {{ $t("Description") }}
                 </span>
               </div>
@@ -54,7 +54,7 @@
           <v-row>
             <v-col cols="12">
               <div class="text-body-2 mb-2">
-                <span class="app-body">
+                <span>
                   {{ $t("Content") }}
                 </span>
               </div>
@@ -91,7 +91,7 @@
             </v-col>
             <v-col cols="12" sm="6">
               <div class="text-body-2 mb-2">
-                <span class="app-body">
+                <span>
                   {{ $t("Source") }}
                 </span>
               </div>
@@ -125,7 +125,7 @@
           <v-row>
             <v-col cols="12" class="pb-0">
               <div class="text-body-2">
-                <span class="app-body">
+                <span>
                   {{ $t("Thumbnail") }}
                 </span>
               </div>
@@ -175,7 +175,7 @@
                 <v-expansion-panel>
                   <v-expansion-panel-header>
                     <div class="text-body-2 brick--text">
-                      <h3 class="app-body">{{ $t("SEO") }}</h3>
+                      <h3>{{ $t("SEO") }}</h3>
                     </div>
                   </v-expansion-panel-header>
                   <v-expansion-panel-content>
@@ -252,7 +252,7 @@
                 :disabled="!form_valid"
                 @click="updatePost"
               >
-                <span class="app-body">{{ $t("Update") }}</span>
+                <span>{{ $t("Update") }}</span>
               </v-btn>
             </v-col>
           </v-row>

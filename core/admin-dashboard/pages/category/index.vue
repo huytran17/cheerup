@@ -32,10 +32,10 @@
                 @click="$router.push(localePath('/category/new'))"
               >
                 <v-icon small>mdi-plus</v-icon>
-                <span class="app-body">{{ $t("Add") }}</span>
+                <span>{{ $t("Add") }}</span>
               </v-btn>
             </template>
-            <span class="app-body">{{ $t("Create a new category") }}</span>
+            {{ $t("Create a new category") }}
           </v-tooltip>
         </div>
       </v-col>

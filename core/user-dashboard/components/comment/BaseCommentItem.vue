@@ -11,13 +11,13 @@
     </div>
     <div class="d-flex flex-column pl-4">
       <div class="text-body-2">
-        <span class="app-body">{{ user_fullname }}</span>
+        {{ user_fullname }}
       </div>
       <div class="text-caption grey--text">
-        <span class="app-body">{{ formatDate(comment_data.created_at) }}</span>
+        <span>{{ formatDate(comment_data.created_at) }}</span>
       </div>
       <div class="text-body-2 pt-1">
-        <span class="app-body" v-html="comment_data.content"></span>
+        <span v-html="comment_data.content"></span>
       </div>
       <div class="d-flex">
         <div class="d-flex">
@@ -36,10 +36,10 @@
                 >{{ is_liked ? "mdi-heart" : "mdi-heart-outline" }}</v-icon
               >
               <span class="text-body-2">
-                <span class="app-body">{{ comment_likes }}</span>
+                {{ comment_likes }}
               </span>
             </template>
-            <span v-html="$t('Like')"></span>
+            {{ $t("Like") }}
           </v-tooltip>
         </div>
 
@@ -62,10 +62,10 @@
                 }}</v-icon
               >
               <span class="text-body-2">
-                <span class="app-body">{{ comment_dislikes }}</span>
+                {{ comment_dislikes }}
               </span>
             </template>
-            <span v-html="$t('Dislike')"></span>
+            {{ $t("Dislike") }}
           </v-tooltip>
         </div>
 
@@ -86,7 +86,7 @@
                 >mdi-playlist-edit</v-icon
               >
             </template>
-            <span v-html="$t('Edit')"></span>
+            {{ $t("Edit") }}
           </v-tooltip>
         </div>
 
@@ -110,7 +110,7 @@
                 >mdi-reply-outline</v-icon
               >
             </template>
-            <span v-html="$t('Reply')"></span>
+            {{ $t("Reply") }}
           </v-tooltip>
         </div>
 
@@ -126,7 +126,7 @@
                 >mdi-delete-outline</v-icon
               >
             </template>
-            <span v-html="$t('Delete')"></span>
+            {{ $t("Delete") }}
           </v-tooltip>
         </div>
       </div>

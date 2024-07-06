@@ -9,7 +9,7 @@
           @click="is_open_preview_dialog = true"
         >
           <v-icon small class="mr-1">mdi-eye</v-icon>
-          <span class="app-body lh-0">{{ $t("Preview") }}</span>
+          <span class="lh-0">{{ $t("Preview") }}</span>
         </v-btn>
       </v-col>
     </v-row>
@@ -33,7 +33,7 @@
           <v-row>
             <v-col cols="12">
               <div class="text-body-2 mb-2">
-                <span class="app-body">
+                <span>
                   {{ $t("Description") }}
                 </span>
               </div>
@@ -52,7 +52,7 @@
           <v-row>
             <v-col cols="12">
               <div class="text-body-2 mb-2">
-                <span class="app-body">
+                <span>
                   {{ $t("Content") }}
                 </span>
               </div>
@@ -88,7 +88,7 @@
             </v-col>
             <v-col cols="12" sm="6">
               <div class="text-body-2 mb-2">
-                <span class="app-body">
+                <span>
                   {{ $t("Source") }}
                 </span>
               </div>
@@ -142,7 +142,7 @@
                 :disabled="!form_valid"
                 @click="createPost"
               >
-                <span class="app-body">{{ $t("Create") }}</span>
+                {{ $t("Create") }}
               </v-btn>
             </v-col>
           </v-row>

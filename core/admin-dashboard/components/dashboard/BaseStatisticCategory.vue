@@ -3,7 +3,7 @@
     <v-row class="pa-3">
       <v-col cols="12">
         <div class="text-body-1 text-sm-h6">
-          <span class="app-title" v-html="$t('Category Statistics')"></span>
+          <span class="app-title">{{ $t("Category Statistics") }}</span>
         </div>
       </v-col>
       <v-col
@@ -50,14 +50,11 @@
                 class="text-body-2 ml-auto text-decoration-underline"
                 @click.stop="goToCategoryView({ id: category._id })"
               >
-                <span
-                  class="app-body"
-                  v-html="
-                    $tc(`{count} post`, category.total_post_related_count, {
-                      count: category.total_post_related_count,
-                    })
-                  "
-                ></span>
+                <span>{{
+                  $tc(`{count} post`, category.total_post_related_count, {
+                    count: category.total_post_related_count,
+                  })
+                }}</span>
               </div>
             </div>
           </v-col>

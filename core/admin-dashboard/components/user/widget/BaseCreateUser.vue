@@ -90,7 +90,7 @@
               :disabled="!form_valid"
               @click="createUser"
             >
-              <span class="app-body">{{ $t("Create") }}</span>
+              {{ $t("Create") }}
             </v-btn>
           </v-col>
         </v-row>

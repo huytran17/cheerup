@@ -3,7 +3,7 @@
     <div
       class="text-body-1 text-sm-h6 text-uppercase pb-11 suggestion__header position-relative"
     >
-      <span class="app-body" v-html="$t('You may also like')"></span>
+      {{ $t("You may also like") }}
     </div>
     <slick-carousel
       :arrows="false"
@@ -39,15 +39,13 @@
         <div
           class="text-uppercase text-body-3 brick--text text-center pt-4 pb-1 px-2"
         >
-          <span class="app-body">{{ formatDate(post.created_at, "LL") }}</span>
+          <span>{{ formatDate(post.created_at, "LL") }}</span>
           <span>/</span>
-          <span v-if="post.author" class="app-body">{{
-            post.author.full_name
-          }}</span>
+          <span v-if="post.author">{{ post.author.full_name }}</span>
         </div>
         <div class="text-body-1 text-center text--ellipsis px-2">
           <span
-            class="app-body clickable"
+            class="clickable"
             @click="$router.push(localePath(`/post/${post.slug}`))"
             >{{ post.title }}</span
           >

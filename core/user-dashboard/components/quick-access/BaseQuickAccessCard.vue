@@ -1,10 +1,9 @@
 <template>
   <div class="d-flex flex-column text-center">
     <div class="text-uppercase text-body-2">
-      <span
-        class="sidebar__header position-relative app-body mb-2 d-inline-block"
-        v-html="$t('Quick access')"
-      ></span>
+      <span class="sidebar__header position-relative mb-2 d-inline-block">{{
+        $t("Quick access")
+      }}</span>
     </div>
     <div class="sidebar__card py-6 px-6 access__list horizontal__scrollbar">
       <div
@@ -17,10 +16,10 @@
           :class="[index === 0 ? 'pt-0' : '']"
         >
           <span
-            class="app-body clickable card-item__title"
-            v-html="$t(access.title)"
+            class="clickable card-item__title"
             @click="goToPage(access.route)"
-          ></span>
+            >{{ $t(access.title) }}</span
+          >
         </div>
       </div>
     </div>

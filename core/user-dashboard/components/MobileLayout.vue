@@ -15,7 +15,7 @@
       </v-col>
     </v-row>
 
-    <div class="menu-toggler app-body">
+    <div class="menu-toggler">
       <v-btn icon @click.stop="toggleOpenMenu">
         <v-icon>mdi-menu</v-icon>
       </v-btn>
@@ -41,7 +41,7 @@
             @click="goToHomePage"
           ></v-img>
         </v-col>
-        <v-col cols="4" class="app-body d-flex justify-end">
+        <v-col cols="4" class="d-flex justify-end">
           <v-btn icon class="btn-menu--close" @click.stop="toggleOpenMenu">
             <v-icon>mdi-close</v-icon>
           </v-btn>

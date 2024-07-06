@@ -7,7 +7,7 @@
       <div
         class="text-body-1 d-flex flex-column justify-center pr-4 primary--text"
       >
-        <span class="app-body" v-html="$t('Statistical Cycle')"></span>
+        <span>{{ $t("Statistical Cycle") }}</span>
       </div>
       <v-menu
         :close-on-content-click="false"
@@ -40,11 +40,11 @@
           <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">
               <div v-bind="attrs" v-on="on" class="text-body-2">
-                <span class="app-title" v-html="$t(button.text)"></span>
+                <span class="app-title">{{ $t(button.text) }}</span>
               </div>
             </template>
             <div class="text-body-2">
-              <span class="app-body" v-html="$t(button.full_text)"></span>
+              <span>{{ $t(button.full_text) }}</span>
             </div>
           </v-tooltip>
         </v-btn>

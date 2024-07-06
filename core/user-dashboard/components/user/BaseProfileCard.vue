@@ -1,10 +1,9 @@
 <template>
   <div class="d-flex flex-column text-center">
     <div class="text-uppercase text-body-2">
-      <span
-        class="sidebar__header position-relative app-body mb-2 d-inline-block"
-        v-html="$t('Your Profile')"
-      ></span>
+      <span class="sidebar__header position-relative mb-2 d-inline-block">{{
+        $t("Your Profile")
+      }}</span>
     </div>
     <div class="sidebar__card py-6 px-6">
       <div v-if="has_user" class="d-flex justify-center flex-column">
@@ -22,7 +21,7 @@
                 @click="$router.push(localePath(`/profile`))"
               ></v-img>
             </template>
-            <span v-html="$t('View your profile')"></span>
+            {{ $t("View your profile") }}
           </v-tooltip>
         </div>
         <div
@@ -30,7 +29,7 @@
           class="d-flex justify-center small--text text-left"
         >
           <span
-            class="app-body clickable"
+            class="clickable"
             @click="$router.push(localePath(`/profile`))"
             >{{ me.full_name }}</span
           >
@@ -40,22 +39,9 @@
           <div class="text-body-2 text-uppercase text-left">
             <div class="py-2 card-item__wrapper">
               <span
-                class="app-body clickable card-item__title"
-                v-html="$t('View your profile')"
+                class="clickable card-item__title"
                 @click="$router.push(localePath('/profile'))"
-              ></span>
-            </div>
-          </div>
-
-          <div class="text-body-2 text-uppercase text-left">
-            <div class="py-2 card-item__wrapper">
-              <span
-                class="app-body clickable card-item__title"
-                v-html="$t('Favourites')"
-                @click="$router.push(localePath('/favourites'))"
-              ></span>
-              <span class="app-body clickable card-item__title"
-                >({{ post_bookmarks_count }})</span
+                >{{ $t("View your profile") }}</span
               >
             </div>
           </div>
@@ -63,10 +49,21 @@
           <div class="text-body-2 text-uppercase text-left">
             <div class="py-2 card-item__wrapper">
               <span
-                class="app-body clickable card-item__title"
-                v-html="$t('Logout')"
-                @click="signOut"
-              ></span>
+                class="clickable card-item__title"
+                @click="$router.push(localePath('/favourites'))"
+                >{{ $t("Favourites") }}</span
+              >
+              <span class="clickable card-item__title"
+                >({{ post_bookmarks_count }})</span
+              >
+            </div>
+          </div>
+
+          <div class="text-body-2 text-uppercase text-left">
+            <div class="py-2 card-item__wrapper">
+              <span class="clickable card-item__title" @click="signOut">{{
+                $t("Logout")
+              }}</span>
             </div>
           </div>
         </div>
@@ -82,7 +79,7 @@
             class="white--text"
             @click="redirectToLoginPage"
           >
-            <span class="app-body" v-html="$t('Login')"></span>
+            {{ $t("Login") }}
           </v-btn>
         </div>
       </div>

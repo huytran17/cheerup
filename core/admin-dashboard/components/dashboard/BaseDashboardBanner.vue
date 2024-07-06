@@ -6,25 +6,19 @@
       <div
         class="text-body-1 text-md-h6 primary--text text-center text-md-left"
       >
-        <span
-          class="app-title"
-          v-html="
-            $t(`Welcome, {text}!`, {
-              text: me.full_name,
-            })
-          "
-        ></span>
+        <span class="app-title">{{
+          $t(`Welcome, {text}!`, {
+            text: me.full_name,
+          })
+        }}</span>
       </div>
 
       <div class="text-body-2 text-md-body-1 text-center text-md-left">
-        <span
-          class="app-body"
-          v-html="
-            $t(
-              `How is your day? Let's create something of value and bring it to everyone 😉!`
-            )
-          "
-        ></span>
+        <span>{{
+          $t(
+            `How is your day? Let's create something of value and bring it to everyone 😉!`
+          )
+        }}</span>
       </div>
     </div>
     <v-img

@@ -23,7 +23,7 @@
 
     <v-col cols="12">
       <div class="text-body-2 mb-2">
-        <span class="app-body">
+        <span>
           {{ $t("Owner Description") }}
         </span>
       </div>
@@ -43,7 +43,7 @@
       <v-row>
         <v-col cols="12" class="pb-0">
           <div class="text-body-2">
-            <span class="app-body">
+            <span>
               {{ $t("Owner Avatar") }}
             </span>
           </div>
@@ -80,7 +80,7 @@
       <v-row>
         <v-col cols="12" class="pb-0">
           <div class="text-body-2">
-            <span class="app-body">
+            <span>
               {{ $t("Thumbnail") }}
             </span>
           </div>
@@ -115,7 +115,7 @@
       <v-row>
         <v-col cols="12" class="pb-0">
           <div class="text-body-2">
-            <span class="app-body">
+            <span>
               {{ $t("Folder icon") }}
             </span>
           </div>
@@ -149,7 +149,7 @@
       <v-row>
         <v-col cols="12" class="pb-0">
           <div class="text-body-2">
-            <span class="app-body">
+            <span>
               {{ $t("Admin excel template") }}
             </span>
           </div>
@@ -180,7 +180,7 @@
       <v-row>
         <v-col cols="12" class="pb-0">
           <div class="text-body-2">
-            <span class="app-body">
+            <span>
               {{ $t("User excel template") }}
             </span>
           </div>

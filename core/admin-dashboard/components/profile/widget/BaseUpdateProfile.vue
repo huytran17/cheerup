@@ -58,7 +58,7 @@
         <v-row>
           <v-col cols="12" class="pb-0">
             <div class="text-body-2">
-              <span class="app-body">
+              <span>
                 {{ $t("Avatar") }}
               </span>
             </div>
@@ -93,7 +93,7 @@
               :disabled="!form_valid"
               @click="updateInfo"
             >
-              <span class="app-body">{{ $t("Update") }}</span>
+              {{ $t("Update") }}
             </v-btn>
           </v-col>
         </v-row>
@@ -171,7 +171,7 @@
               :disabled="!security_form_valid"
               @click="updateSecurity"
             >
-              <span class="app-body">{{ $t("Update") }}</span>
+              {{ $t("Update") }}
             </v-btn>
           </v-col>
         </v-row>

@@ -1,6 +1,6 @@
 <template>
   <div class="text-body-2 text-center pt-2">
-    <span class="app-body" v-html="$t('Redirecting...')"></span>
+    <span>{{ $t("Redirecting...") }}</span>
   </div>
 </template>
 

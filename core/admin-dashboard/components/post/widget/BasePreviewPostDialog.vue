@@ -11,7 +11,7 @@
           <v-icon>mdi-close</v-icon>
         </v-btn>
         <v-toolbar-title>
-          <span class="app-body lh-0">{{ $t("Preview") }}</span>
+          <span class="lh-0">{{ $t("Preview") }}</span>
         </v-toolbar-title>
       </v-toolbar>
 
@@ -22,7 +22,7 @@
               <v-chip
                 v-for="(category, index) in post.categories"
                 :key="`category-${index}`"
-                class="ma-1 clickable app-body"
+                class="ma-1 clickable"
                 color="#42A5F5"
                 label
                 text-color="white"
@@ -41,19 +41,15 @@
             <div
               class="text-h6 text-sm-h4 text-uppercase text-center pt-2 pb-4"
             >
-              <span class="app-body position-relative">{{
-                $t(post.title)
-              }}</span>
+              <span class="position-relative">{{ $t(post.title) }}</span>
             </div>
 
             <div class="text-uppercase grey--text text-center text__content">
-              <span class="app-body">{{
-                formatDate(post.created_at, "LL")
-              }}</span>
+              <span>{{ formatDate(post.created_at, "LL") }}</span>
               <span>/</span>
-              <span class="app-body">{{ author_name }}</span>
+              <span>{{ author_name }}</span>
               <span>/</span>
-              <span class="app-body">{{ reading_time }}</span>
+              <span>{{ reading_time }}</span>
             </div>
           </div>
 
@@ -68,31 +64,29 @@
           </div>
 
           <div class="text__content matte__black--text font-italic">
-            <span class="app-body">{{ $t(post.description) }}</span>
+            <span>{{ $t(post.description) }}</span>
           </div>
 
           <div class="text__content matte__black--text">
-            <span class="app-body">{{ $t(post.content) }}</span>
+            <span>{{ $t(post.content) }}</span>
           </div>
 
           <div v-if="has_tags" class="text--small">
             <v-icon small color="black">mdi-tag</v-icon>
-            <span class="app-body">
-              <span class="text-uppercase">{{ $t("Tags: ") }}</span>
-              <span v-for="(tag, index) in post.tags" :key="`tag-${index}`"
-                ><v-chip
-                  class="px-1 clickable white--text mr-1"
-                  color="brick"
-                  x-small
-                >
-                  {{ tag }}
-                </v-chip></span
+            <span class="text-uppercase">{{ $t("Tags: ") }}</span>
+            <span v-for="(tag, index) in post.tags" :key="`tag-${index}`"
+              ><v-chip
+                class="px-1 clickable white--text mr-1"
+                color="brick"
+                x-small
               >
-            </span>
+                {{ tag }}
+              </v-chip></span
+            >
           </div>
 
           <div v-if="post.source" class="text-body-2 mt-2">
-            <span class="app-body">
+            <span>
               <span>{{ $t("Source: ") }}</span>
               <span class="post__source" v-html="post.source"></span>
             </span>

@@ -2,7 +2,7 @@
   <v-row class="soft-box-shadow rounded-lg px-4 py-5 w-100 mx-auto">
     <v-col cols="12" class="pb-0">
       <div class="text-body-1 text-sm-h6">
-        <span class="app-title" v-html="$t('Features')"></span>
+        <span class="app-title">{{ $t("Features") }}</span>
       </div>
     </v-col>
     <v-col cols="12">

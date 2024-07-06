@@ -30,7 +30,7 @@
               :width="20"
             ></v-img>
             <div class="ml-2 text-body-2">
-              <span class="app-body" v-html="$t(lang.text)"></span>
+              <span>{{ $t(lang.text) }}</span>
             </div>
           </div>
         </v-list-item>

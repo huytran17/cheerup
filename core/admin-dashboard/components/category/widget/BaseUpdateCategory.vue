@@ -19,7 +19,7 @@
         <v-row>
           <v-col cols="12">
             <div class="text-body-2 mb-2">
-              <span class="app-body">
+              <span>
                 {{ $t("Description") }}
               </span>
             </div>
@@ -38,7 +38,7 @@
         <v-row>
           <v-col cols="12" class="pb-0">
             <div class="text-body-2">
-              <span class="app-body">
+              <span>
                 {{ $t("Thumbnail") }}
               </span>
             </div>
@@ -68,7 +68,7 @@
         <v-row>
           <v-col cols="12" sm="12">
             <div class="text-body-2 mb-2">
-              <span class="app-body">
+              <span>
                 {{ $t("Badge Color") }}
               </span>
             </div>
@@ -91,7 +91,7 @@
               <v-expansion-panel>
                 <v-expansion-panel-header>
                   <div class="text-body-2 brick--text">
-                    <h3 class="app-body">{{ $t("SEO") }}</h3>
+                    <h3>{{ $t("SEO") }}</h3>
                   </div>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
@@ -170,7 +170,7 @@
               :disabled="!form_valid"
               @click="updateCategory"
             >
-              <span class="app-body">{{ $t("Update") }}</span>
+              {{ $t("Update") }}
             </v-btn>
           </v-col>
         </v-row>

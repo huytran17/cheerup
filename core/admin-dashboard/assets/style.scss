@@ -1,3 +1,104 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  word-break: break-word;
+  word-wrap: break-word;
+  font-family: "Segoe UI", sans-serif !important;
+}
+
+.h-0 {
+  height: 0% !important;
+}
+
+.h-100 {
+  height: 100% !important;
+}
+
+.w-fit-content {
+  width: fit-content !important;
+  max-width: fit-content !important;
+}
+
+.h-fit-content {
+  height: fit-content !important;
+  max-height: fit-content !important;
+}
+
+.w-100 {
+  width: 100% !important;
+}
+
+.mw-100 {
+  max-width: 100% !important;
+}
+
+.position-absolute {
+  position: absolute !important;
+}
+
+.position-relative {
+  position: relative !important;
+}
+
+.justify-space-between {
+  justify-content: space-between !important;
+}
+
+.soft-box-shadow {
+  box-shadow: rgba(17, 17, 26, 0.1) 0 0 toRem(16) !important;
+}
+
+.card-box-shadow {
+  box-shadow: 0 toRem(2) toRem(6) 0 rgb(67 89 113 / 12%) !important;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.app-title {
+  font-weight: 600;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 0 transparent inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.text__content {
+  p:has(img) {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.text__content {
+  img {
+    width: 100%;
+  }
+}
+
+.tiptap__text-no-margin {
+  p {
+    margin-bottom: 0 !important;
+  }
+}
+
+.tiptap__text-no-image {
+  p:has(img) {
+    display: none !important;
+  }
+}
+
 .lh-0 {
   line-height: 0;
 }

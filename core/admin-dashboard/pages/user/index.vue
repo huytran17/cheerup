@@ -32,10 +32,10 @@
                 @click="$router.push(localePath('/user/new'))"
               >
                 <v-icon small>mdi-plus</v-icon>
-                <span class="app-body">{{ $t("Add") }}</span>
+                <span>{{ $t("Add") }}</span>
               </v-btn>
             </template>
-            <span class="app-body">{{ $t("Create a new user") }}</span>
+            {{ $t("Create a new user") }}
           </v-tooltip>
           <v-tooltip v-if="system_configuration.user_excel_template_url" left>
             <template v-slot:activator="{ on, attrs }">
@@ -53,12 +53,10 @@
                 :href="system_configuration.user_excel_template_url"
               >
                 <v-icon small>mdi-download</v-icon>
-                <span class="app-body">{{
-                  $t("Download batch template")
-                }}</span>
+                <span>{{ $t("Download batch template") }}</span>
               </v-btn>
             </template>
-            <span class="app-body">{{ $t("Download batch template") }}</span>
+            {{ $t("Download batch template") }}
           </v-tooltip>
           <v-tooltip left>
             <template v-slot:activator="{ on, attrs }">
@@ -81,11 +79,11 @@
               >
                 <label for="batch_upload_admin">
                   <v-icon small>mdi-upload</v-icon>
-                  <span class="app-body">{{ $t("Upload batch data") }}</span>
+                  <span>{{ $t("Upload batch data") }}</span>
                 </label>
               </v-btn>
             </template>
-            <span class="app-body">{{ $t("Upload batch data") }}</span>
+            {{ $t("Upload batch data") }}
           </v-tooltip>
           <v-tooltip left>
             <template v-slot:activator="{ on, attrs }">
@@ -102,10 +100,10 @@
                 tile
               >
                 <v-icon small>mdi-export</v-icon>
-                <span class="app-body">{{ $t("Export CSV") }}</span>
+                <span>{{ $t("Export CSV") }}</span>
               </v-btn>
             </template>
-            <span class="app-body">{{ $t("Export CSV") }}</span>
+            {{ $t("Export CSV") }}
           </v-tooltip>
         </div>
       </v-col>

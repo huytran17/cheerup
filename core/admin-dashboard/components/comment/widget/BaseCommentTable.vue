@@ -4,37 +4,31 @@
       <v-data-table :headers="headers" :items="comments" :search="search">
         <template v-slot:item.content="{ item }">
           <div class="text-body-2">
-            <span class="app-body" v-html="item.content"></span>
+            <span v-html="item.content"></span>
           </div>
         </template>
 
         <template v-slot:item.user="{ item }">
           <div class="text-body-2">
-            <span class="app-body">{{ item.user?.full_name }}</span>
+            <span>{{ item.user?.full_name }}</span>
           </div>
         </template>
 
         <template v-slot:item.post="{ item }">
           <div class="text-body-2" @click="goToPost(item)">
-            <span class="app-body primary--text clickable">{{
-              item.post?.title
-            }}</span>
+            <span class="primary--text clickable">{{ item.post?.title }}</span>
           </div>
         </template>
 
         <template v-slot:item.created_at="{ item }">
           <div class="text-body-2">
-            <span class="app-body">{{
-              formatLocaleDate(item.created_at)
-            }}</span>
+            <span>{{ formatLocaleDate(item.created_at) }}</span>
           </div>
         </template>
 
         <template v-slot:item.updated_at="{ item }">
           <div class="text-body-2">
-            <span class="app-body">{{
-              formatLocaleDate(item.updated_at)
-            }}</span>
+            <span>{{ formatLocaleDate(item.updated_at) }}</span>
           </div>
         </template>
 
@@ -56,7 +50,7 @@
                 <v-icon small color="error">mdi-delete-off-outline</v-icon>
               </v-btn>
             </template>
-            <span v-html="$t('Delete Forever')"></span>
+            {{ $t("Delete Forever") }}
           </v-tooltip>
         </template>
       </v-data-table>

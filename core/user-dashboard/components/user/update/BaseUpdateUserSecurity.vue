@@ -3,7 +3,7 @@
     <v-row class="soft-box-shadow rounded-lg px-4 py-5 w-100 mx-auto">
       <v-col cols="12" class="pb-0">
         <div class="text-body-1 text-sm-h6">
-          <span class="app-title" v-html="$t('Security')"></span>
+          <span class="app-title">{{ $t("Security") }}</span>
         </div>
       </v-col>
       <v-col cols="12" md="6">
@@ -58,7 +58,7 @@
           :disabled="!form_valid"
           @click="updateUserSecurity"
         >
-          <span class="app-body" v-html="$t('Update')"></span>
+          {{ $t("Update") }}
         </v-btn>
       </v-col>
     </v-row>

@@ -19,7 +19,7 @@
         <v-row>
           <v-col cols="12">
             <div class="text-body-2 mb-2">
-              <span class="app-body">
+              <span>
                 {{ $t("Description") }}
               </span>
             </div>
@@ -38,7 +38,7 @@
         <v-row>
           <v-col cols="12" sm="12">
             <div class="text-body-2 mb-2">
-              <span class="app-body">
+              <span>
                 {{ $t("Badge Color") }}
               </span>
             </div>
@@ -64,7 +64,7 @@
               :disabled="!form_valid"
               @click="createCategory"
             >
-              <span class="app-body">{{ $t("Create") }}</span>
+              <span>{{ $t("Create") }}</span>
             </v-btn>
           </v-col>
         </v-row>

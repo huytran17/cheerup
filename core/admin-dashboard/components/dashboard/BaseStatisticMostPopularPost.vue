@@ -3,17 +3,14 @@
     <div class="d-flex flex-column">
       <div class="d-flex flex-column">
         <div class="text-body-1 text-sm-h6">
-          <span class="app-title" v-html="$t('Post Statistics')"></span>
+          <span class="app-title">{{ $t("Post Statistics") }}</span>
         </div>
         <div class="text-body-2">
-          <span
-            class="app-body"
-            v-html="
-              $tc('{count} Total Post', total_post, {
-                count: total_post,
-              })
-            "
-          ></span>
+          <span>{{
+            $tc("{count} Total Post", total_post, {
+              count: total_post,
+            })
+          }}</span>
         </div>
       </div>
 
@@ -42,7 +39,7 @@
                   <v-icon color="pink darken-1">mdi-circle-edit-outline</v-icon>
                 </div>
               </template>
-              <span v-html="$t('Edit')"></span>
+              {{ $t("Edit") }}
             </v-tooltip>
           </div>
 
@@ -62,37 +59,30 @@
                   <span class="app-title">{{ $t(post.title) }}</span>
                 </div>
               </template>
-              <span v-if="post.deleted_at" v-html="$t('Deleted')"></span>
-              <span v-else v-html="$t('Go to post')"></span>
+              {{ post.deleted_at ? $t("Deleted") : $t("Go to post") }}
             </v-tooltip>
 
             <div class="text-caption text-grey">
-              <span class="app-body text--small">{{
+              <span class="text--small">{{
                 joinCategoryTitles(post.categories)
               }}</span>
             </div>
 
             <div class="text-caption text-grey">
-              <span
-                class="app-body"
-                v-html="
-                  $t(`by {text}`, {
-                    text: post.author.full_name,
-                  })
-                "
-              ></span>
+              <span>{{
+                $t(`by {text}`, {
+                  text: post.author.full_name,
+                })
+              }}</span>
             </div>
           </div>
 
           <div class="text-body-2 ml-auto">
-            <span
-              class="app-body"
-              v-html="
-                $tc('{count} view', formatViews(post.views), {
-                  count: formatViews(post.views),
-                })
-              "
-            ></span>
+            <span>{{
+              $tc("{count} view", formatViews(post.views), {
+                count: formatViews(post.views),
+              })
+            }}</span>
           </div>
         </div>
       </div>

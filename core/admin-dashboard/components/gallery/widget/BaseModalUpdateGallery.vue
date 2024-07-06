@@ -25,7 +25,7 @@
 
       <div class="d-flex justify-center">
         <v-btn depressed tile flat color="primary" class="mr-2" @click="close">
-          <span class="app-body">{{ $t("Cancel") }}</span>
+          {{ $t("Cancel") }}
         </v-btn>
         <v-btn
           depressed
@@ -35,7 +35,7 @@
           class="white--text"
           @click="confirm"
         >
-          <span class="app-body">{{ $t("Save") }}</span>
+          {{ $t("Save") }}
         </v-btn>
       </div>
     </div>

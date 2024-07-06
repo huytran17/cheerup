@@ -7,19 +7,19 @@
             class="text-body-2 primary--text clickable"
             @click="$router.push(localePath(`/post/${item._id}`))"
           >
-            <span class="app-body">{{ item.title }}</span>
+            <span>{{ item.title }}</span>
           </div>
         </template>
 
         <template v-slot:item.author="{ item }">
           <div v-if="item.author" class="text-body-2">
-            <span class="app-body">{{ item.author.full_name }}</span>
+            <span>{{ item.author.full_name }}</span>
           </div>
         </template>
 
         <template v-slot:item.source="{ item }">
           <div v-if="item.source" class="text-body-2">
-            <span class="app-body" v-html="item.source"></span>
+            <span v-html="item.source"></span>
           </div>
         </template>
 
@@ -31,7 +31,6 @@
             <li
               v-for="(category_item, index) in item.categories"
               :key="index"
-              class="app-body"
               @click="
                 () => {
                   SET_POST({ data: category_item });
@@ -46,17 +45,13 @@
 
         <template v-slot:item.created_at="{ item }">
           <div class="text-body-2">
-            <span class="app-body">{{
-              formatLocaleDate(item.created_at)
-            }}</span>
+            <span>{{ formatLocaleDate(item.created_at) }}</span>
           </div>
         </template>
 
         <template v-slot:item.updated_at="{ item }">
           <div class="text-body-2">
-            <span class="app-body">{{
-              formatLocaleDate(item.updated_at)
-            }}</span>
+            <span>{{ formatLocaleDate(item.updated_at) }}</span>
           </div>
         </template>
 
@@ -74,7 +69,7 @@
                   <v-icon small color="success">mdi-backup-restore</v-icon>
                 </v-btn>
               </template>
-              <span class="app-body">{{ $t("Restore") }}</span>
+              {{ $t("Restore") }}
             </v-tooltip>
           </div>
           <div v-else>
@@ -90,7 +85,7 @@
                   <v-icon small color="error">mdi-trash-can-outline</v-icon>
                 </v-btn>
               </template>
-              <span class="app-body">{{ $t("Delete") }}</span>
+              {{ $t("Delete") }}
             </v-tooltip>
             <v-tooltip left>
               <template v-slot:activator="{ on, attrs }">
@@ -109,7 +104,7 @@
                   <v-icon small color="error">mdi-delete-off-outline</v-icon>
                 </v-btn>
               </template>
-              <span class="app-body">{{ $t("Delete Forever") }}</span>
+              {{ $t("Delete Forever") }}
             </v-tooltip>
           </div>
           <v-tooltip left>
@@ -137,11 +132,11 @@
                 <v-icon small color="error">mdi-comment-off-outline</v-icon>
               </v-btn>
             </template>
-            <span class="app-body">{{
+            {{
               item.is_blocked_comment
                 ? $t("Un-block comment")
                 : $t("Block comment")
-            }}</span>
+            }}
           </v-tooltip>
         </template>
       </v-data-table>

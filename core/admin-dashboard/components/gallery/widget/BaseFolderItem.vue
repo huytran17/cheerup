@@ -15,7 +15,7 @@
         ></v-img>
       </div>
       <div class="text-body-2 folder__name" v-line-clamp="1">
-        <span class="app-body">{{ data.name }}</span>
+        <span>{{ data.name }}</span>
       </div>
     </div>
 
@@ -28,7 +28,7 @@
       >
         <v-icon small class="mr-2">{{ item.icon }}</v-icon>
         <span class="text-body-2">
-          <span class="app-body" v-html="item.text"></span>
+          {{ item.text }}
         </span>
       </li>
     </context-menu>

@@ -4,21 +4,15 @@
       <div
         class="text__content text-sm-body-2 text-uppercase text-center grey--text"
       >
-        <span
-          v-if="is_post_blocked_comment"
-          class="app-body"
-          v-html="$t('This post has been locked from commenting')"
-        ></span>
-        <span
-          v-else-if="is_user_blocked_comment"
-          class="app-body"
-          v-html="$t('You have been blocked from commenting')"
-        ></span>
-        <span
-          v-else-if="!has_user"
-          class="app-body"
-          v-html="$t('You must be logged in to view comments')"
-        ></span>
+        <span v-if="is_post_blocked_comment">{{
+          $t("This post has been locked from commenting")
+        }}</span>
+        <span v-else-if="is_user_blocked_comment">{{
+          $t("You have been blocked from commenting")
+        }}</span>
+        <span v-else-if="!has_user">{{
+          $t("You must be logged in to view comments")
+        }}</span>
       </div>
     </v-col>
   </v-row>
@@ -27,14 +21,11 @@
       <div
         class="text-body-1 text-sm-h6 text-uppercase pb-11 comment__header position-relative"
       >
-        <span
-          class="app-body"
-          v-html="
-            $tc('{count} Comment', comment_count_by_post, {
-              count: comment_count_by_post,
-            })
-          "
-        ></span>
+        <span>{{
+          $tc("{count} Comment", comment_count_by_post, {
+            count: comment_count_by_post,
+          })
+        }}</span>
       </div>
     </v-col>
     <v-col cols="12" class="pt-0">
@@ -58,7 +49,7 @@
             class="white--text"
             @click="createComment"
           >
-            <span class="app-body" v-html="$t('Submit')"></span>
+            {{ $t("Submit") }}
           </v-btn>
         </div>
       </div>
@@ -84,11 +75,9 @@
               v-else
               class="text-body-3 text-sm-body-2 text-uppercase brick--text pl-15 mt-4"
             >
-              <span
-                class="app-body clickable"
-                v-html="$t('Show reply')"
-                @click="getChildComments(comment)"
-              ></span>
+              <span class="clickable" @click="getChildComments(comment)">{{
+                $t("Show reply")
+              }}</span>
             </div>
           </div>
         </v-col>
@@ -101,11 +90,9 @@
       <div
         class="text__content text-sm-body-2 text-uppercase text-center brick--text"
       >
-        <span
-          class="app-body clickable"
-          v-html="$t('View more comments')"
-          @click="getMoreComments"
-        ></span>
+        <span class="clickable" @click="getMoreComments">{{
+          $t("View more comments")
+        }}</span>
       </div>
     </v-col>
   </v-row>

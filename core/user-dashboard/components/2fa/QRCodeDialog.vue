@@ -6,10 +6,9 @@
       </v-col>
       <v-col cols="12" class="pb-0">
         <div class="text-body-2">
-          <span
-            class="app-body"
-            v-html="$t('Open your authenticator app and scan this QR code:')"
-          ></span>
+          <span>{{
+            $t("Open your authenticator app and scan this QR code:")
+          }}</span>
           <v-img
             :src="qr_data.qr_uri"
             :alt="$t('2fa_qr')"
@@ -21,14 +20,11 @@
       </v-col>
       <v-col cols="12">
         <div class="text-body-2">
-          <span
-            class="app-body"
-            v-html="
-              $t(
-                'Then save the secret code used to recover the authentication code in case of device loss or damage:'
-              )
-            "
-          ></span>
+          <span>{{
+            $t(
+              "Then save the secret code used to recover the authentication code in case of device loss or damage:"
+            )
+          }}</span>
           <strong
             ><span>{{ qr_data.tfa_secret }}</span></strong
           >
@@ -47,7 +43,7 @@
           :disabled="!can_close"
           @click="closeModal"
         >
-          <span class="app-body" v-html="$t('Done')"></span>
+          {{ $t("Done") }}
         </v-btn>
       </v-col>
     </v-row>

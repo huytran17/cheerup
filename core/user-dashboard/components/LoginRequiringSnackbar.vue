@@ -1,15 +1,12 @@
 <template>
   <v-snackbar v-model="is_open">
     <div class="text-body-2">
-      <span
-        class="app-body"
-        v-html="$t('Please login to perform this action')"
-      ></span>
+      {{ $t("Please login to perform this action") }}
     </div>
 
     <template v-slot:action="{ attrs }">
       <v-btn color="primary" text v-bind="attrs">
-        <span class="app-body" v-html="$t('Login')"></span>
+        {{ $t("Login") }}
       </v-btn>
     </template>
   </v-snackbar>

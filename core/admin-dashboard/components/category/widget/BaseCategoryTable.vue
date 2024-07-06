@@ -11,15 +11,13 @@
               }
             "
           >
-            <span class="app-body">{{ item.title }}</span>
+            <span>{{ item.title }}</span>
           </div>
         </template>
 
         <template v-slot:item.created_at="{ item }">
           <div class="text-body-2">
-            <span class="app-body">{{
-              formatLocaleDate(item.created_at)
-            }}</span>
+            <span>{{ formatLocaleDate(item.created_at) }}</span>
           </div>
         </template>
 
@@ -28,7 +26,7 @@
             class="text-body-2 tiptap__text-no-margin tiptap__text-no-image"
             v-line-clamp="3"
           >
-            <span class="app-body">{{ $t(item.description) }}</span>
+            <span>{{ $t(item.description) }}</span>
           </div>
         </template>
 
@@ -40,17 +38,13 @@
 
         <template v-slot:item.updated_at="{ item }">
           <div class="text-body-2">
-            <span class="app-body">{{
-              formatLocaleDate(item.updated_at)
-            }}</span>
+            <span>{{ formatLocaleDate(item.updated_at) }}</span>
           </div>
         </template>
 
         <template v-slot:item.deleted_at="{ item }">
           <div v-if="item.deleted_at" class="text-body-2">
-            <span class="app-body">{{
-              formatLocaleDate(item.deleted_at)
-            }}</span>
+            <span>{{ formatLocaleDate(item.deleted_at) }}</span>
           </div>
         </template>
 
@@ -68,7 +62,7 @@
                   <v-icon small color="success">mdi-backup-restore</v-icon>
                 </v-btn>
               </template>
-              <span class="app-body">{{ $t("Restore") }}</span>
+              {{ $t("Restore") }}
             </v-tooltip>
           </div>
           <div v-else>
@@ -84,7 +78,7 @@
                   <v-icon small color="error">mdi-trash-can-outline</v-icon>
                 </v-btn>
               </template>
-              <span class="app-body">{{ $t("Delete") }}</span>
+              {{ $t("Delete") }}
             </v-tooltip>
             <v-tooltip left>
               <template v-slot:activator="{ on, attrs }">
@@ -103,7 +97,7 @@
                   <v-icon small color="error">mdi-delete-off-outline</v-icon>
                 </v-btn>
               </template>
-              <span class="app-body">{{ $t("Delete Forever") }}</span>
+              {{ $t("Delete Forever") }}
             </v-tooltip>
           </div>
         </template>
