@@ -1,6 +1,7 @@
 const createUserRules = {
   email: "required|string",
-  hash_password: "required|string", //TODO need to check why is hash_password
+  password: "required|string|min:8|max:255|confirmed",
+  password_confirmation: "required|string|min:8|max:255",
   is_blocked_comment: "boolean",
   full_name: "string",
 };
