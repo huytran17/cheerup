@@ -1,23 +1,21 @@
-import ISystemConfiguration from "../../database/interfaces/system-configuration";
 import { Logger } from "winston";
 import { CreateSystemConfiguration } from "../../use-cases/system-configuration/create-system-configuration";
-import { GetOneSystemConfiguration } from "../../use-cases/system-configuration/get-one-system-configuration";
-import _ from "lodash";
+import { GetLatestSystemConfiguration } from "../../use-cases/system-configuration/get-latest-system-configuration";
 import { isEmpty } from "../../utils/is-empty";
 
 export type DefaultSystemConfiguration = () => Promise<void>;
 
 export default function makeCreateDefaultSystemConfiguration({
-  getOneSystemConfiguration,
+  getLatestSystemConfiguration,
   createSystemConfiguration,
   logger,
 }: {
-  getOneSystemConfiguration: GetOneSystemConfiguration;
+  getLatestSystemConfiguration: GetLatestSystemConfiguration;
   createSystemConfiguration: CreateSystemConfiguration;
   logger: Logger;
 }): DefaultSystemConfiguration {
   return async function createDefaultSystemConfiguration() {
-    const system_configuration = await getOneSystemConfiguration();
+    const system_configuration = await getLatestSystemConfiguration();
 
     if (!isEmpty(system_configuration)) {
       return;

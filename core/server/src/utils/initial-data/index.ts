@@ -2,7 +2,7 @@ import { hashPassword } from "../../config/password";
 import { getOneAdmin, createAdmin } from "../../use-cases/admin";
 import { logger } from "../../config/logs/logger";
 import {
-  getOneSystemConfiguration,
+  getLatestSystemConfiguration,
   createSystemConfiguration,
 } from "../../use-cases/system-configuration";
 
@@ -10,7 +10,7 @@ import makeCreateDefaultAdmin from "./make-default-admin";
 import makeCreateDefaultSystemConfiguration from "./make-default-system-configuration";
 
 const createDefaultSystemConfiguration = makeCreateDefaultSystemConfiguration({
-  getOneSystemConfiguration,
+  getLatestSystemConfiguration,
   createSystemConfiguration,
   logger,
 });

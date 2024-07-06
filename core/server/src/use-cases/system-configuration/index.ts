@@ -1,16 +1,10 @@
 import { SystemConfigurationDb } from "../../data-access";
-
+import makeCreateSystemConfiguration from "./create-system-configuration";
+import makeGetLatestSystemConfiguration from "./get-latest-system-configuration";
 import makeGetSystemConfiguration from "./get-system-configuraion";
 import makeUpdateSystemConfiguration from "./update-system-configuraion";
-import makeGetLatestSystemConfiguration from "./get-latest-system-configuration";
-import makeCreateSystemConfiguration from "./create-system-configuration";
-import makeGetOneSystemConfiguration from "./get-one-system-configuration";
 
 const createSystemConfiguration = makeCreateSystemConfiguration({
-  systemConfigurationDb: SystemConfigurationDb,
-});
-
-const getOneSystemConfiguration = makeGetOneSystemConfiguration({
   systemConfigurationDb: SystemConfigurationDb,
 });
 
@@ -30,16 +24,14 @@ const systemConfigurationServices = Object.freeze({
   getSystemConfiguration,
   updateSystemConfiguration,
   getLatestSystemConfiguration,
-  getOneSystemConfiguration,
   createSystemConfiguration,
 });
 
 export default systemConfigurationServices;
 
 export {
+  createSystemConfiguration,
+  getLatestSystemConfiguration,
   getSystemConfiguration,
   updateSystemConfiguration,
-  getLatestSystemConfiguration,
-  getOneSystemConfiguration,
-  createSystemConfiguration,
 };
