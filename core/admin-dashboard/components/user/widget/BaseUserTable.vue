@@ -183,6 +183,7 @@ export default {
             text: "Status",
             align: "start",
             value: "status",
+            sortable: false,
           },
           {
             text: "Joined At",
