@@ -87,7 +87,7 @@ export default {
     toolbarAttrs() {
       return this.$vuetify.theme.isDark
         ? { color: "black", dark: true }
-        : { color: "#2b81d6" };
+        : { color: "brick" };
     },
   },
   methods: {
@@ -97,3 +97,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+:deep(
+    .tiptap-vuetify-editor
+      .tiptap-vuetify-editor__toolbar
+      .tiptap-vuetify-editor__btn-icon
+  ) {
+  color: var(--color-white);
+}
+</style>
