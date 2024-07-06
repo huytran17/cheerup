@@ -7,8 +7,14 @@
 
         <v-row>
           <v-col cols="12" class="d-flex justify-end pr-0">
-            <v-btn depressed color="primary" @click="updateSystemConfiguration">
-              <span v-html="$t('Update')"></span>
+            <v-btn
+              depressed
+              tile
+              color="brick"
+              class="white--text"
+              @click="updateSystemConfiguration"
+            >
+              <span class="app-body">{{ $t("Update") }}</span>
             </v-btn>
           </v-col>
         </v-row>

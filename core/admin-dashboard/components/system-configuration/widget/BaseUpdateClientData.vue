@@ -1,13 +1,15 @@
 <template>
   <v-row v-if="has_data" class="soft-box-shadow rounded-lg mt-8 px-4 py-5">
-    <v-col cols="12" class="py-0">
-      <div class="text-body-1 primary--text">
-        <span class="app-title" v-html="$t('Client Meta')"></span>
+    <v-col cols="12" class="pt-0 pb-2">
+      <div class="text-body-1 brick--text">
+        <h3 class="app-title">{{ $t("Client Meta") }}</h3>
       </div>
     </v-col>
 
     <v-col cols="12" md="6">
       <v-text-field
+        outlined
+        color="brick"
         :value="system_configuration.owner?.name"
         :label="$t('Owner Name')"
         @input="
@@ -22,7 +24,7 @@
     <v-col cols="12">
       <div class="text-body-2 mb-2">
         <span class="app-body">
-          <span v-html="$t('Owner Description')"></span>
+          {{ $t("Owner Description") }}
         </span>
       </div>
       <TiptapEditor
@@ -42,7 +44,7 @@
         <v-col cols="12" class="pb-0">
           <div class="text-body-2">
             <span class="app-body">
-              <span v-html="$t('Owner Avatar')"></span>
+              {{ $t("Owner Avatar") }}
             </span>
           </div>
         </v-col>
@@ -79,7 +81,7 @@
         <v-col cols="12" class="pb-0">
           <div class="text-body-2">
             <span class="app-body">
-              <span v-html="$t('Thumbnail')"></span>
+              {{ $t("Thumbnail") }}
             </span>
           </div>
         </v-col>
@@ -114,7 +116,7 @@
         <v-col cols="12" class="pb-0">
           <div class="text-body-2">
             <span class="app-body">
-              <span v-html="$t('Folder icon')"></span>
+              {{ $t("Folder icon") }}
             </span>
           </div>
         </v-col>
@@ -148,7 +150,7 @@
         <v-col cols="12" class="pb-0">
           <div class="text-body-2">
             <span class="app-body">
-              <span v-html="$t('Admin excel template')"></span>
+              {{ $t("Admin excel template") }}
             </span>
           </div>
         </v-col>
@@ -179,7 +181,7 @@
         <v-col cols="12" class="pb-0">
           <div class="text-body-2">
             <span class="app-body">
-              <span v-html="$t('User excel template')"></span>
+              {{ $t("User excel template") }}
             </span>
           </div>
         </v-col>
