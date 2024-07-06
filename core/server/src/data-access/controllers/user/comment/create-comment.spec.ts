@@ -17,15 +17,18 @@ import makeGetCommentLikeByUserAndComment from "../../../../use-cases/comment-li
 import makeCreateComment from "../../../../use-cases/comment/create-comment";
 import makeCreatePost from "../../../../use-cases/post/create-post";
 import makeGetPost from "../../../../use-cases/post/get-post";
+import makeGetLatestSystemConfiguration from "../../../../use-cases/system-configuration/get-latest-system-configuration";
 import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeCommentDb from "../../../make-comment-db";
 import makeCommentLikeDb from "../../../make-comment-like-db";
 import makePostDb from "../../../make-post-db";
+import makeSystemConfigurationDb from "../../../make-system-configuration-db";
 import makeUserDb from "../../../make-user-db";
 import {
   CommentLikeModel,
   CommentModel,
   PostModel,
+  SystemConfigurationModel,
   UserModel,
 } from "../../../models";
 import makeCreateCommentController from "./create-comment";
@@ -56,6 +59,9 @@ describe("createComment", () => {
     const commentLikeDb = makeCommentLikeDb({
       commentLikeDbModel: CommentLikeModel,
     });
+    const systemConfigurationDb = makeSystemConfigurationDb({
+      systemConfigurationDbModel: SystemConfigurationModel,
+    });
 
     const getPost = makeGetPost({ postDb });
     const createPost = makeCreatePost({ postDb });
@@ -65,6 +71,9 @@ describe("createComment", () => {
       makeCountCommentLikeByCommentAndType({ commentLikeDb });
     const getCommentLikeByUserAndComment = makeGetCommentLikeByUserAndComment({
       commentLikeDb,
+    });
+    const getLatestSystemConfiguration = makeGetLatestSystemConfiguration({
+      systemConfigurationDb,
     });
 
     const mock_post_data = fakePost();
@@ -81,6 +90,7 @@ describe("createComment", () => {
       getPost,
       countCommentLikeByCommentAndType,
       getCommentLikeByUserAndComment,
+      getLatestSystemConfiguration,
     });
 
     const request = {

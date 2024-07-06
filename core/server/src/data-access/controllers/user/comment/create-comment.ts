@@ -12,19 +12,20 @@ import {
 } from "../../../../use-cases/comment/create-comment";
 import { GetPost } from "../../../../use-cases/post/get-post";
 import { isEmpty } from "../../../../utils/is-empty";
-
-// TODO: check if sysconfig blocked all comments
+import { GetLatestSystemConfiguration } from "../../../../use-cases/system-configuration/get-latest-system-configuration";
 
 export default function makeCreateCommentController({
   createComment,
   getPost,
   countCommentLikeByCommentAndType,
   getCommentLikeByUserAndComment,
+  getLatestSystemConfiguration,
 }: {
   createComment: CreateComment;
   getPost: GetPost;
   countCommentLikeByCommentAndType: CountCommentLikeByCommentAndType;
   getCommentLikeByUserAndComment: GetCommentLikeByUserAndComment;
+  getLatestSystemConfiguration: GetLatestSystemConfiguration;
 }) {
   return async function createCommentController(
     httpRequest: Request & { context: {} }
@@ -37,6 +38,11 @@ export default function makeCreateCommentController({
       const comment_details = <ICreateCommentPayload>(
         get(httpRequest, "context.validated", {})
       );
+
+      const system_configuration = await getLatestSystemConfiguration();
+      if (system_configuration.is_blocked_comment) {
+        throw new Error("The system has blocked comments on all articles");
+      }
 
       const { post: post_id } = comment_details;
       const post_exists = await getPost({ _id: post_id });

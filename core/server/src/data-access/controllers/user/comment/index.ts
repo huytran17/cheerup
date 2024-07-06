@@ -14,6 +14,7 @@ import {
   getCommentLikeByUserAndComment,
 } from "../../../../use-cases/comment-like";
 import { getPost } from "../../../../use-cases/post";
+import { getLatestSystemConfiguration } from "../../../../use-cases/system-configuration";
 import makeCountCommentsByPostController from "./count-comments-by-post";
 import makeCreateCommentController from "./create-comment";
 import makeGetCommentController from "./get-comment";
@@ -60,6 +61,7 @@ const createCommentController = makeCreateCommentController({
   getPost,
   countCommentLikeByCommentAndType,
   getCommentLikeByUserAndComment,
+  getLatestSystemConfiguration,
 });
 
 const getCommentController = makeGetCommentController({
