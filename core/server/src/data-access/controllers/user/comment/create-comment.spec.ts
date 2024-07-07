@@ -2,6 +2,7 @@ import moment from "moment";
 import {
   fakeComment,
   fakePost,
+  fakeSystemConfiguration,
   fakeUser,
 } from "../../../../../__tests__/__mock__";
 import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
@@ -17,6 +18,7 @@ import makeGetCommentLikeByUserAndComment from "../../../../use-cases/comment-li
 import makeCreateComment from "../../../../use-cases/comment/create-comment";
 import makeCreatePost from "../../../../use-cases/post/create-post";
 import makeGetPost from "../../../../use-cases/post/get-post";
+import makeCreateSystemConfiguration from "../../../../use-cases/system-configuration/create-system-configuration";
 import makeGetLatestSystemConfiguration from "../../../../use-cases/system-configuration/get-latest-system-configuration";
 import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeCommentDb from "../../../make-comment-db";
@@ -72,6 +74,9 @@ describe("createComment", () => {
     const getCommentLikeByUserAndComment = makeGetCommentLikeByUserAndComment({
       commentLikeDb,
     });
+    const createSystemConfiguration = makeCreateSystemConfiguration({
+      systemConfigurationDb,
+    });
     const getLatestSystemConfiguration = makeGetLatestSystemConfiguration({
       systemConfigurationDb,
     });
@@ -79,10 +84,12 @@ describe("createComment", () => {
     const mock_post_data = fakePost();
     const mock_user_data = fakeUser();
     const mock_comment_data = fakeComment();
+    const mock_systemConfiguration_data = fakeSystemConfiguration();
 
     const [created_post, created_user] = await Promise.all([
       createPost(mock_post_data),
       createUser(mock_user_data),
+      createSystemConfiguration(mock_systemConfiguration_data),
     ]);
 
     const createCommentController = makeCreateCommentController({
