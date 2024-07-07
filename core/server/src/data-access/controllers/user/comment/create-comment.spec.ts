@@ -84,12 +84,12 @@ describe("createComment", () => {
     const mock_post_data = fakePost();
     const mock_user_data = fakeUser();
     const mock_comment_data = fakeComment();
-    const mock_systemConfiguration_data = fakeSystemConfiguration();
+    const mock_system_onfiguration_data = fakeSystemConfiguration();
 
     const [created_post, created_user] = await Promise.all([
       createPost(mock_post_data),
       createUser(mock_user_data),
-      createSystemConfiguration(mock_systemConfiguration_data),
+      createSystemConfiguration(mock_system_onfiguration_data),
     ]);
 
     const createCommentController = makeCreateCommentController({
