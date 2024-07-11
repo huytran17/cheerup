@@ -1,5 +1,5 @@
 import ICommentDb, {
-  IPaginatedCommentResult,
+  IPaginatedCommentsResult,
 } from "../../data-access/interfaces/comment-db";
 
 export interface IGetCommentsByPostPaginatedPayload {
@@ -14,7 +14,7 @@ export type GetCommentsByPostPaginated = ({
   query,
   page,
   entries_per_page,
-}: IGetCommentsByPostPaginatedPayload) => Promise<IPaginatedCommentResult>;
+}: IGetCommentsByPostPaginatedPayload) => Promise<IPaginatedCommentsResult>;
 
 export default function makeGetCommentsByPostPaginated({
   commentDb,

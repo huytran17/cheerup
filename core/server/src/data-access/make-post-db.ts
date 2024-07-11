@@ -5,7 +5,7 @@ import Post from "../database/entities/post";
 import IPost from "../database/interfaces/post";
 import IPostDb, {
   IMostPopularPostsAnalytics,
-  IPaginatedPostResult,
+  IPaginatedPostsResult,
   IPostAnalytics,
 } from "./interfaces/post-db";
 
@@ -271,7 +271,7 @@ export default function makePostDb({
         page: number;
         entries_per_page?: number;
       }
-    ): Promise<IPaginatedPostResult> {
+    ): Promise<IPaginatedPostsResult> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = {

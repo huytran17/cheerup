@@ -2,7 +2,7 @@ import { Request } from "express";
 import { get, map, replace } from "lodash";
 import { ReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { IPaginatedPostBookmarkResult } from "../../../../data-access/interfaces/post-bookmark-db";
+import { IPaginatedPostBookmarksResult } from "../../../../data-access/interfaces/post-bookmark-db";
 import PostBookmark from "../../../../database/entities/post-bookmark";
 import IPostBookmark from "../../../../database/interfaces/post-bookmark";
 import IUser from "../../../../database/interfaces/user";
@@ -72,7 +72,7 @@ export default function makeGetPostBookmarksPaginatedController({
         map_count_comments_promises
       );
 
-      const final_paginated_data: IPaginatedPostBookmarkResult = {
+      const final_paginated_data: IPaginatedPostBookmarksResult = {
         ...paginated_data,
         data: final_post_data,
       };

@@ -16,7 +16,7 @@ export default interface IGalleryDb {
     }: {
       is_parent?: boolean;
     }
-  ) => Promise<IPaginatedGalleryResult>;
+  ) => Promise<IPaginatedGalleriesResult>;
   findAllByParent: ({
     parent_id,
   }: {
@@ -30,7 +30,7 @@ export default interface IGalleryDb {
   update: (payload: Partial<IGallery>) => Promise<IGallery>;
 }
 
-export interface IPaginatedGalleryResult {
+export interface IPaginatedGalleriesResult {
   data: IGallery[];
   pagination: {
     current_page: number | null;

@@ -9,7 +9,7 @@ export default interface IAdminDb {
     query: string;
     page: number;
     entries_per_page?: number;
-  }) => Promise<IPaginatedAdminResult>;
+  }) => Promise<IPaginatedAdminsResult>;
   findOne: () => Promise<IAdmin>;
   findById: ({ _id }: { _id: string }) => Promise<IAdmin>;
   findSoftDeletedById: ({ _id }: { _id: string }) => Promise<IAdmin>;
@@ -32,7 +32,7 @@ export default interface IAdminDb {
   resetLoginFailedTimes: ({ _id }: { _id: string }) => Promise<IAdmin>;
 }
 
-export interface IPaginatedAdminResult {
+export interface IPaginatedAdminsResult {
   data: IAdmin[];
   pagination: {
     current_page: number | null;

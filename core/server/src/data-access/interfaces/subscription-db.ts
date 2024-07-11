@@ -10,7 +10,7 @@ export default interface ISubscriptionDb {
     query: string;
     page: number;
     entries_per_page?: number;
-  }) => Promise<IPaginatedSubscriptionResult>;
+  }) => Promise<IPaginatedSubscriptionsResult>;
   findOne: () => Promise<ISubscription>;
   findByEmail: ({ email }: { email: string }) => Promise<ISubscription>;
   findById: ({ _id }: { _id: string }) => Promise<ISubscription>;
@@ -27,7 +27,7 @@ export default interface ISubscriptionDb {
   }) => Promise<ISubscriptionAnalyticsData>;
 }
 
-export interface IPaginatedSubscriptionResult {
+export interface IPaginatedSubscriptionsResult {
   data: ISubscription[];
   pagination: {
     current_page: number | null;

@@ -5,7 +5,7 @@ import Admin from "../database/entities/admin";
 import IAdmin, { AdminType } from "../database/interfaces/admin";
 import IAdminDb, {
   IAdminAnalyticsData,
-  IPaginatedAdminResult,
+  IPaginatedAdminsResult,
 } from "./interfaces/admin-db";
 
 export default function makeAdminDb({
@@ -198,7 +198,7 @@ export default function makeAdminDb({
       query: string;
       page: number;
       entries_per_page?: number;
-    }): Promise<IPaginatedAdminResult> {
+    }): Promise<IPaginatedAdminsResult> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = {};

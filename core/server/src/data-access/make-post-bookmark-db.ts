@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import PostBookmark from "../database/entities/post-bookmark";
 import IPostBookmark from "../database/interfaces/post-bookmark";
 import IPostBookmarkDb, {
-  IPaginatedPostBookmarkResult,
+  IPaginatedPostBookmarksResult,
 } from "./interfaces/post-bookmark-db";
 
 export default function makePostBookmarkDb({
@@ -38,7 +38,7 @@ export default function makePostBookmarkDb({
       page: number;
       entries_per_page?: number;
       user_id?: string;
-    }): Promise<IPaginatedPostBookmarkResult> {
+    }): Promise<IPaginatedPostBookmarksResult> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = {

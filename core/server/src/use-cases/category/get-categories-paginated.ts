@@ -1,5 +1,5 @@
 import ICategoryDb, {
-  IPaginatedCategoryResult,
+  IPaginatedCategoriesResult,
 } from "../../data-access/interfaces/category-db";
 
 export interface IGetCategoriesPaginatedPayload {
@@ -12,7 +12,7 @@ export type GetCategoriesPaginated = ({
   query,
   page,
   entries_per_page,
-}: IGetCategoriesPaginatedPayload) => Promise<IPaginatedCategoryResult>;
+}: IGetCategoriesPaginatedPayload) => Promise<IPaginatedCategoriesResult>;
 
 export default function makeGetCategoriesPaginated({
   categoryDb,

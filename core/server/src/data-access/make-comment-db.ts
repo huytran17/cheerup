@@ -2,7 +2,7 @@ import { map } from "lodash";
 import mongoose from "mongoose";
 import Comment from "../database/entities/comment";
 import IComment from "../database/interfaces/comment";
-import ICommentDb, { IPaginatedCommentResult } from "./interfaces/comment-db";
+import ICommentDb, { IPaginatedCommentsResult } from "./interfaces/comment-db";
 
 export default function makeCommentDb({
   commentDbModel,
@@ -44,7 +44,7 @@ export default function makeCommentDb({
         page: number;
         entries_per_page: number;
       }
-    ): Promise<IPaginatedCommentResult> {
+    ): Promise<IPaginatedCommentsResult> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = {
@@ -131,7 +131,7 @@ export default function makeCommentDb({
       query: string;
       page: number;
       entries_per_page?: number;
-    }): Promise<IPaginatedCommentResult> {
+    }): Promise<IPaginatedCommentsResult> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = {

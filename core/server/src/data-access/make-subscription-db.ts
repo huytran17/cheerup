@@ -4,7 +4,7 @@ import { AnalyssisUnit } from "../constants/analysis-unit";
 import Subscription from "../database/entities/subscription";
 import ISubscription from "../database/interfaces/subscription";
 import ISubscriptionDb, {
-  IPaginatedSubscriptionResult,
+  IPaginatedSubscriptionsResult,
   ISubscriptionAnalyticsData,
 } from "./interfaces/subscription-db";
 
@@ -162,7 +162,7 @@ export default function makeSubscriptionDb({
       query: string;
       page: number;
       entries_per_page?: number;
-    }): Promise<IPaginatedSubscriptionResult> {
+    }): Promise<IPaginatedSubscriptionsResult> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = {};

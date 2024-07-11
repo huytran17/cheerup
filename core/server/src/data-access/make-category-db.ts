@@ -5,7 +5,7 @@ import Category from "../database/entities/category";
 import ICategory from "../database/interfaces/category";
 import ICategoryDb, {
   ICategoryAnalyticsData,
-  IPaginatedCategoryResult,
+  IPaginatedCategoriesResult,
 } from "./interfaces/category-db";
 
 export default function makeCategoryDb({
@@ -179,7 +179,7 @@ export default function makeCategoryDb({
       query: string;
       page: number;
       entries_per_page?: number;
-    }): Promise<IPaginatedCategoryResult> {
+    }): Promise<IPaginatedCategoriesResult> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = {};

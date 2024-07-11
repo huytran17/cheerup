@@ -21,7 +21,7 @@ export default interface IPostDb {
       page: number;
       entries_per_page?: number;
     }
-  ) => Promise<IPaginatedPostResult>;
+  ) => Promise<IPaginatedPostsResult>;
   findOne: () => Promise<IPost>;
   countByCategory: ({
     category_id,
@@ -63,7 +63,7 @@ export default interface IPostDb {
   }) => Promise<IMostPopularPostsAnalytics>;
 }
 
-export interface IPaginatedPostResult {
+export interface IPaginatedPostsResult {
   data: IPost[];
   pagination: {
     current_page: number | null;
