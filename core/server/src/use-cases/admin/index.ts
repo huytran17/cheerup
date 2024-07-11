@@ -14,6 +14,11 @@ import makeHardDeleteAdmin from "./hard-delete-admin";
 import makeIncreaseLoginFailedTimes from "./increase-login-failed-times";
 import makeResetLoginFailedTimes from "./reset-login-failed-times";
 import makeUpdateAdmin from "./update-admin";
+import makeGetAdminsPaginated from "./get-admins-paginated";
+
+const getAdminsPaginated = makeGetAdminsPaginated({
+  adminDb: AdminDb,
+});
 
 const batchUploadAdmins = makeBatchUploadAdmins({
   adminDb: AdminDb,
@@ -83,6 +88,7 @@ const adminServices = Object.freeze({
   increaseLoginFailedTimes,
   resetLoginFailedTimes,
   batchUploadAdmins,
+  getAdminsPaginated,
 });
 
 export default adminServices;
@@ -101,4 +107,5 @@ export {
   increaseLoginFailedTimes,
   resetLoginFailedTimes,
   updateAdmin,
+  getAdminsPaginated,
 };
