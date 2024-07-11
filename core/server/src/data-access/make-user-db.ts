@@ -4,7 +4,7 @@ import { AnalyssisUnit } from "../constants/analysis-unit";
 import User from "../database/entities/user";
 import IUser from "../database/interfaces/user";
 import IUserDb, {
-  IPaginatedUserResult,
+  IPaginatedUsersResult,
   IUserAnalyticsData,
 } from "./interfaces/user-db";
 
@@ -189,7 +189,7 @@ export default function makeUserDb({
       query: string;
       page: number;
       entries_per_page?: number;
-    }): Promise<IPaginatedUserResult> {
+    }): Promise<IPaginatedUsersResult> {
       const number_of_entries_to_skip = (page - 1) * entries_per_page;
 
       const query_conditions = {};

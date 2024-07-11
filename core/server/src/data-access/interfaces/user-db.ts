@@ -9,7 +9,7 @@ export default interface IUserDb {
     query: string;
     page: number;
     entries_per_page?: number;
-  }) => Promise<IPaginatedUserResult>;
+  }) => Promise<IPaginatedUsersResult>;
   findOne: () => Promise<IUser>;
   findById: ({ _id }: { _id: string }) => Promise<IUser>;
   findSoftDeletedById: ({ _id }: { _id: string }) => Promise<IUser>;
@@ -32,7 +32,7 @@ export default interface IUserDb {
   resetLoginFailedTimes: ({ _id }: { _id: string }) => Promise<IUser>;
 }
 
-export interface IPaginatedUserResult {
+export interface IPaginatedUsersResult {
   data: IUser[];
   pagination: {
     current_page: number | null;

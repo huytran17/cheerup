@@ -1,5 +1,6 @@
-import IAdminDb from "../../data-access/interfaces/admin-db";
-import IAdmin from "../../database/interfaces/admin";
+import IAdminDb, {
+  IPaginatedAdminResult,
+} from "../../data-access/interfaces/admin-db";
 
 export interface IGetAdminsPaginated {
   query: string;
@@ -11,7 +12,7 @@ export type GetAdminsPaginated = ({
   query,
   page,
   entries_per_page,
-}: IGetAdminsPaginated) => Promise<IAdmin[]>;
+}: IGetAdminsPaginated) => Promise<IPaginatedAdminResult>;
 
 export default function makeGetAdminsPaginated({
   adminDb,

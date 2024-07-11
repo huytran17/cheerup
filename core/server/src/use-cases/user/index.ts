@@ -11,11 +11,16 @@ import makeGetUserAnalystics from "./get-user-analystics";
 import makeGetUserByEmail from "./get-user-by-email";
 import makeGetUserTfaSecretByEmail from "./get-user-tfa-secret-by-email";
 import makeGetUsers from "./get-users";
+import makeGetUsersPaginated from "./get-users-paginated";
 import makeHardDeleteUser from "./hard-delete-user";
 import makeIncreaseLoginFailedTimes from "./increase-login-failed-times";
 import makeResetLoginFailedTimes from "./reset-login-failed-times";
 import makeRestoreUser from "./restore-user";
 import makeUpdateUser from "./update-user";
+
+const getUsersPaginated = makeGetUsersPaginated({
+  userDb: UserDb,
+});
 
 const batchUploadUsers = makeBatchUploadUsers({
   userDb: UserDb,
@@ -95,6 +100,7 @@ const userServices = Object.freeze({
   increaseLoginFailedTimes,
   resetLoginFailedTimes,
   batchUploadUsers,
+  getUsersPaginated,
 });
 
 export default userServices;
@@ -110,6 +116,7 @@ export {
   getUserByEmail,
   getUserTfaSecretByEmail,
   getUsers,
+  getUsersPaginated,
   hardDeleteUser,
   increaseLoginFailedTimes,
   resetLoginFailedTimes,

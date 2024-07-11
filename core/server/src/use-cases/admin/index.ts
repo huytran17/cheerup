@@ -8,13 +8,13 @@ import makeGetAdmin from "./get-admin";
 import makeGetAdminAnalystics from "./get-admin-analystics";
 import makeGetAdminByEmail from "./get-admin-by-email";
 import makeGetAdmins from "./get-admins";
+import makeGetAdminsPaginated from "./get-admins-paginated";
 import makeGetOneAdmin from "./get-one-admin";
 import makeGetSoftDeletedAdmin from "./get-soft-deleted-admin";
 import makeHardDeleteAdmin from "./hard-delete-admin";
 import makeIncreaseLoginFailedTimes from "./increase-login-failed-times";
 import makeResetLoginFailedTimes from "./reset-login-failed-times";
 import makeUpdateAdmin from "./update-admin";
-import makeGetAdminsPaginated from "./get-admins-paginated";
 
 const getAdminsPaginated = makeGetAdminsPaginated({
   adminDb: AdminDb,
@@ -101,11 +101,11 @@ export {
   getAdminAnalystics,
   getAdminByEmail,
   getAdmins,
+  getAdminsPaginated,
   getOneAdmin,
   getSoftDeletedAdmin,
   hardDeleteAdmin,
   increaseLoginFailedTimes,
   resetLoginFailedTimes,
   updateAdmin,
-  getAdminsPaginated,
 };
