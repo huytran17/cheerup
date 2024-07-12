@@ -1,3 +1,4 @@
+import { jsonToXls } from "../../../../config/json2xls";
 import { logger } from "../../../../config/logs/logger";
 import { hashPassword, verifyPassword } from "../../../../config/password";
 import {
@@ -7,6 +8,7 @@ import {
   getAdminAnalystics,
   getAdminByEmail,
   getAdmins,
+  getAdminsPaginated,
   getSoftDeletedAdmin,
   hardDeleteAdmin,
   resetLoginFailedTimes,
@@ -14,6 +16,7 @@ import {
 } from "../../../../use-cases/admin";
 import makeCreateAdminController from "./create-admin";
 import makeDeleteAdminController from "./delete-admin";
+import makeExportAdminsToXlsController from "./export-admins.-to-xls";
 import makeGetAdminController from "./get-admin";
 import makeGetAdminAnalysticsController from "./get-admin-analystics";
 import makeGetAdminsController from "./get-admins";
@@ -24,6 +27,11 @@ import makeUpdateAdminController from "./update-admin";
 import makeUpdateAdminPasswordController from "./update-admin-password";
 import makeUpdateAdminPersonalPasswordController from "./update-admin-personal-password";
 import makeUploadAvatarController from "./upload-avatar";
+
+const exportAdminsToXlsController = makeExportAdminsToXlsController({
+  getAdminsPaginated,
+  jsonToXls,
+});
 
 const resetAdminLoginFailedTimesController =
   makeResetAdminLoginFailedTimesController({
@@ -109,11 +117,13 @@ export default Object.freeze({
   getAdminAnalysticsController,
   updateAdminPersonalPasswordController,
   resetAdminLoginFailedTimesController,
+  exportAdminsToXlsController,
 });
 
 export {
   createAdminController,
   deleteAdminController,
+  exportAdminsToXlsController,
   getAdminAnalysticsController,
   getAdminController,
   getAdminsController,
