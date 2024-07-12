@@ -8,6 +8,7 @@ import compression from "compression";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import { createServer } from "http";
+import json2xls from "json2xls";
 import { join } from "path";
 import requestIp from "request-ip";
 import responseTime from "response-time";
@@ -34,6 +35,7 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(compression());
 app.use(responseTime());
+app.use(json2xls.middleware);
 app.use(
   "/upload",
   express.static(join(__dirname, "upload"), {
