@@ -1,38 +1,44 @@
 import { Router } from "express";
-import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
 import makeAuthorization from "../../config/middlewares/authorization";
+import makeValidator from "../../config/middlewares/validator";
 import { AuthorizationRole } from "../../constants/authorization-role";
-
 import {
-  getAdminRules,
-  updateAdminRules,
-  deleteAdminRules,
-  createAdminRules,
-  restoreAdminRules,
-  hardDeleteAdminRules,
-  updateAdminPasswordRules,
-  uploadAvatarRules,
-  updateAdminPersonalPasswordRules,
-  getAdminAnalysticsRules,
-  resetAdminLoginFailedTimesRules,
-} from "../../data-access/controllers/admin/admin/validators";
-import {
-  getAdminController,
-  updateAdminController,
-  getAdminsController,
-  deleteAdminController,
   createAdminController,
-  restoreAdminController,
-  hardDeleteAdminController,
-  updateAdminPasswordController,
-  uploadAvatarController,
+  deleteAdminController,
+  exportAdminsToXlsController,
   getAdminAnalysticsController,
-  updateAdminPersonalPasswordController,
+  getAdminController,
+  getAdminsController,
+  hardDeleteAdminController,
   resetAdminLoginFailedTimesController,
+  restoreAdminController,
+  updateAdminController,
+  updateAdminPasswordController,
+  updateAdminPersonalPasswordController,
+  uploadAvatarController,
 } from "../../data-access/controllers/admin/admin";
+import {
+  createAdminRules,
+  deleteAdminRules,
+  getAdminAnalysticsRules,
+  getAdminRules,
+  hardDeleteAdminRules,
+  resetAdminLoginFailedTimesRules,
+  restoreAdminRules,
+  updateAdminPasswordRules,
+  updateAdminPersonalPasswordRules,
+  updateAdminRules,
+  uploadAvatarRules,
+} from "../../data-access/controllers/admin/admin/validators";
 
 const adminRouter = Router();
+
+adminRouter.post(
+  "/export-to-xls",
+  makeAuthorization(AuthorizationRole.OWNER_AND_COLLABORATOR),
+  makeExpressCallback(exportAdminsToXlsController)
+);
 
 adminRouter.put(
   "/reset-admin-login-failed-times/:_id",
