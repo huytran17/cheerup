@@ -6,7 +6,6 @@ import { AuthorizationRole } from "../../constants/authorization-role";
 import {
   createAdminController,
   deleteAdminController,
-  exportAdminsToXlsController,
   getAdminAnalysticsController,
   getAdminController,
   getAdminsController,
@@ -17,6 +16,7 @@ import {
   updateAdminPasswordController,
   updateAdminPersonalPasswordController,
   uploadAvatarController,
+  getAdminsPaginatedController,
 } from "../../data-access/controllers/admin/admin";
 import {
   createAdminRules,
@@ -30,19 +30,21 @@ import {
   updateAdminPersonalPasswordRules,
   updateAdminRules,
   uploadAvatarRules,
+  getAdminsPaginatedRules,
 } from "../../data-access/controllers/admin/admin/validators";
 
 const adminRouter = Router();
 
-adminRouter.post(
-  "/export-to-xls",
-  makeAuthorization(AuthorizationRole.OWNER_AND_COLLABORATOR),
-  makeExpressCallback(exportAdminsToXlsController)
+adminRouter.get(
+  "/all-paginated",
+  makeAuthorization(AuthorizationRole.ONLY_OWNER),
+  makeValidator(getAdminsPaginatedRules),
+  makeExpressCallback(getAdminsPaginatedController)
 );
 
 adminRouter.put(
   "/reset-admin-login-failed-times/:_id",
-  makeAuthorization(AuthorizationRole.OWNER_AND_COLLABORATOR),
+  makeAuthorization(AuthorizationRole.ONLY_OWNER),
   makeValidator(resetAdminLoginFailedTimesRules),
   makeExpressCallback(resetAdminLoginFailedTimesController)
 );
