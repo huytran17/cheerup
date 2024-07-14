@@ -10,6 +10,7 @@ import uploadAvatarRules from "./upload-avatar";
 import updateAdminPersonalPasswordRules from "./update-admin-personal-password";
 import getAdminAnalysticsRules from "./get-admin-analystics";
 import resetAdminLoginFailedTimesRules from "./reset-admin-login-failed-times";
+import getAdminsPaginatedRules from "./get-admins-paginated";
 
 export default Object.freeze({
   getAdminRules,
@@ -24,6 +25,7 @@ export default Object.freeze({
   updateAdminPersonalPasswordRules,
   getAdminAnalysticsRules,
   resetAdminLoginFailedTimesRules,
+  getAdminsPaginatedRules,
 });
 
 export {
@@ -39,4 +41,5 @@ export {
   updateAdminPersonalPasswordRules,
   getAdminAnalysticsRules,
   resetAdminLoginFailedTimesRules,
+  getAdminsPaginatedRules,
 };
