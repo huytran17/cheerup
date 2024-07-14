@@ -15,6 +15,7 @@
     "apexcharts": "^3.37.0",
     "core-js": "^3.19.3",
     "cross-env": "^7.0.3",
+    "export-from-json": "^1.7.4",
     "material-design-icons-iconfont": "^6.7.0",
     "nuxt": "^2.15.8",
     "nuxt-helmet": "^2.1.1",
