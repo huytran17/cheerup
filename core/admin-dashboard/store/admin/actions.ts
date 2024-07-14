@@ -137,6 +137,28 @@ const actions: ActionTree<AdminState, RootState> = {
 
     return data;
   },
+
+  async [ActionTypes.GET_ADMINS_PAGINATED]({ commit }, params = {}) {
+    const query = get(params, "query");
+    const page = get(params, "page", 1);
+    const entries_per_page = get(params, "entries_per_page", 15);
+    const new_state = get(params, "new_state", true);
+
+    const query_url = new URLSearchParams();
+
+    query && query_url.set("query", query);
+    page && query_url.set("page", page);
+    entries_per_page && query_url.set("entries_per_page", entries_per_page);
+
+    const { data: admins, pagination } = await this.$axios.$get(
+      `/admin/all-paginated?${query_url}`
+    );
+
+    commit(MutationTypes.SET_ADMINS, { data: admins, new_state });
+    commit(MutationTypes.SET_ADMIN_PAGINATION, { data: pagination });
+
+    return admins;
+  },
 };
 
 export default actions;

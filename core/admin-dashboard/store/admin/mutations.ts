@@ -1,7 +1,7 @@
 import { MutationTypes } from "./mutation-types";
 import { MutationTree } from "vuex";
 import { AdminState } from ".";
-import _ from "lodash";
+import { concat, uniqBy, update } from "lodash";
 
 const mutations: MutationTree<AdminState> = {
   [MutationTypes.SET_ADMIN_ANALYS_DATA](state, { data }: { data: any }) {
@@ -20,9 +20,23 @@ const mutations: MutationTree<AdminState> = {
     state,
     { variable_path, data }: { variable_path: string; data: any }
   ) {
-    state.admin = _.update(state.admin, variable_path, (n) => {
-      return data;
-    });
+    state.admin = update(state.admin, variable_path, (n) => data);
+  },
+
+  [MutationTypes.SET_ADMIN_PAGINATION](
+    state,
+    {
+      data,
+    }: {
+      data: {
+        current_page: number;
+        per_page: number;
+        total: number;
+        total_pages: number;
+      };
+    }
+  ) {
+    state.pagination = data;
   },
 };
 

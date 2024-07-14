@@ -9,6 +9,7 @@ export const getters: GetterTree<AdminState, RootState> = {
   admin: (state) => state.admin,
   admins: (state) => state.admins,
   admin_analys_data: (state) => state.admin_analys_data,
+  pagination: (state) => state.pagination,
 };
 
 export default getters;
