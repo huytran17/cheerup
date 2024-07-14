@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { mapActions, mapMutations, mapGetters } from "vuex";
 
 export default {

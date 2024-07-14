@@ -1,4 +1,4 @@
-import { get, keys, values } from "lodash";
+import { get } from "lodash";
 import { mapGetters } from "vuex";
 
 export default {
