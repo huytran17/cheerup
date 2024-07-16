@@ -41,6 +41,7 @@ export interface IPaginatedAdminsResult {
     per_page: number | null;
     total: number | null;
     total_pages: number | null;
+    has_more: boolean;
   };
 }
 
