@@ -143,6 +143,7 @@ export default {
     ...mapGetters({
       system_configuration: "system-configuration/system_configuration",
       me: "auth/me",
+      admin_pagination: "admin/pagination",
       admins: "admin/admins",
     }),
   },
@@ -151,8 +152,8 @@ export default {
     ...mapActions({
       GET_LATEST_SYSTEM_CONFIGURATION:
         "system-configuration/GET_LATEST_SYSTEM_CONFIGURATION",
-      GET_ADMINS: "admin/GET_ADMINS",
       BATCH_UPLOAD_ADMINS: "admin/BATCH_UPLOAD_ADMINS",
+      GET_ADMINS_PAGINATED: "admin/GET_ADMINS_PAGINATED",
     }),
 
     ...mapMutations({
@@ -162,7 +163,11 @@ export default {
     async batchUploadAdmins(file) {
       try {
         await this.BATCH_UPLOAD_ADMINS({ file });
-        const admins = await this.GET_ADMINS();
+
+        const admins = await this.GET_ADMINS_PAGINATED({
+          page: this.admin_pagination.current_page,
+          entries_per_page: this.admin_pagination.per_page,
+        });
 
         const filtered_admins = admins.filter(
           (admin) => admin._id !== this.me._id
