@@ -3,7 +3,6 @@ import { MutationTypes } from "./mutation-types";
 import { ActionTree } from "vuex";
 import { SystemConfigurationState } from ".";
 import { RootState } from "..";
-import _ from "lodash";
 
 const actions: ActionTree<SystemConfigurationState, RootState> = {
   async [ActionTypes.GET_SYSTEM_CONFIGURATION](

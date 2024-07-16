@@ -12,8 +12,15 @@ const mutations: MutationTree<AdminState> = {
     state.admin = data;
   },
 
-  [MutationTypes.SET_ADMINS](state, { data }: { data: any[] }) {
-    state.admins = data;
+  [MutationTypes.SET_ADMINS](
+    state,
+    { data, new_state }: { data: any[]; new_state: boolean }
+  ) {
+    if (new_state) {
+      return (state.admins = data);
+    }
+
+    state.admins = uniqBy(concat(state.admins, data), "_id");
   },
 
   [MutationTypes.UPDATE_ADMIN_DATA](
@@ -33,10 +40,19 @@ const mutations: MutationTree<AdminState> = {
         per_page: number;
         total: number;
         total_pages: number;
+        from: number;
+        to: number;
       };
     }
   ) {
     state.pagination = data;
+  },
+
+  [MutationTypes.UPDATE_ADMIN_PAGINATION](
+    state,
+    { path, data }: { path: string; data: any }
+  ) {
+    state.pagination = update(state.pagination, path, (n) => data);
   },
 };
 

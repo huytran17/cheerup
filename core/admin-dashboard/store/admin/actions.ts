@@ -29,6 +29,7 @@ const actions: ActionTree<AdminState, RootState> = {
 
   async [ActionTypes.GET_ADMINS]({ commit }, params = {}) {
     const keep_in_store = get(params, "keep_in_store", true);
+    const new_state = get(params, "new_state", true);
 
     const { data: admins } = await this.$axios.$get("/admin");
 
@@ -36,7 +37,7 @@ const actions: ActionTree<AdminState, RootState> = {
       return admins;
     }
 
-    commit(MutationTypes.SET_ADMINS, { data: admins });
+    commit(MutationTypes.SET_ADMINS, { data: admins, new_state });
     return admins;
   },
 
