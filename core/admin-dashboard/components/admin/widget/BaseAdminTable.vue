@@ -1,7 +1,17 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-data-table :headers="headers" :items="admins" :search="search">
+      <v-data-table
+        :headers="headers"
+        :items="admins"
+        :search="search"
+        :page="admin_pagination.current_page"
+        :items-per-page="admin_pagination.per_page"
+        :multi-sort="true"
+        :server-items-length="admin_pagination.total"
+        @update:items-per-page="tableUpdateItemsPerPage"
+        @update:page="tableUpdatePage"
+      >
         <template v-slot:item.avatar="{ item }">
           <v-img
             v-if="item.avatar_url"
@@ -249,11 +259,27 @@ export default {
         );
       }
     },
+
+    async tableUpdatePage(data) {
+      this.UPDATE_ADMIN_PAGINATION({ path: "current_page", data });
+
+      await this.GET_ADMINS_PAGINATED({
+        page: this.admin_pagination.current_page,
+        entries_per_page: this.admin_pagination.per_page,
+      });
+    },
+
+    tableUpdateItemsPerPage(data) {
+      this.UPDATE_ADMIN_PAGINATION({ path: "per_page", data });
+    },
   },
 
   async fetch() {
     try {
-      const admins = await this.GET_ADMINS();
+      const admins = await this.GET_ADMINS_PAGINATED({
+        page: this.admin_pagination.current_page,
+        entries_per_page: this.admin_pagination.per_page,
+      });
 
       const filtered_admins = admins.filter(
         (admin) => admin._id !== this.me._id

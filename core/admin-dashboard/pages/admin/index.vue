@@ -98,6 +98,7 @@
                 icon
                 outlined
                 tile
+                @click="exportToXls"
               >
                 <v-icon small>mdi-export</v-icon>
                 <span>{{ $t("Export CSV") }}</span>
@@ -119,6 +120,7 @@
 <script>
 import { ADMIN_TYPES, MIME_TYPES } from "@/constants";
 import { mapActions, mapGetters, mapMutations } from "vuex";
+import { exportFromJSON } from "@/config/export-from-json";
 import BaseAdminTable from "@/components/admin/widget/BaseAdminTable";
 export default {
   name: "AdminIndex",
@@ -141,6 +143,7 @@ export default {
     ...mapGetters({
       system_configuration: "system-configuration/system_configuration",
       me: "auth/me",
+      admins: "admin/admins",
     }),
   },
 
@@ -168,6 +171,15 @@ export default {
         this.SET_ADMINS({ data: filtered_admins });
       } catch (error) {
         console.error(error);
+      }
+    },
+
+    exportToXls() {
+      try {
+        exportFromJSON({ data: this.admins, fileName: "admins-data" });
+      } catch (error) {
+        console.error(error);
+        this.$toast.error(this.$t(`Encountered error while exporting admins`));
       }
     },
   },

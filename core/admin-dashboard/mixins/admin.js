@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { mapActions, mapMutations, mapGetters } from "vuex";
 import { ADMIN_TYPES } from "@/constants";
 
@@ -36,6 +35,7 @@ export default {
       admin: "admin/admin",
       admins: "admin/admins",
       admin_analys_data: "admin/admin_analys_data",
+      admin_pagination: "admin/pagination",
     }),
   },
   methods: {
@@ -53,11 +53,14 @@ export default {
       GET_ADMIN_ANALYTICS: "admin/GET_ADMIN_ANALYTICS",
       RESET_ADMIN_LOGIN_FAILED_TIMES: "admin/RESET_ADMIN_LOGIN_FAILED_TIMES",
       BATCH_UPLOAD_ADMINS: "admin/BATCH_UPLOAD_ADMINS",
+      GET_ADMINS_PAGINATED: "admin/GET_ADMINS_PAGINATED",
     }),
     ...mapMutations({
       SET_ADMIN: "admin/SET_ADMIN",
       SET_ADMINS: "admin/SET_ADMINS",
       UPDATE_ADMIN_DATA: "admin/UPDATE_ADMIN_DATA",
+      SET_ADMIN_PAGINATION: "admin/SET_ADMIN_PAGINATION",
+      UPDATE_ADMIN_PAGINATION: "admin/UPDATE_ADMIN_PAGINATION",
     }),
 
     updateAdminObject({ variable_path, data }) {
