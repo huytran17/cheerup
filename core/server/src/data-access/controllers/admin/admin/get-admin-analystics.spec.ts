@@ -7,6 +7,7 @@ import {
   connectDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
+import { randomCacheTime } from "../../../../config/random-cache-time";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { IAdminAnalyticsData } from "../../../../data-access/interfaces/admin-db";
 import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
@@ -35,6 +36,7 @@ describe("getAdminAnalystics", () => {
     const createAdmin = makeCreateAdmin({ adminDb });
     const getAdminAnalystics = makeGetAdminAnalystics({
       adminDb,
+      randomCacheTime,
       logger,
       redis,
     });
