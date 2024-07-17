@@ -14,12 +14,7 @@
               rounded
               hide-details
               filled
-              @input="
-                updateMeObject({
-                  variable_path: 'email',
-                  data: $event,
-                })
-              "
+              @input="updateMeObject({ path: 'email', data: $event })"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -37,12 +32,7 @@
               type="password"
               hide-details
               filled
-              @input="
-                updateMeObject({
-                  variable_path: 'password',
-                  data: $event,
-                })
-              "
+              @input="updateMeObject({ path: 'password', data: $event })"
             ></v-text-field>
           </v-col>
         </v-row>

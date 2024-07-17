@@ -6,9 +6,7 @@
           <v-col cols="12" md="6">
             <v-text-field
               :label="$t('Email')"
-              @input="
-                updateAdminObject({ variable_path: 'email', data: $event })
-              "
+              @input="updateAdminObject({ path: 'email', data: $event })"
               :rules="emailRules"
               outlined
               color="brick"
@@ -18,9 +16,7 @@
           <v-col cols="12" md="6">
             <v-text-field
               :label="$t('Fullname')"
-              @input="
-                updateAdminObject({ variable_path: 'full_name', data: $event })
-              "
+              @input="updateAdminObject({ path: 'full_name', data: $event })"
               :rules="fullnameRules"
               outlined
               color="brick"
@@ -33,9 +29,7 @@
               :label="$t('Password')"
               :type="show_password ? 'text' : 'password'"
               :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
-              @input="
-                updateAdminObject({ variable_path: 'password', data: $event })
-              "
+              @input="updateAdminObject({ path: 'password', data: $event })"
               @click:append="show_password = !show_password"
               :rules="passwordRules"
               outlined
@@ -54,7 +48,7 @@
               "
               @input="
                 updateAdminObject({
-                  variable_path: 'password_confirmation',
+                  path: 'password_confirmation',
                   data: $event,
                 })
               "
@@ -71,12 +65,7 @@
               chips
               small-chips
               :label="$t('Type')"
-              @input="
-                updateAdminObject({
-                  variable_path: 'type',
-                  data: $event,
-                })
-              "
+              @input="updateAdminObject({ path: 'type', data: $event })"
               :rules="typeRules"
               outlined
               color="brick"

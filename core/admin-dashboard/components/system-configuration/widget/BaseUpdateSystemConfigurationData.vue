@@ -17,7 +17,7 @@
         :false-value="false"
         @change="
           updateSystemConfigurationObject({
-            variable_path: 'is_blocked_comment',
+            path: 'is_blocked_comment',
             data: $event,
           })
         "

@@ -6,9 +6,7 @@
           <v-col cols="12" md="6">
             <v-text-field
               :label="$t('Email')"
-              @input="
-                updateUserObject({ variable_path: 'email', data: $event })
-              "
+              @input="updateUserObject({ path: 'email', data: $event })"
               :rules="emailRules"
               outlined
               color="brick"
@@ -18,9 +16,7 @@
           <v-col cols="12" md="6">
             <v-text-field
               :label="$t('Fullname')"
-              @input="
-                updateUserObject({ variable_path: 'full_name', data: $event })
-              "
+              @input="updateUserObject({ path: 'full_name', data: $event })"
               :rules="fullnameRules"
               outlined
               color="brick"
@@ -33,9 +29,7 @@
               :label="$t('Password')"
               :type="show_password ? 'text' : 'password'"
               :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
-              @input="
-                updateUserObject({ variable_path: 'password', data: $event })
-              "
+              @input="updateUserObject({ path: 'password', data: $event })"
               @click:append="show_password = !show_password"
               :rules="passwordRules"
               outlined
@@ -54,7 +48,7 @@
               "
               @input="
                 updateUserObject({
-                  variable_path: 'password_confirmation',
+                  path: 'password_confirmation',
                   data: $event,
                 })
               "
@@ -69,10 +63,7 @@
             <v-switch
               :label="$t('Block comment for this user')"
               @change="
-                updateUserObject({
-                  variable_path: 'is_blocked_comment',
-                  data: $event,
-                })
+                updateUserObject({ path: 'is_blocked_comment', data: $event })
               "
               :false-value="false"
               :true-value="true"

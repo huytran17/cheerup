@@ -34,11 +34,8 @@ export default {
       SET_CATEGORY_ANALYS_DATA: "category/SET_CATEGORY_ANALYS_DATA",
     }),
 
-    updateCategoryObject({ variable_path, data }) {
-      this.UPDATE_CATEGORY_DATA({
-        variable_path,
-        data,
-      });
+    updateCategoryObject({ path, data }) {
+      this.UPDATE_CATEGORY_DATA({ path, data });
     },
   },
 };

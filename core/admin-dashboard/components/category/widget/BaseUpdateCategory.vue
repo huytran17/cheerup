@@ -10,9 +10,7 @@
               :label="$t('Title')"
               outlined
               color="brick"
-              @input="
-                updateCategoryObject({ variable_path: 'title', data: $event })
-              "
+              @input="updateCategoryObject({ path: 'title', data: $event })"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -27,10 +25,7 @@
               :content="category"
               attr="description"
               @on-input="
-                updateCategoryObject({
-                  variable_path: 'description',
-                  data: $event,
-                })
+                updateCategoryObject({ path: 'description', data: $event })
               "
             />
           </v-col>
@@ -78,7 +73,7 @@
               @input="
                 ($event) =>
                   updateCategoryObject({
-                    variable_path: 'badge_color',
+                    path: 'badge_color',
                     data: getBadgeColor($event),
                   })
               "
@@ -104,7 +99,7 @@
                         color="brick"
                         @input="
                           updateCategoryObject({
-                            variable_path: 'seo.title',
+                            path: 'seo.title',
                             data: $event,
                           })
                         "
@@ -118,7 +113,7 @@
                         color="brick"
                         @input="
                           updateCategoryObject({
-                            variable_path: 'seo.description',
+                            path: 'seo.description',
                             data: $event,
                           })
                         "
@@ -134,7 +129,7 @@
                         color="brick"
                         @input="
                           updateCategoryObject({
-                            variable_path: 'seo.keywords',
+                            path: 'seo.keywords',
                             data: $event,
                           })
                         "
@@ -148,7 +143,7 @@
                         color="brick"
                         @input="
                           updateCategoryObject({
-                            variable_path: 'seo.author',
+                            path: 'seo.author',
                             data: $event,
                           })
                         "

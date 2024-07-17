@@ -34,15 +34,6 @@ const mutations: MutationTree<GalleryState> = {
 
     state.galleries = uniqBy(concat(state.galleries, data), "_id");
   },
-
-  [MutationTypes.UPDATE_GALLERY_DATA](
-    state,
-    { variable_path, data }: { variable_path: string; data: any }
-  ) {
-    state.gallery = update(state.gallery, variable_path, (n) => {
-      return data;
-    });
-  },
 };
 
 export default mutations;

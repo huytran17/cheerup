@@ -20,11 +20,8 @@ export default {
         "system-configuration/UPDATE_SYSTEM_CONFIGURATION_DATA",
     }),
 
-    updateSystemConfigurationObject({ variable_path, data }) {
-      this.UPDATE_SYSTEM_CONFIGURATION_DATA({
-        variable_path,
-        data,
-      });
+    updateSystemConfigurationObject({ path, data }) {
+      this.UPDATE_SYSTEM_CONFIGURATION_DATA({ path, data });
     },
   },
 };

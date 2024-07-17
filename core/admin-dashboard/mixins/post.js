@@ -33,11 +33,8 @@ export default {
       UPDATE_POST_DATA: "post/UPDATE_POST_DATA",
     }),
 
-    updatePostObject({ variable_path, data }) {
-      this.UPDATE_POST_DATA({
-        variable_path,
-        data,
-      });
+    updatePostObject({ path, data }) {
+      this.UPDATE_POST_DATA({ path, data });
     },
   },
 };

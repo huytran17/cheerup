@@ -25,9 +25,9 @@ const mutations: MutationTree<AdminState> = {
 
   [MutationTypes.UPDATE_ADMIN_DATA](
     state,
-    { variable_path, data }: { variable_path: string; data: any }
+    { path, data }: { path: string; data: any }
   ) {
-    state.admin = update(state.admin, variable_path, (n) => data);
+    state.admin = update(state.admin, path, (n) => data);
   },
 
   [MutationTypes.SET_ADMIN_PAGINATION](

@@ -10,14 +10,12 @@ const mutations: MutationTree<SystemConfigurationState> = {
 
   [MutationTypes.UPDATE_SYSTEM_CONFIGURATION_DATA](
     state,
-    { variable_path, data }: { variable_path: string; data: any }
+    { path, data }: { path: string; data: any }
   ) {
     state.system_configuration = update(
       state.system_configuration,
-      variable_path,
-      (n) => {
-        return data;
-      }
+      path,
+      (n) => data
     );
   },
 };

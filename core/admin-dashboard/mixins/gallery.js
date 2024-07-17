@@ -28,14 +28,6 @@ export default {
       SET_GALLERY: "gallery/SET_GALLERY",
       SET_GALLERIES: "gallery/SET_GALLERIES",
       SET_GALLERY_PAGINATION: "gallery/SET_GALLERY_PAGINATION",
-      UPDATE_GALLERY_DATA: "gallery/UPDATE_GALLERY_DATA",
     }),
-
-    updateGalleryObject({ variable_path, data }) {
-      this.UPDATE_GALLERY_DATA({
-        variable_path,
-        data,
-      });
-    },
   },
 };

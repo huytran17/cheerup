@@ -18,11 +18,9 @@ const mutations: MutationTree<CategoryState> = {
 
   [MutationTypes.UPDATE_CATEGORY_DATA](
     state,
-    { variable_path, data }: { variable_path: string; data: any }
+    { path, data }: { path: string; data: any }
   ) {
-    state.category = update(state.category, variable_path, (n) => {
-      return data;
-    });
+    state.category = update(state.category, path, (n) => data);
   },
 };
 

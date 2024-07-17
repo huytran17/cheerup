@@ -25,11 +25,9 @@ const mutations: MutationTree<PostState> = {
 
   [MutationTypes.UPDATE_POST_DATA](
     state,
-    { variable_path, data }: { variable_path: string; data: any }
+    { path, data }: { path: string; data: any }
   ) {
-    state.post = update(state.post, variable_path, (n) => {
-      return data;
-    });
+    state.post = update(state.post, path, (n) => data);
   },
 };
 

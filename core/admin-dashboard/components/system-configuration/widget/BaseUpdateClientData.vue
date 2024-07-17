@@ -13,10 +13,7 @@
         :value="system_configuration.owner?.name"
         :label="$t('Owner Name')"
         @input="
-          updateSystemConfigurationObject({
-            variable_path: 'owner.name',
-            data: $event,
-          })
+          updateSystemConfigurationObject({ path: 'owner.name', data: $event })
         "
       ></v-text-field>
     </v-col>
@@ -32,7 +29,7 @@
         attr="description"
         @on-input="
           updateSystemConfigurationObject({
-            variable_path: 'owner.description',
+            path: 'owner.description',
             data: $event,
           })
         "

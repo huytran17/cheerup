@@ -24,9 +24,7 @@
                 tile
                 outlined
                 color="brick"
-                @input="
-                  updatePostObject({ variable_path: 'title', data: $event })
-                "
+                @input="updatePostObject({ path: 'title', data: $event })"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -41,10 +39,7 @@
                 :content="post"
                 attr="content"
                 @on-input="
-                  updatePostObject({
-                    variable_path: 'description',
-                    data: $event,
-                  })
+                  updatePostObject({ path: 'description', data: $event })
                 "
               />
             </v-col>
@@ -59,9 +54,7 @@
               <TiptapEditor
                 :content="post"
                 attr="content"
-                @on-input="
-                  updatePostObject({ variable_path: 'content', data: $event })
-                "
+                @on-input="updatePostObject({ path: 'content', data: $event })"
               />
             </v-col>
           </v-row>
@@ -78,12 +71,7 @@
                 color="brick"
                 :label="$t('Category')"
                 :rules="categoriesRules"
-                @input="
-                  updatePostObject({
-                    variable_path: 'categories',
-                    data: $event,
-                  })
-                "
+                @input="updatePostObject({ path: 'categories', data: $event })"
               ></v-autocomplete>
             </v-col>
             <v-col cols="12" sm="6">
@@ -95,12 +83,7 @@
               <TiptapEditor
                 :content="post"
                 attr="source"
-                @on-input="
-                  updatePostObject({
-                    variable_path: 'source',
-                    data: $event,
-                  })
-                "
+                @on-input="updatePostObject({ path: 'source', data: $event })"
               />
             </v-col>
           </v-row>
@@ -112,9 +95,7 @@
                 outlined
                 color="brick"
                 :label="$t('Tags')"
-                @input="
-                  updatePostObject({ variable_path: 'tags', data: $event })
-                "
+                @input="updatePostObject({ path: 'tags', data: $event })"
               ></v-combobox>
             </v-col>
           </v-row>
@@ -124,10 +105,7 @@
                 color="brick"
                 :label="$t('Block Comment')"
                 @change="
-                  updatePostObject({
-                    variable_path: 'is_blocked_comment',
-                    data: $event,
-                  })
+                  updatePostObject({ path: 'is_blocked_comment', data: $event })
                 "
                 :false-value="false"
                 :true-value="true"

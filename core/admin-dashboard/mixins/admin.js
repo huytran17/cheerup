@@ -63,11 +63,8 @@ export default {
       UPDATE_ADMIN_PAGINATION: "admin/UPDATE_ADMIN_PAGINATION",
     }),
 
-    updateAdminObject({ variable_path, data }) {
-      this.UPDATE_ADMIN_DATA({
-        variable_path,
-        data,
-      });
+    updateAdminObject({ path, data }) {
+      this.UPDATE_ADMIN_DATA({ path, data });
     },
   },
 };

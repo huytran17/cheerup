@@ -14,9 +14,7 @@
             <v-text-field
               :value="user.email"
               :label="$t('Email')"
-              @input="
-                updateUserObject({ variable_path: 'email', data: $event })
-              "
+              @input="updateUserObject({ path: 'email', data: $event })"
               disabled
               outlined
               color="brick"
@@ -27,9 +25,7 @@
             <v-text-field
               :value="user.full_name"
               :label="$t('Fullname')"
-              @input="
-                updateUserObject({ variable_path: 'full_name', data: $event })
-              "
+              @input="updateUserObject({ path: 'full_name', data: $event })"
               :rules="fullnameRules"
               outlined
               color="brick"
@@ -42,10 +38,7 @@
               :input-value="user.is_blocked_comment"
               :label="$t('Block comment for this user')"
               @change="
-                updateUserObject({
-                  variable_path: 'is_blocked_comment',
-                  data: $event,
-                })
+                updateUserObject({ path: 'is_blocked_comment', data: $event })
               "
               :false-value="false"
               :true-value="true"
@@ -116,9 +109,7 @@
               :type="show_password ? 'text' : 'password'"
               :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
               @click:append="show_password = !show_password"
-              @input="
-                updateUserObject({ variable_path: 'password', data: $event })
-              "
+              @input="updateUserObject({ path: 'password', data: $event })"
               :rules="passwordRules"
               :disabled="is_socialite_account"
               outlined
@@ -137,7 +128,7 @@
               "
               @input="
                 updateUserObject({
-                  variable_path: 'password_confirmation',
+                  path: 'password_confirmation',
                   data: $event,
                 })
               "

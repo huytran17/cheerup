@@ -14,7 +14,7 @@
             <v-text-field
               :value="me.email"
               :label="$t('Email')"
-              @input="updateMeObject({ variable_path: 'email', data: $event })"
+              @input="updateMeObject({ path: 'email', data: $event })"
               disabled
               outlined
               color="brick"
@@ -25,9 +25,7 @@
             <v-text-field
               :value="me.full_name"
               :label="$t('Fullname')"
-              @input="
-                updateMeObject({ variable_path: 'full_name', data: $event })
-              "
+              @input="updateMeObject({ path: 'full_name', data: $event })"
               :rules="fullnameRules"
               outlined
               color="brick"
@@ -43,12 +41,7 @@
               disabled
               small-chips
               :label="$t('Type')"
-              @input="
-                updateMeObject({
-                  variable_path: 'type',
-                  data: $event,
-                })
-              "
+              @input="updateMeObject({ path: 'type', data: $event })"
               :rules="typeRules"
               outlined
               color="brick"
@@ -117,9 +110,7 @@
               :type="show_current_password ? 'text' : 'password'"
               :append-icon="show_current_password ? 'mdi-eye' : 'mdi-eye-off'"
               @click:append="show_current_password = !show_current_password"
-              @input="
-                updateMeObject({ variable_path: 'password', data: $event })
-              "
+              @input="updateMeObject({ path: 'password', data: $event })"
               :rules="passwordRules"
               outlined
               color="brick"
@@ -131,9 +122,7 @@
               :type="show_new_password ? 'text' : 'password'"
               :append-icon="show_new_password ? 'mdi-eye' : 'mdi-eye-off'"
               @click:append="show_new_password = !show_new_password"
-              @input="
-                updateMeObject({ variable_path: 'new_password', data: $event })
-              "
+              @input="updateMeObject({ path: 'new_password', data: $event })"
               :rules="newPasswordRules"
               outlined
               color="brick"
@@ -151,7 +140,7 @@
               "
               @input="
                 updateMeObject({
-                  variable_path: 'new_password_confirmation',
+                  path: 'new_password_confirmation',
                   data: $event,
                 })
               "

@@ -18,12 +18,5 @@ export default {
       SET_SUBSCRIPTION: "subscription/SET_SUBSCRIPTION",
       SET_SUBSCRIPTIONS: "subscription/SET_SUBSCRIPTIONS",
     }),
-
-    updateUserObject({ variable_path, data }) {
-      this.UPDATE_SUBSCRIPTION_DATA({
-        variable_path,
-        data,
-      });
-    },
   },
 };

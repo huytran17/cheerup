@@ -66,11 +66,8 @@ export default {
       SET_ME: "auth/SET_ME",
     }),
 
-    updateMeObject({ variable_path, data }) {
-      this.UPDATE_ME_DATA({
-        variable_path,
-        data,
-      });
+    updateMeObject({ path, data }) {
+      this.UPDATE_ME_DATA({ path, data });
     },
   },
 };

@@ -20,12 +20,5 @@ export default {
       SET_COMMENT: "comment/SET_COMMENT",
       SET_COMMENTS: "comment/SET_COMMENTS",
     }),
-
-    updateUserObject({ variable_path, data }) {
-      this.UPDATE_COMMENT_DATA({
-        variable_path,
-        data,
-      });
-    },
   },
 };
