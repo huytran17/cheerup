@@ -133,11 +133,11 @@ export default {
         (button) => button.value === this.unit
       )?.full_text;
 
-      this.UPDATE_ANALYSIS_DATA({ data: chosen_unit, variable_path: "unit" });
+      this.UPDATE_ANALYSIS_DATA({ data: chosen_unit, path: "unit" });
     },
 
     updateAnalysisRange(value) {
-      this.UPDATE_ANALYSIS_DATA({ data: value, variable_path: "range" });
+      this.UPDATE_ANALYSIS_DATA({ data: value, path: "range" });
     },
 
     refreshAnalysisData() {

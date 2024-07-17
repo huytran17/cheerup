@@ -1,7 +1,7 @@
 import { MutationTypes } from "./mutation-types";
 import { MutationTree } from "vuex";
 import { GalleryState } from ".";
-import { uniqBy, update, concat } from "lodash";
+import { uniqBy, concat } from "lodash";
 
 const mutations: MutationTree<GalleryState> = {
   [MutationTypes.SET_GALLERY](state, { data }: { data: any }) {

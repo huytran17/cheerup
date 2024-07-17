@@ -30,12 +30,7 @@ export const mutations: MutationTree<RootState> = {
     state.app_loading = data;
   },
 
-  UPDATE_ANALYSIS_DATA(
-    state,
-    { data, variable_path }: { data: any; variable_path: string }
-  ) {
-    state.analysis = update(state.analysis, variable_path, (n) => {
-      return data;
-    });
+  UPDATE_ANALYSIS_DATA(state, { data, path }: { data: any; path: string }) {
+    state.analysis = update(state.analysis, path, (n) => data);
   },
 };

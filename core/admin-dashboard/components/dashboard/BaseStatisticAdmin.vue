@@ -107,10 +107,7 @@ export default {
 
     async refreshAdminAnalysticData({ author_type }) {
       try {
-        this.UPDATE_ANALYSIS_DATA({
-          variable_path: "author_type",
-          data: author_type,
-        });
+        this.UPDATE_ANALYSIS_DATA({ path: "author_type", data: author_type });
 
         await this.GET_ADMIN_ANALYTICS({ ...this.analysis });
       } catch (err) {
