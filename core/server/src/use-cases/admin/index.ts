@@ -1,4 +1,5 @@
 import { logger } from "../../config/logs/logger";
+import { randomCacheTime } from "../../config/random-cache-time";
 import { redis } from "../../config/redis";
 import { AdminDb } from "../../data-access";
 import makeBatchUploadAdmins from "./batch-upload-admins";
@@ -18,6 +19,9 @@ import makeUpdateAdmin from "./update-admin";
 
 const getAdminsPaginated = makeGetAdminsPaginated({
   adminDb: AdminDb,
+  randomCacheTime,
+  redis,
+  logger,
 });
 
 const batchUploadAdmins = makeBatchUploadAdmins({
@@ -42,6 +46,7 @@ const getOneAdmin = makeGetOneAdmin({
 
 const getAdminAnalystics = makeGetAdminAnalystics({
   adminDb: AdminDb,
+  randomCacheTime,
   redis,
   logger,
 });

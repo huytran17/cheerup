@@ -8,7 +8,7 @@
         :page="admin_pagination.current_page"
         :items-per-page="admin_pagination.per_page"
         :multi-sort="true"
-        :server-items-length="admin_pagination.total"
+        :server-items-length="admin_pagination.total - 1"
         @update:items-per-page="tableUpdateItemsPerPage"
         @update:page="tableUpdatePage"
       >
@@ -186,6 +186,7 @@ export default {
     return {
       ADMIN_TYPES,
       LOGIN_FAILED,
+      is_items_per_page_changed: false,
     };
   },
 
@@ -261,16 +262,29 @@ export default {
     },
 
     async tableUpdatePage(data) {
-      this.UPDATE_ADMIN_PAGINATION({ path: "current_page", data });
-
-      await this.GET_ADMINS_PAGINATED({
-        page: this.admin_pagination.current_page,
+      const admins = await this.GET_ADMINS_PAGINATED({
+        page: data,
         entries_per_page: this.admin_pagination.per_page,
       });
+
+      this.filterAdmins(admins);
     },
 
-    tableUpdateItemsPerPage(data) {
-      this.UPDATE_ADMIN_PAGINATION({ path: "per_page", data });
+    async tableUpdateItemsPerPage(data) {
+      const admins = await this.GET_ADMINS_PAGINATED({
+        page: 1,
+        entries_per_page: data,
+      });
+
+      this.filterAdmins(admins);
+    },
+
+    filterAdmins(admins) {
+      const filtered_admins = admins.filter(
+        (admin) => admin._id !== this.me._id
+      );
+
+      this.SET_ADMINS({ data: filtered_admins });
     },
   },
 
@@ -281,11 +295,7 @@ export default {
         entries_per_page: this.admin_pagination.per_page,
       });
 
-      const filtered_admins = admins.filter(
-        (admin) => admin._id !== this.me._id
-      );
-
-      this.SET_ADMINS({ data: filtered_admins });
+      this.filterAdmins(admins);
     } catch (error) {
       console.error(error);
     }

@@ -1,8 +1,9 @@
+import { Logger } from "winston";
+import { RandomCacheTime } from "../../config/random-cache-time/make-random-cache-time";
+import Redis from "../../config/redis";
 import IAdminDb, {
   IAdminAnalyticsData,
 } from "../../data-access/interfaces/admin-db";
-import Redis from "../../config/redis";
-import { Logger } from "winston";
 import { AdminType } from "../../database/interfaces/admin";
 
 export interface IGetAdminAnalysticsPayload {
@@ -19,10 +20,12 @@ export type GetAdminAnalystics = ({
 
 export default function makeGetAdminAnalystics({
   adminDb,
+  randomCacheTime,
   redis,
   logger,
 }: {
   adminDb: IAdminDb;
+  randomCacheTime: RandomCacheTime;
   redis: Redis;
   logger: Logger;
 }): GetAdminAnalystics {
@@ -46,10 +49,15 @@ export default function makeGetAdminAnalystics({
     const data = await adminDb.getAdminAnalystics({ range, unit, author_type });
 
     const one_day_in_seconds = 24 * 60 * 60;
+    const duration_in_seconds = randomCacheTime({
+      seconds: one_day_in_seconds,
+      extra_minutes: 12,
+    });
+
     redis.setData({
       key: cache_key,
       value: data,
-      duration_in_seconds: one_day_in_seconds,
+      duration_in_seconds,
     });
 
     return data;

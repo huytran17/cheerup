@@ -9,6 +9,7 @@ export const state = () => ({
     per_page: 15,
     total: 0,
     total_pages: 0,
+    has_more: true,
   },
 });
 

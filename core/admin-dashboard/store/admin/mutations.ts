@@ -14,7 +14,7 @@ const mutations: MutationTree<AdminState> = {
 
   [MutationTypes.SET_ADMINS](
     state,
-    { data, new_state }: { data: any[]; new_state: boolean }
+    { data, new_state = true }: { data: any[]; new_state?: boolean }
   ) {
     if (new_state) {
       return (state.admins = data);
@@ -42,6 +42,7 @@ const mutations: MutationTree<AdminState> = {
         total_pages: number;
         from: number;
         to: number;
+        has_more: boolean;
       };
     }
   ) {
