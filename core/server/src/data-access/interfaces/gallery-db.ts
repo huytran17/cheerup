@@ -33,11 +33,12 @@ export default interface IGalleryDb {
 export interface IPaginatedGalleriesResult {
   data: IGallery[];
   pagination: {
-    current_page: number | null;
-    from: number | null;
-    to: number | null;
-    per_page: number | null;
-    total: number | null;
-    total_pages: number | null;
+    current_page: number;
+    from: number;
+    to: number;
+    per_page: number;
+    total: number;
+    total_pages: number;
+    has_more: boolean;
   };
 }

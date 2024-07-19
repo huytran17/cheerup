@@ -7,7 +7,7 @@
 
       <v-col cols="12">
         <infinite-loading
-          v-if="!!post_bookmark_pagination.to"
+          v-if="post_bookmark_pagination.has_more"
           identifier="post-bookmarks"
           spinner="spiral"
           @infinite="fetchMorePostBookmarks"

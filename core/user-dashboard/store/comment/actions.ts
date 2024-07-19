@@ -105,6 +105,7 @@ const actions: ActionTree<CommentState, RootState> = {
     const post_id = get(params, "post_id");
     const user_id = get(params, "user_id");
     const new_state = get(params, "new_state", true);
+    const keep_in_store = get(params, "keep_in_store", true);
 
     const url_query = new URLSearchParams();
 
@@ -120,12 +121,16 @@ const actions: ActionTree<CommentState, RootState> = {
       ? `/comment/by-post-paginated?${url_query}`
       : `/comment/by-post-paginated-public?${url_query}`;
 
-    const { data: comments, pagination } = await this.$axios.$get(api_route);
+    const { data, pagination } = await this.$axios.$get(api_route);
 
-    commit(MutationTypes.SET_COMMENTS, { data: comments, new_state });
+    if (!keep_in_store) {
+      return { data, pagination };
+    }
+
+    commit(MutationTypes.SET_COMMENTS, { data, new_state });
     commit(MutationTypes.SET_COMMENT_PAGINATION, { data: pagination });
 
-    return comments;
+    return data;
   },
 };
 

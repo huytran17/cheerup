@@ -12,7 +12,7 @@
 
     <v-col cols="12">
       <infinite-loading
-        v-if="!!post_pagination.to"
+        v-if="post_pagination.has_more"
         identifier="posts"
         spinner="spiral"
         @infinite="fetchMorePosts"

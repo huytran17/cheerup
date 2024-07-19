@@ -297,7 +297,7 @@ export default function makePostDb({
         created_at: "desc",
       };
 
-      const existing = await postDbModel
+      const exists = await postDbModel
         .find(query_conditions)
         .select("-__v")
         .populate("author", "_id full_name")
@@ -309,15 +309,13 @@ export default function makePostDb({
 
       const total_count = await postDbModel.countDocuments(query_conditions);
 
-      if (existing) {
-        const data = map(existing, (post) => new Post(post));
+      if (exists) {
+        const data = map(exists, (post) => new Post(post));
 
-        const from = page - 1 > 0 ? page - 1 : null;
-        const has_more_entries =
-          existing.length === entries_per_page &&
-          page * entries_per_page !== total_count;
-        const to = has_more_entries ? page + 1 : null;
+        const from = number_of_entries_to_skip + 1;
+        const to = number_of_entries_to_skip + exists.length;
         const total_pages = Math.ceil(total_count / entries_per_page);
+        const has_more = to < total_count;
 
         return {
           data,
@@ -328,6 +326,7 @@ export default function makePostDb({
             per_page: entries_per_page,
             total: total_count,
             total_pages,
+            has_more,
           },
         };
       }

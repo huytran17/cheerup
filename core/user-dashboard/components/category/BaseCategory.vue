@@ -11,7 +11,7 @@
 
     <v-col cols="12">
       <infinite-loading
-        v-if="!!category_pagination.to"
+        v-if="category_pagination.has_more"
         identifier="categories"
         spinner="spiral"
         @infinite="fetchMoreCategories"

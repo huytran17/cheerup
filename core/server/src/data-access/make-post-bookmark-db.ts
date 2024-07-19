@@ -85,12 +85,10 @@ export default function makePostBookmarkDb({
           (post_bookmark) => new PostBookmark(post_bookmark)
         );
 
-        const from = page - 1 > 0 ? page - 1 : null;
-        const has_more_entries =
-          exists.length === entries_per_page &&
-          page * entries_per_page !== total_count;
-        const to = has_more_entries ? page + 1 : null;
+        const from = number_of_entries_to_skip + 1;
+        const to = number_of_entries_to_skip + exists.length;
         const total_pages = Math.ceil(total_count / entries_per_page);
+        const has_more = to < total_count;
 
         return {
           data,
@@ -101,6 +99,7 @@ export default function makePostBookmarkDb({
             per_page: entries_per_page,
             total: total_count,
             total_pages,
+            has_more,
           },
         };
       }

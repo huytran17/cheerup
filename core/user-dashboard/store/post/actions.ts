@@ -85,6 +85,7 @@ const actions: ActionTree<PostState, RootState> = {
     const page = get(params, "page", 1);
     const entries_per_page = get(params, "entries_per_page", 15);
     const new_state = get(params, "new_state", true);
+    const keep_in_store = get(params, "keep_in_store", true);
     const categories = get(params, "categories", []);
     const tags = get(params, "tags", []);
     const sorts = get(params, "sorts");
@@ -106,14 +107,18 @@ const actions: ActionTree<PostState, RootState> = {
 
     !isEmpty(tags) && url_query.set("tags", tags.join(","));
 
-    const { data: posts, pagination } = await this.$axios.$get(
+    const { data, pagination } = await this.$axios.$get(
       `/post/all-paginated?${url_query}`
     );
 
-    commit(MutationTypes.SET_POSTS, { data: posts, new_state });
+    if (!keep_in_store) {
+      return { data, pagination };
+    }
+
+    commit(MutationTypes.SET_POSTS, { data, new_state });
     commit(MutationTypes.SET_POST_PAGINATION, { data: pagination });
 
-    return posts;
+    return data;
   },
 };
 

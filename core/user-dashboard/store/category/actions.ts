@@ -57,6 +57,7 @@ const actions: ActionTree<CategoryState, RootState> = {
     const page = get(params, "page", 1);
     const entries_per_page = get(params, "entries_per_page", 15);
     const new_state = get(params, "new_state", true);
+    const keep_in_store = get(params, "keep_in_store", true);
 
     const url_query = new URLSearchParams();
 
@@ -66,14 +67,18 @@ const actions: ActionTree<CategoryState, RootState> = {
 
     entries_per_page && url_query.set("entries_per_page", entries_per_page);
 
-    const { data: categories, pagination } = await this.$axios.$get(
+    const { data, pagination } = await this.$axios.$get(
       `/category/outstanding-paginated?${url_query}`
     );
 
-    commit(MutationTypes.SET_CATEGORIES, { data: categories, new_state });
+    if (!keep_in_store) {
+      return { data, pagination };
+    }
+
+    commit(MutationTypes.SET_CATEGORIES, { data, new_state });
     commit(MutationTypes.SET_CATEGORIES_PAGINATION, { data: pagination });
 
-    return categories;
+    return data;
   },
 };
 

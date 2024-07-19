@@ -42,21 +42,18 @@ const actions: ActionTree<PostBookmarkState, RootState> = {
 
     entries_per_page && url_query.set("entries_per_page", entries_per_page);
 
-    const { data: post_bookmarks, pagination } = await this.$axios.$get(
+    const { data, pagination } = await this.$axios.$get(
       `/post-bookmark/all-paginated?${url_query}`
     );
 
     if (!keep_in_store) {
-      return { post_bookmarks, pagination };
+      return { data, pagination };
     }
 
-    commit(MutationTypes.SET_POST_BOOKMARKS, {
-      data: post_bookmarks,
-      new_state,
-    });
+    commit(MutationTypes.SET_POST_BOOKMARKS, { data, new_state });
     commit(MutationTypes.SET_POST_BOOKMARK_PAGINATION, { data: pagination });
 
-    return post_bookmarks;
+    return data;
   },
 };
 

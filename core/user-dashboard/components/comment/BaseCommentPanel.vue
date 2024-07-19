@@ -127,11 +127,7 @@ export default {
     }),
 
     has_more_comments() {
-      return (
-        this.comment_pagination.total_pages &&
-        this.comment_pagination.current_page !==
-          this.comment_pagination.total_pages
-      );
+      return this.comment_pagination.has_more;
     },
 
     can_not_show_comment_panel() {
