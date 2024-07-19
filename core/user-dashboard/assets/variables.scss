@@ -26,9 +26,8 @@
   --color-register-form-gradient-2: #f35587;
   --color-register-form-shadow-bg: #64646f33;
   --color-register-form-bg: #ffffff99;
-
-  --breakpoint-small: 600;
-  --breakpoint-medium: 960;
-  --breakpoint-large: 1264;
-  --breakpoint-extra-large: 1904;
 }
+
+$breakpoint-mobile: 576;
+$breakpoint-tablet: 768;
+$breakpoint-desktop: 992;

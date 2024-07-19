@@ -15,3 +15,21 @@
     @content;
   }
 }
+
+@mixin media-max-mobile {
+  @media screen and (max-width: toRem($breakpoint-mobile)) {
+    @content;
+  }
+}
+
+@mixin media-max-tablet {
+  @media screen and (max-width: toRem($breakpoint-tablet)) {
+    @content;
+  }
+}
+
+@mixin media-max-desktop {
+  @media screen and (max-width: toRem($breakpoint-desktop)) {
+    @content;
+  }
+}
