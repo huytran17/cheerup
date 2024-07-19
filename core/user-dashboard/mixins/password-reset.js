@@ -48,11 +48,8 @@ export default {
       UPDATE_PASSWORD_RESET_DATA: "password-reset/UPDATE_PASSWORD_RESET_DATA",
     }),
 
-    updatePasswordResetObject({ variable_path, data }) {
-      this.UPDATE_PASSWORD_RESET_DATA({
-        variable_path,
-        data,
-      });
+    updatePasswordResetObject({ path, data }) {
+      this.UPDATE_PASSWORD_RESET_DATA({ path, data });
     },
   },
 };

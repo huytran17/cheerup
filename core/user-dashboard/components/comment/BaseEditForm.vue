@@ -20,10 +20,7 @@
             :content="comment"
             attr="content"
             @on-input="
-              updateEditingCommentObject({
-                variable_path: 'content',
-                data: $event,
-              })
+              updateEditingCommentObject({ path: 'content', data: $event })
             "
           />
         </div>
@@ -81,10 +78,7 @@ export default {
 
         await this.UPDATE_COMMENT({ data: final_comment_data });
 
-        this.updateEditingCommentObject({
-          variable_path: "content",
-          data: "",
-        });
+        this.updateEditingCommentObject({ path: "content", data: "" });
 
         await this.GET_COMMENT({ id: this.comment._id });
         this.replaceCommentData({ data: this.comment });

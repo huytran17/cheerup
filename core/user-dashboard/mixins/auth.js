@@ -77,11 +77,8 @@ export default {
       SET_ACCESS_TOKEN: "auth/SET_ACCESS_TOKEN",
     }),
 
-    updateMeObject({ variable_path, data }) {
-      this.UPDATE_ME_DATA({
-        variable_path,
-        data,
-      });
+    updateMeObject({ path, data }) {
+      this.UPDATE_ME_DATA({ path, data });
     },
   },
 };

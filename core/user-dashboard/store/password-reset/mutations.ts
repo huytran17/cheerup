@@ -10,11 +10,9 @@ const mutations: MutationTree<PasswordResetState> = {
 
   [MutationTypes.UPDATE_PASSWORD_RESET_DATA](
     state,
-    { variable_path, data }: { variable_path: string; data: any }
+    { path, data }: { path: string; data: any }
   ) {
-    state.password_reset = update(state.password_reset, variable_path, (n) => {
-      return data;
-    });
+    state.password_reset = update(state.password_reset, path, (n) => data);
   },
 };
 

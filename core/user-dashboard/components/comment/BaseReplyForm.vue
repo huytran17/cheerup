@@ -20,10 +20,7 @@
             :content="new_reply_comment"
             attr="content"
             @on-input="
-              updateNewReplyCommentObject({
-                variable_path: 'content',
-                data: $event,
-              })
+              updateNewReplyCommentObject({ path: 'content', data: $event })
             "
           />
         </div>
@@ -83,10 +80,7 @@ export default {
           },
         });
 
-        this.updateNewReplyCommentObject({
-          variable_path: "content",
-          data: "",
-        });
+        this.updateNewReplyCommentObject({ path: "content", data: "" });
 
         ++this.refresh_comment_reply_editor_key;
 

@@ -41,32 +41,20 @@ export default {
       SET_IS_OPEN_REPLY_COMMENT: "SET_IS_OPEN_REPLY_COMMENT",
     }),
 
-    updateCommentObject({ variable_path, data }) {
-      this.UPDATE_COMMENT_DATA({
-        variable_path,
-        data,
-      });
+    updateCommentObject({ path, data }) {
+      this.UPDATE_COMMENT_DATA({ path, data });
     },
 
-    updateNewCommentObject({ variable_path, data }) {
-      this.UPDATE_NEW_COMMENT_DATA({
-        variable_path,
-        data,
-      });
+    updateNewCommentObject({ path, data }) {
+      this.UPDATE_NEW_COMMENT_DATA({ path, data });
     },
 
-    updateNewReplyCommentObject({ variable_path, data }) {
-      this.UPDATE_NEW_REPLY_COMMENT_DATA({
-        variable_path,
-        data,
-      });
+    updateNewReplyCommentObject({ path, data }) {
+      this.UPDATE_NEW_REPLY_COMMENT_DATA({ path, data });
     },
 
-    updateEditingCommentObject({ variable_path, data }) {
-      this.UPDATE_EDITING_COMMENT_DATA({
-        variable_path,
-        data,
-      });
+    updateEditingCommentObject({ path, data }) {
+      this.UPDATE_EDITING_COMMENT_DATA({ path, data });
     },
 
     replaceCommentData({ data }) {

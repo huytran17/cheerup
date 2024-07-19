@@ -33,9 +33,7 @@
         :content="new_comment"
         :disabled="!has_user"
         attr="content"
-        @on-input="
-          updateNewCommentObject({ variable_path: 'content', data: $event })
-        "
+        @on-input="updateNewCommentObject({ path: 'content', data: $event })"
         :key="`comment-editor-${refresh_comment_editor_key}`"
       />
       <div class="d-flex pt-4">
@@ -206,10 +204,7 @@ export default {
 
         await this.COUNT_COMMENT_BY_POST({ post_id });
 
-        this.updateNewCommentObject({
-          variable_path: "content",
-          data: "",
-        });
+        this.updateNewCommentObject({ path: "content", data: "" });
 
         ++this.refresh_comment_editor_key;
 

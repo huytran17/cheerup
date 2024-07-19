@@ -55,11 +55,8 @@ export default {
       }
     },
 
-    updateCategoryObject({ variable_path, data }) {
-      this.UPDATE_CATEGORY_DATA({
-        variable_path,
-        data,
-      });
+    updateCategoryObject({ path, data }) {
+      this.UPDATE_CATEGORY_DATA({ path, data });
     },
   },
 };

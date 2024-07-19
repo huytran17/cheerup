@@ -28,12 +28,7 @@
               hide-details
               filled
               :rules="emailRules"
-              @input="
-                updateMeObject({
-                  variable_path: 'email',
-                  data: $event,
-                })
-              "
+              @input="updateMeObject({ path: 'email', data: $event })"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -52,12 +47,7 @@
               hide-details
               filled
               :rules="passwordRules"
-              @input="
-                updateMeObject({
-                  variable_path: 'password',
-                  data: $event,
-                })
-              "
+              @input="updateMeObject({ path: 'password', data: $event })"
             ></v-text-field>
           </v-col>
         </v-row>

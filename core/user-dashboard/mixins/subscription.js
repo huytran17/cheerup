@@ -18,11 +18,8 @@ export default {
       UPDATE_SUBSCRIPTION_DATA: "subscription/UPDATE_SUBSCRIPTION_DATA",
     }),
 
-    updateUserObject({ variable_path, data }) {
-      this.UPDATE_SUBSCRIPTION_DATA({
-        variable_path,
-        data,
-      });
+    updateUserObject({ path, data }) {
+      this.UPDATE_SUBSCRIPTION_DATA({ path, data });
     },
   },
 };

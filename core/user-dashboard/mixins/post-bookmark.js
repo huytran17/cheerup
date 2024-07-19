@@ -57,11 +57,8 @@ export default {
       }
     },
 
-    updatePostBookmarkObject({ variable_path, data }) {
-      this.UPDATE_POST_BOOKMARK_DATA({
-        variable_path,
-        data,
-      });
+    updatePostBookmarkObject({ path, data }) {
+      this.UPDATE_POST_BOOKMARK_DATA({ path, data });
     },
   },
 };

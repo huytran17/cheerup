@@ -10,11 +10,9 @@ const mutations: MutationTree<UserState> = {
 
   [MutationTypes.UPDATE_USER_DATA](
     state,
-    { variable_path, data }: { variable_path: string; data: any }
+    { path, data }: { path: string; data: any }
   ) {
-    state.user = update(state.user, variable_path, (n) => {
-      return data;
-    });
+    state.user = update(state.user, path, (n) => data);
   },
 };
 

@@ -31,11 +31,8 @@ export default {
       UPDATE_USER_DATA: "user/UPDATE_USER_DATA",
     }),
 
-    updateUserObject({ variable_path, data }) {
-      this.UPDATE_USER_DATA({
-        variable_path,
-        data,
-      });
+    updateUserObject({ path, data }) {
+      this.UPDATE_USER_DATA({ path, data });
     },
   },
 };

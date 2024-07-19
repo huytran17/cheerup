@@ -15,12 +15,7 @@
           :rules="passwordRules"
           :value="password_reset.password"
           @click:append="show_password = !show_password"
-          @input="
-            updatePasswordResetObject({
-              variable_path: 'password',
-              data: $event,
-            })
-          "
+          @input="updatePasswordResetObject({ path: 'password', data: $event })"
         ></v-text-field>
       </v-col>
       <v-col cols="12">
@@ -36,7 +31,7 @@
           "
           @input="
             updatePasswordResetObject({
-              variable_path: 'password_confirmation',
+              path: 'password_confirmation',
               data: $event,
             })
           "

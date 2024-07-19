@@ -11,12 +11,7 @@
           :value="me.full_name"
           :rules="fullnameRules"
           :label="$t('Fullname')"
-          @input="
-            updateMeObject({
-              variable_path: 'full_name',
-              data: $event,
-            })
-          "
+          @input="updateMeObject({ path: 'full_name', data: $event })"
         ></v-text-field>
       </v-col>
       <v-col cols="12" md="6">

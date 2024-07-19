@@ -33,6 +33,9 @@ const mutations: MutationTree<PostBookmarkState> = {
         per_page: number;
         total: number;
         total_pages: number;
+        from: number;
+        to: number;
+        has_more: boolean;
       };
     }
   ) {
@@ -41,13 +44,9 @@ const mutations: MutationTree<PostBookmarkState> = {
 
   [MutationTypes.UPDATE_POST_BOOKMARK_DATA](
     state,
-    { variable_path, data }: { variable_path: string; data: any }
+    { path, data }: { path: string; data: any }
   ) {
-    state.post_bookmark = update(
-      state.post_bookmark,
-      variable_path,
-      (n) => data
-    );
+    state.post_bookmark = update(state.post_bookmark, path, (n) => data);
   },
 };
 

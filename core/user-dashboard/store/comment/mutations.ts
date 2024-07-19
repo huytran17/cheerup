@@ -14,6 +14,9 @@ const mutations: MutationTree<CommentState> = {
         per_page: number;
         total: number;
         total_pages: number;
+        from: number;
+        to: number;
+        has_more: boolean;
       };
     }
   ) {
@@ -45,45 +48,33 @@ const mutations: MutationTree<CommentState> = {
 
   [MutationTypes.UPDATE_COMMENT_DATA](
     state,
-    { variable_path, data }: { variable_path: string; data: any }
+    { path, data }: { path: string; data: any }
   ) {
-    state.comment = update(state.comment, variable_path, (n) => {
-      return data;
-    });
+    state.comment = update(state.comment, path, (n) => data);
   },
 
   [MutationTypes.UPDATE_NEW_COMMENT_DATA](
     state,
-    { variable_path, data }: { variable_path: string; data: any }
+    { path, data }: { path: string; data: any }
   ) {
-    state.new_comment = update(state.new_comment, variable_path, (n) => {
-      return data;
-    });
+    state.new_comment = update(state.new_comment, path, (n) => data);
   },
 
   [MutationTypes.UPDATE_EDITING_COMMENT_DATA](
     state,
-    { variable_path, data }: { variable_path: string; data: any }
+    { path, data }: { path: string; data: any }
   ) {
-    state.editing_comment = update(
-      state.editing_comment,
-      variable_path,
-      (n) => {
-        return data;
-      }
-    );
+    state.editing_comment = update(state.editing_comment, path, (n) => data);
   },
 
   [MutationTypes.UPDATE_NEW_REPLY_COMMENT_DATA](
     state,
-    { variable_path, data }: { variable_path: string; data: any }
+    { path, data }: { path: string; data: any }
   ) {
     state.new_reply_comment = update(
       state.new_reply_comment,
-      variable_path,
-      (n) => {
-        return data;
-      }
+      path,
+      (n) => data
     );
   },
 };

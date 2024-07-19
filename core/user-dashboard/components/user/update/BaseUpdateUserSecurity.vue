@@ -12,7 +12,7 @@
           :type="show_password ? 'text' : 'password'"
           :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
           @click:append="show_password = !show_password"
-          @input="updateUserObject({ variable_path: 'password', data: $event })"
+          @input="updateUserObject({ path: 'password', data: $event })"
           :rules="passwordRules"
           :disabled="is_socialite_account"
         ></v-text-field>
@@ -23,9 +23,7 @@
           :type="show_new_password ? 'text' : 'password'"
           :append-icon="show_new_password ? 'mdi-eye' : 'mdi-eye-off'"
           @click:append="show_new_password = !show_new_password"
-          @input="
-            updateUserObject({ variable_path: 'new_password', data: $event })
-          "
+          @input="updateUserObject({ path: 'new_password', data: $event })"
           :rules="newPasswordRules"
           :disabled="is_socialite_account"
         ></v-text-field>
@@ -40,7 +38,7 @@
           "
           @input="
             updateUserObject({
-              variable_path: 'new_password_confirmation',
+              path: 'new_password_confirmation',
               data: $event,
             })
           "

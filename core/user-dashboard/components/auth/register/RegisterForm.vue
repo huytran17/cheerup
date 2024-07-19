@@ -28,12 +28,7 @@
               hide-details
               filled
               :rules="emailRules"
-              @input="
-                updateUserObject({
-                  variable_path: 'email',
-                  data: $event,
-                })
-              "
+              @input="updateUserObject({ path: 'email', data: $event })"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -51,12 +46,7 @@
               hide-details
               filled
               :rules="fullnameRules"
-              @input="
-                updateUserObject({
-                  variable_path: 'full_name',
-                  data: $event,
-                })
-              "
+              @input="updateUserObject({ path: 'full_name', data: $event })"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -75,12 +65,7 @@
               hide-details
               filled
               :rules="passwordRules"
-              @input="
-                updateUserObject({
-                  variable_path: 'password',
-                  data: $event,
-                })
-              "
+              @input="updateUserObject({ path: 'password', data: $event })"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -103,7 +88,7 @@
               :rules="passwordConfirmationRules"
               @input="
                 updateUserObject({
-                  variable_path: 'password_confirmation',
+                  path: 'password_confirmation',
                   data: $event,
                 })
               "

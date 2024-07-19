@@ -16,12 +16,7 @@
             :label="$t('Enter your email')"
             :rules="emailRules"
             :value="password_reset.email"
-            @input="
-              updatePasswordResetObject({
-                variable_path: 'email',
-                data: $event,
-              })
-            "
+            @input="updatePasswordResetObject({ path: 'email', data: $event })"
           ></v-text-field>
         </v-col>
         <v-col cols="12" class="d-flex justify-end pt-0">
