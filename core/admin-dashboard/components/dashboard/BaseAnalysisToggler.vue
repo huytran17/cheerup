@@ -156,7 +156,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@include media-max-width(toRem(600)) {
+@include media-max-tablet {
   .analysis-toggler-wrapper {
     gap: toRem(12);
   }

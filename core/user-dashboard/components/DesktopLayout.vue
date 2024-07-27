@@ -85,7 +85,7 @@ export default {
   }
 }
 
-@include media-max-width(toRem(767)) {
+@include media-max-tablet {
   .container {
     width: 100%;
   }
