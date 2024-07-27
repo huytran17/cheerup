@@ -87,22 +87,41 @@
           </v-tooltip>
           <v-tooltip left>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn
+              <v-menu
                 v-bind="attrs"
                 v-on="on"
-                color="brick"
-                target="_blank"
-                height="auto"
-                width="auto"
-                class="px-2"
-                icon
-                outlined
+                offset-y
+                close-on-click
+                left
                 tile
-                @click="exportToXls"
               >
-                <v-icon small>mdi-export</v-icon>
-                <span>{{ $t("Export CSV") }}</span>
-              </v-btn>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    v-bind="attrs"
+                    v-on="on"
+                    color="brick"
+                    height="auto"
+                    width="auto"
+                    class="px-2"
+                    icon
+                    outlined
+                    tile
+                  >
+                    <v-icon small>mdi-export</v-icon>
+                    {{ $t("Export CSV") }}
+                  </v-btn>
+                </template>
+                <v-list>
+                  <v-list-item
+                    v-for="(option, index) in export_options"
+                    :key="`export-admins-${index}`"
+                  >
+                    <v-list-item-title class="clickable" @click="option.action">
+                      <span>{{ option.title }}</span>
+                    </v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
             </template>
             {{ $t("Export CSV") }}
           </v-tooltip>
@@ -146,6 +165,23 @@ export default {
       admin_pagination: "admin/pagination",
       admins: "admin/admins",
     }),
+
+    export_options() {
+      return [
+        {
+          title: `${this.$t("Current Page")} (${this.admins.length})`,
+          action: this.exportToXls,
+        },
+        {
+          title: `${this.$t("All")} (${this.admin_pagination.total})`,
+          action: this.exportAllToXls,
+        },
+      ];
+    },
+
+    random_file_name() {
+      return;
+    },
   },
 
   methods: {
@@ -154,6 +190,7 @@ export default {
         "system-configuration/GET_LATEST_SYSTEM_CONFIGURATION",
       BATCH_UPLOAD_ADMINS: "admin/BATCH_UPLOAD_ADMINS",
       GET_ADMINS_PAGINATED: "admin/GET_ADMINS_PAGINATED",
+      GET_ADMINS: "admin/GET_ADMINS",
     }),
 
     ...mapMutations({
@@ -182,6 +219,16 @@ export default {
     exportToXls() {
       try {
         exportFromJSON({ data: this.admins, fileName: "admins-data" });
+      } catch (error) {
+        console.error(error);
+        this.$toast.error(this.$t(`Encountered error while exporting admins`));
+      }
+    },
+
+    async exportAllToXls() {
+      try {
+        const admins = await this.GET_ADMINS({ keep_in_store: false });
+        exportFromJSON({ data: admins, fileName: "admins-data" });
       } catch (error) {
         console.error(error);
         this.$toast.error(this.$t(`Encountered error while exporting admins`));
