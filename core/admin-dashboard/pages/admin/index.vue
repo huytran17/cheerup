@@ -178,10 +178,6 @@ export default {
         },
       ];
     },
-
-    random_file_name() {
-      return;
-    },
   },
 
   methods: {
