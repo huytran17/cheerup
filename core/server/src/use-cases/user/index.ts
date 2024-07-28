@@ -1,4 +1,5 @@
 import { logger } from "../../config/logs/logger";
+import { randomCacheTime } from "../../config/random-cache-time";
 import { redis } from "../../config/redis";
 import { UserDb } from "../../data-access";
 import makeBatchUploadUsers from "./batch-upload-users";
@@ -20,6 +21,9 @@ import makeUpdateUser from "./update-user";
 
 const getUsersPaginated = makeGetUsersPaginated({
   userDb: UserDb,
+  randomCacheTime,
+  redis,
+  logger,
 });
 
 const batchUploadUsers = makeBatchUploadUsers({
