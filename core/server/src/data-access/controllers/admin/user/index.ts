@@ -8,6 +8,7 @@ import {
   getUserAnalystics,
   getUserByEmail,
   getUsers,
+  getUsersPaginated,
   hardDeleteUser,
   resetLoginFailedTimes,
   restoreUser,
@@ -20,6 +21,7 @@ import makeGetUserController from "./get-user";
 import makeGetUserAnalysticsController from "./get-user-analystics";
 import makeGetUserByEmailController from "./get-user-by-email";
 import makeGetUsersController from "./get-users";
+import makeGetUsersPaginatedController from "./get-users-paginated";
 import makeHardDeleteUserController from "./hard-delete-user";
 import makeResetUserLoginFailedTimesController from "./reset-user-login-failed-times";
 import makeRestoreUserController from "./restore-user";
@@ -27,6 +29,10 @@ import makeUnBlockUserCommentController from "./un-block-user-comment";
 import makeUpdateUserController from "./update-user";
 import makeUpdateUserPasswordController from "./update-user-password";
 import makeUploadUserAvatarController from "./upload-avatar";
+
+const getUsersPaginatedController = makeGetUsersPaginatedController({
+  getUsersPaginated,
+});
 
 const resetUserLoginFailedTimesController =
   makeResetUserLoginFailedTimesController({
@@ -121,6 +127,7 @@ export default Object.freeze({
   hardDeleteUserController,
   getUserAnalysticsController,
   resetUserLoginFailedTimesController,
+  getUsersPaginatedController,
 });
 
 export {
@@ -131,6 +138,7 @@ export {
   getUserByEmailController,
   getUserController,
   getUsersController,
+  getUsersPaginatedController,
   hardDeleteUserController,
   resetUserLoginFailedTimesController,
   restoreUserController,
