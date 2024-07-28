@@ -1,39 +1,47 @@
 import { Router } from "express";
-import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
 import makeAuthorization from "../../config/middlewares/authorization";
+import makeValidator from "../../config/middlewares/validator";
 import { AuthorizationRole } from "../../constants/authorization-role";
-
 import {
-  getUserRules,
-  updateUserRules,
-  deleteUserRules,
-  createUserRules,
-  unblockUserCommentRules,
+  blockUserCommentController,
+  createUserController,
+  deleteUserController,
+  getUserAnalysticsController,
+  getUserController,
+  getUsersController,
+  getUsersPaginatedController,
+  hardDeleteUserController,
+  resetUserLoginFailedTimesController,
+  restoreUserController,
+  unblockUserCommentController,
+  updateUserController,
+  updateUserPasswordController,
+  uploadUserAvatarController,
+} from "../../data-access/controllers/admin/user";
+import {
   blockUserCommentRules,
-  uploadUserAvatarRules,
-  updateUserPasswordRules,
-  restoreUserRules,
+  createUserRules,
+  deleteUserRules,
+  getUserRules,
+  getUsersPaginatedRules,
   hardDeleteUserRules,
   resetUserLoginFailedTimesRules,
+  restoreUserRules,
+  unblockUserCommentRules,
+  updateUserPasswordRules,
+  updateUserRules,
+  uploadUserAvatarRules,
 } from "../../data-access/controllers/admin/user/validators";
-import {
-  getUserController,
-  updateUserController,
-  getUsersController,
-  deleteUserController,
-  createUserController,
-  blockUserCommentController,
-  unblockUserCommentController,
-  uploadUserAvatarController,
-  updateUserPasswordController,
-  restoreUserController,
-  hardDeleteUserController,
-  getUserAnalysticsController,
-  resetUserLoginFailedTimesController,
-} from "../../data-access/controllers/admin/user";
 
 const userRouter = Router();
+
+userRouter.get(
+  "/all-paginated",
+  makeAuthorization(AuthorizationRole.OWNER_AND_COLLABORATOR),
+  makeValidator(getUsersPaginatedRules),
+  makeExpressCallback(getUsersPaginatedController)
+);
 
 userRouter.put(
   "/reset-user-login-failed-times/:_id",
