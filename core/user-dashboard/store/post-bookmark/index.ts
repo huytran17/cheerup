@@ -2,7 +2,7 @@ export const state = () => ({
   post_bookmark: {} as any,
   post_bookmarks: [] as any[],
   post_bookmarks_count: 0,
-  pagination: {
+  pagination: <IPagination>{
     current_page: 1,
     from: 0,
     to: 1,

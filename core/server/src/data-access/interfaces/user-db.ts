@@ -34,15 +34,7 @@ export default interface IUserDb {
 
 export interface IPaginatedUsersResult {
   data: IUser[];
-  pagination: {
-    current_page: number;
-    from: number;
-    to: number;
-    per_page: number;
-    total: number;
-    total_pages: number;
-    has_more: boolean;
-  };
+  pagination: IPagination;
 }
 
 export interface IUserAnalyticsData {

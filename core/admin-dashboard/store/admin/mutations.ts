@@ -35,15 +35,7 @@ const mutations: MutationTree<AdminState> = {
     {
       data,
     }: {
-      data: {
-        current_page: number;
-        per_page: number;
-        total: number;
-        total_pages: number;
-        from: number;
-        to: number;
-        has_more: boolean;
-      };
+      data: IPagination;
     }
   ) {
     state.pagination = data;

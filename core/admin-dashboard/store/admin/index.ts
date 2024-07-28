@@ -2,7 +2,7 @@ export const state = () => ({
   admin: {} as any,
   admins: [] as any[],
   admin_analys_data: {} as Record<string, unknown>,
-  pagination: {
+  pagination: <IPagination>{
     current_page: 1,
     from: 0,
     to: 1,

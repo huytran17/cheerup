@@ -45,13 +45,5 @@ export default interface ICommentDb {
 
 export interface IPaginatedCommentsResult {
   data: IComment[];
-  pagination: {
-    current_page: number;
-    from: number;
-    to: number;
-    per_page: number;
-    total: number;
-    total_pages: number;
-    has_more: boolean;
-  };
+  pagination: IPagination;
 }

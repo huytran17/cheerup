@@ -2,7 +2,7 @@ export const state = () => ({
   user: {} as any,
   user_analys_data: {} as any,
   users: [] as any[],
-  pagination: {
+  pagination: <IPagination>{
     current_page: 1,
     from: 0,
     to: 1,

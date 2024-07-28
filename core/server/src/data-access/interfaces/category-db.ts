@@ -36,15 +36,7 @@ export default interface ICategoryDb {
 
 export interface IPaginatedCategoriesResult {
   data: ICategory[];
-  pagination: {
-    current_page: number;
-    from: number;
-    to: number;
-    per_page: number;
-    total: number;
-    total_pages: number;
-    has_more: boolean;
-  };
+  pagination: IPagination;
 }
 
 export interface ICategoryAnalyticsData {

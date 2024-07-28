@@ -1,7 +1,7 @@
 export const state = () => ({
   gallery: {} as any,
   galleries: [] as any,
-  pagination: {
+  pagination: <IPagination>{
     current_page: 1,
     from: 0,
     to: 1,

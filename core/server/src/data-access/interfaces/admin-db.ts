@@ -34,15 +34,7 @@ export default interface IAdminDb {
 
 export interface IPaginatedAdminsResult {
   data: IAdmin[];
-  pagination: {
-    current_page: number;
-    from: number;
-    to: number;
-    per_page: number;
-    total: number;
-    total_pages: number;
-    has_more: boolean;
-  };
+  pagination: IPagination;
 }
 
 export interface IAdminAnalyticsData {

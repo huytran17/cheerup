@@ -2,7 +2,7 @@ export const state = () => ({
   category: {} as any,
   categories: [] as any[],
   category_titles: [] as any[],
-  pagination: {
+  pagination: <IPagination>{
     current_page: 1,
     from: 0,
     to: 1,

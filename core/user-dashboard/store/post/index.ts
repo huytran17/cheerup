@@ -1,6 +1,6 @@
 export const state = () => ({
   post: {} as any,
-  pagination: {
+  pagination: <IPagination>{
     current_page: 1,
     from: 0,
     to: 1,

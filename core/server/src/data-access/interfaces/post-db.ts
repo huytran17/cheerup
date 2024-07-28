@@ -65,15 +65,7 @@ export default interface IPostDb {
 
 export interface IPaginatedPostsResult {
   data: IPost[];
-  pagination: {
-    current_page: number;
-    from: number;
-    to: number;
-    per_page: number;
-    total: number;
-    total_pages: number;
-    has_more: boolean;
-  };
+  pagination: IPagination;
 }
 
 export interface IPostAnalytics {
