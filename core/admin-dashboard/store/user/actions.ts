@@ -114,6 +114,27 @@ const actions: ActionTree<UserState, RootState> = {
 
     return data;
   },
+
+  async [ActionTypes.GET_USERS_PAGINATED]({ commit }, params = {}) {
+    const query = get(params, "query");
+    const page = get(params, "page", 1);
+    const entries_per_page = get(params, "entries_per_page", 15);
+
+    const query_url = new URLSearchParams();
+
+    query && query_url.set("query", query);
+    page && query_url.set("page", page);
+    entries_per_page && query_url.set("entries_per_page", entries_per_page);
+
+    const { data, pagination } = await this.$axios.$get(
+      "/user/get-users-paginated"
+    );
+
+    commit(MutationTypes.SET_USERS, { data });
+    commit(MutationTypes.SET_USER_PAGINATION, { data: pagination });
+
+    return data;
+  },
 };
 
 export default actions;
