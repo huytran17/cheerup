@@ -32,6 +32,7 @@ export default {
       user: "user/user",
       users: "user/users",
       user_analys_data: "user/user_analys_data",
+      user_pagination: "user/pagination",
     }),
   },
   methods: {
@@ -50,11 +51,14 @@ export default {
       GET_USER_ANALYTICS: "user/GET_USER_ANALYTICS",
       RESET_USER_LOGIN_FAILED_TIMES: "user/RESET_USER_LOGIN_FAILED_TIMES",
       BATCH_UPLOAD_USERS: "user/BATCH_UPLOAD_USERS",
+      GET_USERS_PAGINATED: "user/GET_USERS_PAGINATED",
     }),
     ...mapMutations({
       SET_USER: "user/SET_USER",
       SET_USERS: "user/SET_USERS",
       UPDATE_USER_DATA: "user/UPDATE_USER_DATA",
+      SET_USER_PAGINATION: "user/SET_USER_PAGINATION",
+      UPDATE_USER_PAGINATION: "user/UPDATE_USER_PAGINATION",
     }),
 
     updateUserObject({ path, data }) {
