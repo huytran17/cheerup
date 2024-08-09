@@ -87,21 +87,41 @@
           </v-tooltip>
           <v-tooltip left>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn
+              <v-menu
                 v-bind="attrs"
                 v-on="on"
-                color="brick"
-                target="_blank"
-                height="auto"
-                width="auto"
-                class="px-2"
-                icon
-                outlined
+                offset-y
+                close-on-click
+                left
                 tile
               >
-                <v-icon small>mdi-export</v-icon>
-                <span>{{ $t("Export CSV") }}</span>
-              </v-btn>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    v-bind="attrs"
+                    v-on="on"
+                    color="brick"
+                    height="auto"
+                    width="auto"
+                    class="px-2"
+                    icon
+                    outlined
+                    tile
+                  >
+                    <v-icon small>mdi-export</v-icon>
+                    {{ $t("Export CSV") }}
+                  </v-btn>
+                </template>
+                <v-list>
+                  <v-list-item
+                    v-for="(option, index) in export_options"
+                    :key="`export-users-${index}`"
+                  >
+                    <v-list-item-title class="clickable" @click="option.action">
+                      <span>{{ option.title }}</span>
+                    </v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
             </template>
             {{ $t("Export CSV") }}
           </v-tooltip>
@@ -119,6 +139,7 @@
 <script>
 import { ADMIN_TYPES, MIME_TYPES } from "@/constants";
 import { mapActions, mapGetters } from "vuex";
+import { exportFromJSON } from "@/config/export-from-json";
 import BaseUserTable from "@/components/user/widget/BaseUserTable";
 export default {
   name: "UserIndex",
@@ -141,7 +162,22 @@ export default {
   computed: {
     ...mapGetters({
       system_configuration: "system-configuration/system_configuration",
+      users: "user/users",
+      user_pagination: "user/pagination",
     }),
+
+    export_options() {
+      return [
+        {
+          title: `${this.$t("Current Page")} (${this.users.length})`,
+          action: this.exportToXls,
+        },
+        {
+          title: `${this.$t("All")} (${this.user_pagination.total})`,
+          action: this.exportAllToXls,
+        },
+      ];
+    },
   },
 
   methods: {
@@ -149,15 +185,38 @@ export default {
       GET_LATEST_SYSTEM_CONFIGURATION:
         "system-configuration/GET_LATEST_SYSTEM_CONFIGURATION",
       GET_USERS: "user/GET_USERS",
+      GET_USERS_PAGINATED: "user/GET_USERS_PAGINATED",
       BATCH_UPLOAD_USERS: "user/BATCH_UPLOAD_USERS",
     }),
 
     async batchUploadUsers(file) {
       try {
         await this.BATCH_UPLOAD_USERS({ file });
-        await this.GET_USERS();
+        await this.GET_USERS_PAGINATED({
+          page: this.user_pagination.current_page,
+          entries_per_page: this.user_pagination.per_page,
+        });
       } catch (error) {
         console.error(error);
+      }
+    },
+
+    exportToXls() {
+      try {
+        exportFromJSON({ data: this.users, fileName: "users-data" });
+      } catch (error) {
+        console.error(error);
+        this.$toast.error(this.$t(`Encountered error while exporting users`));
+      }
+    },
+
+    async exportAllToXls() {
+      try {
+        const users = await this.GET_USERS({ keep_in_store: false });
+        exportFromJSON({ data: users, fileName: "users-data" });
+      } catch (error) {
+        console.error(error);
+        this.$toast.error(this.$t(`Encountered error while exporting users`));
       }
     },
   },

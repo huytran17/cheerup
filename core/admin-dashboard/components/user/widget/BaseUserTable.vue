@@ -1,7 +1,17 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-data-table :headers="headers" :items="users" :search="search">
+      <v-data-table
+        :headers="headers"
+        :items="users"
+        :search="search"
+        :page="user_pagination.current_page"
+        :items-per-page="user_pagination.per_page"
+        :multi-sort="true"
+        :server-items-length="user_pagination.total"
+        @update:items-per-page="tableUpdateItemsPerPage"
+        @update:page="tableUpdatePage"
+      >
         <template v-slot:item.full_name="{ item }">
           <div
             class="text-body-2 primary--text clickable"
@@ -217,6 +227,30 @@ export default {
   },
 
   methods: {
+    async tableUpdatePage(data) {
+      console.log("--------------------1", data);
+      try {
+        await this.GET_USERS_PAGINATED({
+          page: data,
+          entries_per_page: this.user_pagination.per_page,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async tableUpdateItemsPerPage(data) {
+      console.log("--------------------2", data);
+      try {
+        await this.GET_USERS_PAGINATED({
+          page: 1,
+          entries_per_page: data,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
     async resetLoginFailedTimes(user) {
       try {
         await this.RESET_USER_LOGIN_FAILED_TIMES({ id: user._id });
@@ -318,7 +352,10 @@ export default {
 
   async fetch() {
     try {
-      await this.GET_USERS();
+      await this.GET_USERS_PAGINATED({
+        page: this.user_pagination.current_page,
+        entries_per_page: this.user_pagination.per_page,
+      });
     } catch (error) {
       console.error(error);
     }
