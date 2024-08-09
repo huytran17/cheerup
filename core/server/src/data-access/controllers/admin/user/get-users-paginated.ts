@@ -23,7 +23,11 @@ export default function makeGetUsersPaginatedController({
         get(httpRequest, "context.validated", {})
       );
 
-      const data = await getUsersPaginated({ query, page, entries_per_page });
+      const data = await getUsersPaginated({
+        query,
+        page: Number(page),
+        entries_per_page: Number(entries_per_page),
+      });
 
       return {
         headers,
