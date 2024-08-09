@@ -34,33 +34,31 @@ const actions: ActionTree<UserState, RootState> = {
   async [ActionTypes.GET_USERS]({ commit }, params = {}) {
     const keep_in_store = get(params, "keep_in_store", true);
 
-    const { data: users } = await this.$axios.$get("/user");
+    const { data } = await this.$axios.$get("/user");
 
     if (!keep_in_store) {
-      return users;
+      return data;
     }
 
-    commit(MutationTypes.SET_USERS, { data: users });
-    return users;
+    commit(MutationTypes.SET_USERS, { data });
+    return data;
   },
 
   async [ActionTypes.BLOCK_USER_COMMENT]({ commit }, { id }: { id: string }) {
-    const { data: user } = await this.$axios.$put(`/user/block-comment/${id}`);
-    return user;
+    const { data } = await this.$axios.$put(`/user/block-comment/${id}`);
+    return data;
   },
 
   async [ActionTypes.UNBLOCK_USER_COMMENT]({ commit }, { id }: { id: string }) {
-    const { data: user } = await this.$axios.$put(
-      `/user/un-block-comment/${id}`
-    );
-    return user;
+    const { data } = await this.$axios.$put(`/user/un-block-comment/${id}`);
+    return data;
   },
 
   async [ActionTypes.GET_USER]({ commit }, { id }: { id: string }) {
-    const { data: user } = await this.$axios.$get(`/user/${id}`);
+    const { data } = await this.$axios.$get(`/user/${id}`);
 
-    commit(MutationTypes.SET_USER, { data: user });
-    return user;
+    commit(MutationTypes.SET_USER, { data });
+    return data;
   },
 
   async [ActionTypes.CREATE_USER]({ commit }, { data }: { data: any }) {
@@ -76,29 +74,29 @@ const actions: ActionTree<UserState, RootState> = {
   },
 
   async [ActionTypes.DELETE_USER]({ commit }, { id }: { id: string }) {
-    const { data: user } = await this.$axios.$delete(`/user/${id}`);
-    return user;
+    const { data } = await this.$axios.$delete(`/user/${id}`);
+    return data;
   },
 
   async [ActionTypes.HARD_DELETE_USER]({ commit }, { id }: { id: string }) {
-    const { data: user } = await this.$axios.$delete(`/user/hard-delete/${id}`);
-    return user;
+    const { data } = await this.$axios.$delete(`/user/hard-delete/${id}`);
+    return data;
   },
 
   async [ActionTypes.RESTORE_USER]({ commit }, { id }: { id: string }) {
-    const { data: user } = await this.$axios.$put(`/user/restore/${id}`);
-    return user;
+    const { data } = await this.$axios.$put(`/user/restore/${id}`);
+    return data;
   },
 
   async [ActionTypes.RESET_USER_LOGIN_FAILED_TIMES](
     { commit },
     { id }: { id: string }
   ) {
-    const { data: user } = await this.$axios.$put(
+    const { data } = await this.$axios.$put(
       `/user/reset-user-login-failed-times/${id}`
     );
 
-    return user;
+    return data;
   },
 
   async [ActionTypes.BATCH_UPLOAD_USERS]({ commit }, params = {}) {
@@ -127,7 +125,7 @@ const actions: ActionTree<UserState, RootState> = {
     entries_per_page && query_url.set("entries_per_page", entries_per_page);
 
     const { data, pagination } = await this.$axios.$get(
-      "/user/get-users-paginated"
+      `/user/all-paginated?${query_url}`
     );
 
     commit(MutationTypes.SET_USERS, { data });
