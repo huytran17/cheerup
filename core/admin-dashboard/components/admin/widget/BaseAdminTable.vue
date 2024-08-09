@@ -8,7 +8,7 @@
         :page="admin_pagination.current_page"
         :items-per-page="admin_pagination.per_page"
         :multi-sort="true"
-        :server-items-length="admin_pagination.total - 1"
+        :server-items-length="admin_pagination.total"
         @update:items-per-page="tableUpdateItemsPerPage"
         @update:page="tableUpdatePage"
       >
