@@ -1,9 +1,9 @@
-import { ActionTypes } from "./action-types";
-import { MutationTypes } from "./mutation-types";
+import { get, join } from "lodash";
 import { ActionTree } from "vuex";
 import { PostState } from ".";
 import { RootState } from "..";
-import { get, join } from "lodash";
+import { ActionTypes } from "./action-types";
+import { MutationTypes } from "./mutation-types";
 
 const actions: ActionTree<PostState, RootState> = {
   async [ActionTypes.GET_POST_ANALYTICS]({ commit }, params = {}) {
@@ -20,7 +20,6 @@ const actions: ActionTree<PostState, RootState> = {
 
     const { data } = await this.$axios.$get(`/post/analystics?${url_query}`);
     commit(MutationTypes.SET_POST_ANALYS_DATA, { data });
-    return data;
   },
 
   async [ActionTypes.GET_MOST_POPULAR_POSTS_ANALYTICS](
@@ -46,46 +45,35 @@ const actions: ActionTree<PostState, RootState> = {
     );
 
     commit(MutationTypes.SET_MOST_POPULAR_POSTS_ANALYS_DATA, { data });
-    return data;
   },
 
   async [ActionTypes.GET_POSTS]({ commit }, params = {}) {
     const keep_in_store = get(params, "keep_in_store", true);
 
-    const { data: posts } = await this.$axios.$get("/post");
+    const { data } = await this.$axios.$get("/post");
 
     if (!keep_in_store) {
-      return posts;
+      return data;
     }
 
-    commit(MutationTypes.SET_POSTS, { data: posts });
-
-    return posts;
+    commit(MutationTypes.SET_POSTS, { data });
   },
 
   async [ActionTypes.GET_POST]({ commit }, { id }: { id: string }) {
-    const { data: post } = await this.$axios.$get(`/post/${id}`);
-
-    commit(MutationTypes.SET_POST, { data: post });
-
-    return post;
+    const { data } = await this.$axios.$get(`/post/${id}`);
+    commit(MutationTypes.SET_POST, { data });
   },
 
   async [ActionTypes.BLOCK_POST_COMMENT]({ commit }, { id }: { id: string }) {
-    const { data: post } = await this.$axios.$put(`/post/block-comment/${id}`);
-    return post;
+    await this.$axios.$put(`/post/block-comment/${id}`);
   },
 
   async [ActionTypes.UNBLOCK_POST_COMMENT]({ commit }, { id }: { id: string }) {
-    const { data: post } = await this.$axios.$put(
-      `/post/un-block-comment/${id}`
-    );
-    return post;
+    await this.$axios.$put(`/post/un-block-comment/${id}`);
   },
 
   async [ActionTypes.RESTORE_POST]({ commit }, { id }: { id: string }) {
-    const { data: post } = await this.$axios.$put(`/post/restore/${id}`);
-    return post;
+    await this.$axios.$put(`/post/restore/${id}`);
   },
 
   async [ActionTypes.CREATE_POST]({ commit }, { data }: { data: any }) {
@@ -98,19 +86,15 @@ const actions: ActionTree<PostState, RootState> = {
     const { data: post } = await this.$axios.$put(`/post/${_id}`, data);
 
     commit(MutationTypes.SET_POST, { data: post });
-    return post;
   },
 
   async [ActionTypes.DELETE_POST]({ commit }, { id }: { id: string }) {
     const { data: post } = await this.$axios.$delete(`/post/${id}`);
-
     commit(MutationTypes.SET_POST, { data: post });
-    return post;
   },
 
   async [ActionTypes.HARD_DELETE_POST]({ commit }, { id }: { id: string }) {
-    const { data: post } = await this.$axios.$delete(`/post/hard-delete/${id}`);
-    return post;
+    await this.$axios.$delete(`/post/hard-delete/${id}`);
   },
 };
 

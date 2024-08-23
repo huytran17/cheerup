@@ -1,9 +1,9 @@
-import { ActionTypes } from "./action-types";
-import { MutationTypes } from "./mutation-types";
+import { get, join } from "lodash";
 import { ActionTree } from "vuex";
 import { CategoryState } from ".";
 import { RootState } from "..";
-import { get, join } from "lodash";
+import { ActionTypes } from "./action-types";
+import { MutationTypes } from "./mutation-types";
 
 const actions: ActionTree<CategoryState, RootState> = {
   async [ActionTypes.GET_CATEGORY_ANALYTICS]({ commit }, params = {}) {
@@ -25,28 +25,22 @@ const actions: ActionTree<CategoryState, RootState> = {
       `/category/analystics?${url_query}`
     );
     commit(MutationTypes.SET_CATEGORY_ANALYS_DATA, { data });
-    return data;
   },
   async [ActionTypes.GET_CATEGORIES]({ commit }, params = {}) {
     const keep_in_store = get(params, "keep_in_store", true);
 
-    const { data: categories } = await this.$axios.$get("/category");
+    const { data } = await this.$axios.$get("/category");
 
     if (!keep_in_store) {
-      return categories;
+      return data;
     }
 
-    commit(MutationTypes.SET_CATEGORIES, { data: categories });
-
-    return categories;
+    commit(MutationTypes.SET_CATEGORIES, { data });
   },
 
   async [ActionTypes.GET_CATEGORY]({ commit }, { id }: { id: string }) {
-    const { data: category } = await this.$axios.$get(`/category/${id}`);
-
-    commit(MutationTypes.SET_CATEGORY, { data: category });
-
-    return category;
+    const { data } = await this.$axios.$get(`/category/${id}`);
+    commit(MutationTypes.SET_CATEGORY, { data });
   },
 
   async [ActionTypes.CREATE_CATEGORY]({ commit }, { data }: { data: any }) {
@@ -59,27 +53,18 @@ const actions: ActionTree<CategoryState, RootState> = {
     const { data: category } = await this.$axios.$put(`/category/${_id}`, data);
 
     commit(MutationTypes.SET_CATEGORY, { data: category });
-
-    return category;
   },
 
   async [ActionTypes.DELETE_CATEGORY]({ commit }, { id }: { id: string }) {
-    const { data: category } = await this.$axios.$delete(`/category/${id}`);
-    return category;
+    await this.$axios.$delete(`/category/${id}`);
   },
 
   async [ActionTypes.RESTORE_CATEGORY]({ commit }, { id }: { id: string }) {
-    const { data: category } = await this.$axios.$put(
-      `/category/restore/${id}`
-    );
-    return category;
+    await this.$axios.$put(`/category/restore/${id}`);
   },
 
   async [ActionTypes.HARD_DELETE_CATEGORY]({ commit }, { id }: { id: string }) {
-    const { data: category } = await this.$axios.$delete(
-      `/category/hard-delete/${id}`
-    );
-    return category;
+    await this.$axios.$delete(`/category/hard-delete/${id}`);
   },
 };
 

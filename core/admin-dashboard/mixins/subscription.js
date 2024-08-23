@@ -11,7 +11,6 @@ export default {
   methods: {
     ...mapActions({
       GET_SUBSCRIPTIONS: "subscription/GET_SUBSCRIPTIONS",
-      GET_SUBSCRIPTION: "subscription/GET_SUBSCRIPTION",
       GET_SUBSCRIPTION_ANALYTICS: "subscription/GET_SUBSCRIPTION_ANALYTICS",
     }),
     ...mapMutations({

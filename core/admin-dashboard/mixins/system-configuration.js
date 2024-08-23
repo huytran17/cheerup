@@ -8,7 +8,6 @@ export default {
   },
   methods: {
     ...mapActions({
-      GET_SYSTEM_CONFIGURATION: "system-configuration/GET_SYSTEM_CONFIGURATION",
       GET_LATEST_SYSTEM_CONFIGURATION:
         "system-configuration/GET_LATEST_SYSTEM_CONFIGURATION",
       UPDATE_SYSTEM_CONFIGURATION:

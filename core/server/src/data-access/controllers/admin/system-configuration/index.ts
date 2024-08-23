@@ -5,7 +5,6 @@ import {
   updateSystemConfiguration,
 } from "../../../../use-cases/system-configuration";
 import makeGetLatestSystemConfigurationController from "./get-latest-system-configuration";
-import makeGetSystemConfigurationController from "./get-system-configuration";
 import makeUpdateSystemConfigurationController from "./update-system-configuration";
 import makeUploadFolderIconController from "./upload-folder-icon";
 import makeUploadOwnerAvatarController from "./upload-owner-avatar";
@@ -31,10 +30,6 @@ const getLatestSystemConfigurationController =
     getLatestSystemConfiguration,
   });
 
-const getSystemConfigurationController = makeGetSystemConfigurationController({
-  getSystemConfiguration,
-});
-
 const updateSystemConfigurationController =
   makeUpdateSystemConfigurationController({
     getSystemConfiguration,
@@ -43,7 +38,6 @@ const updateSystemConfigurationController =
   });
 
 export default Object.freeze({
-  getSystemConfigurationController,
   updateSystemConfigurationController,
   getLatestSystemConfigurationController,
   uploadClientAvatarController,
@@ -53,7 +47,6 @@ export default Object.freeze({
 
 export {
   getLatestSystemConfigurationController,
-  getSystemConfigurationController,
   updateSystemConfigurationController,
   uploadClientAvatarController,
   uploadFolderIconController,

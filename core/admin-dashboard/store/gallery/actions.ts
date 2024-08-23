@@ -1,9 +1,9 @@
-import { ActionTypes } from "./action-types";
-import { MutationTypes } from "./mutation-types";
+import { get } from "lodash";
 import { ActionTree } from "vuex";
 import { GalleryState } from ".";
 import { RootState } from "..";
-import { get } from "lodash";
+import { ActionTypes } from "./action-types";
+import { MutationTypes } from "./mutation-types";
 
 const actions: ActionTree<GalleryState, RootState> = {
   async [ActionTypes.GET_GALLERIES_PAGINATED]({ commit }, params = {}) {
@@ -34,8 +34,6 @@ const actions: ActionTree<GalleryState, RootState> = {
 
     commit(MutationTypes.SET_GALLERIES, { data, new_state });
     commit(MutationTypes.SET_GALLERY_PAGINATION, { data: pagination });
-
-    return data;
   },
 
   async [ActionTypes.GET_GALLERIES_BY_PARENT](
@@ -43,53 +41,27 @@ const actions: ActionTree<GalleryState, RootState> = {
     { parent_id }: { parent_id: string }
   ) {
     const { data } = await this.$axios.$get(`/gallery/by-parent/${parent_id}`);
-
     commit(MutationTypes.SET_GALLERIES, { data, new_state: true });
-
-    return data;
   },
 
   async [ActionTypes.DELETE_GALLERY_ITEM](
     { commit },
     { _id, item_id }: { _id: string; item_id: string }
   ) {
-    const { data: updated_gallery } = await this.$axios.$put(
-      `/v2/gallery/delete-gallery-item/${_id}/${item_id}`
-    );
-
-    return updated_gallery;
+    await this.$axios.$put(`/v2/gallery/delete-gallery-item/${_id}/${item_id}`);
   },
 
   async [ActionTypes.HARD_DELETE_GALLERY]({ commit }, { id }: { id: string }) {
-    const { data: gallery } = await this.$axios.$delete(
-      `/gallery/hard-delete/${id}`
-    );
-
-    return gallery;
+    await this.$axios.$delete(`/gallery/hard-delete/${id}`);
   },
 
   async [ActionTypes.CREATE_GALLERY]({ commit }, { data }: { data: any }) {
-    const { data: gallery } = await this.$axios.$post(`/gallery`, data);
-
-    return gallery;
-  },
-
-  async [ActionTypes.UPLOAD_GALLERY_ITEM](
-    { commit },
-    { _id }: { _id: string }
-  ) {
-    const { data: gallery } = await this.$axios.$post(
-      `/upload-gallery-item/${_id}`
-    );
-
-    return gallery;
+    await this.$axios.$post(`/gallery`, data);
   },
 
   async [ActionTypes.GET_GALLERY]({ commit }, { _id }: { _id: string }) {
-    const { data: gallery } = await this.$axios.$get(`/gallery/${_id}`);
-
-    commit(MutationTypes.SET_GALLERY, { data: gallery });
-    return gallery;
+    const { data } = await this.$axios.$get(`/gallery/${_id}`);
+    commit(MutationTypes.SET_GALLERY, { data });
   },
 
   async [ActionTypes.UPDATE_GALLERY]({ commit }, { data }: { data: any }) {
@@ -97,7 +69,6 @@ const actions: ActionTree<GalleryState, RootState> = {
     const { data: gallery } = await this.$axios.$put(`/gallery/${_id}`, data);
 
     commit(MutationTypes.SET_GALLERY, { data: gallery });
-    return gallery;
   },
 };
 

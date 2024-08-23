@@ -10,10 +10,6 @@ export default {
   methods: {
     ...mapActions({
       GET_COMMENTS: "comment/GET_COMMENTS",
-      GET_COMMENT: "comment/GET_COMMENT",
-      CREATE_COMMENT: "comment/CREATE_COMMENT",
-      UPDATE_COMMENT: "comment/UPDATE_COMMENT",
-      UPLOAD_COMMENT_THUMBNAIL: "comment/UPLOAD_COMMENT_THUMBNAIL",
       HARD_DELETE_COMMENT: "comment/HARD_DELETE_COMMENT",
     }),
     ...mapMutations({

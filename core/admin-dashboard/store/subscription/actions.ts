@@ -1,9 +1,9 @@
-import { ActionTypes } from "./action-types";
-import { MutationTypes } from "./mutation-types";
+import { get, join } from "lodash";
 import { ActionTree } from "vuex";
 import { SubscriptionState } from ".";
 import { RootState } from "..";
-import { get, join } from "lodash";
+import { ActionTypes } from "./action-types";
+import { MutationTypes } from "./mutation-types";
 
 const actions: ActionTree<SubscriptionState, RootState> = {
   async [ActionTypes.GET_SUBSCRIPTION_ANALYTICS]({ commit }, params = {}) {
@@ -22,29 +22,18 @@ const actions: ActionTree<SubscriptionState, RootState> = {
       `/subscription/analystics?${url_query}`
     );
     commit(MutationTypes.SET_SUBSCRIPTION_ANALYS_DATA, { data });
-    return data;
   },
 
   async [ActionTypes.GET_SUBSCRIPTIONS]({ commit }, params = {}) {
     const keep_in_store = get(params, "keep_in_store", true);
 
-    const { data: subscriptions } = await this.$axios.$get("/subscription");
+    const { data } = await this.$axios.$get("/subscription");
 
     if (!keep_in_store) {
-      return subscriptions;
+      return data;
     }
 
-    commit(MutationTypes.SET_SUBSCRIPTIONS, { data: subscriptions });
-    return subscriptions;
-  },
-
-  async [ActionTypes.GET_SUBSCRIPTION]({ commit }, { id }: { id: string }) {
-    const { data: subscription } = await this.$axios.$get(
-      `/subscription/${id}`
-    );
-
-    commit(MutationTypes.SET_SUBSCRIPTION, { data: subscription });
-    return subscription;
+    commit(MutationTypes.SET_SUBSCRIPTIONS, { data });
   },
 };
 

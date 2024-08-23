@@ -101,14 +101,14 @@ export default {
         this.is_open_update_dialog = false;
 
         const gallery_id = this.$route.params.id;
-        if (gallery_id) {
-          return await Promise.all([
-            this.GET_GALLERIES_BY_PARENT({ parent_id: gallery_id }),
-            this.GET_GALLERY({ _id: gallery_id }),
-          ]);
+        if (!gallery_id) {
+          return await this.GET_GALLERIES_PAGINATED({ is_parent: true });
         }
 
-        await this.GET_GALLERIES_PAGINATED({ is_parent: true });
+        await Promise.all([
+          this.GET_GALLERIES_BY_PARENT({ parent_id: gallery_id }),
+          this.GET_GALLERY({ _id: gallery_id }),
+        ]);
       } catch (error) {
         console.error(error);
       }

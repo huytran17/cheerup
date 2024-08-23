@@ -1,14 +1,13 @@
 import { Router } from "express";
-import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
 import makeAuthorization from "../../config/middlewares/authorization";
+import makeValidator from "../../config/middlewares/validator";
 import { AuthorizationRole } from "../../constants/authorization-role";
-
-import { hardDeleteCommentRules } from "../../data-access/controllers/admin/comment/validators";
 import {
-  hardDeleteCommentController,
   getCommentsController,
+  hardDeleteCommentController,
 } from "../../data-access/controllers/admin/comment";
+import { hardDeleteCommentRules } from "../../data-access/controllers/admin/comment/validators";
 
 const commentRouter = Router();
 

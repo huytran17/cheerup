@@ -1,29 +1,28 @@
 import { Router } from "express";
-import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
 import authenticateUserJWT from "../../config/middlewares/authenticate-user-jwt";
-
+import makeValidator from "../../config/middlewares/validator";
 import {
-  getCommentRules,
-  hardDeleteCommentRules,
-  updateCommentRules,
-  createCommentRules,
-  getCommentsByPostPaginatedRules,
-  replyCommentRules,
-  countCommentsByPostRules,
-  getCommentsByParentRules,
-} from "../../data-access/controllers/user/comment/validators";
-import {
-  getCommentController,
-  hardDeleteCommentController,
-  updateCommentController,
-  createCommentController,
-  getCommentsController,
-  getCommentsByPostPaginatedController,
-  replyCommentController,
   countCommentsByPostController,
+  createCommentController,
+  getCommentController,
   getCommentsByParentController,
+  getCommentsByPostPaginatedController,
+  getCommentsController,
+  hardDeleteCommentController,
+  replyCommentController,
+  updateCommentController,
 } from "../../data-access/controllers/user/comment";
+import {
+  countCommentsByPostRules,
+  createCommentRules,
+  getCommentRules,
+  getCommentsByParentRules,
+  getCommentsByPostPaginatedRules,
+  hardDeleteCommentRules,
+  replyCommentRules,
+  updateCommentRules,
+} from "../../data-access/controllers/user/comment/validators";
 
 const commentRouter = Router();
 

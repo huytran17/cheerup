@@ -20,15 +20,13 @@ const actions: ActionTree<UserState, RootState> = {
 
     const { data } = await this.$axios.$get(`/user/analystics?${url_query}`);
     commit(MutationTypes.SET_USER_ANALYS_DATA, { data });
-    return data;
   },
 
   async [ActionTypes.UPDATE_USER_PASSWORD](
     { commit },
     { data }: { data: any }
   ) {
-    const { data: user } = await this.$axios.$put(`/user/password`, data);
-    return user;
+    await this.$axios.$put(`/user/password`, data);
   },
 
   async [ActionTypes.GET_USERS]({ commit }, params = {}) {
@@ -41,24 +39,19 @@ const actions: ActionTree<UserState, RootState> = {
     }
 
     commit(MutationTypes.SET_USERS, { data });
-    return data;
   },
 
   async [ActionTypes.BLOCK_USER_COMMENT]({ commit }, { id }: { id: string }) {
-    const { data } = await this.$axios.$put(`/user/block-comment/${id}`);
-    return data;
+    await this.$axios.$put(`/user/block-comment/${id}`);
   },
 
   async [ActionTypes.UNBLOCK_USER_COMMENT]({ commit }, { id }: { id: string }) {
-    const { data } = await this.$axios.$put(`/user/un-block-comment/${id}`);
-    return data;
+    await this.$axios.$put(`/user/un-block-comment/${id}`);
   },
 
   async [ActionTypes.GET_USER]({ commit }, { id }: { id: string }) {
     const { data } = await this.$axios.$get(`/user/${id}`);
-
     commit(MutationTypes.SET_USER, { data });
-    return data;
   },
 
   async [ActionTypes.CREATE_USER]({ commit }, { data }: { data: any }) {
@@ -68,35 +61,26 @@ const actions: ActionTree<UserState, RootState> = {
 
   async [ActionTypes.UPDATE_USER]({ commit }, { data }: { data: any }) {
     const { data: user } = await this.$axios.$put(`/user`, data);
-
     commit(MutationTypes.SET_USER, { data: user });
-    return user;
   },
 
   async [ActionTypes.DELETE_USER]({ commit }, { id }: { id: string }) {
-    const { data } = await this.$axios.$delete(`/user/${id}`);
-    return data;
+    await this.$axios.$delete(`/user/${id}`);
   },
 
   async [ActionTypes.HARD_DELETE_USER]({ commit }, { id }: { id: string }) {
-    const { data } = await this.$axios.$delete(`/user/hard-delete/${id}`);
-    return data;
+    await this.$axios.$delete(`/user/hard-delete/${id}`);
   },
 
   async [ActionTypes.RESTORE_USER]({ commit }, { id }: { id: string }) {
-    const { data } = await this.$axios.$put(`/user/restore/${id}`);
-    return data;
+    await this.$axios.$put(`/user/restore/${id}`);
   },
 
   async [ActionTypes.RESET_USER_LOGIN_FAILED_TIMES](
     { commit },
     { id }: { id: string }
   ) {
-    const { data } = await this.$axios.$put(
-      `/user/reset-user-login-failed-times/${id}`
-    );
-
-    return data;
+    await this.$axios.$put(`/user/reset-user-login-failed-times/${id}`);
   },
 
   async [ActionTypes.BATCH_UPLOAD_USERS]({ commit }, params = {}) {
@@ -105,12 +89,7 @@ const actions: ActionTree<UserState, RootState> = {
     const form_data = new FormData();
     form_data.append("file", file);
 
-    const data = await this.$axios.post(
-      `/v2/batch/user/upload-users`,
-      form_data
-    );
-
-    return data;
+    await this.$axios.post(`/v2/batch/user/upload-users`, form_data);
   },
 
   async [ActionTypes.GET_USERS_PAGINATED]({ commit }, params = {}) {
@@ -130,8 +109,6 @@ const actions: ActionTree<UserState, RootState> = {
 
     commit(MutationTypes.SET_USERS, { data });
     commit(MutationTypes.SET_USER_PAGINATION, { data: pagination });
-
-    return data;
   },
 };
 
