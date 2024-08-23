@@ -228,7 +228,6 @@ export default {
 
   methods: {
     async tableUpdatePage(data) {
-      console.log("--------------------1", data);
       try {
         await this.GET_USERS_PAGINATED({
           page: data,
@@ -240,7 +239,6 @@ export default {
     },
 
     async tableUpdateItemsPerPage(data) {
-      console.log("--------------------2", data);
       try {
         await this.GET_USERS_PAGINATED({
           page: 1,
