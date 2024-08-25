@@ -7,10 +7,10 @@ import {
 import { redis } from "../../../../../__tests__/jest-redis";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import makeCreateCategory from "../../../../use-cases/category/create-category";
-import makeGetCategory from "../../../../use-cases/category/get-category";
+import makeGetCategoryBySlug from "../../../../use-cases/category/get-category-by-slug";
 import makeCategoryDb from "../../../make-category-db";
 import { CategoryModel } from "../../../models";
-import makeGetCategoryController from "./get-category";
+import makeGetCategoryBySlugController from "./get-category-by-slug";
 
 describe("getCategoryBySlug", () => {
   beforeAll(async () => await connectDatabase());
@@ -29,15 +29,15 @@ describe("getCategoryBySlug", () => {
       moment,
     });
 
-    const getCategory = makeGetCategory({ categoryDb });
+    const getCategoryBySlug = makeGetCategoryBySlug({ categoryDb });
     const createCategory = makeCreateCategory({ categoryDb });
 
     const mock_category_data = fakeCategory();
 
     const created_category = await createCategory(mock_category_data);
 
-    const getCategoryController = makeGetCategoryController({
-      getCategory,
+    const getCategoryBySlugController = makeGetCategoryBySlugController({
+      getCategoryBySlug,
     });
 
     const request = {
@@ -46,7 +46,7 @@ describe("getCategoryBySlug", () => {
       },
     };
 
-    const result = await getCategoryController(request as any);
+    const result = await getCategoryBySlugController(request as any);
 
     const expected = {
       headers,
