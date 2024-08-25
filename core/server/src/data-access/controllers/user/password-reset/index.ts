@@ -25,7 +25,6 @@ import {
 } from "../../../../use-cases/user";
 import makeCreatePasswordResetController from "./create-password-reset";
 import makeGetPasswordResetByCodeController from "./get-password-reset-by-code";
-import makeHardDeletePasswordResetController from "./hard-delete-password-reset";
 import makeResetPasswordController from "./reset-password";
 
 const resetPasswordController = makeResetPasswordController({
@@ -52,13 +51,6 @@ const createPasswordResetController = makeCreatePasswordResetController({
   logger,
 });
 
-const hardDeletePasswordResetController = makeHardDeletePasswordResetController(
-  {
-    getPasswordReset,
-    hardDeletePasswordReset,
-  }
-);
-
 const getPasswordResetByCodeController = makeGetPasswordResetByCodeController({
   getPasswordResetByCode,
   generateAccessToken,
@@ -67,7 +59,6 @@ const getPasswordResetByCodeController = makeGetPasswordResetByCodeController({
 
 export default Object.freeze({
   getPasswordResetByCodeController,
-  hardDeletePasswordResetController,
   createPasswordResetController,
   resetPasswordController,
 });
@@ -75,6 +66,5 @@ export default Object.freeze({
 export {
   createPasswordResetController,
   getPasswordResetByCodeController,
-  hardDeletePasswordResetController,
   resetPasswordController,
 };

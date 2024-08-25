@@ -1,5 +1,4 @@
 import moment from "moment";
-import { logger } from "../../../../config/logs/logger";
 import { readingTimeAnalyzer } from "../../../../config/reading-time";
 import { countCommentsByPost } from "../../../../use-cases/comment";
 import {
@@ -9,17 +8,14 @@ import {
   getPostsPaginated,
   getSuggestionPosts,
   increasePostViews,
-  updatePost,
 } from "../../../../use-cases/post";
 import { getPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark";
 import makeExportPostPdfController from "./export-post-pdf";
-import makeGetPostController from "./get-post";
 import makeGetPostBySlugController from "./get-post-by-slug";
 import makeGetPostsController from "./get-posts";
 import makeGetPostsPaginatedController from "./get-posts-paginated";
 import makeGetSuggestionPostsController from "./get-suggestion-posts";
 import makeIncreasePostViewsController from "./increase-post-views";
-import makeUpdatePostController from "./update-post";
 
 const increasePostViewsController = makeIncreasePostViewsController({
   getPost,
@@ -38,12 +34,6 @@ const exportPostPdfController = makeExportPostPdfController({
   moment,
 });
 
-const updatePostController = makeUpdatePostController({
-  getPost,
-  updatePost,
-  logger,
-});
-
 const getPostsPaginatedController = makeGetPostsPaginatedController({
   getPostsPaginated,
   countCommentsByPost,
@@ -56,22 +46,14 @@ const getPostsController = makeGetPostsController({
   countCommentsByPost,
 });
 
-const getPostController = makeGetPostController({
-  getPost,
-  readingTimeAnalyzer,
-  getPostBookmarkByUserAndPost,
-});
-
 const getSuggestionPostsController = makeGetSuggestionPostsController({
   getSuggestionPosts,
 });
 
 export default Object.freeze({
-  getPostController,
   getPostsController,
   getSuggestionPostsController,
   getPostsPaginatedController,
-  updatePostController,
   exportPostPdfController,
   getPostBySlugController,
   increasePostViewsController,
@@ -80,10 +62,8 @@ export default Object.freeze({
 export {
   exportPostPdfController,
   getPostBySlugController,
-  getPostController,
   getPostsController,
   getPostsPaginatedController,
   getSuggestionPostsController,
   increasePostViewsController,
-  updatePostController,
 };

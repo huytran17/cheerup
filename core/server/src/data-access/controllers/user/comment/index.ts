@@ -2,7 +2,6 @@ import {
   countCommentsByPost,
   createComment,
   getComment,
-  getComments,
   getCommentsByParent,
   getCommentsByPostPaginated,
   hardDeleteComment,
@@ -18,7 +17,6 @@ import { getLatestSystemConfiguration } from "../../../../use-cases/system-confi
 import makeCountCommentsByPostController from "./count-comments-by-post";
 import makeCreateCommentController from "./create-comment";
 import makeGetCommentController from "./get-comment";
-import makeGetCommentsController from "./get-comments";
 import makeGetCommentsByParentController from "./get-comments-by-parent";
 import makeGetCommentsByPostPaginatedController from "./get-comments-by-post-paginated";
 import makeHardDeleteCommentController from "./hard-delete-comment";
@@ -52,10 +50,6 @@ const getCommentsByPostPaginatedController =
     getCommentLikeByUserAndComment,
   });
 
-const getCommentsController = makeGetCommentsController({
-  getComments,
-});
-
 const createCommentController = makeCreateCommentController({
   createComment,
   getPost,
@@ -87,7 +81,6 @@ export default Object.freeze({
   hardDeleteCommentController,
   updateCommentController,
   createCommentController,
-  getCommentsController,
   getCommentsByPostPaginatedController,
   replyCommentController,
   countCommentsByPostController,
@@ -100,7 +93,6 @@ export {
   getCommentController,
   getCommentsByParentController,
   getCommentsByPostPaginatedController,
-  getCommentsController,
   hardDeleteCommentController,
   replyCommentController,
   updateCommentController,
