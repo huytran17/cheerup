@@ -1,18 +1,16 @@
 import { Router } from "express";
-import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
+import makeValidator from "../../config/middlewares/validator";
 import {
-  hardDeletePasswordResetRules,
+  createPasswordResetController,
+  getPasswordResetByCodeController,
+  resetPasswordController,
+} from "../../data-access/controllers/user/password-reset";
+import {
   createPasswordResetRules,
   getPasswordResetByCodeRules,
   resetPasswordRules,
 } from "../../data-access/controllers/user/password-reset/validators";
-import {
-  getPasswordResetByCodeController,
-  hardDeletePasswordResetController,
-  createPasswordResetController,
-  resetPasswordController,
-} from "../../data-access/controllers/user/password-reset";
 
 const passwordResetRouter = Router();
 
@@ -20,12 +18,6 @@ passwordResetRouter.post(
   "/",
   makeValidator(createPasswordResetRules),
   makeExpressCallback(createPasswordResetController)
-);
-
-passwordResetRouter.delete(
-  "/hard-delete/:id",
-  makeValidator(hardDeletePasswordResetRules),
-  makeExpressCallback(hardDeletePasswordResetController)
 );
 
 passwordResetRouter.post(

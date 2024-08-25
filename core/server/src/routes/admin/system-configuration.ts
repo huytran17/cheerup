@@ -1,24 +1,21 @@
 import { Router } from "express";
-import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
 import makeAuthorization from "../../config/middlewares/authorization";
+import makeValidator from "../../config/middlewares/validator";
 import { AuthorizationRole } from "../../constants/authorization-role";
-
 import {
-  getSystemConfigurationRules,
-  updateSystemConfigurationRules,
-  uploadOwnerAvatarRules,
-  uploadFolderIconRules,
-  uploadThumbnailRules,
-} from "../../data-access/controllers/admin/system-configuration/validators";
-import {
-  getSystemConfigurationController,
-  updateSystemConfigurationController,
   getLatestSystemConfigurationController,
+  updateSystemConfigurationController,
   uploadClientAvatarController,
   uploadFolderIconController,
   uploadThumbnaiilController,
 } from "../../data-access/controllers/admin/system-configuration";
+import {
+  updateSystemConfigurationRules,
+  uploadFolderIconRules,
+  uploadOwnerAvatarRules,
+  uploadThumbnailRules,
+} from "../../data-access/controllers/admin/system-configuration/validators";
 
 const systemConfigurationRouter = Router();
 
@@ -46,13 +43,6 @@ systemConfigurationRouter.post(
 systemConfigurationRouter.get(
   "/",
   makeExpressCallback(getLatestSystemConfigurationController)
-);
-
-systemConfigurationRouter.get(
-  "/:_id",
-  makeAuthorization(AuthorizationRole.ONLY_OWNER),
-  makeValidator(getSystemConfigurationRules),
-  makeExpressCallback(getSystemConfigurationController)
 );
 
 systemConfigurationRouter.put(

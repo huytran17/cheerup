@@ -1,27 +1,27 @@
-import authenticateUserJWT from "../../config/middlewares/authenticate-user-jwt";
-import authenticateUserGoogle from "../../config/middlewares/authenticate-user-google";
-import makeValidator from "../../config/middlewares/validator";
 import { Router } from "express";
 import makeExpressCallback from "../../config/express-callback";
+import authenticateUserGoogle from "../../config/middlewares/authenticate-user-google";
+import authenticateUserJWT from "../../config/middlewares/authenticate-user-jwt";
+import makeValidator from "../../config/middlewares/validator";
 import {
-  signInRules,
-  signUpRules,
-  enable2FARules,
-  disable2FARules,
-  verify2FARules,
-} from "../../data-access/controllers/user/auth/validators";
-import {
-  signOutController,
-  signInController,
-  signUpController,
-  getMeController,
-  signInWithGoogleController,
-  enable2FAConfirmationController,
   disable2FAConfirmationController,
-  enable2FAController,
   disable2FAController,
+  enable2FAConfirmationController,
+  enable2FAController,
+  getMeController,
+  signInController,
+  signInWithGoogleController,
+  signOutController,
+  signUpController,
   verify2FAController,
 } from "../../data-access/controllers/user/auth";
+import {
+  disable2FARules,
+  enable2FARules,
+  signInRules,
+  signUpRules,
+  verify2FARules,
+} from "../../data-access/controllers/user/auth/validators";
 
 const authRouter = Router();
 

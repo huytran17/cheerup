@@ -1,30 +1,29 @@
 import { Router } from "express";
-import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
 import makeAuthorization from "../../config/middlewares/authorization";
+import makeValidator from "../../config/middlewares/validator";
 import { AuthorizationRole } from "../../constants/authorization-role";
-
 import {
-  getCategoryRules,
-  deleteCategoryRules,
-  updateCategoryRules,
-  createCategoryRules,
-  restoreCategoryRules,
-  hardDeleteCategoryRules,
-  uploadCategoryThumbnailRules,
-  getCategoryAnalysticsRules,
-} from "../../data-access/controllers/admin/category/validators";
-import {
-  getCategoryController,
-  deleteCategoryController,
-  updateCategoryController,
   createCategoryController,
+  deleteCategoryController,
   getCategoriesController,
-  restoreCategoryController,
-  hardDeleteCategoryController,
-  uploadCategoryThumbnailController,
   getCategoryAnalysticsController,
+  getCategoryController,
+  hardDeleteCategoryController,
+  restoreCategoryController,
+  updateCategoryController,
+  uploadCategoryThumbnailController,
 } from "../../data-access/controllers/admin/category";
+import {
+  createCategoryRules,
+  deleteCategoryRules,
+  getCategoryAnalysticsRules,
+  getCategoryRules,
+  hardDeleteCategoryRules,
+  restoreCategoryRules,
+  updateCategoryRules,
+  uploadCategoryThumbnailRules,
+} from "../../data-access/controllers/admin/category/validators";
 
 const categoryRouter = Router();
 

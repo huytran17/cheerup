@@ -1,27 +1,26 @@
 import { Router } from "express";
-import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
-
+import makeValidator from "../../config/middlewares/validator";
 import {
-  getGalleriesPaginatedRules,
-  deleteGalleryItemRules,
-  hardDeleteGalleryRules,
-  uploadGalleryItemRules,
-  createGalleryRules,
-  getGalleryRules,
-  getGalleriesByParentRules,
-  updateGalleryRules,
-} from "../../data-access/controllers/admin/gallery/validators";
-import {
-  deleteGalleryItemController,
-  getGalleryController,
-  getGalleriesPaginatedController,
-  uploadGalleryItemController,
-  hardDeleteGalleryController,
   createGalleryController,
+  deleteGalleryItemController,
   getGalleriesByParentController,
+  getGalleriesPaginatedController,
+  getGalleryController,
+  hardDeleteGalleryController,
   updateGalleryController,
+  uploadGalleryItemController,
 } from "../../data-access/controllers/admin/gallery";
+import {
+  createGalleryRules,
+  deleteGalleryItemRules,
+  getGalleriesByParentRules,
+  getGalleriesPaginatedRules,
+  getGalleryRules,
+  hardDeleteGalleryRules,
+  updateGalleryRules,
+  uploadGalleryItemRules,
+} from "../../data-access/controllers/admin/gallery/validators";
 
 const galleryRouter = Router();
 

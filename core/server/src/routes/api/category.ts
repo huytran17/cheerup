@@ -1,19 +1,15 @@
 import { Router } from "express";
-import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
-
+import makeValidator from "../../config/middlewares/validator";
 import {
-  getCategoryRules,
-  getOutstandingCategoriesPaginatedRules,
-  getCategoryBySlugRules,
-} from "../../data-access/controllers/user/category/validators";
-import {
-  getCategoriesController,
-  getCategoryController,
+  getCategoryBySlugController,
   getCategoryTitlesController,
   getOutstandingCategoriesPaginatedController,
-  getCategoryBySlugController,
 } from "../../data-access/controllers/user/category";
+import {
+  getCategoryBySlugRules,
+  getOutstandingCategoriesPaginatedRules,
+} from "../../data-access/controllers/user/category/validators";
 
 const categoryRouter = Router();
 
@@ -30,13 +26,5 @@ categoryRouter.get(
   makeValidator(getOutstandingCategoriesPaginatedRules),
   makeExpressCallback(getOutstandingCategoriesPaginatedController)
 );
-
-categoryRouter.get(
-  "/:_id",
-  makeValidator(getCategoryRules),
-  makeExpressCallback(getCategoryController)
-);
-
-categoryRouter.get("/", makeExpressCallback(getCategoriesController));
 
 export default categoryRouter;

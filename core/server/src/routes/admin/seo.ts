@@ -1,9 +1,8 @@
 import { Router } from "express";
 import makeExpressCallback from "../../config/express-callback";
-
 import {
-  getPostsForSEOController,
   getCategoriesForSEOController,
+  getPostsForSEOController,
 } from "../../data-access/controllers/admin/seo";
 
 const seoRouter = Router();

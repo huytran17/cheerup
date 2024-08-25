@@ -1,34 +1,33 @@
 import { Router } from "express";
-import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
-
+import makeValidator from "../../config/middlewares/validator";
 import {
-  getPostRules,
-  deletePostRules,
-  updatePostRules,
-  createPostRules,
-  uploadPostThumbnailRules,
-  restorePostRules,
-  blockPostCommentRules,
-  unBlockPostCommentRules,
-  hardDeletePostRules,
-  getPostAnalysticsRules,
-  getMostPopularPostsAnalysticsRules,
-} from "../../data-access/controllers/admin/post/validators";
-import {
-  getPostController,
-  deletePostController,
-  updatePostController,
+  blockPostCommentController,
   createPostController,
+  deletePostController,
+  getMostPopularPostsAnalysticsController,
+  getPostAnalysticsController,
+  getPostController,
   getPostsController,
-  uploadPostThumbnailController,
+  hardDeletePostController,
   restorePostController,
   unblockPostCommentController,
-  blockPostCommentController,
-  hardDeletePostController,
-  getPostAnalysticsController,
-  getMostPopularPostsAnalysticsController,
+  updatePostController,
+  uploadPostThumbnailController,
 } from "../../data-access/controllers/admin/post";
+import {
+  blockPostCommentRules,
+  createPostRules,
+  deletePostRules,
+  getMostPopularPostsAnalysticsRules,
+  getPostAnalysticsRules,
+  getPostRules,
+  hardDeletePostRules,
+  restorePostRules,
+  unBlockPostCommentRules,
+  updatePostRules,
+  uploadPostThumbnailRules,
+} from "../../data-access/controllers/admin/post/validators";
 
 const postRouter = Router();
 

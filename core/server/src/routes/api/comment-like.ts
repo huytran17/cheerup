@@ -1,9 +1,8 @@
 import { Router } from "express";
-import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
-
-import { createOrUpdateCommentLikeRules } from "../../data-access/controllers/user/comment-like/validators";
+import makeValidator from "../../config/middlewares/validator";
 import { createOrUpdateCommentLikeController } from "../../data-access/controllers/user/comment-like";
+import { createOrUpdateCommentLikeRules } from "../../data-access/controllers/user/comment-like/validators";
 
 const commentLikeRouter = Router();
 

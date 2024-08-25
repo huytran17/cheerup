@@ -1,15 +1,15 @@
 import { Router } from "express";
-import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
+import makeValidator from "../../config/middlewares/validator";
 import {
-  getPostBookmarksPaginatedRules,
-  createOrDeletePostBookmarkRules,
-} from "../../data-access/controllers/user/post-bookmark/validators";
-import {
-  getPostBookmarksPaginatedController,
-  createOrDeletePostBookmarkController,
   countPostBookmarkController,
+  createOrDeletePostBookmarkController,
+  getPostBookmarksPaginatedController,
 } from "../../data-access/controllers/user/post-bookmark";
+import {
+  createOrDeletePostBookmarkRules,
+  getPostBookmarksPaginatedRules,
+} from "../../data-access/controllers/user/post-bookmark/validators";
 
 const postBookmarkRouter = Router();
 

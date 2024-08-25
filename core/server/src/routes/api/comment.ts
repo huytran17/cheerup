@@ -8,7 +8,6 @@ import {
   getCommentController,
   getCommentsByParentController,
   getCommentsByPostPaginatedController,
-  getCommentsController,
   hardDeleteCommentController,
   replyCommentController,
   updateCommentController,
@@ -92,7 +91,5 @@ commentRouter.post(
   makeValidator(createCommentRules),
   makeExpressCallback(createCommentController)
 );
-
-commentRouter.get("/", makeExpressCallback(getCommentsController));
 
 export default commentRouter;

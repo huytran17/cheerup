@@ -1,13 +1,13 @@
-import authenticateAdminJWT from "../../config/middlewares/authenticate-admin-jwt";
-import makeValidator from "../../config/middlewares/validator";
 import { Router } from "express";
 import makeExpressCallback from "../../config/express-callback";
-import { signInRules } from "../../data-access/controllers/admin/auth/validators";
+import authenticateAdminJWT from "../../config/middlewares/authenticate-admin-jwt";
+import makeValidator from "../../config/middlewares/validator";
 import {
-  signOutController,
-  signInController,
   getMeController,
+  signInController,
+  signOutController,
 } from "../../data-access/controllers/admin/auth";
+import { signInRules } from "../../data-access/controllers/admin/auth/validators";
 
 const authRouter = Router();
 

@@ -1,18 +1,13 @@
 import { Router } from "express";
-import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
 import makeAuthorization from "../../config/middlewares/authorization";
+import makeValidator from "../../config/middlewares/validator";
 import { AuthorizationRole } from "../../constants/authorization-role";
-
 import {
-  getSubscriptionRules,
-  getSubscriptionAnalysticsRules,
-} from "../../data-access/controllers/admin/subscription/validators";
-import {
-  getSubscriptionController,
-  getSubscriptionsController,
   getSubscriptionAnalysticsController,
+  getSubscriptionsController,
 } from "../../data-access/controllers/admin/subscription";
+import { getSubscriptionAnalysticsRules } from "../../data-access/controllers/admin/subscription/validators";
 
 const subscriptionRouter = Router();
 
@@ -20,13 +15,6 @@ subscriptionRouter.get(
   "/analystics",
   makeValidator(getSubscriptionAnalysticsRules),
   makeExpressCallback(getSubscriptionAnalysticsController)
-);
-
-subscriptionRouter.get(
-  "/:_id",
-  makeAuthorization(AuthorizationRole.OWNER_AND_COLLABORATOR),
-  makeValidator(getSubscriptionRules),
-  makeExpressCallback(getSubscriptionController)
 );
 
 subscriptionRouter.get(

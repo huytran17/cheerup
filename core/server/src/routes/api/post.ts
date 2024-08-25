@@ -1,25 +1,21 @@
 import { Router } from "express";
-import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
+import makeValidator from "../../config/middlewares/validator";
 import {
-  getPostRules,
-  getSuggestionPostsRules,
-  getPostsPaginatedRules,
-  updatePostRules,
-  exportPostPdfRules,
-  getPostBySlugRules,
-  increasePostViewsRules,
-} from "../../data-access/controllers/user/post/validators";
-import {
-  getPostsController,
-  getPostController,
-  getSuggestionPostsController,
-  getPostsPaginatedController,
-  updatePostController,
   exportPostPdfController,
   getPostBySlugController,
+  getPostsController,
+  getPostsPaginatedController,
+  getSuggestionPostsController,
   increasePostViewsController,
 } from "../../data-access/controllers/user/post";
+import {
+  exportPostPdfRules,
+  getPostBySlugRules,
+  getPostsPaginatedRules,
+  getSuggestionPostsRules,
+  increasePostViewsRules,
+} from "../../data-access/controllers/user/post/validators";
 
 const postRouter = Router();
 
@@ -33,12 +29,6 @@ postRouter.get(
   "/by-slug/:slug",
   makeValidator(getPostBySlugRules),
   makeExpressCallback(getPostBySlugController)
-);
-
-postRouter.put(
-  "/:_id",
-  makeValidator(updatePostRules),
-  makeExpressCallback(updatePostController)
 );
 
 postRouter.get(
@@ -59,16 +49,6 @@ postRouter.get(
   makeExpressCallback(getPostsPaginatedController)
 );
 
-postRouter.get(
-  "/:_id",
-  makeValidator(getPostRules),
-  makeExpressCallback(getPostController)
-);
-
-postRouter.get(
-  "/",
-  makeValidator(getPostRules),
-  makeExpressCallback(getPostsController)
-);
+postRouter.get("/", makeExpressCallback(getPostsController));
 
 export default postRouter;

@@ -1,21 +1,16 @@
 import { Router } from "express";
-import makeValidator from "../../config/middlewares/validator";
 import makeExpressCallback from "../../config/express-callback";
-
+import makeValidator from "../../config/middlewares/validator";
 import {
-  getUserRules,
-  updateUserRules,
-  deleteUserRules,
-  uploadUserAvatarRules,
-  updatePasswordRules,
-} from "../../data-access/controllers/user/user/validators";
-import {
-  getUserController,
-  updateUserController,
-  deleteUserController,
-  uploadUserAvatarController,
   updatePasswordController,
+  updateUserController,
+  uploadUserAvatarController,
 } from "../../data-access/controllers/user/user";
+import {
+  updatePasswordRules,
+  updateUserRules,
+  uploadUserAvatarRules,
+} from "../../data-access/controllers/user/user/validators";
 
 const userRouter = Router();
 
@@ -29,18 +24,6 @@ userRouter.post(
   "/upload-avatar/:_id",
   makeValidator(uploadUserAvatarRules),
   makeExpressCallback(uploadUserAvatarController)
-);
-
-userRouter.delete(
-  "/delete/:_id",
-  makeValidator(deleteUserRules),
-  makeExpressCallback(deleteUserController)
-);
-
-userRouter.get(
-  "/:_id",
-  makeValidator(getUserRules),
-  makeExpressCallback(getUserController)
 );
 
 userRouter.put(

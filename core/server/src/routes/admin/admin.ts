@@ -9,6 +9,7 @@ import {
   getAdminAnalysticsController,
   getAdminController,
   getAdminsController,
+  getAdminsPaginatedController,
   hardDeleteAdminController,
   resetAdminLoginFailedTimesController,
   restoreAdminController,
@@ -16,13 +17,13 @@ import {
   updateAdminPasswordController,
   updateAdminPersonalPasswordController,
   uploadAvatarController,
-  getAdminsPaginatedController,
 } from "../../data-access/controllers/admin/admin";
 import {
   createAdminRules,
   deleteAdminRules,
   getAdminAnalysticsRules,
   getAdminRules,
+  getAdminsPaginatedRules,
   hardDeleteAdminRules,
   resetAdminLoginFailedTimesRules,
   restoreAdminRules,
@@ -30,7 +31,6 @@ import {
   updateAdminPersonalPasswordRules,
   updateAdminRules,
   uploadAvatarRules,
-  getAdminsPaginatedRules,
 } from "../../data-access/controllers/admin/admin/validators";
 
 const adminRouter = Router();
