@@ -1,9 +1,8 @@
-import { ActionTypes } from "./action-types";
-import { MutationTypes } from "./mutation-types";
 import { ActionTree } from "vuex";
 import { EmailVerificationState } from ".";
 import { RootState } from "..";
-import _ from "lodash";
+import { ActionTypes } from "./action-types";
+import { MutationTypes } from "./mutation-types";
 
 const actions: ActionTree<EmailVerificationState, RootState> = {
   async [ActionTypes.SEND_VERIFICATION_CODE]({ commit }) {

@@ -12,8 +12,6 @@ export default {
   },
   methods: {
     ...mapActions({
-      GET_CATEGORIES: "category/GET_CATEGORIES",
-      GET_CATEGORY: "category/GET_CATEGORY",
       GET_CATEGORY_TITLES: "category/GET_CATEGORY_TITLES",
       GET_OUTSTANDING_CATEGORIES_PAGINATED:
         "category/GET_OUTSTANDING_CATEGORIES_PAGINATED",

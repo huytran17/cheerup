@@ -1,9 +1,9 @@
-import { ActionTypes } from "./action-types";
-import { MutationTypes } from "./mutation-types";
+import { get } from "lodash";
 import { ActionTree } from "vuex";
 import { CommentState } from ".";
 import { RootState } from "..";
-import { get } from "lodash";
+import { ActionTypes } from "./action-types";
+import { MutationTypes } from "./mutation-types";
 
 const actions: ActionTree<CommentState, RootState> = {
   async [ActionTypes.GET_COMMENTS_BY_PARENT](
@@ -31,22 +31,6 @@ const actions: ActionTree<CommentState, RootState> = {
     );
 
     commit(MutationTypes.SET_COMMENT_COUNT_BY_POST, { data });
-
-    return data;
-  },
-
-  async [ActionTypes.GET_COMMENTS]({ commit }, params = {}) {
-    const keep_in_store = get(params, "keep_in_store", true);
-
-    const { data: comments } = await this.$axios.$get("/comment");
-
-    if (!keep_in_store) {
-      return comments;
-    }
-
-    commit(MutationTypes.SET_COMMENTS, { data: comments });
-
-    return comments;
   },
 
   async [ActionTypes.GET_COMMENT](
@@ -71,14 +55,11 @@ const actions: ActionTree<CommentState, RootState> = {
 
   async [ActionTypes.CREATE_COMMENT]({ commit }, { data }: { data: any }) {
     const { data: comment } = await this.$axios.$post(`/comment`, data);
-
     return comment;
   },
 
   async [ActionTypes.REPLY_COMMENT]({ commit }, { data }: { data: any }) {
-    const { data: comment } = await this.$axios.$post(`/comment/reply`, data);
-
-    return comment;
+    await this.$axios.$post(`/comment/reply`, data);
   },
 
   async [ActionTypes.UPDATE_COMMENT]({ commit }, { data }: { data: any }) {
@@ -86,16 +67,10 @@ const actions: ActionTree<CommentState, RootState> = {
     const { data: comment } = await this.$axios.$put(`/comment/${_id}`, data);
 
     commit(MutationTypes.SET_COMMENT, { data: comment });
-
-    return comment;
   },
 
   async [ActionTypes.HARD_DELETE_COMMENT]({ commit }, { id }: { id: string }) {
-    const { data: comment } = await this.$axios.$delete(
-      `/comment/hard-delete/${id}`
-    );
-
-    return comment;
+    await this.$axios.$delete(`/comment/hard-delete/${id}`);
   },
 
   async [ActionTypes.GET_COMMENTS_BY_POST_PAGINATED]({ commit }, params) {
@@ -129,8 +104,6 @@ const actions: ActionTree<CommentState, RootState> = {
 
     commit(MutationTypes.SET_COMMENTS, { data, new_state });
     commit(MutationTypes.SET_COMMENT_PAGINATION, { data: pagination });
-
-    return data;
   },
 };
 

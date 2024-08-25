@@ -18,11 +18,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      GET_USER: "user/GET_USER",
       UPDATE_USER: "user/UPDATE_USER",
-      DELETE_USER: "user/DELETE_USER",
       UPLOAD_USER_AVATAR: "user/UPLOAD_USER_AVATAR",
-      HARD_DELETE_USER: "user/HARD_DELETE_USER",
       UPDATE_USER_PASSWORD: "user/UPDATE_USER_PASSWORD",
       VERIFY_EMAIL: "user/VERIFY_EMAIL",
     }),

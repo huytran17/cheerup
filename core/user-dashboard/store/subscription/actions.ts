@@ -1,9 +1,8 @@
-import { ActionTypes } from "./action-types";
-import { MutationTypes } from "./mutation-types";
 import { ActionTree } from "vuex";
 import { SubscriptionState } from ".";
 import { RootState } from "..";
-import _ from "lodash";
+import { ActionTypes } from "./action-types";
+import { MutationTypes } from "./mutation-types";
 
 const actions: ActionTree<SubscriptionState, RootState> = {
   async [ActionTypes.CREATE_SUBSCRIPTION]({ commit }, { data }: { data: any }) {
@@ -13,14 +12,11 @@ const actions: ActionTree<SubscriptionState, RootState> = {
     );
 
     commit(MutationTypes.SET_SUBSCRIPTION, { data: subscription });
-    return subscription;
   },
 
   async [ActionTypes.CANCEL_SUBSCRIPTION]({ commit }) {
-    const { data: subscription } = await this.$axios.$put(`/subscription`);
-
-    commit(MutationTypes.SET_SUBSCRIPTION, { data: subscription });
-    return subscription;
+    const { data } = await this.$axios.$put(`/subscription`);
+    commit(MutationTypes.SET_SUBSCRIPTION, { data });
   },
 };
 

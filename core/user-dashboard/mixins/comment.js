@@ -18,7 +18,6 @@ export default {
   methods: {
     ...mapActions({
       GET_COMMENTS_BY_PARENT: "comment/GET_COMMENTS_BY_PARENT",
-      GET_COMMENTS: "comment/GET_COMMENTS",
       GET_COMMENT: "comment/GET_COMMENT",
       CREATE_COMMENT: "comment/CREATE_COMMENT",
       UPDATE_COMMENT: "comment/UPDATE_COMMENT",

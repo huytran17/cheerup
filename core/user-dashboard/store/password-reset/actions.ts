@@ -1,9 +1,8 @@
-import { ActionTypes } from "./action-types";
-import { MutationTypes } from "./mutation-types";
 import { ActionTree } from "vuex";
 import { PasswordResetState } from ".";
 import { RootState } from "..";
-import _ from "lodash";
+import { ActionTypes } from "./action-types";
+import { MutationTypes } from "./mutation-types";
 
 const actions: ActionTree<PasswordResetState, RootState> = {
   async [ActionTypes.GET_PASSWORD_RESET_BY_CODE](
@@ -13,7 +12,6 @@ const actions: ActionTree<PasswordResetState, RootState> = {
     const { data } = await this.$axios.$post("/password-reset/by-code", {
       security_code,
     });
-
     commit(MutationTypes.SET_PASSWORD_RESET, { data });
 
     return data;
@@ -23,32 +21,11 @@ const actions: ActionTree<PasswordResetState, RootState> = {
     { commit },
     { data }: { data: any }
   ) {
-    const { data: password_reset } = await this.$axios.$post(
-      `/password-reset`,
-      data
-    );
-
-    return password_reset;
+    await this.$axios.$post(`/password-reset`, data);
   },
 
   async [ActionTypes.RESET_PASSWORD]({ commit }, { data }: { data: any }) {
-    const { data: password_reset } = await this.$axios.$put(
-      `/password-reset/reset-password`,
-      data
-    );
-
-    return password_reset;
-  },
-
-  async [ActionTypes.HARD_DELETE_PASSWORD_RESET](
-    { commit },
-    { id }: { id: string }
-  ) {
-    const { data } = await this.$axios.$delete(
-      `/password-reset/hard-delete/${id}`
-    );
-
-    return data;
+    await this.$axios.$put(`/password-reset/reset-password`, data);
   },
 };
 

@@ -39,7 +39,6 @@ export default {
     ...mapActions({
       GET_PASSWORD_RESET_BY_CODE: "password-reset/GET_PASSWORD_RESET_BY_CODE",
       CREATE_PASSWORD_RESET: "password-reset/CREATE_PASSWORD_RESET",
-      HARD_DELETE_PASSWORD_RESET: "password-reset/HARD_DELETE_PASSWORD_RESET",
       RESET_PASSWORD: "password-reset/RESET_PASSWORD",
     }),
 

@@ -19,6 +19,8 @@ const actions: ActionTree<AuthState, RootState> = {
 
     commit(MutationTypes.SET_ME, { data });
     commit(MutationTypes.SET_HAS_USER, { data: true });
+
+    return data;
   },
 };
 

@@ -1,8 +1,8 @@
+import { ActionTree } from "vuex";
+import { RootState } from "..";
+import { AuthState } from "./";
 import { ActionTypes } from "./action-types";
 import { MutationTypes } from "./mutation-types";
-import { ActionTree } from "vuex";
-import { AuthState } from "./";
-import { RootState } from "..";
 
 const actions: ActionTree<AuthState, RootState> = {
   async [ActionTypes.GET_ME]({ commit }) {
@@ -20,15 +20,15 @@ const actions: ActionTree<AuthState, RootState> = {
   },
 
   async [ActionTypes.SIGN_OUT]() {
-    return await this.$axios.$post("/auth/sign-out");
+    await this.$axios.$post("/auth/sign-out");
   },
 
   async [ActionTypes.SIGN_UP]({ commit }, { data }: { data: any }) {
-    return await this.$axios.$post("/auth/sign-up", data);
+    await this.$axios.$post("/auth/sign-up", data);
   },
 
   async [ActionTypes.VERIFY_2FA]({ commit }, { data }: { data: any }) {
-    return await this.$axios.$post("/auth/verify-2fa", data);
+    await this.$axios.$post("/auth/verify-2fa", data);
   },
 
   async [ActionTypes.ENABLE_2FA]({ commit }, { data }: { data: any }) {
@@ -41,15 +41,15 @@ const actions: ActionTree<AuthState, RootState> = {
   },
 
   async [ActionTypes.DISABLE_2FA]({ commit }, { data }: { data: any }) {
-    return await this.$axios.$post("/auth/disable-2fa", data);
+    await this.$axios.$post("/auth/disable-2fa", data);
   },
 
   async [ActionTypes.ENABLE_2FA_CONFIRMATION]() {
-    return await this.$axios.$get("/auth/enable-2fa-confirmation");
+    await this.$axios.$get("/auth/enable-2fa-confirmation");
   },
 
   async [ActionTypes.DISABLE_2FA_CONFIRMATION]() {
-    return await this.$axios.$get("/auth/disable-2fa-confirmation");
+    await this.$axios.$get("/auth/disable-2fa-confirmation");
   },
 };
 

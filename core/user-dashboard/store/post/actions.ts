@@ -1,43 +1,21 @@
-import { ActionTypes } from "./action-types";
-import { MutationTypes } from "./mutation-types";
+import { get, isEmpty, join } from "lodash";
 import { ActionTree } from "vuex";
 import { PostState } from ".";
 import { RootState } from "..";
-import { get, isEmpty, join } from "lodash";
+import { ActionTypes } from "./action-types";
+import { MutationTypes } from "./mutation-types";
 
 const actions: ActionTree<PostState, RootState> = {
   async [ActionTypes.INCREASE_POST_VIEWS](
     { commit },
     { _id }: { _id: string }
   ) {
-    const data = await this.$axios.$put(`/post/increase-post-views/${_id}`);
-    return data;
-  },
-
-  async [ActionTypes.UPDATE_POST]({ commit }, { data }: { data: any }) {
-    const { _id } = data;
-    const { data: post } = await this.$axios.$put(`/post/${_id}`, data);
-    return post;
+    await this.$axios.$put(`/post/increase-post-views/${_id}`);
   },
 
   async [ActionTypes.EXPORT_POST_PDF]({ commit }, { _id }: { _id: string }) {
     const { data } = await this.$axios.$get(`/post/export-pdf/${_id}`);
     return data;
-  },
-
-  async [ActionTypes.GET_POST](
-    { commit },
-    { id, user_id }: { id: string; user_id: string }
-  ) {
-    const url_query = new URLSearchParams();
-
-    user_id && url_query.set("user_id", user_id);
-
-    const { data: post } = await this.$axios.$get(`/post/${id}?${url_query}`);
-
-    commit(MutationTypes.SET_POST, { data: post });
-
-    return post;
   },
 
   async [ActionTypes.GET_POST_BY_SLUG](
@@ -48,13 +26,13 @@ const actions: ActionTree<PostState, RootState> = {
 
     user_id && url_query.set("user_id", user_id);
 
-    const { data: post } = await this.$axios.$get(
+    const { data } = await this.$axios.$get(
       `/post/by-slug/${slug}?${url_query}`
     );
 
-    commit(MutationTypes.SET_POST, { data: post });
+    commit(MutationTypes.SET_POST, { data });
 
-    return post;
+    return data;
   },
 
   async [ActionTypes.GET_SUGGESTION_POSTS]({ commit }, params = {}) {
@@ -71,13 +49,11 @@ const actions: ActionTree<PostState, RootState> = {
     !isEmpty(exclude_ids) &&
       url_query.set("exclude_ids", join(exclude_ids, ","));
 
-    const { data: posts } = await this.$axios.$get(
+    const { data } = await this.$axios.$get(
       `/post/suggestion-posts?${url_query}`
     );
 
-    commit(MutationTypes.SET_SUGGESTION_POSTS, { data: posts });
-
-    return posts;
+    commit(MutationTypes.SET_SUGGESTION_POSTS, { data });
   },
 
   async [ActionTypes.GET_POSTS_PAGINATED]({ commit, state }, params = {}) {
@@ -117,8 +93,6 @@ const actions: ActionTree<PostState, RootState> = {
 
     commit(MutationTypes.SET_POSTS, { data, new_state });
     commit(MutationTypes.SET_POST_PAGINATION, { data: pagination });
-
-    return data;
   },
 };
 

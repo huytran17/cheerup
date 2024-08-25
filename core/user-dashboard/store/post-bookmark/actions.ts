@@ -1,33 +1,26 @@
-import { ActionTypes } from "./action-types";
-import { MutationTypes } from "./mutation-types";
+import { get } from "lodash";
 import { ActionTree } from "vuex";
 import { PostBookmarkState } from ".";
 import { RootState } from "..";
-import { get } from "lodash";
+import { ActionTypes } from "./action-types";
+import { MutationTypes } from "./mutation-types";
 
 const actions: ActionTree<PostBookmarkState, RootState> = {
   async [ActionTypes.CREATE_OR_DELETE_POST_BOOKMARK](
     { commit },
     { data }: { data: any }
   ) {
-    const { data: post_bookmark } = await this.$axios.$put(
-      `/post-bookmark/create-or-delete`,
-      data
-    );
-
-    return post_bookmark;
+    await this.$axios.$put(`/post-bookmark/create-or-delete`, data);
   },
 
   async [ActionTypes.COUNT_POST_BOOKMARKS]({ commit }) {
-    const { data: post_bookmark_count } = await this.$axios.$get(
+    const { data } = await this.$axios.$get(
       `/post-bookmark/count-post-bookmarks`
     );
 
     commit(MutationTypes.SET_POST_BOOKMARKS_COUNT, {
-      data: post_bookmark_count,
+      data,
     });
-
-    return post_bookmark_count;
   },
 
   async [ActionTypes.GET_POST_BOOKMARKS_PAGINATED]({ commit }, params = {}) {
@@ -52,8 +45,6 @@ const actions: ActionTree<PostBookmarkState, RootState> = {
 
     commit(MutationTypes.SET_POST_BOOKMARKS, { data, new_state });
     commit(MutationTypes.SET_POST_BOOKMARK_PAGINATION, { data: pagination });
-
-    return data;
   },
 };
 
