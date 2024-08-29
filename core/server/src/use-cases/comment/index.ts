@@ -1,14 +1,18 @@
 import { CommentDb } from "../../data-access";
-
-import makeGetComment from "./get-comment";
-import makeHardDeleteComment from "./hard-delete-comment";
-import makeUpdateComment from "./update-comment";
-import makeGetComments from "./get-comments";
-import makeCreateComment from "./create-comment";
-import makeGetCommentsByParent from "./get-comments-by-parent";
 import makeCountCommentsByPost from "./count-comments-by-post";
+import makeCreateComment from "./create-comment";
+import makeGetComment from "./get-comment";
+import makeGetComments from "./get-comments";
+import makeGetCommentsByParent from "./get-comments-by-parent";
 import makeGetCommentsByPostPaginated from "./get-comments-by-post-paginated";
+import makeGetCommentsPaginated from "./get-comments-paginated";
+import makeHardDeleteComment from "./hard-delete-comment";
 import makeReplyComment from "./reply-comment";
+import makeUpdateComment from "./update-comment";
+
+const getCommentsPaginated = makeGetCommentsPaginated({
+  commentDb: CommentDb,
+});
 
 const replyComment = makeReplyComment({
   commentDb: CommentDb,
@@ -56,18 +60,20 @@ const commentServices = Object.freeze({
   countCommentsByPost,
   getCommentsByPostPaginated,
   replyComment,
+  getCommentsPaginated,
 });
 
 export default commentServices;
 
 export {
-  getComment,
-  hardDeleteComment,
-  updateComment,
-  getComments,
-  createComment,
-  getCommentsByParent,
   countCommentsByPost,
+  createComment,
+  getComment,
+  getComments,
+  getCommentsByParent,
   getCommentsByPostPaginated,
+  getCommentsPaginated,
+  hardDeleteComment,
   replyComment,
+  updateComment,
 };
