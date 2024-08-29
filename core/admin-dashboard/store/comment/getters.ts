@@ -8,6 +8,7 @@ export const getters: GetterTree<CommentState, RootState> = {
   },
   comment: (state) => state.comment,
   comments: (state) => state.comments,
+  pagination: (state) => state.pagination,
 };
 
 export default getters;
