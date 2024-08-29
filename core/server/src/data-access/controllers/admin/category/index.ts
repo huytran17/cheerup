@@ -3,6 +3,7 @@ import {
   createCategory,
   deleteCategory,
   getCategories,
+  getCategoriesPaginated,
   getCategory,
   getCategoryAnalystics,
   getCategoryByTitle,
@@ -13,12 +14,17 @@ import {
 import makeCreateCategoryController from "./create-category";
 import makeDeleteCategoryController from "./delete-category";
 import makeGetCategoriesController from "./get-categories";
+import makeGetCategoriesPaginatedController from "./get-categories-paginated";
 import makeGetCategoryController from "./get-category";
 import makeGetCategoryAnalysticsController from "./get-category-analystics";
 import makeHardDeleteCategoryController from "./hard-delete-category";
 import makeRestoreCategoryController from "./restore-category";
 import makeUpdateCategoryController from "./update-category";
 import makeUploadCategoryThumbnailController from "./upload-category-thumbnail";
+
+const getCategoriesPaginatedController = makeGetCategoriesPaginatedController({
+  getCategoriesPaginated,
+});
 
 const getCategoryAnalysticsController = makeGetCategoryAnalysticsController({
   getCategoryAnalystics,
@@ -79,12 +85,14 @@ export default Object.freeze({
   hardDeleteCategoryController,
   uploadCategoryThumbnailController,
   getCategoryAnalysticsController,
+  getCategoriesPaginatedController,
 });
 
 export {
   createCategoryController,
   deleteCategoryController,
   getCategoriesController,
+  getCategoriesPaginatedController,
   getCategoryAnalysticsController,
   getCategoryController,
   hardDeleteCategoryController,
