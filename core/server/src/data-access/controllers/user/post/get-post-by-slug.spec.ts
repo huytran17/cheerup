@@ -11,13 +11,13 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IPost from "../../../../database/interfaces/post";
 import makeGetPostBookmarkByUserAndPost from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
 import makeCreatePost from "../../../../use-cases/post/create-post";
-import makeGetPost from "../../../../use-cases/post/get-post";
+import makeGetPostBySlug from "../../../../use-cases/post/get-post-by-slug";
 import makeCreateUser from "../../../../use-cases/user/create-user";
 import makePostBookmarkDb from "../../../make-post-bookmark-db";
 import makePostDb from "../../../make-post-db";
 import makeUserDb from "../../../make-user-db";
 import { PostBookmarkModel, PostModel, UserModel } from "../../../models";
-import makeGetPostController from "./get-post";
+import makeGetPostBySlugController from "./get-post-by-slug";
 
 describe("getPostBySlug", () => {
   beforeAll(async () => await connectDatabase());
@@ -45,7 +45,7 @@ describe("getPostBySlug", () => {
 
     const createPost = makeCreatePost({ postDb });
     const createUser = makeCreateUser({ userDb });
-    const getPost = makeGetPost({ postDb });
+    const getPostBySlug = makeGetPostBySlug({ postDb });
     const getPostBookmarkByUserAndPost = makeGetPostBookmarkByUserAndPost({
       postBookmarkDb,
     });
@@ -58,8 +58,8 @@ describe("getPostBySlug", () => {
       createUser(mock_user_data),
     ]);
 
-    const getPostController = makeGetPostController({
-      getPost,
+    const getPostController = makeGetPostBySlugController({
+      getPostBySlug,
       readingTimeAnalyzer,
       getPostBookmarkByUserAndPost,
     });
