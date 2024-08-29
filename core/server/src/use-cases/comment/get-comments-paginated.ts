@@ -8,7 +8,7 @@ export interface IGetCommentsPaginated {
   entries_per_page: number;
 }
 
-export type GetCommentsByParentId = ({
+export type GetCommentsPaginated = ({
   query,
   page,
   entries_per_page,
@@ -18,7 +18,7 @@ export default function makeGetCommentsPaginated({
   commentDb,
 }: {
   commentDb: ICommentDb;
-}): GetCommentsByParentId {
+}): GetCommentsPaginated {
   return async function getCommentsPaginated({
     query,
     page,
