@@ -7,6 +7,7 @@ import {
   createCategoryController,
   deleteCategoryController,
   getCategoriesController,
+  getCategoriesPaginatedController,
   getCategoryAnalysticsController,
   getCategoryController,
   hardDeleteCategoryController,
@@ -17,6 +18,7 @@ import {
 import {
   createCategoryRules,
   deleteCategoryRules,
+  getCategoriesPaginatedRules,
   getCategoryAnalysticsRules,
   getCategoryRules,
   hardDeleteCategoryRules,
@@ -26,6 +28,13 @@ import {
 } from "../../data-access/controllers/admin/category/validators";
 
 const categoryRouter = Router();
+
+categoryRouter.get(
+  "/all-paginated",
+  makeAuthorization(AuthorizationRole.OWNER_AND_COLLABORATOR),
+  makeValidator(getCategoriesPaginatedRules),
+  makeExpressCallback(getCategoriesPaginatedController)
+);
 
 categoryRouter.get(
   "/analystics",

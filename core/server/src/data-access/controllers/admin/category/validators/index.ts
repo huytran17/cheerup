@@ -1,11 +1,12 @@
-import getCategoryRules from "./get-category";
-import deleteCategoryRules from "./delete-category";
-import updateCategoryRules from "./update-category";
 import createCategoryRules from "./create-category";
-import restoreCategoryRules from "./restore-category";
-import hardDeleteCategoryRules from "./hard-delete-category";
-import uploadCategoryThumbnailRules from "./upload-category-thumbnail";
+import deleteCategoryRules from "./delete-category";
+import getCategoriesPaginatedRules from "./get-categories-paginated";
+import getCategoryRules from "./get-category";
 import getCategoryAnalysticsRules from "./get-category-analystics";
+import hardDeleteCategoryRules from "./hard-delete-category";
+import restoreCategoryRules from "./restore-category";
+import updateCategoryRules from "./update-category";
+import uploadCategoryThumbnailRules from "./upload-category-thumbnail";
 
 export default Object.freeze({
   getCategoryRules,
@@ -16,15 +17,17 @@ export default Object.freeze({
   hardDeleteCategoryRules,
   uploadCategoryThumbnailRules,
   getCategoryAnalysticsRules,
+  getCategoriesPaginatedRules,
 });
 
 export {
-  getCategoryRules,
-  deleteCategoryRules,
-  updateCategoryRules,
   createCategoryRules,
-  restoreCategoryRules,
-  hardDeleteCategoryRules,
-  uploadCategoryThumbnailRules,
+  deleteCategoryRules,
+  getCategoriesPaginatedRules,
   getCategoryAnalysticsRules,
+  getCategoryRules,
+  hardDeleteCategoryRules,
+  restoreCategoryRules,
+  updateCategoryRules,
+  uploadCategoryThumbnailRules,
 };
