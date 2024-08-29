@@ -5,11 +5,22 @@ import makeValidator from "../../config/middlewares/validator";
 import { AuthorizationRole } from "../../constants/authorization-role";
 import {
   getCommentsController,
+  getCommentsPaginatedController,
   hardDeleteCommentController,
 } from "../../data-access/controllers/admin/comment";
-import { hardDeleteCommentRules } from "../../data-access/controllers/admin/comment/validators";
+import {
+  getCommentsPaginatedRules,
+  hardDeleteCommentRules,
+} from "../../data-access/controllers/admin/comment/validators";
 
 const commentRouter = Router();
+
+commentRouter.delete(
+  "/all-paginated",
+  makeAuthorization(AuthorizationRole.OWNER_AND_COLLABORATOR),
+  makeValidator(getCommentsPaginatedRules),
+  makeExpressCallback(getCommentsPaginatedController)
+);
 
 commentRouter.delete(
   "/hard-delete/:_id",
