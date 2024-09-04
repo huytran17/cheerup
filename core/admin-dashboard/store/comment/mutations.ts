@@ -1,3 +1,4 @@
+import { update } from "lodash";
 import { MutationTree } from "vuex";
 import { CommentState } from ".";
 import { MutationTypes } from "./mutation-types";
@@ -16,6 +17,13 @@ const mutations: MutationTree<CommentState> = {
     { data }: { data: IPagination }
   ) {
     state.pagination = data;
+  },
+
+  [MutationTypes.UPDATE_COMMENT_PAGINATION](
+    state,
+    { path, data }: { path: string; data: IPagination }
+  ) {
+    state.pagination = update(state.pagination, path, (n) => data);
   },
 };
 
