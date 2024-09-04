@@ -29,6 +29,17 @@ const mutations: MutationTree<PostState> = {
   ) {
     state.post = update(state.post, path, (n) => data);
   },
+
+  [MutationTypes.SET_POST_PAGINATION](state, { data }: { data: IPagination }) {
+    state.pagination = data;
+  },
+
+  [MutationTypes.UPDATE_POST_PAGINATION](
+    state,
+    { path, data }: { path: string; data: any }
+  ) {
+    state.pagination = update(state.pagination, path, (n) => data);
+  },
 };
 
 export default mutations;
