@@ -4,7 +4,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import Category from "../../../../database/entities/category";
 import {
   GetCategoriesPaginated,
-  IGetCategoriesPaginatedPayload,
+  IGetCategoriesPaginated,
 } from "../../../../use-cases/category/get-categories-paginated";
 import { CountPostByCategory } from "../../../../use-cases/post/count-post-by-category";
 
@@ -23,9 +23,9 @@ export default function makeGetOutstandingCategoriesPaginatedController({
     };
 
     try {
-      const { query, page, entries_per_page } = <
-        IGetCategoriesPaginatedPayload
-      >get(httpRequest, "context.validated", {});
+      const { query, page, entries_per_page } = <IGetCategoriesPaginated>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const paginated_data = await getCategoriesPaginated({
         query,
