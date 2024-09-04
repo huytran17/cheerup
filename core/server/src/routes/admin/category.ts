@@ -31,7 +31,6 @@ const categoryRouter = Router();
 
 categoryRouter.get(
   "/all-paginated",
-  makeAuthorization(AuthorizationRole.OWNER_AND_COLLABORATOR),
   makeValidator(getCategoriesPaginatedRules),
   makeExpressCallback(getCategoriesPaginatedController)
 );
