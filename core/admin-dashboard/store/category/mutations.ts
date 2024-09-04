@@ -1,7 +1,7 @@
-import { MutationTypes } from "./mutation-types";
+import { update } from "lodash";
 import { MutationTree } from "vuex";
 import { CategoryState } from ".";
-import { update } from "lodash";
+import { MutationTypes } from "./mutation-types";
 
 const mutations: MutationTree<CategoryState> = {
   [MutationTypes.SET_CATEGORY](state, { data }: { data: any }) {
@@ -21,6 +21,20 @@ const mutations: MutationTree<CategoryState> = {
     { path, data }: { path: string; data: any }
   ) {
     state.category = update(state.category, path, (n) => data);
+  },
+
+  [MutationTypes.SET_CATEGORY_PAGINATION](
+    state,
+    { data }: { data: IPagination }
+  ) {
+    state.pagination = data;
+  },
+
+  [MutationTypes.UPDATE_CATEGORY_PAGINATION](
+    state,
+    { path, data }: { path: string; data: any }
+  ) {
+    state.pagination = update(state.pagination, path, (n) => data);
   },
 };
 

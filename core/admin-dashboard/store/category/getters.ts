@@ -9,6 +9,7 @@ export const getters: GetterTree<CategoryState, RootState> = {
   category: (state) => state.category,
   categories: (state) => state.categories,
   category_analys_data: (state) => state.category_analys_data,
+  pagination: (state) => state.pagination,
 };
 
 export default getters;

@@ -66,6 +66,25 @@ const actions: ActionTree<CategoryState, RootState> = {
   async [ActionTypes.HARD_DELETE_CATEGORY]({ commit }, { id }: { id: string }) {
     await this.$axios.$delete(`/category/hard-delete/${id}`);
   },
+
+  async [ActionTypes.GET_CATEGORIES_PAGINATED]({ commit }, { params = {} }) {
+    const query = get(params, "query");
+    const page = get(params, "page", 1);
+    const entries_per_page = get(params, "entries_per_page", 15);
+
+    const query_url = new URLSearchParams();
+
+    query && query_url.set("query", query);
+    page && query_url.set("page", page);
+    entries_per_page && query_url.set("entries_per_page", entries_per_page);
+
+    const { data, pagination } = await this.$axios.$get(
+      `/category/all-paginated?${query_url}`
+    );
+
+    commit(MutationTypes.SET_CATEGORIES, { data });
+    commit(MutationTypes.SET_CATEGORY_PAGINATION, { data: pagination });
+  },
 };
 
 export default actions;
