@@ -1,7 +1,7 @@
-import { MutationTypes } from "./mutation-types";
+import { concat, uniqBy, update } from "lodash";
 import { MutationTree } from "vuex";
 import { AdminState } from ".";
-import { concat, uniqBy, update } from "lodash";
+import { MutationTypes } from "./mutation-types";
 
 const mutations: MutationTree<AdminState> = {
   [MutationTypes.SET_ADMIN_ANALYS_DATA](state, { data }: { data: any }) {

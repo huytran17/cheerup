@@ -1,7 +1,7 @@
-import { MutationTypes } from "./mutation-types";
+import { update } from "lodash";
 import { MutationTree } from "vuex";
 import { PostState } from ".";
-import { update } from "lodash";
+import { MutationTypes } from "./mutation-types";
 
 const mutations: MutationTree<PostState> = {
   [MutationTypes.SET_POST_ANALYS_DATA](state, { data }: { data: any }) {

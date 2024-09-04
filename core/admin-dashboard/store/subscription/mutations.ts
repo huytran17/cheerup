@@ -1,6 +1,6 @@
-import { MutationTypes } from "./mutation-types";
 import { MutationTree } from "vuex";
 import { SubscriptionState } from ".";
+import { MutationTypes } from "./mutation-types";
 
 const mutations: MutationTree<SubscriptionState> = {
   [MutationTypes.SET_SUBSCRIPTION_ANALYS_DATA](state, { data }: { data: any }) {

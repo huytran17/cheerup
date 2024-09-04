@@ -1,7 +1,7 @@
-import { MutationTypes } from "./mutation-types";
+import { update } from "lodash";
 import { MutationTree } from "vuex";
 import { AuthState } from ".";
-import { update } from "lodash";
+import { MutationTypes } from "./mutation-types";
 
 const mutations: MutationTree<AuthState> = {
   [MutationTypes.SET_ME](state, { data }: { data: any }) {
