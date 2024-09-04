@@ -18,6 +18,7 @@ export default {
       SET_COMMENT: "comment/SET_COMMENT",
       SET_COMMENTS: "comment/SET_COMMENTS",
       SET_COMMENT_PAGINATION: "comment/SET_COMMENT_PAGINATION",
+      UPDATE_COMMENT_PAGINATION: "comment/UPDATE_COMMENT_PAGINATION",
     }),
   },
 };
