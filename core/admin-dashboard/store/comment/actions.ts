@@ -23,10 +23,7 @@ const actions: ActionTree<CommentState, RootState> = {
     commit(MutationTypes.SET_COMMENT, { data });
   },
 
-  async [ActionTypes.GET_COMMENTS_PAGINATED](
-    { commit },
-    { params }: { params: any }
-  ) {
+  async [ActionTypes.GET_COMMENTS_PAGINATED]({ commit }, params = {}) {
     const query = get(params, "query");
     const page = get(params, "page", 1);
     const entries_per_page = get(params, "entries_per_page", 15);
