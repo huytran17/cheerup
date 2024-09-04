@@ -21,7 +21,7 @@ const mutations: MutationTree<CommentState> = {
 
   [MutationTypes.UPDATE_COMMENT_PAGINATION](
     state,
-    { path, data }: { path: string; data: IPagination }
+    { path, data }: { path: string; data: any }
   ) {
     state.pagination = update(state.pagination, path, (n) => data);
   },
