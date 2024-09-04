@@ -1,4 +1,4 @@
-import { mapActions, mapMutations, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 
 export default {
   data() {
@@ -14,6 +14,7 @@ export default {
       category: "category/category",
       categories: "category/categories",
       category_analys_data: "category/category_analys_data",
+      category_pagination: "category/pagination",
     }),
   },
   methods: {
@@ -26,12 +27,15 @@ export default {
       HARD_DELETE_CATEGORY: "category/HARD_DELETE_CATEGORY",
       RESTORE_CATEGORY: "category/RESTORE_CATEGORY",
       GET_CATEGORY_ANALYTICS: "category/GET_CATEGORY_ANALYTICS",
+      GET_CATEGORIES_PAGINATED: "category/GET_CATEGORIES_PAGINATED",
     }),
     ...mapMutations({
       SET_CATEGORY: "category/SET_CATEGORY",
       SET_CATEGORIES: "category/SET_CATEGORIES",
       UPDATE_CATEGORY_DATA: "category/UPDATE_CATEGORY_DATA",
       SET_CATEGORY_ANALYS_DATA: "category/SET_CATEGORY_ANALYS_DATA",
+      SET_CATEGORY_PAGINATION: "category/SET_CATEGORY_PAGINATION",
+      UPDATE_CATEGORY_PAGINATION: "category/UPDATE_CATEGORY_PAGINATION",
     }),
 
     updateCategoryObject({ path, data }) {
