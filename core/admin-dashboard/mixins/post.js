@@ -1,4 +1,4 @@
-import { mapActions, mapMutations, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 
 export default {
   data() {
@@ -12,6 +12,7 @@ export default {
       posts: "post/posts",
       post_analys_data: "post/post_analys_data",
       most_popular_posts_analys_data: "post/most_popular_posts_analys_data",
+      post_pagination: "post/pagination",
     }),
   },
   methods: {
@@ -26,11 +27,14 @@ export default {
       BLOCK_POST_COMMENT: "post/BLOCK_POST_COMMENT",
       RESTORE_POST: "post/RESTORE_POST",
       GET_POST_ANALYTICS: "post/GET_POST_ANALYTICS",
+      GET_POSTS_PAGINATED: "post/GET_POSTS_PAGINATED",
     }),
     ...mapMutations({
       SET_POST: "post/SET_POST",
       SET_POSTS: "post/SET_POSTS",
       UPDATE_POST_DATA: "post/UPDATE_POST_DATA",
+      SET_POST_PAGINATION: "post/SET_POST_PAGINATION",
+      UPDATE_POST_PAGINATION: "post/UPDATE_POST_PAGINATION",
     }),
 
     updatePostObject({ path, data }) {
