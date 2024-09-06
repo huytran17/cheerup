@@ -35,6 +35,25 @@ const actions: ActionTree<SubscriptionState, RootState> = {
 
     commit(MutationTypes.SET_SUBSCRIPTIONS, { data });
   },
+
+  async [ActionTypes.GET_SUBSCRIPTIONS_PAGINATED]({ commit }, params = {}) {
+    const query = get(params, "query");
+    const page = get(params, "page", 1);
+    const entries_per_page = get(params, "entries_per_page", 15);
+
+    const query_url = new URLSearchParams();
+
+    query && query_url.set("query", query);
+    page && query_url.set("page", page);
+    entries_per_page && query_url.set("entries_per_page", entries_per_page);
+
+    const { data, pagination } = await this.$axios.$get(
+      `/subscription/all-paginated?${query_url}`
+    );
+
+    commit(MutationTypes.SET_SUBSCRIPTIONS, { data });
+    commit(MutationTypes.SET_SUBSCRIPTION_PAGINATION, { data: pagination });
+  },
 };
 
 export default actions;
