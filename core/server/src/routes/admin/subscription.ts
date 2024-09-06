@@ -6,10 +6,20 @@ import { AuthorizationRole } from "../../constants/authorization-role";
 import {
   getSubscriptionAnalysticsController,
   getSubscriptionsController,
+  getSubscriptionsPaginatedController,
 } from "../../data-access/controllers/admin/subscription";
-import { getSubscriptionAnalysticsRules } from "../../data-access/controllers/admin/subscription/validators";
+import {
+  getSubscriptionAnalysticsRules,
+  getSubscriptionsPaginatedRules,
+} from "../../data-access/controllers/admin/subscription/validators";
 
 const subscriptionRouter = Router();
+
+subscriptionRouter.get(
+  "/all-paginated",
+  makeValidator(getSubscriptionsPaginatedRules),
+  makeExpressCallback(getSubscriptionsPaginatedController)
+);
 
 subscriptionRouter.get(
   "/analystics",
