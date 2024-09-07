@@ -24,13 +24,13 @@ export default class Redis {
     }
   }
 
-  setData({
+  setData<T>({
     key,
     value,
     duration_in_seconds,
   }: {
     key: string;
-    value: any;
+    value: T;
     duration_in_seconds?: number;
   }): typeof logger {
     if (!this.redis_client) {
@@ -51,17 +51,19 @@ export default class Redis {
       );
   }
 
-  async getData({ key }: { key: string }): Promise<any> {
+  async getData<T>({ key }: { key: string }): Promise<T> {
     if (!this.redis_client) {
-      return logger.warn("Redis Client: Not available");
+      logger.warn("Redis Client: Not available");
+      return;
     }
 
     if (!key) {
-      return logger.warn("Redis Client: Invalid dataset");
+      logger.warn("Redis Client: Invalid dataset");
+      return;
     }
 
     try {
-      const cached_data = await this.redis_client.get(key);
+      const cached_data = <T>await this.redis_client.get(key);
 
       const has_data = !!cached_data && typeof cached_data === "string";
       if (has_data) {

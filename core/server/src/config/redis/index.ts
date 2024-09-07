@@ -1,6 +1,5 @@
 import { createClient } from "redis";
 import { logger } from "../logs/logger";
-import { randomCacheTime } from "../random-cache-time";
 
 export type RedisClientType = ReturnType<typeof createClient>;
 
@@ -47,14 +46,9 @@ export default class Redis {
       return;
     }
 
-    const random_cache_time = randomCacheTime({
-      seconds: duration_in_seconds,
-      extra_minutes: 30,
-    });
-
     this.redis_client
       .set(key, JSON.stringify(value), {
-        EX: random_cache_time,
+        EX: duration_in_seconds,
       })
       .then(() => logger.verbose(`Redis Client: Cached data for key: ${key}`))
       .catch((error) =>
