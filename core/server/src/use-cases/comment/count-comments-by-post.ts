@@ -4,13 +4,13 @@ import { RandomCacheTime } from "../../config/random-cache-time/make-random-cach
 import Redis from "../../config/redis";
 import ICommentDb from "../../data-access/interfaces/comment-db";
 
-export interface ICountCommentsByPostPayload {
+export interface ICountCommentsByPost {
   post_id: string;
 }
 
 export type CountCommentsByPost = ({
   post_id,
-}: ICountCommentsByPostPayload) => Promise<number>;
+}: ICountCommentsByPost) => Promise<number>;
 
 export default function makeCountCommentsByPost({
   commentDb,

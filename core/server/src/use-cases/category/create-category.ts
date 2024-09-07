@@ -1,11 +1,9 @@
 import ICategoryDb from "../../data-access/interfaces/category-db";
 import ICategory from "../../database/interfaces/category";
 
-export interface ICreateCategoryPayload extends Partial<ICategory> {}
+export interface ICreateCategory extends Partial<ICategory> {}
 
-export type CreateCategory = (
-  payload: ICreateCategoryPayload
-) => Promise<ICategory>;
+export type CreateCategory = (payload: ICreateCategory) => Promise<ICategory>;
 
 export default function makeCreateCategory({
   categoryDb,

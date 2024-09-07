@@ -4,7 +4,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IUser from "../../../../database/interfaces/user";
 import { GetComment } from "../../../../use-cases/comment/get-comment";
 import {
-  IReplyCommentPayload,
+  IReplyComment,
   ReplyComment,
 } from "../../../../use-cases/comment/reply-comment";
 import { UpdateComment } from "../../../../use-cases/comment/update-comment";
@@ -30,7 +30,7 @@ export default function makeReplyCommentController({
     };
 
     try {
-      const comment_details = <IReplyCommentPayload>(
+      const comment_details = <IReplyComment>(
         get(httpRequest, "context.validated", {})
       );
 

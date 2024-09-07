@@ -3,7 +3,7 @@ import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetCategoryBySlug,
-  IGetCategoryBySlugPayload,
+  IGetCategoryBySlug,
 } from "../../../../use-cases/category/get-category-by-slug";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -20,7 +20,7 @@ export default function makeGetCategoryBySlugController({
     };
 
     try {
-      const { slug } = <IGetCategoryBySlugPayload>(
+      const { slug } = <IGetCategoryBySlug>(
         get(httpRequest, "context.validated", {})
       );
 

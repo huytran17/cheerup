@@ -1,13 +1,13 @@
 import IPostBookmark from "../../database/interfaces/post-bookmark";
 import IPostBookmarkDb from "../../data-access/interfaces/post-bookmark-db";
 
-export interface IHardDeletePostBookmarkPayload {
+export interface IHardDeletePostBookmark {
   _id: string;
 }
 
 export type HardDeletePostBookmark = ({
   _id,
-}: IHardDeletePostBookmarkPayload) => Promise<IPostBookmark>;
+}: IHardDeletePostBookmark) => Promise<IPostBookmark>;
 
 export default function makeHardDeletePostBookmark({
   postBookmarkDb,

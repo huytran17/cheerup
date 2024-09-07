@@ -5,7 +5,7 @@ import IPostDb, {
   IMostPopularPostsAnalytics,
 } from "../../data-access/interfaces/post-db";
 
-export interface IGetMostPopularPostsAnalysticsPayload {
+export interface IGetMostPopularPostsAnalystics {
   range?: string[];
   unit?: string;
   limit?: number;
@@ -15,7 +15,7 @@ export type GetMostPopularPostsAnalystics = ({
   range,
   unit,
   limit,
-}: IGetMostPopularPostsAnalysticsPayload) => Promise<IMostPopularPostsAnalytics>;
+}: IGetMostPopularPostsAnalystics) => Promise<IMostPopularPostsAnalytics>;
 
 export default function makeGetMostPopularPostsAnalystics({
   postDb,

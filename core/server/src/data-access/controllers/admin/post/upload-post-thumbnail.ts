@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { GetPost, IGetPostPayload } from "../../../../use-cases/post/get-post";
+import { GetPost, IGetPost } from "../../../../use-cases/post/get-post";
 import { UpdatePost } from "../../../../use-cases/post/update-post";
 import deleteS3Object from "../../../../utils/delete-s3-object";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -21,9 +21,7 @@ export default function makeUploadPostThumbnailController({
     };
 
     try {
-      const { _id } = <IGetPostPayload>(
-        get(httpRequest, "context.validated", {})
-      );
+      const { _id } = <IGetPost>get(httpRequest, "context.validated", {});
 
       const exists = await getPost({ _id });
 

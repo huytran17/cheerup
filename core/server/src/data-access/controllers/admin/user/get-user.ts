@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { GetUser, IGetUserPayload } from "../../../../use-cases/user/get-user";
+import { GetUser, IGetUser } from "../../../../use-cases/user/get-user";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetUserController({
@@ -17,9 +17,7 @@ export default function makeGetUserController({
     };
 
     try {
-      const { _id } = <IGetUserPayload>(
-        get(httpRequest, "context.validated", {})
-      );
+      const { _id } = <IGetUser>get(httpRequest, "context.validated", {});
 
       const exists = await getUser({ _id });
       if (isEmpty(exists)) {

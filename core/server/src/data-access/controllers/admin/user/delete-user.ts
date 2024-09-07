@@ -4,7 +4,7 @@ import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   DeleteUser,
-  IDeleteUserPayload,
+  IDeleteUser,
 } from "../../../../use-cases/user/delete-user";
 import { GetUser } from "../../../../use-cases/user/get-user";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -26,9 +26,7 @@ export default function makeDeleteUserController({
     };
 
     try {
-      const { _id } = <IDeleteUserPayload>(
-        get(httpRequest, "context.validated", {})
-      );
+      const { _id } = <IDeleteUser>get(httpRequest, "context.validated", {});
 
       const exists = await getUser({ _id });
       if (isEmpty(exists)) {

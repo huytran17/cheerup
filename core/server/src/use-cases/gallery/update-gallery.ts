@@ -1,11 +1,9 @@
 import IGalleryDb from "../../data-access/interfaces/gallery-db";
 import IGallery from "../../database/interfaces/gallery";
 
-export interface IUpdateGalleryPayload extends Partial<IGallery> {}
+export interface IUpdateGallery extends Partial<IGallery> {}
 
-export type UpdateGallery = (
-  payload: IUpdateGalleryPayload
-) => Promise<IGallery>;
+export type UpdateGallery = (payload: IUpdateGallery) => Promise<IGallery>;
 
 export default function makeUpdateGallery({
   galleryDb,

@@ -4,7 +4,7 @@ import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../../constants/http-status-code";
 import {
   GetGallery,
-  IGetGalleryPayload,
+  IGetGallery,
 } from "../../../../../use-cases/gallery/get-gallery";
 import { UpdateGallery } from "../../../../../use-cases/gallery/update-gallery";
 import getFIleUploadedPath from "../../../../../utils/get-file-uploaded-path";
@@ -27,9 +27,7 @@ export default function makeUploadGalleryItemController({
     };
 
     try {
-      const { _id } = <IGetGalleryPayload>(
-        get(httpRequest, "context.validated", {})
-      );
+      const { _id } = <IGetGallery>get(httpRequest, "context.validated", {});
       const file = <IFileMeta>get(httpRequest, "context.file", {});
 
       if (isEmpty(file)) {

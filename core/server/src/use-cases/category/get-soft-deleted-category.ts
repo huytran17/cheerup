@@ -1,13 +1,13 @@
 import ICategory from "../../database/interfaces/category";
 import ICategoryDb from "../../data-access/interfaces/category-db";
 
-export interface IGetSoftDeletedCategoryPayload {
+export interface IGetSoftDeletedCategory {
   _id: string;
 }
 
 export type GetSoftDeletedCategory = ({
   _id,
-}: IGetSoftDeletedCategoryPayload) => Promise<ICategory>;
+}: IGetSoftDeletedCategory) => Promise<ICategory>;
 
 export default function makeGetSoftDeletedCategory({
   categoryDb,

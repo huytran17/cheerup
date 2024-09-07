@@ -1,13 +1,13 @@
 import IGallery from "../../database/interfaces/gallery";
 import IGalleryDb from "../../data-access/interfaces/gallery-db";
 
-export interface IHardDeleteGalleryPayload {
+export interface IHardDeleteGallery {
   _id: string;
 }
 
 export type HardDeleteGallery = ({
   _id,
-}: IHardDeleteGalleryPayload) => Promise<IGallery>;
+}: IHardDeleteGallery) => Promise<IGallery>;
 
 export default function makeHardDeleteGallery({
   galleryDb,

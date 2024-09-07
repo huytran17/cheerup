@@ -5,7 +5,7 @@ import IUserDb, {
   IUserAnalyticsData,
 } from "../../data-access/interfaces/user-db";
 
-export interface IGetUserAnalysticsPayload {
+export interface IGetUserAnalystics {
   range?: string[];
   unit?: string;
 }
@@ -13,7 +13,7 @@ export interface IGetUserAnalysticsPayload {
 export type GetUserAnalystics = ({
   range,
   unit,
-}: IGetUserAnalysticsPayload) => Promise<IUserAnalyticsData>;
+}: IGetUserAnalystics) => Promise<IUserAnalyticsData>;
 
 export default function makeGetUserAnalystics({
   userDb,

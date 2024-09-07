@@ -3,11 +3,10 @@ import { get, sortBy, split } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetMostPopularPostsAnalystics,
-  IGetMostPopularPostsAnalysticsPayload,
+  IGetMostPopularPostsAnalystics,
 } from "../../../../use-cases/post/get-most-popular-posts-analystics";
 
-interface IPayload
-  extends Omit<IGetMostPopularPostsAnalysticsPayload, "range"> {
+interface IPayload extends Omit<IGetMostPopularPostsAnalystics, "range"> {
   range?: string;
 }
 

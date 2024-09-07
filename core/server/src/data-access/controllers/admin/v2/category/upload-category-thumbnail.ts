@@ -3,7 +3,7 @@ import { get } from "lodash";
 import { HttpStatusCode } from "../../../../../constants/http-status-code";
 import {
   GetCategory,
-  IGetCategoryPayload,
+  IGetCategory,
 } from "../../../../../use-cases/category/get-category";
 import { UpdateCategory } from "../../../../../use-cases/category/update-category";
 import deleteUploadedFile from "../../../../../utils/delete-uploaded-file";
@@ -25,9 +25,7 @@ export default function makeUploadCategoryThumbnailController({
     };
 
     try {
-      const { _id } = <IGetCategoryPayload>(
-        get(httpRequest, "context.validated", {})
-      );
+      const { _id } = <IGetCategory>get(httpRequest, "context.validated", {});
 
       const exists = await getCategory({ _id });
 

@@ -3,10 +3,10 @@ import { get, sortBy, split } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetUserAnalystics,
-  IGetUserAnalysticsPayload,
+  IGetUserAnalystics,
 } from "../../../../use-cases/user/get-user-analystics";
 
-interface IPayload extends Omit<IGetUserAnalysticsPayload, "range"> {
+interface IPayload extends Omit<IGetUserAnalystics, "range"> {
   range?: string;
 }
 

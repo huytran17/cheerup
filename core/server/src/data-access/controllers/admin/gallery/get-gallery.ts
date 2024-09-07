@@ -3,7 +3,7 @@ import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetGallery,
-  IGetGalleryPayload,
+  IGetGallery,
 } from "../../../../use-cases/gallery/get-gallery";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -20,9 +20,7 @@ export default function makeGetGalleryController({
     };
 
     try {
-      const { _id } = <IGetGalleryPayload>(
-        get(httpRequest, "context.validated", {})
-      );
+      const { _id } = <IGetGallery>get(httpRequest, "context.validated", {});
 
       const exists = await getGallery({ _id });
 

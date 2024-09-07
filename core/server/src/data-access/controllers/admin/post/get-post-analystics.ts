@@ -3,9 +3,9 @@ import { get, sortBy, split } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetPostAnalystics,
-  IGetPostAnalysticsPayload,
+  IGetPostAnalystics,
 } from "../../../../use-cases/post/get-post-analystics";
-interface IPayload extends Omit<IGetPostAnalysticsPayload, "range"> {
+interface IPayload extends Omit<IGetPostAnalystics, "range"> {
   range?: string;
 }
 

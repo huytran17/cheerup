@@ -7,7 +7,7 @@ import {
 } from "../../../../config/pdf-generator";
 import { ReadingTimeAnalyzer } from "../../../../config/reading-time/reading-time-analyzer";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { GetPost, IGetPostPayload } from "../../../../use-cases/post/get-post";
+import { GetPost, IGetPost } from "../../../../use-cases/post/get-post";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeExportPostPdfController({
@@ -27,7 +27,7 @@ export default function makeExportPostPdfController({
     };
 
     try {
-      const { _id: post_id } = <IGetPostPayload>(
+      const { _id: post_id } = <IGetPost>(
         get(httpRequest, "context.validated", {})
       );
 

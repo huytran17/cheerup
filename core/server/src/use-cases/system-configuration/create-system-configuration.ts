@@ -1,13 +1,13 @@
 import ISystemConfiguration from "../../database/interfaces/system-configuration";
 import SystemConfigurationDb from "../../data-access/interfaces/system-configuration-db";
 
-export interface ICreateSystemConfigurationPayload
+export interface ICreateSystemConfiguration
   extends Partial<ISystemConfiguration> {
   [key: string]: any;
 }
 
 export type CreateSystemConfiguration = (
-  payload: ICreateSystemConfigurationPayload
+  payload: ICreateSystemConfiguration
 ) => Promise<ISystemConfiguration>;
 
 export default function makeCreateSystemConfiguration({

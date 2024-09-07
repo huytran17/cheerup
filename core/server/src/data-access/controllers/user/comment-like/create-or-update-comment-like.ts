@@ -4,7 +4,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IUser from "../../../../database/interfaces/user";
 import {
   CreateCommentLike,
-  ICreateCommentLikePayload,
+  ICreateCommentLike,
 } from "../../../../use-cases/comment-like/create-comment-like";
 import { GetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
 import { HardDeleteCommentLike } from "../../../../use-cases/comment-like/hard-delete-comment-like";
@@ -43,7 +43,7 @@ export default function makeCreateOrUpdateCommentLikeController({
     };
 
     try {
-      const comment_like_details = <ICreateCommentLikePayload>(
+      const comment_like_details = <ICreateCommentLike>(
         get(httpRequest, "context.validated", {})
       );
       const { comment_id } = comment_like_details;

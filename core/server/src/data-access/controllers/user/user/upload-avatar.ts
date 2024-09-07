@@ -2,7 +2,7 @@ import { Request } from "express";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IUser from "../../../../database/interfaces/user";
-import { GetUser, IGetUserPayload } from "../../../../use-cases/user/get-user";
+import { GetUser, IGetUser } from "../../../../use-cases/user/get-user";
 import { UpdateUser } from "../../../../use-cases/user/update-user";
 import deleteS3Object from "../../../../utils/delete-s3-object";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -24,9 +24,7 @@ export default function makeUploadUserAvatarController({
     try {
       const { _id: user_id } = <IUser>get(httpRequest, "context.user", {});
 
-      const { _id } = <IGetUserPayload>(
-        get(httpRequest, "context.validated", {})
-      );
+      const { _id } = <IGetUser>get(httpRequest, "context.validated", {});
 
       if (user_id !== _id) {
         throw new Error("Access denied");

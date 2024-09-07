@@ -1,11 +1,11 @@
 import IUserDb from "../../data-access/interfaces/user-db";
 import IUser from "../../database/interfaces/user";
 
-export interface IUpdateUserPayload extends Partial<IUser> {
+export interface IUpdateUser extends Partial<IUser> {
   [key: string]: any;
 }
 
-export type UpdateUser = (payload: IUpdateUserPayload) => Promise<IUser>;
+export type UpdateUser = (payload: IUpdateUser) => Promise<IUser>;
 
 export default function makeUpdateUser({
   userDb,

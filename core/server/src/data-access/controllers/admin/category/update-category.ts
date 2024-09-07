@@ -5,7 +5,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetCategory } from "../../../../use-cases/category/get-category";
 import { GetCategoryByTitle } from "../../../../use-cases/category/get-category-by-title";
 import {
-  IUpdateCategoryPayload,
+  IUpdateCategory,
   UpdateCategory,
 } from "../../../../use-cases/category/update-category";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -29,7 +29,7 @@ export default function makeUpdateCategoryController({
     };
 
     try {
-      const category_details = <IUpdateCategoryPayload>(
+      const category_details = <IUpdateCategory>(
         get(httpRequest, "context.validated", {})
       );
       const { _id, title } = category_details;

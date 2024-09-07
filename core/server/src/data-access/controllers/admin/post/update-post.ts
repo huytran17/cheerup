@@ -4,7 +4,7 @@ import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetPost } from "../../../../use-cases/post/get-post";
 import {
-  IUpdatePostPayload,
+  IUpdatePost,
   UpdatePost,
 } from "../../../../use-cases/post/update-post";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -26,7 +26,7 @@ export default function makeUpdatePostController({
     };
 
     try {
-      const post_details = <IUpdatePostPayload>(
+      const post_details = <IUpdatePost>(
         get(httpRequest, "context.validated", {})
       );
       const { _id } = post_details;

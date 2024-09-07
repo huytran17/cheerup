@@ -9,7 +9,7 @@ import IUser from "../../../../database/interfaces/user";
 import { CountCommentsByPost } from "../../../../use-cases/comment/count-comments-by-post";
 import {
   GetPostBookmarksPaginated,
-  IGetPostBookmarksPaginatedPayload,
+  IGetPostBookmarksPaginated,
 } from "../../../../use-cases/post-bookmark/get-post-bookmarks-paginated";
 
 export default function makeGetPostBookmarksPaginatedController({
@@ -29,9 +29,9 @@ export default function makeGetPostBookmarksPaginatedController({
     };
 
     try {
-      const { query, page, entries_per_page } = <
-        IGetPostBookmarksPaginatedPayload
-      >get(httpRequest, "context.validated", {});
+      const { query, page, entries_per_page } = <IGetPostBookmarksPaginated>(
+        get(httpRequest, "context.validated", {})
+      );
 
       const { _id } = <IUser>get(httpRequest, "context.user", {});
 

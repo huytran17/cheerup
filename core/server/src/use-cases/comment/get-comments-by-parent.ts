@@ -4,13 +4,13 @@ import Redis from "../../config/redis";
 import ICommentDb from "../../data-access/interfaces/comment-db";
 import IComment from "../../database/interfaces/comment";
 
-export interface IGetCommentsByParentPayload {
+export interface IGetCommentsByParent {
   _id: string;
 }
 
 export type GetCommentsByParent = ({
   _id,
-}: IGetCommentsByParentPayload) => Promise<IComment[]>;
+}: IGetCommentsByParent) => Promise<IComment[]>;
 
 export default function makeGetCommentsByParent({
   commentDb,

@@ -4,7 +4,7 @@ import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetGallery } from "../../../../use-cases/gallery/get-gallery";
 import {
-  IUpdateGalleryPayload,
+  IUpdateGallery,
   UpdateGallery,
 } from "../../../../use-cases/gallery/update-gallery";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -26,7 +26,7 @@ export default function makeUpdateGalleryController({
     };
 
     try {
-      const gallery_details = <IUpdateGalleryPayload>(
+      const gallery_details = <IUpdateGallery>(
         get(httpRequest, "context.validated", {})
       );
       const { _id } = gallery_details;

@@ -5,7 +5,7 @@ import ICategoryDb, {
   ICategoryAnalyticsData,
 } from "../../data-access/interfaces/category-db";
 
-export interface IGetCategoryAnalysticsPayload {
+export interface IGetCategoryAnalystics {
   range?: string[];
   unit?: string;
   limit?: number;
@@ -15,7 +15,7 @@ export type GetCategoryAnalystics = ({
   range,
   unit,
   limit,
-}: IGetCategoryAnalysticsPayload) => Promise<ICategoryAnalyticsData>;
+}: IGetCategoryAnalystics) => Promise<ICategoryAnalyticsData>;
 
 export default function makeGetCategoryAnalystics({
   categoryDb,

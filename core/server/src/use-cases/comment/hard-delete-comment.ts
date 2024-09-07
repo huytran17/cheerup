@@ -1,13 +1,13 @@
 import IComment from "../../database/interfaces/comment";
 import ICommentDb from "../../data-access/interfaces/comment-db";
 
-export interface IHardDeleteCommentPayload {
+export interface IHardDeleteComment {
   _id: string;
 }
 
 export type HardDeleteComment = ({
   _id,
-}: IHardDeleteCommentPayload) => Promise<IComment>;
+}: IHardDeleteComment) => Promise<IComment>;
 
 export default function makeHardDeleteComment({
   commentDb,

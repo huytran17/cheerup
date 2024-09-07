@@ -4,7 +4,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetComment } from "../../../../use-cases/comment/get-comment";
 import {
   HardDeleteComment,
-  IHardDeleteCommentPayload,
+  IHardDeleteComment,
 } from "../../../../use-cases/comment/hard-delete-comment";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -23,7 +23,7 @@ export default function makeDeleteComment({
     };
 
     try {
-      const { _id } = <IHardDeleteCommentPayload>(
+      const { _id } = <IHardDeleteComment>(
         get(httpRequest, "context.validated", {})
       );
 

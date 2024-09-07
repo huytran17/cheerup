@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { GetPost, IGetPostPayload } from "../../../../use-cases/post/get-post";
+import { GetPost, IGetPost } from "../../../../use-cases/post/get-post";
 import { isEmpty } from "../../../../utils/is-empty";
 
 export default function makeGetPostController({
@@ -17,9 +17,7 @@ export default function makeGetPostController({
     };
 
     try {
-      const { _id } = <IGetPostPayload>(
-        get(httpRequest, "context.validated", {})
-      );
+      const { _id } = <IGetPost>get(httpRequest, "context.validated", {});
 
       const exists = await getPost({ _id });
       if (isEmpty(exists)) {

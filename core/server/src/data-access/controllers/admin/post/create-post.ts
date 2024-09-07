@@ -9,7 +9,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IAdmin from "../../../../database/interfaces/admin";
 import {
   CreatePost,
-  ICreatePostPayload,
+  ICreatePost,
 } from "../../../../use-cases/post/create-post";
 import { GetPost } from "../../../../use-cases/post/get-post";
 import { UpdatePost } from "../../../../use-cases/post/update-post";
@@ -44,7 +44,7 @@ export default function makeCreatePostController({
     try {
       const admin = <IAdmin>get(httpRequest, "context.user", {});
 
-      const post_details = <ICreatePostPayload>(
+      const post_details = <ICreatePost>(
         get(httpRequest, "context.validated", {})
       );
 

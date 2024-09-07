@@ -1,13 +1,13 @@
 import IUser from "../../database/interfaces/user";
 import IUserDb from "../../data-access/interfaces/user-db";
 
-export interface IGetSoftDeletedUserPayload {
+export interface IGetSoftDeletedUser {
   _id: string;
 }
 
 export type GetSoftDeletedUser = ({
   _id,
-}: IGetSoftDeletedUserPayload) => Promise<IUser>;
+}: IGetSoftDeletedUser) => Promise<IUser>;
 
 export default function makeGetSoftDeletedUser({
   userDb,

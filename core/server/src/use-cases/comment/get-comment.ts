@@ -1,7 +1,7 @@
 import IComment from "../../database/interfaces/comment";
 import ICommentDb from "../../data-access/interfaces/comment-db";
 
-export interface IGetCommentPayload {
+export interface IGetComment {
   _id: string;
   is_only_parent?: boolean;
   is_show_children?: boolean;
@@ -11,7 +11,7 @@ export type GetComment = ({
   _id,
   is_only_parent,
   is_show_children,
-}: IGetCommentPayload) => Promise<IComment>;
+}: IGetComment) => Promise<IComment>;
 
 export default function makeGetComment({
   commentDb,

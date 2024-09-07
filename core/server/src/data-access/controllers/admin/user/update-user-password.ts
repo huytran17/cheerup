@@ -6,7 +6,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetUser } from "../../../../use-cases/user/get-user";
 import { ResetLoginFailedTimes } from "../../../../use-cases/user/reset-login-failed-times";
 import {
-  IUpdateUserPayload,
+  IUpdateUser,
   UpdateUser,
 } from "../../../../use-cases/user/update-user";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -32,7 +32,7 @@ export default function makeUpdateUserPasswordController({
     };
 
     try {
-      const { _id, password, password_confirmation } = <IUpdateUserPayload>(
+      const { _id, password, password_confirmation } = <IUpdateUser>(
         get(httpRequest, "context.validated", {})
       );
 

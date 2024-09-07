@@ -1,10 +1,10 @@
 import ICommentLikeDb from "../../data-access/interfaces/comment-like-db";
 import ICommentLike from "../../database/interfaces/comment-like";
 
-export interface ICommentLikePayload extends Partial<ICommentLike> {}
+export interface IUpdateCommentLike extends Partial<ICommentLike> {}
 
 export type UpdateCommentLike = (
-  payload: ICommentLikePayload
+  payload: IUpdateCommentLike
 ) => Promise<ICommentLike>;
 
 export default function makeUpdateCommentLike({

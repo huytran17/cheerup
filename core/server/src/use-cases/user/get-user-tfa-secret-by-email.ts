@@ -1,13 +1,13 @@
 import IUserDb from "../../data-access/interfaces/user-db";
 import IUser from "../../database/interfaces/user";
 
-export interface IGetUserTfaSecretByEmailPayload {
+export interface IGetUserTfaSecretByEmail {
   email: string;
 }
 
 export type GetUserTfaSecretByEmail = ({
   email,
-}: IGetUserTfaSecretByEmailPayload) => Promise<IUser>;
+}: IGetUserTfaSecretByEmail) => Promise<IUser>;
 
 export default function makeGetUserTfaSecretByEmail({
   userDb,

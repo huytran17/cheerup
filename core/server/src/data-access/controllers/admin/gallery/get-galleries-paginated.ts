@@ -3,7 +3,7 @@ import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetGalleriesPaginated,
-  IGetGalleriesPaginatedPayload,
+  IGetGalleriesPaginated,
 } from "../../../../use-cases/gallery/get-galleries-paginated";
 
 export default function makeGetGalleriesPaginatedController({
@@ -20,7 +20,7 @@ export default function makeGetGalleriesPaginatedController({
 
     try {
       const { query, page, entries_per_page, is_parent } = <
-        IGetGalleriesPaginatedPayload
+        IGetGalleriesPaginated
       >get(httpRequest, "context.validated", {});
 
       const galleries = await getGalleriesPaginated({

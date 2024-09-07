@@ -4,7 +4,7 @@ import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   DeleteCategory,
-  IDeleteCategoryPayload,
+  IDeleteCategory,
 } from "../../../../use-cases/category/delete-category";
 import { GetCategory } from "../../../../use-cases/category/get-category";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -26,7 +26,7 @@ export default function makeDeleteCategoryController({
     };
 
     try {
-      const { _id } = <IDeleteCategoryPayload>(
+      const { _id } = <IDeleteCategory>(
         get(httpRequest, "context.validated", {})
       );
 

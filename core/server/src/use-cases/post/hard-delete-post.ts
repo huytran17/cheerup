@@ -1,11 +1,11 @@
 import IPost from "../../database/interfaces/post";
 import IPostDb from "../../data-access/interfaces/post-db";
 
-export interface IHardDeletePayload {
+export interface IHardDeletePost {
   _id: string;
 }
 
-export type HardDeletePost = ({ _id }: IHardDeletePayload) => Promise<IPost>;
+export type HardDeletePost = ({ _id }: IHardDeletePost) => Promise<IPost>;
 
 export default function makeHardDeletePost({
   postDb,

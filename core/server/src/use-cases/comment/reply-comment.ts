@@ -1,12 +1,12 @@
 import ICommentDb from "../../data-access/interfaces/comment-db";
 import IComment from "../../database/interfaces/comment";
 
-export interface IReplyCommentPayload
+export interface IReplyComment
   extends Omit<Partial<IComment>, "post" | "parent"> {
   [kay: string]: any;
 }
 
-export type ReplyComment = (payload: IReplyCommentPayload) => Promise<IComment>;
+export type ReplyComment = (payload: IReplyComment) => Promise<IComment>;
 
 export default function makeReplyComment({
   commentDb,

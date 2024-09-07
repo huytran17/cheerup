@@ -5,7 +5,7 @@ import { HashPassword } from "../../../../config/password/hash-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   CreateUser,
-  ICreateUserPayload,
+  ICreateUser,
 } from "../../../../use-cases/user/create-user";
 import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -30,9 +30,7 @@ export default function makeSignUpController({
 
     try {
       const client_ip: string = get(httpRequest, "context.ip", "");
-      const user = <ICreateUserPayload>(
-        get(httpRequest, "context.validated", {})
-      );
+      const user = <ICreateUser>get(httpRequest, "context.validated", {});
 
       const { email, password, password_confirmation } = user;
 

@@ -4,7 +4,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetGalleriesByParent } from "../../../../use-cases/gallery/get-galleries-by-parent";
 import {
   GetGallery,
-  IGetGalleryPayload,
+  IGetGallery,
 } from "../../../../use-cases/gallery/get-gallery";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -23,9 +23,7 @@ export default function makeGetGalleriesByParentController({
     };
 
     try {
-      const { _id } = <IGetGalleryPayload>(
-        get(httpRequest, "context.validated", {})
-      );
+      const { _id } = <IGetGallery>get(httpRequest, "context.validated", {});
 
       const exists = await getGallery({ _id });
 

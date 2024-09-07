@@ -3,7 +3,7 @@ import { get } from "lodash";
 import { HttpStatusCode } from "../../../../../constants/http-status-code";
 import {
   GetSystemConfiguration,
-  IGetSystemConfigurationPayload,
+  IGetSystemConfiguration,
 } from "../../../../../use-cases/system-configuration/get-system-configuraion";
 import { UpdateSystemConfiguration } from "../../../../../use-cases/system-configuration/update-system-configuraion";
 import deleteUploadedFile from "../../../../../utils/delete-uploaded-file";
@@ -25,7 +25,7 @@ export default function makeUploadThumbnaiilController({
     };
 
     try {
-      const { _id } = <IGetSystemConfigurationPayload>(
+      const { _id } = <IGetSystemConfiguration>(
         get(httpRequest, "context.validated", {})
       );
 

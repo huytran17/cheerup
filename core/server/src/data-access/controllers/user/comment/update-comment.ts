@@ -4,7 +4,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IUser from "../../../../database/interfaces/user";
 import { GetComment } from "../../../../use-cases/comment/get-comment";
 import {
-  IUpdateCommentData,
+  IUpdateComment,
   UpdateComment,
 } from "../../../../use-cases/comment/update-comment";
 import { GetPost } from "../../../../use-cases/post/get-post";
@@ -27,7 +27,7 @@ export default function makeUpdateCommentController({
     };
 
     try {
-      const comment_details = <IUpdateCommentData>(
+      const comment_details = <IUpdateComment>(
         get(httpRequest, "context.validated", {})
       );
 

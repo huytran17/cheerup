@@ -4,13 +4,13 @@ import { RandomCacheTime } from "../../config/random-cache-time/make-random-cach
 import Redis from "../../config/redis";
 import IPostDb from "../../data-access/interfaces/post-db";
 
-export interface ICountPostByCategoryPayload {
+export interface ICountPostByCategory {
   category_id: string;
 }
 
 export type CountPostByCategory = ({
   category_id,
-}: ICountPostByCategoryPayload) => Promise<number>;
+}: ICountPostByCategory) => Promise<number>;
 
 export default function makeCountPostByCategory({
   postDb,

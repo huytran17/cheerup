@@ -3,7 +3,7 @@ import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetCategory,
-  IGetCategoryPayload,
+  IGetCategory,
 } from "../../../../use-cases/category/get-category";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -20,9 +20,7 @@ export default function makeGetCategoryController({
     };
 
     try {
-      const { _id } = <IGetCategoryPayload>(
-        get(httpRequest, "context.validated", {})
-      );
+      const { _id } = <IGetCategory>get(httpRequest, "context.validated", {});
 
       const exists = await getCategory({ _id });
       if (isEmpty(exists)) {

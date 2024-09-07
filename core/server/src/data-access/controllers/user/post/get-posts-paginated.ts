@@ -7,12 +7,11 @@ import { CountCommentsByPost } from "../../../../use-cases/comment/count-comment
 import { GetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
 import {
   GetPostsPaginated,
-  IGetPostsPaginatedPayload,
+  IGetPostsPaginated,
 } from "../../../../use-cases/post/get-posts-paginated";
 import { isEmpty } from "../../../../utils/is-empty";
 
-interface IPayload
-  extends Omit<IGetPostsPaginatedPayload, "tags" | "categories"> {
+interface IPayload extends Omit<IGetPostsPaginated, "tags" | "categories"> {
   tags?: string;
   categories?: string;
   user_id?: string;

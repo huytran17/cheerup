@@ -4,7 +4,7 @@ import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IUser from "../../../../database/interfaces/user";
 import {
-  IUpdateUserPayload,
+  IUpdateUser,
   UpdateUser,
 } from "../../../../use-cases/user/update-user";
 
@@ -25,7 +25,7 @@ export default function makeUpdateUserController({
     try {
       const { _id } = <IUser>get(httpRequest, "context.user", {});
 
-      const user_details = <IUpdateUserPayload>(
+      const user_details = <IUpdateUser>(
         get(httpRequest, "context.validated", {})
       );
 

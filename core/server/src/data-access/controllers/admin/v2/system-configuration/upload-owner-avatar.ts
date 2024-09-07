@@ -7,7 +7,7 @@ import getFIleUploadedPath from "../../../../../utils/get-file-uploaded-path";
 import { isEmpty } from "../../../../../utils/is-empty";
 import {
   GetSystemConfiguration,
-  IGetSystemConfigurationPayload,
+  IGetSystemConfiguration,
 } from "../../../../../use-cases/system-configuration/get-system-configuraion";
 
 export default function makeUploadOwnerAvatarController({
@@ -25,7 +25,7 @@ export default function makeUploadOwnerAvatarController({
     };
 
     try {
-      const { _id } = <IGetSystemConfigurationPayload>(
+      const { _id } = <IGetSystemConfiguration>(
         get(httpRequest, "context.validated", {})
       );
 

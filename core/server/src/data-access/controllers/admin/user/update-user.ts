@@ -4,7 +4,7 @@ import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetUser } from "../../../../use-cases/user/get-user";
 import {
-  IUpdateUserPayload,
+  IUpdateUser,
   UpdateUser,
 } from "../../../../use-cases/user/update-user";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -26,7 +26,7 @@ export default function makeUpdateUserController({
     };
 
     try {
-      const user_details = <IUpdateUserPayload>(
+      const user_details = <IUpdateUser>(
         get(httpRequest, "context.validated", {})
       );
 

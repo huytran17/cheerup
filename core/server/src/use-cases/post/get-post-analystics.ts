@@ -3,7 +3,7 @@ import { RandomCacheTime } from "../../config/random-cache-time/make-random-cach
 import Redis from "../../config/redis";
 import IPostDb, { IPostAnalytics } from "../../data-access/interfaces/post-db";
 
-export interface IGetPostAnalysticsPayload {
+export interface IGetPostAnalystics {
   range?: string[];
   unit?: string;
   limit?: number;
@@ -12,7 +12,7 @@ export interface IGetPostAnalysticsPayload {
 export type GetPostAnalystics = ({
   range,
   unit,
-}: IGetPostAnalysticsPayload) => Promise<IPostAnalytics>;
+}: IGetPostAnalystics) => Promise<IPostAnalytics>;
 
 export default function makeGetPostAnalystics({
   postDb,

@@ -5,7 +5,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetPost } from "../../../../use-cases/post/get-post";
 import {
   HardDeletePost,
-  IHardDeletePayload,
+  IHardDeletePost,
 } from "../../../../use-cases/post/hard-delete-post";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -26,7 +26,7 @@ export default function makeHardDeletePostController({
     };
 
     try {
-      const { _id } = <IHardDeletePayload>(
+      const { _id } = <IHardDeletePost>(
         get(httpRequest, "context.validated", {})
       );
 

@@ -1,13 +1,11 @@
 import IUser from "../../database/interfaces/user";
 import IUserDb from "../../data-access/interfaces/user-db";
 
-export interface IGetUserByEmailPayload {
+export interface IGetUserByEmail {
   email: string;
 }
 
-export type GetUserByEmail = ({
-  email,
-}: IGetUserByEmailPayload) => Promise<IUser>;
+export type GetUserByEmail = ({ email }: IGetUserByEmail) => Promise<IUser>;
 
 export default function makeGetUserByEmail({
   userDb,

@@ -1,11 +1,11 @@
 import IUser from "../../database/interfaces/user";
 import IUserDb from "../../data-access/interfaces/user-db";
 
-export interface IRestoreUserPayload {
+export interface IRestoreUser {
   _id: string;
 }
 
-export type RestoreUser = ({ _id }: IRestoreUserPayload) => Promise<IUser>;
+export type RestoreUser = ({ _id }: IRestoreUser) => Promise<IUser>;
 
 export default function makeRestoreUser({
   userDb,

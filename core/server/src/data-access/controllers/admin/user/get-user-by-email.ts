@@ -3,7 +3,7 @@ import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetUserByEmail,
-  IGetUserByEmailPayload,
+  IGetUserByEmail,
 } from "../../../../use-cases/user/get-user-by-email";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -20,7 +20,7 @@ export default function makeGetUserByEmailController({
     };
 
     try {
-      const { email } = <IGetUserByEmailPayload>(
+      const { email } = <IGetUserByEmail>(
         get(httpRequest, "context.validated", {})
       );
 

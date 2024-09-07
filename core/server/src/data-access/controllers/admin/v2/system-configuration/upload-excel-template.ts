@@ -4,7 +4,7 @@ import { HttpStatusCode } from "../../../../../constants/http-status-code";
 import IAdmin from "../../../../../database/interfaces/admin";
 import {
   GetSystemConfiguration,
-  IGetSystemConfigurationPayload,
+  IGetSystemConfiguration,
 } from "../../../../../use-cases/system-configuration/get-system-configuraion";
 import { UpdateSystemConfiguration } from "../../../../../use-cases/system-configuration/update-system-configuraion";
 import deleteUploadedFile from "../../../../../utils/delete-uploaded-file";
@@ -26,7 +26,7 @@ export default function makeUploadExcelTemplateController({
     };
 
     try {
-      const { _id, type } = <IGetSystemConfigurationPayload & { type: string }>(
+      const { _id, type } = <IGetSystemConfiguration & { type: string }>(
         get(httpRequest, "context.validated", {})
       );
 

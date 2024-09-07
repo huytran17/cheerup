@@ -4,7 +4,7 @@ import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetSystemConfiguration } from "../../../../use-cases/system-configuration/get-system-configuraion";
 import {
-  IUpdateSystemConfigurationPayload,
+  IUpdateSystemConfiguration,
   UpdateSystemConfiguration,
 } from "../../../../use-cases/system-configuration/update-system-configuraion";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -26,7 +26,7 @@ export default function makeUpdateSystemConfigurationController({
     };
 
     try {
-      const system_configuration_details = <IUpdateSystemConfigurationPayload>(
+      const system_configuration_details = <IUpdateSystemConfiguration>(
         get(httpRequest, "context.validated", {})
       );
       const { _id } = system_configuration_details;

@@ -1,9 +1,9 @@
 import ICommentDb from "../../data-access/interfaces/comment-db";
 import IComment from "../../database/interfaces/comment";
 
-export interface IUpdateCommentData extends Partial<IComment> {}
+export interface IUpdateComment extends Partial<IComment> {}
 
-export type UpdateComment = (payload: IUpdateCommentData) => Promise<IComment>;
+export type UpdateComment = (payload: IUpdateComment) => Promise<IComment>;
 
 export default function makeUpdateComment({
   commentDb,

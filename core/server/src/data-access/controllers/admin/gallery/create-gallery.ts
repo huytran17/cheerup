@@ -5,7 +5,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IAdmin from "../../../../database/interfaces/admin";
 import {
   CreateGallery,
-  ICreateGalleryPayload,
+  ICreateGallery,
 } from "../../../../use-cases/gallery/create-gallery";
 
 export default function makeCreateGalleryController({
@@ -23,7 +23,7 @@ export default function makeCreateGalleryController({
     };
 
     try {
-      const gallery_details = <ICreateGalleryPayload>(
+      const gallery_details = <ICreateGallery>(
         get(httpRequest, "context.validated", {})
       );
 

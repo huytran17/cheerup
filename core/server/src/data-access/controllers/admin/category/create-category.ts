@@ -5,7 +5,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IAdmin from "../../../../database/interfaces/admin";
 import {
   CreateCategory,
-  ICreateCategoryPayload,
+  ICreateCategory,
 } from "../../../../use-cases/category/create-category";
 
 export default function makeCreateCategoryController({
@@ -23,7 +23,7 @@ export default function makeCreateCategoryController({
     };
 
     try {
-      const category_details = <ICreateCategoryPayload>(
+      const category_details = <ICreateCategory>(
         get(httpRequest, "context.validated", {})
       );
 

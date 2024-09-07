@@ -1,12 +1,12 @@
 import ISubscriptionDb from "../../data-access/interfaces/subscription-db";
 import ISubscription from "../../database/interfaces/subscription";
 
-export interface IUpdateSubscriptionPayload extends Partial<ISubscription> {
+export interface IUpdateSubscription extends Partial<ISubscription> {
   [key: string]: any;
 }
 
 export type UpdateSubscription = (
-  payload: IUpdateSubscriptionPayload
+  payload: IUpdateSubscription
 ) => Promise<ISubscription>;
 
 export default function makeUpdateSubscription({

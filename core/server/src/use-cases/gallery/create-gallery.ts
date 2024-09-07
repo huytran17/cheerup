@@ -1,11 +1,9 @@
 import IGalleryDb from "../../data-access/interfaces/gallery-db";
 import IGallery from "../../database/interfaces/gallery";
 
-export interface ICreateGalleryPayload extends Partial<IGallery> {}
+export interface ICreateGallery extends Partial<IGallery> {}
 
-export type CreateGallery = (
-  payload: ICreateGalleryPayload
-) => Promise<IGallery>;
+export type CreateGallery = (payload: ICreateGallery) => Promise<IGallery>;
 
 export default function makeCreateGallery({
   galleryDb,

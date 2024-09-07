@@ -5,7 +5,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetGallery } from "../../../../use-cases/gallery/get-gallery";
 import {
   HardDeleteGallery,
-  IHardDeleteGalleryPayload,
+  IHardDeleteGallery,
 } from "../../../../use-cases/gallery/hard-delete-gallery";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -26,7 +26,7 @@ export default function makeHardDeleteGalleryController({
     };
 
     try {
-      const { _id } = <IHardDeleteGalleryPayload>(
+      const { _id } = <IHardDeleteGallery>(
         get(httpRequest, "context.validated", {})
       );
       const exists = await getGallery({ _id });

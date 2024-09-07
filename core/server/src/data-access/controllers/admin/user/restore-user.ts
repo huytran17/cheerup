@@ -4,7 +4,7 @@ import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetSoftDeletedUser,
-  IGetSoftDeletedUserPayload,
+  IGetSoftDeletedUser,
 } from "../../../../use-cases/user/get-soft-deleted-user";
 import { RestoreUser } from "../../../../use-cases/user/restore-user";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -26,7 +26,7 @@ export default function makeRestoreUserController({
     };
 
     try {
-      const { _id } = <IGetSoftDeletedUserPayload>(
+      const { _id } = <IGetSoftDeletedUser>(
         get(httpRequest, "context.validated", {})
       );
 

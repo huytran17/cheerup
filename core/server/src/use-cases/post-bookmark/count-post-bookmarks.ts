@@ -1,12 +1,12 @@
 import IPostBookmarkDb from "../../data-access/interfaces/post-bookmark-db";
 
-export interface ICountPostBookmarksPayload {
+export interface ICountPostBookmarks {
   user_id: string;
 }
 
 export type CountPostBookmarks = ({
   user_id,
-}: ICountPostBookmarksPayload) => Promise<number>;
+}: ICountPostBookmarks) => Promise<number>;
 
 export default function makeCountPostBookmarks({
   postBookmarkDb,

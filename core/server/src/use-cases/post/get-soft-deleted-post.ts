@@ -1,13 +1,13 @@
 import IPost from "../../database/interfaces/post";
 import IPostDb from "../../data-access/interfaces/post-db";
 
-export interface IGetSoftDeletedPostPayload {
+export interface IGetSoftDeletedPost {
   _id: string;
 }
 
 export type GetSoftDeletedPost = ({
   _id,
-}: IGetSoftDeletedPostPayload) => Promise<IPost>;
+}: IGetSoftDeletedPost) => Promise<IPost>;
 
 export default function makeGetSoftDeletedPost({
   postDb,

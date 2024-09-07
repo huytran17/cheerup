@@ -1,13 +1,12 @@
 import IPasswordResetDb from "../../data-access/interfaces/password-reset-db";
 import IPasswordReset from "../../database/interfaces/password-reset";
 
-export interface ICreatePasswordResetDataPayload
-  extends Partial<IPasswordReset> {
+export interface ICreatePasswordReset extends Partial<IPasswordReset> {
   [key: string]: any;
 }
 
 export type CreatePasswordReset = (
-  payload: ICreatePasswordResetDataPayload
+  payload: ICreatePasswordReset
 ) => Promise<IPasswordReset>;
 
 export default function makeCreatePasswordReset({

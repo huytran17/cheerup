@@ -1,6 +1,6 @@
 import ICommentLikeDb from "../../data-access/interfaces/comment-like-db";
 
-export interface ICountCommentLikeByCommentAndTypePayload {
+export interface ICountCommentLikeByCommentAndType {
   comment_id: string;
   type: string;
 }
@@ -8,7 +8,7 @@ export interface ICountCommentLikeByCommentAndTypePayload {
 export type CountCommentLikeByCommentAndType = ({
   comment_id,
   type,
-}: ICountCommentLikeByCommentAndTypePayload) => Promise<number>;
+}: ICountCommentLikeByCommentAndType) => Promise<number>;
 
 export default function makeCountCommentLikeByCommentAndType({
   commentLikeDb,

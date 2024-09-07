@@ -1,9 +1,9 @@
 import IPostDb from "../../data-access/interfaces/post-db";
 import IPost from "../../database/interfaces/post";
 
-export interface IUpdatePostPayload extends Partial<IPost> {}
+export interface IUpdatePost extends Partial<IPost> {}
 
-export type UpdatePost = (payload: IUpdatePostPayload) => Promise<IPost>;
+export type UpdatePost = (payload: IUpdatePost) => Promise<IPost>;
 
 export default function makeUpdatePost({
   postDb,

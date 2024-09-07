@@ -5,7 +5,7 @@ import IUser from "../../../../database/interfaces/user";
 import { GetComment } from "../../../../use-cases/comment/get-comment";
 import {
   HardDeleteComment,
-  IHardDeleteCommentPayload,
+  IHardDeleteComment,
 } from "../../../../use-cases/comment/hard-delete-comment";
 import { GetPost } from "../../../../use-cases/post/get-post";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -27,7 +27,7 @@ export default function makeDeleteCommentController({
     };
 
     try {
-      const { _id: comment_id } = <IHardDeleteCommentPayload>(
+      const { _id: comment_id } = <IHardDeleteComment>(
         get(httpRequest, "context.validated", {})
       );
 

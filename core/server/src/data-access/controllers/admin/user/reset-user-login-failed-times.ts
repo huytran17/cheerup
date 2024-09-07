@@ -1,6 +1,6 @@
 import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { GetUser, IGetUserPayload } from "../../../../use-cases/user/get-user";
+import { GetUser, IGetUser } from "../../../../use-cases/user/get-user";
 import { ResetLoginFailedTimes } from "../../../../use-cases/user/reset-login-failed-times";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -19,9 +19,7 @@ export default function makeResetUserLoginFailedTimesController({
     };
 
     try {
-      const { _id } = <IGetUserPayload>(
-        get(httpRequest, "context.validated", {})
-      );
+      const { _id } = <IGetUser>get(httpRequest, "context.validated", {});
 
       const exists = await getUser({ _id });
 

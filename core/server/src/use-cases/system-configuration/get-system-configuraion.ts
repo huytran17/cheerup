@@ -1,13 +1,13 @@
 import ISystemConfiguration from "../../database/interfaces/system-configuration";
 import ISystemConfigurationDb from "../../data-access/interfaces/system-configuration-db";
 
-export interface IGetSystemConfigurationPayload {
+export interface IGetSystemConfiguration {
   _id: string;
 }
 
 export type GetSystemConfiguration = ({
   _id,
-}: IGetSystemConfigurationPayload) => Promise<ISystemConfiguration>;
+}: IGetSystemConfiguration) => Promise<ISystemConfiguration>;
 
 export default function makeGetSystemConfiguration({
   systemConfigurationDb,

@@ -4,7 +4,7 @@ import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetSoftDeletedCategory,
-  IGetSoftDeletedCategoryPayload,
+  IGetSoftDeletedCategory,
 } from "../../../../use-cases/category/get-soft-deleted-category";
 import { UpdateCategory } from "../../../../use-cases/category/update-category";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -26,7 +26,7 @@ export default function makeRestoreCategoryController({
     };
 
     try {
-      const { _id } = <IGetSoftDeletedCategoryPayload>(
+      const { _id } = <IGetSoftDeletedCategory>(
         get(httpRequest, "context.validated", {})
       );
 

@@ -1,13 +1,13 @@
 import IUserDb from "../../data-access/interfaces/user-db";
 import IUser from "../../database/interfaces/user";
 
-export interface IResetLoginFailedTimesPayload {
+export interface IResetLoginFailedTimes {
   _id: string;
 }
 
 export type ResetLoginFailedTimes = ({
   _id,
-}: IResetLoginFailedTimesPayload) => Promise<IUser>;
+}: IResetLoginFailedTimes) => Promise<IUser>;
 
 export default function makeResetLoginFailedTimes({
   userDb,

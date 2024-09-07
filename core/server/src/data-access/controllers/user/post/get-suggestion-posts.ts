@@ -3,11 +3,11 @@ import { filter, get, split } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetSuggestionPosts,
-  IGetSuggestionPostsPayload,
+  IGetSuggestionPosts,
 } from "../../../../use-cases/post/get-suggestion-posts";
 
 interface IPayload
-  extends Omit<IGetSuggestionPostsPayload, "categories" | "exclude_ids"> {
+  extends Omit<IGetSuggestionPosts, "categories" | "exclude_ids"> {
   categories: string;
   exclude_ids?: string;
 }

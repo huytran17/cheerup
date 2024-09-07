@@ -1,13 +1,13 @@
 import IPasswordReset from "../../database/interfaces/password-reset";
 import IPasswordResetDb from "../../data-access/interfaces/password-reset-db";
 
-export interface IGetPasswordResetByEmailPayload {
+export interface IGetPasswordResetByEmail {
   email: string;
 }
 
 export type GetPasswordResetByEmail = ({
   email,
-}: IGetPasswordResetByEmailPayload) => Promise<IPasswordReset>;
+}: IGetPasswordResetByEmail) => Promise<IPasswordReset>;
 
 export default function makeGetPasswordResetByEmail({
   passwordResetDb,

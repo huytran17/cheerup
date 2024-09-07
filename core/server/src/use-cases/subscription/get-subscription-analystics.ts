@@ -5,7 +5,7 @@ import ISubscriptionDb, {
   ISubscriptionAnalyticsData,
 } from "../../data-access/interfaces/subscription-db";
 
-export interface IGetSubscriptionAnalysticsPayload {
+export interface IGetSubscriptionAnalystics {
   range?: string[];
   unit?: string;
 }
@@ -13,7 +13,7 @@ export interface IGetSubscriptionAnalysticsPayload {
 export type GetSubscriptionAnalystics = ({
   range,
   unit,
-}: IGetSubscriptionAnalysticsPayload) => Promise<ISubscriptionAnalyticsData>;
+}: IGetSubscriptionAnalystics) => Promise<ISubscriptionAnalyticsData>;
 
 export default function makeGetSubscriptionAnalystics({
   subscriptionDb,

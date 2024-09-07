@@ -1,11 +1,11 @@
 import IUser from "../../database/interfaces/user";
 import IUserDb from "../../data-access/interfaces/user-db";
 
-export interface IDeleteUserPayload {
+export interface IDeleteUser {
   _id: string;
 }
 
-export type DeleteUser = ({ _id }: IDeleteUserPayload) => Promise<IUser>;
+export type DeleteUser = ({ _id }: IDeleteUser) => Promise<IUser>;
 
 export default function makeDeleteUser({
   userDb,

@@ -4,7 +4,7 @@ import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetSoftDeletedPost,
-  IGetSoftDeletedPostPayload,
+  IGetSoftDeletedPost,
 } from "../../../../use-cases/post/get-soft-deleted-post";
 import { UpdatePost } from "../../../../use-cases/post/update-post";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -26,7 +26,7 @@ export default function makeRestorePostController({
     };
 
     try {
-      const { _id } = <IGetSoftDeletedPostPayload>(
+      const { _id } = <IGetSoftDeletedPost>(
         get(httpRequest, "context.validated", {})
       );
 

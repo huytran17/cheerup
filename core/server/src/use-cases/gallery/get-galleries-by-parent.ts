@@ -4,13 +4,13 @@ import Redis from "../../config/redis";
 import IGalleryDb from "../../data-access/interfaces/gallery-db";
 import IGallery from "../../database/interfaces/gallery";
 
-export interface IGetGalleriesByParentPayload {
+export interface IGetGalleriesByParent {
   parent_id: string;
 }
 
 export type GetGalleriesByParent = ({
   parent_id,
-}: IGetGalleriesByParentPayload) => Promise<IGallery[]>;
+}: IGetGalleriesByParent) => Promise<IGallery[]>;
 
 export default function makeGetGalleriesByParent({
   galleryDb,

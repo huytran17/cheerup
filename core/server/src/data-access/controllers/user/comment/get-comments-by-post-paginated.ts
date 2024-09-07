@@ -8,7 +8,7 @@ import { CountCommentLikeByCommentAndType } from "../../../../use-cases/comment-
 import { GetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
 import {
   GetCommentsByPostPaginated,
-  IGetCommentsByPostPaginatedPayload,
+  IGetCommentsByPostPaginated,
 } from "../../../../use-cases/comment/get-comments-by-post-paginated";
 import { GetPost } from "../../../../use-cases/post/get-post";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -33,7 +33,7 @@ export default function makeGetCommentsByPostPaginatedController({
 
     try {
       const { query, page, entries_per_page, post_id } = <
-        IGetCommentsByPostPaginatedPayload
+        IGetCommentsByPostPaginated
       >get(httpRequest, "context.validated", {});
 
       const post_exists = await getPost({ _id: post_id });

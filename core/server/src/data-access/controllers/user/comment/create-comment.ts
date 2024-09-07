@@ -8,7 +8,7 @@ import { CountCommentLikeByCommentAndType } from "../../../../use-cases/comment-
 import { GetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
 import {
   CreateComment,
-  ICreateCommentPayload,
+  ICreateComment,
 } from "../../../../use-cases/comment/create-comment";
 import { GetPost } from "../../../../use-cases/post/get-post";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -35,7 +35,7 @@ export default function makeCreateCommentController({
     };
 
     try {
-      const comment_details = <ICreateCommentPayload>(
+      const comment_details = <ICreateComment>(
         get(httpRequest, "context.validated", {})
       );
 

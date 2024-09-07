@@ -4,7 +4,7 @@ import { Logger } from "winston";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   DeletePost,
-  IDeletePostPayload,
+  IDeletePost,
 } from "../../../../use-cases/post/delete-post";
 import { GetPost } from "../../../../use-cases/post/get-post";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -26,9 +26,7 @@ export default function makeDeletePostController({
     };
 
     try {
-      const { _id } = <IDeletePostPayload>(
-        get(httpRequest, "context.validated", {})
-      );
+      const { _id } = <IDeletePost>get(httpRequest, "context.validated", {});
 
       const exists = await getPost({ _id });
       if (isEmpty(exists)) {

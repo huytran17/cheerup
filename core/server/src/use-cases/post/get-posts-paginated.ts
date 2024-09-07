@@ -5,7 +5,7 @@ import IPostDb, {
   IPaginatedPostsResult,
 } from "../../data-access/interfaces/post-db";
 
-export interface IGetPostsPaginatedPayload {
+export interface IGetPostsPaginated {
   categories?: string[];
   tags?: string[];
   sorts?: string;
@@ -21,7 +21,7 @@ export type GetPostsPaginated = ({
   query,
   page,
   entries_per_page,
-}: IGetPostsPaginatedPayload) => Promise<IPaginatedPostsResult>;
+}: IGetPostsPaginated) => Promise<IPaginatedPostsResult>;
 
 export default function makeGetPostsPaginated({
   postDb,

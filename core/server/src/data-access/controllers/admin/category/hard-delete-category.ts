@@ -5,7 +5,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetCategory } from "../../../../use-cases/category/get-category";
 import {
   HardDeleteCategory,
-  IHardDeleteCategoryPayload,
+  IHardDeleteCategory,
 } from "../../../../use-cases/category/hard-delete-category";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -26,7 +26,7 @@ export default function makeHardDeleteCategoryController({
     };
 
     try {
-      const { _id } = <IHardDeleteCategoryPayload>(
+      const { _id } = <IHardDeleteCategory>(
         get(httpRequest, "context.validated", {})
       );
 

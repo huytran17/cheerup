@@ -3,7 +3,7 @@ import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetSystemConfiguration,
-  IGetSystemConfigurationPayload,
+  IGetSystemConfiguration,
 } from "../../../../use-cases/system-configuration/get-system-configuraion";
 import { UpdateSystemConfiguration } from "../../../../use-cases/system-configuration/update-system-configuraion";
 import deleteS3Object from "../../../../utils/delete-s3-object";
@@ -24,7 +24,7 @@ export default function makeUploadOwnerAvatarController({
     };
 
     try {
-      const { _id } = <IGetSystemConfigurationPayload>(
+      const { _id } = <IGetSystemConfiguration>(
         get(httpRequest, "context.validated", {})
       );
 

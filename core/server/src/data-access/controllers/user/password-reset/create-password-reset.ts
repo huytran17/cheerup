@@ -13,7 +13,7 @@ import { GetPasswordResetByEmail } from "../../../../use-cases/password-reset/ge
 import { HardDeletePasswordReset } from "../../../../use-cases/password-reset/hard-delete-password-reset";
 import {
   GetUserByEmail,
-  IGetUserByEmailPayload,
+  IGetUserByEmail,
 } from "../../../../use-cases/user/get-user-by-email";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -50,7 +50,7 @@ export default function makeCreatePasswordResetController({
     };
 
     try {
-      const { email } = <IGetUserByEmailPayload>(
+      const { email } = <IGetUserByEmail>(
         get(httpRequest, "context.validated", {})
       );
 

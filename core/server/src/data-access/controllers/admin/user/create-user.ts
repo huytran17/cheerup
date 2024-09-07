@@ -6,7 +6,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IAdmin from "../../../../database/interfaces/admin";
 import {
   CreateUser,
-  ICreateUserPayload,
+  ICreateUser,
 } from "../../../../use-cases/user/create-user";
 import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -32,9 +32,7 @@ export default function makeCreateUserController({
     try {
       const admin = <IAdmin>get(httpRequest, "context.user", {});
 
-      const user = <ICreateUserPayload>(
-        get(httpRequest, "context.validated", {})
-      );
+      const user = <ICreateUser>get(httpRequest, "context.validated", {});
 
       const { email, password, password_confirmation, is_blocked_comment } =
         user;

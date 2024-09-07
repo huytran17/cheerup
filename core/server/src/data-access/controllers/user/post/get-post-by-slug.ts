@@ -5,11 +5,11 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetPostBookmarkByUserAndPost } from "../../../../use-cases/post-bookmark/get-post-bookmark-by-user-and-post";
 import {
   GetPostBySlug,
-  IGetPostBySlugPayload,
+  IGetPostBySlug,
 } from "../../../../use-cases/post/get-post-by-slug";
 import { isEmpty } from "../../../../utils/is-empty";
 
-interface IPayload extends IGetPostBySlugPayload {
+interface IPayload extends IGetPostBySlug {
   user_id: string;
 }
 

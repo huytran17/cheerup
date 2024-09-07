@@ -9,7 +9,7 @@ import { GetCommentLikeByUserAndComment } from "../../../../use-cases/comment-li
 import { GetComment } from "../../../../use-cases/comment/get-comment";
 import {
   GetCommentsByParent,
-  IGetCommentsByParentPayload,
+  IGetCommentsByParent,
 } from "../../../../use-cases/comment/get-comments-by-parent";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -32,7 +32,7 @@ export default function makeGetCommentsByParentController({
     };
 
     try {
-      const { _id } = <IGetCommentsByParentPayload>(
+      const { _id } = <IGetCommentsByParent>(
         get(httpRequest, "context.validated", {})
       );
 

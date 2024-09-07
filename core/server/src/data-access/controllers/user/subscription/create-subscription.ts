@@ -4,7 +4,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IUser from "../../../../database/interfaces/user";
 import {
   CreateSubscription,
-  ICreateSubscriptionPayload,
+  ICreateSubscription,
 } from "../../../../use-cases/subscription/create-subscription";
 import { GetSubscriptionByEmail } from "../../../../use-cases/subscription/get-subscription-by-email";
 import { UpdateSubscription } from "../../../../use-cases/subscription/update-subscription";
@@ -28,7 +28,7 @@ export default function makeCreateSubscriptionController({
 
     try {
       const { email } = <IUser>get(httpRequest, "context.user", {});
-      const { is_active } = <ICreateSubscriptionPayload>(
+      const { is_active } = <ICreateSubscription>(
         get(httpRequest, "context.validated", {})
       );
 

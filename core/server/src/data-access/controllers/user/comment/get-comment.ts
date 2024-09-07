@@ -8,7 +8,7 @@ import { CountCommentLikeByCommentAndType } from "../../../../use-cases/comment-
 import { GetCommentLikeByUserAndComment } from "../../../../use-cases/comment-like/get-comment-like-by-user-and-comment";
 import {
   GetComment,
-  IGetCommentPayload,
+  IGetComment,
 } from "../../../../use-cases/comment/get-comment";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -29,7 +29,7 @@ export default function makeGetCommentController({
     };
 
     try {
-      const { _id: comment_id, is_show_children } = <IGetCommentPayload>(
+      const { _id: comment_id, is_show_children } = <IGetComment>(
         get(httpRequest, "context.validated", {})
       );
 

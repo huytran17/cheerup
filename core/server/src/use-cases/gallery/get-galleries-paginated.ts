@@ -5,7 +5,7 @@ import IGalleryDb, {
   IPaginatedGalleriesResult,
 } from "../../data-access/interfaces/gallery-db";
 
-export interface IGetGalleriesPaginatedPayload {
+export interface IGetGalleriesPaginated {
   query: string;
   page: number;
   entries_per_page: number;
@@ -17,7 +17,7 @@ export type GetGalleriesPaginated = ({
   page,
   entries_per_page,
   is_parent,
-}: IGetGalleriesPaginatedPayload) => Promise<IPaginatedGalleriesResult>;
+}: IGetGalleriesPaginated) => Promise<IPaginatedGalleriesResult>;
 
 export default function makeGetGalleriesPaginated({
   galleryDb,

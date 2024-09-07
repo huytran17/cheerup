@@ -4,7 +4,7 @@ import Redis from "../../config/redis";
 import IPostDb from "../../data-access/interfaces/post-db";
 import IPost from "../../database/interfaces/post";
 
-export interface IGetSuggestionPostsPayload {
+export interface IGetSuggestionPosts {
   amount: number;
   categories: string[];
   exclude_ids?: string[];
@@ -14,7 +14,7 @@ export type GetSuggestionPosts = ({
   amount,
   categories,
   exclude_ids,
-}: IGetSuggestionPostsPayload) => Promise<IPost[]>;
+}: IGetSuggestionPosts) => Promise<IPost[]>;
 
 export default function makeGetSuggestionPosts({
   postDb,

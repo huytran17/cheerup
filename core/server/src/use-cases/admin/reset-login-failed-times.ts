@@ -1,13 +1,13 @@
 import IAdminDb from "../../data-access/interfaces/admin-db";
 import IAdmin from "../../database/interfaces/admin";
 
-export interface IResetLoginFailedTimesPayload {
+export interface IResetLoginFailedTimes {
   _id: string;
 }
 
 export type ResetLoginFailedTimes = ({
   _id,
-}: IResetLoginFailedTimesPayload) => Promise<IAdmin>;
+}: IResetLoginFailedTimes) => Promise<IAdmin>;
 
 export default function makeResetLoginFailedTimes({
   adminDb,

@@ -5,7 +5,7 @@ import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetUser } from "../../../../use-cases/user/get-user";
 import {
   HardDeleteUser,
-  IHardDeleteUserPayload,
+  IHardDeleteUser,
 } from "../../../../use-cases/user/hard-delete-user";
 import { isEmpty } from "../../../../utils/is-empty";
 
@@ -26,7 +26,7 @@ export default function makeHardDeleteUserController({
     };
 
     try {
-      const { _id } = <IHardDeleteUserPayload>(
+      const { _id } = <IHardDeleteUser>(
         get(httpRequest, "context.validated", {})
       );
 

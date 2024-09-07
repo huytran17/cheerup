@@ -2,7 +2,7 @@ import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetPost } from "../../../../use-cases/post/get-post";
 import {
-  IIncreasePostViewsPayload,
+  IIncreasePostViews,
   IncreasePostViews,
 } from "../../../../use-cases/post/increase-post-views";
 
@@ -21,7 +21,7 @@ export default function makeIncreasePostViewsController({
     };
 
     try {
-      const { _id } = <IIncreasePostViewsPayload>(
+      const { _id } = <IIncreasePostViews>(
         get(httpRequest, "context.validated", {})
       );
 

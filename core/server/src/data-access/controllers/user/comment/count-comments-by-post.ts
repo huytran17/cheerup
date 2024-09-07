@@ -3,7 +3,7 @@ import { get } from "lodash";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   CountCommentsByPost,
-  ICountCommentsByPostPayload,
+  ICountCommentsByPost,
 } from "../../../../use-cases/comment/count-comments-by-post";
 import { GetPost } from "../../../../use-cases/post/get-post";
 import { isEmpty } from "../../../../utils/is-empty";
@@ -23,7 +23,7 @@ export default function makeCountCommentsByPostController({
     };
 
     try {
-      const { post_id } = <ICountCommentsByPostPayload>(
+      const { post_id } = <ICountCommentsByPost>(
         get(httpRequest, "context.validated", {})
       );
 
