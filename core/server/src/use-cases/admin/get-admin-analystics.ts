@@ -37,9 +37,9 @@ export default function makeGetAdminAnalystics({
       range,
     });
 
-    const cached_data = <IAdminAnalyticsData>(
-      await redis.getData({ key: cache_key })
-    );
+    const cached_data = await redis.getData<IAdminAnalyticsData>({
+      key: cache_key,
+    });
 
     if (cached_data) {
       logger.verbose("Redis: Data found in cache", { cache_key });
@@ -48,17 +48,12 @@ export default function makeGetAdminAnalystics({
 
     const data = await adminDb.getAdminAnalystics({ range, unit, author_type });
 
-    const one_day_in_seconds = 24 * 60 * 60;
     const duration_in_seconds = randomCacheTime({
-      seconds: one_day_in_seconds,
+      seconds: 24 * 60 * 60,
       extra_minutes: 12,
     });
 
-    redis.setData({
-      key: cache_key,
-      value: data,
-      duration_in_seconds,
-    });
+    redis.setData({ key: cache_key, value: data, duration_in_seconds });
 
     return data;
   };

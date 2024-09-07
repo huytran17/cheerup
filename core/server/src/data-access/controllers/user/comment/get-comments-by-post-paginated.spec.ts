@@ -6,11 +6,13 @@ import {
   fakeUser,
 } from "../../../../../__tests__/__mock__";
 import { ExpectPaginatedResult } from "../../../../../__tests__/__types__/expect-types";
+import { logger } from "../../../../../__tests__/jest-logger";
 import {
   clearDatabase,
   connectDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
+import { randomCacheTime } from "../../../../config/random-cache-time";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IComment from "../../../../database/interfaces/comment";
 import makeCountCommentLikeByCommentAndType from "../../../../use-cases/comment-like/count-comment-like-by-comment-and-type";
@@ -70,6 +72,9 @@ describe("getCommentsByPostPaginated", () => {
     const createComment = makeCreateComment({ commentDb });
     const getCommentsByPostPaginated = makeGetCommentsByPostPaginated({
       commentDb,
+      randomCacheTime,
+      redis,
+      logger,
     });
 
     const mock_comment_data = fakeComment();

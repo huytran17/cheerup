@@ -1,17 +1,26 @@
+import { logger } from "../../config/logs/logger";
+import { randomCacheTime } from "../../config/random-cache-time";
+import { redis } from "../../config/redis";
 import { GalleryDb } from "../../data-access";
-import makeGetGallery from "./get-gallery";
-import makeUpdateGallery from "./update-gallery";
 import makeCreateGallery from "./create-gallery";
-import makeHardDeleteGallery from "./hard-delete-gallery";
-import makeGetGalleriesPaginated from "./get-galleries-paginated";
 import makeGetGalleriesByParent from "./get-galleries-by-parent";
+import makeGetGalleriesPaginated from "./get-galleries-paginated";
+import makeGetGallery from "./get-gallery";
+import makeHardDeleteGallery from "./hard-delete-gallery";
+import makeUpdateGallery from "./update-gallery";
 
 const getGalleriesByParent = makeGetGalleriesByParent({
   galleryDb: GalleryDb,
+  randomCacheTime,
+  logger,
+  redis,
 });
 
 const getGalleriesPaginated = makeGetGalleriesPaginated({
   galleryDb: GalleryDb,
+  randomCacheTime,
+  logger,
+  redis,
 });
 
 const hardDeleteGallery = makeHardDeleteGallery({
@@ -42,10 +51,10 @@ const galleryServices = Object.freeze({
 export default galleryServices;
 
 export {
-  getGallery,
-  updateGallery,
   createGallery,
-  hardDeleteGallery,
-  getGalleriesPaginated,
   getGalleriesByParent,
+  getGalleriesPaginated,
+  getGallery,
+  hardDeleteGallery,
+  updateGallery,
 };

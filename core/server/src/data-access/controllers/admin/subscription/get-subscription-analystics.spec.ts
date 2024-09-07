@@ -7,6 +7,7 @@ import {
   connectDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
+import { randomCacheTime } from "../../../../config/random-cache-time";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import makeCreateSubscription from "../../../../use-cases/subscription/create-subscription";
 import makeGetSubscriptionAnalystics from "../../../../use-cases/subscription/get-subscription-analystics";
@@ -37,8 +38,9 @@ describe("getSubscriptionAnalystics", () => {
     });
     const getSubscriptionAnalystics = makeGetSubscriptionAnalystics({
       subscriptionDb,
-      logger,
+      randomCacheTime,
       redis,
+      logger,
     });
 
     const mock_subscription_data = fakeSubscription();

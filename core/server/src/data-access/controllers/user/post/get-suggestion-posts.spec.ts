@@ -1,11 +1,13 @@
 import moment from "moment";
 import { fakeCategory, fakePost } from "../../../../../__tests__/__mock__";
 import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
+import { logger } from "../../../../../__tests__/jest-logger";
 import {
   clearDatabase,
   connectDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
+import { randomCacheTime } from "../../../../config/random-cache-time";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IPost from "../../../../database/interfaces/post";
 import makeCreateCategory from "../../../../use-cases/category/create-category";
@@ -39,7 +41,12 @@ describe("getSuggestionPosts", () => {
 
     const createPost = makeCreatePost({ postDb });
     const createCategory = makeCreateCategory({ categoryDb });
-    const getSuggestionPosts = makeGetSuggestionPosts({ postDb });
+    const getSuggestionPosts = makeGetSuggestionPosts({
+      postDb,
+      randomCacheTime,
+      redis,
+      logger,
+    });
 
     const mock_post_data = fakePost();
     const mock_category_data = fakeCategory();

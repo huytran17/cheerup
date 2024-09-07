@@ -7,6 +7,7 @@ import {
   connectDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
+import { randomCacheTime } from "../../../../config/random-cache-time";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import makeCreateCategory from "../../../../use-cases/category/create-category";
 import makeGetCategoryAnalystics from "../../../../use-cases/category/get-category-analystics";
@@ -35,6 +36,7 @@ describe("getCategoryAnalystics", () => {
     const createCategory = makeCreateCategory({ categoryDb });
     const getCategoryAnalystics = makeGetCategoryAnalystics({
       categoryDb,
+      randomCacheTime,
       logger,
       redis,
     });

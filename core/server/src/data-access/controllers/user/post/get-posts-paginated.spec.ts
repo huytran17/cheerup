@@ -5,12 +5,14 @@ import {
   fakeUser,
 } from "../../../../../__tests__/__mock__";
 import { ExpectPaginatedPartialResult } from "../../../../../__tests__/__types__/expect-types";
+import { logger } from "../../../../../__tests__/jest-logger";
 import {
   clearDatabase,
   connectDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
 import { readingTimeAnalyzer } from "../../../../../__tests__/reading-time";
+import { randomCacheTime } from "../../../../config/random-cache-time";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IPost from "../../../../database/interfaces/post";
 import makeCountCommentsByPost from "../../../../use-cases/comment/count-comments-by-post";
@@ -58,8 +60,18 @@ describe("getPostsPaginated", () => {
     });
 
     const createPost = makeCreatePost({ postDb });
-    const getPostsPaginated = makeGetPostsPaginated({ postDb });
-    const countCommentsByPost = makeCountCommentsByPost({ commentDb });
+    const getPostsPaginated = makeGetPostsPaginated({
+      postDb,
+      randomCacheTime,
+      redis,
+      logger,
+    });
+    const countCommentsByPost = makeCountCommentsByPost({
+      commentDb,
+      randomCacheTime,
+      redis,
+      logger,
+    });
     const createUser = makeCreateUser({ userDb });
     const getPostBookmarkByUserAndPost = makeGetPostBookmarkByUserAndPost({
       postBookmarkDb,

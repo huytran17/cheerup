@@ -1,8 +1,9 @@
+import { Logger } from "winston";
+import { RandomCacheTime } from "../../config/random-cache-time/make-random-cache-time";
+import Redis from "../../config/redis";
 import IPostDb, {
   IMostPopularPostsAnalytics,
 } from "../../data-access/interfaces/post-db";
-import { Logger } from "winston";
-import Redis from "../../config/redis";
 
 export interface IGetMostPopularPostsAnalysticsPayload {
   range?: string[];
@@ -18,10 +19,12 @@ export type GetMostPopularPostsAnalystics = ({
 
 export default function makeGetMostPopularPostsAnalystics({
   postDb,
+  randomCacheTime,
   logger,
   redis,
 }: {
   postDb: IPostDb;
+  randomCacheTime: RandomCacheTime;
   logger: Logger;
   redis: Redis;
 }): GetMostPopularPostsAnalystics {
@@ -33,9 +36,9 @@ export default function makeGetMostPopularPostsAnalystics({
       limit,
     });
 
-    const cached_data = <IMostPopularPostsAnalytics>(
-      await redis.getData({ key: cache_key })
-    );
+    const cached_data = await redis.getData<IMostPopularPostsAnalytics>({
+      key: cache_key,
+    });
 
     if (cached_data) {
       logger.verbose("Redis: Data found in cache", { cache_key });
@@ -48,12 +51,12 @@ export default function makeGetMostPopularPostsAnalystics({
       limit,
     });
 
-    const one_day_in_seconds = 24 * 60 * 60;
-    redis.setData({
-      key: cache_key,
-      value: posts,
-      duration_in_seconds: one_day_in_seconds,
+    const duration_in_seconds = randomCacheTime({
+      seconds: 30 * 60,
+      extra_minutes: 10,
     });
+
+    redis.setData({ key: cache_key, value: posts, duration_in_seconds });
 
     return posts;
   };

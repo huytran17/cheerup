@@ -36,9 +36,9 @@ export default function makeGetAdminsPaginated({
       entries_per_page,
     });
 
-    const cached_data = <IPaginatedAdminsResult>(
-      await redis.getData({ key: cache_key })
-    );
+    const cached_data = await redis.getData<IPaginatedAdminsResult>({
+      key: cache_key,
+    });
 
     if (cached_data) {
       logger.verbose("Redis: Data found in cache", { cache_key });
@@ -51,17 +51,12 @@ export default function makeGetAdminsPaginated({
       entries_per_page,
     });
 
-    const one_hour_in_seconds = 60 * 60;
     const duration_in_seconds = randomCacheTime({
-      seconds: one_hour_in_seconds,
+      seconds: 60 * 60,
       extra_minutes: 10,
     });
 
-    redis.setData({
-      key: cache_key,
-      value: admins,
-      duration_in_seconds,
-    });
+    redis.setData({ key: cache_key, value: admins, duration_in_seconds });
 
     return admins;
   };

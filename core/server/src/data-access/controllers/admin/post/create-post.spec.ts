@@ -12,6 +12,7 @@ import {
   renderEmailContent,
   sendEmail,
 } from "../../../../config/emailManager";
+import { randomCacheTime } from "../../../../config/random-cache-time";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IPost from "../../../../database/interfaces/post";
 import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
@@ -56,6 +57,9 @@ describe("createPost", () => {
     const getPost = makeGetPost({ postDb });
     const getActivatingSubscriptions = makeGetActivatingSubscriptions({
       subscriptionDb,
+      randomCacheTime,
+      redis,
+      logger,
     });
 
     const mock_post_data = fakePost();

@@ -1,4 +1,5 @@
 import { logger } from "../../config/logs/logger";
+import { randomCacheTime } from "../../config/random-cache-time";
 import { redis } from "../../config/redis";
 import { CategoryDb } from "../../data-access";
 import makeCreateCategory from "./create-category";
@@ -25,14 +26,21 @@ const getCategoryBySlug = makeGetCategoryBySlug({
 
 const getCategoriesPaginated = makeGetCategoriesPaginated({
   categoryDb: CategoryDb,
+  randomCacheTime,
+  redis,
+  logger,
 });
 
 const getCategoriesForSEO = makeGetCategoriesForSEO({
   categoryDb: CategoryDb,
+  randomCacheTime,
+  redis,
+  logger,
 });
 
 const getCategoryAnalystics = makeGetCategoryAnalystics({
   categoryDb: CategoryDb,
+  randomCacheTime,
   logger,
   redis,
 });
@@ -43,6 +51,9 @@ const getCategoryByTitle = makeGetCategoryByTitle({
 
 const getCategoryTitles = makeGetCategoryTitles({
   categoryDb: CategoryDb,
+  randomCacheTime,
+  redis,
+  logger,
 });
 
 const hardDeleteCategory = makeHardDeleteCategory({
@@ -67,6 +78,9 @@ const updateCategory = makeUpdateCategory({
 
 const getCategories = makeGetCategories({
   categoryDb: CategoryDb,
+  randomCacheTime,
+  redis,
+  logger,
 });
 
 const categoryServices = Object.freeze({

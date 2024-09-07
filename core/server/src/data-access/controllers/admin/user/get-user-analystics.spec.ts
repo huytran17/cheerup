@@ -7,6 +7,7 @@ import {
   connectDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
+import { randomCacheTime } from "../../../../config/random-cache-time";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import makeCreateUser from "../../../../use-cases/user/create-user";
 import makeGetUserAnalystics from "../../../../use-cases/user/get-user-analystics";
@@ -33,7 +34,12 @@ describe("getUserAnalystics", () => {
     });
 
     const createUser = makeCreateUser({ userDb });
-    const getUserAnalystics = makeGetUserAnalystics({ userDb, logger, redis });
+    const getUserAnalystics = makeGetUserAnalystics({
+      userDb,
+      randomCacheTime,
+      logger,
+      redis,
+    });
 
     const mock_user_data = fakeUser();
     await createUser(mock_user_data);

@@ -1,8 +1,9 @@
+import { Logger } from "winston";
+import { RandomCacheTime } from "../../config/random-cache-time/make-random-cache-time";
+import Redis from "../../config/redis";
 import IUserDb, {
   IUserAnalyticsData,
 } from "../../data-access/interfaces/user-db";
-import Redis from "../../config/redis";
-import { Logger } from "winston";
 
 export interface IGetUserAnalysticsPayload {
   range?: string[];
@@ -16,10 +17,12 @@ export type GetUserAnalystics = ({
 
 export default function makeGetUserAnalystics({
   userDb,
+  randomCacheTime,
   redis,
   logger,
 }: {
   userDb: IUserDb;
+  randomCacheTime: RandomCacheTime;
   redis: Redis;
   logger: Logger;
 }): GetUserAnalystics {
@@ -30,9 +33,9 @@ export default function makeGetUserAnalystics({
       range,
     });
 
-    const cached_data = <IUserAnalyticsData>(
-      await redis.getData({ key: cache_key })
-    );
+    const cached_data = await redis.getData<IUserAnalyticsData>({
+      key: cache_key,
+    });
 
     if (cached_data) {
       logger.verbose("Redis: Data found in cache", { cache_key });
@@ -44,12 +47,12 @@ export default function makeGetUserAnalystics({
       unit,
     });
 
-    const one_day_in_seconds = 24 * 60 * 60;
-    redis.setData({
-      key: cache_key,
-      value: data,
-      duration_in_seconds: one_day_in_seconds,
+    const duration_in_seconds = randomCacheTime({
+      seconds: 24 * 60 * 60,
+      extra_minutes: 10,
     });
+
+    redis.setData({ key: cache_key, value: data, duration_in_seconds });
 
     return data;
   };

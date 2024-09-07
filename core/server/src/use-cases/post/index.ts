@@ -1,4 +1,5 @@
 import { logger } from "../../config/logs/logger";
+import { randomCacheTime } from "../../config/random-cache-time";
 import { redis } from "../../config/redis";
 import { PostDb } from "../../data-access";
 import makeCountPostByCategory from "./count-post-by-category";
@@ -31,28 +32,42 @@ const getPostBySlug = makeGetPostBySlug({
 
 const countPostByCategory = makeCountPostByCategory({
   postDb: PostDb,
+  randomCacheTime,
+  logger,
+  redis,
 });
 
 const getPostsForSEO = makeGetPostsForSEO({
   postDb: PostDb,
+  randomCacheTime,
+  redis,
+  logger,
 });
 
 const getMostPopularPostsAnalystics = makeGetMostPopularPostsAnalystics({
   postDb: PostDb,
+  randomCacheTime,
   logger,
   redis,
 });
 
 const getPostsPaginated = makeGetPostsPaginated({
   postDb: PostDb,
+  randomCacheTime,
+  redis,
+  logger,
 });
 
 const getSuggestionPosts = makeGetSuggestionPosts({
   postDb: PostDb,
+  randomCacheTime,
+  redis,
+  logger,
 });
 
 const getPostAnalystics = makeGetPostAnalystics({
   postDb: PostDb,
+  randomCacheTime,
   redis,
   logger,
 });
@@ -79,6 +94,9 @@ const createPost = makeCreatePost({
 
 const getPosts = makeGetPosts({
   postDb: PostDb,
+  randomCacheTime,
+  redis,
+  logger,
 });
 
 const postServices = Object.freeze({

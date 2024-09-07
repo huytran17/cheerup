@@ -61,6 +61,9 @@ const createAdmin = makeCreateAdmin({
 
 const getAdmins = makeGetAdmins({
   adminDb: AdminDb,
+  randomCacheTime,
+  redis,
+  logger,
 });
 
 const getAdmin = makeGetAdmin({

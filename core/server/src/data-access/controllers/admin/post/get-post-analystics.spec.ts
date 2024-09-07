@@ -7,6 +7,7 @@ import {
   connectDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
+import { randomCacheTime } from "../../../../config/random-cache-time";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { IPostAnalytics } from "../../../../data-access/interfaces/post-db";
 import makeCreatePost from "../../../../use-cases/post/create-post";
@@ -33,7 +34,12 @@ describe("getPostAnalystics", () => {
     });
 
     const createPost = makeCreatePost({ postDb });
-    const getPostAnalystics = makeGetPostAnalystics({ postDb, logger, redis });
+    const getPostAnalystics = makeGetPostAnalystics({
+      postDb,
+      randomCacheTime,
+      logger,
+      redis,
+    });
 
     const mock_post_data = fakePost();
 

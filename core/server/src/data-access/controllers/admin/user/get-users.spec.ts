@@ -1,10 +1,12 @@
 import moment from "moment";
 import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
+import { logger } from "../../../../../__tests__/jest-logger";
 import {
   clearDatabase,
   connectDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
+import { randomCacheTime } from "../../../../config/random-cache-time";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IUser from "../../../../database/interfaces/user";
 import makeGetUsers from "../../../../use-cases/user/get-users";
@@ -29,7 +31,7 @@ describe("getUsers", () => {
       moment,
     });
 
-    const getUsers = makeGetUsers({ userDb });
+    const getUsers = makeGetUsers({ userDb, randomCacheTime, redis, logger });
 
     const getUsersController = makeGetUsersController({
       getUsers,

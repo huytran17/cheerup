@@ -1,3 +1,6 @@
+import { logger } from "../../config/logs/logger";
+import { randomCacheTime } from "../../config/random-cache-time";
+import { redis } from "../../config/redis";
 import { CommentDb } from "../../data-access";
 import makeCountCommentsByPost from "./count-comments-by-post";
 import makeCreateComment from "./create-comment";
@@ -12,6 +15,9 @@ import makeUpdateComment from "./update-comment";
 
 const getCommentsPaginated = makeGetCommentsPaginated({
   commentDb: CommentDb,
+  randomCacheTime,
+  redis,
+  logger,
 });
 
 const replyComment = makeReplyComment({
@@ -20,14 +26,23 @@ const replyComment = makeReplyComment({
 
 const getCommentsByPostPaginated = makeGetCommentsByPostPaginated({
   commentDb: CommentDb,
+  randomCacheTime,
+  redis,
+  logger,
 });
 
 const countCommentsByPost = makeCountCommentsByPost({
   commentDb: CommentDb,
+  randomCacheTime,
+  redis,
+  logger,
 });
 
 const getCommentsByParent = makeGetCommentsByParent({
   commentDb: CommentDb,
+  randomCacheTime,
+  redis,
+  logger,
 });
 
 const createComment = makeCreateComment({
@@ -48,6 +63,9 @@ const updateComment = makeUpdateComment({
 
 const getComments = makeGetComments({
   commentDb: CommentDb,
+  randomCacheTime,
+  redis,
+  logger,
 });
 
 const commentServices = Object.freeze({

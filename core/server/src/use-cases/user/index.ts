@@ -60,6 +60,7 @@ const createUser = makeCreateUser({
 
 const getUserAnalystics = makeGetUserAnalystics({
   userDb: UserDb,
+  randomCacheTime,
   redis,
   logger,
 });

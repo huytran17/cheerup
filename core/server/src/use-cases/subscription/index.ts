@@ -20,12 +20,16 @@ const getSubscriptionsPaginated = makeGetSubscriptionsPaginated({
 
 const getSubscriptionAnalystics = makeGetSubscriptionAnalystics({
   subscriptionDb: SubscriptionDb,
+  randomCacheTime,
   redis,
   logger,
 });
 
 const getActivatingSubscriptions = makeGetActivatingSubscriptions({
   subscriptionDb: SubscriptionDb,
+  randomCacheTime,
+  redis,
+  logger,
 });
 
 const getSubscription = makeGetSubscription({
@@ -46,6 +50,9 @@ const createSubscription = makeCreateSubscription({
 
 const getSubscriptions = makeGetSubscriptions({
   subscriptionDb: SubscriptionDb,
+  randomCacheTime,
+  redis,
+  logger,
 });
 
 const subscriptionServices = Object.freeze({

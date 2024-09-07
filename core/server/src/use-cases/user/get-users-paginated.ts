@@ -36,7 +36,10 @@ export default function makeGetUsersPaginated({
       entries_per_page,
     });
 
-    const cached_data = await redis.getData({ key: cache_key });
+    const cached_data = await redis.getData<IPaginatedUsersResult>({
+      key: cache_key,
+    });
+
     if (cached_data) {
       logger.verbose("Redis: Data found in cache", { cache_key });
       return cached_data;
@@ -48,9 +51,8 @@ export default function makeGetUsersPaginated({
       entries_per_page,
     });
 
-    const one_hour_in_seconds = 60 * 60;
     const duration_in_seconds = randomCacheTime({
-      seconds: one_hour_in_seconds,
+      seconds: 60 * 60,
       extra_minutes: 10,
     });
 

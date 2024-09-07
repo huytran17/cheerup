@@ -4,11 +4,13 @@ import {
   fakePost,
   fakeQueryParams,
 } from "../../../../../__tests__/__mock__";
+import { logger } from "../../../../../__tests__/jest-logger";
 import {
   clearDatabase,
   connectDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
+import { randomCacheTime } from "../../../../config/random-cache-time";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import makeCreateCategory from "../../../../use-cases/category/create-category";
 import makeGetCategoriesPaginated from "../../../../use-cases/category/get-categories-paginated";
@@ -42,8 +44,18 @@ describe("getOutstandingCategoriesPaginated", () => {
 
     const createCategory = makeCreateCategory({ categoryDb });
     const createPost = makeCreatePost({ postDb });
-    const countPostByCategory = makeCountPostByCategory({ postDb });
-    const getCategoriesPaginated = makeGetCategoriesPaginated({ categoryDb });
+    const countPostByCategory = makeCountPostByCategory({
+      postDb,
+      randomCacheTime,
+      redis,
+      logger,
+    });
+    const getCategoriesPaginated = makeGetCategoriesPaginated({
+      categoryDb,
+      randomCacheTime,
+      redis,
+      logger,
+    });
 
     const mock_category_data = fakeCategory();
     const mock_post_data = fakePost();

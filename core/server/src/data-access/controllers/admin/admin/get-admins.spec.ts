@@ -1,11 +1,13 @@
 import moment from "moment";
 import { fakeAdmin } from "../../../../../__tests__/__mock__";
 import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
+import { logger } from "../../../../../__tests__/jest-logger";
 import {
   clearDatabase,
   connectDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
+import { randomCacheTime } from "../../../../config/random-cache-time";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IAdmin from "../../../../database/interfaces/admin";
 import makeCreateAdmin from "../../../../use-cases/admin/create-admin";
@@ -34,6 +36,9 @@ describe("getAdmins", () => {
     const createAdmin = makeCreateAdmin({ adminDb });
     const getAdmins = makeGetAdmins({
       adminDb,
+      randomCacheTime,
+      redis,
+      logger,
     });
 
     const mock_admin_data = fakeAdmin();

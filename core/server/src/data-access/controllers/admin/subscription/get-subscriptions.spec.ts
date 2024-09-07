@@ -1,11 +1,13 @@
 import moment from "moment";
 import { fakeSubscription } from "../../../../../__tests__/__mock__";
 import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
+import { logger } from "../../../../../__tests__/jest-logger";
 import {
   clearDatabase,
   connectDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
+import { randomCacheTime } from "../../../../config/random-cache-time";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import ISubscription from "../../../../database/interfaces/subscription";
 import makeCreateSubscription from "../../../../use-cases/subscription/create-subscription";
@@ -34,7 +36,12 @@ describe("getSubscriptions", () => {
     const createSubscription = makeCreateSubscription({
       subscriptionDb,
     });
-    const getSubscriptions = makeGetSubscriptions({ subscriptionDb });
+    const getSubscriptions = makeGetSubscriptions({
+      subscriptionDb,
+      randomCacheTime,
+      redis,
+      logger,
+    });
 
     const mock_subscription_data = fakeSubscription();
 

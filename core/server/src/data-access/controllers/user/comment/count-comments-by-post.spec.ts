@@ -1,11 +1,13 @@
 import moment from "moment";
 import { fakePost } from "../../../../../__tests__/__mock__";
 import { ExpectSingleResult } from "../../../../../__tests__/__types__/expect-types";
+import { logger } from "../../../../../__tests__/jest-logger";
 import {
   clearDatabase,
   connectDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
+import { randomCacheTime } from "../../../../config/random-cache-time";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import makeCountCommentsByPost from "../../../../use-cases/comment/count-comments-by-post";
 import makeCreatePost from "../../../../use-cases/post/create-post";
@@ -37,7 +39,12 @@ describe("countCommentsByPost", () => {
 
     const getPost = makeGetPost({ postDb });
     const createPost = makeCreatePost({ postDb });
-    const countCommentsByPost = makeCountCommentsByPost({ commentDb });
+    const countCommentsByPost = makeCountCommentsByPost({
+      commentDb,
+      randomCacheTime,
+      redis,
+      logger,
+    });
 
     const mock_post_data = fakePost();
 

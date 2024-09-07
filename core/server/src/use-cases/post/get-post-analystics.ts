@@ -1,6 +1,7 @@
-import IPostDb, { IPostAnalytics } from "../../data-access/interfaces/post-db";
-import Redis from "../../config/redis";
 import { Logger } from "winston";
+import { RandomCacheTime } from "../../config/random-cache-time/make-random-cache-time";
+import Redis from "../../config/redis";
+import IPostDb, { IPostAnalytics } from "../../data-access/interfaces/post-db";
 
 export interface IGetPostAnalysticsPayload {
   range?: string[];
@@ -15,10 +16,12 @@ export type GetPostAnalystics = ({
 
 export default function makeGetPostAnalystics({
   postDb,
+  randomCacheTime,
   redis,
   logger,
 }: {
   postDb: IPostDb;
+  randomCacheTime: RandomCacheTime;
   redis: Redis;
   logger: Logger;
 }): GetPostAnalystics {
@@ -29,7 +32,7 @@ export default function makeGetPostAnalystics({
       range,
     });
 
-    const cached_data = <IPostAnalytics>await redis.getData({ key: cache_key });
+    const cached_data = await redis.getData<IPostAnalytics>({ key: cache_key });
 
     if (cached_data) {
       logger.verbose("Redis: Data found in cache", { cache_key });
@@ -38,12 +41,12 @@ export default function makeGetPostAnalystics({
 
     const data = await postDb.getPostAnalystics({ range, unit });
 
-    const one_day_in_seconds = 24 * 60 * 60;
-    redis.setData({
-      key: cache_key,
-      value: data,
-      duration_in_seconds: one_day_in_seconds,
+    const duration_in_seconds = randomCacheTime({
+      seconds: 24 * 60 * 60,
+      extra_minutes: 10,
     });
+
+    redis.setData({ key: cache_key, value: data, duration_in_seconds });
 
     return data;
   };

@@ -1,10 +1,12 @@
 import { fakeGallery } from "../../../../../__tests__/__mock__";
 import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
+import { logger } from "../../../../../__tests__/jest-logger";
 import {
   clearDatabase,
   connectDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
+import { randomCacheTime } from "../../../../config/random-cache-time";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IGallery from "../../../../database/interfaces/gallery";
 import makeCreateGallery from "../../../../use-cases/gallery/create-gallery";
@@ -34,6 +36,9 @@ describe("getGalleriesByParent", () => {
     const getGallery = makeGetGallery({ galleryDb });
     const getGalleriesByParent = makeGetGalleriesByParent({
       galleryDb,
+      randomCacheTime,
+      redis,
+      logger,
     });
 
     const mock_gallery_data = fakeGallery();

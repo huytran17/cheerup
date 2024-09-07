@@ -40,7 +40,9 @@ export default function makeGetSubscriptionsPaginated({
       entries_per_page,
     });
 
-    const cached_data = await redis.getData({ key: cache_key });
+    const cached_data = await redis.getData<IPaginatedSubscriptionsResult>({
+      key: cache_key,
+    });
 
     if (cached_data) {
       logger.verbose("Redis: Data found in cache", { cache_key });
@@ -58,11 +60,7 @@ export default function makeGetSubscriptionsPaginated({
       extra_minutes: 5,
     });
 
-    redis.setData({
-      key: cache_key,
-      value: data,
-      duration_in_seconds,
-    });
+    redis.setData({ key: cache_key, value: data, duration_in_seconds });
 
     return data;
   };

@@ -1,10 +1,12 @@
 import { fakeComment } from "../../../../../__tests__/__mock__";
 import { ExpectMultipleResults } from "../../../../../__tests__/__types__/expect-types";
+import { logger } from "../../../../../__tests__/jest-logger";
 import {
   clearDatabase,
   connectDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
+import { randomCacheTime } from "../../../../config/random-cache-time";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IComment from "../../../../database/interfaces/comment";
 import makeCreateComment from "../../../../use-cases/comment/create-comment";
@@ -30,7 +32,12 @@ describe("getComments", () => {
     });
 
     const createComment = makeCreateComment({ commentDb });
-    const getComments = makeGetComments({ commentDb });
+    const getComments = makeGetComments({
+      commentDb,
+      randomCacheTime,
+      redis,
+      logger,
+    });
 
     const mock_comment_data = fakeComment();
 
