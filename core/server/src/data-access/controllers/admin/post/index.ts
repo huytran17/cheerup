@@ -11,6 +11,7 @@ import {
   getPost,
   getPostAnalystics,
   getPosts,
+  getPostsPaginated,
   getSoftDeletedPost,
   hardDeletePost,
   updatePost,
@@ -23,11 +24,16 @@ import makeGetMostPopularPostsAnalysticsController from "./get-most-popular-post
 import makeGetPostController from "./get-post";
 import makeGetPostAnalysticsController from "./get-post-analystics";
 import makeGetPostsController from "./get-posts";
+import makeGetPostsPaginatedController from "./get-posts-paginated";
 import makeHardDeletePostController from "./hard-delete-post";
 import makeRestorePostController from "./restore-post";
 import makeUnblockPostCommentController from "./un-block-post-comment";
 import makeUpdatePostController from "./update-post";
 import makeUploadPostThumbnailController from "./upload-post-thumbnail";
+
+const getPostsPaginatedController = makeGetPostsPaginatedController({
+  getPostsPaginated,
+});
 
 const getMostPopularPostsAnalysticsController =
   makeGetMostPopularPostsAnalysticsController({
@@ -111,6 +117,7 @@ export default Object.freeze({
   hardDeletePostController,
   getPostAnalysticsController,
   getMostPopularPostsAnalysticsController,
+  getPostsPaginatedController,
 });
 
 export {
@@ -121,6 +128,7 @@ export {
   getPostAnalysticsController,
   getPostController,
   getPostsController,
+  getPostsPaginatedController,
   hardDeletePostController,
   restorePostController,
   unblockPostCommentController,
