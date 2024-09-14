@@ -23,7 +23,7 @@ export default function makeGetCategoriesPaginatedController({
         get(httpRequest, "context.validated", {})
       );
 
-      const categories = await getCategoriesPaginated({
+      const paginated_data = await getCategoriesPaginated({
         query,
         page: Number(page),
         entries_per_page: Number(entries_per_page),
@@ -32,9 +32,7 @@ export default function makeGetCategoriesPaginatedController({
       return {
         headers,
         statusCode: HttpStatusCode.OK,
-        body: {
-          data: categories,
-        },
+        body: paginated_data,
       };
     } catch (error) {
       throw {

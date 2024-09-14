@@ -23,7 +23,7 @@ export default function makeGetSubscriptionsPaginatedController({
         get(httpRequest, "context.validated", {})
       );
 
-      const data = await getSubscriptionsPaginated({
+      const paginated_data = await getSubscriptionsPaginated({
         query,
         page: Number(page),
         entries_per_page: Number(entries_per_page),
@@ -32,9 +32,7 @@ export default function makeGetSubscriptionsPaginatedController({
       return {
         headers,
         statusCode: HttpStatusCode.OK,
-        body: {
-          data,
-        },
+        body: paginated_data,
       };
     } catch (error) {
       throw {

@@ -23,7 +23,7 @@ export default function makeGetCommentsPaginatedController({
         get(httpRequest, "context.validated", {})
       );
 
-      const comments = await getCommentsPaginated({
+      const paginated_data = await getCommentsPaginated({
         query,
         page: Number(page),
         entries_per_page: Number(entries_per_page),
@@ -32,9 +32,7 @@ export default function makeGetCommentsPaginatedController({
       return {
         headers,
         statusCode: HttpStatusCode.OK,
-        body: {
-          data: comments,
-        },
+        body: paginated_data,
       };
     } catch (error) {
       throw {

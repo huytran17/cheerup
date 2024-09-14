@@ -23,7 +23,7 @@ export default function makeGetGalleriesPaginatedController({
         IGetGalleriesPaginated
       >get(httpRequest, "context.validated", {});
 
-      const galleries = await getGalleriesPaginated({
+      const paginated_data = await getGalleriesPaginated({
         query,
         page,
         entries_per_page,
@@ -33,7 +33,7 @@ export default function makeGetGalleriesPaginatedController({
       return {
         headers,
         statusCode: HttpStatusCode.OK,
-        body: galleries,
+        body: paginated_data,
       };
     } catch (error) {
       throw {

@@ -3,8 +3,8 @@ const getPostsPaginatedRules = {
   tags: "string",
   sorts: "string",
   query: "string",
-  page: "integer",
-  entries_per_page: "integer",
+  page: "string",
+  entries_per_page: "string",
 };
 
 export default getPostsPaginatedRules;

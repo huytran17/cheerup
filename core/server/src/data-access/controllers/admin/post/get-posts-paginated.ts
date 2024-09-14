@@ -1,10 +1,15 @@
 import { Request } from "express";
+import { filter, get, split } from "lodash";
+import { HttpStatusCode } from "../../../../constants/http-status-code";
 import {
   GetPostsPaginated,
   IGetPostsPaginated,
 } from "../../../../use-cases/post/get-posts-paginated";
-import { HttpStatusCode } from "../../../../constants/http-status-code";
-import { get } from "lodash";
+
+interface IPayload extends Omit<IGetPostsPaginated, "tags" | "categories"> {
+  tags?: string;
+  categories?: string;
+}
 
 export default function makeGetPostsPaginatedController({
   getPostsPaginated,
@@ -19,17 +24,25 @@ export default function makeGetPostsPaginatedController({
     };
 
     try {
-      const { categories, tags, sorts, query, page, entries_per_page } = <
-        IGetPostsPaginated
-      >get(httpRequest, "context.validated", {});
-
-      const paginated_data = await getPostsPaginated({
-        categories,
-        tags,
-        sorts,
+      const {
         query,
         page,
         entries_per_page,
+        sorts,
+        tags = "",
+        categories = "",
+      } = <IPayload>get(httpRequest, "context.validated", {});
+
+      const categories_array = filter(split(categories, ","));
+      const tags_array = filter(split(tags, ","));
+
+      const paginated_data = await getPostsPaginated({
+        categories: categories_array,
+        tags: tags_array,
+        sorts,
+        query,
+        page: Number(page),
+        entries_per_page: Number(entries_per_page),
       });
 
       return {

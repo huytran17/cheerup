@@ -71,6 +71,9 @@ const hardDeleteUser = makeHardDeleteUser({
 
 const getUsers = makeGetUsers({
   userDb: UserDb,
+  randomCacheTime,
+  redis,
+  logger,
 });
 
 const getUser = makeGetUser({

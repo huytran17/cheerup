@@ -23,7 +23,7 @@ export default function makeGetUsersPaginatedController({
         get(httpRequest, "context.validated", {})
       );
 
-      const data = await getUsersPaginated({
+      const paginated_data = await getUsersPaginated({
         query,
         page: Number(page),
         entries_per_page: Number(entries_per_page),
@@ -32,7 +32,7 @@ export default function makeGetUsersPaginatedController({
       return {
         headers,
         statusCode: HttpStatusCode.OK,
-        body: data,
+        body: paginated_data,
       };
     } catch (error) {
       throw {
