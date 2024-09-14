@@ -67,7 +67,7 @@ const actions: ActionTree<CategoryState, RootState> = {
     await this.$axios.$delete(`/category/hard-delete/${id}`);
   },
 
-  async [ActionTypes.GET_CATEGORIES_PAGINATED]({ commit }, { params = {} }) {
+  async [ActionTypes.GET_CATEGORIES_PAGINATED]({ commit }, params = {}) {
     const query = get(params, "query");
     const page = get(params, "page", 1);
     const entries_per_page = get(params, "entries_per_page", 15);

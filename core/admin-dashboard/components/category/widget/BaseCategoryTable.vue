@@ -1,7 +1,17 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-data-table :headers="headers" :items="categories" :search="search">
+      <v-data-table
+        :headers="headers"
+        :items="categories"
+        :search="search"
+        :page="category_pagination.current_page"
+        :items-per-page="category_pagination.per_page"
+        :multi-sort="true"
+        :server-items-length="category_pagination.total"
+        @update:items-per-page="tableUpdateItemsPerPage"
+        @update:page="tableUpdatePage"
+      >
         <template v-slot:item.title="{ item }">
           <div
             class="text-body-2 primary--text clickable"
@@ -26,7 +36,7 @@
             class="text-body-2 tiptap__text-no-margin tiptap__text-no-image"
             v-line-clamp="3"
           >
-            <span>{{ $t(item.description) }}</span>
+            <span v-html="$t(item.description)"></span>
           </div>
         </template>
 
@@ -178,6 +188,28 @@ export default {
   },
 
   methods: {
+    async tableUpdatePage(data) {
+      try {
+        await this.GET_CATEGORIES_PAGINATED({
+          page: data,
+          entries_per_page: this.category_pagination.per_page,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async tableUpdateItemsPerPage(data) {
+      try {
+        await this.GET_CATEGORIES_PAGINATED({
+          page: 1,
+          entries_per_page: data,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
     async deleteCategory(category) {
       try {
         const { _id, title } = category;
@@ -234,7 +266,10 @@ export default {
 
   async fetch() {
     try {
-      await this.GET_CATEGORIES();
+      await this.GET_CATEGORIES_PAGINATED({
+        page: this.category_pagination.current_page,
+        entries_per_page: this.category_pagination.per_page,
+      });
     } catch (error) {
       console.error(error);
     }
