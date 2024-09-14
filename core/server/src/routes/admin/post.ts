@@ -9,6 +9,7 @@ import {
   getPostAnalysticsController,
   getPostController,
   getPostsController,
+  getPostsPaginatedController,
   hardDeletePostController,
   restorePostController,
   unblockPostCommentController,
@@ -22,6 +23,7 @@ import {
   getMostPopularPostsAnalysticsRules,
   getPostAnalysticsRules,
   getPostRules,
+  getPostsPaginatedRules,
   hardDeletePostRules,
   restorePostRules,
   unBlockPostCommentRules,
@@ -30,6 +32,12 @@ import {
 } from "../../data-access/controllers/admin/post/validators";
 
 const postRouter = Router();
+
+postRouter.get(
+  "/all-paginated",
+  makeValidator(getPostsPaginatedRules),
+  makeExpressCallback(getPostsPaginatedController)
+);
 
 postRouter.get(
   "/analystics",
