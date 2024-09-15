@@ -1,7 +1,17 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-data-table :headers="headers" :items="posts" :search="search">
+      <v-data-table
+        :headers="headers"
+        :items="posts"
+        :search="search"
+        :page="post_pagination.current_page"
+        :items-per-page="post_pagination.per_page"
+        :multi-sort="true"
+        :server-items-length="post_pagination.total"
+        @update:items-per-page="tableUpdateItemsPerPage"
+        @update:page="tableUpdatePage"
+      >
         <template v-slot:item.title="{ item }">
           <div
             class="text-body-2 primary--text clickable"
@@ -218,6 +228,28 @@ export default {
   },
 
   methods: {
+    async tableUpdatePage(data) {
+      try {
+        await this.GET_POSTS_PAGINATED({
+          page: data,
+          entries_per_page: this.post_pagination.per_page,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async tableUpdateItemsPerPage(data) {
+      try {
+        await this.GET_POSTS_PAGINATED({
+          page: 1,
+          entries_per_page: data,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
     async blockComment(post) {
       try {
         const { _id, title } = post;
@@ -310,7 +342,10 @@ export default {
 
   async fetch() {
     try {
-      await this.GET_POSTS();
+      await this.GET_POSTS_PAGINATED({
+        page: this.post_pagination.current_page,
+        entries_per_page: this.post_pagination.per_page,
+      });
     } catch (error) {
       console.error(error);
     }
