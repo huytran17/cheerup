@@ -1,7 +1,17 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-data-table :headers="headers" :items="subscriptions" :search="search">
+      <v-data-table
+        :headers="headers"
+        :items="subscriptions"
+        :search="search"
+        :page="subscription_pagination.current_page"
+        :items-per-page="subscription_pagination.per_page"
+        :multi-sort="true"
+        :server-items-length="subscription_pagination.total"
+        @update:items-per-page="tableUpdateItemsPerPage"
+        @update:page="tableUpdatePage"
+      >
         <template v-slot:item.is_active="{ item }">
           <div v-if="item.is_active" class="text-body-2">
             <v-chip color="green" text-color="white">
@@ -72,9 +82,36 @@ export default {
     },
   },
 
+  methods: {
+    async tableUpdatePage(data) {
+      try {
+        await this.GET_POSTS_PAGINATED({
+          page: data,
+          entries_per_page: this.subscription_pagination.per_page,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async tableUpdateItemsPerPage(data) {
+      try {
+        await this.GET_POSTS_PAGINATED({
+          page: 1,
+          entries_per_page: data,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  },
+
   async fetch() {
     try {
-      await this.GET_SUBSCRIPTIONS();
+      await this.GET_SUBSCRIPTIONS_PAGINATED({
+        page: this.subscription_pagination.current_page,
+        entries_per_page: this.subscription_pagination.per_page,
+      });
     } catch (error) {
       console.error(error);
     }
