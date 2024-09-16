@@ -102,6 +102,7 @@ import BaseModalCreateGallery from "@/components/gallery/widget/BaseModalCreateG
 import galleryMixins from "@/mixins/gallery";
 
 export default {
+  name: "ChildrenGalleryPage",
   components: {
     BaseModalCreateGallery,
     BaseHardDeleteDialog,

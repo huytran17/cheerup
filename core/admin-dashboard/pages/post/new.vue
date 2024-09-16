@@ -18,7 +18,7 @@
 <script>
 import BaseCreatePost from "@/components/post/widget/BaseCreatePost";
 export default {
-  name: "CreateNewPostIndex",
+  name: "CreateNewPostPage",
   components: {
     BaseCreatePost,
   },

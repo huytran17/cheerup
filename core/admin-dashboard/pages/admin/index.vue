@@ -142,7 +142,7 @@ import { mapActions, mapGetters, mapMutations } from "vuex";
 import { exportFromJSON } from "@/config/export-from-json";
 import BaseAdminTable from "@/components/admin/widget/BaseAdminTable";
 export default {
-  name: "AdminIndex",
+  name: "AdminPage",
   components: { BaseAdminTable },
   head() {
     return {

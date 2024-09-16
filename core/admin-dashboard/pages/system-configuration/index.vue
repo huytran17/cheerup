@@ -19,7 +19,7 @@
 import { ADMIN_TYPES } from "@/constants";
 import BaseUpdateSystemConfiguration from "@/components/system-configuration/widget/BaseUpdateSystemConfiguration";
 export default {
-  name: "SystemConfigurationIndex",
+  name: "SystemConfigurationPage",
   components: { BaseUpdateSystemConfiguration },
   head() {
     return {

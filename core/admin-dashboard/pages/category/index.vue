@@ -52,7 +52,7 @@
 import { ADMIN_TYPES } from "@/constants";
 import BaseCategoryTable from "@/components/category/widget/BaseCategoryTable";
 export default {
-  name: "CategoryIndex",
+  name: "CategoryPage",
   components: { BaseCategoryTable },
   head() {
     return {

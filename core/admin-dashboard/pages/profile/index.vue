@@ -18,7 +18,7 @@
 <script>
 import BaseUpdateProfile from "@/components/profile/widget/BaseUpdateProfile";
 export default {
-  name: "CreateNewAdminIndex",
+  name: "ProfilePage",
   components: {
     BaseUpdateProfile,
   },

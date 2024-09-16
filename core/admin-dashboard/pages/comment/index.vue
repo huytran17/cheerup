@@ -34,7 +34,7 @@
 import { ADMIN_TYPES } from "@/constants";
 import BaseCommentTable from "@/components/comment/widget/BaseCommentTable";
 export default {
-  name: "CommentIndex",
+  name: "CommentPage",
   components: { BaseCommentTable },
   head() {
     return {

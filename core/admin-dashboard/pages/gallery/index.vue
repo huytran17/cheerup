@@ -52,6 +52,7 @@ import BaseGalleryFolders from "@/components/gallery/widget/BaseGalleryFolders";
 import galleryMixins from "@/mixins/gallery";
 
 export default {
+  name: "GalleryPage",
   components: { BaseModalCreateGallery, BaseGalleryFolders },
   mixins: [galleryMixins],
   head() {

@@ -19,7 +19,7 @@
 import { ADMIN_TYPES } from "@/constants";
 import BaseCreateUser from "@/components/user/widget/BaseCreateUser";
 export default {
-  name: "CreateNewUserIndex",
+  name: "CreateNewUserPage",
   components: {
     BaseCreateUser,
   },

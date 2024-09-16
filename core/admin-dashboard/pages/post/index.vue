@@ -51,7 +51,7 @@
 <script>
 import BasePostTable from "@/components/post/widget/BasePostTable";
 export default {
-  name: "PostIndex",
+  name: "PostPage",
   components: { BasePostTable },
   head() {
     return {

@@ -19,7 +19,7 @@
 import { ADMIN_TYPES } from "@/constants";
 import BaseUpdateUser from "@/components/user/widget/BaseUpdateUser";
 export default {
-  name: "CreateNewUserIndex",
+  name: "UpdateUserPage",
   components: {
     BaseUpdateUser,
   },

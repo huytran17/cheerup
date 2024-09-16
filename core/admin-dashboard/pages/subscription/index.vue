@@ -34,7 +34,7 @@
 import { ADMIN_TYPES } from "@/constants";
 import BaseSubscriptionTable from "@/components/subscription/widget/BaseSubscriptionTable";
 export default {
-  name: "SubscriptionIndex",
+  name: "SubscriptionPage",
   components: { BaseSubscriptionTable },
   head() {
     return {

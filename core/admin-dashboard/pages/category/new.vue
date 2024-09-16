@@ -19,7 +19,7 @@
 import { ADMIN_TYPES } from "@/constants";
 import BaseCreateCategory from "@/components/category/widget/BaseCreateCategory";
 export default {
-  name: "CreateNewCategoryIndex",
+  name: "CreateNewCategoryPage",
   components: {
     BaseCreateCategory,
   },

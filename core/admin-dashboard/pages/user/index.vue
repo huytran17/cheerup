@@ -142,7 +142,7 @@ import { mapActions, mapGetters } from "vuex";
 import { exportFromJSON } from "@/config/export-from-json";
 import BaseUserTable from "@/components/user/widget/BaseUserTable";
 export default {
-  name: "UserIndex",
+  name: "UserPage",
   components: { BaseUserTable },
 
   head() {

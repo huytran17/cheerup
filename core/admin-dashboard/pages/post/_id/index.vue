@@ -18,7 +18,7 @@
 <script>
 import BaseUpdatePost from "@/components/post/widget/BaseUpdatePost";
 export default {
-  name: "CreateNewPostIndex",
+  name: "UpdatePostPage",
   components: {
     BaseUpdatePost,
   },
