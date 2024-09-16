@@ -8,7 +8,7 @@ import { mapGetters, mapActions } from "vuex";
 import { seo_post_schema } from "../../seo";
 import BaseArticles from "@/components/article/BaseArticles";
 export default {
-  name: "IndexPage",
+  name: "PostsPage",
   head() {
     return seo_post_schema;
   },

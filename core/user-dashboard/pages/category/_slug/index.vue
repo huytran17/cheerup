@@ -8,7 +8,7 @@ import { get } from "lodash";
 import BaseArticles from "@/components/article/BaseArticles";
 
 export default {
-  name: "CategoryIndexPage",
+  name: "CategoryBySlugPage",
   head() {
     const seo_title = get(this.category, "seo.title");
     const seo_description = get(this.category, "seo.description");

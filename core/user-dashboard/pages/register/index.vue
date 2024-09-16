@@ -12,7 +12,7 @@
 <script>
 import RegisterForm from "@/components/auth/register/RegisterForm";
 export default {
-  name: "Login",
+  name: "RegisterPage",
   layout: "public",
   middleware: ["redirect-logged-user"],
   components: {

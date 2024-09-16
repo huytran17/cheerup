@@ -11,7 +11,7 @@ import BaseNoData from "@/components/BaseNoData";
 import postBookmarkMixins from "@/mixins/post-bookmark";
 
 export default {
-  name: "FavouriteIndex",
+  name: "FavouritesPage",
   layout: "authenticated",
   head() {
     return {

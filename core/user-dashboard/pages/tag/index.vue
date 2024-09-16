@@ -9,7 +9,7 @@ import { seo_post_schema } from "../../seo";
 import BaseArticles from "@/components/article/BaseArticles";
 
 export default {
-  name: "CategoryIndexPage",
+  name: "ArticlesByTagPage",
   head() {
     return {
       ...seo_post_schema,

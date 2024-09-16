@@ -20,7 +20,7 @@ import BaseSuggestionPosts from "@/components/post/BaseSuggestionPosts";
 import BaseCommentPanel from "@/components/comment/BaseCommentPanel";
 
 export default {
-  name: "PostPanel",
+  name: "PostBySlugPage",
   head() {
     const seo_title = get(this.post, "seo.title");
     const seo_description = get(this.post, "seo.description");

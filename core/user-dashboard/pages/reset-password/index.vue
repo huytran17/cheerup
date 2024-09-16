@@ -6,7 +6,7 @@
 import BaseResetPasswordForm from "@/components/auth/reset-password/BaseResetPasswordForm";
 
 export default {
-  name: "ResetPassword",
+  name: "ResetPasswordPage",
   middleware: ["redirect-logged-user"],
   components: { BaseResetPasswordForm },
   head() {

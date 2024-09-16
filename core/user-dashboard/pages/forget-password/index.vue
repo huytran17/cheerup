@@ -6,7 +6,7 @@
 import BaseForgetPasswordForm from "@/components/auth/forget-password/BaseForgetPasswordForm";
 
 export default {
-  name: "ForgetPassword",
+  name: "ForgetPasswordPage",
   layout: "simply",
   middleware: ["redirect-logged-user"],
   components: { BaseForgetPasswordForm },
