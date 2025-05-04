@@ -2,7 +2,7 @@ import passport from "passport";
 import initializeJWT from "./jwt";
 import initializeGoogle from "./google";
 
-const secretOrKey = process.env.PASSPORT_JWT_SECRET || "blog";
+const secretOrKey = process.env.PASSPORT_JWT_SECRET;
 
 initializeJWT(passport, secretOrKey);
 
