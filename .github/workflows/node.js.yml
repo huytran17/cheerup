@@ -8,6 +8,7 @@ on:
       - "README.md"
       - "core/admin-dashboard/**/*"
       - "core/user-dashboard/**/*"
+      - "core/user-dashboard-v2/**/*"
     branches:
       - main
   pull_request:
