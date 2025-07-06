@@ -1,4 +1,4 @@
-import { JwtGenerate } from "./accessToken";
+import { JwtGenerate } from "./access-token";
 
 export type GenerateAccessToken = (
   payload: { _id: string },

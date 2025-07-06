@@ -6,7 +6,7 @@ import {
   connectDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import { generateAccessToken } from "../../../../config/accessTokenManager";
+import { generateAccessToken } from "../../../../config/access-token-manager";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IPasswordReset from "../../../../database/interfaces/password-reset";
 import makeCreatePasswordReset from "../../../../use-cases/password-reset/create-password-reset";

@@ -9,7 +9,7 @@ import {
   getEmailContent,
   renderEmailContent,
   sendEmail,
-} from "../../emailManager";
+} from "../../email-manager";
 import { hashPassword } from "../../password";
 import { randomString } from "../../randomstring";
 

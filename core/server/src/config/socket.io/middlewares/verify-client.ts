@@ -1,6 +1,6 @@
 import { NextFunction } from "express";
 import { Socket } from "socket.io";
-import { VerifyAccessToken } from "../../accessTokenManager/verify-access-token";
+import { VerifyAccessToken } from "../../access-token-manager/verify-access-token";
 
 export default function makeVerifyClient({
   verifyAccessToken,

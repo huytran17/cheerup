@@ -9,7 +9,7 @@ import { redis } from "../../../../../__tests__/jest-redis";
 import {
   generateAccessToken,
   verifyAccessToken,
-} from "../../../../config/accessTokenManager";
+} from "../../../../config/access-token-manager";
 import { hashPassword } from "../../../../config/password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IUser from "../../../../database/interfaces/user";

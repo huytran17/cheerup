@@ -2,9 +2,9 @@ import { Request } from "express";
 import { convert } from "html-to-text";
 import { get, join, map } from "lodash";
 import { Logger } from "winston";
-import { GetEmailContent } from "../../../../config/emailManager/get-email-content";
-import { RenderEmailContent } from "../../../../config/emailManager/render-email-content";
-import { SendEmail } from "../../../../config/emailManager/send-email";
+import { GetEmailContent } from "../../../../config/email-manager/get-email-content";
+import { RenderEmailContent } from "../../../../config/email-manager/render-email-content";
+import { SendEmail } from "../../../../config/email-manager/send-email";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IAdmin from "../../../../database/interfaces/admin";
 import {

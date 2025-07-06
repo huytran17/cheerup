@@ -1,5 +1,5 @@
 import makeVerifyClient from "./verify-client";
-import { verifyAccessToken } from "../../accessTokenManager";
+import { verifyAccessToken } from "../../access-token-manager";
 
 const verifyClient = makeVerifyClient({ verifyAccessToken });
 

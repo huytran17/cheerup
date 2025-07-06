@@ -5,7 +5,7 @@ import {
   connectDatabase,
 } from "../../../../../__tests__/jest-mongo";
 import { redis } from "../../../../../__tests__/jest-redis";
-import { generateAccessToken } from "../../../../config/accessTokenManager";
+import { generateAccessToken } from "../../../../config/access-token-manager";
 import { verifyPassword } from "../../../../config/password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import makeCreateUser from "../../../../use-cases/user/create-user";

@@ -2,7 +2,7 @@ import {
   getEmailContent,
   renderEmailContent,
   sendEmail,
-} from "../../../../config/emailManager";
+} from "../../../../config/email-manager";
 import { logger } from "../../../../config/logs/logger";
 import {
   createPost,

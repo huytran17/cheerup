@@ -19,7 +19,7 @@ export interface ISocketDependencies {
 }
 
 export default class SocketIO {
-  public static socket_instance: SocketIO;
+  private static socket_instance: SocketIO;
   io_client: Server;
 
   private constructor() {

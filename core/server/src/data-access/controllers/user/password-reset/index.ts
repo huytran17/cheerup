@@ -2,12 +2,12 @@ import moment from "moment";
 import {
   generateAccessToken,
   verifyAccessToken,
-} from "../../../../config/accessTokenManager";
+} from "../../../../config/access-token-manager";
 import {
   getEmailContent,
   renderEmailContent,
   sendEmail,
-} from "../../../../config/emailManager";
+} from "../../../../config/email-manager";
 import { logger } from "../../../../config/logs/logger";
 import { hashPassword } from "../../../../config/password";
 import { randomString } from "../../../../config/randomstring";

@@ -1,8 +1,8 @@
 import makeGenerateAccessToken from "./generate-access-token";
 import makeVerifyAccessToken from "./verify-access-token";
-import accessToken from "./accessToken";
+import accessToken from "./access-token";
 
-const secret = process.env.PASSPORT_JWT_SECRET || "djka0423Adk!28.daTA6LL";
+const secret = process.env.PASSPORT_JWT_SECRET;
 
 const generateAccessToken = makeGenerateAccessToken({
   generate: accessToken.generate,

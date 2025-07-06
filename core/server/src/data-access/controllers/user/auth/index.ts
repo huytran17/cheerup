@@ -1,10 +1,10 @@
 import moment from "moment";
-import { generateAccessToken } from "../../../../config/accessTokenManager";
+import { generateAccessToken } from "../../../../config/access-token-manager";
 import {
   getEmailContent,
   renderEmailContent,
   sendEmail,
-} from "../../../../config/emailManager";
+} from "../../../../config/email-manager";
 import { logger } from "../../../../config/logs/logger";
 import { hashPassword, verifyPassword } from "../../../../config/password";
 import { generateQRCode } from "../../../../config/qrcode";

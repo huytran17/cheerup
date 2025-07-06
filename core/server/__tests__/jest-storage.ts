@@ -1,7 +1,7 @@
 import AWS from "aws-sdk";
 
 export default class Storage {
-  public static s3: AWS.S3;
+  private static s3: AWS.S3;
 
   private constructor() {
     console.log("Initializing S3 Storage...");

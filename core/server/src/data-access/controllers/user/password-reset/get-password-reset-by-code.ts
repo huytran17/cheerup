@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { get, omit } from "lodash";
 import Moment from "moment";
-import { GenerateAccessToken } from "../../../../config/accessTokenManager/generate-access-token";
+import { GenerateAccessToken } from "../../../../config/access-token-manager/generate-access-token";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetPasswordResetByCode } from "../../../../use-cases/password-reset/get-password-reset-by-code";
 import { isEmpty } from "../../../../utils/is-empty";

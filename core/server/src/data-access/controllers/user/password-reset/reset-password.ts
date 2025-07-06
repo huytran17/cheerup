@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { JwtPayload } from "jsonwebtoken";
 import { get } from "lodash";
-import { VerifyAccessToken } from "../../../../config/accessTokenManager/verify-access-token";
+import { VerifyAccessToken } from "../../../../config/access-token-manager/verify-access-token";
 import { HashPassword } from "../../../../config/password/hash-password";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetPasswordReset } from "../../../../use-cases/password-reset/get-password-reset";

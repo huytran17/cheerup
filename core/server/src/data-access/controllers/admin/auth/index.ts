@@ -1,4 +1,4 @@
-import { generateAccessToken } from "../../../../config/accessTokenManager";
+import { generateAccessToken } from "../../../../config/access-token-manager";
 import { verifyPassword } from "../../../../config/password";
 import {
   getAdminByEmail,

@@ -11,7 +11,7 @@ import {
   getEmailContent,
   renderEmailContent,
   sendEmail,
-} from "../../../../config/emailManager";
+} from "../../../../config/email-manager";
 import { randomCacheTime } from "../../../../config/random-cache-time";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import IPost from "../../../../database/interfaces/post";

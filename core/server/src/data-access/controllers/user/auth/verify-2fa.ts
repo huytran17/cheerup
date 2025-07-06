@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { get } from "lodash";
-import { GenerateAccessToken } from "../../../../config/accessTokenManager/generate-access-token";
+import { GenerateAccessToken } from "../../../../config/access-token-manager/generate-access-token";
 import TFA from "../../../../config/tfa";
 import { HttpStatusCode } from "../../../../constants/http-status-code";
 import { GetUserByEmail } from "../../../../use-cases/user/get-user-by-email";

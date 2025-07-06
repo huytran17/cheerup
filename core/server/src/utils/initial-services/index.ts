@@ -1,4 +1,4 @@
-import { initializeMailer } from "../../config/emailManager/mailer";
+import { initializeMailer } from "../../config/email-manager/mailer";
 import Redis from "../../config/redis";
 import SocketIO from "../../config/socket.io";
 import Storage from "../../config/storage";

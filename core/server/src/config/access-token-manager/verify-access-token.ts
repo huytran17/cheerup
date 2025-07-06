@@ -1,4 +1,4 @@
-import { JwtVerify } from "./accessToken";
+import { JwtVerify } from "./access-token";
 import { JwtPayload } from "jsonwebtoken";
 
 export type VerifyAccessToken = (

@@ -4,7 +4,7 @@ import { logger } from "../logs/logger";
 export type RedisClientType = ReturnType<typeof createClient>;
 
 export default class Redis {
-  public static redis_instance: Redis;
+  private static redis_instance: Redis;
   redis_client: undefined | RedisClientType;
 
   private constructor() {
