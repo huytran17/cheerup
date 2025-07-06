@@ -16,7 +16,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     defaults:
       run:
@@ -38,6 +38,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Install libssl1.1 (for MongoMemoryServer)
+        run: |
+          wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl1.1/libssl1.1_1.1.1f-1ubuntu2.22_amd64.deb
+          sudo dpkg -i libssl1.1_1.1.1f-1ubuntu2.22_amd64.deb
 
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
