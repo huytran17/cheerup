@@ -1,6 +1,6 @@
 import nodemailer, { Transporter } from "nodemailer";
 import handlebars from "handlebars";
-import { IEmailData } from "../src/config/emailManager/get-email-content";
+import { IEmailData } from "../src/config/email-manager/get-email-content";
 
 let mailer: undefined | Transporter | any = undefined;
 export function initializeMailer(): Transporter {
