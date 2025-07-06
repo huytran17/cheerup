@@ -18,6 +18,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      PASSPORT_JWT_SECRET: ${{ secrets.PASSPORT_JWT_SECRET }}
 
     defaults:
       run:
