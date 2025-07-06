@@ -42,8 +42,8 @@ jobs:
 
       - name: Install libssl1.1 (for MongoMemoryServer)
         run: |
-          wget http://old-releases.ubuntu.com/ubuntu/pool/main/o/openssl1.1/libssl1.1_1.1.1f-1ubuntu2.22_amd64.deb
-          sudo dpkg -i libssl1.1_1.1.1f-1ubuntu2.22_amd64.deb
+          wget http://snapshot.debian.org/archive/debian/20210701T000000Z/pool/main/o/openssl1.1/libssl1.1_1.1.1k-1_amd64.deb
+          sudo dpkg -i libssl1.1_1.1.1k-1_amd64.deb
 
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
