@@ -26,5 +26,3 @@ export default function makeTextToSlug(): TextToSlug {
     return slug;
   };
 }
-
-// ref: https://viblo.asia/p/tao-slug-tu-dong-bang-javascript-va-php-Eb85owv052G

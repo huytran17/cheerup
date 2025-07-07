@@ -7,7 +7,7 @@ Vue.directive("private", {
 
       if (!has_user) {
         event.preventDefault();
-        vNode.context?.$toast.error(binding.value)
+        vNode.context?.$toast.error(binding.value);
       }
     });
   },
