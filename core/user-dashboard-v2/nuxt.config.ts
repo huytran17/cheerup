@@ -4,6 +4,12 @@ import vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 export default defineNuxtConfig({
   compatibilityDate: "2025-05-15",
   devtools: { enabled: true },
+  components: [
+    {
+      path: "~/components",
+      pathPrefix: false,
+    },
+  ],
   build: {
     transpile: ["vuetify"],
   },
