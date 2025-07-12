@@ -29,5 +29,16 @@ export default defineNuxtConfig({
         transformAssetUrls,
       },
     },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `
+            @use "@/assets/scss/functions" as *;
+            @use "@/assets/scss/variables" as *;
+            @use "@/assets/scss/mixins" as *;
+          `,
+        },
+      },
+    },
   },
 });

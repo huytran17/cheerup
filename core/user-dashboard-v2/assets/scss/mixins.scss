@@ -1,0 +1,56 @@
+@use "sass:list";
+@use "./variables" as *;
+
+@mixin mobile-only {
+  @media screen and (max-width: $breakpoint-mobile-max) {
+    @content;
+  }
+}
+
+@mixin tablet-only {
+  @media screen and (min-width: $breakpoint-tablet-min) and (max-width: $breakpoint-tablet-max) {
+    @content;
+  }
+}
+
+@mixin desktop-only {
+  @media screen and (min-width: $breakpoint-desktop-min) {
+    @content;
+  }
+}
+
+@mixin mobile-xsmall {
+  @media screen and (max-width: $breakpoint-mobile-min) {
+    @content;
+  }
+}
+
+@mixin mobile-and-tablet {
+  @media screen and (max-width: $breakpoint-tablet-max) {
+    @content;
+  }
+}
+
+@mixin tablet-and-desktop {
+  @media screen and (min-width: $breakpoint-tablet-min) {
+    @content;
+  }
+}
+
+@mixin single-breakpoint($type, $width) {
+  $allowed-types: min-width, max-width;
+
+  @if list.index($allowed-types, $type) {
+    @media screen and ($type: $width) {
+      @content;
+    }
+  } @else {
+    @warn "Invalid type '#{$type}', allowed types '#{$allowed-types}'.";
+  }
+}
+
+@mixin range-breakpoint($minWidth, $maxWidth) {
+  @media screen and (min-width: $minWidth) and (max-width: $maxWidth) {
+    @content;
+  }
+}

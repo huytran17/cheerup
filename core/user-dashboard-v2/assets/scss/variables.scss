@@ -1,0 +1,7 @@
+@use "./functions" as *;
+
+$breakpoint-mobile-min: rem(420);
+$breakpoint-mobile-max: rem(767);
+$breakpoint-tablet-min: rem(768);
+$breakpoint-tablet-max: rem(1199);
+$breakpoint-desktop-min: rem(1200);
